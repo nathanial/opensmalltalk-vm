@@ -1,0 +1,12 @@
+/* Extracted from interp.c:32961 (function checkOopIntegritynamedindex). */
+
+/* SpurMemoryManager>>#checkOopIntegrity:named:index: */
+
+static sqInt checkOopIntegritynamedindex(sqInt obj, char *name, sqInt i) {
+  if ((oopisLessThan(obj, endOfMemory)) &&
+      ((heapMapAtWord(pointerForOop(obj))) != 0)) {
+    return 1;
+  }
+  fprintf(transcript, "%s leak @ %d = %p\n", name, ((int)i), ((void *)obj));
+  return 0;
+}

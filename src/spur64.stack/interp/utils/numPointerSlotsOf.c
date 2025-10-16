@@ -1,0 +1,52 @@
+/* Extracted from interp.c:41131 (function numPointerSlotsOf). */
+
+/*	Answer the number of pointer fields in the given object.
+        Works with CompiledMethods, as well as ordinary objects. */
+
+/* SpurMemoryManager>>#numPointerSlotsOf: */
+
+static usqInt numPointerSlotsOf(sqInt objOop) {
+  sqInt contextSize;
+  sqInt fmt;
+  sqInt header;
+  usqInt numLiterals;
+  sqInt sp;
+
+  fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
+
+  /* begin numPointerSlotsOf:format: */
+  if (fmt <= 5 /* lastPointerFormat */) {
+    if ((fmt == (indexablePointersFormat())) &&
+        (((longAt((void *)(objOop))) & (classIndexMask())) ==
+         ClassMethodContextCompactIndex)) {
+      /* begin fetchStackPointerOf: */
+      sp = fetchPointerofObject(StackPointerIndex, objOop);
+      if (!((((sp) & 7) == 1))) {
+        contextSize = 0;
+        goto l1;
+      }
+      assert((ReceiverIndex + ((sp >> 3))) < (lengthOf(objOop)));
+      contextSize = (sp >> 3);
+      /* end fetchStackPointerOf: */
+    l1:
+      return CtxtTempFrameStart + contextSize;
+    }
+
+    /* contexts end at the stack pointer */
+
+    return numSlotsOf(objOop);
+  }
+  if (fmt == (forwardedFormat())) {
+    return 1;
+  }
+  if (fmt < (firstCompiledMethodFormat())) {
+    return 0;
+  }
+
+  header = methodHeaderOf(objOop);
+
+  /* begin literalCountOfMethodHeader: */
+  assert((((header) & 7) == 1));
+  numLiterals = ((header >> 3)) & AlternateHeaderNumLiteralsMask;
+  return numLiterals + LiteralStart;
+}

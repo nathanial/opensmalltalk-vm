@@ -1,3 +1,0 @@
-EXTRALIBS:=gdi32.lib
-
-include ../common/Makefile.msvc.plugin

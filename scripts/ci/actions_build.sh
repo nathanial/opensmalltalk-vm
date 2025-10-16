@@ -21,13 +21,13 @@ set -e
 # - APP_NAME (e.g., "vm" or "sqcogspur64linuxht" or "Squeak.app")
 
 
-echo "$(cat platforms/Cross/vm/sqSCCSVersion.h | .git_filters/RevDateURL.smudge)" > platforms/Cross/vm/sqSCCSVersion.h
-echo "$(cat platforms/Cross/plugins/sqPluginsSCCSVersion.h | .git_filters/RevDateURL.smudge)" > platforms/Cross/plugins/sqPluginsSCCSVersion.h
+echo "$(cat platform/vm/sqSCCSVersion.h | .git_filters/RevDateURL.smudge)" > platform/vm/sqSCCSVersion.h
+echo "$(cat platform/plugins/sqPluginsSCCSVersion.h | .git_filters/RevDateURL.smudge)" > platform/plugins/sqPluginsSCCSVersion.h
 
 [[ -z "${ARCH}" ]] && exit 2
 [[ -z "${FLAVOR}" ]] && exit 3
 
-readonly ASSET_REVISION=$(grep -m1 "SvnRawRevisionString" "platforms/Cross/vm/sqSCCSVersion.h" | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')
+readonly ASSET_REVISION=$(grep -m1 "SvnRawRevisionString" "platform/vm/sqSCCSVersion.h" | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')
 
 ASSET_NAME="${FLAVOR}_${ARCH}"
 BUILD_PATH="$(pwd)/building/${ARCH}/${FLAVOR}"
@@ -65,8 +65,8 @@ export_variable() {
 # export COGVOPTS="-DCOGVREV=\"${COGVREV}\" -DCOGVDATE=\"${COGVDATE// /_}\" -DCOGVURL=\"${COGVURL//\//\\\/}\""
 
 build_Linux() {
-    echo '::group::Running "make configure" in platforms/unix/config ...'
-    (cd platforms/unix/config/ && make configure)
+    echo '::group::Running "make configure" in platform/config ...'
+    (cd platform/config/ && make configure)
     echo '::endgroup::'
 
     BUILD_PATH="${BUILD_PATH}/build"

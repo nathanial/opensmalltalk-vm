@@ -1,0 +1,59 @@
+/* Extracted from interp.c:65760 (function wakeHighestPriority). */
+
+/*	Return the highest priority process that is ready to run.
+        To save time looking at many empty lists before finding a
+        runnable process the VM maintains a variable holding the
+        highest priority runnable process. If this variable is 0 then the
+        VM does not know the highest priority and must search all lists.
+        Answer nil if no process can be found. */
+
+/* StackInterpreter>>#wakeHighestPriority */
+
+static sqInt wakeHighestPriority(void) {
+  sqInt ctxt;
+  sqInt objOop;
+  sqInt p;
+  sqInt proc;
+  sqInt processList;
+  sqInt schedLists;
+
+  externalWriteBackHeadFramePointers();
+  objOop = fetchPointerofObject(
+      ValueIndex,
+      fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+
+  schedLists = fetchPointerofObject(ProcessListsIndex, objOop);
+  p = (highestRunnableProcessPriority
+           ? highestRunnableProcessPriority
+           : (assert((classIndexOf(schedLists)) >
+                     (isForwardedObjectClassIndexPun())),
+              numSlotsOf(schedLists)));
+  while (((p -= 1)) >= 0) {
+    processList = fetchPointerofObject(p, schedLists);
+    while (1) {
+      /* begin isEmptyList: */
+      assert(!(isForwarded(processList)));
+      if ((fetchPointerofObject(FirstLinkIndex, processList)) == nilObj)
+        break;
+      proc = removeFirstLinkOfList(processList);
+      ctxt = fetchPointerofObject(SuspendedContextIndex, proc);
+      if (isLiveContext(ctxt)) {
+        highestRunnableProcessPriority = p + 1;
+        return proc;
+      }
+      if (isOopForwarded(ctxt)) {
+        ctxt = fixFollowedFieldofObjectwithInitialValue(SuspendedContextIndex,
+                                                        proc, ctxt);
+      }
+      if (isLiveContext(ctxt)) {
+        highestRunnableProcessPriority = p + 1;
+        return proc;
+      }
+
+      /* This is uncommon, so we can deal with forwarders here instead of
+       * assuming there isn't. */
+      warning("evicted zombie process from run queue");
+    }
+  }
+  return null;
+}

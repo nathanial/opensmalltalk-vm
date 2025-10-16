@@ -1,0 +1,87 @@
+/* Extracted from interp.c:35535 (function followForwardedObjectFieldstoDepth).
+ */
+
+/*	Follow pointers in the object to depth.
+        Answer if any forwarders were found.
+        How to avoid cyclic structures?? A temporary mark bit? eem 6/22/2020 no
+        need since depth is always finite. */
+
+/* SpurMemoryManager>>#followForwardedObjectFields:toDepth: */
+
+static sqInt followForwardedObjectFieldstoDepth(sqInt objOop, sqInt depth) {
+  sqInt contextSize;
+  sqInt fmt;
+  sqInt found;
+  sqInt header;
+  sqInt i;
+  usqInt numLiterals;
+  usqInt numSlots;
+  sqInt oop;
+  sqInt sp;
+
+  found = 0;
+  assert((isPointers(objOop)) || (isOopCompiledMethod(objOop)));
+
+  /* begin numPointerSlotsOf: */
+  fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
+  if (fmt <= 5 /* lastPointerFormat */) {
+    if ((fmt == (indexablePointersFormat())) &&
+        (((longAt((void *)(objOop))) & (classIndexMask())) ==
+         ClassMethodContextCompactIndex)) {
+      /* begin fetchStackPointerOf: */
+      sp = fetchPointerofObject(StackPointerIndex, objOop);
+      if (!((((sp) & 7) == 1))) {
+        contextSize = 0;
+        goto l1;
+      }
+      assert((ReceiverIndex + ((sp >> 3))) < (lengthOf(objOop)));
+      contextSize = (sp >> 3);
+      /* end fetchStackPointerOf: */
+    l1:
+      numSlots = CtxtTempFrameStart + contextSize;
+      goto l2;
+    }
+
+    /* contexts end at the stack pointer */
+
+    numSlots = numSlotsOf(objOop);
+    goto l2;
+  }
+  if (fmt == (forwardedFormat())) {
+    numSlots = 1;
+    goto l2;
+  }
+  if (fmt < (firstCompiledMethodFormat())) {
+    numSlots = 0;
+    goto l2;
+  }
+
+  header = methodHeaderOf(objOop);
+
+  /* begin literalCountOfMethodHeader: */
+  assert((((header) & 7) == 1));
+  numLiterals = ((header >> 3)) & AlternateHeaderNumLiteralsMask;
+  numSlots = numLiterals + LiteralStart;
+  /* end numPointerSlotsOf: */
+l2:
+  for (i = 0; i < numSlots; i += 1) {
+    oop = fetchPointerofObject(i, objOop);
+    if ((!(oop & (tagMask())))) {
+      if ((!((longAt((void *)(oop))) &
+             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
+        found = 1;
+
+        oop = followForwarded(oop);
+
+        storePointerofObjectwithValue(i, objOop, oop);
+      }
+      if ((depth > 0) &&
+          ((/* hasPointerFields: */
+            ((!(oop & (tagMask())))) && (hasPointerFieldsNonImm(oop))) &&
+           (followForwardedObjectFieldstoDepth(oop, depth - 1)))) {
+        found = 1;
+      }
+    }
+  }
+  return found;
+}

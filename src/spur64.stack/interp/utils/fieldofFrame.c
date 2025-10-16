@@ -1,0 +1,49 @@
+/* Extracted from interp.c:66113 (function fieldofFrame). */
+
+/*	Arrange to answer naked frame pointers for unmarried
+        senders to avoid reifying contexts in the search. */
+
+/* StackInterpreterPrimitives>>#field:ofFrame: */
+
+static sqInt fieldofFrame(sqInt index, char *theFP) {
+  char *callerFP;
+
+  switch (index) {
+  case SenderIndex:
+    callerFP = ((char *)(longAt(theFP + FoxSavedFP)));
+    return (callerFP ? (byteAt((callerFP + FoxFrameFlags) + 2)
+                            ? (assert(checkIsStillMarriedContextcurrentFP(
+                                   frameContext(callerFP), null)),
+                               /* frameContext: */
+                               longAt(callerFP + FoxThisContext))
+                            : ((sqInt)callerFP))
+                     : (/* begin frameCallerContext: */
+                        assert(isBaseFrame(theFP)),
+                        longAt(theFP + FoxCallerContext)));
+
+  case StackPointerIndex:
+  case InstructionPointerIndex:
+    return ConstZero;
+
+  case MethodIndex:
+    return longAt(theFP + FoxMethod);
+
+  case ClosureIndex:
+    return (
+        byteAt((theFP + FoxFrameFlags) + 3)
+            ? longAt(theFP + ((FoxCallerSavedIP + BytesPerWord) +
+                              ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1)))
+                                 << (shiftForWord()))))))
+            : nilObj);
+
+  case ReceiverIndex:
+    return longAt(theFP + FoxReceiver);
+
+  default:
+    assert(
+        (((index - CtxtTempFrameStart) >= 0) &&
+         ((index - CtxtTempFrameStart) <= (stackPointerIndexForFrame(theFP)))));
+    return temporaryin((index - CtxtTempFrameStart), theFP);
+  }
+  return 0;
+}

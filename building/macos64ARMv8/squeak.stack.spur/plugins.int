@@ -1,12 +1,16 @@
-# Copied, perhaps edited, from ../../src/examplePlugins.int
+# All plugins are now internal (linked into VM executable)
 INTERNAL_PLUGINS = \
 ADPCMCodecPlugin \
 AioPlugin \
 AsynchFilePlugin \
 B2DPlugin \
+B3DAcceleratorPlugin \
 BitBltPlugin \
 BMPReadWriterPlugin \
-ZipPlugin \
+CameraPlugin \
+ClipboardExtendedPlugin \
+CroquetPlugin \
+DESPlugin \
 DropPlugin \
 DSAPrims \
 FFTPlugin \
@@ -17,24 +21,33 @@ Float64ArrayPlugin \
 FloatArrayPlugin \
 FloatMathPlugin \
 HostWindowPlugin \
-IA32ABI \
 JPEGReaderPlugin \
 JPEGReadWriter2Plugin \
 Klatt \
 LargeIntegers \
 LocalePlugin \
+MD5Plugin \
 Matrix2x3Plugin \
 MiscPrimitivePlugin \
+Mpeg3Plugin \
 RePlugin \
 SecurityPlugin \
+SHA2Plugin \
 SocketPlugin \
 SoundCodecPrims \
 SoundGenerationPlugin \
 SoundPlugin \
+Squeak3D \
+SqueakFFIPrims \
+SqueakSSL \
 StarSqueakPlugin \
 SurfacePlugin \
+UnixOSProcessPlugin \
 UUIDPlugin \
+VectorEnginePlugin \
 VMProfileMacSupportPlugin \
+ZipPlugin \
+# IA32ABI requires IA-32 architecture; omit on Apple Silicon builds.
 # InternetConfigPlugin \
 # JoystickTabletPlugin \
 # MacMenubarPlugin # Does not work under Cocoa \

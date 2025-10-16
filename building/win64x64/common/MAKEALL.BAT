@@ -1,3 +1,0 @@
-CALL ..\common\MAKEDEBUG.BAT
-CALL ..\common\MAKEASSERT.BAT
-CALL ..\common\MAKEFAST.BAT

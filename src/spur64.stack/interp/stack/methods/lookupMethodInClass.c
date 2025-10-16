@@ -1,0 +1,145 @@
+/* Extracted from interp.c:56103 (function lookupMethodInClass). */
+
+/* StackInterpreter>>#lookupMethodInClass: */
+
+static sqInt lookupMethodInClass(sqInt class) {
+  sqInt currentClass;
+  sqInt dictionary;
+  sqInt found;
+  sqInt index;
+  usqInt length;
+  sqInt mask;
+  sqInt methodArray;
+  sqInt nextSelector;
+  sqInt objOop;
+  sqInt objOopSqInt;
+  sqInt wrapAround;
+
+  assert(addressCouldBeClassObj(class));
+
+  /* begin lookupBreakFor: */
+  if ((breakSelectorLength <= 0) &&
+      (/* shouldBreakForLookupIn:given: */
+       (breakLookupClassTag) &&
+       ((class == breakLookupClassTag) ||
+        (((long32At((void *)(class + 4))) & (identityHashHalfWordMask())) ==
+         breakLookupClassTag)))) {
+    warning("lookup class send break (heartbeat suppressed)");
+  }
+  currentClass = class;
+  while (currentClass != nilObj) {
+    dictionary = followObjFieldofObject(MethodDictionaryIndex, currentClass);
+    if (dictionary == nilObj) {
+      createActualMessageTo(class);
+      messageSelector = longAt((
+          void *)((specialObjectsOop + BaseHeaderSize) +
+                  ((((usqInt)(SelectorCannotInterpret) << (shiftForWord()))))));
+
+      /* begin sendBreakpoint:receiver: */
+      sendBreakpointclassTag(
+          firstFixedFieldOfMaybeImmediate(messageSelector),
+          lengthOfMaybeImmediate(messageSelector), /* fetchClassTagOf: */
+          fetchClassTagOf(messageSelector));
+      return lookupMethodInClass(superclassOf(currentClass));
+    }
+
+    /* MethodDict pointer is nil (hopefully due a swapped out stub)
+       -- raise exception #cannotInterpret:. */
+
+    /* begin lookupMethodInDictionary: */
+
+    length = numSlotsOf(dictionary);
+    mask = (length - SelectorStart) - 1;
+
+    /* Use linear search on small dictionaries; its cheaper.
+       Also the limit can be set to force linear search of all dictionaries,
+       which supports the booting of images that need rehashing (e.g. because a
+       tracer has generated an image with different hashes but hasn't rehashed
+       it yet.) */
+    if (mask <= methodDictLinearSearchLimit) {
+      index = 0;
+      while (index <= mask) {
+        nextSelector = fetchPointerofObject(index + SelectorStart, dictionary);
+        if (isOopForwarded(nextSelector)) {
+          nextSelector = fixFollowedFieldofObjectwithInitialValue(
+              index + SelectorStart, dictionary, nextSelector);
+        }
+        if (nextSelector == messageSelector) {
+          methodArray = followObjFieldofObject(MethodArrayIndex, dictionary);
+
+          objOop = followFieldofObject(index, methodArray);
+          newMethod = objOop;
+          found = 1;
+          goto l1;
+        }
+        index += 1;
+      }
+      found = 0;
+      goto l1;
+    }
+    index = SelectorStart +
+            (mask & ((((messageSelector & (tagMask())) != 0)
+                          ? (messageSelector >> 3)
+                          : (long32At((void *)(messageSelector + 4))) &
+                                (identityHashHalfWordMask()))));
+
+    /* It is assumed that there are some nils in this dictionary, and search
+       will stop when one is encountered. However, if there are no nils, then
+       wrapAround will be detected the second time the loop gets to the end of
+       the table. */
+    wrapAround = 0;
+    while (1) {
+      nextSelector = fetchPointerofObject(index, dictionary);
+      if (nextSelector == nilObj) {
+        found = 0;
+        goto l1;
+      }
+      if (isOopForwarded(nextSelector)) {
+        nextSelector = fixFollowedFieldofObjectwithInitialValue(
+            index + SelectorStart, dictionary, nextSelector);
+      }
+      if (nextSelector == messageSelector) {
+        methodArray = followObjFieldofObject(MethodArrayIndex, dictionary);
+
+        objOop = followFieldofObject(index - SelectorStart, methodArray);
+        newMethod = objOop;
+        found = 1;
+        goto l1;
+      }
+      index += 1;
+      if (index == length) {
+        if (wrapAround) {
+          found = 0;
+          goto l1;
+        }
+        wrapAround = 1;
+        index = SelectorStart;
+      }
+    }
+    found = 0;
+    /* end lookupMethodInDictionary: */
+  l1:
+    if (found) {
+      return currentClass;
+    }
+
+    /* begin superclassOf: */
+    objOopSqInt = followObjFieldofObject(SuperclassIndex, currentClass);
+    currentClass = objOopSqInt;
+  }
+
+  /* Could not find #doesNotUnderstand: -- unrecoverable error. */
+  if (messageSelector ==
+      (fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop))) {
+    error("Recursive not understood error encountered");
+  }
+
+  /* Cound not find a normal message -- raise exception #doesNotUnderstand: */
+  createActualMessageTo(class);
+  messageSelector =
+      fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop);
+  sendBreakpointclassTag(
+      messageSelector + BaseHeaderSize, lengthOf(messageSelector),
+      (long32At((void *)(class + 4))) & (identityHashHalfWordMask()));
+  return lookupMethodInClass(class);
+}

@@ -1,0 +1,27 @@
+/* Extracted from interp.c:19434 (function primitiveNew). */
+
+/* InterpreterPrimitives>>#primitiveNew */
+
+static void primitiveNew(void) {
+  sqInt obj;
+  sqInt reasonCode;
+
+  /* For the mirror prims check that the class obj is actually a valid class. */
+  if ((obj = instantiateClass(longAt(stackPointer)))) {
+    /* begin pop:thenPush: */
+    popthenPush(argumentCount + 1, obj);
+  } else {
+    reasonCode =
+        (isFixedSizePointerFormat(
+             (((usqInt)((((fetchPointerofObject(InstanceSpecificationIndex,
+                                                longAt(stackPointer))) >>
+                          3)))) >>
+              (fixedFieldsFieldWidth())) &
+             (formatMask()))
+             ? PrimErrNoMemory
+             : PrimErrBadReceiver);
+
+    /* begin primitiveFailFor: */
+    primFailCode = reasonCode;
+  }
+}

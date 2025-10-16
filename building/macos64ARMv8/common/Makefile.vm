@@ -52,30 +52,33 @@ else # default CONFIGURATION=product
 	BUILD:=build
 endif
 ifeq ($(THREADING),multi)
-	MAKERSRC:=$(wildcard $(VMSRCDIR)/gcc3x-*interpmt.c $(VMSRCDIR)/cogit.c)
+	MAKERSRC:=$(wildcard $(VMSRCDIR)/cointerpmt.c $(VMSRCDIR)/cogit.c)
 	BUILD:=$(BUILD)mt
 else
-	MAKERSRC:=$(wildcard $(VMSRCDIR)/gcc3x-*interp.c $(VMSRCDIR)/cogit.c)
+	MAKERSRC:=$(wildcard $(VMSRCDIR)/cointerp.c $(VMSRCDIR)/interp.c $(VMSRCDIR)/cogit.c)
 endif
 $(shell mkdir -p deps >/dev/null) # deps is the dependencies directory
 BLDDIR:= $(BUILD)
 export BLDDIR
 OBJDIR:= $(BLDDIR)/vm
 
-PLATDIR:=../../../platforms
+PLATDIR:=../../../platform
 export PLATDIR
-CROSSDIR:=$(PLATDIR)/Cross/vm
-TPDIR:=$(PLATDIR)/Cross/third-party
-OSXDIR:=$(PLATDIR)/iOS/vm/OSX
-OSXCOMMONDIR:=$(PLATDIR)/iOS/vm/Common
-OSXCLASSESDIR:=$(PLATDIR)/iOS/vm/Common/Classes
-OSXPLUGINSDIR:=$(PLATDIR)/iOS/plugins
-UNIXVMDIR:=$(PLATDIR)/unix/vm
+CROSSDIR:=$(PLATDIR)/vm
+TPDIR:=$(PLATDIR)/third-party
+OSXDIR:=$(PLATDIR)/OSX
+OSXCOMMONDIR:=$(PLATDIR)/Common
+OSXCLASSESDIR:=$(PLATDIR)/Common/Classes
+OSXPLUGINSDIR:=$(PLATDIR)/plugins
+UNIXVMDIR:=$(PLATDIR)/vm
 
 CROSSSRC:= $(wildcard $(CROSSDIR)/*.c)
-#XEX:= ... %/sqMacV2Browser.m ...
-XEX:=%/sqSqueakMainApplication+screen.m %/sqMacV2Window.m \
-	 %/SqViewBitmapConversion.m
+# Exclude sources that are also built via UNIXSRC to avoid duplicate objects
+CROSSSRC:=$(filter-out $(addprefix $(CROSSDIR)/,aio.c sqUnixHeartbeat.c \
+                     sqUnixSpurMemory.c sqUnixThreads.c sqUnixVMProfile.c),$(CROSSSRC))
+#
+# No files need to be excluded
+XEX:=
 OSXSRC=$(wildcard $(OSXDIR)/*.c) $(wildcard $(OSXDIR)/*.m) \
 		$(wildcard $(OSXCOMMONDIR)/*.c) $(wildcard $(OSXCOMMONDIR)/*.m) \
 		$(wildcard $(OSXCLASSESDIR)/*.c) $(wildcard $(OSXCLASSESDIR)/*.m)
@@ -88,18 +91,14 @@ VMOBJ:=	$(VMOBJ:.c=.o)
 VMOBJ:=	$(VMOBJ:.m=.o)
 VMOBJ:=	$(VMOBJ:.cpp=.o)
 VMOBJ:= $(addprefix $(OBJDIR)/,$(VMOBJ))
-
-# N.B.  Most important that OSXCOMMONDIR precede OSXDIR so that the above
-# exclusion of OSXDIR/sqSqueakMainApplication+screen.m works, since there
-# exists a OSXCOMMONDIR/sqSqueakMainApplication+screen.m.
 SRCDIRS:=$(VMSRCDIR) $(OSXCOMMONDIR) $(OSXCLASSESDIR) $(OSXDIR) $(UNIXVMDIR) $(CROSSDIR)
 VPATH:=$(SRCDIRS)
 # Additonal includes are required, eg for SoundPlugin/sqSqueakSoundCoreAudio.h
 PluginIncludes := FilePlugin HostWindowPlugin SoundPlugin
 OSPluginIncludes := FilePlugin HostWindowPlugin SoundPlugin
 SRCDIRS:=$(SRCDIRS) \
-			$(addprefix $(PLATDIR)/Cross/plugins/,$(PluginIncludes)) \
-			$(addprefix $(OSXPLUGINSDIR)/,$(OSPluginIncludes))
+			$(addsuffix /cross,$(addprefix $(PLUGINSRCDIR)/,$(PluginIncludes))) \
+		$(addsuffix /macos,$(addprefix $(PLUGINSRCDIR)/,$(OSPluginIncludes)))
 
 # The internal (.lib) and external (.bundle) plugins
 #
@@ -139,7 +138,7 @@ INCLUDES:= $(addprefix -I,. $(SRCDIRS))
 #############################################################################
 # Ensure version control info is up-to-date, and extract it from the file.
 #
-SCCSVER:=$(CROSSDIR)/sqSCCSVersion.h
+SCCSVER:=$(PLATDIR)/vm/sqSCCSVersion.h
 
 ifneq ($(shell grep 'GitRawRevisionString.*$$Rev$$.' $(SCCSVER)),)
 $(shell bash -c "cd ../../../scripts; ./updateSCCSVersions")
@@ -272,9 +271,9 @@ validImage:	$(OBJDIR) $(OBJDIR)/validImage
 .PHONY: $(OBJDIR)/%.lib $(OBJDIR)/%.bundle $(OBJDIR)/%.dylib
 
 ifeq ($(USEPLUGINASDYLIB),TRUE)
-plugin-makefile = $(firstword $(realpath $(OSXPLUGINSDIR)/$(subst lib,,$(1))/Makefile ../common/Makefile.plugin))
+plugin-makefile = $(firstword $(realpath $(PLUGINSRCDIR)/$(subst lib,,$(1))/macos/Makefile ../common/Makefile.plugin))
 else
-plugin-makefile = $(firstword $(realpath $(OSXPLUGINSDIR)/$(1)/Makefile ../common/Makefile.plugin))
+plugin-makefile = $(firstword $(realpath $(PLUGINSRCDIR)/$(1)/macos/Makefile ../common/Makefile.plugin))
 endif
 
 # Internal plugin.  Build as lib then link in lib
@@ -295,8 +294,8 @@ $(OBJDIR)/%.lib: FORCE
 prereqs/%.lib:
 	@-ls -rlt	$(call plugin-makefile,$(*F)) $(wildcard $(*F).ignore) \
 				$(wildcard $(PLUGINSRCDIR)/$(*F)/*.c) \
-				$(wildcard $(PLATDIR)/Cross/plugins/$(*F)/*.*) \
-				$(wildcard $(OSXPLUGINSDIR)/$(*F)/*.*)
+				$(wildcard $(PLUGINSRCDIR)/$(*F)/cross/*.*) \
+			$(wildcard $(PLUGINSRCDIR)/$(*F)/macos/*.*)
 
 # It would be nice to have this abbreviation but it creates havoc eem 2/2016
 #%.lib: $(OBJDIR)/%.lib
@@ -349,6 +348,6 @@ FORCE:
 # Extra specific dependencies
 #
 sqNamedPrims.h: plugins.int
-	$(PLATDIR)/Cross/util/mkNamedPrims.sh plugins.int > sqNamedPrims.h
+	$(PLATDIR)/util/mkNamedPrims.sh plugins.int > sqNamedPrims.h
 
 $(OBJDIR)/sqNamedPrims.o:	sqNamedPrims.c sqNamedPrims.h

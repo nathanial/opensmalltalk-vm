@@ -1,0 +1,112 @@
+/* Extracted from interp.c:64489 (function stObjectat). */
+
+/*	Return what ST would return for <obj> at: index. */
+
+/* StackInterpreter>>#stObject:at: */
+
+sqInt stObjectat(sqInt array, sqInt index) {
+  sqInt class;
+  sqInt fixedFields;
+  usqLong fmt;
+  sqLong hdr;
+  usqInt sp;
+  sqInt spSqInt;
+  sqInt stSize;
+  sqInt totalLength;
+
+  hdr = long64At((void *)(array));
+  fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
+
+  totalLength = lengthOfformat(array, fmt);
+l2:
+
+  /* begin fixedFieldsOf:format:length: */
+  if ((fmt >= (sixtyFourBitIndexableFormat())) || (fmt == (arrayFormat()))) {
+    fixedFields = 0;
+    goto l1;
+  }
+  if (fmt < (arrayFormat())) {
+    fixedFields = totalLength;
+    goto l1;
+  }
+  class = fetchClassOfNonImm(array);
+  fixedFields =
+      (((fetchPointerofObject(InstanceSpecificationIndex, class)) >> 3)) &
+      ((1U << (fixedFieldsFieldWidth())) - 1);
+  /* end fixedFieldsOf:format:length: */
+l1:
+  if ((fmt == (indexablePointersFormat())) &&
+      ((hdr & (classIndexMask())) == ClassMethodContextCompactIndex)) {
+    /* begin stackPointerForMaybeMarriedContext: */
+    if (/* isStillMarriedContext: */
+        (((((fetchPointerofObject(SenderIndex, array))) & 7) == 1)) &&
+        (!(isWidowedContext(array)))) {
+      sp = stackPointerIndexForFrame(frameOfMarriedContext(array));
+      assert((ReceiverIndex + ((sp >> 3))) < (lengthOf(array)));
+      stSize = sp;
+      goto l3;
+    }
+
+    /* begin fetchStackPointerOf: */
+    spSqInt = fetchPointerofObject(StackPointerIndex, array);
+    if (!((((spSqInt) & 7) == 1))) {
+      stSize = 0;
+      goto l3;
+    }
+    assert((ReceiverIndex + ((spSqInt >> 3))) < (lengthOf(array)));
+    stSize = (spSqInt >> 3);
+    /* end stackPointerForMaybeMarriedContext: */
+  l3:
+    if ((oopisGreaterThanOrEqualTo(index, 1)) &&
+        ((oopisLessThanOrEqualTo(index, stSize)) &&
+         (/* isStillMarriedContext: */
+          (((((fetchPointerofObject(SenderIndex, array))) & 7) == 1)) &&
+          (!(isWidowedContext(array)))))) {
+      return temporaryin(index - 1, frameOfMarriedContext(array));
+    }
+  } else {
+    stSize = totalLength - fixedFields;
+  }
+  if ((oopisGreaterThanOrEqualTo(
+          index, /* firstValidIndexOfIndexableObject:withFormat: */
+          (fmt >= (firstCompiledMethodFormat())
+               ? (((literalCountOf(array)) + LiteralStart) * BytesPerOop) + 1
+               : 1))) &&
+      (oopisLessThanOrEqualTo(index, stSize))) {
+    /* begin subscript:with:format: */
+    if (fmt <= 5 /* lastPointerFormat */) {
+      return fetchPointerofObject((index + fixedFields) - 1, array);
+    }
+    if (fmt >= (firstByteFormat())) {
+      return (((usqInt)(byteAt((void *)((array + BaseHeaderSize) +
+                                        ((index + fixedFields) - 1))))
+               << 3) |
+              1);
+    }
+    if (fmt >= (firstShortFormat())) {
+      return (((usqInt)(((unsigned short)(shortAt((
+                   void *)((array + BaseHeaderSize) +
+                           ((((usqInt)(((index + fixedFields) - 1)) << 1))))))))
+               << 3) |
+              1);
+    }
+    if (fmt == (sixtyFourBitIndexableFormat())) {
+      return positive64BitIntegerFor(
+          long64At((void *)((array + BaseHeaderSize) +
+                            ((((usqInt)(((index + fixedFields) - 1)) << 3))))));
+    }
+
+    /* 32bit-word type objects; for now assume no 64-bit indexable objects */
+    return (
+        (((((usqInt)(long32At(
+              (void *)((array + BaseHeaderSize) +
+                       ((((usqInt)(((index + fixedFields) - 1)) << 2)))))))) &
+          0xFFFFFFFFU)
+         << 3) |
+        1);
+  }
+
+  /* primitiveFailFor: */
+  primFailCode = (fmt <= 1 ? PrimErrBadReceiver : PrimErrBadIndex);
+  return 0;
+}

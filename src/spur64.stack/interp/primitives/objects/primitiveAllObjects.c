@@ -1,0 +1,29 @@
+/* Extracted from interp.c:11790 (function primitiveAllObjects). */
+
+/*	Answer an array of all objects that exist when the primitive
+        is called, excluding those that may be garbage collected as
+        a side effect of allocating the result array. */
+
+/* InterpreterPrimitives>>#primitiveAllObjects */
+
+EXPORT(void)
+primitiveAllObjects(void) {
+  sqInt delta;
+  sqInt result;
+
+  result = allObjects();
+  if ((((result) & 7) == 1)) {
+    /* begin growToAccomodateContainerWithNumSlots: */
+    delta = (BaseHeaderSize * 2) + (((result >> 3)) * BytesPerOop);
+    growOldSpaceByAtLeast(((growHeadroom < delta) ? delta : growHeadroom));
+    result = allObjects();
+    if ((((result) & 7) == 1)) {
+      /* primitiveFailFor: */
+      primFailCode = PrimErrNoMemory;
+      return;
+    }
+  }
+
+  /* begin pop:thenPush: */
+  popthenPush(argumentCount + 1, result);
+}

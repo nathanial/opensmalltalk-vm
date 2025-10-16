@@ -47,7 +47,7 @@ CFLAGS:= -DHAVE_CONFIG_H=1 $(CFLAGS) $(OFLAGS) $(COGDEFS) $(DEBUGVM) $(XDEFS)
 #############################################################################
 # Standard directory locations:
 #   CROSSDIR: The location of the cross platform sources
-#   OSXPLGDIR: The location of the iOS sources
+#   OSXPLGDIR: The location of the macOS sources
 #   MAKERDIR: The location of the VMMaker generated sources
 #   BUILDDIR: The location where the plugin is built
 #
@@ -61,16 +61,16 @@ else
 LIBDIR:=$(LIBNAME)
 endif
 
-CROSSDIR:=	$(PLATDIR)/Cross/plugins/$(LIBDIR)
-OSXDIR:=	$(PLATDIR)/iOS/vm/OSX
-OSXPLGDIR:=	$(PLATDIR)/iOS/plugins/$(LIBDIR)
-UNIXDIR:=	$(PLATDIR)/unix/vm
+CROSSDIR:=	$(PLUGINSRCDIR)/$(LIBDIR)/cross
+OSXDIR:=	$(PLATDIR)/OSX
+OSXPLGDIR:=	$(PLUGINSRCDIR)/$(LIBDIR)/macos
+UNIXDIR:=	$(PLATDIR)/vm
 MAKERDIR:=	$(PLUGINSRCDIR)/$(LIBDIR)
 BUILDDIR:=	$(BUILD)/$(LIBDIR)
 
 # Support directory locations
-CROSSVMDIR:=$(PLATDIR)/Cross/vm
-OSXVMDIR:=$(PLATDIR)/iOS/vm/OSX
+CROSSVMDIR:=$(PLATDIR)/vm
+OSXVMDIR:=$(PLATDIR)/OSX
 MAKERVMDIR:=$(VMSRCDIR)
 
 # INCDIRS are where include files are searched for. A superset of SRCDIRS.
@@ -85,6 +85,11 @@ SRCDIRS:=$(SRCDIRS) $(MAKERDIR) $(CROSSDIR) $(OSXPLGDIR)
 LIBSRC?= $(foreach d,$(SRCDIRS),$(wildcard $(d)/*.c) $(wildcard $(d)/*.cpp) $(wildcard $(d)/*.m) $(wildcard $(d)/*.mm))
 ifneq ($(EXCLUDESRC),)
 LIBSRC:=$(filter-out $(EXCLUDESRC),$(LIBSRC))
+endif
+
+# If any source is C++, link external bundles/dylibs with C++ by default.
+ifneq ($(filter %.cpp,$(LIBSRC)),)
+LINK_WITH_CXX?=1
 endif
 
 #############################################################################
@@ -212,7 +217,7 @@ $(OBJDIR)/Frameworks: $(wildcard $(DYLIBS))
 			|| ln $$f $(OBJDIR)/Frameworks; \
 	done
 
-$(PLUGINPLIST): $(PLATDIR)/iOS/plugins/Info.plist getversion
+$(PLUGINPLIST): $(PLUGINSRCDIR)/common/Info.plist getversion
 	mkdir -p $(PLUGINBUNDLE)/Contents
 	sed "s/\$$(VERSION)/`./getversion VERSION_TAG`/" $< | \
 	sed "s/\$$(LIBNAME)/$(LIBNAME)/" > $(PLUGINPLIST)

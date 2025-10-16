@@ -1,0 +1,52 @@
+/* Extracted from interp.c:20049 (function primitiveObjectsAccessibleFromRoots).
+ */
+
+/*	This primitive is called from Squeak as...
+        arrayOfRoots uniquelyAccessibleObjects */
+/*	This primitive answers an array of the receiver and every object in its
+        proper tree of subParts (ie, that is not refered to from anywhere else
+        outside the tree).
+ */
+/*	This primitive could be used to implement the primitiveStoreImageSegment
+        segment, thanks to a suggestion from Igor Stassenko. Currently it is
+        used only to debug that primitive. */
+
+/* InterpreterPrimitives>>#primitiveObjectsAccessibleFromRoots */
+
+static void primitiveObjectsAccessibleFromRoots(void) {
+  sqInt arrayOfRoots;
+  sqInt result;
+  char *sp;
+
+  arrayOfRoots = longAt(stackPointer);
+
+  /* Essential type checks */
+  if (!(/* isArray: */
+        ((!(arrayOfRoots & (tagMask())))) &&
+        (((byteAt((void *)(arrayOfRoots + (formatFieldByteOffset())))) &
+          (formatMask())) == (arrayFormat())))) {
+    /* begin primitiveFail */
+    if (!primFailCode) {
+      primFailCode = 1;
+    }
+    return;
+  }
+
+  /* Must be indexable pointers */
+  result = objectsAccessibleFromRoots(arrayOfRoots);
+  if (((((result) & 7) == 1)) && (((result >> 3)) == PrimErrNoMemory)) {
+    fullGC();
+    arrayOfRoots = longAt(stackPointer);
+    result = objectsAccessibleFromRoots(arrayOfRoots);
+  }
+  if ((((result) & 7) == 1)) {
+    /* primitiveFailFor: */
+    primFailCode = (result >> 3);
+  } else {
+    /* begin methodReturnValue: */
+    assert(!((failed())));
+    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+              result);
+    stackPointer = sp;
+  }
+}

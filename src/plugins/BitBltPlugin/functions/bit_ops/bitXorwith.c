@@ -1,0 +1,7 @@
+/* Extracted from BitBltPlugin.c:1321 (function bitXorwith). */
+/* BitBltSimulation>>#bitXor:with: */
+
+static unsigned int bitXorwith(unsigned int sourceWord,
+                               unsigned int destinationWord) {
+  return sourceWord ^ destinationWord;
+}

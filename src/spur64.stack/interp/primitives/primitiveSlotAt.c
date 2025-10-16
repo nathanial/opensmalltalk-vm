@@ -1,0 +1,144 @@
+/* Extracted from interp.c:69629 (function primitiveSlotAt). */
+
+/*	Answer a slot in an object. This numbers all slots from 1, ignoring the
+        distinction between
+        named and indexed inst vars. In objects with both named and indexed inst
+        vars, the named
+        inst vars precede the indexed ones. In non-object indexed objects
+   (objects that contain bits, not object references) this primitive answers the
+   raw integral value at each slot. e.g. for Strings it answers the character
+   code, not the Character object at each slot. */
+/*	because of externalInstVar:ofContext: below */
+
+/* StackInterpreterPrimitives>>#primitiveSlotAt */
+
+static void primitiveSlotAt(void) {
+  sqInt fmt;
+  sqInt fmtSqInt;
+  sqInt index;
+  sqInt numLiveSlots;
+  usqInt numSlots;
+  sqInt oop;
+  sqInt rcvr;
+  char *sp;
+  sqInt value;
+
+  index = longAt(stackPointer);
+  rcvr = longAt(stackPointer + (1 * BytesPerWord));
+  if (!((((index) & 7) == 1))) {
+    /* primitiveFailFor: */
+    primFailCode = PrimErrBadArgument;
+    return;
+  }
+  if (((rcvr & (tagMask())) != 0)) {
+    /* primitiveFailFor: */
+    primFailCode = PrimErrBadReceiver;
+    return;
+  }
+  fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
+  index = ((index >> 3)) - 1;
+  if (fmt <= 5 /* lastPointerFormat */) {
+
+    numSlots = numSlotsOf(rcvr);
+    if ((((usqInt)index)) < numSlots) {
+      if (((longAt((void *)(rcvr))) & (classIndexMask())) ==
+          ClassMethodContextCompactIndex) {
+        externalWriteBackHeadFramePointers();
+        numLiveSlots =
+            (stackPointerForMaybeMarriedContext(rcvr)) + CtxtTempFrameStart;
+        value = ((((usqInt)index)) < numLiveSlots
+                     ? externalInstVarofContext(index, rcvr)
+                     : nilObj);
+      } else {
+        value = fetchPointerofObject(index, rcvr);
+      }
+
+      popthenPush(argumentCount + 1, value);
+      return;
+    }
+
+    /* primitiveFailFor: */
+    primFailCode = PrimErrBadIndex;
+    return;
+  }
+  if (fmt >= (firstByteFormat())) {
+    if (fmt >= (firstCompiledMethodFormat())) {
+      /* primitiveFailFor: */
+      primFailCode = PrimErrUnsupported;
+      return;
+    }
+
+    /* begin numBytesOfBytes: */
+    fmtSqInt =
+        (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
+    assert(fmtSqInt >= (firstByteFormat()));
+    numSlots = ((((numSlotsOf(rcvr))) << (shiftForWord()))) - (fmtSqInt & 7);
+    if ((((usqInt)index)) < numSlots) {
+      /* begin pop:thenPushInteger: */
+      longAtput(
+          (sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+          (((usqInt)(byteAt((void *)((rcvr + BaseHeaderSize) + index))) << 3) |
+           1));
+      stackPointer = sp;
+      return;
+    }
+
+    /* primitiveFailFor: */
+    primFailCode = PrimErrBadIndex;
+    return;
+  }
+  if (fmt >= (firstShortFormat())) {
+    numSlots = ((usqInt)((numBytesOf(rcvr)))) >> 1;
+    if ((((usqInt)index)) < numSlots) {
+      /* begin pop:thenPushInteger: */
+      longAtput(
+          (sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+          (((usqInt)(((
+                unsigned short)(shortAt((void *)((rcvr + BaseHeaderSize) +
+                                                 ((((usqInt)(index) << 1))))))))
+            << 3) |
+           1));
+      stackPointer = sp;
+      return;
+    }
+
+    /* primitiveFailFor: */
+    primFailCode = PrimErrBadIndex;
+    return;
+  }
+  if (fmt == (sixtyFourBitIndexableFormat())) {
+    numSlots = ((usqInt)((numBytesOf(rcvr)))) >> 3;
+    if ((((usqInt)index)) < numSlots) {
+      oop = positive64BitIntegerFor(long64At(
+          (void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 3))))));
+
+      popthenPush(argumentCount + 1, oop);
+      return;
+    }
+
+    /* primitiveFailFor: */
+    primFailCode = PrimErrBadIndex;
+    return;
+  }
+  if (fmt >= (firstLongFormat())) {
+    numSlots = ((usqInt)((numBytesOf(rcvr)))) >> 2;
+    if ((((usqInt)index)) < numSlots) {
+      popthenPush(
+          argumentCount + 1,
+          ((((((usqInt)(long32At((void *)((rcvr + BaseHeaderSize) +
+                                          ((((usqInt)(index) << 2)))))))) &
+             0xFFFFFFFFU)
+            << 3) |
+           1));
+      return;
+    }
+
+    /* primitiveFailFor: */
+    primFailCode = PrimErrBadIndex;
+    return;
+  }
+
+  /* primitiveFailFor: */
+  primFailCode = PrimErrBadReceiver;
+  return;
+}

@@ -1,0 +1,124 @@
+================================================================================
+UNIX PLATFORM FILES ANALYSIS - QUICK REFERENCE
+macOS-Only Fork Build System
+================================================================================
+
+ESSENTIAL COMPILED FILES (5 files) - MUST KEEP
+================================================================================
+1. platforms/unix/vm/aio.c                 (23 KB) - Async I/O
+2. platforms/unix/vm/sqUnixHeartbeat.c     (13.9 KB) - VM heartbeat/timing
+3. platforms/unix/vm/sqUnixSpurMemory.c    (7 KB) - Memory allocation [CRITICAL]
+4. platforms/unix/vm/sqUnixThreads.c       (6.3 KB) - Threading support
+5. platforms/unix/vm/sqUnixVMProfile.c     (6 KB) - Profiling support
+
+CONDITIONAL INCLUDES - MUST KEEP
+================================================================================
+6. platforms/unix/vm/sqUnixITimerHeartbeat.c     (12.7 KB)
+7. platforms/unix/vm/sqUnixITimerTickerHeartbeat.c (18.5 KB)
+
+KEY HEADERS - MUST KEEP
+================================================================================
+1. sqImageFileAccess.h  (8.1 KB) - Image file I/O [HEAVILY USED]
+2. sqaio.h              (5.3 KB) - Async I/O interface
+3. debug.h              (1 KB)
+4. include_ucontext.h   (4.8 KB)
+5. codeZoneControlARM64.h (0.8 KB)
+6. sqPlatformSpecific.h (4.4 KB)
+7. sqConfig.h           (1.2 KB)
+8. SqModule.h           (1 KB)
+9. sqGnu.h              (10.4 KB)
+
+SAFE TO DELETE - TIER 1
+================================================================================
+Entire directories:
+- platforms/unix/config/          (autotools - 0 references)
+- platforms/unix/doc/             (documentation only)
+- platforms/unix/misc/            (test utilities)
+- platforms/unix/vm-display-Quartz/  (old Quartz display system)
+- platforms/unix/vm-sound-MacOSX/    (old sound code)
+
+Individual files in platforms/unix/vm/:
+- sqUnixGL.h                      (0 references anywhere)
+- debug.c                          (only .h is used)
+
+SAFE TO DELETE - TIER 2
+================================================================================
+(Only referenced by vm-display-Quartz/, which is safe to delete)
+
+- sqUnixCharConv.c/h              (19 refs all from vm-display-Quartz)
+- sqUnixDisplayHelpers.c/h        (8 refs all from vm-display-Quartz)
+- sqUnixEvent.c                   (3 refs all from vm-display-Quartz)
+- sqUnixExternalPrims.c           (6 refs all from vm-display-Quartz)
+- sqUnixGlobals.h                 (5 refs all from vm-display-Quartz)
+- sqUnixMain.c/h                  (16 refs, mostly from vm-display-Quartz)
+- sqUnixMemory.c                  (legacy, superseded by sqUnixSpurMemory.c)
+- dlfcn-dyld.c                    (3 refs all from vm-display-Quartz)
+- mac-alias.c                     (1 ref from vm-display-Quartz)
+- osExports.c                     (2 refs all from vm-display-Quartz)
+
+================================================================================
+WHERE THESE FILES ARE USED IN THE BUILD
+================================================================================
+
+In Makefile:
+- /building/macos64ARMv8/common/Makefile.vm (line 73, 82-84, 90)
+  UNIXVMDIR := $(PLATDIR)/unix/vm
+  UNIXSRC := aio.c sqUnixHeartbeat.c sqUnixSpurMemory.c sqUnixThreads.c sqUnixVMProfile.c
+  SRCDIRS includes $(UNIXVMDIR) for header search
+
+In VM Source:
+- src/spur64.stack/interp.c - includes sqImageFileAccess.h
+- src/spur64.stack/validImage.c - includes sqImageFileAccess.h
+
+In macOS Code:
+- platforms/macOS/vm/OSX/sqImageFileAccess.h - wraps unix version
+- platforms/macOS/vm/Common/sqMacImageFileAccess.c - includes unix version
+- platforms/macOS/vm/Common/Classes/sqSqueakEventsAPI.m - includes sqaio.h
+
+In Plugins:
+- src/plugins/FilePlugin/macos/Makefile - includes PLATDIR/unix/vm
+- src/plugins/FilePlugin/macos/sqUnixFile.c - #include "../unix/sqUnixFile.c"
+
+================================================================================
+SUMMARY
+================================================================================
+
+Total files in platforms/unix/vm/: 33
+- KEEP (compiled or used): ~16 files
+- SAFE TO DELETE: ~17 files
+
+Total directories in platforms/unix/: 7
+- KEEP: 1 (vm/, partially)
+- SAFE TO DELETE: 6 (config, doc, misc, display, sound, etc.)
+
+Files actually compiled into macOS VM: 5 C files
+Additional files included by those 5: 2 conditional includes + multiple headers
+
+Space that could be freed by deleting "safe to delete" category: ~200+ KB
+
+================================================================================
+QUICK DELETION SCRIPT
+================================================================================
+
+# Phase 1: Safe directories (no dependencies)
+rm -rf platforms/unix/config/
+rm -rf platforms/unix/doc/
+rm -rf platforms/unix/misc/
+rm -rf platforms/unix/vm-display-Quartz/
+rm -rf platforms/unix/vm-sound-MacOSX/
+rm -f platforms/unix/ChangeLog README*
+
+# Phase 2: Verified unused files in vm/
+cd platforms/unix/vm/
+rm -f sqUnixGL.h debug.c
+rm -f sqUnixCharConv.c sqUnixCharConv.h
+rm -f sqUnixDisplayHelpers.c sqUnixDisplayHelpers.h
+rm -f sqUnixEvent.c sqUnixExternalPrims.c sqUnixGlobals.h
+rm -f sqUnixMain.c sqUnixMain.h sqUnixMemory.c
+rm -f dlfcn-dyld.c mac-alias.c osExports.c
+
+# Phase 3: Verify build still works
+cd /Users/Shared/Projects/opensmalltalk-vm/building/macos64ARMv8/squeak.stack.spur
+./mvm -f
+
+================================================================================

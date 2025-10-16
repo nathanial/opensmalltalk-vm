@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Script to ensure that platforms/Cross/vm/sqSCCSVersion.h has been updated
+# Script to ensure that platform/vm/sqSCCSVersion.h has been updated
 # We would like to run updateSCCSVersions automatically but this requires
 # git to be up-to-date, seems not to work on Cygin, etc.  Instead simply print
 # an error message and answer success. This script can be used in mvm
 
 PWD="`dirname $0`"
-VERSION_FILE="platforms/Cross/vm/sqSCCSVersion.h"
+VERSION_FILE="platform/vm/sqSCCSVersion.h"
 if fgrep '$Rev$' "$PWD/../$VERSION_FILE" ; then
 	echo "$VERSION_FILE not up-to-date." 1>&2
 	echo "You must run $PWD/updateSCCSVersions" 1>&2

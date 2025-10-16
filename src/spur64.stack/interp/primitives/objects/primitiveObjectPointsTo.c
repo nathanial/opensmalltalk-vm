@@ -1,0 +1,95 @@
+/* Extracted from interp.c:69105 (function primitiveObjectPointsTo). */
+
+/* LRPCheck */
+
+/*	This primitive is assumed to be fast (see e.g.
+        MethodDictionary>>includesKey:) so make it so.
+        N.B. Works correctly for cogged methods too. */
+
+/* StackInterpreterPrimitives>>#primitiveObjectPointsTo */
+
+static void primitiveObjectPointsTo(void) {
+  usqLong fmt;
+  sqLong header;
+  sqInt i;
+  sqInt methodHeader;
+  usqInt numSlots;
+  sqInt rcvr;
+  sqInt thang;
+  sqInt trueOrFalse;
+
+  thang = longAt(stackPointer);
+  rcvr = longAt(stackPointer + (1 * BytesPerWord));
+  if (((rcvr & (tagMask())) != 0)) {
+    /* begin pop:thenPushBool: */
+    popthenPushBool(2, falseObj);
+    return;
+  }
+
+  /* Inlined version of lastPointerOf: for speed in determining if rcvr is a
+   * context. */
+  header = long64At((void *)(rcvr));
+  fmt = (((usqLong)(header)) >> (formatShift())) & (formatMask());
+  if (fmt <= 5 /* lastPointerFormat */) {
+    if ((fmt == (indexablePointersFormat())) &&
+        ((header & (classIndexMask())) == ClassMethodContextCompactIndex)) {
+      if (((((fetchPointerofObject(SenderIndex, rcvr))) & 7) == 1)) {
+        externalWriteBackHeadFramePointers();
+        if (/* isStillMarriedContext: */
+            (((((longAt((
+                   void *)((rcvr + BaseHeaderSize) +
+                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+               7) == 1)) &&
+            (!(isWidowedContext(rcvr)))) {
+          trueOrFalse =
+              marriedContextpointsTostackDeltaForCurrentFrame(rcvr, thang, 2);
+
+          /* begin pop:thenPushBool: */
+          popthenPushBool(2, booleanObjectOf(trueOrFalse));
+          return;
+        }
+      }
+
+      /* contexts end at the stack pointer */
+      numSlots = CtxtTempFrameStart + (fetchStackPointerOf(rcvr));
+    } else {
+
+      numSlots = numSlotsOf(rcvr);
+    }
+  } else {
+    if (fmt < (firstCompiledMethodFormat())) {
+      /* begin pop:thenPushBool: */
+      popthenPushBool(2, falseObj);
+      return;
+    }
+
+    /* no pointers
+       CompiledMethod: contains both pointers and bytes: */
+
+    methodHeader = methodHeaderOf(rcvr);
+    if (methodHeader == thang) {
+      /* begin pop:thenPushBool: */
+      popthenPushBool(2, trueObj);
+      return;
+    }
+    numSlots = ((/* begin literalCountOfMethodHeader: */
+                 assert((((methodHeader) & 7) == 1)),
+                 /* literalCountOfAlternateHeader: */
+                 ((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask)) +
+               LiteralStart;
+  }
+  assert((((numSlots - 1) * BytesPerOop) + BaseHeaderSize) ==
+         (lastPointerOf(rcvr)));
+  for (i = BaseHeaderSize;
+       i <= (((numSlots - 1) * BytesPerOop) + BaseHeaderSize);
+       i += BytesPerOop) {
+    if ((longAt((void *)(rcvr + i))) == thang) {
+      /* begin pop:thenPushBool: */
+      popthenPushBool(2, trueObj);
+      return;
+    }
+  }
+
+  /* begin pop:thenPushBool: */
+  popthenPushBool(2, falseObj);
+}

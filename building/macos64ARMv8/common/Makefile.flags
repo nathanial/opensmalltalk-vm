@@ -10,7 +10,13 @@ XCUB:=$(XCODE)/usr/bin
 ifeq ($(realpath $(SDKsDIR)),)
 	# Settings for /Library/Developer/CommandLineTools
 	SDKsDIR:=$(XCODE)/SDKs
-	XCUB:=/usr/bin
+	# Command Line Tools detected - always use full Xcode.app for ibtool
+	# since ibtool requires full Xcode and cannot run with just CLT
+	ifeq ($(shell test -x /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool && echo yes),yes)
+		XCUB:=/Applications/Xcode.app/Contents/Developer/usr/bin
+	else
+		XCUB:=/usr/bin
+	endif
 endif
 #Build oldest installed SDK
 SDKs:=MacOSX.sdk
@@ -51,7 +57,7 @@ ifdef BIT_IDENTICAL_FLOATING_POINT
 CFLAGS:=$(CFLAGS) -DBIT_IDENTICAL_FLOATING_POINT=1
 endif
 
-CFLAGS:=$(CFLAGS) -DBUILD_FOR_OSX=1 -DUSE_METAL=1 -DUSE_CORE_GRAPHICS=1 \
+CFLAGS:=$(CFLAGS) -DBUILD_FOR_OSX=1 -DUSE_METAL=1 \
 		-arch $(TARGET_ARCH) \
 		-mmacosx-version-min=$(TARGET_VERSION_MIN) \
 		-fvisibility=default \
@@ -59,7 +65,7 @@ CFLAGS:=$(CFLAGS) -DBUILD_FOR_OSX=1 -DUSE_METAL=1 -DUSE_CORE_GRAPHICS=1 \
 		-fmessage-length=0 -fpascal-strings -fasm-blocks -fstrict-aliasing \
 		$(XCFLAGS) \
 		-isysroot $(SDK) \
-		-include $(PLATDIR)/iOS/vm/SqueakPureObjc_Prefix.pch
+		-include $(PLATDIR)/SqueakPureObjc_Prefix.pch
 
 BFLAGS:=-arch $(TARGET_ARCH) -mmacosx-version-min=$(TARGET_VERSION_MIN) \
 		-bundle \
@@ -86,6 +92,7 @@ WARNINGS:= -Wno-missing-field-initializers -Wno-missing-prototypes \
 FRAMEWORKS?=-fobjc-abi-version=3 \
 			-framework Foundation -framework OpenGL -framework Cocoa \
 			-framework AudioToolbox -framework CoreAudio -framework AVFoundation \
+			-framework CoreMedia -framework CoreVideo \
 			-framework SystemConfiguration \
 			-framework ApplicationServices -framework Security \
 			-framework QuartzCore \

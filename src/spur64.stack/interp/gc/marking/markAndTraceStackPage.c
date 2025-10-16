@@ -1,0 +1,61 @@
+/* Extracted from interp.c:57194 (function markAndTraceStackPage). */
+
+/* StackInterpreter>>#markAndTraceStackPage: */
+
+static void markAndTraceStackPage(StackPage *thePage) {
+  char *callerFP;
+  char *frameRcvrOffset;
+  sqInt oop;
+  char *theFP;
+  char *theSP;
+
+  callerFP = ((char *)0);
+  assert(!(isFree(thePage)));
+  assert(ifCurrentStackPageHasValidHeadPointers(thePage));
+  assert(((thePage->trace)) != StackPageTraced);
+  (thePage->trace = StackPageTraced);
+  theSP = (thePage->headSP);
+  theFP = (thePage->headFP);
+
+  /* Skip the instruction pointer on top of stack of inactive pages. */
+  if (!(thePage == stackPage)) {
+    theSP += BytesPerWord;
+  }
+  while (1) {
+    frameRcvrOffset = theFP + FoxReceiver;
+    while (theSP <= frameRcvrOffset) {
+      oop = longAt(theSP);
+      if (isOopForwarded(oop)) {
+        oop = followForwarded(oop);
+        longAtput(theSP, oop);
+      }
+      if (!(((oop & (tagMask())) != 0))) {
+        markAndTrace(oop);
+      }
+      theSP += BytesPerWord;
+    }
+    if (byteAt((theFP + FoxFrameFlags) + 2)) {
+      assert(isContext(frameContext(theFP)));
+      markAndTrace(frameContext(theFP));
+    }
+    markAndTrace(iframeMethod(theFP));
+    if (!(((callerFP = ((char *)(longAt(theFP + FoxSavedFP))))) != 0))
+      break;
+    theSP = (theFP + FoxCallerSavedIP) + BytesPerWord;
+    theFP = callerFP;
+  }
+
+  /* caller ip is frameCallerContext in a base frame */
+  theSP = theFP + FoxCallerSavedIP;
+  while (theSP <= ((thePage->baseAddress))) {
+    oop = longAt(theSP);
+    if (isOopForwarded(oop)) {
+      oop = followForwarded(oop);
+      longAtput(theSP, oop);
+    }
+    if (!(((oop & (tagMask())) != 0))) {
+      markAndTrace(oop);
+    }
+    theSP += BytesPerWord;
+  }
+}

@@ -78,7 +78,7 @@ compilers and libraries.  You will need a Mac OS X machine running at least
 new support for the Metal graphics system.  Alas Xcode 10.1 is the only version
 that will run on 10.13; go to https://developer.apple.com/download/more/ to
 obtain Xcode 10.1.  The version available on the app store requires MacOS 10.14.
-The system builds only the new Cocoa based VMs that use the platforms/iOS tree.
+The system builds only the new Cocoa based VMs that use the platforms/macOS tree.
 The old Carbon-based VMs using platforms/Mac OS are unsupported.
 
 1. Install the tools (Xcode etc).  If you want to sign the application make sure
@@ -136,11 +136,11 @@ Some external plugins require spport libraries.  In particular, the processor
 simulators used by VMMaker.oscog to develop the VM JITs, depend on C or C++
 code that implements a processor simulator.  See below.  Plugins that require
 extra support or special compilation have makefiles under
-platforms/iOS/plugins/, for example plugins/iOS/plugins/RePlugin/Makefile.
+src/plugins/FooPlugin/macos/, for example src/plugins/RePlugin/macos/Makefile.
 This Makefile sets some values and then includes common/Makefile.plugin to do
 the dirty work.  If you add an exotic plugin that requires such source please
 read the plugin makefile building/macos64x64/common/Makefile.plugin and the
-makefiles under plugins/iOS/plugins for examples of the facilities available.
+makefiles under src/plugins/*/macos for examples of the facilities available.
 
 The files in building/macos64x64/common are
 	Makefile.app
@@ -156,7 +156,7 @@ The files in building/macos64x64/common are
 		Defines the compilation flags and SDK to use in building the VM
 	Makefile.plugin
 		Makes either an internal FooPlugin.lib or an external FooPlugin.bundle.
-		If platforms/iOS/plugins/FooPlugin/Makefile exists Makefile.vm will
+		If src/plugins/FooPlugin/macos/Makefile exists Makefile.vm will
 		use it, and it should include Makefile.plugin to do the dirty work.
 	Makefile.rules
 		Defines the rules for compiling c, c++ and objective-c source files,
@@ -165,7 +165,7 @@ The files in building/macos64x64/common are
 		Makes the VM executable in the chosen configuration from product,
 		assert or debug.  Decodes plugins.int and plugins.ext and invokes
 		make with the relevant makefile, either a special one such as
-		platforms/iOS/plugins/RePlugin/Makefile or Makefile.plugin, for each
+		src/plugins/RePlugin/macos/Makefile or Makefile.plugin, for each
 		internal or external plugin.
 	mkNamedPrims.sh
 		This script makes sqNamedPrims.h which defines the exports from the set

@@ -1,0 +1,68 @@
+/* Extracted from interp.c:25137 (function
+ * primitiveTestAndSetOwnershipOfCriticalSection). */
+
+/*	Attempt to test-and-set the ownership of the critical section. If not
+        owned, set the owner to the current process and answer false. If owned
+   by the current process answer true. If owned by some other process answer
+        nil. For simulation if there is an argument it is taken to be the
+        effective activeProcess
+        (see Process>>effectiveProcess). */
+
+/* InterpreterPrimitives>>#primitiveTestAndSetOwnershipOfCriticalSection */
+
+static void primitiveTestAndSetOwnershipOfCriticalSection(void) {
+  sqInt activeProc;
+  sqInt criticalSection;
+  sqInt objOop;
+  sqInt owningProcess;
+  sqInt owningProcessIndex;
+  char *sp;
+
+  if (argumentCount > 0) {
+    /* rcvr */
+    criticalSection = longAt(stackPointer + (1 * BytesPerWord));
+    activeProc = longAt(stackPointer);
+    if (isOopForwarded(activeProc)) {
+      /* primitiveFailFor: */
+      primFailCode = PrimErrBadArgument;
+    }
+  } else {
+    /* rcvr */
+    criticalSection = longAt(stackPointer);
+
+    /* begin activeProcess */
+    objOop = fetchPointerofObject(
+        ValueIndex,
+        fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+    activeProc = fetchPointerofObject(ActiveProcessIndex, objOop);
+  }
+
+  /* CriticalSections are laid out like Semaphores */
+  owningProcessIndex = ExcessSignalsIndex;
+  owningProcess = fetchPointerofObject(owningProcessIndex, criticalSection);
+  if (owningProcess == nilObj) {
+    storePointerofObjectwithValue(owningProcessIndex, criticalSection,
+                                  activeProc);
+
+    /* begin methodReturnValue: */
+    assert(!((failed())));
+    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+              falseObj);
+    stackPointer = sp;
+    return;
+  }
+  if (owningProcess == activeProc) {
+    /* begin methodReturnValue: */
+    assert(!((failed())));
+    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+              trueObj);
+    stackPointer = sp;
+    return;
+  }
+
+  /* begin methodReturnValue: */
+  assert(!((failed())));
+  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+            nilObj);
+  stackPointer = sp;
+}

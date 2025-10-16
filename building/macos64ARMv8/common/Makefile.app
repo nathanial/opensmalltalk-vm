@@ -96,6 +96,12 @@ endif
 OSXICONS:=$(OSXDIR)/$(VM).icns $(wildcard $(OSXDIR)/$(SYSTEM)*.icns)
 VMICONS:=$(addprefix $(APP)/Contents/Resources/,$(notdir $(OSXICONS)))
 VMMENUNIB:=$(APP)/Contents/Resources/English.lproj/MainMenu.nib
+MAINMENUXIB:=$(firstword \
+	$(wildcard $(PLATDIR)/macOS/vm/English.lproj/$(SYSTEM)-MainMenu.xib) \
+	$(wildcard $(PLATDIR)/English.lproj/$(SYSTEM)-MainMenu.xib))
+ifeq ($(MAINMENUXIB),)
+$(error Unable to locate $(SYSTEM)-MainMenu.xib under $(PLATDIR))
+endif
 VMLOCALIZATION:=$(APP)/Contents/Resources/English.lproj/Localizable.strings
 SOURCES:=
 ifneq ($(SOURCEFILE),)
@@ -171,7 +177,7 @@ $(VMLOCALIZATION): $(OSXCOMMONDIR)/English.lproj/$(SYSTEM)-Localizable.strings
 	@mkdir -p $(dir $@)
 	cp -p $< $@
 
-$(VMMENUNIB): $(PLATDIR)/iOS/vm/English.lproj/$(SYSTEM)-MainMenu.xib
+$(VMMENUNIB): $(MAINMENUXIB)
 	@mkdir -p $(dir $@)
 	$(XCUB)/ibtool --errors --warnings --notices --module $(VM) \
 	--minimum-deployment-target $(TARGET_VERSION_MIN) \

@@ -1,0 +1,35 @@
+/* Extracted from interp.c:54458 (function handleForwardedSendFaultForTag). */
+
+/*	Handle a send fault that may be due to a send to a forwarded object.
+        Unforward the receiver on the stack and answer its actual class. */
+
+/* StackInterpreter>>#handleForwardedSendFaultForTag: */
+
+static sqInt handleForwardedSendFaultForTag(sqInt classTag) {
+  sqInt rcvr;
+  sqInt tagBits;
+
+  assert(isForwardedClassTag(classTag));
+  rcvr = longAt(stackPointer + (argumentCount * BytesPerWord));
+
+  /* should *not* be a super send, so the receiver should be forwarded. */
+  assert(isOopForwarded(rcvr));
+
+  rcvr = followForwarded(rcvr);
+
+  /* stackValue:put: */
+  longAtput(stackPointer + (argumentCount * BytesPerWord), rcvr);
+  followForwardedFrameContentsstackPointer(
+      framePointer, stackPointer + ((argumentCount + 1) * BytesPerWord));
+  if (/* isPointers: */
+      ((!((longAt(framePointer + FoxReceiver)) & (tagMask())))) &&
+      (((byteAt((void *)((longAt(framePointer + FoxReceiver)) +
+                         (formatFieldByteOffset())))) &
+        (formatMask())) <= 5 /* lastPointerFormat */)) {
+    followForwardedObjectFieldstoDepth(longAt(framePointer + FoxReceiver), 0);
+  }
+  return /* fetchClassTagOf: */
+      ((tagBits = rcvr & (tagMask()))
+           ? tagBits
+           : (longAt((void *)(rcvr))) & (classIndexMask()));
+}

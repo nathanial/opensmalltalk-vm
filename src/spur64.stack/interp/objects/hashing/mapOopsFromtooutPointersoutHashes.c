@@ -1,0 +1,222 @@
+/* Extracted from interp.c:39088 (function mapOopsFromtooutPointersoutHashes).
+ */
+
+/*	This is part of storeImageSegmentInto:outPointers:roots:.
+        Now scan, adding out pointers to the outPointersArray; all objects in
+        arrayOfObjects have had their first fields set to point to their copies
+   in segmentWordArray. Answer the outIndex if the scan succeded. Fail if
+   outPointers is too small and answer -1.
+
+        As established by copyObj:toAddr:startAt:stopAt:savedFirstFields:index:,
+        the marked bit is set for all objects in the segment
+        the remembered bit is set for all classes in the segment.
+
+        Class indices should be set as follows (see
+        assignClassIndicesAndPinFrom:to:outPointers:filling:) - class indices
+   for classes in the segment */
+
+/* SpurMemoryManager>>#mapOopsFrom:to:outPointers:outHashes: */
+
+static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
+                                               sqInt outPointerArray,
+                                               sqInt savedOutHashes) {
+  sqInt followingWord;
+  usqInt followingWordAddress;
+  sqInt hash;
+  sqInt heapOop;
+  sqInt i;
+  usqInt numSlots;
+  sqInt numSlotsSqInt;
+  sqInt objIndex;
+  sqInt objOop;
+  sqInt oop;
+  sqInt outIndex;
+  usqInt p;
+  sqInt segIndex;
+  sqInt toDoLimit;
+  usqInt toDoLimitUsqInt;
+  sqInt valueWord;
+  sqInt valueWordSqInt;
+
+  /* objIndex is for debugging; it mirrors indices in the sender's
+   * arrayOfObjects. */
+  outIndex = (objIndex = 0);
+  numSlotsSqInt = numSlotsOf(outPointerArray);
+
+  /* begin fillObj:numSlots:with: */
+  assert(oopisLessThan(
+      ((outPointerArray + BaseHeaderSize) + (numSlotsSqInt * BytesPerOop)) - 1,
+      addressAfter(outPointerArray)));
+  toDoLimitUsqInt = ((usqInt)(((outPointerArray + BaseHeaderSize) +
+                               (numSlotsSqInt * BytesPerOop)) -
+                              1));
+  for (p = (((usqInt)(outPointerArray + BaseHeaderSize))); p <= toDoLimitUsqInt;
+       p += 8 /* allocationUnit */) {
+    longAtput((void *)(p), nilObj);
+  }
+
+  /* begin objectStartingAt: */
+  numSlots = byteAt((void *)(segStart + (numSlotsFieldByteOffset())));
+  objOop =
+      (numSlots == (numSlotsMask()) ? segStart + BaseHeaderSize : segStart);
+  while (oopisLessThan(objOop, segAddr)) {
+    heapOop = fetchClassOfNonImm(objOop);
+
+    /* Set the classIndex of the instance.  This is a segment offset (segAddr -
+       segStart / allocationUnit) for instances of classes within the segment,
+       and an outPointer index (index in outPointers + TopHashBit) for classes
+       outside the segment. */
+    if ((byteAt((void *)(heapOop + (markBitsByteOffset())))) &
+        (1U << (markedBitByteShift()))) {
+      oop = fetchPointerofObject(0U, heapOop);
+      assert(oopisGreaterThanOrEqualToandLessThan(oop, segStart, segAddr));
+      segIndex =
+          ((oop - segStart) / 8 /* allocationUnit */) + (firstClassIndexPun());
+      if (((segIndex & TopHashBit) != 0)) {
+        return -1;
+      }
+    } else {
+      hash = (long32At((void *)(heapOop + 4))) & (identityHashHalfWordMask());
+      if (/* is:outPointerClassHashFor:in:limit: */
+          (((hash & TopHashBit) != 0)) &&
+          (((hash - TopHashBit) <= outIndex) &&
+           (heapOop ==
+            (fetchPointerofObject(hash - TopHashBit, outPointerArray))))) {
+        segIndex = hash;
+      } else {
+        /* begin newOutPointer:at:in:hashes: */
+        if (outIndex >= ((assert((classIndexOf(outPointerArray)) >
+                                 (isForwardedObjectClassIndexPun())),
+                          numSlotsOf(outPointerArray)))) {
+          outIndex = 0;
+          goto l2;
+        }
+
+        /* no room in outPointers; fail */
+
+        storePointerofObjectwithValue(outIndex, outPointerArray, heapOop);
+        valueWord =
+            (long32At((void *)(heapOop + 4))) & (identityHashHalfWordMask());
+
+        /* begin storeLong32:ofObject:withValue: */
+        long32Atput((void *)((savedOutHashes + BaseHeaderSize) +
+                             ((((usqInt)(outIndex) << 2)))),
+                    valueWord);
+        long32Atput(
+            (void *)(heapOop + 4),
+            ((((long32At((void *)(heapOop + 4))) |
+               (identityHashHalfWordMask())) -
+              (identityHashHalfWordMask()))) +
+                ((outIndex + TopHashBit) & (identityHashHalfWordMask())));
+        outIndex += 1;
+        /* end newOutPointer:at:in:hashes: */
+      l2:
+        if (!outIndex) {
+          return -1;
+        }
+
+        /* no room in outPointers; fail */
+        segIndex =
+            (long32At((void *)(heapOop + 4))) & (identityHashHalfWordMask());
+      }
+
+      /* oop is a new outPointer; allocate its oop */
+      assert(((segIndex & TopHashBit) != 0));
+    }
+
+    /* oop is a class in the segment; storeImageSegmentInto:outPointers:roots:
+       established offset is within range. oop is an outPointer; locate or
+       allocate its oop */
+
+    /* begin setClassIndexOf:to: */
+    assert(((segIndex >= 0) && (segIndex <= (classIndexMask()))));
+    longAtput((void *)(objOop), ((longAt((void *)(objOop))) &
+                                 (~(usqIntptr_t)(classIndexMask()))) +
+                                    segIndex);
+    toDoLimit = (numPointerSlotsOf(objOop)) - 1;
+    for (i = 0; i <= toDoLimit; i += 1) {
+      heapOop = fetchPointerofObject(i, objOop);
+      if ((!(heapOop & (tagMask())))) {
+        if ((byteAt((void *)(heapOop + (markBitsByteOffset())))) &
+            (1U << (markedBitByteShift()))) {
+          oop = fetchPointerofObject(0U, heapOop);
+          assert(oopisGreaterThanOrEqualToandLessThan(oop, segStart, segAddr));
+          oop -= segStart;
+        } else {
+          hash =
+              (long32At((void *)(heapOop + 4))) & (identityHashHalfWordMask());
+          if (/* is:outPointerClassHashFor:in:limit: */
+              (((hash & TopHashBit) != 0)) &&
+              (((hash - TopHashBit) <= outIndex) &&
+               (heapOop ==
+                (fetchPointerofObject(hash - TopHashBit, outPointerArray))))) {
+            oop = ((hash - TopHashBit) * BytesPerOop) + TopOopBit;
+          } else {
+            /* begin newOutPointer:at:in:hashes: */
+            if (outIndex >= ((assert((classIndexOf(outPointerArray)) >
+                                     (isForwardedObjectClassIndexPun())),
+                              numSlotsOf(outPointerArray)))) {
+              outIndex = 0;
+              goto l3;
+            }
+
+            /* no room in outPointers; fail */
+
+            storePointerofObjectwithValue(outIndex, outPointerArray, heapOop);
+            valueWordSqInt = (long32At((void *)(heapOop + 4))) &
+                             (identityHashHalfWordMask());
+
+            /* begin storeLong32:ofObject:withValue: */
+            long32Atput((void *)((savedOutHashes + BaseHeaderSize) +
+                                 ((((usqInt)(outIndex) << 2)))),
+                        valueWordSqInt);
+            long32Atput(
+                (void *)(heapOop + 4),
+                ((((long32At((void *)(heapOop + 4))) |
+                   (identityHashHalfWordMask())) -
+                  (identityHashHalfWordMask()))) +
+                    ((outIndex + TopHashBit) & (identityHashHalfWordMask())));
+            outIndex += 1;
+            /* end newOutPointer:at:in:hashes: */
+          l3:
+            if (!outIndex) {
+              return -1;
+            }
+
+            /* no room in outPointers; fail */
+            assert((((rawHashBitsOf(heapOop)) & TopHashBit) != 0));
+            oop = ((((long32At((void *)(heapOop + 4))) &
+                     (identityHashHalfWordMask())) -
+                    TopHashBit) *
+                   BytesPerOop) +
+                  TopOopBit;
+          }
+        }
+
+        /* oop is an object in the segment.
+           oop is an outPointer; locate or allocate its oop */
+
+        /* storeUncheckedNoAssert:ofAny:withValue: */
+        longAtput((void *)((objOop + BaseHeaderSize) +
+                           ((((usqInt)(i) << (shiftForWord()))))),
+                  oop);
+      }
+    }
+
+    /* begin objectAfter:limit: */
+    followingWordAddress = addressAfter(objOop);
+    if (oopisGreaterThanOrEqualTo(followingWordAddress, segAddr)) {
+      objOop = segAddr;
+      goto l1;
+    }
+    followingWord = longAt((void *)(followingWordAddress));
+    objOop = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) ==
+                      (numSlotsMask())
+                  ? followingWordAddress + BaseHeaderSize
+                  : followingWordAddress);
+    /* end objectAfter:limit: */
+  l1:
+    objIndex += 1;
+  }
+  return outIndex;
+}

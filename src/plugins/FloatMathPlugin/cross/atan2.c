@@ -1,0 +1,6 @@
+#if !BIT_IDENTICAL_FLOATING_POINT
+#include "ieee754names.h"
+
+#include "../../../../platform/third-party/fdlibm/e_atan2.c"
+
+#endif
