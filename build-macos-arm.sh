@@ -46,3 +46,5 @@ echo "Application: $BUILD_DIR/Squeak.app"
 echo ""
 echo "To run the app:"
 echo "  open $BUILD_DIR/Squeak.app"
+
+open $BUILD_DIR/Squeak.app
