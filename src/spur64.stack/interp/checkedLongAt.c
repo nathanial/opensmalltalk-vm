@@ -1,0 +1,15 @@
+/* Extracted from interp.c:32030 (function checkedLongAt). */
+
+sqInt
+checkedLongAt(sqInt byteAddress)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+	if (!(isInMemory(byteAddress))) {
+		warning("checkedLongAt bad address");
+
+		/* begin primitiveFail */
+		if (!GIV(primFailCode)) {
+			GIV(primFailCode) = 1;
+		}
+	}
+	return longAt((void *)(byteAddress));
+}

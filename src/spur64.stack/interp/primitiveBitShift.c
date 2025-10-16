@@ -1,0 +1,60 @@
+/* Extracted from interp.c:12937 (function primitiveBitShift). */
+
+static void
+primitiveBitShift(void)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt integerArgument;
+    sqInt integerReceiver;
+    sqInt shifted;
+    char *sp;
+
+	integerArgument = longAt(GIV(stackPointer));
+	if (!((((integerArgument) & 7) == 1))) {
+		/* begin primitiveFail */
+		if (!GIV(primFailCode)) {
+			GIV(primFailCode) = 1;
+		}
+		return;
+	}
+	integerReceiver = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	integerReceiver = signed64BitValueOf(integerReceiver);
+	if (!GIV(primFailCode)) {
+		if (((integerArgument = (integerArgument >> 3))) >= 0) {
+			if (!(integerArgument <= 61 /* numSmallIntegerBits */)) {
+				/* begin primitiveFail */
+				if (!GIV(primFailCode)) {
+					GIV(primFailCode) = 1;
+				}
+				return;
+			}
+			shifted = ((sqInt)((usqInt)(integerReceiver) << integerArgument));
+			if (!(integerReceiver == ((shifted) >> integerArgument))) {
+				/* begin primitiveFail */
+				if (!GIV(primFailCode)) {
+					GIV(primFailCode) = 1;
+				}
+				return;
+			}
+		}
+		else {
+			if (!(integerArgument >= (-61 /* numSmallIntegerBits */))) {
+				/* begin primitiveFail */
+				if (!GIV(primFailCode)) {
+					GIV(primFailCode) = 1;
+				}
+				return;
+			}
+			shifted = (integerReceiver) >> (0 - integerArgument);
+		}
+
+		/* Left shift -- must fail bits would be lost
+		   Right shift -- OK to lose bits */
+		shifted = ((((((usqInt)(shifted)) >> 60) + 1) & 15) <= 1
+					? (((usqInt)shifted << 3) | 1)
+					: signed64BitIntegerFor(shifted));
+
+		/* begin pop:thenPush: */
+		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),shifted);
+		GIV(stackPointer) = sp;
+	}
+}

@@ -1,0 +1,42 @@
+/* Extracted from interp.c:55304 (function isWidowedContextNoConvert). */
+
+static NoDbgRegParms sqInt
+isWidowedContextNoConvert(sqInt aOnceMarriedContext)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt anInteger;
+    sqInt senderOop;
+    char *shouldBeFrameCallerField;
+    char *theFrame;
+    StackPage *thePage;
+
+	assert((isContext(aOnceMarriedContext))
+	 && (isMarriedOrWidowedContext(aOnceMarriedContext)));
+
+	/* begin frameOfMarriedContext: */
+	senderOop = longAt((void *)((aOnceMarriedContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+	assert((((senderOop) & 7) == 1));
+	theFrame = ((char *)(senderOop - (smallIntegerTag())));
+
+	/* begin stackPageFor: */
+	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFrame, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+	if (!((isFree(thePage))
+		 || (theFrame < ((thePage->headFP))))) {
+		anInteger = longAt((void *)((aOnceMarriedContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))));
+
+		/* begin withoutSmallIntegerTags: */
+		assert((((anInteger) & 7) == 1));
+		shouldBeFrameCallerField = ((char *)(anInteger - (smallIntegerTag())));
+		if (((((char *)(longAt(theFrame + FoxSavedFP)))) == shouldBeFrameCallerField)
+		 && ((byteAt((theFrame + FoxFrameFlags) + 2)) != 0)) {
+			assert(!(((isFrameonPage(theFrame, thePage))
+ && (isForwarded(frameContext(theFrame))))));
+			if ((longAt(theFrame + FoxThisContext)) == aOnceMarriedContext) {
+				return 0;
+			}
+		}
+	}
+
+	/* The frame pointer is within the bounds of a live page.
+	   Now check if it matches a frame. */
+	return 1;
+}

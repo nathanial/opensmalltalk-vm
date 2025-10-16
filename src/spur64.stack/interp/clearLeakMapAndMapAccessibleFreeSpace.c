@@ -1,0 +1,41 @@
+/* Extracted from interp.c:33451 (function clearLeakMapAndMapAccessibleFreeSpace). */
+
+static void
+clearLeakMapAndMapAccessibleFreeSpace(void)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt followingWord;
+    usqInt followingWordAddress;
+    sqInt objOopSqInt;
+    sqInt prevObj;
+    sqInt prevPrevObj;
+
+	clearHeapMap();
+
+	/* begin allOldSpaceEntitiesFrom:do: */
+	assert(isOldObject(GIV(nilObj)));
+	prevPrevObj = (prevObj = null);
+	objOopSqInt = GIV(nilObj);
+	while (1) {
+		assert((objOopSqInt % (allocationUnit())) == 0);
+		if (!(oopisLessThan(objOopSqInt, GIV(endOfMemory)))) break;
+		assert((long64At((void *)(objOopSqInt))) != 0);
+		if (((longAt((void *)(objOopSqInt))) & (classIndexMask())) == (isFreeObjectClassIndexPun())) {
+			heapMapAtWordPut(pointerForOop(objOopSqInt), 1);
+		}
+		prevPrevObj = prevObj;
+		prevObj = objOopSqInt;
+
+		/* begin objectAfter:limit: */
+		followingWordAddress = addressAfter(objOopSqInt);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
+			objOopSqInt = GIV(endOfMemory);
+			goto l1;
+		}
+		followingWord = longAt((void *)(followingWordAddress));
+		objOopSqInt = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
+					? followingWordAddress + BaseHeaderSize
+					: followingWordAddress);
+		/* end objectAfter:limit: */
+l1:;
+	}
+}

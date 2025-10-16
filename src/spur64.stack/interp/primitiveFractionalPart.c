@@ -1,0 +1,36 @@
+/* Extracted from interp.c:16616 (function primitiveFractionalPart). */
+
+static void
+primitiveFractionalPart(void)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt aValue;
+    usqLong bits;
+    double doubleValue;
+    sqInt rcvr;
+    double trunc;
+
+	rcvr = longAt(GIV(stackPointer));
+
+	/* begin noFailFloatValueOf: */
+	assert(isFloatInstance(rcvr));
+	if (rcvr & (tagMask())) {
+		/* begin smallFloatValueOf: */
+		/* begin smallFloatBitsOf: */
+		assert(isImmediateFloat(rcvr));
+		bits = ((((usqInt)rcvr))) >> (numTagBits());
+		if (bits > 1) {
+			bits += (((usqInt)((smallFloatExponentOffset())) << ((smallFloatMantissaBits()) + 1)));
+		}
+
+		/* a.k.a. ~= +/-0.0 */
+		bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
+		memcpy((&doubleValue), (&bits), sizeof(doubleValue));
+	}
+	else {
+		fetchFloatAtinto(rcvr + BaseHeaderSize, doubleValue);
+	}
+	aValue = floatObjectOf(modf(doubleValue, (&trunc)));
+
+	/* begin stackTopPut: */
+	longAtput(GIV(stackPointer),aValue);
+}

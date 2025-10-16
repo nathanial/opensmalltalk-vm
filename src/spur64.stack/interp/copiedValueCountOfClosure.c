@@ -1,0 +1,23 @@
+/* Extracted from interp.c:51521 (function copiedValueCountOfClosure). */
+
+sqInt
+copiedValueCountOfClosure(sqInt closureObj)
+{
+    usqInt numSlots;
+
+	return (((((longAt((void *)((closureObj + BaseHeaderSize) + ((((usqInt)(ClosureStartPCIndex) << (shiftForWord())))))))) & 7) == 1)
+			? (/* begin copiedValueCountOfVanillaClosure: */
+				assert(isVanillaBlockClosure(closureObj)),
+			((/* begin numSlotsOf: */
+	assert((classIndexOf(closureObj)) > (isForwardedObjectClassIndexPun())),
+(((numSlots = byteAt((void *)(closureObj + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
+			? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(closureObj - BaseHeaderSize)))) << 8)))))) >> 8
+			: numSlots))) - ClosureFirstCopiedValueIndex)
+			: (/* begin copiedValueCountOfFullClosure: */
+				assert(!((isVanillaBlockClosure(closureObj)))),
+			((/* begin numSlotsOf: */
+	assert((classIndexOf(closureObj)) > (isForwardedObjectClassIndexPun())),
+(((numSlots = byteAt((void *)(closureObj + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
+			? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(closureObj - BaseHeaderSize)))) << 8)))))) >> 8
+			: numSlots))) - FullClosureFirstCopiedValueIndex));
+}

@@ -1,0 +1,55 @@
+/* Extracted from interp.c:57139 (function markAndTraceStackPages). */
+
+static NoDbgRegParms sqInt
+markAndTraceStackPages(sqInt fullGCFlag)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt context;
+    sqInt i;
+    void *pointer;
+    sqInt senderOop;
+    StackPage *thePage;
+
+
+	/* On an incremental GC simply consider all non-free stack pages to be roots. */
+	if (!fullGCFlag) {
+		for (i = 0; i < GIV(numStackPages); i += 1) {
+			/* begin stackPageAt: */
+			thePage = stackPageAtpages(i, GIV(pages));
+			if (!(isFree(thePage))) {
+				markAndTraceStackPage(thePage);
+			}
+		}
+		return null;
+	}
+
+	/* On a full GC only eagerly trace pages referenced from
+	   the base of the active page, i.e. on the active stack. */
+	if (!GIV(stackPage)) {
+		return null;
+	}
+	thePage = GIV(stackPage);
+	do {
+		markAndTraceStackPage(thePage);
+
+		/* begin frameCallerContext: */
+		assert(isBaseFrame((thePage->baseFP)));
+		context = longAt(((thePage->baseFP)) + FoxCallerContext);
+		if ((/* isContext: */
+			((!(context & (tagMask()))))
+		 && (((longAt((void *)(context))) & (classIndexMask())) == ClassMethodContextCompactIndex))
+		 && ((((((longAt((void *)((context + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
+		 && (/* isStillMarriedContext: */
+			(((((longAt((void *)((context + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
+		 && (!(isWidowedContext(context)))))) {
+			/* begin frameOfMarriedContext: */
+			senderOop = longAt((void *)((context + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+			assert((((senderOop) & 7) == 1));
+			pointer = ((char *)(senderOop - (smallIntegerTag())));
+
+			/* begin stackPageFor: */
+			thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(pointer, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+			assert(!(isFree(thePage)));
+		}
+	} while(((thePage->trace)) < StackPageTraced);
+	return 0;
+}

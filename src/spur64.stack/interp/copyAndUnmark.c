@@ -1,0 +1,66 @@
+/* Extracted from interp.c:47498 (function copyAndUnmark). */
+
+static NoDbgRegParms NeverInline void
+copyAndUnmark(sqInt firstPass)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt classIndex;
+    sqInt finalPass;
+    sqInt followingWord;
+    usqInt followingWordAddress;
+    sqInt objOopSqInt;
+    sqInt prevObj;
+    sqInt prevPrevObj;
+
+	if (firstPass) {
+		/* begin unmarkInitialImmobileObjects */
+		/* begin allOldSpaceObjectsFrom:do: */
+		/* begin allOldSpaceEntitiesFrom:do: */
+		assert(isOldObject(GIV(nilObj)));
+		prevPrevObj = (prevObj = null);
+		objOopSqInt = GIV(nilObj);
+		while (1) {
+			assert((objOopSqInt % (allocationUnit())) == 0);
+			if (!(oopisLessThan(objOopSqInt, GIV(endOfMemory)))) break;
+			assert((long64At((void *)(objOopSqInt))) != 0);
+
+			/* begin isEnumerableObject: */
+			classIndex = (longAt((void *)(objOopSqInt))) & (classIndexMask());
+			assert((classIndex == (segmentBridgePun()))
+			 || ((classIndex == (isForwardedObjectClassIndexPun()))
+			 || (((long64At((void *)(objOopSqInt))) != 0)
+			 && (classIndex < (GIV(numClassTablePages) * (classTablePageSize()))))));
+			if (classIndex >= (isForwardedObjectClassIndexPun())) {
+				if (oopisGreaterThanOrEqualTo(objOopSqInt, GIV(firstMobileObject))) {
+					goto l2;
+				}
+
+				/* begin setIsMarkedOf:to: */
+				assert(!(isFreeObject(objOopSqInt)));
+				byteAtput((void *)(objOopSqInt + (markBitsByteOffset())),(byteAt((void *)(objOopSqInt + (markBitsByteOffset())))) & (0xFF - (1U << (markedBitByteShift()))));
+			}
+			prevPrevObj = prevObj;
+			prevObj = objOopSqInt;
+
+			/* begin objectAfter:limit: */
+			followingWordAddress = addressAfter(objOopSqInt);
+			if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
+				objOopSqInt = GIV(endOfMemory);
+				goto l1;
+			}
+			followingWord = longAt((void *)(followingWordAddress));
+			objOopSqInt = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
+						? followingWordAddress + BaseHeaderSize
+						: followingWordAddress);
+			/* end objectAfter:limit: */
+l1:;
+		}
+		/* end unmarkInitialImmobileObjects */
+l2:;
+	}
+	finalPass = copyAndUnmarkMobileObjects();
+	if ((GIV(lastMobileObject))
+	 && ((!finalPass)
+	 && (GIV(biasForGC)))) {
+		unmarkObjectsFromFirstFreeObject();
+	}
+}

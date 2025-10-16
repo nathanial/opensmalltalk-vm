@@ -1,0 +1,99 @@
+/* Extracted from interp.c:29524 (function accessibleObjectAfter). */
+
+static NoDbgRegParms sqInt
+accessibleObjectAfter(sqInt objOop)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt address;
+    sqInt followingWord;
+    usqInt followingWordAddress;
+    usqInt numSlots;
+    sqInt objAfter;
+
+	objAfter = objOop;
+	if (oopisLessThan(objAfter, GIV(nilObj))) {
+		assert((isInEden(objOop))
+		 || (isInPastSpace(objOop)));
+		if (oopisGreaterThan(objAfter, GIV(pastSpaceStart))) {
+			while (1) {
+				/* begin objectAfter:limit: */
+				followingWordAddress = addressAfter(objAfter);
+				if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(freeStart))) {
+					objAfter = GIV(freeStart);
+					goto l1;
+				}
+				followingWord = longAt((void *)(followingWordAddress));
+				objAfter = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
+							? followingWordAddress + BaseHeaderSize
+							: followingWordAddress);
+				/* end objectAfter:limit: */
+l1:;
+				if (!(oopisLessThan(objAfter, GIV(freeStart)))) break;
+				if (((longAt((void *)(objAfter))) & (classIndexMask())) > (lastClassIndexPun())) {
+					return objAfter;
+				}
+			}
+
+			/* There wasn't a next object in eden. If past space is empty answer nilObj. */
+			if (GIV(pastSpaceStart) <= (((GIV(pastSpace)).start))) {
+				return GIV(nilObj);
+			}
+
+			/* If the first object in pastSpace is OK, answer it, otherwise fall through to enumerate past space. */
+			address = ((GIV(pastSpace)).start);
+
+			/* begin objectStartingAt: */
+			numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
+			objAfter = (numSlots == (numSlotsMask())
+						? address + BaseHeaderSize
+						: address);
+			if (((longAt((void *)(objAfter))) & (classIndexMask())) > (lastClassIndexPun())) {
+				return objAfter;
+			}
+		}
+
+		/* Obj is in eden.  Answer next normal object in eden, if there is one.
+		   Either objOop was in pastSpace, or enumeration exhaused eden, so enumerate past space. */
+		while (1) {
+			/* begin objectAfter:limit: */
+			followingWordAddress = addressAfter(objAfter);
+			if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(pastSpaceStart))) {
+				objAfter = GIV(pastSpaceStart);
+				goto l2;
+			}
+			followingWord = longAt((void *)(followingWordAddress));
+			objAfter = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
+						? followingWordAddress + BaseHeaderSize
+						: followingWordAddress);
+			/* end objectAfter:limit: */
+l2:;
+			if (!(oopisLessThan(objAfter, GIV(pastSpaceStart)))) break;
+			if (((longAt((void *)(objAfter))) & (classIndexMask())) > (lastClassIndexPun())) {
+				return objAfter;
+			}
+		}
+		return GIV(nilObj);
+	}
+
+	/* object in new space */
+	while (1) {
+		/* begin objectAfter:limit: */
+		followingWordAddress = addressAfter(objAfter);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
+			objAfter = GIV(endOfMemory);
+			goto l3;
+		}
+		followingWord = longAt((void *)(followingWordAddress));
+		objAfter = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
+					? followingWordAddress + BaseHeaderSize
+					: followingWordAddress);
+		/* end objectAfter:limit: */
+l3:
+		if (objAfter == GIV(endOfMemory)) {
+			return null;
+		}
+		if (((longAt((void *)(objAfter))) & (classIndexMask())) > (lastClassIndexPun())) {
+			return objAfter;
+		}
+	}
+	return 0;
+}

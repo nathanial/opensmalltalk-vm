@@ -1,0 +1,61 @@
+/* Extracted from interp.c:22232 (function primitiveSetLogDirectory). */
+
+EXPORT(sqInt)
+primitiveSetLogDirectory(void)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt fmt;
+    usqInt numBytes;
+    usqInt numSlots;
+    sqInt stringOop;
+    sqInt sz;
+
+	stringOop = longAt(GIV(stackPointer));
+	if (!(/* isBytes: */
+			((!(stringOop & (tagMask()))))
+		 && (((byteAt((void *)(stringOop + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat())))) {
+		/* begin success: */
+		if (!GIV(primFailCode)) {
+			GIV(primFailCode) = 1;
+		}
+		return null;
+	}
+
+	/* begin byteSizeOf: */
+	if (((stringOop & (tagMask())) != 0)) {
+		sz = 0;
+		goto l1;
+	}
+
+	/* begin numBytesOf: */
+	fmt = (byteAt((void *)(stringOop + (formatFieldByteOffset())))) & (formatMask());
+	assert((classIndexOf(stringOop)) > (isForwardedObjectClassIndexPun()));
+	numBytes = (((numSlots = byteAt((void *)(stringOop + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
+				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(stringOop - BaseHeaderSize)))) << 8)))))) >> 8
+				: numSlots);
+	numBytes = (numBytes << (shiftForWord()));
+	if (fmt >= (firstByteFormat())) {
+		sz = numBytes - (fmt & 7);
+		goto l1;
+	}
+
+	/* bytes (the common case), including CompiledMethod */
+	if (fmt <= (sixtyFourBitIndexableFormat())) {
+		sz = numBytes;
+		goto l1;
+	}
+	if (fmt >= (firstShortFormat())) {
+		sz = numBytes - (((fmt & 3) << 1));
+		goto l1;
+	}
+
+	/* fmt >= self firstLongFormat */
+	sz = numBytes - (((fmt & 1) << 2));
+	/* end byteSizeOf: */
+l1:
+	ioSetLogDirectoryOfSize(firstIndexableField(stringOop), sz);
+	if (!GIV(primFailCode)) {
+		/* begin pop: */
+		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+	}
+	return 0;
+}

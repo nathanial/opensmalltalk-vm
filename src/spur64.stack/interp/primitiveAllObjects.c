@@ -1,0 +1,26 @@
+/* Extracted from interp.c:11790 (function primitiveAllObjects). */
+
+EXPORT(void)
+primitiveAllObjects(void)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt delta;
+    sqInt result;
+    char *sp;
+
+	result = allObjects();
+	if ((((result) & 7) == 1)) {
+		/* begin growToAccomodateContainerWithNumSlots: */
+		delta = (BaseHeaderSize * 2) + (((result >> 3)) * BytesPerOop);
+		growOldSpaceByAtLeast(((GIV(growHeadroom) < delta) ? delta : GIV(growHeadroom)));
+		result = allObjects();
+		if ((((result) & 7) == 1)) {
+			/* primitiveFailFor: */
+			GIV(primFailCode) = PrimErrNoMemory;
+			return;
+		}
+	}
+
+	/* begin pop:thenPush: */
+	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),result);
+	GIV(stackPointer) = sp;
+}

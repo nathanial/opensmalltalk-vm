@@ -1,0 +1,7 @@
+/* Extracted from interp.c:33156 (function classExternalStructure). */
+
+sqInt
+classExternalStructure(void)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+	return longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassExternalStructure) << (shiftForWord()))))));
+}

@@ -1,0 +1,104 @@
+/* Extracted from interp.c:42255 (function pinObject). */
+
+sqInt
+pinObject(sqInt objOop)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt i;
+    sqInt oldClone;
+    sqInt referent;
+    SpurSegmentInfo *seg;
+
+	assert(isNonImmediate(objOop));
+	assert(!((isForwarded(objOop))));
+
+	/* We choose to clone to keep pinned objects together to reduce fragmentation,
+	   if the object is not too large, assuming that pinning is rare and that fragmentation is a bad thing.
+	   Too large is defined as over 1mb.  The size of a 640x480x4 bitmap is 1228800. */
+
+	/* begin isOldObject: */
+	assert(isNonImmediate(objOop));
+	if (oopisGreaterThanOrEqualTo(objOop, GIV(oldSpaceStart))) {
+		if ((numBytesOf(objOop)) > (0x100000)) {
+			setIsPinnedOfto(objOop, 1);
+			return objOop;
+		}
+		seg = segmentContainingObj(objOop);
+		if ((seg->containsPinned)) {
+			setIsPinnedOfto(objOop, 1);
+			return objOop;
+		}
+
+		/* begin someSegmentContainsPinned */
+		for (i = 0; i < GIV(numSegments); i += 1) {
+			if (((GIV(segments)[i]).containsPinned)) {
+				goto l1;
+			}
+		}
+		setIsPinnedOfto(objOop, 1);
+		(seg->containsPinned = 1);
+		return objOop;
+l1:;
+	}
+	oldClone = cloneInOldSpaceforPinning(objOop, 1);
+	if (oldClone) {
+		GIV(becomeEffectsFlags) = becomeEffectFlagsFor(objOop);
+		setIsPinnedOfto(oldClone, 1);
+
+		/* begin forward:to: */
+		/* begin set:classIndexTo:formatTo: */
+		assert((((isForwardedObjectClassIndexPun()) >= 0) && ((isForwardedObjectClassIndexPun()) <= (classIndexMask()))));
+		assert((((forwardedFormat()) >= 0) && ((forwardedFormat()) <= (formatMask()))));
+		longAtput((void *)(objOop),((longAt((void *)(objOop))) & (~(usqIntptr_t)(((((usqInt)((formatMask())) << (formatShift())))) + (classIndexMask())))) + ((isForwardedObjectClassIndexPun()) + ((((usqInt)((forwardedFormat())) << (formatShift()))))));
+#    if IMMUTABILITY
+		/* begin setIsImmutableOf:to: */
+		longAtput((void *)(objOop),(longAt((void *)(objOop))) & (~(usqIntptr_t)(1U << (immutableBitShift()))));
+#    endif // IMMUTABILITY
+
+		assert(isForwarded(objOop));
+		assert(!(isOopForwarded(oldClone)));
+
+		/* begin isOldObject: */
+		assert(isNonImmediate(objOop));
+		if (oopisGreaterThanOrEqualTo(objOop, GIV(oldSpaceStart))) {
+			if (/* isYoung: */
+				((!(oldClone & (tagMask()))))
+			 && (oopisLessThan(oldClone, GIV(oldSpaceStart)))) {
+				/* begin possibleRootStoreInto: */
+				if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+					remember(objOop);
+				}
+			}
+		}
+
+		/* most stores into young objects */
+		longAtput((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))),oldClone);
+
+		/* For safety make sure the forwarder has a slot count that includes its contents. */
+		if (!(byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) {
+			/* rawNumSlotsOf:put: */
+			byteAtput((void *)(objOop + (numSlotsFieldByteOffset())),1);
+		}
+
+		/* begin followSpecialObjectsOop */
+		if ((!((longAt((void *)(GIV(specialObjectsOop)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
+			GIV(validatedIntegerClassFlags) = 0;
+
+			/* begin followForwarded: */
+			assert(isUnambiguouslyForwarder(GIV(specialObjectsOop)));
+			referent = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + (0U << (shiftForWord()))));
+			while (/* isOopForwarded: */
+				((!(referent & (tagMask()))))
+			 && ((!((longAt((void *)(referent))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+				referent = longAt((void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
+			}
+			GIV(specialObjectsOop) = referent;
+		}
+		followForwardedObjectFieldstoDepth(GIV(specialObjectsOop), 0);
+
+		/* begin postBecomeAction: */
+		spurPostBecomeAction(GIV(becomeEffectsFlags));
+		postBecomeScanClassTable(GIV(becomeEffectsFlags));
+		GIV(becomeEffectsFlags) = 0;
+	}
+	return oldClone;
+}

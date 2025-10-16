@@ -1,0 +1,34 @@
+/* Extracted from interp.c:58085 (function nameOfClasslengthInto). */
+
+static NoDbgRegParms char *
+nameOfClasslengthInto(sqInt classOop, sqInt *lengthPtr)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt maybeNameOop;
+    sqInt maybeThisClassOop;
+    usqInt numSlots;
+    usqInt numSlotsUsqInt;
+
+	/* begin numSlotsOf: */
+	assert((classIndexOf(classOop)) > (isForwardedObjectClassIndexPun()));
+	numSlots = (((numSlotsUsqInt = byteAt((void *)(classOop + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
+				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(classOop - BaseHeaderSize)))) << 8)))))) >> 8
+				: numSlotsUsqInt);
+	if (numSlots == GIV(metaclassNumSlots)) {
+		maybeThisClassOop = longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(GIV(thisClassIndex)) << (shiftForWord()))))));
+		if (addressCouldBeClassObj(maybeThisClassOop)) {
+			return nameOfClasslengthInto(longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(GIV(thisClassIndex)) << (shiftForWord())))))), lengthPtr);
+		}
+		lengthPtr[0] = 9;
+		return "bad class";
+	}
+	if ((numSlots > GIV(classNameIndex))
+	 && (((maybeNameOop = longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(GIV(classNameIndex)) << (shiftForWord()))))))),
+	/* isBytes: */
+		((!(maybeNameOop & (tagMask()))))
+		 && (((byteAt((void *)(maybeNameOop + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat()))))) {
+		lengthPtr[0] = (numBytesOfBytes(maybeNameOop));
+		return firstIndexableField(maybeNameOop);
+	}
+	lengthPtr[0] = 9;
+	return "bad class";
+}

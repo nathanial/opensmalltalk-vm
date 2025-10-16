@@ -1,0 +1,34 @@
+/* Extracted from interp.c:31025 (function allocateSlotsInOldSpacebytesformatclassIndex). */
+
+static NoDbgRegParms sqInt
+allocateSlotsInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt totalBytes, sqInt formatField, sqInt classIndex)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt chunk;
+
+	if ((chunk = allocateOldSpaceChunkOfBytes(totalBytes))) {
+		if (numSlots >= (numSlotsMask())) {
+			long64Atput((void *)(chunk),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
+			long64Atput((void *)(chunk + BaseHeaderSize),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)(formatField) << (formatShift()))))) + classIndex);
+
+			/* begin checkFreeSpace:ignoring: */
+			assert(bitsSetInFreeSpaceMaskForAllFreeLists());
+			assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+			if (((checkForLeaks & (GCCheckFreeSpace | GCModeNewSpace)) == (GCCheckFreeSpace | GCModeNewSpace))) {
+				runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, chunk + BaseHeaderSize);
+			}
+			return chunk + BaseHeaderSize;
+		}
+
+		/* for header parsing we put a saturated slot count in the prepended overflow size word */
+		long64Atput((void *)(chunk),((((((usqLong) numSlots)) << (numSlotsFullShift()))) + ((((usqInt)(formatField) << (formatShift()))))) + classIndex);
+
+		/* begin checkFreeSpace:ignoring: */
+		assert(bitsSetInFreeSpaceMaskForAllFreeLists());
+		assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+		if (((checkForLeaks & (GCCheckFreeSpace | GCModeNewSpace)) == (GCCheckFreeSpace | GCModeNewSpace))) {
+			runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, chunk);
+		}
+		return chunk;
+	}
+	return 0;
+}

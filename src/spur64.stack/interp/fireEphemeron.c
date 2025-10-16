@@ -1,0 +1,15 @@
+/* Extracted from interp.c:35320 (function fireEphemeron). */
+
+static NoDbgRegParms void
+fireEphemeron(sqInt ephemeron)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+	queueMourner(ephemeron);
+
+	/* begin setFormatOf:to: */
+	assert((((nonIndexablePointerFormat()) >= 0) && ((nonIndexablePointerFormat()) <= (formatMask()))));
+	byteAtput((void *)(ephemeron + (formatFieldByteOffset())),((byteAt((void *)(ephemeron + (formatFieldByteOffset())))) & (0xFF - (formatMask()))) + (nonIndexablePointerFormat()));
+
+	/* begin signalFinalization: */
+	forceInterruptCheck();
+	GIV(pendingFinalizationSignals) += 1;
+}

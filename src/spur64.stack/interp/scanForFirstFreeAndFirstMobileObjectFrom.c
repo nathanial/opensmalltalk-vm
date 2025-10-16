@@ -1,0 +1,52 @@
+/* Extracted from interp.c:48003 (function scanForFirstFreeAndFirstMobileObjectFrom). */
+
+static NoDbgRegParms sqInt
+scanForFirstFreeAndFirstMobileObjectFrom(sqInt initialObject)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt firstFree;
+    sqInt followingWord;
+    usqInt followingWordAddress;
+    sqInt objOop;
+    sqInt prevObj;
+    sqInt prevPrevObj;
+
+	firstFree = 0;
+	GIV(firstMobileObject) = GIV(endOfMemory);
+
+	/* begin allOldSpaceEntitiesFrom:do: */
+	assert(isOldObject(initialObject));
+	prevPrevObj = (prevObj = null);
+	objOop = initialObject;
+	while (1) {
+		assert((objOop % (allocationUnit())) == 0);
+		if (!(oopisLessThan(objOop, GIV(endOfMemory)))) break;
+		assert((long64At((void *)(objOop))) != 0);
+		if ((byteAt((void *)(objOop + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) {
+			if (firstFree) {
+				GIV(firstMobileObject) = objOop;
+				return firstFree;
+			}
+		}
+		else {
+			if (!firstFree) {
+				firstFree = objOop;
+			}
+		}
+		prevPrevObj = prevObj;
+		prevObj = objOop;
+
+		/* begin objectAfter:limit: */
+		followingWordAddress = addressAfter(objOop);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
+			objOop = GIV(endOfMemory);
+			goto l1;
+		}
+		followingWord = longAt((void *)(followingWordAddress));
+		objOop = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
+					? followingWordAddress + BaseHeaderSize
+					: followingWordAddress);
+		/* end objectAfter:limit: */
+l1:;
+	}
+	return firstFree;
+}

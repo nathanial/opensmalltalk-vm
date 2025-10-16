@@ -1,0 +1,8 @@
+/* Extracted from interp.c:58310 (function pop). */
+
+sqInt
+pop(sqInt nItems)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+	GIV(stackPointer) += nItems * BytesPerWord;
+	return null;
+}

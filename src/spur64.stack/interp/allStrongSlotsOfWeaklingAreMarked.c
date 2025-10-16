@@ -1,0 +1,20 @@
+/* Extracted from interp.c:31074 (function allStrongSlotsOfWeaklingAreMarked). */
+
+static NoDbgRegParms sqInt
+allStrongSlotsOfWeaklingAreMarked(sqInt aWeakling)
+{
+    sqInt i;
+    sqInt referent;
+    sqInt toDoLimit;
+
+	toDoLimit = (numStrongSlotsOfWeakling(aWeakling)) - 1;
+	for (i = 0; i <= toDoLimit; i += 1) {
+		referent = longAt((void *)((aWeakling + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
+		if ((!(referent & (tagMask())))) {
+			if (!((byteAt((void *)(referent + (markBitsByteOffset())))) & (1U << (markedBitByteShift())))) {
+				return 0;
+			}
+		}
+	}
+	return 1;
+}

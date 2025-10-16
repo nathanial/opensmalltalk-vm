@@ -1,0 +1,33 @@
+/* Extracted from interp.c:63240 (function shortPrintFrame). */
+
+static NoDbgRegParms sqInt
+shortPrintFrame(char *theFP)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    usqInt frameNumArgs;
+    sqInt rcvr;
+
+	if (!(/* couldBeFramePointer: */
+			(((((usqInt)theFP)) & (BytesPerWord - 1)) == 0)
+		 && ((((((usqInt)theFP)) >= (((usqInt)GIV(stackMemory)))) && ((((usqInt)theFP)) <= (((usqInt)GIV(pages)))))))) {
+		/* begin print: */
+		fprintf(GIV(transcript),
+				"%s",
+				"invalid frame pointer");
+		cr();
+		return null;
+	}
+	rcvr = longAt(theFP + FoxReceiver);
+	printHexPtrnp(theFP);
+
+	/* begin space */
+	printChar(' ');
+	printActivationNameForreceiverisBlockfirstTemporary(longAt(theFP + FoxMethod), rcvr, (byteAt((theFP + FoxFrameFlags) + 3)) != 0, /* temporary:in: */
+		(0 < ((frameNumArgs = byteAt((theFP + FoxFrameFlags) + 1)))
+			? longAt((theFP + FoxCallerSavedIP) + ((frameNumArgs) * BytesPerWord))
+			: longAt(((theFP + FoxReceiver) - BytesPerWord) + ((frameNumArgs) * BytesPerWord))));
+
+	/* begin space */
+	printChar(' ');
+	shortPrintOop(rcvr);
+	return 0;
+}

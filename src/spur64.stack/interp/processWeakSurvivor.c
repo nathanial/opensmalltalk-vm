@@ -1,0 +1,94 @@
+/* Extracted from interp.c:28771 (function processWeakSurvivor). */
+
+static NoDbgRegParms sqInt
+processWeakSurvivor(sqInt weakObj)
+{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+    sqInt classFormat;
+    sqInt classPointer;
+    sqInt hasYoungReferents;
+    sqInt i;
+    usqInt numSlots;
+    sqInt numStrongSlots;
+    sqInt referent;
+    sqInt referentSqInt;
+    sqInt toDoLimit;
+    sqInt weakObjShouldMourn;
+
+	weakObjShouldMourn = (hasYoungReferents = 0);
+
+	/* N.B. generateToByDoLimitExpression:negative:on: guards against (unsigned)0 - 1 going +ve */
+
+	/* begin numFixedSlotsOf: */
+	classPointer = fetchClassOfNonImm(weakObj);
+	classFormat = ((longAt((void *)((classPointer + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3);
+	numStrongSlots = classFormat & ((1U << (fixedFieldsFieldWidth())) - 1);
+	for (i = 0; i < numStrongSlots; i += 1) {
+		referent = longAt((void *)((weakObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
+		if (((!(referent & (tagMask()))))
+		 && ((/* begin isYoungObject: */
+			assert(isNonImmediate(referent)),
+		oopisLessThan(referent, GIV(oldSpaceStart))))) {
+			hasYoungReferents = 1;
+		}
+	}
+	toDoLimit = ((/* begin numSlotsOf: */
+	assert((classIndexOf(weakObj)) > (isForwardedObjectClassIndexPun())),
+(((numSlots = byteAt((void *)(weakObj + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
+			? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(weakObj - BaseHeaderSize)))) << 8)))))) >> 8
+			: numSlots))) - 1;
+	for (i = numStrongSlots; i <= toDoLimit; i += 1) {
+		referent = longAt((void *)((weakObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
+
+		/* Referent could be forwarded due to scavenging or a become:, don't assume. */
+		if ((!(referent & (tagMask())))) {
+			if ((!((longAt((void *)(referent))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
+				/* begin followForwarded: */
+				assert(isUnambiguouslyForwarder(referent));
+				referentSqInt = longAt((void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
+				while (/* isOopForwarded: */
+					((!(referentSqInt & (tagMask()))))
+				 && ((!((longAt((void *)(referentSqInt))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+					referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) + (0U << (shiftForWord()))));
+				}
+				referent = referentSqInt;
+
+				/* weakObj is either young or already in remembered table; no need to check */
+				assert((isReallyYoungObject(weakObj))
+				 || (isRemembered(weakObj)));
+
+				/* begin storePointerUnchecked:ofObject:withValue: */
+				assert((isNonImmediate(weakObj))
+				 && (!(isForwarded(weakObj))));
+				assert(validStorePointerUncheckedArgs(i, weakObj, referent));
+				longAtput((void *)((weakObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),referent);
+			}
+			if (isMaybeOldScavengeSurvivor(referent)) {
+				/* begin isYoungObject: */
+				assert(isNonImmediate(referent));
+				if (oopisLessThan(referent, GIV(oldSpaceStart))) {
+					hasYoungReferents = 1;
+				}
+			}
+			else {
+				weakObjShouldMourn = 1;
+
+				/* begin storePointerUnchecked:ofObject:withValue: */
+				assert((isNonImmediate(weakObj))
+				 && (!(isForwarded(weakObj))));
+				assert(validStorePointerUncheckedArgs(i, weakObj, GIV(nilObj)));
+				longAtput((void *)((weakObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),GIV(nilObj));
+			}
+		}
+	}
+	if (weakObjShouldMourn) {
+		/* begin fireFinalization: */
+		if (GIV(newFinalization)) {
+			queueMourner(weakObj);
+		}
+
+		/* begin signalFinalization: */
+		forceInterruptCheck();
+		GIV(pendingFinalizationSignals) += 1;
+	}
+	return hasYoungReferents;
+}
