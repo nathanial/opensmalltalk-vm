@@ -12,7 +12,6 @@
 sqInt sizeOfSTArrayFromCPrimitive(void *cPtr) {
   sqInt fmt;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt oop;
 
   oop = (oopForPointer(cPtr)) - BaseHeaderSize;
@@ -27,14 +26,7 @@ sqInt sizeOfSTArrayFromCPrimitive(void *cPtr) {
 
   /* begin lengthOf: */
   fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-  numSlotsUsqInt = byteAt((void *)(oop + (numSlotsFieldByteOffset())));
-  numSlots =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots = numSlotsOfAny(oop);
   if (fmt <= (ephemeronFormat())) {
     return numSlots;
   }

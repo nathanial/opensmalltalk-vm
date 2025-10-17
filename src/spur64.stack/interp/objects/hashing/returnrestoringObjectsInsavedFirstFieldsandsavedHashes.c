@@ -12,7 +12,6 @@ static sqInt returnrestoringObjectsInsavedFirstFieldsandsavedHashes(
   sqInt hash;
   sqInt i;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt oop;
   sqInt toDoLimit;
   sqInt valuePointer;

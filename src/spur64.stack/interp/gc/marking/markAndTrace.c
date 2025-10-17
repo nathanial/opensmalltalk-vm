@@ -18,7 +18,6 @@ NeverInline void markAndTrace(sqInt objOop) {
   sqInt index;
   usqInt numLiterals;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt numStrongSlots;
   sqInt objOop1;
   sqInt objOopSqInt;

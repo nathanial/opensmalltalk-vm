@@ -24,7 +24,6 @@ void longPrintOop(sqInt oop) {
   sqInt n;
   usqInt numLiterals;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt objOop;
   sqInt oopClass;
   sqInt sp;
@@ -70,14 +69,7 @@ void longPrintOop(sqInt oop) {
       /* begin lengthOf: */
       fmtSqInt =
           (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-      numSlotsUsqInt = byteAt((void *)(oop + (numSlotsFieldByteOffset())));
-      numSlots =
-          (numSlotsUsqInt == (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlotsUsqInt);
+      numSlots = numSlotsOfAny(oop);
       if (fmtSqInt <= (ephemeronFormat())) {
         length = numSlots;
         goto l1;
@@ -328,14 +320,7 @@ l3:
     /* begin lengthOf: */
     fmtSqInt =
         (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-    numSlotsUsqInt = byteAt((void *)(oop + (numSlotsFieldByteOffset())));
-    numSlots =
-        (numSlotsUsqInt == (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlotsUsqInt);
+    numSlots = numSlotsOfAny(oop);
     if (fmtSqInt <= (ephemeronFormat())) {
       lastIndex = numSlots;
       goto l4;

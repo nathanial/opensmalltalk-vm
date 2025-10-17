@@ -21,7 +21,6 @@ static sqInt markInactiveEphemerons(void) {
   sqInt key;
   usqInt numLiterals;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt numStrongSlots;
   sqInt objOop;
   sqInt objOop1;

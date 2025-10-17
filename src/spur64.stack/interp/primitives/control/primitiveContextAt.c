@@ -17,7 +17,6 @@ static void primitiveContextAt(void) {
   sqLong hdrSqLong;
   sqInt index;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt senderOop;
   char *sp;
   char *spouseFP;
@@ -48,15 +47,7 @@ static void primitiveContextAt(void) {
 
     /* begin lengthOf:baseHeader:format: */
     /* begin lengthOf:format: */
-    /* begin numSlotsOfAny: */
-    numSlotsUsqInt = byteAt((void *)(aContext + (numSlotsFieldByteOffset())));
-    numSlots =
-        (numSlotsUsqInt == (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                        (void *)(aContext - BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlotsUsqInt);
+    numSlots = numSlotsOfAny(aContext);
     if (fmtUsqLong <= (ephemeronFormat())) {
       totalLengthSqInt = numSlots;
       goto l7;
@@ -225,15 +216,7 @@ static void primitiveContextAt(void) {
 
     /* begin lengthOf:baseHeader:format: */
     /* begin lengthOf:format: */
-    /* begin numSlotsOfAny: */
-    numSlotsUsqInt = byteAt((void *)(aContext + (numSlotsFieldByteOffset())));
-    numSlots =
-        (numSlotsUsqInt == (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                        (void *)(aContext - BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlotsUsqInt);
+    numSlots = numSlotsOfAny(aContext);
     if (fmt <= (ephemeronFormat())) {
       totalLength = numSlots;
       goto l4;

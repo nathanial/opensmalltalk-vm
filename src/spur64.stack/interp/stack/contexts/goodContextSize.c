@@ -4,8 +4,6 @@
 
 static sqInt goodContextSize(sqInt oop) {
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
-
   numSlots = numSlotsOf(oop);
   return (numSlots == SmallContextSlots) || (numSlots == LargeContextSlots);
 }

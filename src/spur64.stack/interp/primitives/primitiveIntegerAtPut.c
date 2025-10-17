@@ -11,7 +11,6 @@ static void primitiveIntegerAtPut(void) {
   sqInt index;
   sqInt numFixed;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt rcvr;
   char *sp;
   sqLong value;

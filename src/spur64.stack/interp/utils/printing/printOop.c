@@ -16,7 +16,6 @@ void printOop(sqInt oop) {
   sqInt lastIndex;
   sqInt length;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   usqInt startIP;
   sqInt tagBits;
 
@@ -108,14 +107,7 @@ void printOop(sqInt oop) {
     /* begin lengthOf: */
     fmtSqInt =
         (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-    numSlotsUsqInt = byteAt((void *)(oop + (numSlotsFieldByteOffset())));
-    numSlots =
-        (numSlotsUsqInt == (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlotsUsqInt);
+    numSlots = numSlotsOfAny(oop);
     if (fmtSqInt <= (ephemeronFormat())) {
       lastIndex = numSlots;
       goto l1;

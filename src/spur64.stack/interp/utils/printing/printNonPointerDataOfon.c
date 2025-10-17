@@ -8,22 +8,12 @@ static void printNonPointerDataOfon(sqInt oop, FILE *aStream) {
   sqInt index;
   sqInt lastIndex;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
-
   format = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
   assert(((format >= (sixtyFourBitIndexableFormat())) &&
           (format <= ((firstCompiledMethodFormat()) - 1))));
 
   /* begin lengthOf:format: */
-  /* begin numSlotsOfAny: */
-  numSlotsUsqInt = byteAt((void *)(oop + (numSlotsFieldByteOffset())));
-  numSlots =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots = numSlotsOfAny(oop);
   if (format <= (ephemeronFormat())) {
     lastIndex = numSlots;
     goto l1;

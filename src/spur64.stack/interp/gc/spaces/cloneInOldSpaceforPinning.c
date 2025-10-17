@@ -9,7 +9,6 @@ static sqInt cloneInOldSpaceforPinning(sqInt objOop, sqInt forPinning) {
   sqInt i;
   sqInt newObj;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt oop;
   sqInt referent;
   sqInt valuePointer;

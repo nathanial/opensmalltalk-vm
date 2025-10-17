@@ -5657,7 +5657,6 @@ sqInt interpret(void) {
       sqInt index;
       sqInt indexSqInt;
       usqInt numSlots;
-      usqInt numSlotsUsqInt;
       sqInt rcvr;
       sqInt reasonCode;
       sqInt result;
@@ -5710,16 +5709,7 @@ sqInt interpret(void) {
 
             /* begin lengthOf:baseHeader:format: */
             /* begin lengthOf:format: */
-            /* begin numSlotsOfAny: */
-            numSlotsUsqInt =
-                byteAt((void *)(rcvr + (numSlotsFieldByteOffset())));
-            numSlots = (numSlotsUsqInt == (numSlotsMask())
-                            ? ((((usqInt)((
-                                  (sqInt)((usqInt)((longAt(
-                                              (void *)(rcvr - BaseHeaderSize))))
-                                          << 8)))))) >>
-                                  8
-                            : numSlotsUsqInt);
+            numSlots = numSlotsOfAny(rcvr);
             if (fmt <= (ephemeronFormat())) {
               totalLength = numSlots;
               goto l51;
@@ -5791,17 +5781,7 @@ sqInt interpret(void) {
 
               /* begin lengthOf:baseHeader:format: */
               /* begin lengthOf:format: */
-              /* begin numSlotsOfAny: */
-              numSlotsUsqInt =
-                  byteAt((void *)(rcvr + (numSlotsFieldByteOffset())));
-              numSlots =
-                  (numSlotsUsqInt == (numSlotsMask())
-                       ? ((((usqInt)((
-                             (sqInt)((usqInt)((longAt(
-                                         (void *)(rcvr - BaseHeaderSize))))
-                                     << 8)))))) >>
-                             8
-                       : numSlotsUsqInt);
+              numSlots = numSlotsOfAny(rcvr);
               if (fmt <= (ephemeronFormat())) {
                 totalLength = numSlots;
                 goto l47;
@@ -5957,7 +5937,6 @@ sqInt interpret(void) {
       sqInt indexSqInt;
       int isCharacter;
       usqInt numSlots;
-      usqInt numSlotsUsqInt;
       sqInt rcvr;
       sqInt reasonCode;
       sqInt stSize;
@@ -6022,16 +6001,7 @@ sqInt interpret(void) {
 
             /* begin lengthOf:baseHeader:format: */
             /* begin lengthOf:format: */
-            /* begin numSlotsOfAny: */
-            numSlotsUsqInt =
-                byteAt((void *)(rcvr + (numSlotsFieldByteOffset())));
-            numSlots = (numSlotsUsqInt == (numSlotsMask())
-                            ? ((((usqInt)((
-                                  (sqInt)((usqInt)((longAt(
-                                              (void *)(rcvr - BaseHeaderSize))))
-                                          << 8)))))) >>
-                                  8
-                            : numSlotsUsqInt);
+            numSlots = numSlotsOfAny(rcvr);
             if (fmt <= (ephemeronFormat())) {
               totalLength = numSlots;
               goto l61;
@@ -6103,17 +6073,7 @@ sqInt interpret(void) {
 
               /* begin lengthOf:baseHeader:format: */
               /* begin lengthOf:format: */
-              /* begin numSlotsOfAny: */
-              numSlotsUsqInt =
-                  byteAt((void *)(rcvr + (numSlotsFieldByteOffset())));
-              numSlots =
-                  (numSlotsUsqInt == (numSlotsMask())
-                       ? ((((usqInt)((
-                             (sqInt)((usqInt)((longAt(
-                                         (void *)(rcvr - BaseHeaderSize))))
-                                     << 8)))))) >>
-                             8
-                       : numSlotsUsqInt);
+              numSlots = numSlotsOfAny(rcvr);
               if (fmt <= (ephemeronFormat())) {
                 totalLength = numSlots;
                 goto l57;
@@ -6330,7 +6290,6 @@ sqInt interpret(void) {
       sqInt isArray;
       sqInt isString;
       usqInt numSlots;
-      usqInt numSlotsUsqInt;
       sqInt rcvr;
       sqInt sz;
 
@@ -6360,14 +6319,7 @@ sqInt interpret(void) {
         /* begin lengthOf: */
         fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) &
               (formatMask());
-        numSlotsUsqInt = byteAt((void *)(rcvr + (numSlotsFieldByteOffset())));
-        numSlots =
-            (numSlotsUsqInt == (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                            (void *)(rcvr - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlotsUsqInt);
+        numSlots = numSlotsOfAny(rcvr);
         if (fmt <= (ephemeronFormat())) {
           sz = numSlots;
           goto l68;
@@ -6421,14 +6373,7 @@ sqInt interpret(void) {
         /* begin lengthOf: */
         fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) &
               (formatMask());
-        numSlotsUsqInt = byteAt((void *)(rcvr + (numSlotsFieldByteOffset())));
-        numSlots =
-            (numSlotsUsqInt == (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                            (void *)(rcvr - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlotsUsqInt);
+        numSlots = numSlotsOfAny(rcvr);
         if (fmt <= (ephemeronFormat())) {
           sz = numSlots;
           goto l70;

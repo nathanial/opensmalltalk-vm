@@ -9,8 +9,6 @@ sqInt indexOfin(sqInt anElement, sqInt anObject) {
   sqInt fmtSqInt;
   sqInt i;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
-
   fmt =
       (byteAt((void *)(anObject + (formatFieldByteOffset())))) & (formatMask());
   if (fmt <= 5 /* lastPointerFormat */) {

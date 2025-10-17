@@ -17,7 +17,6 @@ static sqInt getErrorObjectFromPrimFailCode(void) {
   usqInt newObj;
   usqInt numBytes;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt table;
   sqInt valuePointer;
 

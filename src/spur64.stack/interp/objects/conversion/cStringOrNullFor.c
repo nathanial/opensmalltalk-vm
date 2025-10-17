@@ -14,8 +14,6 @@ char *cStringOrNullFor(sqInt oop) {
   sqInt isString;
   sqInt len;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
-
   /* begin isInstanceOfClassByteString: */
   /* begin is:instanceOf:compactClassIndex: */
   if (((oop & (tagMask())) != 0)) {
@@ -39,14 +37,7 @@ l2:
 
   /* begin lengthOf: */
   fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-  numSlotsUsqInt = byteAt((void *)(oop + (numSlotsFieldByteOffset())));
-  numSlots =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots = numSlotsOfAny(oop);
   if (fmt <= (ephemeronFormat())) {
     len = numSlots;
     goto l1;

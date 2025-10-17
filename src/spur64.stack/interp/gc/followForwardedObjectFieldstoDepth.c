@@ -16,7 +16,6 @@ static sqInt followForwardedObjectFieldstoDepth(sqInt objOop, sqInt depth) {
   sqInt i;
   usqInt numLiterals;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt oop;
   sqInt referent;
   sqInt sp;

@@ -12,7 +12,6 @@ static sqInt numStrongSlotsOfInephemeral(sqInt objOop) {
   sqInt header;
   usqInt numLiterals;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt objOopSqInt;
   sqInt sp;
 

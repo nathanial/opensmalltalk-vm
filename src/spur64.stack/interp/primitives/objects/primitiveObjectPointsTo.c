@@ -14,7 +14,6 @@ static void primitiveObjectPointsTo(void) {
   sqInt i;
   sqInt methodHeader;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt rcvr;
   sqInt thang;
   sqInt trueOrFalse;

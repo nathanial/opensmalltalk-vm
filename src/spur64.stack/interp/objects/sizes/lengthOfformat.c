@@ -8,17 +8,7 @@
 
 static sqInt lengthOfformat(sqInt objOop, sqInt fmt) {
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
-
-  /* begin numSlotsOfAny: */
-  numSlotsUsqInt = byteAt((void *)(objOop + (numSlotsFieldByteOffset())));
-  numSlots =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots = numSlotsOfAny(objOop);
   if (fmt <= (ephemeronFormat())) {
     return numSlots;
   }

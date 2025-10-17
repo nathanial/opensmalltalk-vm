@@ -25,7 +25,6 @@ static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
   sqInt newObj1;
   sqInt newObj2;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt o1ClassIndex;
   sqInt o2ClassIndex;
   sqInt obj1;

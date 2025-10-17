@@ -18,7 +18,6 @@ static void primitiveSlotAt(void) {
   sqInt index;
   sqInt numLiveSlots;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt oop;
   sqInt rcvr;
   char *sp;

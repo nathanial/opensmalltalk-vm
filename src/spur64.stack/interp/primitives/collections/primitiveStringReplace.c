@@ -15,7 +15,6 @@ static void primitiveStringReplace(void) {
   sqInt i;
   sqInt mustRemember;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt oop;
   sqInt repl;
   sqInt replFmt;
@@ -181,15 +180,7 @@ static void primitiveStringReplace(void) {
      to arrays. Non-pointer array formats must match */
 
   /* begin lengthOf:format: */
-  /* begin numSlotsOfAny: */
-  numSlotsUsqInt = byteAt((void *)(array + (numSlotsFieldByteOffset())));
-  numSlots =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(array - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots = numSlotsOfAny(array);
   if (arrayFmt <= (ephemeronFormat())) {
     arrayLength = ((sqInt)numSlots);
     goto l3;
@@ -219,15 +210,7 @@ static void primitiveStringReplace(void) {
 l3:
 
   /* begin lengthOf:format: */
-  /* begin numSlotsOfAny: */
-  numSlotsUsqInt = byteAt((void *)(repl + (numSlotsFieldByteOffset())));
-  numSlots =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(repl - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots = numSlotsOfAny(repl);
   if (replFmt <= (ephemeronFormat())) {
     replLength = ((sqInt)numSlots);
     goto l4;

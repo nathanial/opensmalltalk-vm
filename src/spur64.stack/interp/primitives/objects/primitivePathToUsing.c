@@ -20,7 +20,6 @@ primitivePathToUsing(void) {
   sqInt next;
   usqInt numLiterals;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt path;
   char *sp;
   sqInt spSqInt;
@@ -73,14 +72,7 @@ primitivePathToUsing(void) {
 
   /* begin lengthOf: */
   fmt = (byteAt((void *)(stack + (formatFieldByteOffset())))) & (formatMask());
-  numSlotsUsqInt = byteAt((void *)(stack + (numSlotsFieldByteOffset())));
-  numSlots =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(stack - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots = numSlotsOfAny(stack);
   if (fmt <= (ephemeronFormat())) {
     stackSize = numSlots;
     goto l1;
@@ -130,14 +122,7 @@ l1:
   /* begin lengthOf: */
   fmt =
       (byteAt((void *)(current + (formatFieldByteOffset())))) & (formatMask());
-  numSlotsUsqInt = byteAt((void *)(current + (numSlotsFieldByteOffset())));
-  numSlots =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(current - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots = numSlotsOfAny(current);
   if (fmt <= (ephemeronFormat())) {
     index = numSlots;
     goto l2;

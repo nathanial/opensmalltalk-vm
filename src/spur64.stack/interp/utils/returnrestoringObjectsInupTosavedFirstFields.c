@@ -10,7 +10,6 @@ static sqInt returnrestoringObjectsInupTosavedFirstFields(
     sqInt savedFirstFields) {
   sqInt i;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt oop;
   sqInt valuePointer;
 

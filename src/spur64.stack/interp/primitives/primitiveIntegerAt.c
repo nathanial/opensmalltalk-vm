@@ -10,7 +10,6 @@ static void primitiveIntegerAt(void) {
   sqInt index;
   sqInt numFixed;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt oop;
   sqInt rcvr;
   char *sp;

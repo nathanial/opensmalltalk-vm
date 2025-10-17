@@ -27,7 +27,6 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
   sqInt i;
   usqInt numSlots;
   sqInt numSlotsSqInt;
-  usqInt numSlotsUsqInt;
   sqInt objIndex;
   sqInt objOop;
   sqInt oop;

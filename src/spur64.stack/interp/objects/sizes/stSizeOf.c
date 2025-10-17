@@ -13,7 +13,6 @@ sqInt stSizeOf(sqInt oop) {
   usqLong fmt;
   sqLong hdr;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt totalLength;
 
   hdr = long64At((void *)(oop));
@@ -21,15 +20,7 @@ sqInt stSizeOf(sqInt oop) {
 
   /* begin lengthOf:baseHeader:format: */
   /* begin lengthOf:format: */
-  /* begin numSlotsOfAny: */
-  numSlotsUsqInt = byteAt((void *)(oop + (numSlotsFieldByteOffset())));
-  numSlots =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots = numSlotsOfAny(oop);
   if (fmt <= (ephemeronFormat())) {
     totalLength = numSlots;
     goto l1;

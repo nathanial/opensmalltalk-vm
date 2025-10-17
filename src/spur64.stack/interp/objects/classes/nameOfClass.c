@@ -9,8 +9,6 @@ static char *nameOfClass(sqInt classOop) {
   sqInt maybeNameOop;
   sqInt maybeThisClassOop;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
-
   numSlots = numSlotsOf(classOop);
   if (numSlots == metaclassNumSlots) {
     maybeThisClassOop = fetchPointerofObject(thisClassIndex, classOop);

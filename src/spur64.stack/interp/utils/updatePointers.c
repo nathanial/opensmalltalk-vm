@@ -22,7 +22,6 @@ static NeverInline void updatePointers(void) {
   usqInt numLiterals;
   usqInt numPointerSlots;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt objOop;
   sqInt objOopSqInt;
   sqInt onePass;

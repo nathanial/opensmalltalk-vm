@@ -11,7 +11,6 @@ static void primitiveInstVarAtPut(void) {
   sqInt index;
   sqInt newValue;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt rcvr;
   sqInt signedValueToStore;
   char *sp;
@@ -53,15 +52,7 @@ static void primitiveInstVarAtPut(void) {
 
   /* begin lengthOf:baseHeader:format: */
   /* begin lengthOf:format: */
-  /* begin numSlotsOfAny: */
-  numSlotsUsqInt = byteAt((void *)(rcvr + (numSlotsFieldByteOffset())));
-  numSlots =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(rcvr - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots = numSlotsOfAny(rcvr);
   if (fmt <= (ephemeronFormat())) {
     totalLength = numSlots;
     goto l2;

@@ -9,7 +9,6 @@ static void growRememberedSet(void) {
   sqInt newObj;
   sqInt nSlots;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt obj;
   usqInt p;
   usqInt toDoLimit;

@@ -11,7 +11,6 @@ sqInt stObjectatput(sqInt array, sqInt index, sqInt value) {
   usqLong fmt;
   sqLong hdr;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt signedValueToStore;
   usqInt sp;
   sqInt spSqInt;
@@ -25,15 +24,7 @@ sqInt stObjectatput(sqInt array, sqInt index, sqInt value) {
 
   /* begin lengthOf:baseHeader:format: */
   /* begin lengthOf:format: */
-  /* begin numSlotsOfAny: */
-  numSlotsUsqInt = byteAt((void *)(array + (numSlotsFieldByteOffset())));
-  numSlots =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(array - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots = numSlotsOfAny(array);
   if (fmt <= (ephemeronFormat())) {
     totalLength = numSlots;
     goto l1;

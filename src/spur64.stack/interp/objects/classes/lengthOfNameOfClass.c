@@ -6,7 +6,6 @@ static sqInt lengthOfNameOfClass(sqInt classOop) {
   sqInt fmt;
   usqInt numSlots;
   usqInt numSlots1;
-  usqInt numSlotsUsqInt;
   sqInt objOop;
 
   numSlots = numSlotsOf(classOop);
@@ -20,14 +19,7 @@ static sqInt lengthOfNameOfClass(sqInt classOop) {
 
   /* begin lengthOf: */
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
-  numSlotsUsqInt = byteAt((void *)(objOop + (numSlotsFieldByteOffset())));
-  numSlots1 =
-      (numSlotsUsqInt == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+  numSlots1 = numSlotsOfAny(objOop);
   if (fmt <= (ephemeronFormat())) {
     return numSlots1;
   }
