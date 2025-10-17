@@ -11,9 +11,7 @@ static void primitiveClass(void) {
   instance = longAt(stackPointer);
   if ((argumentCount > 0) &&
       (/* isOopForwarded: */
-       ((!(instance & (tagMask())))) &&
-       ((!((longAt((void *)(instance))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))) {
+       isOopForwarded(instance))) {
     /* begin primitiveFail */
     if (!primFailCode) {
       primFailCode = 1;

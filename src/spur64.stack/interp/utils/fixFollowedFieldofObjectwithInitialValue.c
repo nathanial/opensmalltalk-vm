@@ -19,9 +19,7 @@ static NeverInline sqInt fixFollowedFieldofObjectwithInitialValue(
     objOop =
         longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
   } while (/* isOopForwarded: */
-           ((!(objOop & (tagMask())))) &&
-           ((!((longAt((void *)(objOop))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))));
+           isOopForwarded(objOop));
 
   /* begin storePointer:ofObject:withValue: */
   assert(validStorePointerArgs(fieldIndex, anObject, objOop));

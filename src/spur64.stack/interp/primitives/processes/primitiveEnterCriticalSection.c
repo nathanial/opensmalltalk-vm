@@ -23,9 +23,7 @@ static void primitiveEnterCriticalSection(void) {
     criticalSection = longAt(stackPointer + (1 * BytesPerWord));
     activeProc = longAt(stackPointer);
     if (/* isOopForwarded: */
-        ((!(activeProc & (tagMask())))) &&
-        ((!((longAt((void *)(activeProc))) &
-            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+        isOopForwarded(activeProc)) {
       /* primitiveFailFor: */
       primFailCode = PrimErrBadArgument;
     }

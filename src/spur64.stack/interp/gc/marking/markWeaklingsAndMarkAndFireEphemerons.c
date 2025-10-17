@@ -76,10 +76,7 @@ static void markWeaklingsAndMarkAndFireEphemerons(void) {
             field = longAt((void *)((weakling + BaseHeaderSize) +
                                     ((((usqInt)(i) << (shiftForWord()))))));
             if (/* isOopForwarded: */
-                ((!(field & (tagMask())))) &&
-                ((!((longAt((void *)(field))) &
-                    ((classIndexMask()) -
-                     (isForwardedObjectClassIndexPun())))))) {
+                isOopForwarded(field)) {
               field =
                   fixFollowedFieldofObjectwithInitialValue(i, weakling, field);
             }
@@ -127,9 +124,7 @@ static void markWeaklingsAndMarkAndFireEphemerons(void) {
       key = longAt(
           (void *)((ephemeron + BaseHeaderSize) + (0U << (shiftForWord()))));
       if (/* isOopForwarded: */
-          ((!(key & (tagMask())))) &&
-          ((!((longAt((void *)(key))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(key)) {
         key = fixFollowedFieldofObjectwithInitialValue(0, ephemeron, key);
       }
 

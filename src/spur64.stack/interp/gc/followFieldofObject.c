@@ -13,9 +13,7 @@ static sqInt followFieldofObject(sqInt fieldIndex,
   objOop = longAt((void *)((anObject + BaseHeaderSize) +
                            ((((usqInt)(fieldIndex) << (shiftForWord()))))));
   if (/* isOopForwarded: */
-      ((!(objOop & (tagMask())))) &&
-      ((!((longAt((void *)(objOop))) &
-          ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+      isOopForwarded(objOop)) {
     objOop =
         fixFollowedFieldofObjectwithInitialValue(fieldIndex, anObject, objOop);
   }

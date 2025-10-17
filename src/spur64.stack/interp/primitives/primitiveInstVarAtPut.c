@@ -25,9 +25,7 @@ static void primitiveInstVarAtPut(void) {
   if (((!(index & (smallIntegerTag())))) ||
       ((argumentCount > 2) &&
        (/* isOopForwarded: */
-        ((!(rcvr & (tagMask())))) &&
-        ((!((longAt((void *)(rcvr))) &
-            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))))) {
+        isOopForwarded(rcvr)))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadArgument;
     return;

@@ -50,10 +50,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
           referentSqInt = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(referentSqInt & (tagMask())))) &&
-                 ((!((longAt((void *)(referentSqInt))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(referentSqInt)) {
             referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                             (0U << (shiftForWord()))));
           }
@@ -105,10 +102,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
           referentSqInt = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(referentSqInt & (tagMask())))) &&
-                 ((!((longAt((void *)(referentSqInt))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(referentSqInt)) {
             referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                             (0U << (shiftForWord()))));
           }
@@ -159,10 +153,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
           referentSqInt = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(referentSqInt & (tagMask())))) &&
-                 ((!((longAt((void *)(referentSqInt))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(referentSqInt)) {
             referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                             (0U << (shiftForWord()))));
           }
@@ -228,10 +219,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
           referentSqInt = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(referentSqInt & (tagMask())))) &&
-                 ((!((longAt((void *)(referentSqInt))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(referentSqInt)) {
             referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                             (0U << (shiftForWord()))));
           }
@@ -281,10 +269,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
         referentSqInt = longAt(
             (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         while (/* isOopForwarded: */
-               ((!(referentSqInt & (tagMask())))) &&
-               ((!((longAt((void *)(referentSqInt))) &
-                   ((classIndexMask()) -
-                    (isForwardedObjectClassIndexPun())))))) {
+               isOopForwarded(referentSqInt)) {
           referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                           (0U << (shiftForWord()))));
         }
@@ -344,10 +329,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
           referentSqInt = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(referentSqInt & (tagMask())))) &&
-                 ((!((longAt((void *)(referentSqInt))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(referentSqInt)) {
             referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                             (0U << (shiftForWord()))));
           }

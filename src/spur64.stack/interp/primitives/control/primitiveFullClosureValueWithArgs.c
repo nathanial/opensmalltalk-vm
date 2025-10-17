@@ -149,9 +149,7 @@ static void primitiveFullClosureValueWithArgs(void) {
       (void *)((blockClosure + BaseHeaderSize) +
                ((((usqInt)(FullClosureReceiverIndex) << (shiftForWord()))))));
   if (/* isOopForwarded: */
-      ((!(objOop & (tagMask())))) &&
-      ((!((longAt((void *)(objOop))) &
-          ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+      isOopForwarded(objOop)) {
     objOop = fixFollowedFieldofObjectwithInitialValue(FullClosureReceiverIndex,
                                                       blockClosure, objOop);
   }

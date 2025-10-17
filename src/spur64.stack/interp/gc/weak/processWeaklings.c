@@ -48,9 +48,7 @@ static void processWeaklings(void) {
       weakObj = longAt(
           (void *)((weakCorpse + BaseHeaderSize) + (0U << (shiftForWord()))));
       while (/* isOopForwarded: */
-             ((!(weakObj & (tagMask())))) &&
-             ((!((longAt((void *)(weakObj))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+             isOopForwarded(weakObj)) {
         weakObj = longAt(
             (void *)((weakObj + BaseHeaderSize) + (0U << (shiftForWord()))));
       }

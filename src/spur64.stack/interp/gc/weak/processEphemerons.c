@@ -137,9 +137,7 @@ static void processEphemerons(void) {
       ephemeron = longAt((void *)((ephemeronCorpse + BaseHeaderSize) +
                                   (0U << (shiftForWord()))));
       while (/* isOopForwarded: */
-             ((!(ephemeron & (tagMask())))) &&
-             ((!((longAt((void *)(ephemeron))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+             isOopForwarded(ephemeron)) {
         ephemeron = longAt(
             (void *)((ephemeron + BaseHeaderSize) + (0U << (shiftForWord()))));
       }

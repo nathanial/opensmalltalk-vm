@@ -55,9 +55,7 @@ l1:
   rcvr = longAt((void *)((aContext + BaseHeaderSize) +
                          ((((usqInt)(ReceiverIndex) << (shiftForWord()))))));
   if (/* isOopForwarded: */
-      ((!(rcvr & (tagMask())))) &&
-      ((!((longAt((void *)(rcvr))) &
-          ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+      isOopForwarded(rcvr)) {
     rcvr =
         fixFollowedFieldofObjectwithInitialValue(ReceiverIndex, aContext, rcvr);
   }

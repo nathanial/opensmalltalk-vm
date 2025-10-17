@@ -59,9 +59,7 @@ static NeverInline void computeRefCountToShrinkRT(void) {
       referentSqInt = longAt(
           (void *)((elephant + BaseHeaderSize) + (0U << (shiftForWord()))));
       while (/* isOopForwarded: */
-             ((!(referentSqInt & (tagMask())))) &&
-             ((!((longAt((void *)(referentSqInt))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+             isOopForwarded(referentSqInt)) {
         referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                         (0U << (shiftForWord()))));
       }

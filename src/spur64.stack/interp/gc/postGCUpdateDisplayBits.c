@@ -25,9 +25,7 @@ static sqInt postGCUpdateDisplayBits(void) {
   bitsOop = longAt(
       (void *)((displayObj + BaseHeaderSize) + (0U << (shiftForWord()))));
   if (/* isOopForwarded: */
-      ((!(bitsOop & (tagMask())))) &&
-      ((!((longAt((void *)(bitsOop))) &
-          ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+      isOopForwarded(bitsOop)) {
     bitsOop = fixFollowedFieldofObjectwithInitialValue(0, displayObj, bitsOop);
   }
   if ((bitsOop == nilObj) || ((((bitsOop) & 7) == 1))) {
@@ -46,9 +44,7 @@ static sqInt postGCUpdateDisplayBits(void) {
       bitsOop = longAt(
           (void *)((displayObj + BaseHeaderSize) + (0U << (shiftForWord()))));
       if (/* isOopForwarded: */
-          ((!(bitsOop & (tagMask())))) &&
-          ((!((longAt((void *)(bitsOop))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(bitsOop)) {
         bitsOop =
             fixFollowedFieldofObjectwithInitialValue(0, displayObj, bitsOop);
       }

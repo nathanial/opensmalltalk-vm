@@ -143,17 +143,13 @@ l2:
   while (fieldOffset >= BaseHeaderSize) {
     oop1 = longAt((void *)(array1 + fieldOffset));
     if (/* isOopForwarded: */
-        ((!(oop1 & (tagMask())))) &&
-        ((!((longAt((void *)(oop1))) &
-            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+        isOopForwarded(oop1)) {
       /* begin followForwarded: */
       assert(isUnambiguouslyForwarder(oop1));
       referent =
           longAt((void *)((oop1 + BaseHeaderSize) + (0U << (shiftForWord()))));
       while (/* isOopForwarded: */
-             ((!(referent & (tagMask())))) &&
-             ((!((longAt((void *)(referent))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+             isOopForwarded(referent)) {
         referent = longAt(
             (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
       }
@@ -188,17 +184,13 @@ l2:
   l3:
     oop2 = longAt((void *)(array2 + fieldOffset));
     if (/* isOopForwarded: */
-        ((!(oop2 & (tagMask())))) &&
-        ((!((longAt((void *)(oop2))) &
-            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+        isOopForwarded(oop2)) {
       /* begin followForwarded: */
       assert(isUnambiguouslyForwarder(oop2));
       referentSqInt =
           longAt((void *)((oop2 + BaseHeaderSize) + (0U << (shiftForWord()))));
       while (/* isOopForwarded: */
-             ((!(referentSqInt & (tagMask())))) &&
-             ((!((longAt((void *)(referentSqInt))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+             isOopForwarded(referentSqInt)) {
         referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                         (0U << (shiftForWord()))));
       }
@@ -311,9 +303,7 @@ l6:
       obj1 = longAt((void *)((array1 + BaseHeaderSize) +
                              ((((usqInt)(i) << (shiftForWord()))))));
       if (/* isOopForwarded: */
-          ((!(obj1 & (tagMask())))) &&
-          ((!((longAt((void *)(obj1))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(obj1)) {
         obj1 = fixFollowedFieldofObjectwithInitialValue(i, array1, obj1);
       }
 
@@ -321,9 +311,7 @@ l6:
       obj2 = longAt((void *)((array2 + BaseHeaderSize) +
                              ((((usqInt)(i) << (shiftForWord()))))));
       if (/* isOopForwarded: */
-          ((!(obj2 & (tagMask())))) &&
-          ((!((longAt((void *)(obj2))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(obj2)) {
         obj2 = fixFollowedFieldofObjectwithInitialValue(i, array2, obj2);
       }
       if (obj1 != obj2) {
@@ -389,10 +377,7 @@ l6:
             newObj2 = longAt(
                 (void *)((obj1 + BaseHeaderSize) + (0U << (shiftForWord()))));
             while (/* isOopForwarded: */
-                   ((!(newObj2 & (tagMask())))) &&
-                   ((!((longAt((void *)(newObj2))) &
-                       ((classIndexMask()) -
-                        (isForwardedObjectClassIndexPun())))))) {
+                   isOopForwarded(newObj2)) {
               newObj2 = longAt((void *)((newObj2 + BaseHeaderSize) +
                                         (0U << (shiftForWord()))));
             }
@@ -412,10 +397,7 @@ l6:
             newObj1 = longAt(
                 (void *)((obj2 + BaseHeaderSize) + (0U << (shiftForWord()))));
             while (/* isOopForwarded: */
-                   ((!(newObj1 & (tagMask())))) &&
-                   ((!((longAt((void *)(newObj1))) &
-                       ((classIndexMask()) -
-                        (isForwardedObjectClassIndexPun())))))) {
+                   isOopForwarded(newObj1)) {
               newObj1 = longAt((void *)((newObj1 + BaseHeaderSize) +
                                         (0U << (shiftForWord()))));
             }
@@ -434,9 +416,7 @@ l6:
         objOop = longAt((void *)((array1 + BaseHeaderSize) +
                                  ((((usqInt)(i) << (shiftForWord()))))));
         if (/* isOopForwarded: */
-            ((!(objOop & (tagMask())))) &&
-            ((!((longAt((void *)(objOop))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(objOop)) {
           objOop = fixFollowedFieldofObjectwithInitialValue(i, array1, objOop);
         }
 
@@ -444,9 +424,7 @@ l6:
         objOopSqInt = longAt((void *)((array2 + BaseHeaderSize) +
                                       ((((usqInt)(i) << (shiftForWord()))))));
         if (/* isOopForwarded: */
-            ((!(objOopSqInt & (tagMask())))) &&
-            ((!((longAt((void *)(objOopSqInt))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(objOopSqInt)) {
           objOopSqInt =
               fixFollowedFieldofObjectwithInitialValue(i, array2, objOopSqInt);
         }
@@ -470,9 +448,7 @@ l6:
       obj1 = longAt((void *)((array1 + BaseHeaderSize) +
                              ((((usqInt)(i) << (shiftForWord()))))));
       if (/* isOopForwarded: */
-          ((!(obj1 & (tagMask())))) &&
-          ((!((longAt((void *)(obj1))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(obj1)) {
         obj1 = fixFollowedFieldofObjectwithInitialValue(i, array1, obj1);
       }
 
@@ -480,9 +456,7 @@ l6:
       obj2 = longAt((void *)((array2 + BaseHeaderSize) +
                              ((((usqInt)(i) << (shiftForWord()))))));
       if (/* isOopForwarded: */
-          ((!(obj2 & (tagMask())))) &&
-          ((!((longAt((void *)(obj2))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(obj2)) {
         obj2 = fixFollowedFieldofObjectwithInitialValue(i, array2, obj2);
       }
       if (obj1 != obj2) {
@@ -558,9 +532,7 @@ l6:
         objOop = longAt((void *)((array1 + BaseHeaderSize) +
                                  ((((usqInt)(i) << (shiftForWord()))))));
         if (/* isOopForwarded: */
-            ((!(objOop & (tagMask())))) &&
-            ((!((longAt((void *)(objOop))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(objOop)) {
           objOop = fixFollowedFieldofObjectwithInitialValue(i, array1, objOop);
         }
         assert(!(isOopForwarded(obj2)));
@@ -578,9 +550,7 @@ l6:
     referent = longAt((void *)((specialObjectsOop + BaseHeaderSize) +
                                (0U << (shiftForWord()))));
     while (/* isOopForwarded: */
-           ((!(referent & (tagMask())))) &&
-           ((!((longAt((void *)(referent))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+           isOopForwarded(referent)) {
       referent = longAt(
           (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

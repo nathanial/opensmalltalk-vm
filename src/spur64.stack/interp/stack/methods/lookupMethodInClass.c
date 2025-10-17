@@ -84,9 +84,7 @@ static sqInt lookupMethodInClass(sqInt class) {
                                        ((((usqInt)((index + SelectorStart))
                                           << (shiftForWord()))))));
         if (/* isOopForwarded: */
-            ((!(nextSelector & (tagMask())))) &&
-            ((!((longAt((void *)(nextSelector))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(nextSelector)) {
           nextSelector = fixFollowedFieldofObjectwithInitialValue(
               index + SelectorStart, dictionary, nextSelector);
         }
@@ -106,10 +104,7 @@ static sqInt lookupMethodInClass(sqInt class) {
           objOop = longAt((void *)((methodArray + BaseHeaderSize) +
                                    ((((usqInt)(index) << (shiftForWord()))))));
           if (/* isOopForwarded: */
-              ((!(objOop & (tagMask())))) &&
-              ((!((longAt((void *)(objOop))) &
-                  ((classIndexMask()) -
-                   (isForwardedObjectClassIndexPun())))))) {
+              isOopForwarded(objOop)) {
             objOop = fixFollowedFieldofObjectwithInitialValue(
                 index, methodArray, objOop);
           }
@@ -142,9 +137,7 @@ static sqInt lookupMethodInClass(sqInt class) {
         goto l1;
       }
       if (/* isOopForwarded: */
-          ((!(nextSelector & (tagMask())))) &&
-          ((!((longAt((void *)(nextSelector))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(nextSelector)) {
         nextSelector = fixFollowedFieldofObjectwithInitialValue(
             index + SelectorStart, dictionary, nextSelector);
       }
@@ -165,9 +158,7 @@ static sqInt lookupMethodInClass(sqInt class) {
                                  ((((usqInt)((index - SelectorStart))
                                     << (shiftForWord()))))));
         if (/* isOopForwarded: */
-            ((!(objOop & (tagMask())))) &&
-            ((!((longAt((void *)(objOop))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(objOop)) {
           objOop = fixFollowedFieldofObjectwithInitialValue(
               index - SelectorStart, methodArray, objOop);
         }

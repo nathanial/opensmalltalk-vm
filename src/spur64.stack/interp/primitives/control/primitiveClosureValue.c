@@ -114,9 +114,7 @@ static void primitiveClosureValue(void) {
   objOop = longAt((void *)((outerContext + BaseHeaderSize) +
                            ((((usqInt)(ReceiverIndex) << (shiftForWord()))))));
   if (/* isOopForwarded: */
-      ((!(objOop & (tagMask())))) &&
-      ((!((longAt((void *)(objOop))) &
-          ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+      isOopForwarded(objOop)) {
     objOop = fixFollowedFieldofObjectwithInitialValue(ReceiverIndex,
                                                       outerContext, objOop);
   }

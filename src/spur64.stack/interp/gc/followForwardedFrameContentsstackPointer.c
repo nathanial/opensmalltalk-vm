@@ -34,9 +34,7 @@ followForwardedFrameContentsstackPointer(char *theFP, char *theSP) {
       referent =
           longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
       while (/* isOopForwarded: */
-             ((!(referent & (tagMask())))) &&
-             ((!((longAt((void *)(referent))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+             isOopForwarded(referent)) {
         referent = longAt(
             (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
       }

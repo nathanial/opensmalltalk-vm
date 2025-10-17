@@ -30,9 +30,7 @@ static void primitivePerformInSuperclass(void) {
       return;
     }
     if (/* isOopForwarded: */
-        ((!(rcvr & (tagMask())))) &&
-        ((!((longAt((void *)(rcvr))) &
-            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+        isOopForwarded(rcvr)) {
       /* begin primitiveFail */
       if (!primFailCode) {
         primFailCode = 1;

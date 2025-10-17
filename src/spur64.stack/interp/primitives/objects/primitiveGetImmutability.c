@@ -8,9 +8,7 @@ static void primitiveGetImmutability(void) {
   rcvr = longAt(stackPointer);
   if ((argumentCount > 0) &&
       (/* isOopForwarded: */
-       ((!(rcvr & (tagMask())))) &&
-       ((!((longAt((void *)(rcvr))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))) {
+       isOopForwarded(rcvr))) {
     /* begin primitiveFail */
     if (!primFailCode) {
       primFailCode = 1;

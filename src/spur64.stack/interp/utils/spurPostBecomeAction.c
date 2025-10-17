@@ -154,10 +154,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         referent =
             longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
         while (/* isOopForwarded: */
-               ((!(referent & (tagMask())))) &&
-               ((!((longAt((void *)(referent))) &
-                   ((classIndexMask()) -
-                    (isForwardedObjectClassIndexPun())))))) {
+               isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }
@@ -197,10 +194,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         referent =
             longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
         while (/* isOopForwarded: */
-               ((!(referent & (tagMask())))) &&
-               ((!((longAt((void *)(referent))) &
-                   ((classIndexMask()) -
-                    (isForwardedObjectClassIndexPun())))))) {
+               isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }
@@ -240,10 +234,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         referent =
             longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
         while (/* isOopForwarded: */
-               ((!(referent & (tagMask())))) &&
-               ((!((longAt((void *)(referent))) &
-                   ((classIndexMask()) -
-                    (isForwardedObjectClassIndexPun())))))) {
+               isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }
@@ -283,10 +274,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         referent =
             longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
         while (/* isOopForwarded: */
-               ((!(referent & (tagMask())))) &&
-               ((!((longAt((void *)(referent))) &
-                   ((classIndexMask()) -
-                    (isForwardedObjectClassIndexPun())))))) {
+               isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }
@@ -324,10 +312,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         referent = longAt(
             (void *)((xArray + BaseHeaderSize) + (0U << (shiftForWord()))));
         while (/* isOopForwarded: */
-               ((!(referent & (tagMask())))) &&
-               ((!((longAt((void *)(referent))) &
-                   ((classIndexMask()) -
-                    (isForwardedObjectClassIndexPun())))))) {
+               isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }
@@ -380,10 +365,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
           referent = longAt(
               (void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(referent & (tagMask())))) &&
-                 ((!((longAt((void *)(referent))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }
@@ -451,19 +433,13 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
           if ((c != 0) &&
               ((s != 0) &&
                ((m != 0) && (/* isOopForwarded: */
-                             ((!(m & (tagMask())))) &&
-                             ((!((longAt((void *)(m))) &
-                                 ((classIndexMask()) -
-                                  (isForwardedObjectClassIndexPun()))))))))) {
+                             isOopForwarded(m))))) {
             /* begin followForwarded: */
             assert(isUnambiguouslyForwarder(m));
             referent = longAt(
                 (void *)((m + BaseHeaderSize) + (0U << (shiftForWord()))));
             while (/* isOopForwarded: */
-                   ((!(referent & (tagMask())))) &&
-                   ((!((longAt((void *)(referent))) &
-                       ((classIndexMask()) -
-                        (isForwardedObjectClassIndexPun())))))) {
+                   isOopForwarded(referent)) {
               referent = longAt((void *)((referent + BaseHeaderSize) +
                                          (0U << (shiftForWord()))));
             }
@@ -490,10 +466,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
           referent = longAt(
               (void *)((method + BaseHeaderSize) + (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(referent & (tagMask())))) &&
-                 ((!((longAt((void *)(referent))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }
@@ -503,18 +476,13 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
           }
         }
         if (/* isOopForwarded: */
-            ((!(newMethod & (tagMask())))) &&
-            ((!((longAt((void *)(newMethod))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(newMethod)) {
           /* begin followForwarded: */
           assert(isUnambiguouslyForwarder(newMethod));
           referent = longAt((void *)((newMethod + BaseHeaderSize) +
                                      (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(referent & (tagMask())))) &&
-                 ((!((longAt((void *)(referent))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }

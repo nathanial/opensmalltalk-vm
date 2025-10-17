@@ -28,9 +28,7 @@ static sqInt handleSpecialSelectorSendFaultForfpsp(sqInt obj,
   referent =
       longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
   while (/* isOopForwarded: */
-         ((!(referent & (tagMask())))) &&
-         ((!((longAt((void *)(referent))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+         isOopForwarded(referent)) {
     referent = longAt(
         (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
   }

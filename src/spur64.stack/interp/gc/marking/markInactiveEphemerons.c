@@ -47,9 +47,7 @@ static sqInt markInactiveEphemerons(void) {
     key =
         longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
     if (/* isOopForwarded: */
-        ((!(key & (tagMask())))) &&
-        ((!((longAt((void *)(key))) &
-            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+        isOopForwarded(key)) {
       key = fixFollowedFieldofObjectwithInitialValue(0, objOop, key);
     }
     if ((((key & (tagMask())) != 0)) ||

@@ -83,9 +83,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
                                        ((((usqInt)((index + SelectorStart))
                                           << (shiftForWord()))))));
         if (/* isOopForwarded: */
-            ((!(nextSelector & (tagMask())))) &&
-            ((!((longAt((void *)(nextSelector))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(nextSelector)) {
           nextSelector = fixFollowedFieldofObjectwithInitialValue(
               index + SelectorStart, dictionary, nextSelector);
         }
@@ -106,10 +104,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
               longAt((void *)((methodArray + BaseHeaderSize) +
                               ((((usqInt)(index) << (shiftForWord()))))));
           if (/* isOopForwarded: */
-              ((!(objOopSqInt & (tagMask())))) &&
-              ((!((longAt((void *)(objOopSqInt))) &
-                  ((classIndexMask()) -
-                   (isForwardedObjectClassIndexPun())))))) {
+              isOopForwarded(objOopSqInt)) {
             objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
                 index, methodArray, objOopSqInt);
           }
@@ -142,9 +137,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
         goto l1;
       }
       if (/* isOopForwarded: */
-          ((!(nextSelector & (tagMask())))) &&
-          ((!((longAt((void *)(nextSelector))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(nextSelector)) {
         nextSelector = fixFollowedFieldofObjectwithInitialValue(
             index + SelectorStart, dictionary, nextSelector);
       }
@@ -165,9 +158,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
                                       ((((usqInt)((index - SelectorStart))
                                          << (shiftForWord()))))));
         if (/* isOopForwarded: */
-            ((!(objOopSqInt & (tagMask())))) &&
-            ((!((longAt((void *)(objOopSqInt))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(objOopSqInt)) {
           objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
               index - SelectorStart, methodArray, objOopSqInt);
         }

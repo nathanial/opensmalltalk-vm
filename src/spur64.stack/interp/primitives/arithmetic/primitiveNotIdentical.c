@@ -16,14 +16,10 @@ static void primitiveNotIdentical(void) {
   thisObject = longAt(stackPointer + (1 * BytesPerWord));
   otherObject = longAt(stackPointer);
   if ((/* isOopForwarded: */
-       ((!(otherObject & (tagMask())))) &&
-       ((!((longAt((void *)(otherObject))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) ||
+       isOopForwarded(otherObject)) ||
       ((argumentCount > 1) &&
        (/* isOopForwarded: */
-        ((!(thisObject & (tagMask())))) &&
-        ((!((longAt((void *)(thisObject))) &
-            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))))) {
+        isOopForwarded(thisObject)))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadArgument;
   } else {

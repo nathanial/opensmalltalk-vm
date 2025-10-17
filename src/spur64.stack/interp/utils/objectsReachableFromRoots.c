@@ -73,9 +73,7 @@ objectsReachableFromRoots(sqInt arrayOfRoots) {
     oopSqInt = longAt((void *)((arrayOfRoots + BaseHeaderSize) +
                                ((((usqInt)(iSqInt) << (shiftForWord()))))));
     if (/* isOopForwarded: */
-        ((!(oopSqInt & (tagMask())))) &&
-        ((!((longAt((void *)(oopSqInt))) &
-            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+        isOopForwarded(oopSqInt)) {
       oopSqInt = fixFollowedFieldofObjectwithInitialValue(iSqInt, arrayOfRoots,
                                                           oopSqInt);
     }
@@ -116,9 +114,7 @@ objectsReachableFromRoots(sqInt arrayOfRoots) {
     oopSqInt = longAt((void *)((arrayOfRoots + BaseHeaderSize) +
                                ((((usqInt)(iSqInt) << (shiftForWord()))))));
     if (/* isOopForwarded: */
-        ((!(oopSqInt & (tagMask())))) &&
-        ((!((longAt((void *)(oopSqInt))) &
-            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+        isOopForwarded(oopSqInt)) {
       oopSqInt = fixFollowedFieldofObjectwithInitialValue(iSqInt, arrayOfRoots,
                                                           oopSqInt);
     }
@@ -388,9 +384,7 @@ l3:
     referent = longAt(
         (void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))));
     while (/* isOopForwarded: */
-           ((!(referent & (tagMask())))) &&
-           ((!((longAt((void *)(referent))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+           isOopForwarded(referent)) {
       referent = longAt(
           (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

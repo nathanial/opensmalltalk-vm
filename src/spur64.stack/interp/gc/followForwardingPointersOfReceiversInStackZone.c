@@ -67,9 +67,7 @@ static void followForwardingPointersOfReceiversInStackZone(void) {
         assert((!theIPPtr) || (addressIsInPage(thePage, ((void *)theIPPtr))));
         oop = longAt(theFP + FoxReceiver);
         if (/* isOopForwarded: */
-            ((!(oop & (tagMask())))) &&
-            ((!((longAt((void *)(oop))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(oop)) {
           longAtput(theFP + FoxReceiver, followForwarded(oop));
         }
         if (((byteAt((theFP + FoxFrameFlags) + 2)) != 0) &&
@@ -86,10 +84,7 @@ static void followForwardingPointersOfReceiversInStackZone(void) {
           newOop = longAt(
               (void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(newOop & (tagMask())))) &&
-                 ((!((longAt((void *)(newOop))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(newOop)) {
             newOop = longAt(
                 (void *)((newOop + BaseHeaderSize) + (0U << (shiftForWord()))));
           }
@@ -105,9 +100,7 @@ static void followForwardingPointersOfReceiversInStackZone(void) {
                     << (shiftForWord()))));
         oop = longAt(theFP + offset);
         if (/* isOopForwarded: */
-            ((!(oop & (tagMask())))) &&
-            ((!((longAt((void *)(oop))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(oop)) {
           longAtput(theFP + offset, followForwarded(oop));
         }
         if (!(((callerFP = ((char *)(longAt(theFP + FoxSavedFP))))) != 0))
@@ -129,10 +122,7 @@ static void followForwardingPointersOfReceiversInStackZone(void) {
         referent =
             longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
         while (/* isOopForwarded: */
-               ((!(referent & (tagMask())))) &&
-               ((!((longAt((void *)(referent))) &
-                   ((classIndexMask()) -
-                    (isForwardedObjectClassIndexPun())))))) {
+               isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }

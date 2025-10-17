@@ -4,10 +4,7 @@
 
 static sqInt followMaybeForwarded(sqInt objOop) {
   return (/* isOopForwarded: */
-          ((!(objOop & (tagMask())))) &&
-                  ((!((longAt((void *)(objOop))) &
-                      ((classIndexMask()) -
-                       (isForwardedObjectClassIndexPun())))))
-              ? followForwarded(objOop)
-              : objOop);
+          isOopForwarded(objOop))
+             ? followForwarded(objOop)
+             : objOop;
 }

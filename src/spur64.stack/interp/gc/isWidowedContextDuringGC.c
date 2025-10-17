@@ -65,10 +65,7 @@ static sqInt isWidowedContextDuringGC(sqInt aOnceMarriedContext) {
         referent = longAt((void *)((maybeFrameCtxt + BaseHeaderSize) +
                                    (0U << (shiftForWord()))));
         while (/* isOopForwarded: */
-               ((!(referent & (tagMask())))) &&
-               ((!((longAt((void *)(referent))) &
-                   ((classIndexMask()) -
-                    (isForwardedObjectClassIndexPun())))))) {
+               isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }

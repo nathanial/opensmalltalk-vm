@@ -18,9 +18,7 @@ sqInt remapObj(sqInt objOop) {
     resolvedObj =
         longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
     while (/* isOopForwarded: */
-           ((!(resolvedObj & (tagMask())))) &&
-           ((!((longAt((void *)(resolvedObj))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+           isOopForwarded(resolvedObj)) {
       resolvedObj = longAt(
           (void *)((resolvedObj + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

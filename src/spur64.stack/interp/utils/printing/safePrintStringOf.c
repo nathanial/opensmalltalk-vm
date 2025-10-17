@@ -6,17 +6,13 @@ static void safePrintStringOf(sqInt oop) {
   sqInt target;
 
   if (/* isOopForwarded: */
-      ((!(oop & (tagMask())))) &&
-      ((!((longAt((void *)(oop))) &
-          ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+      isOopForwarded(oop)) {
     /* begin followForwarded: */
     assert(isUnambiguouslyForwarder(oop));
     target =
         longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
     while (/* isOopForwarded: */
-           ((!(target & (tagMask())))) &&
-           ((!((longAt((void *)(target))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+           isOopForwarded(target)) {
       target = longAt(
           (void *)((target + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

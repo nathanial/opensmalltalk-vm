@@ -66,9 +66,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
         goto l1;
       }
       if (/* isOopForwarded: */
-          ((!(nextSelector & (tagMask())))) &&
-          ((!((longAt((void *)(nextSelector))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(nextSelector)) {
         nextSelector = fixFollowedFieldofObjectwithInitialValue(
             index + SelectorStart, dictionary, nextSelector);
       }
@@ -89,9 +87,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
                                       ((((usqInt)((index - SelectorStart))
                                          << (shiftForWord()))))));
         if (/* isOopForwarded: */
-            ((!(objOopSqInt & (tagMask())))) &&
-            ((!((longAt((void *)(objOopSqInt))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(objOopSqInt)) {
           objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
               index - SelectorStart, methodArray, objOopSqInt);
         }

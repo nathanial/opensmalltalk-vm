@@ -16,17 +16,13 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth,
   sqInt referentSqInt;
 
   if (/* isOopForwarded: */
-      ((!(classObj & (tagMask())))) &&
-      ((!((longAt((void *)(classObj))) &
-          ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+      isOopForwarded(classObj)) {
     /* begin followForwarded: */
     assert(isUnambiguouslyForwarder(classObj));
     currClass = longAt(
         (void *)((classObj + BaseHeaderSize) + (0U << (shiftForWord()))));
     while (/* isOopForwarded: */
-           ((!(currClass & (tagMask())))) &&
-           ((!((longAt((void *)(currClass))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+           isOopForwarded(currClass)) {
       currClass = longAt(
           (void *)((currClass + BaseHeaderSize) + (0U << (shiftForWord()))));
     }
@@ -44,17 +40,13 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth,
         (void *)((currClass + BaseHeaderSize) +
                  ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
     if (/* isOopForwarded: */
-        ((!(classDict & (tagMask())))) &&
-        ((!((longAt((void *)(classDict))) &
-            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+        isOopForwarded(classDict)) {
       /* begin followForwarded: */
       assert(isUnambiguouslyForwarder(classDict));
       referent = longAt(
           (void *)((classDict + BaseHeaderSize) + (0U << (shiftForWord()))));
       while (/* isOopForwarded: */
-             ((!(referent & (tagMask())))) &&
-             ((!((longAt((void *)(referent))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+             isOopForwarded(referent)) {
         referent = longAt(
             (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
       }
@@ -79,18 +71,13 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth,
           (void *)((classDict + BaseHeaderSize) +
                    ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
       if (/* isOopForwarded: */
-          ((!(methodArray & (tagMask())))) &&
-          ((!((longAt((void *)(methodArray))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(methodArray)) {
         /* begin followForwarded: */
         assert(isUnambiguouslyForwarder(methodArray));
         referentSqInt = longAt((void *)((methodArray + BaseHeaderSize) +
                                         (0U << (shiftForWord()))));
         while (/* isOopForwarded: */
-               ((!(referentSqInt & (tagMask())))) &&
-               ((!((longAt((void *)(referentSqInt))) &
-                   ((classIndexMask()) -
-                    (isForwardedObjectClassIndexPun())))))) {
+               isOopForwarded(referentSqInt)) {
           referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                           (0U << (shiftForWord()))));
         }
@@ -112,17 +99,13 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth,
         longAt((void *)((currClass + BaseHeaderSize) +
                         ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
     if (/* isOopForwarded: */
-        ((!(objOop & (tagMask())))) &&
-        ((!((longAt((void *)(objOop))) &
-            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+        isOopForwarded(objOop)) {
       /* begin followForwarded: */
       assert(isUnambiguouslyForwarder(objOop));
       referentSqInt = longAt(
           (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
       while (/* isOopForwarded: */
-             ((!(referentSqInt & (tagMask())))) &&
-             ((!((longAt((void *)(referentSqInt))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+             isOopForwarded(referentSqInt)) {
         referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                         (0U << (shiftForWord()))));
       }

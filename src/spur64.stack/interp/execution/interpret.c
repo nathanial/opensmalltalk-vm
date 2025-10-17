@@ -3335,16 +3335,10 @@ sqInt interpret(void) {
           stackPointer = localSP;
           framePointer = localFP;
           if ((/* isOopForwarded: */
-               ((!(messageSelector & (tagMask())))) &&
-               ((!((longAt((void *)(messageSelector))) &
-                   ((classIndexMask()) -
-                    (isForwardedObjectClassIndexPun())))))) ||
+               isOopForwarded(messageSelector)) ||
               (lkupClassTag == (isForwardedObjectClassIndexPun()))) {
             if (/* isOopForwarded: */
-                ((!(messageSelector & (tagMask())))) &&
-                ((!((longAt((void *)(messageSelector))) &
-                    ((classIndexMask()) -
-                     (isForwardedObjectClassIndexPun())))))) {
+                isOopForwarded(messageSelector)) {
               messageSelector =
                   handleForwardedSelectorFaultFor(messageSelector);
             }
@@ -4013,9 +4007,7 @@ sqInt interpret(void) {
                                   ((((usqInt)((offset + LiteralStart))
                                      << (shiftForWord()))))));
         if (/* isOopForwarded: */
-            ((!(literal & (tagMask())))) &&
-            ((!((longAt((void *)(literal))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(literal)) {
           literal = fixFollowedFieldofObjectwithInitialValue(
               offset + LiteralStart, method, literal);
         }
@@ -4067,11 +4059,7 @@ sqInt interpret(void) {
 
         /* begin ensureReceiverUnforwarded */
         if (/* isOopForwarded: */
-            ((!((longAt(localSP + (argumentCount * BytesPerOop))) &
-                (tagMask())))) &&
-            ((!((longAt((
-                    void *)(longAt(localSP + (argumentCount * BytesPerOop))))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(longAt(localSP + (argumentCount * BytesPerOop)))) {
           objOop = longAt(localSP + (argumentCount * BytesPerOop));
 
           /* begin followForwarded: */
@@ -4079,10 +4067,7 @@ sqInt interpret(void) {
           referent = longAt(
               (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(referent & (tagMask())))) &&
-                 ((!((longAt((void *)(referent))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }
@@ -6965,16 +6950,12 @@ sqInt interpret(void) {
       VM_LABEL(bytecodePrimIdentical);
       rcvr = longAt(localSP + (1 * BytesPerOop));
       if (/* isOopForwarded: */
-          ((!(rcvr & (tagMask())))) &&
-          ((!((longAt((void *)(rcvr))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(rcvr)) {
         rcvr = handleSpecialSelectorSendFaultForfpsp(rcvr, localFP, localSP);
       }
       arg = longAt(localSP);
       if (/* isOopForwarded: */
-          ((!(arg & (tagMask())))) &&
-          ((!((longAt((void *)(arg))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(arg)) {
         arg = handleSpecialSelectorSendFaultForfpsp(arg, localFP, localSP);
       }
 
@@ -6995,9 +6976,7 @@ sqInt interpret(void) {
       VM_LABEL(bytecodePrimClass);
       rcvr = longAt(localSP);
       if (/* isOopForwarded: */
-          ((!(rcvr & (tagMask())))) &&
-          ((!((longAt((void *)(rcvr))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(rcvr)) {
         rcvr = handleSpecialSelectorSendFaultForfpsp(rcvr, localFP, localSP);
       }
       aValue = /* fetchClassOf: */
@@ -7018,16 +6997,12 @@ sqInt interpret(void) {
       VM_LABEL(bytecodePrimNotIdentical);
       rcvr = longAt(localSP + (1 * BytesPerOop));
       if (/* isOopForwarded: */
-          ((!(rcvr & (tagMask())))) &&
-          ((!((longAt((void *)(rcvr))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(rcvr)) {
         rcvr = handleSpecialSelectorSendFaultForfpsp(rcvr, localFP, localSP);
       }
       arg = longAt(localSP);
       if (/* isOopForwarded: */
-          ((!(arg & (tagMask())))) &&
-          ((!((longAt((void *)(arg))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(arg)) {
         arg = handleSpecialSelectorSendFaultForfpsp(arg, localFP, localSP);
       }
 
@@ -7884,15 +7859,11 @@ sqInt interpret(void) {
       rcvr = longAt(localSP + (1 * BytesPerOop));
       arg = longAt(localSP);
       if (/* isOopForwarded: */
-          ((!(rcvr & (tagMask())))) &&
-          ((!((longAt((void *)(rcvr))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(rcvr)) {
         rcvr = handleSpecialSelectorSendFaultForfpsp(rcvr, localFP, localSP);
       }
       if (/* isOopForwarded: */
-          ((!(arg & (tagMask())))) &&
-          ((!((longAt((void *)(arg))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(arg)) {
         arg = handleSpecialSelectorSendFaultForfpsp(arg, localFP, localSP);
       }
 
@@ -7912,15 +7883,11 @@ sqInt interpret(void) {
       rcvr = longAt(localSP + (1 * BytesPerOop));
       arg = longAt(localSP);
       if (/* isOopForwarded: */
-          ((!(rcvr & (tagMask())))) &&
-          ((!((longAt((void *)(rcvr))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(rcvr)) {
         rcvr = handleSpecialSelectorSendFaultForfpsp(rcvr, localFP, localSP);
       }
       if (/* isOopForwarded: */
-          ((!(arg & (tagMask())))) &&
-          ((!((longAt((void *)(arg))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(arg)) {
         arg = handleSpecialSelectorSendFaultForfpsp(arg, localFP, localSP);
       }
 
@@ -8287,10 +8254,7 @@ sqInt interpret(void) {
           referent = longAt(
               (void *)((class + BaseHeaderSize) + (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(referent & (tagMask())))) &&
-                 ((!((longAt((void *)(referent))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }
@@ -8334,11 +8298,7 @@ sqInt interpret(void) {
 
         /* begin ensureReceiverUnforwarded */
         if (/* isOopForwarded: */
-            ((!((longAt(localSP + (argumentCount * BytesPerOop))) &
-                (tagMask())))) &&
-            ((!((longAt((
-                    void *)(longAt(localSP + (argumentCount * BytesPerOop))))) &
-                ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+            isOopForwarded(longAt(localSP + (argumentCount * BytesPerOop)))) {
           objOop = longAt(localSP + (argumentCount * BytesPerOop));
 
           /* begin followForwarded: */
@@ -8346,10 +8306,7 @@ sqInt interpret(void) {
           referent = longAt(
               (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
           while (/* isOopForwarded: */
-                 ((!(referent & (tagMask())))) &&
-                 ((!((longAt((void *)(referent))) &
-                     ((classIndexMask()) -
-                      (isForwardedObjectClassIndexPun())))))) {
+                 isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }

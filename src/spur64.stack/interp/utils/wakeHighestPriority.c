@@ -78,9 +78,7 @@ static sqInt wakeHighestPriority(void) {
         return proc;
       }
       if (/* isOopForwarded: */
-          ((!(ctxt & (tagMask())))) &&
-          ((!((longAt((void *)(ctxt))) &
-              ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+          isOopForwarded(ctxt)) {
         ctxt = fixFollowedFieldofObjectwithInitialValue(SuspendedContextIndex,
                                                         proc, ctxt);
       }
