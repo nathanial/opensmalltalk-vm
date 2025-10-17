@@ -26,12 +26,7 @@ static sqInt getErrorObjectFromPrimFailCode(void) {
     if (primFailCode <=
         ((
           numSlotsOf(table)))) {
-      /* begin followField:ofObject: */
-      errObj = fetchPointerofObject(primFailCode - 1, table);
-      if (isOopForwarded(errObj)) {
-        errObj = fixFollowedFieldofObjectwithInitialValue(primFailCode - 1,
-                                                          table, errObj);
-      }
+      errObj = followFieldofObject(primFailCode - 1, table);
 
       /* If there's a clonable object in the table at that index,
          answer a clone of the error object with the second slot set to the

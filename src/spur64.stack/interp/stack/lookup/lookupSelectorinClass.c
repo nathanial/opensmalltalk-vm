@@ -68,12 +68,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
               MethodArrayIndex, dictionary, methodArray);
         }
 
-        /* begin followField:ofObject: */
-        objOopSqInt = fetchPointerofObject(index - SelectorStart, methodArray);
-        if (isOopForwarded(objOopSqInt)) {
-          objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
-              index - SelectorStart, methodArray, objOopSqInt);
-        }
+        objOopSqInt = followFieldofObject(index - SelectorStart, methodArray);
         meth = objOopSqInt;
         goto l1;
       }

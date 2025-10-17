@@ -104,12 +104,7 @@ void primitiveClosureValueNoContextSwitch(void) {
   longAtput((sp = stackPointer - BytesPerWord), nilObj);
   stackPointer = sp;
 
-  /* begin followField:ofObject: */
-  objOop = fetchPointerofObject(ReceiverIndex, outerContext);
-  if (isOopForwarded(objOop)) {
-    objOop = fixFollowedFieldofObjectwithInitialValue(ReceiverIndex,
-                                                      outerContext, objOop);
-  }
+  objOop = followFieldofObject(ReceiverIndex, outerContext);
   object = objOop;
 
   /* begin push: */

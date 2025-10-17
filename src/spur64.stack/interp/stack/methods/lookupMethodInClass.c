@@ -85,12 +85,7 @@ static sqInt lookupMethodInClass(sqInt class) {
                 MethodArrayIndex, dictionary, methodArray);
           }
 
-          /* begin followField:ofObject: */
-          objOop = fetchPointerofObject(index, methodArray);
-          if (isOopForwarded(objOop)) {
-            objOop = fixFollowedFieldofObjectwithInitialValue(
-                index, methodArray, objOop);
-          }
+          objOop = followFieldofObject(index, methodArray);
           newMethod = objOop;
           found = 1;
           goto l1;
@@ -131,12 +126,7 @@ static sqInt lookupMethodInClass(sqInt class) {
               MethodArrayIndex, dictionary, methodArray);
         }
 
-        /* begin followField:ofObject: */
-        objOop = fetchPointerofObject(index - SelectorStart, methodArray);
-        if (isOopForwarded(objOop)) {
-          objOop = fixFollowedFieldofObjectwithInitialValue(
-              index - SelectorStart, methodArray, objOop);
-        }
+        objOop = followFieldofObject(index - SelectorStart, methodArray);
         newMethod = objOop;
         found = 1;
         goto l1;

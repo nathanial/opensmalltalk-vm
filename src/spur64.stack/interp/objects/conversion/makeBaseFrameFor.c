@@ -48,12 +48,7 @@ l1:
   }
   theIP = (theIP >> 3);
 
-  /* begin followField:ofObject: */
-  rcvr = fetchPointerofObject(ReceiverIndex, aContext);
-  if (isOopForwarded(rcvr)) {
-    rcvr =
-        fixFollowedFieldofObjectwithInitialValue(ReceiverIndex, aContext, rcvr);
-  }
+  rcvr = followFieldofObject(ReceiverIndex, aContext);
 
   /* If the frame is a closure activation then the closure should be on the
      stack in the pushed receiver position (closures receive the value[:value:]

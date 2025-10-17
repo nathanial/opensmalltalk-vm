@@ -81,12 +81,7 @@ static void primitiveFullClosureValue(void) {
   longAtput((sp = stackPointer - BytesPerWord), nilObj);
   stackPointer = sp;
 
-  /* begin followField:ofObject: */
-  objOop = fetchPointerofObject(FullClosureReceiverIndex, blockClosure);
-  if (isOopForwarded(objOop)) {
-    objOop = fixFollowedFieldofObjectwithInitialValue(FullClosureReceiverIndex,
-                                                      blockClosure, objOop);
-  }
+  objOop = followFieldofObject(FullClosureReceiverIndex, blockClosure);
   object = objOop;
 
   /* begin push: */

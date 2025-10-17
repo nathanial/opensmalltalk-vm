@@ -61,12 +61,7 @@ static NeverInline sqInt objectsReachableFromRoots(sqInt arrayOfRoots) {
         numSlotsOf(arrayOfRoots))) -
       1;
   for (iSqInt = 0; iSqInt <= toDoLimitSqInt; iSqInt += 1) {
-    /* begin followField:ofObject: */
-    oopSqInt = fetchPointerofObject(iSqInt, arrayOfRoots);
-    if (isOopForwarded(oopSqInt)) {
-      oopSqInt = fixFollowedFieldofObjectwithInitialValue(iSqInt, arrayOfRoots,
-                                                          oopSqInt);
-    }
+    oopSqInt = followFieldofObject(iSqInt, arrayOfRoots);
     if ((!(oopSqInt & (tagMask())))) {
       /* begin setIsMarkedOf:to: */
       assert(!(isFreeObject(oopSqInt)));
@@ -93,12 +88,7 @@ static NeverInline sqInt objectsReachableFromRoots(sqInt arrayOfRoots) {
         numSlotsOf(arrayOfRoots))) -
       1;
   for (iSqInt = 0; iSqInt <= toDoLimitSqInt; iSqInt += 1) {
-    /* begin followField:ofObject: */
-    oopSqInt = fetchPointerofObject(iSqInt, arrayOfRoots);
-    if (isOopForwarded(oopSqInt)) {
-      oopSqInt = fixFollowedFieldofObjectwithInitialValue(iSqInt, arrayOfRoots,
-                                                          oopSqInt);
-    }
+    oopSqInt = followFieldofObject(iSqInt, arrayOfRoots);
     if ((!(oopSqInt & (tagMask())))) {
       /* begin setIsMarkedOf:to: */
       assert(!(isFreeObject(oopSqInt)));

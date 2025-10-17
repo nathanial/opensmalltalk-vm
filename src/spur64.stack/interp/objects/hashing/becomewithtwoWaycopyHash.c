@@ -244,17 +244,9 @@ l6:
           numSlotsOf(array1))) -
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
-      /* begin followField:ofObject: */
-      obj1 = fetchPointerofObject(i, array1);
-      if (isOopForwarded(obj1)) {
-        obj1 = fixFollowedFieldofObjectwithInitialValue(i, array1, obj1);
-      }
+      obj1 = followFieldofObject(i, array1);
 
-      /* begin followField:ofObject: */
-      obj2 = fetchPointerofObject(i, array2);
-      if (isOopForwarded(obj2)) {
-        obj2 = fixFollowedFieldofObjectwithInitialValue(i, array2, obj2);
-      }
+      obj2 = followFieldofObject(i, array2);
       if (obj1 != obj2) {
         /* begin doBecome:and:copyHash: */
         o1ClassIndex =
@@ -329,12 +321,7 @@ l6:
           objOop = fixFollowedFieldofObjectwithInitialValue(i, array1, objOop);
         }
 
-        /* begin followField:ofObject: */
-        objOopSqInt = fetchPointerofObject(i, array2);
-        if (isOopForwarded(objOopSqInt)) {
-          objOopSqInt =
-              fixFollowedFieldofObjectwithInitialValue(i, array2, objOopSqInt);
-        }
+        objOopSqInt = followFieldofObject(i, array2);
       }
     }
   } else {
@@ -344,17 +331,9 @@ l6:
           numSlotsOf(array1))) -
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
-      /* begin followField:ofObject: */
-      obj1 = fetchPointerofObject(i, array1);
-      if (isOopForwarded(obj1)) {
-        obj1 = fixFollowedFieldofObjectwithInitialValue(i, array1, obj1);
-      }
+      obj1 = followFieldofObject(i, array1);
 
-      /* begin followField:ofObject: */
-      obj2 = fetchPointerofObject(i, array2);
-      if (isOopForwarded(obj2)) {
-        obj2 = fixFollowedFieldofObjectwithInitialValue(i, array2, obj2);
-      }
+      obj2 = followFieldofObject(i, array2);
       if (obj1 != obj2) {
         /* begin doBecome:to:copyHash: */
         /* begin forward:to: */
@@ -424,11 +403,7 @@ l6:
         }
         assert(!((isOopForwarded(obj2))));
 
-        /* begin followField:ofObject: */
-        objOop = fetchPointerofObject(i, array1);
-        if (isOopForwarded(objOop)) {
-          objOop = fixFollowedFieldofObjectwithInitialValue(i, array1, objOop);
-        }
+        objOop = followFieldofObject(i, array1);
         assert(!(isOopForwarded(obj2)));
       }
     }

@@ -17,12 +17,7 @@ sqInt methodClassOf(sqInt methodPointer) {
   offset = (literalCountOf(methodPointer)) - 1;
 
   /* begin followLiteral:ofMethod: */
-  /* begin followField:ofObject: */
-  literal = fetchPointerofObject(offset + LiteralStart, methodPointer);
-  if (isOopForwarded(literal)) {
-    literal = fixFollowedFieldofObjectwithInitialValue(offset + LiteralStart,
-                                                       methodPointer, literal);
-  }
+  literal = followFieldofObject(offset + LiteralStart, methodPointer);
   return ((literal != nilObj) &&
                   (/* isPointers: */
                    ((!(literal & (tagMask())))) &&

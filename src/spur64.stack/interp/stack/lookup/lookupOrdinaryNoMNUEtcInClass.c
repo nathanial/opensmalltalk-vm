@@ -82,12 +82,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
                 MethodArrayIndex, dictionary, methodArray);
           }
 
-          /* begin followField:ofObject: */
-          objOopSqInt = fetchPointerofObject(index, methodArray);
-          if (isOopForwarded(objOopSqInt)) {
-            objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
-                index, methodArray, objOopSqInt);
-          }
+          objOopSqInt = followFieldofObject(index, methodArray);
           newMethod = objOopSqInt;
           found = 1;
           goto l1;
@@ -128,12 +123,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
               MethodArrayIndex, dictionary, methodArray);
         }
 
-        /* begin followField:ofObject: */
-        objOopSqInt = fetchPointerofObject(index - SelectorStart, methodArray);
-        if (isOopForwarded(objOopSqInt)) {
-          objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
-              index - SelectorStart, methodArray, objOopSqInt);
-        }
+        objOopSqInt = followFieldofObject(index - SelectorStart, methodArray);
         newMethod = objOopSqInt;
         found = 1;
         goto l1;
