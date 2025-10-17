@@ -69,14 +69,12 @@ static void primitiveStoreStackp(void) {
   (stackPage->headSP = stackPointer);
   assert(pageListIsWellFormed());
   if (/* isStillMarriedContext: */
-      (((((longAt((void *)((ctxt + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+      (((((fetchPointerofObject(SenderIndex, ctxt))) &
          7) == 1)) &&
       (!(isWidowedContext(ctxt)))) {
     /* begin frameOfMarriedContext: */
     senderOop =
-        longAt((void *)((ctxt + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SenderIndex, ctxt);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -103,8 +101,7 @@ static void primitiveStoreStackp(void) {
   }
 
   /* begin fetchStackPointerOf: */
-  sp = longAt((void *)((ctxt + BaseHeaderSize) +
-                       ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+  sp = fetchPointerofObject(StackPointerIndex, ctxt);
   if (!((((sp) & 7) == 1))) {
     stackp = 0;
     goto l1;

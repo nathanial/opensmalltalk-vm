@@ -37,9 +37,7 @@ static sqInt changeClassOfto(sqInt rcvr, sqInt argClass) {
   ) {
     return PrimErrNoModification;
   }
-  classFormat = ((longAt((void *)((argClass + BaseHeaderSize) +
-                                  ((((usqInt)(InstanceSpecificationIndex)
-                                     << (shiftForWord()))))))) >>
+  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, argClass)) >>
                  3);
   fixedFields = classFormat & ((1U << (fixedFieldsFieldWidth())) - 1);
   classFormat =

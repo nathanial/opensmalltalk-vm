@@ -27,8 +27,7 @@ static usqInt marryFrameSP(char *theFP, char *theSP) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(longAt(theFP + FoxMethod)));
   methodHeader =
-      longAt((void *)(((longAt(theFP + FoxMethod)) + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, longAt(theFP + FoxMethod));
 
   /* Decide how much of the stack to preserve in widowed contexts.  Preserving
      too much state will potentially hold onto garbage.  Holding onto too little

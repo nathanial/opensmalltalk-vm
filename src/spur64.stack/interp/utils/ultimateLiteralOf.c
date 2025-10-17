@@ -9,7 +9,5 @@ sqInt ultimateLiteralOf(sqInt aMethodOop) {
   offset = (literalCountOf(aMethodOop)) - 1;
 
   /* begin literal:ofMethod: */
-  return longAt(
-      (void *)((aMethodOop + BaseHeaderSize) +
-               ((((usqInt)((offset + LiteralStart)) << (shiftForWord()))))));
+  return fetchPointerofObject(offset + LiteralStart, aMethodOop);
 }

@@ -40,9 +40,7 @@ static void primitivePin(void) {
            (((longAt((void *)(obj))) & (classIndexMask())) ==
             ClassMethodContextCompactIndex)) &&
           (/* isStillMarriedContext: */
-           (((((longAt(
-                  (void *)((obj + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+           (((((fetchPointerofObject(SenderIndex, obj))) &
               7) == 1)) &&
            (!(isWidowedContext(obj))))) {
         /* primitiveFailFor: */

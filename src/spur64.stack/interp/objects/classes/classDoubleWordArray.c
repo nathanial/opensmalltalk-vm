@@ -8,9 +8,7 @@ sqInt classDoubleWordArray(void) {
 
   /* begin accessIntegerClass:withValidationFlag: */
   hash = 0;
-  classOop = longAt(
-      (void *)((specialObjectsOop + BaseHeaderSize) +
-               ((((usqInt)(ClassDoubleWordArray) << (shiftForWord()))))));
+  classOop = fetchPointerofObject(ClassDoubleWordArray, specialObjectsOop);
   if (((validatedIntegerClassFlags & ValidatedClassDoubleWordArrayFlag) != 0)) {
     return classOop;
   }

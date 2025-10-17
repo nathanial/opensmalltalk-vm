@@ -39,8 +39,7 @@ static sqInt lastPointerOfWhileSwizzling(sqInt objOop) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(objOop));
-  header = longAt((void *)((objOop + BaseHeaderSize) +
-                           ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  header = fetchPointerofObject(HeaderIndex, objOop);
   return (((((/* begin literalCountOfMethodHeader: */
               assert((((header) & 7) == 1)),
               /* literalCountOfAlternateHeader: */

@@ -50,8 +50,7 @@ sqInt reestablishContextPriorToCallback(sqInt callbackContext) {
 
   /* Mark callbackContext as dead; the common case is that it is the current
      frame. We go the extra mile for the debugger. */
-  if ((!((longAt((void *)((callbackContext + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord()))))))) &
+  if ((!((fetchPointerofObject(SenderIndex, callbackContext)) &
          (tagMask())))) {
     /* begin markContextAsDead: */
     assert(isContext(callbackContext));
@@ -75,8 +74,7 @@ sqInt reestablishContextPriorToCallback(sqInt callbackContext) {
   } else {
     /* begin frameOfMarriedContext: */
     senderOop =
-        longAt((void *)((callbackContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SenderIndex, callbackContext);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
     if (framePointer == theFP) {
@@ -121,14 +119,12 @@ sqInt reestablishContextPriorToCallback(sqInt callbackContext) {
   /* Make the calloutContext the active frame.  The case where calloutContext
      is immediately below callbackContext on the same page is handled above. */
   if (/* isStillMarriedContext: */
-      (((((longAt((void *)((calloutContext + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+      (((((fetchPointerofObject(SenderIndex, calloutContext))) &
          7) == 1)) &&
       (!(isWidowedContext(calloutContext)))) {
     /* begin frameOfMarriedContext: */
     senderOop =
-        longAt((void *)((calloutContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SenderIndex, calloutContext);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
 

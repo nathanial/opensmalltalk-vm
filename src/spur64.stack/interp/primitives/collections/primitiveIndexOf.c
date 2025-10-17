@@ -9,8 +9,7 @@ sqInt primitiveIndexOf(sqInt methodPointer) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(methodPointer));
   methodHeader =
-      longAt((void *)((methodPointer + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, methodPointer);
 
   /* begin primitiveIndexOfMethod:header: */
   return (((methodHeader & AlternateHeaderHasPrimFlag) != 0)

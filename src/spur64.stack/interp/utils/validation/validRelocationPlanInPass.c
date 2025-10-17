@@ -36,8 +36,7 @@ static sqInt validRelocationPlanInPass(sqInt onePass) {
       if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) &
             (1U << (pinnedBitByteShift())))) {
         nMobiles += 1;
-        destination = longAt(
-            (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+        destination = fetchPointerofObject(0U, objOop);
         if (!(destination >= toFinger)) {
           anomaly = objOop;
           return 1;

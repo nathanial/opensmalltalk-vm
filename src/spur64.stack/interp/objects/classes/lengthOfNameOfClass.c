@@ -22,14 +22,12 @@ static sqInt lengthOfNameOfClass(sqInt classOop) {
            : numSlotsUsqInt);
   if (numSlots == metaclassNumSlots) {
     return lengthOfNameOfClass(
-        longAt((void *)((classOop + BaseHeaderSize) +
-                        ((((usqInt)(thisClassIndex) << (shiftForWord())))))));
+        fetchPointerofObject(thisClassIndex, classOop));
   }
   if (numSlots <= classNameIndex) {
     return 0;
   }
-  objOop = longAt((void *)((classOop + BaseHeaderSize) +
-                           ((((usqInt)(classNameIndex) << (shiftForWord()))))));
+  objOop = fetchPointerofObject(classNameIndex, classOop);
 
   /* begin lengthOf: */
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());

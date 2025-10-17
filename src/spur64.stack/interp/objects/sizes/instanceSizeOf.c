@@ -8,9 +8,7 @@
 
 sqInt instanceSizeOf(sqInt classObj) {
   assert(addressCouldBeClassObj(classObj));
-  return (((longAt((void *)((classObj + BaseHeaderSize) +
-                            ((((usqInt)(InstanceSpecificationIndex)
-                               << (shiftForWord()))))))) >>
+  return (((fetchPointerofObject(InstanceSpecificationIndex, classObj)) >>
            3)) &
          ((1U << (fixedFieldsFieldWidth())) - 1);
 }

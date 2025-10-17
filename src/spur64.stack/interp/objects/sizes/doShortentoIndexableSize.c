@@ -177,8 +177,7 @@ static sqInt doShortentoIndexableSize(sqInt objOop, sqInt indexableSize) {
              numBytesOfBitsformat(copy, format));
     } else {
       for (i = 0; i < numSlots; i += 1) {
-        valuePointer = longAt((void *)((objOop + BaseHeaderSize) +
-                                       ((((usqInt)(i) << (shiftForWord()))))));
+        valuePointer = fetchPointerofObject(i, objOop);
 
         /* begin storePointerUnchecked:ofObject:withValue: */
         assert((isNonImmediate(copy)) && (!(isForwarded(copy))));

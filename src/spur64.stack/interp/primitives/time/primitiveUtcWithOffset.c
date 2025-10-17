@@ -30,8 +30,7 @@ primitiveUtcWithOffset(void) {
     }
   } else {
     resultArray = instantiateClassindexableSize(
-        longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                        ((((usqInt)(ClassArray) << (shiftForWord())))))),
+        fetchPointerofObject(ClassArray, specialObjectsOop),
         2);
   }
 

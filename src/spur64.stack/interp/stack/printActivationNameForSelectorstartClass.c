@@ -17,9 +17,7 @@ static void printActivationNameForSelectorstartClass(sqInt aSelector,
     /* begin findClassForSelector:lookupClass:do: */
     currClass = startClass;
     do {
-      classDict = longAt(
-          (void *)((currClass + BaseHeaderSize) +
-                   ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
+      classDict = fetchPointerofObject(MethodDictionaryIndex, currClass);
 
       /* begin numSlotsOf: */
       assert((classIndexOf(classDict)) > (isForwardedObjectClassIndexPun()));
@@ -35,8 +33,7 @@ static void printActivationNameForSelectorstartClass(sqInt aSelector,
       i = SelectorStart;
       while (i < classDictSize) {
         if (aSelector ==
-            (longAt((void *)((classDict + BaseHeaderSize) +
-                             ((((usqInt)(i) << (shiftForWord())))))))) {
+            (fetchPointerofObject(i, classDict))) {
           methClass = currClass;
           goto l1;
         }
@@ -46,8 +43,7 @@ static void printActivationNameForSelectorstartClass(sqInt aSelector,
       /* begin superclassOf: */
       /* begin followObjField:ofObject: */
       objOop =
-          longAt((void *)((currClass + BaseHeaderSize) +
-                          ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+          fetchPointerofObject(SuperclassIndex, currClass);
       assert(isNonImmediate(objOop));
       if ((!((longAt((void *)(objOop))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -63,9 +59,7 @@ static void printActivationNameForSelectorstartClass(sqInt aSelector,
       printNameOfClasscount(methClass, 5);
       printChar('>');
       if (!methClass) {
-        printStringOf(longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                      ((((usqInt)(SelectorDoesNotUnderstand)
-                                         << (shiftForWord())))))));
+        printStringOf(fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop));
         print(" ");
       }
     } else {

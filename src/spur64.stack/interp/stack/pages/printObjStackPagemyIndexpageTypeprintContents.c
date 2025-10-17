@@ -25,30 +25,25 @@ static void printObjStackPagemyIndexpageTypeprintContents(sqInt objStackPage,
     printChar('\t');
     print("topx: ");
     printNum(
-        longAt((void *)((objStackPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackTopx) << (shiftForWord())))))));
+        fetchPointerofObject(ObjStackTopx, objStackPage));
     print(" next: ");
     printHex(
-        longAt((void *)((objStackPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackNextx) << (shiftForWord())))))));
+        fetchPointerofObject(ObjStackNextx, objStackPage));
     if (isFirstPage) {
       print(" free: ");
       printHex(
-          longAt((void *)((objStackPage + BaseHeaderSize) +
-                          ((((usqInt)(ObjStackFreex) << (shiftForWord())))))));
+          fetchPointerofObject(ObjStackFreex, objStackPage));
     }
     cr();
   }
   if (isFirstPage) {
     freeOrNextPage =
-        longAt((void *)((objStackPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackFreex) << (shiftForWord()))))));
+        fetchPointerofObject(ObjStackFreex, objStackPage);
     while (freeOrNextPage != 0) {
       printObjStackPagemyIndexpageTypeprintContents(freeOrNextPage, myx,
                                                     ObjStackFreex, 0);
       page =
-          longAt((void *)((freeOrNextPage + BaseHeaderSize) +
-                          ((((usqInt)(ObjStackFreex) << (shiftForWord()))))));
+          fetchPointerofObject(ObjStackFreex, freeOrNextPage);
       if ((page == freeOrNextPage) || (page == objStackPage)) {
         print("circularity in free page list!!");
         cr();
@@ -58,26 +53,22 @@ static void printObjStackPagemyIndexpageTypeprintContents(sqInt objStackPage,
     }
   }
   freeOrNextPage =
-      longAt((void *)((objStackPage + BaseHeaderSize) +
-                      ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+      fetchPointerofObject(ObjStackNextx, objStackPage);
   if (freeOrNextPage) {
     printObjStackPagemyIndexpageTypeprintContents(freeOrNextPage, myx,
                                                   ObjStackNextx, printContents);
   }
   if (printContents) {
     index =
-        (longAt((void *)((objStackPage + BaseHeaderSize) +
-                         ((((usqInt)(ObjStackTopx) << (shiftForWord()))))))) +
+        (fetchPointerofObject(ObjStackTopx, objStackPage)) +
         ObjStackNextx;
     while (index >= ObjStackFixedSlots) {
       /* begin space */
       printChar(' ');
-      printHex(longAt((void *)((objStackPage + BaseHeaderSize) +
-                               ((((usqInt)(index) << (shiftForWord())))))));
+      printHex(fetchPointerofObject(index, objStackPage));
       index -= 1;
     }
-    if (((longAt((void *)((objStackPage + BaseHeaderSize) +
-                          ((((usqInt)(ObjStackTopx) << (shiftForWord()))))))) +
+    if (((fetchPointerofObject(ObjStackTopx, objStackPage)) +
          ObjStackNextx) >= ObjStackFixedSlots) {
       cr();
     }

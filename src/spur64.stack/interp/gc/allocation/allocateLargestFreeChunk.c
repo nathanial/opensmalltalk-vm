@@ -20,11 +20,11 @@ static sqInt allocateLargestFreeChunk(void) {
   /* This will be the node, not a list element.  Answer a list element in
    * preference. */
   next =
-      longAt((void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fetchPointerofObject(0U, freeChunk);
   if (next) {
     assert((bytesInBody(freeChunk)) >= (numFreeLists()));
     nextFreeChunk =
-        longAt((void *)((next + BaseHeaderSize) + (0U << (shiftForWord()))));
+        fetchPointerofObject(0U, next);
 
     /* begin setNextFreeChunkOf:withValue:isLilliputianSize: */
     /* begin storePointer:ofFreeChunk:withValue: */

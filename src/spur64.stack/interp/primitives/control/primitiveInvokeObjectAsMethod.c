@@ -121,8 +121,7 @@ l1:
 
   /* stack is clean here */
   messageSelector =
-      longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                      ((((usqInt)(SelectorRunWithIn) << (shiftForWord()))))));
+      fetchPointerofObject(SelectorRunWithIn, specialObjectsOop);
   argumentCount = 3;
   lookupClassTag = /* fetchClassTagOf: */
       ((tagBits = newMethod & (tagMask()))
@@ -148,8 +147,7 @@ l1:
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(newMethod));
   methodHeader =
-      longAt((void *)((newMethod + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, newMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 

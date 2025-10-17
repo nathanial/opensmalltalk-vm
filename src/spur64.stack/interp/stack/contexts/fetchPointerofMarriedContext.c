@@ -22,14 +22,12 @@ static sqInt fetchPointerofMarriedContext(sqInt offset, sqInt aContext) {
      sender, pc & stackp have to be computed for married contexts. */
   if (offset <= ReceiverIndex) {
     if (!(offset <= StackPointerIndex)) {
-      return longAt((void *)((aContext + BaseHeaderSize) +
-                             ((((usqInt)(offset) << (shiftForWord()))))));
+      return fetchPointerofObject(offset, aContext);
     }
 
     /* begin frameOfMarriedContext: */
     senderOop =
-        longAt((void *)((aContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SenderIndex, aContext);
     assert((((senderOop) & 7) == 1));
     spouseFP = ((char *)(senderOop - (smallIntegerTag())));
     if (!offset) {
@@ -67,8 +65,7 @@ static sqInt fetchPointerofMarriedContext(sqInt offset, sqInt aContext) {
   }
 
   /* begin frameOfMarriedContext: */
-  senderOop = longAt((void *)((aContext + BaseHeaderSize) +
-                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  senderOop = fetchPointerofObject(SenderIndex, aContext);
   assert((((senderOop) & 7) == 1));
   spouseFP = ((char *)(senderOop - (smallIntegerTag())));
   return ((((offset - ReceiverIndex) >= 1) &&

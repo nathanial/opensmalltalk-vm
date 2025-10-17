@@ -128,8 +128,7 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
                : numSlots))) -
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
-      oop = longAt((void *)((outPointerArray + BaseHeaderSize) +
-                            ((((usqInt)(i) << (shiftForWord()))))));
+      oop = fetchPointerofObject(i, outPointerArray);
       if (/* isYoung: */
           ((!(oop & (tagMask())))) && (oopisLessThan(oop, oldSpaceStart))) {
         clone = cloneInOldSpaceforPinning(oop, 0);
@@ -254,8 +253,7 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
         goto l8;
       }
       mappedOop =
-          longAt((void *)((outPointerArray + BaseHeaderSize) +
-                          ((((usqInt)(classIndex) << (shiftForWord()))))));
+          fetchPointerofObject(classIndex, outPointerArray);
       hash = (long32At((void *)(mappedOop + 4))) & (identityHashHalfWordMask());
       if (!((hash == 0) || ((hash > (lastClassIndexPun())) &&
                             ((classOrNilAtIndex(hash)) == mappedOop)))) {
@@ -278,8 +276,7 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
     /* The class is contained within the segment. */
     toDoLimit = (numPointerSlotsOf(objOop)) - 1;
     for (i = 0; i <= toDoLimit; i += 1) {
-      oopUsqInt = longAt((void *)((objOop + BaseHeaderSize) +
-                                  ((((usqInt)(i) << (shiftForWord()))))));
+      oopUsqInt = fetchPointerofObject(i, objOop);
       if ((!(oopUsqInt & (tagMask())))) {
         if (((oopUsqInt & TopOopBit) != 0)) {
           if (((oopUsqInt = (oopUsqInt - TopOopBit) / BytesPerOop)) >=
@@ -287,8 +284,7 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
             errorCode = PrimErrBadIndex;
             goto l8;
           }
-          mappedOop = longAt((void *)((outPointerArray + BaseHeaderSize) +
-                                      ((oopUsqInt << (shiftForWord())))));
+          mappedOop = fetchPointerofObject(oopUsqInt, outPointerArray);
         } else {
           if (oopUsqInt & 7 /* (allocationUnit - 1) */) {
             errorCode = PrimErrInappropriate;
@@ -422,9 +418,7 @@ l3:
     classRef = (longAt((void *)(objOop))) & (classIndexMask());
     classOop =
         (((classRef & TopHashBit) != 0)
-             ? longAt((void *)((outPointerArray + BaseHeaderSize) +
-                               ((((usqInt)((classRef - TopHashBit))
-                                  << (shiftForWord()))))))
+             ? fetchPointerofObject(classRef - TopHashBit, outPointerArray)
              : ((classRef - (firstClassIndexPun())) * 8 /* allocationUnit */) +
                    segmentStart);
     classIndex =

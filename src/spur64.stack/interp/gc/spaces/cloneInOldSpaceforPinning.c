@@ -51,8 +51,7 @@ static sqInt cloneInOldSpaceforPinning(sqInt objOop, sqInt forPinning) {
   if (fmt <= 5 /* lastPointerFormat */) {
     hasYoung = 0;
     for (i = 0; i < numSlots; i += 1) {
-      oop = longAt((void *)((objOop + BaseHeaderSize) +
-                            ((((usqInt)(i) << (shiftForWord()))))));
+      oop = fetchPointerofObject(i, objOop);
       if (((!(oop & (tagMask())))) &&
           ((!((longAt((void *)(oop))) &
               ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
@@ -76,8 +75,7 @@ static sqInt cloneInOldSpaceforPinning(sqInt objOop, sqInt forPinning) {
     }
   } else {
     for (i = 0; i < numSlots; i += 1) {
-      valuePointer = longAt((void *)((objOop + BaseHeaderSize) +
-                                     ((((usqInt)(i) << (shiftForWord()))))));
+      valuePointer = fetchPointerofObject(i, objOop);
 
       /* begin storePointerUnchecked:ofObject:withValue: */
       assert((isNonImmediate(newObj)) && (!(isForwarded(newObj))));

@@ -29,16 +29,12 @@ static void unlinkSolitaryFreeTreeNode(sqInt freeTreeNode) {
      | N |		=>		| R |
      _/_  _\_		    _/_
      | L | | R |		    | L | */
-  smaller = longAt(
-      (void *)((freeTreeNode + BaseHeaderSize) + (3U << (shiftForWord()))));
-  larger = longAt(
-      (void *)((freeTreeNode + BaseHeaderSize) + (4U << (shiftForWord()))));
-  parent = longAt(
-      (void *)((freeTreeNode + BaseHeaderSize) + (2U << (shiftForWord()))));
+  smaller = fetchPointerofObject(3U, freeTreeNode);
+  larger = fetchPointerofObject(4U, freeTreeNode);
+  parent = fetchPointerofObject(2U, freeTreeNode);
   if (parent) {
     if (smaller) {
-      fieldIndex = (freeTreeNode == (longAt((void *)((parent + BaseHeaderSize) +
-                                                     (3U << (shiftForWord())))))
+      fieldIndex = (freeTreeNode == (fetchPointerofObject(3U, parent))
                         ? 3 /* freeChunkSmallerIndex */
                         : 4 /* freeChunkLargerIndex */);
 
@@ -58,8 +54,7 @@ static void unlinkSolitaryFreeTreeNode(sqInt freeTreeNode) {
         addFreeSubTree(larger);
       }
     } else {
-      fieldIndex = (freeTreeNode == (longAt((void *)((parent + BaseHeaderSize) +
-                                                     (3U << (shiftForWord())))))
+      fieldIndex = (freeTreeNode == (fetchPointerofObject(3U, parent))
                         ? 3 /* freeChunkSmallerIndex */
                         : 4 /* freeChunkLargerIndex */);
 

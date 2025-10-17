@@ -32,9 +32,7 @@ static void updatePointersInsavedFirstFieldPointer(sqInt obj,
         (((longAt((void *)(obj))) & (classIndexMask())) ==
          ClassMethodContextCompactIndex)) {
       /* begin fetchStackPointerOf: */
-      sp = longAt(
-          (void *)((obj + BaseHeaderSize) +
-                   ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+      sp = fetchPointerofObject(StackPointerIndex, obj);
       if (!((((sp) & 7) == 1))) {
         contextSize = 0;
         goto l1;
@@ -86,7 +84,7 @@ l2:
          (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) &
              (1U << (pinnedBitByteShift()))) != 0)))) {
       assert(isMarked(oop));
-      fwd = longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fwd = fetchPointerofObject(0U, oop);
       assert(isPostMobile(fwd));
       longAtput((void *)(firstFieldPtr), fwd);
     }
@@ -97,8 +95,7 @@ l2:
      since their first field is either a SmallInteger or a reference to a
      CogMethod outside of oldSpace. */
   for (i = 1; i < numPointerSlots; i += 1) {
-    oop = longAt((void *)((obj + BaseHeaderSize) +
-                          ((((usqInt)(i) << (shiftForWord()))))));
+    oop = fetchPointerofObject(i, obj);
     if (((!(oop & (tagMask())))) &&
         (/* isMobile: */
          (oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart,
@@ -106,7 +103,7 @@ l2:
          (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) &
              (1U << (pinnedBitByteShift()))) != 0)))) {
       assert((isMarked(oop)) || (obj == (hiddenRootsObject())));
-      fwd = longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fwd = fetchPointerofObject(0U, oop);
       assert(isPostMobile(fwd));
 
       /* begin storePointerUnchecked:ofObject:withValue: */

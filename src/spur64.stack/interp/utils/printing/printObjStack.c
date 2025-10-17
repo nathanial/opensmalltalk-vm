@@ -12,8 +12,7 @@ void printObjStack(sqInt objStack) {
   } else {
     printObjStackPagemyIndexpageTypeprintContents(
         objStack,
-        longAt((void *)((objStack + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackMyx) << (shiftForWord())))))),
+        fetchPointerofObject(ObjStackMyx, objStack),
         ObjStackMyx, 0);
   }
 }

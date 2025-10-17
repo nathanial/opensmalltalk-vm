@@ -14,9 +14,7 @@ static sqInt safeMethodClassOf(sqInt methodPointer) {
   offset = (literalCountOf(methodPointer)) - 1;
 
   /* begin literal:ofMethod: */
-  literal = longAt(
-      (void *)((methodPointer + BaseHeaderSize) +
-               ((((usqInt)((offset + LiteralStart)) << (shiftForWord()))))));
+  literal = fetchPointerofObject(offset + LiteralStart, methodPointer);
   if (isOopForwarded(literal)) {
     literal = followForwarded(literal);
   }
@@ -36,8 +34,7 @@ static sqInt safeMethodClassOf(sqInt methodPointer) {
                 : numSlots))) > ValueIndex))) {
     return nilObj;
   }
-  maybeClass = longAt((void *)((literal + BaseHeaderSize) +
-                               ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+  maybeClass = fetchPointerofObject(ValueIndex, literal);
   if (isOopForwarded(maybeClass)) {
     maybeClass = followForwarded(maybeClass);
   }

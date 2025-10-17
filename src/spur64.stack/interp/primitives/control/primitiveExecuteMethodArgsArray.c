@@ -44,8 +44,7 @@ static void primitiveExecuteMethodArgsArray(void) {
   /* begin argumentCountOf: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(methodArgument));
-  header = longAt((void *)((methodArgument + BaseHeaderSize) +
-                           ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  header = fetchPointerofObject(HeaderIndex, methodArgument);
   argCnt = (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;
   if (!(argCnt ==
         ((/* begin numSlotsOf: */
@@ -81,8 +80,7 @@ static void primitiveExecuteMethodArgsArray(void) {
   for (i = 0; i < argCnt; i += 1) {
     /* begin push: */
     longAtput((sp = stackPointer - BytesPerWord),
-              longAt((void *)((argumentArray + BaseHeaderSize) +
-                              ((((usqInt)(i) << (shiftForWord())))))));
+              fetchPointerofObject(i, argumentArray));
     stackPointer = sp;
   }
   newMethod = methodArgument;
@@ -91,8 +89,7 @@ static void primitiveExecuteMethodArgsArray(void) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(newMethod));
   methodHeader =
-      longAt((void *)((newMethod + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, newMethod);
   if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
     firstBytecode =
         (newMethod + ((LiteralStart + (((methodHeader >> 3)) &
@@ -130,8 +127,7 @@ static void primitiveExecuteMethodArgsArray(void) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(newMethod));
   methodHeader =
-      longAt((void *)((newMethod + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, newMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 

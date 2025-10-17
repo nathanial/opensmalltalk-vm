@@ -3,7 +3,5 @@
 /* SpurMemoryManager>>#classExternalData */
 
 sqInt classExternalData(void) {
-  return longAt(
-      (void *)((specialObjectsOop + BaseHeaderSize) +
-               ((((usqInt)(ClassExternalData) << (shiftForWord()))))));
+  return fetchPointerofObject(ClassExternalData, specialObjectsOop);
 }

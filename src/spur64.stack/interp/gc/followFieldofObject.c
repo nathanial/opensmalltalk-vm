@@ -9,8 +9,7 @@
 static sqInt followFieldofObject(sqInt fieldIndex, sqInt anObject) {
   sqInt objOop;
 
-  objOop = longAt((void *)((anObject + BaseHeaderSize) +
-                           ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  objOop = fetchPointerofObject(fieldIndex, anObject);
   if (isOopForwarded(objOop)) {
     objOop =
         fixFollowedFieldofObjectwithInitialValue(fieldIndex, anObject, objOop);

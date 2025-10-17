@@ -68,9 +68,7 @@ l2:
     goto l1;
   }
   class = fetchClassOfNonImm(array);
-  fixedFields = (((longAt((void *)((class + BaseHeaderSize) +
-                                   ((((usqInt)(InstanceSpecificationIndex)
-                                      << (shiftForWord()))))))) >>
+  fixedFields = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
                   3)) &
                 ((1U << (fixedFieldsFieldWidth())) - 1);
   /* end fixedFieldsOf:format:length: */
@@ -79,9 +77,7 @@ l1:
       ((hdr & (classIndexMask())) == ClassMethodContextCompactIndex)) {
     /* begin stackPointerForMaybeMarriedContext: */
     if (/* isStillMarriedContext: */
-        (((((longAt(
-               (void *)((array + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+        (((((fetchPointerofObject(SenderIndex, array))) &
            7) == 1)) &&
         (!(isWidowedContext(array)))) {
       sp = stackPointerIndexForFrame(frameOfMarriedContext(array));
@@ -92,8 +88,7 @@ l1:
 
     /* begin fetchStackPointerOf: */
     spSqInt =
-        longAt((void *)((array + BaseHeaderSize) +
-                        ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+        fetchPointerofObject(StackPointerIndex, array);
     if (!((((spSqInt) & 7) == 1))) {
       stSize = 0;
       goto l3;
@@ -105,9 +100,7 @@ l1:
     if ((oopisGreaterThanOrEqualTo(index, 1)) &&
         ((oopisLessThanOrEqualTo(index, stSize)) &&
          (/* isStillMarriedContext: */
-          (((((longAt(
-                 (void *)((array + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+          (((((fetchPointerofObject(SenderIndex, array))) &
              7) == 1)) &&
           (!(isWidowedContext(array)))))) {
       return temporaryin(index - 1, frameOfMarriedContext(array));
@@ -123,9 +116,7 @@ l1:
       (oopisLessThanOrEqualTo(index, stSize))) {
     /* begin subscript:with:format: */
     if (fmt <= 5 /* lastPointerFormat */) {
-      return longAt((void *)((array + BaseHeaderSize) +
-                             ((((usqInt)(((index + fixedFields) - 1))
-                                << (shiftForWord()))))));
+      return fetchPointerofObject((index + fixedFields) - 1, array);
     }
     if (fmt >= (firstByteFormat())) {
       return (((usqInt)(byteAt((void *)((array + BaseHeaderSize) +

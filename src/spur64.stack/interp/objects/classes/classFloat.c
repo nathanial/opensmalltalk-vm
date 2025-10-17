@@ -3,6 +3,5 @@
 /* SpurMemoryManager>>#classFloat */
 
 sqInt classFloat(void) {
-  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(ClassFloat) << (shiftForWord()))))));
+  return fetchPointerofObject(ClassFloat, specialObjectsOop);
 }

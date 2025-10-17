@@ -9,8 +9,7 @@ sqInt classWordArray(void) {
   /* begin accessIntegerClass:withValidationFlag: */
   hash = 0;
   classOop =
-      longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                      ((((usqInt)(ClassWordArray) << (shiftForWord()))))));
+      fetchPointerofObject(ClassWordArray, specialObjectsOop);
   if (((validatedIntegerClassFlags & ValidatedClassWordArrayFlag) != 0)) {
     return classOop;
   }

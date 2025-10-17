@@ -13,8 +13,7 @@ static sqInt methodUsesPrimitiveErrorCode(sqInt aMethodObj) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(aMethodObj));
   methodHeader =
-      longAt((void *)((aMethodObj + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, aMethodObj);
   return ((/* primitiveIndexOfMethod:header: */
            (((methodHeader & AlternateHeaderHasPrimFlag) != 0)
                 ? ((firstBytecode =

@@ -14,9 +14,7 @@ static void primitiveInterruptSemaphore(void) {
       (/* isSemaphoreOop: */
        ((!(arg & (tagMask())))) &&
        (((longAt((void *)(arg))) & (classIndexMask())) ==
-        (rawHashBitsOf(longAt(
-            (void *)((specialObjectsOop + BaseHeaderSize) +
-                     ((((usqInt)(ClassSemaphore) << (shiftForWord()))))))))))) {
+        (rawHashBitsOf(fetchPointerofObject(ClassSemaphore, specialObjectsOop)))))) {
     /* begin splObj:put: */
     /* begin storePointer:ofObject:withValue: */
     assert(

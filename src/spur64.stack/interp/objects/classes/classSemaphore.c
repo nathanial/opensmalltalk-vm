@@ -3,6 +3,5 @@
 /* SpurMemoryManager>>#classSemaphore */
 
 sqInt classSemaphore(void) {
-  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(ClassSemaphore) << (shiftForWord()))))));
+  return fetchPointerofObject(ClassSemaphore, specialObjectsOop);
 }

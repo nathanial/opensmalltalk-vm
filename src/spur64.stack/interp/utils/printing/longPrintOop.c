@@ -146,8 +146,7 @@ void longPrintOop(sqInt oop) {
     /* begin is:KindOfClass: */
     oopClass = /* fetchClassOf: */
         ((tagBits = oop & (tagMask()))
-             ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                               ((((usqInt)(tagBits) << (shiftForWord()))))))
+             ? fetchPointerofObject(tagBits, classTableFirstPage)
              : fetchClassOfNonImm(oop));
     while ((oopClass != nilObj) &&
            ((/* isPointers: */
@@ -156,8 +155,7 @@ void longPrintOop(sqInt oop) {
                (formatMask())) <= 5 /* lastPointerFormat */)) &&
             ((numSlotsOfAny(oopClass)) > InstanceSpecificationIndex))) {
       if (oopClass ==
-          (longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                           ((((usqInt)(ClassAlien) << (shiftForWord())))))))) {
+          (fetchPointerofObject(ClassAlien, specialObjectsOop))) {
         fprintf(transcript, " datasize %" PRIdSQINT " %s @ %p\n",
                 longAt((void *)(oop + BaseHeaderSize)),
                 ((longAt((void *)(oop + BaseHeaderSize))) < 0
@@ -171,8 +169,7 @@ void longPrintOop(sqInt oop) {
       /* begin superclassOf: */
       /* begin followObjField:ofObject: */
       objOop =
-          longAt((void *)((oopClass + BaseHeaderSize) +
-                          ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+          fetchPointerofObject(SuperclassIndex, oopClass);
       assert(isNonImmediate(objOop));
       if ((!((longAt((void *)(objOop))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -182,14 +179,12 @@ void longPrintOop(sqInt oop) {
       oopClass = objOop;
     }
     classPointer =
-        longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                        ((((usqInt)(ClassByteString) << (shiftForWord()))))));
+        fetchPointerofObject(ClassByteString, specialObjectsOop);
 
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
     objOop =
-        longAt((void *)((classPointer + BaseHeaderSize) +
-                        ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SuperclassIndex, classPointer);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -201,8 +196,7 @@ void longPrintOop(sqInt oop) {
     /* begin is:KindOfClass: */
     oopClass = /* fetchClassOf: */
         ((tagBits = oop & (tagMask()))
-             ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                               ((((usqInt)(tagBits) << (shiftForWord()))))))
+             ? fetchPointerofObject(tagBits, classTableFirstPage)
              : fetchClassOfNonImm(oop));
     while ((oopClass != nilObj) &&
            ((/* isPointers: */
@@ -218,8 +212,7 @@ void longPrintOop(sqInt oop) {
       /* begin superclassOf: */
       /* begin followObjField:ofObject: */
       objOop =
-          longAt((void *)((oopClass + BaseHeaderSize) +
-                          ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+          fetchPointerofObject(SuperclassIndex, oopClass);
       assert(isNonImmediate(objOop));
       if ((!((longAt((void *)(objOop))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -242,9 +235,7 @@ void longPrintOop(sqInt oop) {
         (((longAt((void *)(oop))) & (classIndexMask())) ==
          ClassMethodContextCompactIndex)) {
       /* begin fetchStackPointerOf: */
-      sp = longAt(
-          (void *)((oop + BaseHeaderSize) +
-                   ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+      sp = fetchPointerofObject(StackPointerIndex, oop);
       if (!((((sp) & 7) == 1))) {
         contextSize = 0;
         goto l2;
@@ -282,8 +273,7 @@ void longPrintOop(sqInt oop) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(oop));
-  header = longAt((void *)((oop + BaseHeaderSize) +
-                           ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  header = fetchPointerofObject(HeaderIndex, oop);
 
   /* begin literalCountOfMethodHeader: */
   assert((((header) & 7) == 1));
@@ -294,8 +284,7 @@ l3:
   lastIndex = ((0x100 < lastPointer) ? 0x100 : lastPointer);
   if (lastIndex > 0) {
     for (i = 1; i <= lastIndex; i += 1) {
-      fieldOop = longAt((void *)((oop + BaseHeaderSize) +
-                                 ((((usqInt)((i - 1)) << (shiftForWord()))))));
+      fieldOop = fetchPointerofObject(i - 1, oop);
 
       /* begin space */
       printChar(' ');

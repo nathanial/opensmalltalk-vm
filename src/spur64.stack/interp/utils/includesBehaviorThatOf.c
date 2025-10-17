@@ -23,8 +23,7 @@ sqInt includesBehaviorThatOf(sqInt aClass, sqInt aSuperclass) {
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
     objOop =
-        longAt((void *)((theClass + BaseHeaderSize) +
-                        ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SuperclassIndex, theClass);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

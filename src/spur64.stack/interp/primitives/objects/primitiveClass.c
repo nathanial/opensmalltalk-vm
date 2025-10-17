@@ -17,8 +17,7 @@ static void primitiveClass(void) {
   } else {
     oop = /* fetchClassOf: */
         ((tagBits = instance & (tagMask()))
-             ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                               ((((usqInt)(tagBits) << (shiftForWord()))))))
+             ? fetchPointerofObject(tagBits, classTableFirstPage)
              : fetchClassOfNonImm(instance));
 
     /* begin pop:thenPush: */

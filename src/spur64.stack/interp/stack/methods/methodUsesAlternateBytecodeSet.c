@@ -10,8 +10,7 @@ int methodUsesAlternateBytecodeSet(sqInt aMethodObj) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(aMethodObj));
   methodHeader =
-      longAt((void *)((aMethodObj + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, aMethodObj);
 
   /* begin headerIndicatesAlternateBytecodeSet: */
   return (((sqLong)methodHeader)) < 0;

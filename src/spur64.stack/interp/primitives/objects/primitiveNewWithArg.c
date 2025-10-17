@@ -51,10 +51,7 @@ l1:
   } else {
     instSpec =
         (((usqInt)((
-             ((longAt((void *)(((longAt(stackPointer + (1 * BytesPerWord))) +
-                                BaseHeaderSize) +
-                               ((((usqInt)(InstanceSpecificationIndex)
-                                  << (shiftForWord()))))))) >>
+             ((fetchPointerofObject(InstanceSpecificationIndex, longAt(stackPointer + (1 * BytesPerWord)))) >>
               3)))) >>
          (fixedFieldsFieldWidth())) &
         (formatMask());

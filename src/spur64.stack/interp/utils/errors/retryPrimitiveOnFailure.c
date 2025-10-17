@@ -34,8 +34,7 @@ static sqInt retryPrimitiveOnFailure(void) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(newMethod));
   methodHeader =
-      longAt((void *)((newMethod + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, newMethod);
   if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
     firstBytecode =
         (newMethod + ((LiteralStart + (((methodHeader >> 3)) &
@@ -78,8 +77,7 @@ static sqInt retryPrimitiveOnFailure(void) {
         /* begin methodHeaderOf: */
         assert(isCompiledMethod(newMethod));
         methodHeader =
-            longAt((void *)((newMethod + BaseHeaderSize) +
-                            ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+            fetchPointerofObject(HeaderIndex, newMethod);
         if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
           firstBytecode =
               (newMethod + ((LiteralStart + (((methodHeader >> 3)) &

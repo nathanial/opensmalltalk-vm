@@ -17,12 +17,10 @@ static NeverInline void mapMournQueue(void) {
   objStackPage = mournQueue;
   while (objStackPage != 0) {
     numOnThisPage =
-        longAt((void *)((objStackPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+        fetchPointerofObject(ObjStackTopx, objStackPage);
     for (iSqInt = ((numOnThisPage + ObjStackFixedSlots) - 1);
          iSqInt >= ObjStackFixedSlots; iSqInt += -1) {
-      mourner = longAt((void *)((objStackPage + BaseHeaderSize) +
-                                ((((usqInt)(iSqInt) << (shiftForWord()))))));
+      mourner = fetchPointerofObject(iSqInt, objStackPage);
       if ((!(mourner & (tagMask())))) {
         if ((!((longAt((void *)(mourner))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -45,8 +43,7 @@ static NeverInline void mapMournQueue(void) {
       }
     }
     objStackPage =
-        longAt((void *)((objStackPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+        fetchPointerofObject(ObjStackNextx, objStackPage);
   }
   /* end objStack:do: */
 l1:;

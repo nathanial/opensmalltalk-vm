@@ -23,8 +23,7 @@ static sqInt isValidObjStackPagemyIndex(sqInt objStackPage, sqInt myx) {
     return 0;
   }
   if (!(myx ==
-        (longAt((void *)((objStackPage + BaseHeaderSize) +
-                         ((((usqInt)(ObjStackMyx) << (shiftForWord()))))))))) {
+        (fetchPointerofObject(ObjStackMyx, objStackPage)))) {
     objStackInvalidBecause = "wrong myx";
     invalidObjStackPage = objStackPage;
     return 0;

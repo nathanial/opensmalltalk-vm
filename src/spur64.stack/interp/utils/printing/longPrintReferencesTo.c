@@ -78,8 +78,7 @@ void longPrintReferencesTo(sqInt anOop) {
         }
         while (((i -= 1)) >= 0) {
           if (anOop ==
-              (longAt((void *)((objSqInt + BaseHeaderSize) +
-                               ((((usqInt)(i) << (shiftForWord())))))))) {
+              (fetchPointerofObject(i, objSqInt))) {
             fprintf(transcript, "%p @ %d\n", ((void *)objSqInt), ((int)i));
             prntObj = 1;
             i = 0;

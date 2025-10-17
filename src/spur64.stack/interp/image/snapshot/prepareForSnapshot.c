@@ -39,10 +39,8 @@ static NeverInline void prepareForSnapshot(void) {
   cameFrom = -1;
   do {
     assert((bytesInBody(treeNode)) >= ((numFreeLists()) * (allocationUnit())));
-    smallChild = longAt(
-        (void *)((treeNode + BaseHeaderSize) + (3U << (shiftForWord()))));
-    largeChild = longAt(
-        (void *)((treeNode + BaseHeaderSize) + (4U << (shiftForWord()))));
+    smallChild = fetchPointerofObject(3U, treeNode);
+    largeChild = fetchPointerofObject(4U, treeNode);
     assert((smallChild == 0) ||
            (treeNode ==
             (fetchPointerofFreeChunk(freeChunkParentIndex(), smallChild))));
@@ -76,15 +74,13 @@ static NeverInline void prepareForSnapshot(void) {
           (seg->lastFreeObject = node);
           node = 0;
         } else {
-          node = longAt(
-              (void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))));
+          node = fetchPointerofObject(0U, node);
         }
       }
 
       /* and since we've applied we must move on up */
       cameFrom = treeNode;
-      treeNode = longAt(
-          (void *)((treeNode + BaseHeaderSize) + (2U << (shiftForWord()))));
+      treeNode = fetchPointerofObject(2U, treeNode);
     } else {
       if ((smallChild != 0) && (cameFrom != smallChild)) {
         treeNode = smallChild;

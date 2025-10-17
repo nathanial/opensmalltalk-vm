@@ -56,17 +56,13 @@ static NeverInline void updatePointers(void) {
                             (formatFieldByteOffset())))) &
            (1U << (pinnedBitByteShift()))) != 0)))) {
     firstFieldOfRememberedSet =
-        longAt((void *)((firstFieldOfRememberedSet + BaseHeaderSize) +
-                        (0U << (shiftForWord()))));
+        fetchPointerofObject(0U, firstFieldOfRememberedSet);
   }
-  heapEntity = longAt(
-      (void *)((hiddenRootsObj + BaseHeaderSize) +
-               ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
+  heapEntity = fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj);
 
   /* begin relocateObjectsInHeapEntity:from:to: */
   for (i = 1; i < rememberedSetSize; i += 1) {
-    oop = longAt((void *)((heapEntity + BaseHeaderSize) +
-                          ((((usqInt)(i) << (shiftForWord()))))));
+    oop = fetchPointerofObject(i, heapEntity);
     if (((!(oop & (tagMask())))) &&
         (/* isMobile: */
          (oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart,
@@ -74,7 +70,7 @@ static NeverInline void updatePointers(void) {
          (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) &
              (1U << (pinnedBitByteShift()))) != 0)))) {
       assert(isMarked(oop));
-      fwd = longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fwd = fetchPointerofObject(0U, oop);
       assert(isPostMobile(fwd));
 
       /* begin storePointerUnchecked:ofObject:withValue: */
@@ -91,7 +87,7 @@ static NeverInline void updatePointers(void) {
       (!(((byteAt((void *)(heapEntity + (formatFieldByteOffset())))) &
           (1U << (pinnedBitByteShift()))) != 0))) {
     /* fetchPointer:ofObject: */
-    longAt((void *)((heapEntity + BaseHeaderSize) + (0U << (shiftForWord()))));
+    fetchPointerofObject(0U, heapEntity);
   } else {
   }
 
@@ -117,9 +113,7 @@ static NeverInline void updatePointers(void) {
           (((longAt((void *)(objOopSqInt))) & (classIndexMask())) ==
            ClassMethodContextCompactIndex)) {
         /* begin fetchStackPointerOf: */
-        sp = longAt(
-            (void *)((objOopSqInt + BaseHeaderSize) +
-                     ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+        sp = fetchPointerofObject(StackPointerIndex, objOopSqInt);
         if (!((((sp) & 7) == 1))) {
           contextSize = 0;
           goto l3;
@@ -159,8 +153,7 @@ static NeverInline void updatePointers(void) {
 
     /* begin methodHeaderOf: */
     assert(isCompiledMethod(objOopSqInt));
-    header = longAt((void *)((objOopSqInt + BaseHeaderSize) +
-                             ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+    header = fetchPointerofObject(HeaderIndex, objOopSqInt);
 
     /* begin literalCountOfMethodHeader: */
     assert((((header) & 7) == 1));
@@ -169,8 +162,7 @@ static NeverInline void updatePointers(void) {
     /* end numPointerSlotsOf: */
   l2:
     for (i = 0; i < numPointerSlots; i += 1) {
-      oop = longAt((void *)((objOopSqInt + BaseHeaderSize) +
-                            ((((usqInt)(i) << (shiftForWord()))))));
+      oop = fetchPointerofObject(i, objOopSqInt);
       if (((!(oop & (tagMask())))) &&
           (/* isMobile: */
            (oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart,
@@ -179,7 +171,7 @@ static NeverInline void updatePointers(void) {
                (1U << (pinnedBitByteShift()))) != 0)))) {
         assert((isMarked(oop)) || (objOopSqInt == (hiddenRootsObject())));
         fwd =
-            longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
+            fetchPointerofObject(0U, oop);
         assert(isPostMobile(fwd));
 
         /* begin storePointerUnchecked:ofObject:withValue: */
@@ -247,9 +239,7 @@ static NeverInline void updatePointers(void) {
             (((longAt((void *)(objOopSqInt))) & (classIndexMask())) ==
              ClassMethodContextCompactIndex)) {
           /* begin fetchStackPointerOf: */
-          sp = longAt(
-              (void *)((objOopSqInt + BaseHeaderSize) +
-                       ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+          sp = fetchPointerofObject(StackPointerIndex, objOopSqInt);
           if (!((((sp) & 7) == 1))) {
             contextSize = 0;
             goto l4;
@@ -291,8 +281,7 @@ static NeverInline void updatePointers(void) {
       /* begin methodHeaderOf: */
       assert(isCompiledMethod(objOopSqInt));
       header =
-          longAt((void *)((objOopSqInt + BaseHeaderSize) +
-                          ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+          fetchPointerofObject(HeaderIndex, objOopSqInt);
 
       /* begin literalCountOfMethodHeader: */
       assert((((header) & 7) == 1));
@@ -301,8 +290,7 @@ static NeverInline void updatePointers(void) {
       /* end numPointerSlotsOf: */
     l6:
       for (i = 0; i < numPointerSlots; i += 1) {
-        oop = longAt((void *)((objOopSqInt + BaseHeaderSize) +
-                              ((((usqInt)(i) << (shiftForWord()))))));
+        oop = fetchPointerofObject(i, objOopSqInt);
         if (((!(oop & (tagMask())))) &&
             (/* isMobile: */
              (oopisGreaterThanOrEqualToandLessThanOrEqualTo(
@@ -310,8 +298,7 @@ static NeverInline void updatePointers(void) {
              (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) &
                  (1U << (pinnedBitByteShift()))) != 0)))) {
           assert((isMarked(oop)) || (objOopSqInt == (hiddenRootsObject())));
-          fwd = longAt(
-              (void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
+          fwd = fetchPointerofObject(0U, oop);
           assert(isPostMobile(fwd));
 
           /* begin storePointerUnchecked:ofObject:withValue: */
@@ -433,8 +420,7 @@ l7:
         /* begin methodHeaderOf: */
         assert(isCompiledMethod(objOop));
         header =
-            longAt((void *)((objOop + BaseHeaderSize) +
-                            ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+            fetchPointerofObject(HeaderIndex, objOop);
 
         /* begin literalCountOfMethodHeader: */
         assert((((header) & 7) == 1));
@@ -443,8 +429,7 @@ l7:
         /* end numPointerSlotsOf: */
       l10:
         for (i = 0; i < numPointerSlots; i += 1) {
-          oop = longAt((void *)((objOop + BaseHeaderSize) +
-                                ((((usqInt)(i) << (shiftForWord()))))));
+          oop = fetchPointerofObject(i, objOop);
           if (((!(oop & (tagMask())))) &&
               (/* isMobile: */
                (oopisGreaterThanOrEqualToandLessThanOrEqualTo(
@@ -452,8 +437,7 @@ l7:
                (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) &
                    (1U << (pinnedBitByteShift()))) != 0)))) {
             assert((isMarked(oop)) || (objOop == (hiddenRootsObject())));
-            fwd = longAt(
-                (void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
+            fwd = fetchPointerofObject(0U, oop);
             assert(isPostMobile(fwd));
 
             /* begin storePointerUnchecked:ofObject:withValue: */
@@ -575,9 +559,7 @@ l11:
                 (((longAt((void *)(objOopSqInt))) & (classIndexMask())) ==
                  ClassMethodContextCompactIndex)) {
               /* begin fetchStackPointerOf: */
-              sp = longAt((void *)((objOopSqInt + BaseHeaderSize) +
-                                   ((((usqInt)(StackPointerIndex)
-                                      << (shiftForWord()))))));
+              sp = fetchPointerofObject(StackPointerIndex, objOopSqInt);
               if (!((((sp) & 7) == 1))) {
                 contextSize = 0;
                 goto l12;
@@ -619,8 +601,7 @@ l11:
           /* begin methodHeaderOf: */
           assert(isCompiledMethod(objOopSqInt));
           header =
-              longAt((void *)((objOopSqInt + BaseHeaderSize) +
-                              ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+              fetchPointerofObject(HeaderIndex, objOopSqInt);
 
           /* begin literalCountOfMethodHeader: */
           assert((((header) & 7) == 1));
@@ -629,8 +610,7 @@ l11:
           /* end numPointerSlotsOf: */
         l14:
           for (i = 0; i < numPointerSlots; i += 1) {
-            oop = longAt((void *)((objOopSqInt + BaseHeaderSize) +
-                                  ((((usqInt)(i) << (shiftForWord()))))));
+            oop = fetchPointerofObject(i, objOopSqInt);
             if (((!(oop & (tagMask())))) &&
                 (/* isMobile: */
                  (oopisGreaterThanOrEqualToandLessThanOrEqualTo(
@@ -638,8 +618,7 @@ l11:
                  (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) &
                      (1U << (pinnedBitByteShift()))) != 0)))) {
               assert((isMarked(oop)) || (objOopSqInt == (hiddenRootsObject())));
-              fwd = longAt(
-                  (void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
+              fwd = fetchPointerofObject(0U, oop);
               assert(isPostMobile(fwd));
 
               /* begin storePointerUnchecked:ofObject:withValue: */

@@ -3,8 +3,6 @@
 /* SpurMemoryManager>>#formatOfClass: */
 
 sqInt formatOfClass(sqInt classPointer) {
-  return ((longAt((void *)((classPointer + BaseHeaderSize) +
-                           ((((usqInt)(InstanceSpecificationIndex)
-                              << (shiftForWord()))))))) >>
+  return ((fetchPointerofObject(InstanceSpecificationIndex, classPointer)) >>
           3);
 }

@@ -252,90 +252,67 @@ l1:
 
   /* begin checkAssumedCompactClasses */
   /* begin checkCompactIndex:isClass:named: */
-  if ((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                       ((((usqInt)(ClassArray) << (shiftForWord()))))))) !=
+  if ((fetchPointerofObject(ClassArray, specialObjectsOop)) !=
       ((/* begin knownClassAtIndex: */
         assert(((ClassArrayCompactIndex >= 1) &&
                 (ClassArrayCompactIndex <= (classTablePageSize())))),
         /* fetchPointer:ofObject: */
-        longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                        ((((usqInt)(ClassArrayCompactIndex)
-                           << (shiftForWord()))))))))) {
+        fetchPointerofObject(ClassArrayCompactIndex, classTableFirstPage)))) {
     invalidCompactClassError("Array");
   }
 
   /* begin checkCompactIndex:isClass:named: */
-  if ((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                       ((((usqInt)(ClassLargeNegativeInteger)
-                          << (shiftForWord()))))))) !=
+  if ((fetchPointerofObject(ClassLargeNegativeInteger, specialObjectsOop)) !=
       ((/* begin knownClassAtIndex: */
         assert((
             (ClassLargeNegativeIntegerCompactIndex >= 1) &&
             (ClassLargeNegativeIntegerCompactIndex <= (classTablePageSize())))),
         /* fetchPointer:ofObject: */
-        longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                        ((((usqInt)(ClassLargeNegativeIntegerCompactIndex)
-                           << (shiftForWord()))))))))) {
+        fetchPointerofObject(ClassLargeNegativeIntegerCompactIndex, classTableFirstPage)))) {
     invalidCompactClassError("LargeNegativeInteger");
   }
 
   /* begin checkCompactIndex:isClass:named: */
-  if ((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                       ((((usqInt)(ClassLargePositiveInteger)
-                          << (shiftForWord()))))))) !=
+  if ((fetchPointerofObject(ClassLargePositiveInteger, specialObjectsOop)) !=
       ((/* begin knownClassAtIndex: */
         assert((
             (ClassLargePositiveIntegerCompactIndex >= 1) &&
             (ClassLargePositiveIntegerCompactIndex <= (classTablePageSize())))),
         /* fetchPointer:ofObject: */
-        longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                        ((((usqInt)(ClassLargePositiveIntegerCompactIndex)
-                           << (shiftForWord()))))))))) {
+        fetchPointerofObject(ClassLargePositiveIntegerCompactIndex, classTableFirstPage)))) {
     invalidCompactClassError("LargePositiveInteger");
   }
 
   /* begin checkCompactIndex:isClass:named: */
-  if ((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                       ((((usqInt)(ClassFloat) << (shiftForWord()))))))) !=
+  if ((fetchPointerofObject(ClassFloat, specialObjectsOop)) !=
       ((/* begin knownClassAtIndex: */
         assert(((ClassFloatCompactIndex >= 1) &&
                 (ClassFloatCompactIndex <= (classTablePageSize())))),
         /* fetchPointer:ofObject: */
-        longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                        ((((usqInt)(ClassFloatCompactIndex)
-                           << (shiftForWord()))))))))) {
+        fetchPointerofObject(ClassFloatCompactIndex, classTableFirstPage)))) {
     invalidCompactClassError("Float");
   }
 
   /* begin checkCompactIndex:isClass:named: */
-  if ((longAt(
-          (void *)((specialObjectsOop + BaseHeaderSize) +
-                   ((((usqInt)(ClassBlockClosure) << (shiftForWord()))))))) !=
+  if ((fetchPointerofObject(ClassBlockClosure, specialObjectsOop)) !=
       ((/* begin knownClassAtIndex: */
         assert(((ClassBlockClosureCompactIndex >= 1) &&
                 (ClassBlockClosureCompactIndex <= (classTablePageSize())))),
         /* fetchPointer:ofObject: */
-        longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                        ((((usqInt)(ClassBlockClosureCompactIndex)
-                           << (shiftForWord()))))))))) {
+        fetchPointerofObject(ClassBlockClosureCompactIndex, classTableFirstPage)))) {
     invalidCompactClassError("BlockClosure");
   }
 
   /* begin checkCompactIndex:isClass:named: */
-  if ((longAt(
-          (void *)((specialObjectsOop + BaseHeaderSize) +
-                   ((((usqInt)(ClassMethodContext) << (shiftForWord()))))))) !=
+  if ((fetchPointerofObject(ClassMethodContext, specialObjectsOop)) !=
       ((/* begin knownClassAtIndex: */
         assert(((ClassMethodContextCompactIndex >= 1) &&
                 (ClassMethodContextCompactIndex <= (classTablePageSize())))),
         /* fetchPointer:ofObject: */
-        longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                        ((((usqInt)(ClassMethodContextCompactIndex)
-                           << (shiftForWord()))))))))) {
+        fetchPointerofObject(ClassMethodContextCompactIndex, classTableFirstPage)))) {
     invalidCompactClassError("MethodContext");
   }
-  objOop = longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                           ((((usqInt)(ClassByteArray) << (shiftForWord()))))));
+  objOop = fetchPointerofObject(ClassByteArray, specialObjectsOop);
 
   /* begin compactIndexOfClass: */
   assert((rawHashBitsOf(objOop)) != 0);
@@ -344,8 +321,7 @@ l1:
 
   /* begin initializeExtraClassInstVarIndices */
   classArrayObj =
-      longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                      ((((usqInt)(ClassArray) << (shiftForWord()))))));
+      fetchPointerofObject(ClassArray, specialObjectsOop);
   classArrayClass = fetchClassOfNonImm(classArrayObj);
 
   /* begin numSlotsOf: */
@@ -378,8 +354,7 @@ l1:
     toDoLimit = numSlots;
   }
   for (i = (InstanceSpecificationIndex + 1); i <= toDoLimit; i += 1) {
-    if ((longAt((void *)((classArrayClass + BaseHeaderSize) +
-                         ((((usqInt)((i - 1)) << (shiftForWord()))))))) ==
+    if ((fetchPointerofObject(i - 1, classArrayClass)) ==
         classArrayObj) {
       thisClassIndex = i - 1;
     }
@@ -401,8 +376,7 @@ l1:
     toDoLimit1 = numSlots;
   }
   for (i = (InstanceSpecificationIndex + 1); i <= toDoLimit1; i += 1) {
-    oop = longAt((void *)((classArrayObj + BaseHeaderSize) +
-                          ((((usqInt)((i - 1)) << (shiftForWord()))))));
+    oop = fetchPointerofObject(i - 1, classArrayObj);
     if (objectequalsString(oop, "Array")) {
       classNameIndex = i - 1;
     }

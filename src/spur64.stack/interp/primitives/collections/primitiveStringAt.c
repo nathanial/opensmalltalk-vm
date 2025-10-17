@@ -94,9 +94,7 @@ l2:
     goto l1;
   }
   class = fetchClassOfNonImm(rcvr);
-  fixedFields = (((longAt((void *)((class + BaseHeaderSize) +
-                                   ((((usqInt)(InstanceSpecificationIndex)
-                                      << (shiftForWord()))))))) >>
+  fixedFields = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
                   3)) &
                 ((1U << (fixedFieldsFieldWidth())) - 1);
   /* end fixedFieldsOf:format:length: */
@@ -105,9 +103,7 @@ l1:
       ((hdr & (classIndexMask())) == ClassMethodContextCompactIndex)) {
     /* begin stackPointerForMaybeMarriedContext: */
     if (/* isStillMarriedContext: */
-        (((((longAt(
-               (void *)((rcvr + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+        (((((fetchPointerofObject(SenderIndex, rcvr))) &
            7) == 1)) &&
         (!(isWidowedContext(rcvr)))) {
       spUsqInt = stackPointerIndexForFrame(frameOfMarriedContext(rcvr));
@@ -118,8 +114,7 @@ l1:
 
     /* begin fetchStackPointerOf: */
     spSqInt =
-        longAt((void *)((rcvr + BaseHeaderSize) +
-                        ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+        fetchPointerofObject(StackPointerIndex, rcvr);
     if (!((((spSqInt) & 7) == 1))) {
       stSize = 0;
       goto l3;
@@ -131,9 +126,7 @@ l1:
     if ((oopisGreaterThanOrEqualTo(index, 1)) &&
         ((oopisLessThanOrEqualTo(index, stSize)) &&
          (/* isStillMarriedContext: */
-          (((((longAt(
-                 (void *)((rcvr + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+          (((((fetchPointerofObject(SenderIndex, rcvr))) &
              7) == 1)) &&
           (!(isWidowedContext(rcvr)))))) {
       result = temporaryin(index - 1, frameOfMarriedContext(rcvr));
@@ -150,9 +143,7 @@ l1:
       (oopisLessThanOrEqualTo(index, stSize))) {
     /* begin subscript:with:format: */
     if (fmt <= 5 /* lastPointerFormat */) {
-      result = longAt((void *)((rcvr + BaseHeaderSize) +
-                               ((((usqInt)(((index + fixedFields) - 1))
-                                  << (shiftForWord()))))));
+      result = fetchPointerofObject((index + fixedFields) - 1, rcvr);
       goto l4;
     }
     if (fmt >= (firstByteFormat())) {

@@ -34,10 +34,7 @@ static void primitiveSizeInBytesOfInstance(void) {
 
     /* begin byteSizeOfInstanceOf:withIndexableSlots:errInto: */
     classFormat =
-        ((longAt((void *)(((longAt(stackPointer + (1 * BytesPerWord))) +
-                           BaseHeaderSize) +
-                          ((((usqInt)(InstanceSpecificationIndex)
-                             << (shiftForWord()))))))) >>
+        ((fetchPointerofObject(InstanceSpecificationIndex, longAt(stackPointer + (1 * BytesPerWord)))) >>
          3);
     instSpec =
         (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());
@@ -98,9 +95,7 @@ static void primitiveSizeInBytesOfInstance(void) {
   }
 
   /* begin byteSizeOfInstanceOf:errInto: */
-  classFormat = ((longAt((void *)(((longAt(stackPointer)) + BaseHeaderSize) +
-                                  ((((usqInt)(InstanceSpecificationIndex)
-                                     << (shiftForWord()))))))) >>
+  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, longAt(stackPointer))) >>
                  3);
   instSpec =
       (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());

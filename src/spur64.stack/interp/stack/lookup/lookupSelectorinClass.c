@@ -22,9 +22,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
   currentClass = class;
   while (currentClass != nilObj) {
     /* begin followObjField:ofObject: */
-    dictionary = longAt(
-        (void *)((currentClass + BaseHeaderSize) +
-                 ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
+    dictionary = fetchPointerofObject(MethodDictionaryIndex, currentClass);
     assert(isNonImmediate(dictionary));
     if ((!((longAt((void *)(dictionary))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -59,8 +57,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
        the table. */
     wrapAround = 0;
     while (1) {
-      nextSelector = longAt((void *)((dictionary + BaseHeaderSize) +
-                                     ((index << (shiftForWord())))));
+      nextSelector = fetchPointerofObject(index, dictionary);
       if (nextSelector == nilObj) {
         meth = null;
         goto l1;
@@ -71,9 +68,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
       }
       if (nextSelector == selector) {
         /* begin followObjField:ofObject: */
-        methodArray = longAt(
-            (void *)((dictionary + BaseHeaderSize) +
-                     ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
+        methodArray = fetchPointerofObject(MethodArrayIndex, dictionary);
         assert(isNonImmediate(methodArray));
         if ((!((longAt((void *)(methodArray))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -82,9 +77,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
         }
 
         /* begin followField:ofObject: */
-        objOopSqInt = longAt((void *)((methodArray + BaseHeaderSize) +
-                                      ((((usqInt)((index - SelectorStart))
-                                         << (shiftForWord()))))));
+        objOopSqInt = fetchPointerofObject(index - SelectorStart, methodArray);
         if (isOopForwarded(objOopSqInt)) {
           objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
               index - SelectorStart, methodArray, objOopSqInt);
@@ -112,8 +105,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
     objOop =
-        longAt((void *)((currentClass + BaseHeaderSize) +
-                        ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SuperclassIndex, currentClass);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

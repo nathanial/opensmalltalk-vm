@@ -182,16 +182,14 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
              : numSlots))) -
       1;
   for (here = 1; here <= toDoLimitSqInt; here += 1) {
-    objOopSqInt = longAt((void *)((arrayOfObjects + BaseHeaderSize) +
-                                  ((((usqInt)(here) << (shiftForWord()))))));
+    objOopSqInt = fetchPointerofObject(here, arrayOfObjects);
     hash = (long32At((void *)(objOopSqInt + 4))) & (identityHashHalfWordMask());
     if ((hash > (lastClassIndexPun())) &&
         ((classOrNilAtIndex(hash)) == objOopSqInt)) {
       numClassesInSegment += 1;
       if (there > 0) {
         tempObjOop =
-            longAt((void *)((arrayOfObjects + BaseHeaderSize) +
-                            ((((usqInt)(there) << (shiftForWord()))))));
+            fetchPointerofObject(there, arrayOfObjects);
 
         /* begin storePointerUnchecked:ofObject:withValue: */
         assert((isNonImmediate(arrayOfObjects)) &&
@@ -349,8 +347,7 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
       return returnrestoringObjectsInupTosavedFirstFields(
           PrimErrLimitExceeded, arrayOfObjects, i, savedFirstFields);
     }
-    objOop = longAt((void *)((arrayOfObjects + BaseHeaderSize) +
-                             ((((usqInt)(i) << (shiftForWord()))))));
+    objOop = fetchPointerofObject(i, arrayOfObjects);
     assert(!(((isImmediate(objOop)) || (isForwarded(objOop)))));
     newSegAddrOrError = copyObjtoAddrstopAtsavedFirstFieldsindex(
         objOop, segAddr, endSeg, savedFirstFields, i);

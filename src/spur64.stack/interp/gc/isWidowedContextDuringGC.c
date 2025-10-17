@@ -31,8 +31,7 @@ static sqInt isWidowedContextDuringGC(sqInt aOnceMarriedContext) {
          (isMarriedOrWidowedContext(aOnceMarriedContext)));
 
   /* begin frameOfMarriedContext: */
-  senderOop = longAt((void *)((aOnceMarriedContext + BaseHeaderSize) +
-                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  senderOop = fetchPointerofObject(SenderIndex, aOnceMarriedContext);
   assert((((senderOop) & 7) == 1));
   maybeFrame = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -41,9 +40,7 @@ static sqInt isWidowedContextDuringGC(sqInt aOnceMarriedContext) {
                                  maybeFrame, stackMemory, bytesPerPage),
                              pages);
   if (!((isFree(thePage)) || (maybeFrame < ((thePage->headFP))))) {
-    anInteger = longAt(
-        (void *)((aOnceMarriedContext + BaseHeaderSize) +
-                 ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))));
+    anInteger = fetchPointerofObject(InstructionPointerIndex, aOnceMarriedContext);
 
     /* begin withoutSmallIntegerTags: */
     assert((((anInteger) & 7) == 1));

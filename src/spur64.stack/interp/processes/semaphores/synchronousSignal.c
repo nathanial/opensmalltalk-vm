@@ -18,8 +18,7 @@ static sqInt synchronousSignal(sqInt aSemaphore) {
 
   /* begin isEmptyList: */
   assert(!(isForwarded(aSemaphore)));
-  if ((longAt((void *)((aSemaphore + BaseHeaderSize) +
-                       ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) ==
+  if ((fetchPointerofObject(FirstLinkIndex, aSemaphore)) ==
       nilObj) {
     excessSignals = fetchIntegerofObject(ExcessSignalsIndex, aSemaphore);
     integerValue = excessSignals + 1;
@@ -46,18 +45,14 @@ static sqInt synchronousSignal(sqInt aSemaphore) {
   /* no process is waiting on this semaphore */
 
   /* begin ensureSemaphoreUnforwardedThroughContext: */
-  proc = longAt((void *)((aSemaphore + BaseHeaderSize) +
-                         ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))));
+  proc = fetchPointerofObject(FirstLinkIndex, aSemaphore);
   if ((!((longAt((void *)(proc))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
     followForwardedObjectFieldstoDepth(aSemaphore, 1);
-    proc = longAt((void *)((aSemaphore + BaseHeaderSize) +
-                           ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))));
+    proc = fetchPointerofObject(FirstLinkIndex, aSemaphore);
   }
   assert(!((isForwarded(proc))));
-  ctxt = longAt(
-      (void *)((proc + BaseHeaderSize) +
-               ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))));
+  ctxt = fetchPointerofObject(SuspendedContextIndex, proc);
   if ((!((longAt((void *)(ctxt))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
     ctxt = followForwarded(ctxt);

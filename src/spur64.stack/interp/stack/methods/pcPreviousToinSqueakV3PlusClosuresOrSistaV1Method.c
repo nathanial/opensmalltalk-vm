@@ -16,8 +16,7 @@ usqInt pcPreviousToinSqueakV3PlusClosuresOrSistaV1Method(sqInt theIP,
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(aMethod));
   methodHeader =
-      longAt((void *)((aMethod + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, aMethod);
   if ((((sqLong)methodHeader)) < 0) {
     /* begin pcPreviousTo:inSistaV1Method: */
     thisIP =

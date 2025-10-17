@@ -28,8 +28,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack,
                            : (rawHashBitsOf(objStack)) == 0));
   stackOrNil = objStack;
   freeList =
-      longAt((void *)((objStack + BaseHeaderSize) +
-                      ((((usqInt)(ObjStackFreex) << (shiftForWord()))))));
+      fetchPointerofObject(ObjStackFreex, objStack);
   while (1) {
     assert((numSlotsOfAny(stackOrNil)) == ObjStackPageSlots);
 
@@ -38,8 +37,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack,
        last 0-rel index is 4. Hence the last index is topx + fixed slots - 1, or
        topx + ObjStackNextx. The first two slots, Topx and Myx are not object
        references. */
-    next = longAt((void *)((stackOrNil + BaseHeaderSize) +
-                           ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+    next = fetchPointerofObject(ObjStackNextx, stackOrNil);
     finishIndex = ObjStackNextx +
                   ((relocateContents ? (long32At((void *)(stackOrNil + 4))) &
                                            (identityHashHalfWordMask())
@@ -47,8 +45,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack,
 
     /* begin relocateObjectsInHeapEntity:from:to: */
     for (i = ObjStackFreex; i <= finishIndex; i += 1) {
-      oop = longAt((void *)((stackOrNil + BaseHeaderSize) +
-                            ((((usqInt)(i) << (shiftForWord()))))));
+      oop = fetchPointerofObject(i, stackOrNil);
       if (((!(oop & (tagMask())))) &&
           (/* isMobile: */
            (oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart,
@@ -57,7 +54,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack,
                (1U << (pinnedBitByteShift()))) != 0)))) {
         assert(isMarked(oop));
         fwd =
-            longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
+            fetchPointerofObject(0U, oop);
         assert(isPostMobile(fwd));
 
         /* begin storePointerUnchecked:ofObject:withValue: */
@@ -74,8 +71,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack,
                          (!(((byteAt((void *)(stackOrNil +
                                               (formatFieldByteOffset())))) &
                              (1U << (pinnedBitByteShift()))) != 0))
-                     ? longAt((void *)((stackOrNil + BaseHeaderSize) +
-                                       (0U << (shiftForWord()))))
+                     ? fetchPointerofObject(0U, stackOrNil)
                      : stackOrNil);
     if (stackOrNil == objStack) {
       result = relocated;
@@ -86,13 +82,11 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack,
   }
   while (freeList != 0) {
     assert((numSlotsOfAny(freeList)) == ObjStackPageSlots);
-    next = longAt((void *)((freeList + BaseHeaderSize) +
-                           ((((usqInt)(ObjStackFreex) << (shiftForWord()))))));
+    next = fetchPointerofObject(ObjStackFreex, freeList);
 
     /* begin relocateObjectsInHeapEntity:from:to: */
     for (i = ObjStackFreex; i <= ObjStackFreex; i += 1) {
-      oop = longAt((void *)((freeList + BaseHeaderSize) +
-                            ((((usqInt)(i) << (shiftForWord()))))));
+      oop = fetchPointerofObject(i, freeList);
       if (((!(oop & (tagMask())))) &&
           (/* isMobile: */
            (oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart,
@@ -101,7 +95,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack,
                (1U << (pinnedBitByteShift()))) != 0)))) {
         assert(isMarked(oop));
         fwd =
-            longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
+            fetchPointerofObject(0U, oop);
         assert(isPostMobile(fwd));
 
         /* begin storePointerUnchecked:ofObject:withValue: */
@@ -118,7 +112,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack,
         (!(((byteAt((void *)(freeList + (formatFieldByteOffset())))) &
             (1U << (pinnedBitByteShift()))) != 0))) {
       /* fetchPointer:ofObject: */
-      longAt((void *)((freeList + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fetchPointerofObject(0U, freeList);
     } else {
     }
     freeList = next;

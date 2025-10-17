@@ -15,16 +15,12 @@ static sqInt classForClassTag(sqInt classIndex) {
                                 (classIndex <= (classIndexMask())))));
   fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
-  /* begin fetchPointer:ofObject: */
   classTablePage =
-      longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                      ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+      fetchPointerofObject(fieldIndex, hiddenRootsObj);
   if (classTablePage == nilObj) {
     return null;
   }
   fieldIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);
 
-  /* begin fetchPointer:ofObject: */
-  return longAt((void *)((classTablePage + BaseHeaderSize) +
-                         ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  return fetchPointerofObject(fieldIndex, classTablePage);
 }

@@ -8,7 +8,5 @@ sqInt methodClassAssociationOf(sqInt methodPointer) {
   offset = (literalCountOf(methodPointer)) - 1;
 
   /* begin literal:ofMethod: */
-  return longAt(
-      (void *)((methodPointer + BaseHeaderSize) +
-               ((((usqInt)((offset + LiteralStart)) << (shiftForWord()))))));
+  return fetchPointerofObject(offset + LiteralStart, methodPointer);
 }

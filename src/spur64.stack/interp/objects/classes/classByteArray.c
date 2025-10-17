@@ -7,6 +7,5 @@
 /* SpurMemoryManager>>#classByteArray */
 
 sqInt classByteArray(void) {
-  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(ClassByteArray) << (shiftForWord()))))));
+  return fetchPointerofObject(ClassByteArray, specialObjectsOop);
 }

@@ -13,9 +13,7 @@ static sqInt imageSegmentVersion(void) {
 
   /* first data word, 'does' */
   wholeWord =
-      long32At((void *)((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                         ((((usqInt)(SelectorDoesNotUnderstand)
-                                            << (shiftForWord()))))))) +
+      long32At((void *)((fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop)) +
                         BaseHeaderSize));
   return 68021 /* imageFormatVersion */ | (wholeWord & 0xFF000000U);
 }

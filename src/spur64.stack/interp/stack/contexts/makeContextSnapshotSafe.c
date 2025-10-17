@@ -16,8 +16,7 @@ static void makeContextSnapshotSafe(sqInt ctxt) {
 
   /* The stack pages have already been discarded.  Any remaining married
    * contexts are actually widows. */
-  if (((((longAt((void *)((ctxt + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+  if (((((fetchPointerofObject(SenderIndex, ctxt))) &
         7) == 1)) {
     /* begin markContextAsDead: */
     assert(isContext(ctxt));

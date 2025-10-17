@@ -4,8 +4,6 @@
 
 static int isEmptyList(sqInt aLinkedList) {
   assert(!(isForwarded(aLinkedList)));
-  return (longAt(
-             (void *)((aLinkedList + BaseHeaderSize) +
-                      ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) ==
+  return (fetchPointerofObject(FirstLinkIndex, aLinkedList)) ==
          nilObj;
 }

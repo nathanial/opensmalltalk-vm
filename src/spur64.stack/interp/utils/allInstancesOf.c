@@ -83,12 +83,10 @@ static sqInt allInstancesOf(sqInt aClass) {
   expectedIndex =
       (long32At((void *)(aClass + 4))) & (identityHashHalfWordMask());
   for (iSqInt = 0; iSqInt < numClassTablePages; iSqInt += 1) {
-    page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                           ((((usqInt)(iSqInt) << (shiftForWord()))))));
+    page = fetchPointerofObject(iSqInt, hiddenRootsObj);
     toDoLimit = (1U << (classTableMajorIndexShift())) - 1;
     for (j = 0; j <= toDoLimit; j += 1) {
-      classOrNil = longAt((void *)((page + BaseHeaderSize) +
-                                   ((((usqInt)(j) << (shiftForWord()))))));
+      classOrNil = fetchPointerofObject(j, page);
       if (classOrNil != nilObj) {
         index = ((((usqInt)(iSqInt) << (classTableMajorIndexShift())))) + j;
         if ((classOrNil == aClass) &&
@@ -360,12 +358,10 @@ l6:
   expectedIndexSqInt =
       (long32At((void *)(aClass + 4))) & (identityHashHalfWordMask());
   for (iSqInt = 0; iSqInt < numClassTablePages; iSqInt += 1) {
-    page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                           ((((usqInt)(iSqInt) << (shiftForWord()))))));
+    page = fetchPointerofObject(iSqInt, hiddenRootsObj);
     toDoLimit = (1U << (classTableMajorIndexShift())) - 1;
     for (j = 0; j <= toDoLimit; j += 1) {
-      classOrNil = longAt((void *)((page + BaseHeaderSize) +
-                                   ((((usqInt)(j) << (shiftForWord()))))));
+      classOrNil = fetchPointerofObject(j, page);
       if (classOrNil != nilObj) {
         index = ((((usqInt)(iSqInt) << (classTableMajorIndexShift())))) + j;
         if ((classOrNil == aClass) && ((index != expectedIndexSqInt) &&
@@ -458,8 +454,7 @@ l3:
     /* end allocateSlots:format:classIndex: */
   l2:
     for (i = 0; i < count; i += 1) {
-      valuePointer = longAt((void *)((freeChunk + BaseHeaderSize) +
-                                     ((((usqInt)(i) << (shiftForWord()))))));
+      valuePointer = fetchPointerofObject(i, freeChunk);
 
       /* begin storePointerUnchecked:ofObject:withValue: */
       assert((isNonImmediate(smallObj)) && (!(isForwarded(smallObj))));

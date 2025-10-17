@@ -20,9 +20,7 @@ sqInt maybeMethodClassOfseemsToBeInstantiating(sqInt methodObj, sqInt format) {
 
   /* begin methodClassOf: */
   offset = (literalCountOf(methodObj)) - 1;
-  literal = longAt(
-      (void *)((methodObj + BaseHeaderSize) +
-               ((((usqInt)((offset + LiteralStart)) << (shiftForWord()))))));
+  literal = fetchPointerofObject(offset + LiteralStart, methodObj);
   if (isOopForwarded(literal)) {
     literal = fixFollowedFieldofObjectwithInitialValue(offset + LiteralStart,
                                                        methodObj, literal);
@@ -43,9 +41,7 @@ sqInt maybeMethodClassOfseemsToBeInstantiating(sqInt methodObj, sqInt format) {
   if (!((numSlotsOfAny(maybeClassObj)) > InstanceSpecificationIndex)) {
     return 0;
   }
-  maybeFormat = longAt(
-      (void *)((maybeClassObj + BaseHeaderSize) +
-               ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))));
+  maybeFormat = fetchPointerofObject(InstanceSpecificationIndex, maybeClassObj);
   if (!((((maybeFormat) & 7) == 1))) {
     return 0;
   }

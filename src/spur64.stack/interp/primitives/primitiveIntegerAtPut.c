@@ -219,9 +219,7 @@ static void primitiveIntegerAtPut(void) {
 
     /* begin numFixedSlotsOf: */
     classPointer = fetchClassOfNonImm(rcvr);
-    classFormat = ((longAt((void *)((classPointer + BaseHeaderSize) +
-                                    ((((usqInt)(InstanceSpecificationIndex)
-                                       << (shiftForWord()))))))) >>
+    classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, classPointer)) >>
                    3);
     numFixed = classFormat & ((1U << (fixedFieldsFieldWidth())) - 1);
     if ((((index + 1) >= numFixed) && ((index + 1) <= numSlots))) {

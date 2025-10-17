@@ -20,23 +20,17 @@ sqInt printStackCallStackOf(sqInt aContextOrProcessOrFrame) {
       return printStackCallStackOf(((sqInt)framePointer));
     }
     if (couldBeProcess(aContextOrProcessOrFrame)) {
-      return printCallStackOf(longAt(
-          (void *)((aContextOrProcessOrFrame + BaseHeaderSize) +
-                   ((((usqInt)(SuspendedContextIndex) << (shiftForWord())))))));
+      return printCallStackOf(fetchPointerofObject(SuspendedContextIndex, aContextOrProcessOrFrame));
     }
     return null;
   }
   theFP = ((void *)aContextOrProcessOrFrame);
   while (1) {
     context = shortReversePrintFrameAndCallers(theFP);
-    if (!((((((longAt(
-                 (void *)((context + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+    if (!((((((fetchPointerofObject(SenderIndex, context))) &
              7) == 1)) &&
           ((/* begin frameOfMarriedContext: */
-            (senderOop = longAt(
-                 (void *)((context + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord()))))))),
+            (senderOop = fetchPointerofObject(SenderIndex, context)),
             assert((((senderOop) & 7) == 1)),
             (theFP = ((char *)(senderOop - (smallIntegerTag())))),
             checkIsStillMarriedContextcurrentFP(context, theFP))))) {

@@ -82,9 +82,7 @@ l2:
     goto l1;
   }
   class = fetchClassOfNonImm(rcvr);
-  fixedFields = (((longAt((void *)((class + BaseHeaderSize) +
-                                   ((((usqInt)(InstanceSpecificationIndex)
-                                      << (shiftForWord()))))))) >>
+  fixedFields = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
                   3)) &
                 ((1U << (fixedFieldsFieldWidth())) - 1);
   /* end fixedFieldsOf:format:length: */

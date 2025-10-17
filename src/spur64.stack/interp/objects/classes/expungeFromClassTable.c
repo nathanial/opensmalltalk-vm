@@ -16,8 +16,7 @@ static void expungeFromClassTable(sqInt aBehavior) {
   majorIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
   minorIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);
   classTablePage =
-      longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                      ((((usqInt)(majorIndex) << (shiftForWord()))))));
+      fetchPointerofObject(majorIndex, hiddenRootsObj);
   assert(classTablePage != classTableFirstPage);
   assert((numSlotsOf(classTablePage)) == (classTablePageSize()));
   assert((fetchPointerofObject(minorIndex, classTablePage)) == aBehavior);

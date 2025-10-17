@@ -22,9 +22,7 @@ static sqInt getErrorObjectFromPrimFailCode(void) {
   sqInt valuePointer;
 
   if (primFailCode > 0) {
-    table = longAt(
-        (void *)((specialObjectsOop + BaseHeaderSize) +
-                 ((((usqInt)(PrimitiveErrorTableIndex) << (shiftForWord()))))));
+    table = fetchPointerofObject(PrimitiveErrorTableIndex, specialObjectsOop);
     if (primFailCode <=
         ((/* begin numSlotsOf: */
           assert((classIndexOf(table)) > (isForwardedObjectClassIndexPun())),
@@ -37,9 +35,7 @@ static sqInt getErrorObjectFromPrimFailCode(void) {
                      8
                : numSlots)))) {
       /* begin followField:ofObject: */
-      errObj = longAt(
-          (void *)((table + BaseHeaderSize) +
-                   ((((usqInt)((primFailCode - 1)) << (shiftForWord()))))));
+      errObj = fetchPointerofObject(primFailCode - 1, table);
       if (isOopForwarded(errObj)) {
         errObj = fixFollowedFieldofObjectwithInitialValue(primFailCode - 1,
                                                           table, errObj);
@@ -101,8 +97,7 @@ static sqInt getErrorObjectFromPrimFailCode(void) {
       l1:
         for (i = 0; i < numSlots; i += 1) {
           valuePointer =
-              longAt((void *)((errObj + BaseHeaderSize) +
-                              ((((usqInt)(i) << (shiftForWord()))))));
+              fetchPointerofObject(i, errObj);
 
           /* begin storePointerUnchecked:ofObject:withValue: */
           assert((isNonImmediate(clone)) && (!(isForwarded(clone))));

@@ -35,8 +35,7 @@ primitiveClockLogAddresses(void) {
   ioGetClockLogSizeUsecsIdxMsecsIdx((&runInNOut), (&usecs), (&uidx), (&msecs),
                                     (&midx));
   result = instantiateClassindexableSize(
-      longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                      ((((usqInt)(ClassArray) << (shiftForWord())))))),
+      fetchPointerofObject(ClassArray, specialObjectsOop),
       5);
   if (!result) {
     return (primFailCode = PrimErrNoMemory);

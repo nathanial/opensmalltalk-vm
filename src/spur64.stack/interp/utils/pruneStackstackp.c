@@ -24,8 +24,7 @@ static void pruneStackstackp(sqInt stack, sqInt stackp) {
 
   finger = 1;
   for (i = 2; i < stackp; i += 2) {
-    objOrFP = longAt((void *)((stack + BaseHeaderSize) +
-                              ((((usqInt)(i) << (shiftForWord()))))));
+    objOrFP = fetchPointerofObject(i, stack);
     if (/* couldBeFramePointer: */
         (((((usqInt)(((char *)objOrFP)))) & (BytesPerWord - 1)) == 0) &&
         ((((((usqInt)(((char *)objOrFP)))) >= (((usqInt)stackMemory))) &&
@@ -59,8 +58,7 @@ static void pruneStackstackp(sqInt stack, sqInt stackp) {
     error("remapBuffer overflow");
   }
   for (i = 1; i < finger; i += 1) {
-    objOrFP = longAt((void *)((theStack + BaseHeaderSize) +
-                              ((((usqInt)(i) << (shiftForWord()))))));
+    objOrFP = fetchPointerofObject(i, theStack);
     if ((((objOrFP) & 7) == 1)) {
       /* begin withoutSmallIntegerTags: */
       assert((((objOrFP) & 7) == 1));

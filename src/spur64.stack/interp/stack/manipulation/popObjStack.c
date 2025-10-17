@@ -9,8 +9,7 @@ static sqInt popObjStack(sqInt objStack) {
   sqInt topx;
 
   eassert(isValidObjStack(objStack));
-  topx = longAt((void *)((objStack + BaseHeaderSize) +
-                         ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+  topx = fetchPointerofObject(ObjStackTopx, objStack);
   if (!topx) {
     assert((fetchPointerofObject(ObjStackNextx, objStack)) == 0);
 
@@ -33,9 +32,7 @@ static sqInt popObjStack(sqInt objStack) {
                      ((((usqInt)(ObjStackTopx) << (shiftForWord()))))),
             topx);
   if ((topx == 0) &&
-      (((nextPage = longAt((void *)((objStack + BaseHeaderSize) +
-                                    ((((usqInt)(ObjStackNextx)
-                                       << (shiftForWord())))))))) != 0)) {
+      (((nextPage = fetchPointerofObject(ObjStackNextx, objStack))) != 0)) {
     /* begin storePointer:ofObjStack:withValue: */
     assert((formatOf(nextPage)) == (wordIndexableFormat()));
     longAtput((void *)((nextPage + BaseHeaderSize) +
@@ -47,8 +44,7 @@ static sqInt popObjStack(sqInt objStack) {
     longAtput((void *)((objStack + BaseHeaderSize) +
                        ((((usqInt)(ObjStackNextx) << (shiftForWord()))))),
               0);
-    myx = longAt((void *)((objStack + BaseHeaderSize) +
-                          ((((usqInt)(ObjStackMyx) << (shiftForWord()))))));
+    myx = fetchPointerofObject(ObjStackMyx, objStack);
 
     /* begin updateRootOfObjStackAt:with: */
     /* begin storePointer:ofObject:withValue: */

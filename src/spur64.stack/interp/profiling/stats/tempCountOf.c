@@ -7,8 +7,7 @@ usqInt tempCountOf(sqInt methodPointer) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(methodPointer));
-  header = longAt((void *)((methodPointer + BaseHeaderSize) +
-                           ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  header = fetchPointerofObject(HeaderIndex, methodPointer);
 
   /* begin temporaryCountOfMethodHeader: */
   return (((usqInt)(header)) >> MethodHeaderTempCountShift) & 0x3F;

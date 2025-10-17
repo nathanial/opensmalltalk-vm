@@ -109,7 +109,7 @@ static sqInt addToFreeListbytes(sqInt freeChunk, sqInt chunkBytes) {
                                       (child + childBytes) - BaseHeaderSize)));
     if (childBytes == chunkBytes) {
       nextFreeChunk =
-          longAt((void *)((child + BaseHeaderSize) + (0U << (shiftForWord()))));
+          fetchPointerofObject(0U, child);
 
       /* begin setNextFreeChunkOf:withValue:isLilliputianSize: */
       /* begin storePointer:ofFreeChunk:withValue: */
@@ -147,11 +147,9 @@ static sqInt addToFreeListbytes(sqInt freeChunk, sqInt chunkBytes) {
     /* size match; add to list at node.
        walk down the tree */
     parent = child;
-    child = longAt((void *)((child + BaseHeaderSize) +
-                            ((((usqInt)(((childBytes > chunkBytes
+    child = fetchPointerofObject(childBytes > chunkBytes
                                               ? 3 /* freeChunkSmallerIndex */
-                                              : 4 /* freeChunkLargerIndex */)))
-                               << (shiftForWord()))))));
+                                              : 4 /* freeChunkLargerIndex */, child);
   }
   if (!parent) {
     assert((freeLists[0]) == 0);

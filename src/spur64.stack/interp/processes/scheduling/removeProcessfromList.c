@@ -22,8 +22,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
 
   /* begin followObjField:ofObject: */
   firstLink =
-      longAt((void *)((aList + BaseHeaderSize) +
-                      ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))));
+      fetchPointerofObject(FirstLinkIndex, aList);
   assert(isNonImmediate(firstLink));
   if ((!((longAt((void *)(firstLink))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -33,8 +32,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
 
   /* begin followObjField:ofObject: */
   lastLink =
-      longAt((void *)((aList + BaseHeaderSize) +
-                      ((((usqInt)(LastLinkIndex) << (shiftForWord()))))));
+      fetchPointerofObject(LastLinkIndex, aList);
   assert(isNonImmediate(lastLink));
   if ((!((longAt((void *)(lastLink))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -44,8 +42,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
   if (aProcess == firstLink) {
     /* begin followObjField:ofObject: */
     nextLink =
-        longAt((void *)((aProcess + BaseHeaderSize) +
-                        ((((usqInt)(NextLinkIndex) << (shiftForWord()))))));
+        fetchPointerofObject(NextLinkIndex, aProcess);
     assert(isNonImmediate(nextLink));
     if ((!((longAt((void *)(nextLink))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -106,8 +103,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
 
       /* begin followObjField:ofObject: */
       nextLink =
-          longAt((void *)((tempLink + BaseHeaderSize) +
-                          ((((usqInt)(NextLinkIndex) << (shiftForWord()))))));
+          fetchPointerofObject(NextLinkIndex, tempLink);
       assert(isNonImmediate(nextLink));
       if ((!((longAt((void *)(nextLink))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -119,8 +115,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
       tempLink = nextLink;
     }
     nextLink =
-        longAt((void *)((aProcess + BaseHeaderSize) +
-                        ((((usqInt)(NextLinkIndex) << (shiftForWord()))))));
+        fetchPointerofObject(NextLinkIndex, aProcess);
 
     /* begin storePointer:ofObject:withValue: */
     assert(validStorePointerArgs(NextLinkIndex, tempLink, nextLink));

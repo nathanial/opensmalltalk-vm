@@ -104,14 +104,8 @@ static sqInt checkForEventsMayContextSwitch(sqInt mayContextSwitch) {
   if (!profileProcess) {
     /* begin activeProcess */
     objOop =
-        longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                          ((((usqInt)(SchedulerAssociation)
-                                             << (shiftForWord()))))))) +
-                         BaseHeaderSize) +
-                        ((((usqInt)(ValueIndex) << (shiftForWord()))))));
-    profileProcess = longAt(
-        (void *)((objOop + BaseHeaderSize) +
-                 ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
+        fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+    profileProcess = fetchPointerofObject(ActiveProcessIndex, objOop);
     profileMethod = null;
   }
 
@@ -132,9 +126,7 @@ l2:
   if (signalLowSpace) {
     /* signalLowSpace: */
     signalLowSpace = 0;
-    sema = longAt(
-        (void *)((specialObjectsOop + BaseHeaderSize) +
-                 ((((usqInt)(TheLowSpaceSemaphore) << (shiftForWord()))))));
+    sema = fetchPointerofObject(TheLowSpaceSemaphore, specialObjectsOop);
     if ((sema != nilObj) && (synchronousSignal(sema))) {
       switched = 1;
     }
@@ -155,9 +147,7 @@ l2:
     interruptPending = 0;
 
     /* reset interrupt flag */
-    sema = longAt(
-        (void *)((specialObjectsOop + BaseHeaderSize) +
-                 ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))));
+    sema = fetchPointerofObject(TheInterruptSemaphore, specialObjectsOop);
     if ((sema != nilObj) && (synchronousSignal(sema))) {
       switched = 1;
     }
@@ -167,9 +157,7 @@ l2:
       nextWakeupUsecs = 0;
 
       /* set timer interrupt to 0 for 'no timer' */
-      sema = longAt(
-          (void *)((specialObjectsOop + BaseHeaderSize) +
-                   ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))));
+      sema = fetchPointerofObject(TheTimerSemaphore, specialObjectsOop);
       if ((sema != nilObj) && (synchronousSignal(sema))) {
         switched = 1;
       }
@@ -179,9 +167,7 @@ l2:
   /* signal any pending finalizations */
   if (pendingFinalizationSignals > 0) {
     pendingFinalizationSignals = 0;
-    sema = longAt(
-        (void *)((specialObjectsOop + BaseHeaderSize) +
-                 ((((usqInt)(TheFinalizationSemaphore) << (shiftForWord()))))));
+    sema = fetchPointerofObject(TheFinalizationSemaphore, specialObjectsOop);
     if ((sema != nilObj) && (synchronousSignal(sema))) {
       switched = 1;
     }

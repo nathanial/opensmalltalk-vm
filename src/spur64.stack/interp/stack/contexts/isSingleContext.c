@@ -4,7 +4,6 @@
 
 static int isSingleContext(sqInt aContext) {
   return (
-      !((longAt((void *)((aContext + BaseHeaderSize) +
-                         ((((usqInt)(SenderIndex) << (shiftForWord()))))))) &
+      !((fetchPointerofObject(SenderIndex, aContext)) &
         (tagMask())));
 }

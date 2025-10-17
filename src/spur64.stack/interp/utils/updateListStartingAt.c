@@ -17,7 +17,7 @@ static void updateListStartingAt(sqInt freeNode) {
   assert(isFreeObject(prev));
   longAtput((void *)((prev + BaseHeaderSize) + (1U << (shiftForWord()))), 0);
   while (1) {
-    obj = longAt((void *)((prev + BaseHeaderSize) + (0U << (shiftForWord()))));
+    obj = fetchPointerofObject(0U, prev);
     if (!(obj != 0))
       break;
     /* begin storePointer:ofFreeChunk:withValue: */

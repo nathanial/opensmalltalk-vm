@@ -17,7 +17,7 @@ static NeverInline sqInt unlinkLilliputianChunkindex(sqInt freeChunk,
 
     /* begin assertValidFreeObject: */
     assert(assertInnerValidFreeObject(node));
-    next = longAt((void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))));
+    next = fetchPointerofObject(0U, node);
     if (node == freeChunk) {
       if (prev) {
         /* begin setNextFreeChunkOf:withValue:isLilliputianSize: */
@@ -33,8 +33,7 @@ static NeverInline sqInt unlinkLilliputianChunkindex(sqInt freeChunk,
 
         /* For some reason the assertion is not compiled correctly */
         freeLists[index] =
-            ((nextSqInt = longAt((void *)((freeChunk + BaseHeaderSize) +
-                                          (0U << (shiftForWord()))))));
+            ((nextSqInt = fetchPointerofObject(0U, freeChunk)));
       }
       return freeChunk;
     }

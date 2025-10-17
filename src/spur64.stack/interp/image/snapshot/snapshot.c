@@ -40,14 +40,9 @@ static sqInt snapshot(sqInt embedded) {
 
   /* begin activeProcess */
   objOop =
-      longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                        ((((usqInt)(SchedulerAssociation)
-                                           << (shiftForWord()))))))) +
-                       BaseHeaderSize) +
-                      ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
   activeProc =
-      longAt((void *)((objOop + BaseHeaderSize) +
-                      ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ActiveProcessIndex, objOop);
 
   /* begin storePointer:ofObject:withValue: */
   assert(
@@ -107,13 +102,10 @@ static sqInt snapshot(sqInt embedded) {
   if (!primFailCode) {
     /* begin quickFetchInteger:ofObject: */
     oop =
-        longAt((void *)((activeContext + BaseHeaderSize) +
-                        ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+        fetchPointerofObject(StackPointerIndex, activeContext);
     assert((((oop) & 7) == 1));
     stackIndex = (oop >> 3);
-    rcvr = longAt((void *)((activeContext + BaseHeaderSize) +
-                           ((((usqInt)(((stackIndex + CtxtTempFrameStart) - 1))
-                              << (shiftForWord()))))));
+    rcvr = fetchPointerofObject((stackIndex + CtxtTempFrameStart) - 1, activeContext);
 
     /* begin storePointerUnchecked:ofObject:withValue: */
     assert((isNonImmediate(activeContext)) && (!(isForwarded(activeContext))));
@@ -167,8 +159,7 @@ static sqInt snapshot(sqInt embedded) {
     /* begin methodHeaderOf: */
     assert(isCompiledMethod(newMethod));
     methodHeader =
-        longAt((void *)((newMethod + BaseHeaderSize) +
-                        ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(HeaderIndex, newMethod);
     numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
     numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 

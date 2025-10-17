@@ -33,13 +33,10 @@ static StackPage *makeBaseFrameFor(sqInt aContext) {
   /* end newStackPage */
 l1:
   pointer = (page->baseAddress);
-  theIP = longAt(
-      (void *)((aContext + BaseHeaderSize) +
-               ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))));
+  theIP = fetchPointerofObject(InstructionPointerIndex, aContext);
 
   /* begin followObjField:ofObject: */
-  theMethod = longAt((void *)((aContext + BaseHeaderSize) +
-                              ((((usqInt)(MethodIndex) << (shiftForWord()))))));
+  theMethod = fetchPointerofObject(MethodIndex, aContext);
   assert(isNonImmediate(theMethod));
   if ((!((longAt((void *)(theMethod))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -52,8 +49,7 @@ l1:
   theIP = (theIP >> 3);
 
   /* begin followField:ofObject: */
-  rcvr = longAt((void *)((aContext + BaseHeaderSize) +
-                         ((((usqInt)(ReceiverIndex) << (shiftForWord()))))));
+  rcvr = fetchPointerofObject(ReceiverIndex, aContext);
   if (isOopForwarded(rcvr)) {
     rcvr =
         fixFollowedFieldofObjectwithInitialValue(ReceiverIndex, aContext, rcvr);
@@ -63,8 +59,7 @@ l1:
      stack in the pushed receiver position (closures receive the value[:value:]
      messages). Otherwise it should be the receiver proper. */
   maybeClosure =
-      longAt((void *)((aContext + BaseHeaderSize) +
-                      ((((usqInt)(ClosureIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ClosureIndex, aContext);
   if (maybeClosure != nilObj) {
     if ((!((longAt((void *)(maybeClosure))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -74,17 +69,14 @@ l1:
 
     /* begin argumentCountOfClosure: */
     /* begin quickFetchInteger:ofObject: */
-    oop = longAt(
-        (void *)((maybeClosure + BaseHeaderSize) +
-                 ((((usqInt)(ClosureNumArgsIndex) << (shiftForWord()))))));
+    oop = fetchPointerofObject(ClosureNumArgsIndex, maybeClosure);
     assert((((oop) & 7) == 1));
     numArgs = (oop >> 3);
     longAtput(pointer, maybeClosure);
   } else {
     /* begin methodHeaderOf: */
     assert(isCompiledMethod(theMethod));
-    header = longAt((void *)((theMethod + BaseHeaderSize) +
-                             ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+    header = fetchPointerofObject(HeaderIndex, theMethod);
     numArgs = (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;
 
     /* If this is a synthetic context its IP could be pointing at the
@@ -104,9 +96,7 @@ l1:
   /* Put the arguments on the stack */
   for (i = 1; i <= numArgs; i += 1) {
     longAtput((pointer -= BytesPerWord),
-              longAt((void *)((aContext + BaseHeaderSize) +
-                              ((((usqInt)((ReceiverIndex + i))
-                                 << (shiftForWord())))))));
+              fetchPointerofObject(ReceiverIndex + i, aContext));
 
     /* nil the slot in the context so that it doesn't inadvertently hang onto
        some collectable object. Thanks to Ryan Macnak for identifying this bug
@@ -144,16 +134,13 @@ l1:
   longAtput((pointer -= BytesPerWord), rcvr);
 
   /* begin quickFetchInteger:ofObject: */
-  oop = longAt((void *)((aContext + BaseHeaderSize) +
-                        ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+  oop = fetchPointerofObject(StackPointerIndex, aContext);
   assert((((oop) & 7) == 1));
   stackPtrIndex = (oop >> 3);
   assert((ReceiverIndex + stackPtrIndex) < (lengthOf(aContext)));
   for (i = (numArgs + 1); i <= stackPtrIndex; i += 1) {
     longAtput((pointer -= BytesPerWord),
-              longAt((void *)((aContext + BaseHeaderSize) +
-                              ((((usqInt)((ReceiverIndex + i))
-                                 << (shiftForWord())))))));
+              fetchPointerofObject(ReceiverIndex + i, aContext));
   }
 
   /* top of stack is the instruction pointer */

@@ -26,9 +26,7 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth, sqInt classObj) {
     }
 
     /* begin noFixupFollowField:ofObject: */
-    classDict = longAt(
-        (void *)((currClass + BaseHeaderSize) +
-                 ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
+    classDict = fetchPointerofObject(MethodDictionaryIndex, currClass);
     if (isOopForwarded(classDict)) {
       classDict = followForwarded(classDict);
     }
@@ -47,9 +45,7 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth, sqInt classObj) {
              : numSlots);
     if (classDictSize > MethodArrayIndex) {
       /* begin noFixupFollowField:ofObject: */
-      methodArray = longAt(
-          (void *)((classDict + BaseHeaderSize) +
-                   ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
+      methodArray = fetchPointerofObject(MethodArrayIndex, classDict);
       if (isOopForwarded(methodArray)) {
         methodArray = followForwarded(methodArray);
       }
@@ -66,8 +62,7 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth, sqInt classObj) {
     /* begin noFixupSuperclassOf: */
     /* begin noFixupFollowField:ofObject: */
     objOop =
-        longAt((void *)((currClass + BaseHeaderSize) +
-                        ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SuperclassIndex, currClass);
     if (isOopForwarded(objOop)) {
       objOop = followForwarded(objOop);
     }

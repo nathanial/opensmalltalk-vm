@@ -40,8 +40,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
                : numSlots))) -
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
-      referent = longAt((void *)((referrer + BaseHeaderSize) +
-                                 ((((usqInt)(i) << (shiftForWord()))))));
+      referent = fetchPointerofObject(i, referrer);
       if ((!(referent & (tagMask())))) {
         if ((!((longAt((void *)(referent))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -83,8 +82,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
     foundNewReferent = 0;
     toDoLimit = (numSlotsOfIndexablePointerObj(referrer)) - 1;
     for (i = 0; i <= toDoLimit; i += 1) {
-      referent = longAt((void *)((referrer + BaseHeaderSize) +
-                                 ((((usqInt)(i) << (shiftForWord()))))));
+      referent = fetchPointerofObject(i, referrer);
       if ((!(referent & (tagMask())))) {
         if ((!((longAt((void *)(referent))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -125,8 +123,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
     /* begin scavengeReferentsOfWeakling: */
     toDoLimit = (numStrongSlotsOfWeakling(referrer)) - 1;
     for (i = 0; i <= toDoLimit; i += 1) {
-      referent = longAt((void *)((referrer + BaseHeaderSize) +
-                                 ((((usqInt)(i) << (shiftForWord()))))));
+      referent = fetchPointerofObject(i, referrer);
       if ((!(referent & (tagMask())))) {
         if ((!((longAt((void *)(referent))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -162,8 +159,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
             (/* begin keyOfEphemeron: */
              assert((isNonImmediate(referrer)) && (isObjEphemeron(referrer))),
              /* fetchPointer:ofObject: */
-             longAt((void *)((referrer + BaseHeaderSize) +
-                             (0U << (shiftForWord())))))))) {
+             fetchPointerofObject(0U, referrer))))) {
       return 1;
     }
 
@@ -182,8 +178,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
                : numSlots))) -
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
-      referent = longAt((void *)((referrer + BaseHeaderSize) +
-                                 ((((usqInt)(i) << (shiftForWord()))))));
+      referent = fetchPointerofObject(i, referrer);
       if ((!(referent & (tagMask())))) {
         if ((!((longAt((void *)(referent))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -223,8 +218,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
   case forwardedFormat():
     /* begin scavengeReferentOfForwarder: */
     foundNewReferent = 0;
-    referent = longAt(
-        (void *)((referrer + BaseHeaderSize) + (0U << (shiftForWord()))));
+    referent = fetchPointerofObject(0U, referrer);
     if ((!(referent & (tagMask())))) {
       if ((!((longAt((void *)(referent))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -274,8 +268,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
     foundNewReferent = 0;
     toDoLimit = literalCountOf(referrer);
     for (i = 1; i <= toDoLimit; i += 1) {
-      referent = longAt((void *)((referrer + BaseHeaderSize) +
-                                 ((((usqInt)(i) << (shiftForWord()))))));
+      referent = fetchPointerofObject(i, referrer);
       if ((!(referent & (tagMask())))) {
         if ((!((longAt((void *)(referent))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

@@ -10,8 +10,7 @@ static sqInt stackPointerForMaybeMarriedContext(sqInt aContext) {
   sqInt spSqInt;
 
   if (/* isStillMarriedContext: */
-      (((((longAt((void *)((aContext + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+      (((((fetchPointerofObject(SenderIndex, aContext))) &
          7) == 1)) &&
       (!(isWidowedContext(aContext)))) {
     sp = stackPointerIndexForFrame(frameOfMarriedContext(aContext));
@@ -21,8 +20,7 @@ static sqInt stackPointerForMaybeMarriedContext(sqInt aContext) {
 
   /* begin fetchStackPointerOf: */
   spSqInt =
-      longAt((void *)((aContext + BaseHeaderSize) +
-                      ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+      fetchPointerofObject(StackPointerIndex, aContext);
   if (!((((spSqInt) & 7) == 1))) {
     return 0;
   }

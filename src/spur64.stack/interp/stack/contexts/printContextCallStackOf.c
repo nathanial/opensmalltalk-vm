@@ -10,12 +10,10 @@ static sqInt printContextCallStackOf(sqInt aContext) {
   ctxt = aContext;
   while (!(
       (ctxt == nilObj) ||
-      (((((longAt((void *)((ctxt + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+      (((((fetchPointerofObject(SenderIndex, ctxt))) &
          7) == 1)))) {
     shortPrintContext(ctxt);
-    ctxt = longAt((void *)((ctxt + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+    ctxt = fetchPointerofObject(SenderIndex, ctxt);
   }
   return ctxt;
 }

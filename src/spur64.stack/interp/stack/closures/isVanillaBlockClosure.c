@@ -11,8 +11,6 @@
 static int isVanillaBlockClosure(sqInt aClosure) {
   assert((isPointers(aClosure)) &&
          ((numSlotsOf(aClosure)) >= ClosureFirstCopiedValueIndex));
-  return ((((longAt((void *)((aClosure + BaseHeaderSize) +
-                             ((((usqInt)(ClosureStartPCIndex)
-                                << (shiftForWord())))))))) &
+  return ((((fetchPointerofObject(ClosureStartPCIndex, aClosure))) &
            7) == 1);
 }

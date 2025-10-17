@@ -64,8 +64,7 @@ static NeverInline void computeRefCountToShrinkRT(void) {
     }
     toDoLimit = (numPointerSlotsOf(elephant)) - 1;
     for (j = 0; j <= toDoLimit; j += 1) {
-      referent = longAt((void *)((elephant + BaseHeaderSize) +
-                                 ((((usqInt)(j) << (shiftForWord()))))));
+      referent = fetchPointerofObject(j, elephant);
       if (/* isReallyYoung: */
           ((!(referent & (tagMask())))) &&
           ((/* begin isReallyYoungObject: */ /* begin isYoungObject: */

@@ -20,8 +20,7 @@ static sqInt isWidowedContextNoConvert(sqInt aOnceMarriedContext) {
          (isMarriedOrWidowedContext(aOnceMarriedContext)));
 
   /* begin frameOfMarriedContext: */
-  senderOop = longAt((void *)((aOnceMarriedContext + BaseHeaderSize) +
-                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  senderOop = fetchPointerofObject(SenderIndex, aOnceMarriedContext);
   assert((((senderOop) & 7) == 1));
   theFrame = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -30,9 +29,7 @@ static sqInt isWidowedContextNoConvert(sqInt aOnceMarriedContext) {
       pageIndexForstackMemorybytesPerPage(theFrame, stackMemory, bytesPerPage),
       pages);
   if (!((isFree(thePage)) || (theFrame < ((thePage->headFP))))) {
-    anInteger = longAt(
-        (void *)((aOnceMarriedContext + BaseHeaderSize) +
-                 ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))));
+    anInteger = fetchPointerofObject(InstructionPointerIndex, aOnceMarriedContext);
 
     /* begin withoutSmallIntegerTags: */
     assert((((anInteger) & 7) == 1));

@@ -41,9 +41,7 @@ static void primitiveNewMethod(void) {
   size = ((literalCount + LiteralStart) * BytesPerOop) + bytecodeCount;
 
   /* begin instantiateCompiledMethodClass:indexableSize: */
-  classFormat = ((longAt((void *)((class + BaseHeaderSize) +
-                                  ((((usqInt)(InstanceSpecificationIndex)
-                                     << (shiftForWord()))))))) >>
+  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
                  3);
   instSpec =
       (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());
@@ -155,9 +153,7 @@ l2:
     reasonCode =
         (isCompiledMethodFormat(
              (((usqInt)((
-                  ((longAt((void *)((class + BaseHeaderSize) +
-                                    ((((usqInt)(InstanceSpecificationIndex)
-                                       << (shiftForWord()))))))) >>
+                  ((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
                    3)))) >>
               (fixedFieldsFieldWidth())) &
              (formatMask()))

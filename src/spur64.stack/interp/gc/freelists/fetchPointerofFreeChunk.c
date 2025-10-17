@@ -3,6 +3,5 @@
 /* SpurMemoryManager>>#fetchPointer:ofFreeChunk: */
 
 static sqInt fetchPointerofFreeChunk(sqInt fieldIndex, sqInt objOop) {
-  return longAt((void *)((objOop + BaseHeaderSize) +
-                         ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  return fetchPointerofObject(fieldIndex, objOop);
 }

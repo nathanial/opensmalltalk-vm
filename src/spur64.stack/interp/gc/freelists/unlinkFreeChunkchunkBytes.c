@@ -24,12 +24,11 @@ static sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk, sqInt chunkBytes) {
     return unlinkLilliputianChunkindex(freeChunk, index);
   }
   prev =
-      longAt((void *)((freeChunk + BaseHeaderSize) + (1U << (shiftForWord()))));
+      fetchPointerofObject(1U, freeChunk);
 
   /* Has prev element: update double linked list */
   if (prev) {
-    nextFreeChunk = longAt(
-        (void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))));
+    nextFreeChunk = fetchPointerofObject(0U, freeChunk);
 
     /* begin setNextFreeChunkOf:withValue:chunkBytes: */
     /* begin isLilliputianSize: */
@@ -62,8 +61,7 @@ static sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk, sqInt chunkBytes) {
 
     /* For some reason the assertion is not compiled correctly */
     freeLists[index] =
-        ((nextSqInt = longAt((void *)((freeChunk + BaseHeaderSize) +
-                                      (0U << (shiftForWord()))))));
+        ((nextSqInt = fetchPointerofObject(0U, freeChunk)));
     if (nextSqInt) {
       /* begin storePointer:ofFreeChunk:withValue: */
       assert(isFreeObject(nextSqInt));
@@ -75,7 +73,7 @@ static sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk, sqInt chunkBytes) {
 
   /* Large chunk */
   next =
-      longAt((void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fetchPointerofObject(0U, freeChunk);
   if (next) {
     inFreeTreeReplacewith(freeChunk, next);
   } else {

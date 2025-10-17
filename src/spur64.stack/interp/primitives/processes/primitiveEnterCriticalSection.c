@@ -32,21 +32,14 @@ static void primitiveEnterCriticalSection(void) {
 
     /* begin activeProcess */
     objOop =
-        longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                          ((((usqInt)(SchedulerAssociation)
-                                             << (shiftForWord()))))))) +
-                         BaseHeaderSize) +
-                        ((((usqInt)(ValueIndex) << (shiftForWord()))))));
-    activeProc = longAt(
-        (void *)((objOop + BaseHeaderSize) +
-                 ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
+        fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+    activeProc = fetchPointerofObject(ActiveProcessIndex, objOop);
   }
 
   /* CriticalSections are laid out like Semaphores */
   owningProcessIndex = ExcessSignalsIndex;
   owningProcess =
-      longAt((void *)((criticalSection + BaseHeaderSize) +
-                      ((((usqInt)(owningProcessIndex) << (shiftForWord()))))));
+      fetchPointerofObject(owningProcessIndex, criticalSection);
   if (owningProcess == nilObj) {
     /* begin storePointer:ofObject:withValue: */
     assert(

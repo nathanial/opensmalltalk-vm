@@ -20,8 +20,7 @@ static void printNameOfClasscount(sqInt classOop, sqInt cnt) {
   numSlots = numSlotsOf(classOop);
   if ((numSlots == metaclassNumSlots) && (metaclassNumSlots > thisClassIndex)) {
     printNameOfClasscount(
-        longAt((void *)((classOop + BaseHeaderSize) +
-                        ((((usqInt)(thisClassIndex) << (shiftForWord())))))),
+        fetchPointerofObject(thisClassIndex, classOop),
         cnt - 1);
     print(" class");
   } else {
@@ -29,8 +28,7 @@ static void printNameOfClasscount(sqInt classOop, sqInt cnt) {
       print("bad class");
     } else {
       printStringOf(
-          longAt((void *)((classOop + BaseHeaderSize) +
-                          ((((usqInt)(classNameIndex) << (shiftForWord())))))));
+          fetchPointerofObject(classNameIndex, classOop));
     }
   }
 }

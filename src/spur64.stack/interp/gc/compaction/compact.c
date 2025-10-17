@@ -188,16 +188,9 @@ static NeverInline void compact(void) {
 l5:
 
   /* begin unpinRememberedSet */
-  /* begin fetchPointer:ofObject: */
   firstFieldOfRememberedSet =
-      longAt((void *)(((longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                                        ((((usqInt)(RememberedSetRootIndex)
-                                           << (shiftForWord()))))))) +
-                       BaseHeaderSize) +
-                      (0U << (shiftForWord()))));
-  setIsPinnedOfto(longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                                  ((((usqInt)(RememberedSetRootIndex)
-                                     << (shiftForWord())))))),
+      fetchPointerofObject(0U, fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj));
+  setIsPinnedOfto(fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj),
                   0);
 
   /* begin resetFreeListHeads */
@@ -220,13 +213,9 @@ l5:
                 ((((long32At((void *)(stackOrNil + 4))) |
                    (identityHashHalfWordMask())) -
                   (identityHashHalfWordMask()))) +
-                    ((longAt((void *)((stackOrNil + BaseHeaderSize) +
-                                      ((((usqInt)(ObjStackTopx)
-                                         << (shiftForWord()))))))) &
+                    ((fetchPointerofObject(ObjStackTopx, stackOrNil)) &
                      (identityHashHalfWordMask())));
-  } while (((stackOrNil = longAt((void *)((stackOrNil + BaseHeaderSize) +
-                                          ((((usqInt)(ObjStackNextx)
-                                             << (shiftForWord())))))))) != 0);
+  } while (((stackOrNil = fetchPointerofObject(ObjStackNextx, stackOrNil))) != 0);
   /* end prepareObjStackForPlanningCompactor: */
 l7:
   if (weaklingStack == nilObj) {
@@ -241,13 +230,9 @@ l7:
                 ((((long32At((void *)(stackOrNil + 4))) |
                    (identityHashHalfWordMask())) -
                   (identityHashHalfWordMask()))) +
-                    ((longAt((void *)((stackOrNil + BaseHeaderSize) +
-                                      ((((usqInt)(ObjStackTopx)
-                                         << (shiftForWord()))))))) &
+                    ((fetchPointerofObject(ObjStackTopx, stackOrNil)) &
                      (identityHashHalfWordMask())));
-  } while (((stackOrNil = longAt((void *)((stackOrNil + BaseHeaderSize) +
-                                          ((((usqInt)(ObjStackNextx)
-                                             << (shiftForWord())))))))) != 0);
+  } while (((stackOrNil = fetchPointerofObject(ObjStackNextx, stackOrNil))) != 0);
   /* end prepareObjStackForPlanningCompactor: */
 l9:
   if (mournQueue == nilObj) {
@@ -262,13 +247,9 @@ l9:
                 ((((long32At((void *)(stackOrNil + 4))) |
                    (identityHashHalfWordMask())) -
                   (identityHashHalfWordMask()))) +
-                    ((longAt((void *)((stackOrNil + BaseHeaderSize) +
-                                      ((((usqInt)(ObjStackTopx)
-                                         << (shiftForWord()))))))) &
+                    ((fetchPointerofObject(ObjStackTopx, stackOrNil)) &
                      (identityHashHalfWordMask())));
-  } while (((stackOrNil = longAt((void *)((stackOrNil + BaseHeaderSize) +
-                                          ((((usqInt)(ObjStackNextx)
-                                             << (shiftForWord())))))))) != 0);
+  } while (((stackOrNil = fetchPointerofObject(ObjStackNextx, stackOrNil))) != 0);
   /* end prepareObjStackForPlanningCompactor: */
 l6:
   totalFreeOldSpace = 0;

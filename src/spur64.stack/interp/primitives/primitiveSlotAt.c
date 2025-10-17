@@ -76,8 +76,7 @@ static void primitiveSlotAt(void) {
                      ? externalInstVarofContext(index, rcvr)
                      : nilObj);
       } else {
-        value = longAt((void *)((rcvr + BaseHeaderSize) +
-                                ((((usqInt)(index) << (shiftForWord()))))));
+        value = fetchPointerofObject(index, rcvr);
       }
 
       /* begin pop:thenPush: */

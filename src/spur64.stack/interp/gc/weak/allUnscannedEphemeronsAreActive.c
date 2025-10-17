@@ -11,8 +11,7 @@ static sqInt allUnscannedEphemeronsAreActive(void) {
     /* begin keyOfMaybeFiredEphemeron: */
     assert((isNonImmediate(longAt((void *)(p)))) &&
            (isMaybeFiredEphemeron(longAt((void *)(p)))));
-    key = longAt((void *)(((longAt((void *)(p))) + BaseHeaderSize) +
-                          (0U << (shiftForWord()))));
+    key = fetchPointerofObject(0U, longAt((void *)(p)));
     if ((((key & (tagMask())) != 0)) ||
         (((byteAt((void *)(key + (markBitsByteOffset())))) &
           (1U << (markedBitByteShift()))) != 0)) {

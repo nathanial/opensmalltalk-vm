@@ -48,18 +48,14 @@ void printActivationsOf(sqInt aMethodObj) {
     if (classIndex >= (isForwardedObjectClassIndexPun())) {
       if ((((longAt((void *)(objSqInt))) & (classIndexMask())) ==
            ClassMethodContextCompactIndex) &&
-          (aMethodObj == (longAt((void *)((objSqInt + BaseHeaderSize) +
-                                          ((((usqInt)(MethodIndex)
-                                             << (shiftForWord()))))))))) {
+          (aMethodObj == (fetchPointerofObject(MethodIndex, objSqInt)))) {
         printHex(objSqInt);
 
         /* begin space */
         printChar(' ');
         printOopShortInner(objSqInt);
         print(" pc ");
-        printHex(longAt((void *)((objSqInt + BaseHeaderSize) +
-                                 ((((usqInt)(InstructionPointerIndex)
-                                    << (shiftForWord())))))));
+        printHex(fetchPointerofObject(InstructionPointerIndex, objSqInt));
         cr();
       }
     }

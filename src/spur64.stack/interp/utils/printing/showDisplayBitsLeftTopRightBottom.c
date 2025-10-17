@@ -12,8 +12,7 @@ sqInt showDisplayBitsLeftTopRightBottom(sqInt aForm, sqInt l, sqInt t, sqInt r,
                                         sqInt b) {
   if (deferDisplayUpdates ||
       (aForm !=
-       (longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                        ((((usqInt)(TheDisplay) << (shiftForWord()))))))))) {
+       (fetchPointerofObject(TheDisplay, specialObjectsOop)))) {
     return null;
   }
   updateDisplayLeftTopRightBottom(l, t, r, b);

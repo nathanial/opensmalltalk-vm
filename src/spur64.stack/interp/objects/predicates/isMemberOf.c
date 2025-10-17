@@ -10,8 +10,7 @@ sqInt isMemberOf(sqInt oop, char *className) {
 
   oopClass = /* fetchClassOf: */
       ((tagBits = oop & (tagMask()))
-           ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                             ((((usqInt)(tagBits) << (shiftForWord()))))))
+           ? fetchPointerofObject(tagBits, classTableFirstPage)
            : fetchClassOfNonImm(oop));
   return classNameOfIs(oopClass, className);
 }

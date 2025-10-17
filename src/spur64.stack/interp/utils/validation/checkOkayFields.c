@@ -33,8 +33,7 @@ static sqInt checkOkayFields(sqInt oop) {
   hasYoung = 0 /* (hasSpurMemoryManagerAPI not) */;
   i = (numPointerSlotsOf(oop)) - 1;
   while (i >= 0) {
-    fieldOop = longAt((void *)((oop + BaseHeaderSize) +
-                               ((((usqInt)(i) << (shiftForWord()))))));
+    fieldOop = fetchPointerofObject(i, oop);
     if (!((((fieldOop) & 7) == 1))) {
       hasYoung = hasYoung || (/* isYoung: */
                               ((!(fieldOop & (tagMask())))) &&

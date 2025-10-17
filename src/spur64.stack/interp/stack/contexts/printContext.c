@@ -12,11 +12,8 @@ void printContext(sqInt aContext) {
   sqInt theMethod;
 
   shortPrintContext(aContext);
-  sender = longAt((void *)((aContext + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord()))))));
-  ip = longAt(
-      (void *)((aContext + BaseHeaderSize) +
-               ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))));
+  sender = fetchPointerofObject(SenderIndex, aContext);
+  ip = fetchPointerofObject(InstructionPointerIndex, aContext);
   if ((((sender) & 7) == 1)) {
     if (checkIsStillMarriedContextcurrentFP(aContext, framePointer)) {
       print("married (assuming framePointer valid)");
@@ -59,8 +56,7 @@ void printContext(sqInt aContext) {
       cr();
     }
   }
-  sp = longAt((void *)((aContext + BaseHeaderSize) +
-                       ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+  sp = fetchPointerofObject(StackPointerIndex, aContext);
   print("sp       ");
   printNum((sp >> 3));
   print(" (");
@@ -70,18 +66,15 @@ void printContext(sqInt aContext) {
   print("method   ");
 
   /* begin printMethodFieldForPrintContext: */
-  theMethod = longAt((void *)((aContext + BaseHeaderSize) +
-                              ((((usqInt)(MethodIndex) << (shiftForWord()))))));
+  theMethod = fetchPointerofObject(MethodIndex, aContext);
   fprintf(transcript, "%p: ", ((void *)theMethod));
   shortPrintOop(theMethod);
   print("closure  ");
   shortPrintOop(
-      longAt((void *)((aContext + BaseHeaderSize) +
-                      ((((usqInt)(ClosureIndex) << (shiftForWord())))))));
+      fetchPointerofObject(ClosureIndex, aContext));
   print("receiver ");
   shortPrintOop(
-      longAt((void *)((aContext + BaseHeaderSize) +
-                      ((((usqInt)(ReceiverIndex) << (shiftForWord())))))));
+      fetchPointerofObject(ReceiverIndex, aContext));
   sp = (sp >> 3);
   sp = ((sp < ((lengthOf(aContext)) - ReceiverIndex))
             ? sp
@@ -92,8 +85,6 @@ void printContext(sqInt aContext) {
 
     /* begin space */
     printChar(' ');
-    shortPrintOop(longAt(
-        (void *)((aContext + BaseHeaderSize) +
-                 ((((usqInt)((ReceiverIndex + i)) << (shiftForWord())))))));
+    shortPrintOop(fetchPointerofObject(ReceiverIndex + i, aContext));
   }
 }

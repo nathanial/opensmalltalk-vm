@@ -16,8 +16,7 @@ static sqInt isValidObjStackPagemyIndexfirstPage(sqInt objStackPage, sqInt myx,
     return 0;
   }
   freeOrNextPage =
-      longAt((void *)((objStackPage + BaseHeaderSize) +
-                      ((((usqInt)(ObjStackFreex) << (shiftForWord()))))));
+      fetchPointerofObject(ObjStackFreex, objStackPage);
   while (freeOrNextPage != 0) {
     if (!isFirstPage) {
       objStackInvalidBecause = "free page on other than first page";
@@ -25,8 +24,7 @@ static sqInt isValidObjStackPagemyIndexfirstPage(sqInt objStackPage, sqInt myx,
       return 0;
     }
     if (freeOrNextPage ==
-        (longAt((void *)((objStackPage + BaseHeaderSize) +
-                         ((((usqInt)(ObjStackNextx) << (shiftForWord())))))))) {
+        (fetchPointerofObject(ObjStackNextx, objStackPage))) {
       objStackInvalidBecause = "free page = next page";
       invalidObjStackPage = freeOrNextPage;
       return 0;
@@ -38,8 +36,7 @@ static sqInt isValidObjStackPagemyIndexfirstPage(sqInt objStackPage, sqInt myx,
       objStackInvalidBecause = ((char *)(strcat(ns, ", on next page")));
       return 0;
     }
-    page = longAt((void *)((freeOrNextPage + BaseHeaderSize) +
-                           ((((usqInt)(ObjStackFreex) << (shiftForWord()))))));
+    page = fetchPointerofObject(ObjStackFreex, freeOrNextPage);
     if ((page == freeOrNextPage) || (page == objStackPage)) {
       objStackInvalidBecause = "circularity in free page list";
       invalidObjStackPage = page;
@@ -58,24 +55,21 @@ static sqInt isValidObjStackPagemyIndexfirstPage(sqInt objStackPage, sqInt myx,
       invalidObjStackPage = objStackPage;
       return 0;
     }
-    if (!((longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                           ((((usqInt)(myx) << (shiftForWord()))))))) ==
+    if (!((fetchPointerofObject(myx, hiddenRootsObj)) ==
           objStackPage)) {
       objStackInvalidBecause = "firstPage is not root";
       invalidObjStackPage = objStackPage;
       return 0;
     }
   }
-  index = longAt((void *)((objStackPage + BaseHeaderSize) +
-                          ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+  index = fetchPointerofObject(ObjStackTopx, objStackPage);
   if (!(((index >= 0) && (index <= ObjStackLimit)))) {
     objStackInvalidBecause = "bad topx";
     invalidObjStackPage = objStackPage;
     return 0;
   }
   freeOrNextPage =
-      longAt((void *)((objStackPage + BaseHeaderSize) +
-                      ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+      fetchPointerofObject(ObjStackNextx, objStackPage);
   if (!freeOrNextPage) {
     return 1;
   }

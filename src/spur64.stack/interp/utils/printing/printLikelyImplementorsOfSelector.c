@@ -65,8 +65,7 @@ void printLikelyImplementorsOfSelector(sqInt selector) {
                                  (formatFieldByteOffset())))) &
                 (formatMask())) <= 5 /* lastPointerFormat */)) &&
                      ((numSlotsOf(methodClassAssociation)) >= 2)
-                 ? longAt((void *)((methodClassAssociation + BaseHeaderSize) +
-                                   (0U << (shiftForWord()))))
+                 ? fetchPointerofObject(0U, methodClassAssociation)
                  : methodClassAssociation));
         cr();
       }

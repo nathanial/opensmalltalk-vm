@@ -18,7 +18,7 @@ static const char *validFreeTreeChunkparent(sqInt chunk, sqInt parent) {
     return "too small";
   }
   if (parent !=
-      (longAt((void *)((chunk + BaseHeaderSize) + (2U << (shiftForWord())))))) {
+      (fetchPointerofObject(2U, chunk))) {
     return "bad parent";
   }
   if ((segmentContainingObj(chunk)) !=
@@ -26,14 +26,12 @@ static const char *validFreeTreeChunkparent(sqInt chunk, sqInt parent) {
     return "not in one segment";
   }
   if ((reason =
-           validFreeTreeChunkparent(longAt((void *)((chunk + BaseHeaderSize) +
-                                                    (3U << (shiftForWord())))),
+           validFreeTreeChunkparent(fetchPointerofObject(3U, chunk),
                                     chunk))) {
     return reason;
   }
   if ((reason =
-           validFreeTreeChunkparent(longAt((void *)((chunk + BaseHeaderSize) +
-                                                    (4U << (shiftForWord())))),
+           validFreeTreeChunkparent(fetchPointerofObject(4U, chunk),
                                     chunk))) {
     return reason;
   }

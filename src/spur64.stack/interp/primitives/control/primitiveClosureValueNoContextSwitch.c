@@ -28,8 +28,7 @@ void primitiveClosureValueNoContextSwitch(void) {
   /* begin argumentCountOfClosure: */
   /* begin quickFetchInteger:ofObject: */
   oop =
-      longAt((void *)((blockClosure + BaseHeaderSize) +
-                      ((((usqInt)(ClosureNumArgsIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ClosureNumArgsIndex, blockClosure);
   assert((((oop) & 7) == 1));
   numArgs = (oop >> 3);
   if (!(argumentCount == numArgs)) {
@@ -42,9 +41,7 @@ void primitiveClosureValueNoContextSwitch(void) {
 
   /* Somewhat paranoiac checks we need while debugging that we may be able to
      discard in a robust system. */
-  outerContext = longAt(
-      (void *)((blockClosure + BaseHeaderSize) +
-               ((((usqInt)(ClosureOuterContextIndex) << (shiftForWord()))))));
+  outerContext = fetchPointerofObject(ClosureOuterContextIndex, blockClosure);
   if (!(/* isContext: */
         ((!(outerContext & (tagMask())))) &&
         (((longAt((void *)(outerContext))) & (classIndexMask())) ==
@@ -56,8 +53,7 @@ void primitiveClosureValueNoContextSwitch(void) {
     return;
   }
   closureMethod =
-      longAt((void *)((outerContext + BaseHeaderSize) +
-                      ((((usqInt)(MethodIndex) << (shiftForWord()))))));
+      fetchPointerofObject(MethodIndex, outerContext);
 
   /* Check if the closure's method is actually a CompiledMethod. */
   if (!(/* isOopCompiledMethod: */
@@ -118,8 +114,7 @@ void primitiveClosureValueNoContextSwitch(void) {
   stackPointer = sp;
 
   /* begin followField:ofObject: */
-  objOop = longAt((void *)((outerContext + BaseHeaderSize) +
-                           ((((usqInt)(ReceiverIndex) << (shiftForWord()))))));
+  objOop = fetchPointerofObject(ReceiverIndex, outerContext);
   if (isOopForwarded(objOop)) {
     objOop = fixFollowedFieldofObjectwithInitialValue(ReceiverIndex,
                                                       outerContext, objOop);
@@ -134,9 +129,7 @@ void primitiveClosureValueNoContextSwitch(void) {
   for (i = 0; i < numCopied; i += 1) {
     /* begin push: */
     longAtput((sp = stackPointer - BytesPerWord),
-              longAt((void *)((blockClosure + BaseHeaderSize) +
-                              ((((usqInt)((i + ClosureFirstCopiedValueIndex))
-                                 << (shiftForWord())))))));
+              fetchPointerofObject(i + ClosureFirstCopiedValueIndex, blockClosure));
     stackPointer = sp;
   }
   assert(frameIsBlockActivation(framePointer));
@@ -150,8 +143,7 @@ void primitiveClosureValueNoContextSwitch(void) {
 
   /* begin quickFetchInteger:ofObject: */
   oop =
-      longAt((void *)((blockClosure + BaseHeaderSize) +
-                      ((((usqInt)(ClosureStartPCIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ClosureStartPCIndex, blockClosure);
   assert((((oop) & 7) == 1));
   closureIP = (oop >> 3);
   instructionPointer = ((closureMethod + closureIP) + BaseHeaderSize) - 2;
@@ -164,8 +156,7 @@ void primitiveClosureValueNoContextSwitch(void) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
   methodHeader =
-      longAt((void *)((method + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeader)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

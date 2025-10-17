@@ -90,8 +90,7 @@ l1:
               valuePointer);
   }
   for (i = MethodIndex; i <= ReceiverIndex; i += 1) {
-    valuePointer = longAt((void *)((aContext + BaseHeaderSize) +
-                                   ((((usqInt)(i) << (shiftForWord()))))));
+    valuePointer = fetchPointerofObject(i, aContext);
 
     /* begin storePointerUnchecked:ofObject:withValue: */
     assert((isNonImmediate(cloned)) && (!(isForwarded(cloned))));
@@ -101,14 +100,12 @@ l1:
               valuePointer);
   }
   if (/* isStillMarriedContext: */
-      (((((longAt((void *)((aContext + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+      (((((fetchPointerofObject(SenderIndex, aContext))) &
          7) == 1)) &&
       (!(isWidowedContext(aContext)))) {
     /* begin frameOfMarriedContext: */
     senderOop =
-        longAt((void *)((aContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SenderIndex, aContext);
     assert((((senderOop) & 7) == 1));
     spouseFP = ((char *)(senderOop - (smallIntegerTag())));
     sp = (stackPointerIndexForFrame(spouseFP)) - 1;
@@ -132,9 +129,7 @@ l1:
     sp = (fetchStackPointerOf(aContext)) - 1;
     for (i = 0; i <= sp; i += 1) {
       fieldIndex = i + CtxtTempFrameStart;
-      valuePointer = longAt((void *)((aContext + BaseHeaderSize) +
-                                     ((((usqInt)((i + CtxtTempFrameStart))
-                                        << (shiftForWord()))))));
+      valuePointer = fetchPointerofObject(i + CtxtTempFrameStart, aContext);
 
       /* begin storePointerUnchecked:ofObject:withValue: */
       assert((isNonImmediate(cloned)) && (!(isForwarded(cloned))));

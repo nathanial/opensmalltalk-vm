@@ -11,8 +11,7 @@ static void primitiveVMPath(void) {
 
   sz = vmPathSize();
   s = instantiateClassindexableSize(
-      longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                      ((((usqInt)(ClassByteString) << (shiftForWord())))))),
+      fetchPointerofObject(ClassByteString, specialObjectsOop),
       sz);
   vmPathGetLength(s + BaseHeaderSize, sz);
 

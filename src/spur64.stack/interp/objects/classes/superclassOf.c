@@ -11,8 +11,7 @@ sqInt superclassOf(sqInt classPointer) {
 
   /* begin followObjField:ofObject: */
   objOop =
-      longAt((void *)((classPointer + BaseHeaderSize) +
-                      ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+      fetchPointerofObject(SuperclassIndex, classPointer);
   assert(isNonImmediate(objOop));
   if ((!((longAt((void *)(objOop))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

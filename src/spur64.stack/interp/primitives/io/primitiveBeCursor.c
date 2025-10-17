@@ -47,17 +47,14 @@ static void primitiveBeCursor(void) {
     return;
   }
   cursorBitsObj =
-      longAt((void *)((cursorObj + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fetchPointerofObject(0U, cursorObj);
   offsetObj =
-      longAt((void *)((cursorObj + BaseHeaderSize) + (4U << (shiftForWord()))));
-  if (!(((((((extentX = longAt((void *)((cursorObj + BaseHeaderSize) +
-                                        (1U << (shiftForWord()))))))) &
+      fetchPointerofObject(4U, cursorObj);
+  if (!(((((((extentX = fetchPointerofObject(1U, cursorObj)))) &
            7) == 1)) &&
-        (((((((extentY = longAt((void *)((cursorObj + BaseHeaderSize) +
-                                         (2U << (shiftForWord()))))))) &
+        (((((((extentY = fetchPointerofObject(2U, cursorObj)))) &
             7) == 1)) &&
-         (((((((depth = longAt((void *)((cursorObj + BaseHeaderSize) +
-                                        (3U << (shiftForWord()))))))) &
+         (((((((depth = fetchPointerofObject(3U, cursorObj)))) &
              7) == 1)) &&
           ((/* isPointers: */
             ((!(offsetObj & (tagMask())))) &&
@@ -75,11 +72,9 @@ static void primitiveBeCursor(void) {
                                   << 8)))))) >>
                           8
                     : numSlots))) >= 2) &&
-            (((((((offsetX = longAt((void *)((offsetObj + BaseHeaderSize) +
-                                             (0U << (shiftForWord()))))))) &
+            (((((((offsetX = fetchPointerofObject(0U, offsetObj)))) &
                 7) == 1)) &&
-             ((((((offsetY = longAt((void *)((offsetObj + BaseHeaderSize) +
-                                             (1U << (shiftForWord()))))))) &
+             ((((((offsetY = fetchPointerofObject(1U, offsetObj)))) &
                 7) == 1))))))))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadReceiver;
@@ -184,18 +179,14 @@ static void primitiveBeCursor(void) {
                                         << 8)))))) >>
                        8
                  : numSlots))) >= 5) &&
-         (((longAt((void *)((maskObj + BaseHeaderSize) +
-                            (1U << (shiftForWord()))))) ==
+         (((fetchPointerofObject(1U, maskObj)) ==
            ((((usqInt)16 << 3) | 1))) &&
-          (((longAt((void *)((maskObj + BaseHeaderSize) +
-                             (2U << (shiftForWord()))))) ==
+          (((fetchPointerofObject(2U, maskObj)) ==
             ((((usqInt)16 << 3) | 1))) &&
-           (((longAt((void *)((maskObj + BaseHeaderSize) +
-                              (3U << (shiftForWord()))))) ==
+           (((fetchPointerofObject(3U, maskObj)) ==
              ((((usqInt)1 << 3) | 1))) &&
             ((isWords(
-                 (maskBitsObj = longAt((void *)((maskObj + BaseHeaderSize) +
-                                                (0U << (shiftForWord()))))))) &&
+                 (maskBitsObj = fetchPointerofObject(0U, maskObj)))) &&
              ((lengthOfformat(maskBitsObj, firstLongFormat())) == 16)))))))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadArgument;

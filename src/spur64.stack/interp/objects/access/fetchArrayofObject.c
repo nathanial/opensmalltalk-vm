@@ -12,8 +12,7 @@
 void *fetchArrayofObject(sqInt fieldIndex, sqInt objectPointer) {
   sqInt arrayOop;
 
-  arrayOop = longAt((void *)((objectPointer + BaseHeaderSize) +
-                             ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  arrayOop = fetchPointerofObject(fieldIndex, objectPointer);
 
   /* begin arrayValueOf: */
   if (/* isWordsOrBytes: */

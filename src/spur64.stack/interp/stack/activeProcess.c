@@ -9,14 +9,7 @@ sqInt activeProcess(void) {
   sqInt objOop;
 
   objOop =
-      longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                        ((((usqInt)(SchedulerAssociation)
-                                           << (shiftForWord()))))))) +
-                       BaseHeaderSize) +
-                      ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
 
-  /* begin fetchPointer:ofObject: */
-  return longAt(
-      (void *)((objOop + BaseHeaderSize) +
-               ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
+  return fetchPointerofObject(ActiveProcessIndex, objOop);
 }

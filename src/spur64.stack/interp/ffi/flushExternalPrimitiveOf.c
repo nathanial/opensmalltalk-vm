@@ -15,8 +15,7 @@ static sqInt flushExternalPrimitiveOf(sqInt methodObj) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(methodObj));
-  header = longAt((void *)((methodObj + BaseHeaderSize) +
-                           ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  header = fetchPointerofObject(HeaderIndex, methodObj);
 
   /* primitiveIndexOfMethod:header: */
   if (((header & AlternateHeaderHasPrimFlag) != 0)) {
@@ -35,8 +34,7 @@ static sqInt flushExternalPrimitiveOf(sqInt methodObj) {
          assert((((header) & 7) == 1)),
          /* literalCountOfAlternateHeader: */
          ((header >> 3)) & AlternateHeaderNumLiteralsMask)) > 0)) {
-    lit = longAt(
-        (void *)((methodObj + BaseHeaderSize) + (1U << (shiftForWord()))));
+    lit = fetchPointerofObject(1U, methodObj);
     if ((/* isArray: */
          ((!(lit & (tagMask())))) &&
          (((byteAt((void *)(lit + (formatFieldByteOffset())))) &

@@ -81,8 +81,7 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
        outside the segment. */
     if ((byteAt((void *)(heapOop + (markBitsByteOffset())))) &
         (1U << (markedBitByteShift()))) {
-      oop = longAt(
-          (void *)((heapOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+      oop = fetchPointerofObject(0U, heapOop);
       assert(oopisGreaterThanOrEqualToandLessThan(oop, segStart, segAddr));
       segIndex =
           ((oop - segStart) / 8 /* allocationUnit */) + (firstClassIndexPun());
@@ -94,9 +93,7 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
       if (/* is:outPointerClassHashFor:in:limit: */
           (((hash & TopHashBit) != 0)) &&
           (((hash - TopHashBit) <= outIndex) &&
-           (heapOop == (longAt((void *)((outPointerArray + BaseHeaderSize) +
-                                        ((((usqInt)((hash - TopHashBit))
-                                           << (shiftForWord())))))))))) {
+           (heapOop == (fetchPointerofObject(hash - TopHashBit, outPointerArray))))) {
         segIndex = hash;
       } else {
         /* begin newOutPointer:at:in:hashes: */
@@ -179,13 +176,11 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
                                     segIndex);
     toDoLimit = (numPointerSlotsOf(objOop)) - 1;
     for (i = 0; i <= toDoLimit; i += 1) {
-      heapOop = longAt((void *)((objOop + BaseHeaderSize) +
-                                ((((usqInt)(i) << (shiftForWord()))))));
+      heapOop = fetchPointerofObject(i, objOop);
       if ((!(heapOop & (tagMask())))) {
         if ((byteAt((void *)(heapOop + (markBitsByteOffset())))) &
             (1U << (markedBitByteShift()))) {
-          oop = longAt(
-              (void *)((heapOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+          oop = fetchPointerofObject(0U, heapOop);
           assert(oopisGreaterThanOrEqualToandLessThan(oop, segStart, segAddr));
           oop -= segStart;
         } else {
@@ -194,9 +189,7 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
           if (/* is:outPointerClassHashFor:in:limit: */
               (((hash & TopHashBit) != 0)) &&
               (((hash - TopHashBit) <= outIndex) &&
-               (heapOop == (longAt((void *)((outPointerArray + BaseHeaderSize) +
-                                            ((((usqInt)((hash - TopHashBit))
-                                               << (shiftForWord())))))))))) {
+               (heapOop == (fetchPointerofObject(hash - TopHashBit, outPointerArray))))) {
             oop = ((hash - TopHashBit) * BytesPerOop) + TopOopBit;
           } else {
             /* begin newOutPointer:at:in:hashes: */

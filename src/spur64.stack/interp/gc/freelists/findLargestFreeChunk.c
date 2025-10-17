@@ -17,8 +17,7 @@ static sqInt findLargestFreeChunk(void) {
     /* begin assertValidFreeObject: */
     assert(assertInnerValidFreeObject(treeNode));
     assert((bytesInBody(treeNode)) >= ((numFreeLists()) * (allocationUnit())));
-    childNode = longAt(
-        (void *)((treeNode + BaseHeaderSize) + (4U << (shiftForWord()))));
+    childNode = fetchPointerofObject(4U, treeNode);
     if (!(childNode != 0))
       break;
     treeNode = childNode;

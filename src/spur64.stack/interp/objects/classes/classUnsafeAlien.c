@@ -3,6 +3,5 @@
 /* SpurMemoryManager>>#classUnsafeAlien */
 
 sqInt classUnsafeAlien(void) {
-  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(ClassUnsafeAlien) << (shiftForWord()))))));
+  return fetchPointerofObject(ClassUnsafeAlien, specialObjectsOop);
 }

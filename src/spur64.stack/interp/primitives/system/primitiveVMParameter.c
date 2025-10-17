@@ -115,8 +115,7 @@ static void primitiveVMParameter(void) {
   if (!argumentCount) {
     /* begin primitiveAllVMParameters: */
     resultSqInt = instantiateClassindexableSize(
-        longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                        ((((usqInt)(ClassArray) << (shiftForWord())))))),
+        fetchPointerofObject(ClassArray, specialObjectsOop),
         paramsArraySize);
     valuePointer = positive64BitIntegerFor(
         (/* begin oldSpaceSize */ /* begin totalOldSpaceSize */

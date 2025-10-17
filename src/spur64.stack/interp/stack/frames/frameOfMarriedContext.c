@@ -5,8 +5,7 @@
 static char *frameOfMarriedContext(sqInt aContext) {
   sqInt senderOop;
 
-  senderOop = longAt((void *)((aContext + BaseHeaderSize) +
-                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  senderOop = fetchPointerofObject(SenderIndex, aContext);
 
   /* begin withoutSmallIntegerTags: */
   assert((((senderOop) & 7) == 1));

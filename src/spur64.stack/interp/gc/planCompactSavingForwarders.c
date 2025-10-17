@@ -126,8 +126,7 @@ static NeverInline sqInt planCompactSavingForwarders(void) {
                      (numSlotsMask())
                  ? toFinger + BaseHeaderSize
                  : toFinger);
-        longAtput((void *)(top), longAt((void *)((objOop + BaseHeaderSize) +
-                                                 (0U << (shiftForWord())))));
+        longAtput((void *)(top), fetchPointerofObject(0U, objOop));
 
         /* begin storePointerUnchecked:ofObject:withValue: */
         assert((isNonImmediate(objOop)) && (!(isForwarded(objOop))));

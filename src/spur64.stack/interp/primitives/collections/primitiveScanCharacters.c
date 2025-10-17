@@ -107,13 +107,13 @@ static void primitiveScanCharacters(void) {
 
   /* Check required rcvr instVars */
   scanDestX =
-      longAt((void *)((rcvr + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fetchPointerofObject(0U, rcvr);
   scanLastIndex =
-      longAt((void *)((rcvr + BaseHeaderSize) + (1U << (shiftForWord()))));
+      fetchPointerofObject(1U, rcvr);
   scanXTable =
-      longAt((void *)((rcvr + BaseHeaderSize) + (2U << (shiftForWord()))));
+      fetchPointerofObject(2U, rcvr);
   scanMap =
-      longAt((void *)((rcvr + BaseHeaderSize) + (3U << (shiftForWord()))));
+      fetchPointerofObject(3U, rcvr);
   if (!((/* isArray: */
          ((!(scanXTable & (tagMask())))) &&
          (((byteAt((void *)(scanXTable + (formatFieldByteOffset())))) &
@@ -145,8 +145,7 @@ static void primitiveScanCharacters(void) {
 
     /* Known to be okay since stops size >= 258 */
     if (!(((stopReason =
-                longAt((void *)((stops + BaseHeaderSize) +
-                                ((((usqInt)(ascii) << (shiftForWord())))))))) ==
+                fetchPointerofObject(ascii, stops))) ==
           nilObj)) {
       if (!(scanDestX >= 0)) {
         /* primitiveFailFor: */
@@ -195,8 +194,7 @@ static void primitiveScanCharacters(void) {
 
     /* Store everything back and get out of here since some stop condition needs
        to be checked Known to be okay since scanMap size = 256 */
-    glyphIndex = longAt((void *)((scanMap + BaseHeaderSize) +
-                                 ((((usqInt)(ascii) << (shiftForWord()))))));
+    glyphIndex = fetchPointerofObject(ascii, scanMap);
 
     /* fail if the glyphIndex is out of range */
     if (!(((((glyphIndex) & 7) == 1)) &&
@@ -206,11 +204,9 @@ static void primitiveScanCharacters(void) {
       primFailCode = PrimErrBadIndex;
       return;
     }
-    sourceX = longAt((void *)((scanXTable + BaseHeaderSize) +
-                              ((((usqInt)(glyphIndex) << (shiftForWord()))))));
+    sourceX = fetchPointerofObject(glyphIndex, scanXTable);
     sourceX2 =
-        longAt((void *)((scanXTable + BaseHeaderSize) +
-                        ((((usqInt)((glyphIndex + 1)) << (shiftForWord()))))));
+        fetchPointerofObject(glyphIndex + 1, scanXTable);
 
     /* Above may fail if non-integer entries in scanXTable */
     if (!(((((sourceX) & 7) == 1)) && ((((sourceX2) & 7) == 1)))) {
@@ -254,8 +250,7 @@ static void primitiveScanCharacters(void) {
       assert(!((failed())));
       longAtput(
           (sp1 = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-          longAt((void *)((stops + BaseHeaderSize) +
-                          ((((usqInt)((CrossedX - 1)) << (shiftForWord())))))));
+          fetchPointerofObject(CrossedX - 1, stops));
       stackPointer = sp1;
       return;
     }
@@ -307,7 +302,6 @@ static void primitiveScanCharacters(void) {
   assert(!((failed())));
   longAtput(
       (sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-      longAt((void *)((stops + BaseHeaderSize) +
-                      ((((usqInt)((EndOfRun - 1)) << (shiftForWord())))))));
+      fetchPointerofObject(EndOfRun - 1, stops));
   stackPointer = sp;
 }

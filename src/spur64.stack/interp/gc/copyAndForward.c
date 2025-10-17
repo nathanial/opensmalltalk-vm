@@ -92,8 +92,7 @@ static sqInt copyAndForward(sqInt survivor) {
                                 assert((isNonImmediate(newLocation)) &&
                                        (isObjEphemeron(newLocation))),
                                 /* fetchPointer:ofObject: */
-                                longAt((void *)((newLocation + BaseHeaderSize) +
-                                                (0U << (shiftForWord())))))))) {
+                                fetchPointerofObject(0U, newLocation))))) {
         addToEphemeronList(survivor);
       }
     }

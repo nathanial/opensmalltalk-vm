@@ -5,6 +5,5 @@
 /* SpurMemoryManager>>#splObj: */
 
 sqInt splObj(sqInt index) {
-  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(index) << (shiftForWord()))))));
+  return fetchPointerofObject(index, specialObjectsOop);
 }

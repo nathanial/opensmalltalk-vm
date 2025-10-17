@@ -36,8 +36,7 @@ sqInt remapObj(sqInt objOop) {
                                                          lastMobileObject)) &&
           (!(((byteAt((void *)(objOop + (formatFieldByteOffset())))) &
               (1U << (pinnedBitByteShift()))) != 0))) {
-        return longAt(
-            (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+        return fetchPointerofObject(0U, objOop);
       }
     }
   }

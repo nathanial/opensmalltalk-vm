@@ -45,7 +45,7 @@ static sqInt markInactiveEphemerons(void) {
 
     /* begin followOopField:ofObject: */
     key =
-        longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+        fetchPointerofObject(0U, objOop);
     if (isOopForwarded(key)) {
       key = fixFollowedFieldofObjectwithInitialValue(0, objOop, key);
     }
@@ -107,9 +107,7 @@ static sqInt markInactiveEphemerons(void) {
                 /* contexts end at the stack pointer */
 
                 /* begin fetchStackPointerOf: */
-                sp = longAt((void *)((objToScan + BaseHeaderSize) +
-                                     ((((usqInt)(StackPointerIndex)
-                                        << (shiftForWord()))))));
+                sp = fetchPointerofObject(StackPointerIndex, objToScan);
                 if (!((((sp) & 7) == 1))) {
                   contextSize = 0;
                   goto l3;
@@ -127,9 +125,7 @@ static sqInt markInactiveEphemerons(void) {
             if (fmt == (weakArrayFormat())) {
               objOopSqIntSqInt = fetchClassOfNonImm(objToScan);
               numStrongSlots =
-                  (((longAt((void *)((objOopSqIntSqInt + BaseHeaderSize) +
-                                     ((((usqInt)(InstanceSpecificationIndex)
-                                        << (shiftForWord()))))))) >>
+                  (((fetchPointerofObject(InstanceSpecificationIndex, objOopSqIntSqInt)) >>
                     3)) &
                   ((1U << (fixedFieldsFieldWidth())) - 1);
               goto l4;
@@ -149,8 +145,7 @@ static sqInt markInactiveEphemerons(void) {
           /* begin methodHeaderOf: */
           assert(isCompiledMethod(objToScan));
           header =
-              longAt((void *)((objToScan + BaseHeaderSize) +
-                              ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+              fetchPointerofObject(HeaderIndex, objToScan);
 
           /* begin literalCountOfMethodHeader: */
           assert((((header) & 7) == 1));
@@ -170,8 +165,7 @@ static sqInt markInactiveEphemerons(void) {
           }
           while (index > 0) {
             index -= 1;
-            field = longAt((void *)((objToScan + BaseHeaderSize) +
-                                    ((((usqInt)(index) << (shiftForWord()))))));
+            field = fetchPointerofObject(index, objToScan);
             if ((!(field & (tagMask())))) {
               if ((!((longAt((void *)(field))) &
                      ((classIndexMask()) -
@@ -307,8 +301,7 @@ static sqInt markInactiveEphemerons(void) {
           markAndTraceClassOf(objToScan);
           while (index > 0) {
             index -= 1;
-            field = longAt((void *)((objToScan + BaseHeaderSize) +
-                                    ((((usqInt)(index) << (shiftForWord()))))));
+            field = fetchPointerofObject(index, objToScan);
             if ((!(field & (tagMask())))) {
               if ((!((longAt((void *)(field))) &
                      ((classIndexMask()) -

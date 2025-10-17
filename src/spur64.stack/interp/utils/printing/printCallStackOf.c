@@ -17,15 +17,11 @@ sqInt printCallStackOf(sqInt aContextOrProcessOrFrame) {
     return printCallStackOf(((sqInt)framePointer));
   }
   if (couldBeProcess(aContextOrProcessOrFrame)) {
-    return printCallStackOf(longAt(
-        (void *)((aContextOrProcessOrFrame + BaseHeaderSize) +
-                 ((((usqInt)(SuspendedContextIndex) << (shiftForWord())))))));
+    return printCallStackOf(fetchPointerofObject(SuspendedContextIndex, aContextOrProcessOrFrame));
   }
   context = aContextOrProcessOrFrame;
   while (!(context == nilObj)) {
-    if (((((longAt(
-              (void *)((context + BaseHeaderSize) +
-                       ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+    if (((((fetchPointerofObject(SenderIndex, context))) &
           7) == 1)) {
       if (!(checkIsStillMarriedContextcurrentFP(context, framePointer))) {
         shortPrintContext(context);

@@ -4,6 +4,5 @@
 
 static sqInt knownClassAtIndex(sqInt classIndex) {
   assert(((classIndex >= 1) && (classIndex <= (classTablePageSize()))));
-  return longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                         ((((usqInt)(classIndex) << (shiftForWord()))))));
+  return fetchPointerofObject(classIndex, classTableFirstPage);
 }

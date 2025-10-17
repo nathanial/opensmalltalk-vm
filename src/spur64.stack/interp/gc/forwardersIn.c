@@ -17,8 +17,7 @@ static sqInt forwardersIn(sqInt anObject) {
   }
   toDoLimit = (numPointerSlotsOf(anObject)) - 1;
   for (i = 0; i <= toDoLimit; i += 1) {
-    oop = longAt((void *)((anObject + BaseHeaderSize) +
-                          ((((usqInt)(i) << (shiftForWord()))))));
+    oop = fetchPointerofObject(i, anObject);
     if (((!(oop & (tagMask())))) &&
         ((!((longAt((void *)(oop))) &
             ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {

@@ -26,8 +26,7 @@ static void scavengeRememberedSetStartingAt(sqInt n) {
             (/* begin keyOfEphemeron: */
              assert((isNonImmediate(referrer)) && (isObjEphemeron(referrer))),
              /* fetchPointer:ofObject: */
-             longAt((void *)((referrer + BaseHeaderSize) +
-                             (0U << (shiftForWord()))))))))) {
+             fetchPointerofObject(0U, referrer)))))) {
       assert(destIndex >= numRememberedEphemerons);
       rememberedSet[destIndex] = (rememberedSet[numRememberedEphemerons]);
       rememberedSet[numRememberedEphemerons] = referrer;

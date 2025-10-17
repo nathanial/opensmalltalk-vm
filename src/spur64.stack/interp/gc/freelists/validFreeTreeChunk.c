@@ -8,5 +8,5 @@ static sqInt validFreeTreeChunk(sqInt chunk) {
   }
   return !(validFreeTreeChunkparent(
       chunk,
-      longAt((void *)((chunk + BaseHeaderSize) + (2U << (shiftForWord()))))));
+      fetchPointerofObject(2U, chunk)));
 }

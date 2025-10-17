@@ -24,19 +24,15 @@ static char *nameOfClass(sqInt classOop) {
            : numSlotsUsqInt);
   if (numSlots == metaclassNumSlots) {
     maybeThisClassOop =
-        longAt((void *)((classOop + BaseHeaderSize) +
-                        ((((usqInt)(thisClassIndex) << (shiftForWord()))))));
+        fetchPointerofObject(thisClassIndex, classOop);
     if (addressCouldBeClassObj(maybeThisClassOop)) {
       return nameOfClass(
-          longAt((void *)((classOop + BaseHeaderSize) +
-                          ((((usqInt)(thisClassIndex) << (shiftForWord())))))));
+          fetchPointerofObject(thisClassIndex, classOop));
     }
     return "bad class";
   }
   if (!((numSlots > classNameIndex) &&
-        (((maybeNameOop = longAt(
-               (void *)((classOop + BaseHeaderSize) +
-                        ((((usqInt)(classNameIndex) << (shiftForWord()))))))),
+        (((maybeNameOop = fetchPointerofObject(classNameIndex, classOop)),
           /* isBytes: */
           ((!(maybeNameOop & (tagMask())))) &&
               (((byteAt((void *)(maybeNameOop + (formatFieldByteOffset())))) &

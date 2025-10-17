@@ -52,8 +52,7 @@ void printContextReferencesTo(sqInt anOop) {
         i = CtxtTempFrameStart + (fetchStackPointerOf(objSqInt));
         while (((i -= 1)) >= 0) {
           if (anOop ==
-              (longAt((void *)((objSqInt + BaseHeaderSize) +
-                               ((((usqInt)(i) << (shiftForWord())))))))) {
+              (fetchPointerofObject(i, objSqInt))) {
             printHex(objSqInt);
             print(" @ ");
             printNum(i);
@@ -62,9 +61,7 @@ void printContextReferencesTo(sqInt anOop) {
             printChar(' ');
             printOopShortInner(objSqInt);
             print(" pc ");
-            printHex(longAt((void *)((objSqInt + BaseHeaderSize) +
-                                     ((((usqInt)(InstructionPointerIndex)
-                                        << (shiftForWord())))))));
+            printHex(fetchPointerofObject(InstructionPointerIndex, objSqInt));
             cr();
             i = 0;
           }

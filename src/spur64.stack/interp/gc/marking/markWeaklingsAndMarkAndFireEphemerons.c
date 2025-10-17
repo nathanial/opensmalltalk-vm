@@ -36,25 +36,21 @@ static void markWeaklingsAndMarkAndFireEphemerons(void) {
       /* begin markAndTraceWeaklingsFrom: */
       /* begin objStack:from:do: */
       eassert(isValidObjStack(weaklingStack));
-      size = longAt((void *)((weaklingStack + BaseHeaderSize) +
-                             ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+      size = fetchPointerofObject(ObjStackTopx, weaklingStack);
       objStackPage =
-          longAt((void *)((weaklingStack + BaseHeaderSize) +
-                          ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+          fetchPointerofObject(ObjStackNextx, weaklingStack);
       while (objStackPage != 0) {
         size += ObjStackLimit;
         assert((fetchPointerofObject(ObjStackTopx, objStackPage)) ==
                ObjStackLimit);
         objStackPage =
-            longAt((void *)((objStackPage + BaseHeaderSize) +
-                            ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+            fetchPointerofObject(ObjStackNextx, objStackPage);
       }
       numToEnumerate = size - numTracedWeaklings;
       objStackPage = weaklingStack;
       while (numToEnumerate > 0) {
         numOnThisPage =
-            longAt((void *)((objStackPage + BaseHeaderSize) +
-                            ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+            fetchPointerofObject(ObjStackTopx, objStackPage);
         numToEnumerateOnThisPage =
             ((numToEnumerate < numOnThisPage) ? numToEnumerate : numOnThisPage);
         topIndex = (numOnThisPage + ObjStackFixedSlots) - 1;
@@ -63,8 +59,7 @@ static void markWeaklingsAndMarkAndFireEphemerons(void) {
              iSqInt += -1) {
           assert(isWeak(fetchPointerofObject(iSqInt, objStackPage)));
           weakling =
-              longAt((void *)((objStackPage + BaseHeaderSize) +
-                              ((((usqInt)(iSqInt) << (shiftForWord()))))));
+              fetchPointerofObject(iSqInt, objStackPage);
           assert(!((isForwarded(weakling))));
           markAndTraceClassOf(weakling);
 
@@ -73,8 +68,7 @@ static void markWeaklingsAndMarkAndFireEphemerons(void) {
           toDoLimit = (numStrongSlotsOfWeakling(weakling)) - 1;
           for (i = 0; i <= toDoLimit; i += 1) {
             /* begin followOopField:ofObject: */
-            field = longAt((void *)((weakling + BaseHeaderSize) +
-                                    ((((usqInt)(i) << (shiftForWord()))))));
+            field = fetchPointerofObject(i, weakling);
             if (isOopForwarded(field)) {
               field =
                   fixFollowedFieldofObjectwithInitialValue(i, weakling, field);
@@ -88,8 +82,7 @@ static void markWeaklingsAndMarkAndFireEphemerons(void) {
         }
         numToEnumerate -= numToEnumerateOnThisPage;
         objStackPage =
-            longAt((void *)((objStackPage + BaseHeaderSize) +
-                            ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+            fetchPointerofObject(ObjStackNextx, objStackPage);
       }
       numTracedWeaklings = size;
     } while ((sizeOfObjStack(weaklingStack)) > numTracedWeaklings);
@@ -120,8 +113,7 @@ static void markWeaklingsAndMarkAndFireEphemerons(void) {
       assert((isNonImmediate(ephemeron)) && (isMaybeFiredEphemeron(ephemeron)));
 
       /* begin followOopField:ofObject: */
-      key = longAt(
-          (void *)((ephemeron + BaseHeaderSize) + (0U << (shiftForWord()))));
+      key = fetchPointerofObject(0U, ephemeron);
       if (isOopForwarded(key)) {
         key = fixFollowedFieldofObjectwithInitialValue(0, ephemeron, key);
       }

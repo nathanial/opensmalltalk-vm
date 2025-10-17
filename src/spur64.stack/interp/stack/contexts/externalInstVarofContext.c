@@ -31,14 +31,11 @@ static sqInt externalInstVarofContext(sqInt offset, sqInt aContext) {
     (stackPage->headSP = stackPointer);
     assert(pageListIsWellFormed());
     if (/* isStillMarriedContext: */
-        (((((longAt(
-               (void *)((aContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+        (((((fetchPointerofObject(SenderIndex, aContext))) &
            7) == 1)) &&
         (!(isWidowedContext(aContext)))) {
       return fetchPointerofMarriedContext(offset, aContext);
     }
   }
-  return longAt((void *)((aContext + BaseHeaderSize) +
-                         ((((usqInt)(offset) << (shiftForWord()))))));
+  return fetchPointerofObject(offset, aContext);
 }

@@ -3,7 +3,5 @@
 /* SpurMemoryManager>>#primitiveErrorTable */
 
 sqInt primitiveErrorTable(void) {
-  return longAt(
-      (void *)((specialObjectsOop + BaseHeaderSize) +
-               ((((usqInt)(PrimitiveErrorTableIndex) << (shiftForWord()))))));
+  return fetchPointerofObject(PrimitiveErrorTableIndex, specialObjectsOop);
 }

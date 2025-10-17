@@ -13,9 +13,7 @@ static sqInt swizzleObjStackAt(sqInt objStackRootIndex) {
   sqInt stackOrNil;
 
   firstPage =
-      (stackOrNil = longAt(
-           (void *)((hiddenRootsObj + BaseHeaderSize) +
-                    ((((usqInt)(objStackRootIndex) << (shiftForWord())))))));
+      (stackOrNil = fetchPointerofObject(objStackRootIndex, hiddenRootsObj));
   if (stackOrNil == nilObj) {
     return stackOrNil;
   }
@@ -29,15 +27,13 @@ static sqInt swizzleObjStackAt(sqInt objStackRootIndex) {
        last 0-rel index is 4. Hence the last index is topx + fixed slots - 1, or
        topx + ObjStackNextx */
     index =
-        (longAt((void *)((stackOrNil + BaseHeaderSize) +
-                         ((((usqInt)(ObjStackTopx) << (shiftForWord()))))))) +
+        (fetchPointerofObject(ObjStackTopx, stackOrNil)) +
         ObjStackNextx;
 
     /* swizzle fields including ObjStackNextx, excluding ObjStackFreex and leave
      * field containing the next link. */
     do {
-      field = longAt((void *)((stackOrNil + BaseHeaderSize) +
-                              ((((usqInt)(index) << (shiftForWord()))))));
+      field = fetchPointerofObject(index, stackOrNil);
       if (!((field == 0) || (((field & (tagMask())) != 0)))) {
         field = swizzleObj(field);
 
@@ -49,9 +45,7 @@ static sqInt swizzleObjStackAt(sqInt objStackRootIndex) {
       }
     } while (((index -= 1)) >= ObjStackNextx);
   } while (((stackOrNil = field)) != 0);
-  if ((stackOrNil = longAt(
-           (void *)((firstPage + BaseHeaderSize) +
-                    ((((usqInt)(ObjStackFreex) << (shiftForWord())))))))) {
+  if ((stackOrNil = fetchPointerofObject(ObjStackFreex, firstPage))) {
     page = firstPage;
     do {
       stackOrNil = swizzleObj(stackOrNil);
@@ -62,12 +56,8 @@ static sqInt swizzleObjStackAt(sqInt objStackRootIndex) {
                          ((((usqInt)(ObjStackFreex) << (shiftForWord()))))),
                 stackOrNil);
       page = stackOrNil;
-    } while (((stackOrNil = longAt((void *)((page + BaseHeaderSize) +
-                                            ((((usqInt)(ObjStackFreex)
-                                               << (shiftForWord())))))))) != 0);
+    } while (((stackOrNil = fetchPointerofObject(ObjStackFreex, page))) != 0);
   }
   assert(isValidObjStackAt(objStackRootIndex));
-  return longAt(
-      (void *)((hiddenRootsObj + BaseHeaderSize) +
-               ((((usqInt)(objStackRootIndex) << (shiftForWord()))))));
+  return fetchPointerofObject(objStackRootIndex, hiddenRootsObj);
 }

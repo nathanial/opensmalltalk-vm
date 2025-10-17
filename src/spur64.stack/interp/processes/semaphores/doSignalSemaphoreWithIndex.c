@@ -10,20 +10,15 @@ sqInt doSignalSemaphoreWithIndex(sqInt index) {
   sqInt sema;
   sqInt xArray;
 
-  xArray = longAt(
-      (void *)((specialObjectsOop + BaseHeaderSize) +
-               ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))));
+  xArray = fetchPointerofObject(ExternalObjectsArray, specialObjectsOop);
   assert(isArray(xArray));
 
   /* Note: semaphore indices are 1-based */
-  sema = longAt((void *)((xArray + BaseHeaderSize) +
-                         ((((usqInt)((index - 1)) << (shiftForWord()))))));
+  sema = fetchPointerofObject(index - 1, xArray);
   assert(!(isOopForwarded(sema)));
   return (/* isSemaphoreOop: */
           ((!(sema & (tagMask())))) &&
           (((longAt((void *)(sema))) & (classIndexMask())) ==
-           (rawHashBitsOf(longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                          ((((usqInt)(ClassSemaphore)
-                                             << (shiftForWord())))))))))) &&
+           (rawHashBitsOf(fetchPointerofObject(ClassSemaphore, specialObjectsOop))))) &&
          (synchronousSignal(sema));
 }

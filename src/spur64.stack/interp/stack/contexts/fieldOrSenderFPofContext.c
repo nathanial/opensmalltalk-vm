@@ -12,22 +12,18 @@ static sqInt fieldOrSenderFPofContext(sqInt index, sqInt contextObj) {
 
   tempIndex = index - CtxtTempFrameStart;
   if (!(/* isStillMarriedContext: */
-        (((((longAt(
-               (void *)((contextObj + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+        (((((fetchPointerofObject(SenderIndex, contextObj))) &
            7) == 1)) &&
         (!(isWidowedContext(contextObj))))) {
     if (tempIndex >= (fetchStackPointerOf(contextObj))) {
       return nilObj;
     } else {
-      return longAt((void *)((contextObj + BaseHeaderSize) +
-                             ((((usqInt)(index) << (shiftForWord()))))));
+      return fetchPointerofObject(index, contextObj);
     }
   }
 
   /* begin frameOfMarriedContext: */
-  senderOop = longAt((void *)((contextObj + BaseHeaderSize) +
-                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  senderOop = fetchPointerofObject(SenderIndex, contextObj);
   assert((((senderOop) & 7) == 1));
   spouseFP = ((char *)(senderOop - (smallIntegerTag())));
   if (tempIndex >= (stackPointerIndexForFrame(spouseFP))) {

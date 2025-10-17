@@ -74,8 +74,7 @@ static void initializeObjectMemory(sqInt bytesToShift) {
            : numSlots);
   assert(numClassTablePages == ((classTableRootSlots()) + (hiddenRootSlots())));
   for (i = 2; i < numClassTablePages; i += 1) {
-    if ((longAt((void *)((classTableRoot + BaseHeaderSize) +
-                         ((((usqInt)(i) << (shiftForWord()))))))) ==
+    if ((fetchPointerofObject(i, classTableRoot)) ==
         nilObjPreSwizzle) {
       numClassTablePages = i;
       goto l4;
@@ -103,8 +102,7 @@ l4:
       } else {
         if (classIndex == (isFreeObjectClassIndexPun())) {
           /* begin swizzleFieldsOfFreeChunk: */
-          field = longAt(
-              (void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
+          field = fetchPointerofObject(0U, obj);
           if (field) {
             valuePointer = swizzleObj(field);
 
@@ -123,8 +121,7 @@ l4:
             for (index = 2 /* freeChunkParentIndex */;
                  index <= 4 /* freeChunkLargerIndex */; index += 1) {
               field =
-                  longAt((void *)((obj + BaseHeaderSize) +
-                                  ((((usqInt)(index) << (shiftForWord()))))));
+                  fetchPointerofObject(index, obj);
               if (field) {
                 valuePointer = swizzleObj(field);
 
@@ -154,12 +151,9 @@ l4:
   specialObjectsOop = swizzleObj(specialObjectsOop);
 
   /* heavily used special objects */
-  nilObj = longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                           ((((usqInt)(NilObject) << (shiftForWord()))))));
-  falseObj = longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                             ((((usqInt)(FalseObject) << (shiftForWord()))))));
-  trueObj = longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                            ((((usqInt)(TrueObject) << (shiftForWord()))))));
+  nilObj = fetchPointerofObject(NilObject, specialObjectsOop);
+  falseObj = fetchPointerofObject(FalseObject, specialObjectsOop);
+  trueObj = fetchPointerofObject(TrueObject, specialObjectsOop);
 
   /* In Cog we insist that nil, true & false are next to each other (Cogit
      generates tighter conditional branch code as a result).  In addition, Spur
@@ -174,8 +168,7 @@ l4:
   /* begin setHiddenRootsObj: */
   hiddenRootsObj = anOop;
   assert(validClassTableRootPages());
-  classTableFirstPage = longAt(
-      (void *)((hiddenRootsObj + BaseHeaderSize) + (0U << (shiftForWord()))));
+  classTableFirstPage = fetchPointerofObject(0U, hiddenRootsObj);
   assert(((numSlotsOf(classTableFirstPage)) - 1) ==
          (classTableMinorIndexMask()));
 
@@ -204,8 +197,7 @@ l4:
   classTableIndex =
       ((sqInt)((usqInt)(numClassTablePages) << (classTableMajorIndexShift())));
   for (i = 1; i < numClassTablePages; i += 1) {
-    if (((page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                                 ((((usqInt)(i) << (shiftForWord())))))))) ==
+    if (((page = fetchPointerofObject(i, hiddenRootsObj))) ==
         nilObj) {
       if ((((usqInt)(classTableIndex)) >> (classTableMajorIndexShift())) > i) {
         classTableIndex = ((sqInt)((usqInt)(((((i - 1) < 1) ? 1 : (i - 1))))
@@ -218,8 +210,7 @@ l4:
       if ((((usqInt)(classTableIndex)) >> (classTableMajorIndexShift())) > i) {
         j = 0;
         while (j < (1U << (classTableMajorIndexShift()))) {
-          if ((longAt((void *)((page + BaseHeaderSize) +
-                               ((((usqInt)(j) << (shiftForWord()))))))) ==
+          if ((fetchPointerofObject(j, page)) ==
               nilObj) {
             classTableIndex =
                 ((((usqInt)(i) << (classTableMajorIndexShift())))) + j;
@@ -275,10 +266,8 @@ l1:
   cameFrom = -1;
   do {
     assert((bytesInBody(treeNode)) >= ((numFreeLists()) * (allocationUnit())));
-    smallChild = longAt(
-        (void *)((treeNode + BaseHeaderSize) + (3U << (shiftForWord()))));
-    largeChild = longAt(
-        (void *)((treeNode + BaseHeaderSize) + (4U << (shiftForWord()))));
+    smallChild = fetchPointerofObject(3U, treeNode);
+    largeChild = fetchPointerofObject(4U, treeNode);
     assert((smallChild == 0) ||
            (treeNode ==
             (fetchPointerofFreeChunk(freeChunkParentIndex(), smallChild))));
@@ -295,8 +284,7 @@ l1:
 
       /* and since we've applied we must move on up */
       cameFrom = treeNode;
-      treeNode = longAt(
-          (void *)((treeNode + BaseHeaderSize) + (2U << (shiftForWord()))));
+      treeNode = fetchPointerofObject(2U, treeNode);
     } else {
       if ((smallChild != 0) && (cameFrom != smallChild)) {
         treeNode = smallChild;
@@ -344,9 +332,7 @@ l2:
   initializeNewSpaceVariables();
 
   /* begin initializeRememberedSet */
-  obj = longAt(
-      (void *)((hiddenRootsObj + BaseHeaderSize) +
-               ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
+  obj = fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj);
   if (obj == nilObj) {
     /* begin allocatePinnedSlots: */
     obj = allocateSlotsForPinningInOldSpacebytesformatclassIndex(

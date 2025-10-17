@@ -104,9 +104,7 @@ markObjects(sqInt objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged) {
   markAndTraceObjStackandContents(markStack, 0);
   markAndTraceObjStackandContents(weaklingStack, 0);
   markAndTraceObjStackandContents(mournQueue, 1);
-  objOop = longAt(
-      (void *)((hiddenRootsObj + BaseHeaderSize) +
-               ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
+  objOop = fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj);
 
   /* begin setIsMarkedOf:to: */
   assert(!(isFreeObject(objOop)));
@@ -138,8 +136,7 @@ markObjects(sqInt objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged) {
                 (1U << (markedBitByteShift())));
   markAndTrace(classTableFirstPage);
   for (i = 1; i < numClassTablePages; i += 1) {
-    objOop = longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                             ((((usqInt)(i) << (shiftForWord()))))));
+    objOop = fetchPointerofObject(i, hiddenRootsObj);
 
     /* begin setIsMarkedOf:to: */
     assert(!(isFreeObject(objOop)));
@@ -259,12 +256,10 @@ l1:
 
   /* begin expungeDuplicateAndUnmarkedClasses: */
   for (i = 1; i < numClassTablePages; i += 1) {
-    classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                                     ((((usqInt)(i) << (shiftForWord()))))));
+    classTablePage = fetchPointerofObject(i, hiddenRootsObj);
     toDoLimit = (1U << (classTableMajorIndexShift())) - 1;
     for (j = 0; j <= toDoLimit; j += 1) {
-      classOrNil = longAt((void *)((classTablePage + BaseHeaderSize) +
-                                   ((((usqInt)(j) << (shiftForWord()))))));
+      classOrNil = fetchPointerofObject(j, classTablePage);
       classIndex = ((((usqInt)(i) << (classTableMajorIndexShift())))) + j;
       assert((classOrNil == nilObj) || (addressCouldBeClassObj(classOrNil)));
 

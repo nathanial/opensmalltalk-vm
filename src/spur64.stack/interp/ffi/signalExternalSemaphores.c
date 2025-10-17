@@ -9,9 +9,7 @@ static sqInt signalExternalSemaphores(void) {
   usqInt numSlots;
   sqInt xArray;
 
-  xArray = longAt(
-      (void *)((specialObjectsOop + BaseHeaderSize) +
-               ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))));
+  xArray = fetchPointerofObject(ExternalObjectsArray, specialObjectsOop);
   return doSignalExternalSemaphores(
       (/* begin numSlotsOf: */
        assert((classIndexOf(xArray)) > (isForwardedObjectClassIndexPun())),

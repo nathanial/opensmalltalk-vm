@@ -31,9 +31,7 @@ static sqInt externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext,
   /* Assign the field of a married context. */
   assert(!((isObjImmutable(maybeMarriedContext))));
   if (!(/* isStillMarriedContext: */
-        (((((longAt(
-               (void *)((maybeMarriedContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+        (((((fetchPointerofObject(SenderIndex, maybeMarriedContext))) &
            7) == 1)) &&
         (!(isWidowedContext(maybeMarriedContext))))) {
     /* begin storePointer:ofObject:withValue: */
@@ -59,8 +57,7 @@ static sqInt externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext,
   }
 
   /* begin frameOfMarriedContext: */
-  senderOop = longAt((void *)((maybeMarriedContext + BaseHeaderSize) +
-                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  senderOop = fetchPointerofObject(SenderIndex, maybeMarriedContext);
   assert((((senderOop) & 7) == 1));
   theFP = ((char *)(senderOop - (smallIntegerTag())));
 

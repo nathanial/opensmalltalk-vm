@@ -9,7 +9,5 @@ static NeverInline sqInt couldBeProcess(sqInt oop) {
           ((!(((longAt((void *)(oop))) & (classIndexMask())) ==
               ClassMethodContextCompactIndex)) &&
            (((lengthOf(oop)) > MyListIndex) &&
-            (isContext(longAt((void *)((oop + BaseHeaderSize) +
-                                       ((((usqInt)(SuspendedContextIndex)
-                                          << (shiftForWord())))))))))));
+            (isContext(fetchPointerofObject(SuspendedContextIndex, oop))))));
 }

@@ -3,6 +3,5 @@
 /* SpurMemoryManager>>#classAlien */
 
 sqInt classAlien(void) {
-  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(ClassAlien) << (shiftForWord()))))));
+  return fetchPointerofObject(ClassAlien, specialObjectsOop);
 }

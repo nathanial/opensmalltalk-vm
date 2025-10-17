@@ -15,8 +15,7 @@ static sqInt allStrongSlotsOfWeaklingAreMarked(sqInt aWeakling) {
 
   toDoLimit = (numStrongSlotsOfWeakling(aWeakling)) - 1;
   for (i = 0; i <= toDoLimit; i += 1) {
-    referent = longAt((void *)((aWeakling + BaseHeaderSize) +
-                               ((((usqInt)(i) << (shiftForWord()))))));
+    referent = fetchPointerofObject(i, aWeakling);
     if ((!(referent & (tagMask())))) {
       if (!((byteAt((void *)(referent + (markBitsByteOffset())))) &
             (1U << (markedBitByteShift())))) {

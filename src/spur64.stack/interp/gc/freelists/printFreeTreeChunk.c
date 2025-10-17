@@ -8,10 +8,8 @@
 
 static void printFreeTreeChunk(sqInt chunkOrZero) {
   if (chunkOrZero > 0) {
-    printFreeTreeChunk(longAt(
-        (void *)((chunkOrZero + BaseHeaderSize) + (3U << (shiftForWord())))));
+    printFreeTreeChunk(fetchPointerofObject(3U, chunkOrZero));
     printFreeChunk(chunkOrZero);
-    printFreeTreeChunk(longAt(
-        (void *)((chunkOrZero + BaseHeaderSize) + (4U << (shiftForWord())))));
+    printFreeTreeChunk(fetchPointerofObject(4U, chunkOrZero));
   }
 }

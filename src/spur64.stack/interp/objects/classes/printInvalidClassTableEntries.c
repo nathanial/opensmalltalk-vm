@@ -23,12 +23,10 @@ void printInvalidClassTableEntries(void) {
 
   /* begin classTableEntriesDo: */
   for (i = 0; i < numClassTablePages; i += 1) {
-    page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                           ((((usqInt)(i) << (shiftForWord()))))));
+    page = fetchPointerofObject(i, hiddenRootsObj);
     toDoLimit = (1U << (classTableMajorIndexShift())) - 1;
     for (j = 0; j <= toDoLimit; j += 1) {
-      classOrNilSqInt = longAt((void *)((page + BaseHeaderSize) +
-                                        ((((usqInt)(j) << (shiftForWord()))))));
+      classOrNilSqInt = fetchPointerofObject(j, page);
       if (classOrNilSqInt != nilObj) {
         index = ((((usqInt)(i) << (classTableMajorIndexShift())))) + j;
         if (((!((longAt((void *)(classOrNilSqInt))) &

@@ -37,8 +37,7 @@ static sqInt validClassTableRootPages(void) {
 
   /* are all pages the right size? */
   for (i = 0; i < numClassTablePages; i += 1) {
-    obj = longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                          ((((usqInt)(i) << (shiftForWord()))))));
+    obj = fetchPointerofObject(i, hiddenRootsObj);
     if (!((addressCouldBeObj(obj)) &&
           (((/* begin numSlotsOf: */
              assert((classIndexOf(obj)) > (isForwardedObjectClassIndexPun())),
@@ -59,8 +58,7 @@ static sqInt validClassTableRootPages(void) {
       (1U << (22 /* classIndexFieldWidth */ - (classTableMajorIndexShift()))) -
       1;
   for (i = numClassTablePages; i <= toDoLimit; i += 1) {
-    if ((longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                         ((((usqInt)(i) << (shiftForWord()))))))) != nilObj) {
+    if ((fetchPointerofObject(i, hiddenRootsObj)) != nilObj) {
       return 0;
     }
   }

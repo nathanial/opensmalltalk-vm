@@ -57,14 +57,12 @@ static void primitiveFindNextUnwindContext(void) {
   (stackPage->headSP = stackPointer);
   assert(pageListIsWellFormed());
   if (/* isStillMarriedContext: */
-      (((((longAt((void *)((calleeContext + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+      (((((fetchPointerofObject(SenderIndex, calleeContext))) &
          7) == 1)) &&
       (!(isWidowedContext(calleeContext)))) {
     /* begin frameOfMarriedContext: */
     senderOop =
-        longAt((void *)((calleeContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SenderIndex, calleeContext);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
     if (longAt(theFP + FoxSavedFP)) {
@@ -129,8 +127,7 @@ static void primitiveFindNextUnwindContext(void) {
     }
   } else {
     startContext =
-        longAt((void *)((calleeContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SenderIndex, calleeContext);
     if (/* isContext: */
         ((!(startContext & (tagMask())))) &&
         (((longAt((void *)(startContext))) & (classIndexMask())) ==

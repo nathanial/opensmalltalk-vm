@@ -26,14 +26,11 @@ static sqInt processWeakSurvivor(sqInt weakObj) {
 
   /* begin numFixedSlotsOf: */
   classPointer = fetchClassOfNonImm(weakObj);
-  classFormat = ((longAt((void *)((classPointer + BaseHeaderSize) +
-                                  ((((usqInt)(InstanceSpecificationIndex)
-                                     << (shiftForWord()))))))) >>
+  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, classPointer)) >>
                  3);
   numStrongSlots = classFormat & ((1U << (fixedFieldsFieldWidth())) - 1);
   for (i = 0; i < numStrongSlots; i += 1) {
-    referent = longAt((void *)((weakObj + BaseHeaderSize) +
-                               ((((usqInt)(i) << (shiftForWord()))))));
+    referent = fetchPointerofObject(i, weakObj);
     if (((!(referent & (tagMask())))) &&
         ((/* begin isYoungObject: */
           assert(isNonImmediate(referent)),
@@ -54,8 +51,7 @@ static sqInt processWeakSurvivor(sqInt weakObj) {
              : numSlots))) -
       1;
   for (i = numStrongSlots; i <= toDoLimit; i += 1) {
-    referent = longAt((void *)((weakObj + BaseHeaderSize) +
-                               ((((usqInt)(i) << (shiftForWord()))))));
+    referent = fetchPointerofObject(i, weakObj);
 
     /* Referent could be forwarded due to scavenging or a become:, don't assume.
      */

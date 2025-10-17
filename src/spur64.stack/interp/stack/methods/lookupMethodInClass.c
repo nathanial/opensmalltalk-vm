@@ -31,9 +31,7 @@ static sqInt lookupMethodInClass(sqInt class) {
   currentClass = class;
   while (currentClass != nilObj) {
     /* begin followObjField:ofObject: */
-    dictionary = longAt(
-        (void *)((currentClass + BaseHeaderSize) +
-                 ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
+    dictionary = fetchPointerofObject(MethodDictionaryIndex, currentClass);
     assert(isNonImmediate(dictionary));
     if ((!((longAt((void *)(dictionary))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -80,18 +78,14 @@ static sqInt lookupMethodInClass(sqInt class) {
     if (mask <= methodDictLinearSearchLimit) {
       index = 0;
       while (index <= mask) {
-        nextSelector = longAt((void *)((dictionary + BaseHeaderSize) +
-                                       ((((usqInt)((index + SelectorStart))
-                                          << (shiftForWord()))))));
+        nextSelector = fetchPointerofObject(index + SelectorStart, dictionary);
         if (isOopForwarded(nextSelector)) {
           nextSelector = fixFollowedFieldofObjectwithInitialValue(
               index + SelectorStart, dictionary, nextSelector);
         }
         if (nextSelector == messageSelector) {
           /* begin followObjField:ofObject: */
-          methodArray = longAt(
-              (void *)((dictionary + BaseHeaderSize) +
-                       ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
+          methodArray = fetchPointerofObject(MethodArrayIndex, dictionary);
           assert(isNonImmediate(methodArray));
           if ((!((longAt((void *)(methodArray))) &
                  ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -100,8 +94,7 @@ static sqInt lookupMethodInClass(sqInt class) {
           }
 
           /* begin followField:ofObject: */
-          objOop = longAt((void *)((methodArray + BaseHeaderSize) +
-                                   ((((usqInt)(index) << (shiftForWord()))))));
+          objOop = fetchPointerofObject(index, methodArray);
           if (isOopForwarded(objOop)) {
             objOop = fixFollowedFieldofObjectwithInitialValue(
                 index, methodArray, objOop);
@@ -128,8 +121,7 @@ static sqInt lookupMethodInClass(sqInt class) {
     wrapAround = 0;
     while (1) {
       nextSelector =
-          longAt((void *)((dictionary + BaseHeaderSize) +
-                          ((((usqInt)(index) << (shiftForWord()))))));
+          fetchPointerofObject(index, dictionary);
       if (nextSelector == nilObj) {
         found = 0;
         goto l1;
@@ -140,9 +132,7 @@ static sqInt lookupMethodInClass(sqInt class) {
       }
       if (nextSelector == messageSelector) {
         /* begin followObjField:ofObject: */
-        methodArray = longAt(
-            (void *)((dictionary + BaseHeaderSize) +
-                     ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
+        methodArray = fetchPointerofObject(MethodArrayIndex, dictionary);
         assert(isNonImmediate(methodArray));
         if ((!((longAt((void *)(methodArray))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -151,9 +141,7 @@ static sqInt lookupMethodInClass(sqInt class) {
         }
 
         /* begin followField:ofObject: */
-        objOop = longAt((void *)((methodArray + BaseHeaderSize) +
-                                 ((((usqInt)((index - SelectorStart))
-                                    << (shiftForWord()))))));
+        objOop = fetchPointerofObject(index - SelectorStart, methodArray);
         if (isOopForwarded(objOop)) {
           objOop = fixFollowedFieldofObjectwithInitialValue(
               index - SelectorStart, methodArray, objOop);
@@ -182,8 +170,7 @@ static sqInt lookupMethodInClass(sqInt class) {
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
     objOopSqInt =
-        longAt((void *)((currentClass + BaseHeaderSize) +
-                        ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SuperclassIndex, currentClass);
     assert(isNonImmediate(objOopSqInt));
     if ((!((longAt((void *)(objOopSqInt))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -194,17 +181,13 @@ static sqInt lookupMethodInClass(sqInt class) {
   }
 
   /* Could not find #doesNotUnderstand: -- unrecoverable error. */
-  if (messageSelector == (longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                          ((((usqInt)(SelectorDoesNotUnderstand)
-                                             << (shiftForWord())))))))) {
+  if (messageSelector == (fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop))) {
     error("Recursive not understood error encountered");
   }
 
   /* Cound not find a normal message -- raise exception #doesNotUnderstand: */
   createActualMessageTo(class);
-  messageSelector = longAt(
-      (void *)((specialObjectsOop + BaseHeaderSize) +
-               ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord()))))));
+  messageSelector = fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop);
   sendBreakpointclassTag(
       messageSelector + BaseHeaderSize, lengthOf(messageSelector),
       (long32At((void *)(class + 4))) & (identityHashHalfWordMask()));

@@ -18,8 +18,7 @@ static void putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly) {
   assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
 
   /* begin quickFetchInteger:ofObject: */
-  oop = longAt((void *)((aProcess + BaseHeaderSize) +
-                        ((((usqInt)(PriorityIndex) << (shiftForWord()))))));
+  oop = fetchPointerofObject(PriorityIndex, aProcess);
   assert((((oop) & 7) == 1));
   priority = (oop >> 3);
   if ((highestRunnableProcessPriority != 0) &&
@@ -27,19 +26,12 @@ static void putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly) {
     highestRunnableProcessPriority = priority;
   }
   objOop =
-      longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                        ((((usqInt)(SchedulerAssociation)
-                                           << (shiftForWord()))))))) +
-                       BaseHeaderSize) +
-                      ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
 
-  /* begin fetchPointer:ofObject: */
   processLists =
-      longAt((void *)((objOop + BaseHeaderSize) +
-                      ((((usqInt)(ProcessListsIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ProcessListsIndex, objOop);
   processList =
-      longAt((void *)((processLists + BaseHeaderSize) +
-                      ((((usqInt)((priority - 1)) << (shiftForWord()))))));
+      fetchPointerofObject(priority - 1, processLists);
   if (yieldImplicitly) {
     addLastLinktoList(aProcess, processList);
   } else {
@@ -47,8 +39,7 @@ static void putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly) {
     assert(!(isForwarded(processList)));
     assert((fetchPointerofObject(NextLinkIndex, aProcess)) == (nilObject()));
     firstLink =
-        longAt((void *)((processList + BaseHeaderSize) +
-                        ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))));
+        fetchPointerofObject(FirstLinkIndex, processList);
     assert(firstLink != aProcess);
 
     /* begin storePointer:ofObject:withValue: */

@@ -13,9 +13,7 @@ static sqInt contexthasValidInversePCMappingOfin(sqInt aContext, sqInt theIP,
   sqInt methodObj;
   sqInt pc;
 
-  pc = longAt(
-      (void *)((aContext + BaseHeaderSize) +
-               ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))));
+  pc = fetchPointerofObject(InstructionPointerIndex, aContext);
 
   /* begin contextInstructionPointer:frame: */
   assert(validInstructionPointerinFrame(theIP + 1, theFP));
@@ -24,14 +22,10 @@ static sqInt contexthasValidInversePCMappingOfin(sqInt aContext, sqInt theIP,
         << 3) |
        1);
   return (pc == encodedip) ||
-         (((methodObj = longAt(
-                (void *)((aContext + BaseHeaderSize) +
-                         ((((usqInt)(MethodIndex) << (shiftForWord()))))))),
+         (((methodObj = fetchPointerofObject(MethodIndex, aContext)),
            /* begin methodHeaderOf: */
            assert(isCompiledMethod(methodObj)),
-           (methodHeader = longAt(
-                (void *)((methodObj + BaseHeaderSize) +
-                         ((((usqInt)(HeaderIndex) << (shiftForWord()))))))),
+           (methodHeader = fetchPointerofObject(HeaderIndex, methodObj)),
            (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) &&
                ((((encodedip >> 3)) - ((pc >> 3))) ==
                 3 /* sizeOfCallPrimitiveBytecode: */)));

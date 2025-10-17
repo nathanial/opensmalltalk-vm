@@ -14,19 +14,16 @@ static sqInt isonObjStack(sqInt oop, sqInt objStack) {
   /* There are four fixed slots in an obj stack, and a Topx of 0 indicates
      empty, so if there were 6 slots in an oop stack, full would be 2, and the
      last 0-rel index is 5. */
-  index = (longAt((void *)((objStack + BaseHeaderSize) +
-                           ((((usqInt)(ObjStackTopx) << (shiftForWord()))))))) +
+  index = (fetchPointerofObject(ObjStackTopx, objStack)) +
           ObjStackNextx;
   while (index >= ObjStackFixedSlots) {
-    if (oop == (longAt((void *)((objStack + BaseHeaderSize) +
-                                ((((usqInt)(index) << (shiftForWord())))))))) {
+    if (oop == (fetchPointerofObject(index, objStack))) {
       return 1;
     }
     index -= 1;
   }
   nextPage =
-      longAt((void *)((objStack + BaseHeaderSize) +
-                      ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+      fetchPointerofObject(ObjStackNextx, objStack);
   if (nextPage) {
     if (isonObjStack(oop, nextPage)) {
       return 1;

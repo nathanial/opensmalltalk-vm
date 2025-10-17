@@ -22,15 +22,13 @@ static void markAndTraceObjStackandContents(sqInt stackOrNil,
             (byteAt((void *)(stackOrNil + (markBitsByteOffset())))) |
                 (1U << (markedBitByteShift())));
   assert((numSlotsOfAny(stackOrNil)) == ObjStackPageSlots);
-  field = longAt((void *)((stackOrNil + BaseHeaderSize) +
-                          ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+  field = fetchPointerofObject(ObjStackNextx, stackOrNil);
   if (field) {
     markAndTraceObjStackandContents(field, markAndTraceContents);
   }
   field = stackOrNil;
   while (1) {
-    field = longAt((void *)((field + BaseHeaderSize) +
-                            ((((usqInt)(ObjStackFreex) << (shiftForWord()))))));
+    field = fetchPointerofObject(ObjStackFreex, field);
     if (!(field != 0))
       break;
     /* begin setIsMarkedOf:to: */
@@ -46,13 +44,11 @@ static void markAndTraceObjStackandContents(sqInt stackOrNil,
   /* There are four fixed slots in an obj stack, and a Topx of 0 indicates
      empty, so if there were 6 slots in an oop stack, full would be 2, and the
      last 0-rel index is 5. */
-  index = (longAt((void *)((stackOrNil + BaseHeaderSize) +
-                           ((((usqInt)(ObjStackTopx) << (shiftForWord()))))))) +
+  index = (fetchPointerofObject(ObjStackTopx, stackOrNil)) +
           ObjStackNextx;
   while (index >= ObjStackFixedSlots) {
     /* begin followObjField:ofObject: */
-    field = longAt((void *)((stackOrNil + BaseHeaderSize) +
-                            ((((usqInt)(index) << (shiftForWord()))))));
+    field = fetchPointerofObject(index, stackOrNil);
     assert(isNonImmediate(field));
     if ((!((longAt((void *)(field))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

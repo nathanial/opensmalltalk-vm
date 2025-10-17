@@ -108,8 +108,7 @@ static void primitiveCopyObject(void) {
       return;
     }
     for (i = 0; i < length; i += 1) {
-      valuePointer = longAt((void *)((arg + BaseHeaderSize) +
-                                     ((((usqInt)(i) << (shiftForWord()))))));
+      valuePointer = fetchPointerofObject(i, arg);
 
       /* begin storePointer:ofObject:withValue: */
       assert(validStorePointerArgs(i, rcvr, valuePointer));

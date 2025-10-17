@@ -3,6 +3,5 @@
 /* SpurMemoryManager>>#classPoint */
 
 sqInt classPoint(void) {
-  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(ClassPoint) << (shiftForWord()))))));
+  return fetchPointerofObject(ClassPoint, specialObjectsOop);
 }

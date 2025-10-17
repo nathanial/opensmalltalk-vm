@@ -14,8 +14,7 @@ static sqInt isLinkedExternalPrimitive(sqInt methodObj) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(methodObj));
-  header = longAt((void *)((methodObj + BaseHeaderSize) +
-                           ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  header = fetchPointerofObject(HeaderIndex, methodObj);
 
   /* primitiveIndexOfMethod:header: */
   if (((header & AlternateHeaderHasPrimFlag) != 0)) {
@@ -34,8 +33,7 @@ static sqInt isLinkedExternalPrimitive(sqInt methodObj) {
              assert((((header) & 7) == 1)),
              /* literalCountOfAlternateHeader: */
              ((header >> 3)) & AlternateHeaderNumLiteralsMask)) > 0) &&
-          ((isArray((literal = longAt((void *)((methodObj + BaseHeaderSize) +
-                                               (1U << (shiftForWord()))))))) &&
+          ((isArray((literal = fetchPointerofObject(1U, methodObj)))) &&
            ((((/* begin numSlotsOf: */
                assert((classIndexOf(literal)) >
                       (isForwardedObjectClassIndexPun())),
@@ -48,10 +46,7 @@ static sqInt isLinkedExternalPrimitive(sqInt methodObj) {
                                   << 8)))))) >>
                           8
                     : numSlots))) == 4) &&
-            (((targetFunctionIndex = longAt(
-                   (void *)((literal + BaseHeaderSize) +
-                            ((((usqInt)(ExternalCallLiteralTargetFunctionIndex)
-                               << (shiftForWord()))))))),
+            (((targetFunctionIndex = fetchPointerofObject(ExternalCallLiteralTargetFunctionIndex, literal)),
               ((((targetFunctionIndex) & 7) == 1)) &&
                   (((targetFunctionIndex >> 3)) > 0))))));
 }

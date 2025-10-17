@@ -83,9 +83,7 @@ l3:
     goto l2;
   }
   class = fetchClassOfNonImm(rcvr);
-  fixedFields = (((longAt((void *)((class + BaseHeaderSize) +
-                                   ((((usqInt)(InstanceSpecificationIndex)
-                                      << (shiftForWord()))))))) >>
+  fixedFields = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
                   3)) &
                 ((1U << (fixedFieldsFieldWidth())) - 1);
   /* end fixedFieldsOf:format:length: */
@@ -101,8 +99,7 @@ l2:
   } else {
     /* begin subscript:with:format: */
     if (fmt <= 5 /* lastPointerFormat */) {
-      value = longAt((void *)((rcvr + BaseHeaderSize) +
-                              ((((usqInt)((index - 1)) << (shiftForWord()))))));
+      value = fetchPointerofObject(index - 1, rcvr);
       goto l1;
     }
     if (fmt >= (firstByteFormat())) {

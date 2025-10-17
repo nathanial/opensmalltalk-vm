@@ -8,9 +8,7 @@ sqInt copiedValueCountOfClosure(sqInt closureObj) {
   usqInt numSlots;
 
   return (
-      ((((longAt((void *)((closureObj + BaseHeaderSize) +
-                          ((((usqInt)(ClosureStartPCIndex)
-                             << (shiftForWord())))))))) &
+      ((((fetchPointerofObject(ClosureStartPCIndex, closureObj))) &
         7) == 1)
           ? (/* begin copiedValueCountOfVanillaClosure: */
              assert(isVanillaBlockClosure(closureObj)),

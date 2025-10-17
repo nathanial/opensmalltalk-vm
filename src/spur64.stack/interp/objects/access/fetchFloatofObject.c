@@ -11,7 +11,6 @@
 double fetchFloatofObject(sqInt fieldIndex, sqInt objectPointer) {
   sqInt floatOop;
 
-  floatOop = longAt((void *)((objectPointer + BaseHeaderSize) +
-                             ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  floatOop = fetchPointerofObject(fieldIndex, objectPointer);
   return floatValueOf(floatOop);
 }

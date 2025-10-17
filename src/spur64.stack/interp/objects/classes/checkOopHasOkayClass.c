@@ -57,9 +57,7 @@ sqInt checkOopHasOkayClass(usqInt obj) {
                       7)
                    : (byteAt((void *)(obj + (formatFieldByteOffset())))) &
                          (formatMask()));
-  if (((((usqInt)((((longAt((void *)((objClass + BaseHeaderSize) +
-                                     ((((usqInt)(InstanceSpecificationIndex)
-                                        << (shiftForWord()))))))) >>
+  if (((((usqInt)((((fetchPointerofObject(InstanceSpecificationIndex, objClass)) >>
                     3)))) >>
         (fixedFieldsFieldWidth())) &
        (formatMask())) != objFormat) {

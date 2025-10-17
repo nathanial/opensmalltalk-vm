@@ -20,14 +20,12 @@ static sqInt shortPrintContext(sqInt aContext) {
     return null;
   }
   printHex(aContext);
-  if (((((longAt((void *)((aContext + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+  if (((((fetchPointerofObject(SenderIndex, aContext))) &
         7) == 1)) {
     if (checkIsStillMarriedContextcurrentFP(aContext, framePointer)) {
       /* begin frameOfMarriedContext: */
       senderOop =
-          longAt((void *)((aContext + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+          fetchPointerofObject(SenderIndex, aContext);
       assert((((senderOop) & 7) == 1));
       theFP = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -46,15 +44,11 @@ static sqInt shortPrintContext(sqInt aContext) {
     fprintf(transcript, "%s", " s ");
   }
   if ((home = findHomeForContext(aContext))) {
-    rcvr = longAt((void *)((home + BaseHeaderSize) +
-                           ((((usqInt)(ReceiverIndex) << (shiftForWord()))))));
+    rcvr = fetchPointerofObject(ReceiverIndex, home);
     printActivationNameForreceiverisBlockfirstTemporary(
-        longAt((void *)((aContext + BaseHeaderSize) +
-                        ((((usqInt)(MethodIndex) << (shiftForWord())))))),
+        fetchPointerofObject(MethodIndex, aContext),
         rcvr, home != aContext,
-        longAt((void *)((home + BaseHeaderSize) +
-                        ((((usqInt)((0 + CtxtTempFrameStart))
-                           << (shiftForWord())))))));
+        fetchPointerofObject(0 + CtxtTempFrameStart, home));
 
     /* begin space */
     printChar(' ');

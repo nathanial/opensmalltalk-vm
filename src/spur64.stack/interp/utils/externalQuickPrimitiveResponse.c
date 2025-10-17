@@ -16,9 +16,7 @@ static sqInt externalQuickPrimitiveResponse(void) {
 
   /* Quick return inst vars */
   if (localPrimIndex >= 264) {
-    oop = longAt(
-        (void *)(((longAt(stackPointer)) + BaseHeaderSize) +
-                 ((((usqInt)((localPrimIndex - 264)) << (shiftForWord()))))));
+    oop = fetchPointerofObject(localPrimIndex - 264, longAt(stackPointer));
 
     /* begin pop:thenPush: */
     longAtput((sp = stackPointer), oop);

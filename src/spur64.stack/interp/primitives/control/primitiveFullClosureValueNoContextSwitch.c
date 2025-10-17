@@ -28,8 +28,7 @@ void primitiveFullClosureValueNoContextSwitch(void) {
   /* begin argumentCountOfClosure: */
   /* begin quickFetchInteger:ofObject: */
   oop =
-      longAt((void *)((blockClosure + BaseHeaderSize) +
-                      ((((usqInt)(ClosureNumArgsIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ClosureNumArgsIndex, blockClosure);
   assert((((oop) & 7) == 1));
   numArgs = (oop >> 3);
   if (!(argumentCount == numArgs)) {
@@ -39,9 +38,7 @@ void primitiveFullClosureValueNoContextSwitch(void) {
     }
     return;
   }
-  closureMethod = longAt((void *)((blockClosure + BaseHeaderSize) +
-                                  ((((usqInt)(FullClosureCompiledBlockIndex)
-                                     << (shiftForWord()))))));
+  closureMethod = fetchPointerofObject(FullClosureCompiledBlockIndex, blockClosure);
   if (!(/* isOopCompiledMethod: */
         ((!(closureMethod & (tagMask())))) &&
         (((byteAt((void *)(closureMethod + (formatFieldByteOffset())))) &
@@ -99,9 +96,7 @@ void primitiveFullClosureValueNoContextSwitch(void) {
   stackPointer = sp;
 
   /* begin followField:ofObject: */
-  objOop = longAt(
-      (void *)((blockClosure + BaseHeaderSize) +
-               ((((usqInt)(FullClosureReceiverIndex) << (shiftForWord()))))));
+  objOop = fetchPointerofObject(FullClosureReceiverIndex, blockClosure);
   if (isOopForwarded(objOop)) {
     objOop = fixFollowedFieldofObjectwithInitialValue(FullClosureReceiverIndex,
                                                       blockClosure, objOop);
@@ -117,9 +112,7 @@ void primitiveFullClosureValueNoContextSwitch(void) {
     /* begin push: */
     longAtput(
         (sp = stackPointer - BytesPerWord),
-        longAt((void *)((blockClosure + BaseHeaderSize) +
-                        ((((usqInt)((i + FullClosureFirstCopiedValueIndex))
-                           << (shiftForWord())))))));
+        fetchPointerofObject(i + FullClosureFirstCopiedValueIndex, blockClosure));
     stackPointer = sp;
   }
   assert(frameIsBlockActivation(framePointer));
@@ -128,8 +121,7 @@ void primitiveFullClosureValueNoContextSwitch(void) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(closureMethod));
   methodHeader =
-      longAt((void *)((closureMethod + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, closureMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   for (i = ((numArgs + numCopied) + 1); i <= numTemps; i += 1) {
     /* begin push: */
@@ -153,8 +145,7 @@ void primitiveFullClosureValueNoContextSwitch(void) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
   methodHeaderSqInt =
-      longAt((void *)((method + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeaderSqInt)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

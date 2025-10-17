@@ -10,8 +10,7 @@ static sqInt noFixupFollowFieldofObject(sqInt fieldIndex, sqInt anObject) {
   sqInt objOop;
   sqInt referent;
 
-  objOop = longAt((void *)((anObject + BaseHeaderSize) +
-                           ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  objOop = fetchPointerofObject(fieldIndex, anObject);
   if (isOopForwarded(objOop)) {
     objOop = followForwarded(objOop);
   }

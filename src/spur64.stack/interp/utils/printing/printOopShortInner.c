@@ -128,7 +128,7 @@ static void printOopShortInner(sqInt oop) {
   if ((nameLen == 9) && ((strncmp(name, "Character", 9)) == 0)) {
     printChar('$');
     printChar((
-        (longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))))) >>
+        (fetchPointerofObject(0U, oop)) >>
         3));
     return;
   }
@@ -139,8 +139,7 @@ static void printOopShortInner(sqInt oop) {
        5 /* lastPointerFormat */) &&
       (((instanceSizeOf(classOop)) == (ValueIndex + 1)) &&
        (isBytes(
-           longAt((void *)((oop + BaseHeaderSize) +
-                           ((((usqInt)(KeyIndex) << (shiftForWord())))))))))) {
+           fetchPointerofObject(KeyIndex, oop))))) {
     classLookupKey = fetchClassOfNonImm(splObj(SchedulerAssociation));
     while (1) {
       if (classLookupKey == nilObj) {
@@ -151,8 +150,7 @@ static void printOopShortInner(sqInt oop) {
       /* begin superclassOf: */
       /* begin followObjField:ofObject: */
       objOop =
-          longAt((void *)((classLookupKey + BaseHeaderSize) +
-                          ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+          fetchPointerofObject(SuperclassIndex, classLookupKey);
       assert(isNonImmediate(objOop));
       if ((!((longAt((void *)(objOop))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -165,13 +163,10 @@ static void printOopShortInner(sqInt oop) {
       /* begin space */
       printChar(' ');
       printOopShortInner(
-          longAt((void *)((oop + BaseHeaderSize) +
-                          ((((usqInt)(KeyIndex) << (shiftForWord())))))));
+          fetchPointerofObject(KeyIndex, oop));
       print(" -> ");
       fprintf(transcript, "%p",
-              ((void *)(longAt(
-                  (void *)((oop + BaseHeaderSize) +
-                           ((((usqInt)(ValueIndex) << (shiftForWord())))))))));
+              ((void *)(fetchPointerofObject(ValueIndex, oop))));
     }
   }
 }

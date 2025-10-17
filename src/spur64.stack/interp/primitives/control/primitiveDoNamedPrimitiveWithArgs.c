@@ -71,8 +71,7 @@ static void primitiveDoNamedPrimitiveWithArgs(void) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(methodArg));
   methodHeader =
-      longAt((void *)((methodArg + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, methodArg);
   if (!(((/* begin literalCountOfMethodHeader: */
           assert((((methodHeader) & 7) == 1)),
           /* literalCountOfAlternateHeader: */
@@ -82,7 +81,7 @@ static void primitiveDoNamedPrimitiveWithArgs(void) {
     return;
   }
   spec =
-      longAt((void *)((methodArg + BaseHeaderSize) + (1U << (shiftForWord()))));
+      fetchPointerofObject(1U, methodArg);
 
   /* first literal */
 
@@ -133,7 +132,7 @@ l2:
     return;
   }
   moduleName =
-      longAt((void *)((spec + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fetchPointerofObject(0U, spec);
   if (moduleName == nilObj) {
     moduleLength = 0;
   } else {
@@ -170,7 +169,7 @@ l2:
         (fmt & 7);
   }
   functionName =
-      longAt((void *)((spec + BaseHeaderSize) + (1U << (shiftForWord()))));
+      fetchPointerofObject(1U, spec);
   successBoolean = /* isBytes: */
       ((!(functionName & (tagMask())))) &&
       (((byteAt((void *)(functionName + (formatFieldByteOffset())))) &
@@ -304,8 +303,7 @@ l1:
     /* begin push: */
     longAtput(
         (sp = stackPointer - BytesPerWord),
-        longAt((void *)((argumentArray + BaseHeaderSize) +
-                        ((((usqInt)((index - 1)) << (shiftForWord())))))));
+        fetchPointerofObject(index - 1, argumentArray));
     stackPointer = sp;
   }
 
@@ -318,26 +316,22 @@ l1:
 
     /* begin push: */
     longAtput((sp = stackPointer - BytesPerWord),
-              longAt((void *)((tempOop + BaseHeaderSize) +
-                              (3U << (shiftForWord())))));
+              fetchPointerofObject(3U, tempOop));
     stackPointer = sp;
 
     /* begin push: */
     longAtput((sp = stackPointer - BytesPerWord),
-              longAt((void *)((tempOop + BaseHeaderSize) +
-                              (2U << (shiftForWord())))));
+              fetchPointerofObject(2U, tempOop));
     stackPointer = sp;
 
     /* begin push: */
     longAtput((sp = stackPointer - BytesPerWord),
-              longAt((void *)((tempOop + BaseHeaderSize) +
-                              (1U << (shiftForWord())))));
+              fetchPointerofObject(1U, tempOop));
     stackPointer = sp;
 
     /* begin push: */
     longAtput((sp = stackPointer - BytesPerWord),
-              longAt((void *)((tempOop + BaseHeaderSize) +
-                              (0U << (shiftForWord())))));
+              fetchPointerofObject(0U, tempOop));
     stackPointer = sp;
     argumentCount = 3;
 

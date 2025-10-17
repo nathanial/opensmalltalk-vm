@@ -18,7 +18,7 @@ static NeverInline sqInt assertInnerValidFreeObject(sqInt objOop) {
 
   assert(oopisLessThanOrEqualTo(addressAfter(objOop), endOfMemory));
   chunk =
-      longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fetchPointerofObject(0U, objOop);
   assert((chunk == 0) || (isFreeOop(chunk)));
   chunkBytes = bytesInBody(objOop);
 
@@ -26,13 +26,13 @@ static NeverInline sqInt assertInnerValidFreeObject(sqInt objOop) {
   assert(chunkBytes >= (BaseHeaderSize + (allocationUnit())));
   if (!(chunkBytes == (BaseHeaderSize + 8 /* allocationUnit */))) {
     chunk =
-        longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+        fetchPointerofObject(0U, objOop);
     if (chunk) {
       assert(isFreeOop(chunk));
       assert(objOop == (fetchPointerofFreeChunk(freeChunkPrevIndex(), chunk)));
     }
     chunk =
-        longAt((void *)((objOop + BaseHeaderSize) + (1U << (shiftForWord()))));
+        fetchPointerofObject(1U, objOop);
     index = (bytesInBody(objOop)) / 8 /* allocationUnit */;
     if ((index < 64 /* numFreeLists */) && ((1ULL << index) <= freeListsMask)) {
       if ((freeLists[index]) == objOop) {
@@ -48,10 +48,8 @@ static NeverInline sqInt assertInnerValidFreeObject(sqInt objOop) {
       do {
         assert((bytesInBody(treeNode)) >=
                ((numFreeLists()) * (allocationUnit())));
-        smallChild = longAt(
-            (void *)((treeNode + BaseHeaderSize) + (3U << (shiftForWord()))));
-        largeChild = longAt(
-            (void *)((treeNode + BaseHeaderSize) + (4U << (shiftForWord()))));
+        smallChild = fetchPointerofObject(3U, treeNode);
+        largeChild = fetchPointerofObject(4U, treeNode);
         assert((smallChild == 0) ||
                (treeNode ==
                 (fetchPointerofFreeChunk(freeChunkParentIndex(), smallChild))));
@@ -70,8 +68,7 @@ static NeverInline sqInt assertInnerValidFreeObject(sqInt objOop) {
 
           /* and since we've applied we must move on up */
           cameFrom = treeNode;
-          treeNode = longAt(
-              (void *)((treeNode + BaseHeaderSize) + (2U << (shiftForWord()))));
+          treeNode = fetchPointerofObject(2U, treeNode);
         } else {
           if ((smallChild != 0) && (cameFrom != smallChild)) {
             treeNode = smallChild;
@@ -94,13 +91,13 @@ static NeverInline sqInt assertInnerValidFreeObject(sqInt objOop) {
   /* double linkedlist assertions */
   if ((bytesInBody(objOop)) >= 0x200 /* (numFreeLists * #allocationUnit) */) {
     chunk =
-        longAt((void *)((objOop + BaseHeaderSize) + (2U << (shiftForWord()))));
+        fetchPointerofObject(2U, objOop);
     assert((chunk == 0) || ((isFreeOop(chunk)) && (isLargeFreeObject(chunk))));
     chunk =
-        longAt((void *)((objOop + BaseHeaderSize) + (3U << (shiftForWord()))));
+        fetchPointerofObject(3U, objOop);
     assert((chunk == 0) || ((isFreeOop(chunk)) && (isLargeFreeObject(chunk))));
     chunk =
-        longAt((void *)((objOop + BaseHeaderSize) + (4U << (shiftForWord()))));
+        fetchPointerofObject(4U, objOop);
     assert((chunk == 0) || ((isFreeOop(chunk)) && (isLargeFreeObject(chunk))));
   }
 

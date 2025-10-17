@@ -35,16 +35,10 @@ static sqInt wakeHighestPriority(void) {
   (stackPage->headSP = stackPointer);
   assert(pageListIsWellFormed());
   objOop =
-      longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                        ((((usqInt)(SchedulerAssociation)
-                                           << (shiftForWord()))))))) +
-                       BaseHeaderSize) +
-                      ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
 
-  /* begin fetchPointer:ofObject: */
   schedLists =
-      longAt((void *)((objOop + BaseHeaderSize) +
-                      ((((usqInt)(ProcessListsIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ProcessListsIndex, objOop);
   p = (highestRunnableProcessPriority
            ? highestRunnableProcessPriority
            : (/* begin numSlotsOf: */
@@ -60,19 +54,14 @@ static sqInt wakeHighestPriority(void) {
                          8
                    : numSlots)));
   while (((p -= 1)) >= 0) {
-    processList = longAt((void *)((schedLists + BaseHeaderSize) +
-                                  ((((usqInt)(p) << (shiftForWord()))))));
+    processList = fetchPointerofObject(p, schedLists);
     while (1) {
       /* begin isEmptyList: */
       assert(!(isForwarded(processList)));
-      if ((longAt((void *)((processList + BaseHeaderSize) +
-                           ((((usqInt)(FirstLinkIndex)
-                              << (shiftForWord()))))))) == nilObj)
+      if ((fetchPointerofObject(FirstLinkIndex, processList)) == nilObj)
         break;
       proc = removeFirstLinkOfList(processList);
-      ctxt = longAt(
-          (void *)((proc + BaseHeaderSize) +
-                   ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))));
+      ctxt = fetchPointerofObject(SuspendedContextIndex, proc);
       if (isLiveContext(ctxt)) {
         highestRunnableProcessPriority = p + 1;
         return proc;

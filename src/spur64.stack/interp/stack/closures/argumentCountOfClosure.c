@@ -9,8 +9,7 @@ sqInt argumentCountOfClosure(sqInt closurePointer) {
 
   /* begin quickFetchInteger:ofObject: */
   oop =
-      longAt((void *)((closurePointer + BaseHeaderSize) +
-                      ((((usqInt)(ClosureNumArgsIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ClosureNumArgsIndex, closurePointer);
   assert((((oop) & 7) == 1));
   return (oop >> 3);
 }

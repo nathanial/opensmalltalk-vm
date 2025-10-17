@@ -68,9 +68,7 @@ static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop,
   if (((longAt((void *)(objOop))) & (classIndexMask())) ==
       ClassMethodContextCompactIndex) {
     if (/* isStillMarriedContext: */
-        (((((longAt(
-               (void *)((objOop + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+        (((((fetchPointerofObject(SenderIndex, objOop))) &
            7) == 1)) &&
         (!(isWidowedContext(objOop)))) {
       /* begin numSlotsOfMarriedContext: */
@@ -96,9 +94,7 @@ static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop,
             (((longAt((void *)(objOop))) & (classIndexMask())) ==
              ClassMethodContextCompactIndex)) {
           /* begin fetchStackPointerOf: */
-          sp = longAt(
-              (void *)((objOop + BaseHeaderSize) +
-                       ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+          sp = fetchPointerofObject(StackPointerIndex, objOop);
           if (!((((sp) & 7) == 1))) {
             contextSizeSqInt = 0;
             goto l1;
@@ -138,8 +134,7 @@ static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop,
       /* begin methodHeaderOf: */
       assert(isCompiledMethod(objOop));
       header =
-          longAt((void *)((objOop + BaseHeaderSize) +
-                          ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+          fetchPointerofObject(HeaderIndex, objOop);
 
       /* begin literalCountOfMethodHeader: */
       assert((((header) & 7) == 1));
@@ -187,7 +182,7 @@ static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop,
 
   /* Now forward the object to its copy in the segment. */
   valuePointer =
-      longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fetchPointerofObject(0U, objOop);
 
   /* begin storePointerUnchecked:ofObject:withValue: */
   assert((isNonImmediate(savedFirstFields)) &&

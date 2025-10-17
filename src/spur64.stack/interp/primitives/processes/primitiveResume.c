@@ -17,9 +17,7 @@ static void primitiveResume(void) {
   proc = longAt(stackPointer);
 
   /* begin followObjField:ofObject: */
-  ctxt = longAt(
-      (void *)((proc + BaseHeaderSize) +
-               ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))));
+  ctxt = fetchPointerofObject(SuspendedContextIndex, proc);
   assert(isNonImmediate(ctxt));
   if ((!((longAt((void *)(ctxt))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

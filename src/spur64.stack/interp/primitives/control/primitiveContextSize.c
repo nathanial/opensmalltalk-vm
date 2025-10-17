@@ -72,9 +72,7 @@ l2:
     goto l1;
   }
   class = fetchClassOfNonImm(rcvr);
-  fixedFields = (((longAt((void *)((class + BaseHeaderSize) +
-                                   ((((usqInt)(InstanceSpecificationIndex)
-                                      << (shiftForWord()))))))) >>
+  fixedFields = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
                   3)) &
                 ((1U << (fixedFieldsFieldWidth())) - 1);
   /* end fixedFieldsOf:format:length: */
@@ -99,9 +97,7 @@ l1:
 
     /* begin stackPointerForMaybeMarriedContext: */
     if (/* isStillMarriedContext: */
-        (((((longAt(
-               (void *)((rcvr + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+        (((((fetchPointerofObject(SenderIndex, rcvr))) &
            7) == 1)) &&
         (!(isWidowedContext(rcvr)))) {
       spUsqInt = stackPointerIndexForFrame(frameOfMarriedContext(rcvr));
@@ -112,8 +108,7 @@ l1:
 
     /* begin fetchStackPointerOf: */
     spSqInt =
-        longAt((void *)((rcvr + BaseHeaderSize) +
-                        ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+        fetchPointerofObject(StackPointerIndex, rcvr);
     if (!((((spSqInt) & 7) == 1))) {
       sz = 0;
       goto l3;

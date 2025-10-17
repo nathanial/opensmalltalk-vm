@@ -56,9 +56,7 @@ l1:
   classObj = longAt(stackPointer + (1 * BytesPerWord));
 
   /* begin inOldSpaceInstantiatePinnedClass:indexableSize: */
-  classFormat = ((longAt((void *)((classObj + BaseHeaderSize) +
-                                  ((((usqInt)(InstanceSpecificationIndex)
-                                     << (shiftForWord()))))))) >>
+  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, classObj)) >>
                  3);
   instSpecSqInt =
       (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());
@@ -169,10 +167,7 @@ l2:
   } else {
     instSpec =
         (((usqInt)((
-             ((longAt((void *)(((longAt(stackPointer + (1 * BytesPerWord))) +
-                                BaseHeaderSize) +
-                               ((((usqInt)(InstanceSpecificationIndex)
-                                  << (shiftForWord()))))))) >>
+             ((fetchPointerofObject(InstanceSpecificationIndex, longAt(stackPointer + (1 * BytesPerWord)))) >>
               3)))) >>
          (fixedFieldsFieldWidth())) &
         (formatMask());

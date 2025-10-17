@@ -7,8 +7,7 @@ usqInt literalCountOf(sqInt methodPointer) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(methodPointer));
-  header = longAt((void *)((methodPointer + BaseHeaderSize) +
-                           ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  header = fetchPointerofObject(HeaderIndex, methodPointer);
 
   /* begin literalCountOfMethodHeader: */
   assert((((header) & 7) == 1));

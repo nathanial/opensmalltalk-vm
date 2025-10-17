@@ -11,9 +11,7 @@ static sqInt numStrongSlotsOfWeakling(sqInt objOop) {
   objOopSqInt = fetchClassOfNonImm(objOop);
 
   /* begin fixedFieldsOfClass: */
-  return (((longAt((void *)((objOopSqInt + BaseHeaderSize) +
-                            ((((usqInt)(InstanceSpecificationIndex)
-                               << (shiftForWord()))))))) >>
+  return (((fetchPointerofObject(InstanceSpecificationIndex, objOopSqInt)) >>
            3)) &
          ((1U << (fixedFieldsFieldWidth())) - 1);
 }

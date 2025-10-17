@@ -10,8 +10,7 @@
 static sqInt fetchStackPointerOf(sqInt aContext) {
   sqInt sp;
 
-  sp = longAt((void *)((aContext + BaseHeaderSize) +
-                       ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+  sp = fetchPointerofObject(StackPointerIndex, aContext);
   if (!((((sp) & 7) == 1))) {
     return 0;
   }

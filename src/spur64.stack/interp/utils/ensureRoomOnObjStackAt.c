@@ -15,17 +15,13 @@ static sqInt ensureRoomOnObjStackAt(sqInt objStackRootIndex) {
   sqInt stackOrNil;
 
   stackOrNil =
-      longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                      ((((usqInt)(objStackRootIndex) << (shiftForWord()))))));
+      fetchPointerofObject(objStackRootIndex, hiddenRootsObj);
   if ((stackOrNil == nilObj) ||
-      ((longAt((void *)((stackOrNil + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackTopx) << (shiftForWord()))))))) >=
+      ((fetchPointerofObject(ObjStackTopx, stackOrNil)) >=
        ObjStackLimit)) {
     freeOrNewPage =
         (stackOrNil == nilObj ? 0
-                              : longAt((void *)((stackOrNil + BaseHeaderSize) +
-                                                ((((usqInt)(ObjStackFreex)
-                                                   << (shiftForWord())))))));
+                              : fetchPointerofObject(ObjStackFreex, stackOrNil));
     if (freeOrNewPage) {
       /* begin storePointer:ofObjStack:withValue: */
       assert((formatOf(stackOrNil)) == (wordIndexableFormat()));

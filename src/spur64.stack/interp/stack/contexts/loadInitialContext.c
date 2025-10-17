@@ -14,27 +14,15 @@ void loadInitialContext(void) {
 
   /* begin getClassTagOfLinkedList */
   objOop =
-      longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                        ((((usqInt)(SchedulerAssociation)
-                                           << (shiftForWord()))))))) +
-                       BaseHeaderSize) +
-                      ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
   objOop =
-      longAt((void *)((objOop + BaseHeaderSize) +
-                      ((((usqInt)(ProcessListsIndex) << (shiftForWord()))))));
-  obj = longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fetchPointerofObject(ProcessListsIndex, objOop);
+  obj = fetchPointerofObject(0U, objOop);
   classLinkedListClassTag = (longAt((void *)(obj))) & (classIndexMask());
   objOop =
-      longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                        ((((usqInt)(SchedulerAssociation)
-                                           << (shiftForWord()))))))) +
-                       BaseHeaderSize) +
-                      ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
   activeProc =
-      longAt((void *)((objOop + BaseHeaderSize) +
-                      ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
-  activeContext = longAt(
-      (void *)((activeProc + BaseHeaderSize) +
-               ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ActiveProcessIndex, objOop);
+  activeContext = fetchPointerofObject(SuspendedContextIndex, activeProc);
   marryContextInNewStackPageAndInitializeInterpreterRegisters(activeContext);
 }

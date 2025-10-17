@@ -14,8 +14,7 @@ static void addLastLinktoList(sqInt proc, sqInt aList) {
 
   /* begin isEmptyList: */
   assert(!(isForwarded(aList)));
-  if ((longAt((void *)((aList + BaseHeaderSize) +
-                       ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) ==
+  if ((fetchPointerofObject(FirstLinkIndex, aList)) ==
       nilObj) {
     /* begin storePointer:ofObject:withValue: */
     assert(validStorePointerArgs(FirstLinkIndex, aList, proc));
@@ -37,8 +36,7 @@ static void addLastLinktoList(sqInt proc, sqInt aList) {
               proc);
   } else {
     lastLink =
-        longAt((void *)((aList + BaseHeaderSize) +
-                        ((((usqInt)(LastLinkIndex) << (shiftForWord()))))));
+        fetchPointerofObject(LastLinkIndex, aList);
     assert(lastLink != proc);
 
     /* begin storePointer:ofObject:withValue: */

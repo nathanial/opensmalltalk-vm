@@ -31,32 +31,27 @@ static NeverInline void nilUnmarkedWeaklingSlots(void) {
 
   /* begin objStack:from:do: */
   eassert(isValidObjStack(weaklingStack));
-  size = longAt((void *)((weaklingStack + BaseHeaderSize) +
-                         ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+  size = fetchPointerofObject(ObjStackTopx, weaklingStack);
   objStackPage =
-      longAt((void *)((weaklingStack + BaseHeaderSize) +
-                      ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+      fetchPointerofObject(ObjStackNextx, weaklingStack);
   while (objStackPage != 0) {
     size += ObjStackLimit;
     assert((fetchPointerofObject(ObjStackTopx, objStackPage)) == ObjStackLimit);
     objStackPage =
-        longAt((void *)((objStackPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+        fetchPointerofObject(ObjStackNextx, objStackPage);
   }
   numToEnumerate = size;
   objStackPage = weaklingStack;
   while (numToEnumerate > 0) {
     numOnThisPage =
-        longAt((void *)((objStackPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+        fetchPointerofObject(ObjStackTopx, objStackPage);
     numToEnumerateOnThisPage =
         ((numToEnumerate < numOnThisPage) ? numToEnumerate : numOnThisPage);
     topIndex = (numOnThisPage + ObjStackFixedSlots) - 1;
     for (i = topIndex; i >= ((topIndex - numToEnumerateOnThisPage) + 1);
          i += -1) {
       assert(isWeak(fetchPointerofObject(i, objStackPage)));
-      weakling = longAt((void *)((objStackPage + BaseHeaderSize) +
-                                 ((((usqInt)(i) << (shiftForWord()))))));
+      weakling = fetchPointerofObject(i, objStackPage);
 
       /* begin nilUnmarkedWeaklingSlotsIn: */
       anyUnmarked = 0;
@@ -80,8 +75,7 @@ static NeverInline void nilUnmarkedWeaklingSlots(void) {
           1;
       for (iSqInt = (numStrongSlotsOfWeakling(weakling)); iSqInt <= toDoLimit;
            iSqInt += 1) {
-        referent = longAt((void *)((weakling + BaseHeaderSize) +
-                                   ((((usqInt)(iSqInt) << (shiftForWord()))))));
+        referent = fetchPointerofObject(iSqInt, weakling);
         if ((!(referent & (tagMask())))) {
           if (((longAt((void *)(referent))) & (classIndexMask())) ==
               (isForwardedObjectClassIndexPun())) {
@@ -116,8 +110,7 @@ static NeverInline void nilUnmarkedWeaklingSlots(void) {
     }
     numToEnumerate -= numToEnumerateOnThisPage;
     objStackPage =
-        longAt((void *)((objStackPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+        fetchPointerofObject(ObjStackNextx, objStackPage);
   }
 
   /* begin emptyObjStack: */
@@ -132,20 +125,17 @@ static NeverInline void nilUnmarkedWeaklingSlots(void) {
                      ((((usqInt)(ObjStackTopx) << (shiftForWord()))))),
             0);
   nextPage =
-      longAt((void *)((weaklingStack + BaseHeaderSize) +
-                      ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+      fetchPointerofObject(ObjStackNextx, weaklingStack);
   while (nextPage != 0) {
     nextNextPage =
-        longAt((void *)((nextPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+        fetchPointerofObject(ObjStackNextx, nextPage);
 
     /* begin storePointer:ofObjStack:withValue: */
     assert((formatOf(nextPage)) == (wordIndexableFormat()));
     longAtput(
         (void *)((nextPage + BaseHeaderSize) +
                  ((((usqInt)(ObjStackFreex) << (shiftForWord()))))),
-        longAt((void *)((weaklingStack + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackFreex) << (shiftForWord())))))));
+        fetchPointerofObject(ObjStackFreex, weaklingStack));
 
     /* begin storePointer:ofObjStack:withValue: */
     assert((formatOf(nextPage)) == (wordIndexableFormat()));

@@ -13,8 +13,7 @@ sqInt printFreeList(sqInt chunkOrIndex) {
   freeChunk = chunkOrIndex;
   while (freeChunk != 0) {
     printFreeChunk(freeChunk);
-    freeChunk = longAt(
-        (void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))));
+    freeChunk = fetchPointerofObject(0U, freeChunk);
   }
   return 0;
 }

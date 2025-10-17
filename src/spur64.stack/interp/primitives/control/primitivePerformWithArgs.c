@@ -84,8 +84,7 @@ static void primitivePerformWithArgs(void) {
 
   /* Copy the arguments to the stack, in case of MNU, and lookup */
   for (index = 1; index <= arraySize; index += 1) {
-    arg = longAt((void *)((argumentArray + BaseHeaderSize) +
-                          ((((usqInt)((index - 1)) << (shiftForWord()))))));
+    arg = fetchPointerofObject(index - 1, argumentArray);
     if (arg == performWithArgumentsRecursionGuard) {
       performWithArgumentsRecursionGuard = null;
     }
@@ -122,8 +121,7 @@ static void primitivePerformWithArgs(void) {
     printActivationNameForSelectorstartClass(
         messageSelector, /* fetchClassOf: */
         ((tagBits = actualReceiver & (tagMask()))
-             ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                               ((((usqInt)(tagBits) << (shiftForWord()))))))
+             ? fetchPointerofObject(tagBits, classTableFirstPage)
              : fetchClassOfNonImm(actualReceiver)));
     cr();
   }

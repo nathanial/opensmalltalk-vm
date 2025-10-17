@@ -13,8 +13,7 @@ static sqInt maybeLeakCheckExternalPrimCall(sqInt aMethodObj) {
       (((primitiveIndexOf(aMethodObj)) == PrimNumberExternalCall) &&
        (checkedPluginName ==
         (fetchPointerofObject(0,
-                              longAt((void *)((aMethodObj + BaseHeaderSize) +
-                                              (1U << (shiftForWord()))))))))) {
+                              fetchPointerofObject(1U, aMethodObj)))))) {
     runLeakCheckerFor(GCCheckPrimCall);
   }
   return 1;

@@ -33,22 +33,17 @@ static sqInt findMethodWithPrimitiveFromContextUpToContext(sqInt primitive,
     if (theContext == nilObj) {
       return theContext;
     }
-    if (((((longAt(
-              (void *)((theContext + BaseHeaderSize) +
-                       ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+    if (((((fetchPointerofObject(SenderIndex, theContext))) &
           7) == 1))
       break;
     if (theContext == homeContext) {
       return 0;
     }
     if (!((primitive == 0) ||
-          ((longAt((void *)((theContext + BaseHeaderSize) +
-                            ((((usqInt)(ClosureIndex)
-                               << (shiftForWord()))))))) != nilObj))) {
+          ((fetchPointerofObject(ClosureIndex, theContext)) != nilObj))) {
       /* begin followObjField:ofObject: */
       theMethod =
-          longAt((void *)((theContext + BaseHeaderSize) +
-                          ((((usqInt)(MethodIndex) << (shiftForWord()))))));
+          fetchPointerofObject(MethodIndex, theContext);
       assert(isNonImmediate(theMethod));
       if ((!((longAt((void *)(theMethod))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -61,8 +56,7 @@ static sqInt findMethodWithPrimitiveFromContextUpToContext(sqInt primitive,
     }
 
     /* begin followObjField:ofObject: */
-    objOop = longAt((void *)((theContext + BaseHeaderSize) +
-                             ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+    objOop = fetchPointerofObject(SenderIndex, theContext);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -76,8 +70,7 @@ static sqInt findMethodWithPrimitiveFromContextUpToContext(sqInt primitive,
   }
 
   /* begin frameOfMarriedContext: */
-  senderOop = longAt((void *)((theContext + BaseHeaderSize) +
-                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  senderOop = fetchPointerofObject(SenderIndex, theContext);
   assert((((senderOop) & 7) == 1));
   startFP = ((char *)(senderOop - (smallIntegerTag())));
 

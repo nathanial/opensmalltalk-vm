@@ -11,10 +11,7 @@ void printProcessStack(sqInt aProcess) {
   cr();
   printNameOfClasscount(/* fetchClassOf: */
                         ((tagBits = aProcess & (tagMask()))
-                             ? longAt((void *)((classTableFirstPage +
-                                                BaseHeaderSize) +
-                                               ((((usqInt)(tagBits)
-                                                  << (shiftForWord()))))))
+                             ? fetchPointerofObject(tagBits, classTableFirstPage)
                              : fetchClassOfNonImm(aProcess)),
                         5);
 

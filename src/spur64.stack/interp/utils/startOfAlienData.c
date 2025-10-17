@@ -12,8 +12,7 @@ void *startOfAlienData(sqInt oop) {
   /* begin is:KindOfClass: */
   oopClass = /* fetchClassOf: */
       ((tagBits = oop & (tagMask()))
-           ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                             ((((usqInt)(tagBits) << (shiftForWord()))))))
+           ? fetchPointerofObject(tagBits, classTableFirstPage)
            : fetchClassOfNonImm(oop));
   while ((oopClass != nilObj) &&
          ((/* isPointers: */
@@ -22,16 +21,14 @@ void *startOfAlienData(sqInt oop) {
              (formatMask())) <= 5 /* lastPointerFormat */)) &&
           ((numSlotsOfAny(oopClass)) > InstanceSpecificationIndex))) {
     if (oopClass ==
-        (longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(ClassAlien) << (shiftForWord())))))))) {
+        (fetchPointerofObject(ClassAlien, specialObjectsOop))) {
       goto l1;
     }
 
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
     objOop =
-        longAt((void *)((oopClass + BaseHeaderSize) +
-                        ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SuperclassIndex, oopClass);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

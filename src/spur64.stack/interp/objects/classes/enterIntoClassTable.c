@@ -23,8 +23,7 @@ static sqInt enterIntoClassTable(sqInt aBehavior) {
   assert(initialMajorIndex > 0);
   minorIndex = classTableIndex & ((1U << (classTableMajorIndexShift())) - 1);
   while (1) {
-    page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                           ((((usqInt)(majorIndex) << (shiftForWord()))))));
+    page = fetchPointerofObject(majorIndex, hiddenRootsObj);
     if (page == nilObj) {
       /* begin allocateSlotsInOldSpace:format:classIndex: */
       page = allocateSlotsInOldSpacebytesformatclassIndex(
@@ -79,8 +78,7 @@ static sqInt enterIntoClassTable(sqInt aBehavior) {
     }
     toDoLimit = (1U << (classTableMajorIndexShift())) - 1;
     for (i = minorIndex; i <= toDoLimit; i += 1) {
-      if ((longAt((void *)((page + BaseHeaderSize) +
-                           ((((usqInt)(i) << (shiftForWord()))))))) == nilObj) {
+      if ((fetchPointerofObject(i, page)) == nilObj) {
         classTableIndex =
             ((((usqInt)(majorIndex) << (classTableMajorIndexShift())))) + i;
 

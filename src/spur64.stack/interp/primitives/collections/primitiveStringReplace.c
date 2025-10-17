@@ -103,9 +103,7 @@ static void primitiveStringReplace(void) {
       goto l5;
     }
     class = fetchClassOfNonImm(array);
-    arrayInstSize = (((longAt((void *)((class + BaseHeaderSize) +
-                                       ((((usqInt)(InstanceSpecificationIndex)
-                                          << (shiftForWord()))))))) >>
+    arrayInstSize = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
                       3)) &
                     ((1U << (fixedFieldsFieldWidth())) - 1);
     /* end fixedFieldsOf:format:length: */
@@ -133,9 +131,7 @@ static void primitiveStringReplace(void) {
       goto l6;
     }
     class = fetchClassOfNonImm(repl);
-    replInstSize = (((longAt((void *)((class + BaseHeaderSize) +
-                                      ((((usqInt)(InstanceSpecificationIndex)
-                                         << (shiftForWord()))))))) >>
+    replInstSize = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
                      3)) &
                    ((1U << (fixedFieldsFieldWidth())) - 1);
     /* end fixedFieldsOf:format:length: */
@@ -158,9 +154,7 @@ static void primitiveStringReplace(void) {
     if (oopisGreaterThanOrEqualTo(array, oldSpaceStart)) {
       mustRemember = 0;
       for (i = (start - 1); i < stop; i += 1) {
-        oop = longAt(
-            (void *)((repl + BaseHeaderSize) +
-                     ((((usqInt)((srcDelta + i)) << (shiftForWord()))))));
+        oop = fetchPointerofObject(srcDelta + i, repl);
         if (/* isYoung: */
             ((!(oop & (tagMask())))) && (oopisLessThan(oop, oldSpaceStart))) {
           mustRemember = 1;
@@ -182,9 +176,7 @@ static void primitiveStringReplace(void) {
       }
     } else {
       for (i = (start - 1); i < stop; i += 1) {
-        valuePointer = longAt(
-            (void *)((repl + BaseHeaderSize) +
-                     ((((usqInt)((srcDelta + i)) << (shiftForWord()))))));
+        valuePointer = fetchPointerofObject(srcDelta + i, repl);
 
         /* begin storePointerUnchecked:ofObject:withValue: */
         assert((isNonImmediate(array)) && (!(isForwarded(array))));

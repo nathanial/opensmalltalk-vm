@@ -27,11 +27,8 @@ static void primitiveSuspend(void) {
     transferTofrom(wakeHighestPriority(), CSSuspend);
     return;
   }
-  myList = longAt((void *)((process + BaseHeaderSize) +
-                           ((((usqInt)(MyListIndex) << (shiftForWord()))))));
-  myContext = longAt(
-      (void *)((process + BaseHeaderSize) +
-               ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))));
+  myList = fetchPointerofObject(MyListIndex, process);
+  myContext = fetchPointerofObject(SuspendedContextIndex, process);
   if (!((/* isPointers: */
          ((!(myList & (tagMask())))) &&
          (((byteAt((void *)(myList + (formatFieldByteOffset())))) &
@@ -50,9 +47,7 @@ static void primitiveSuspend(void) {
            ClassMethodContextCompactIndex) &&
           ((/* begin isResumableContext: */
             assert(isContext(myContext)),
-            ((((longAt((void *)((myContext + BaseHeaderSize) +
-                                ((((usqInt)(InstructionPointerIndex)
-                                   << (shiftForWord())))))))) &
+            ((((fetchPointerofObject(InstructionPointerIndex, myContext))) &
               7) == 1))))))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadReceiver;

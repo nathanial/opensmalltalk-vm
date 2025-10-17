@@ -41,15 +41,13 @@ static void primitivePerformInSuperclass(void) {
   /* e.g. object:perform:withArguments:inClass: */
   currentClass = /* fetchClassOf: */
       ((tagBits = rcvr & (tagMask()))
-           ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                             ((((usqInt)(tagBits) << (shiftForWord()))))))
+           ? fetchPointerofObject(tagBits, classTableFirstPage)
            : fetchClassOfNonImm(rcvr));
   while (currentClass != lookupClass) {
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
     objOop =
-        longAt((void *)((currentClass + BaseHeaderSize) +
-                        ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SuperclassIndex, currentClass);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -130,8 +128,7 @@ static void primitivePerformInSuperclass(void) {
 
   /* Copy the arguments to the stack, in case of MNU, and lookup */
   for (index = 1; index <= arraySize; index += 1) {
-    arg = longAt((void *)((argumentArray + BaseHeaderSize) +
-                          ((((usqInt)((index - 1)) << (shiftForWord()))))));
+    arg = fetchPointerofObject(index - 1, argumentArray);
     if (arg == performWithArgumentsRecursionGuard) {
       performWithArgumentsRecursionGuard = null;
     }
@@ -169,9 +166,7 @@ static void primitivePerformInSuperclass(void) {
         messageSelector,
         (lookupClass ? lookupClass : /* fetchClassOf: */
              ((tagBits = rcvr & (tagMask()))
-                  ? longAt(
-                        (void *)((classTableFirstPage + BaseHeaderSize) +
-                                 ((((usqInt)(tagBits) << (shiftForWord()))))))
+                  ? fetchPointerofObject(tagBits, classTableFirstPage)
                   : fetchClassOfNonImm(rcvr))));
     cr();
   }

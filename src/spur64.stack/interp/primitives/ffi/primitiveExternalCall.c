@@ -44,8 +44,7 @@ static void primitiveExternalCall(void) {
          (((byteAt((void *)(newMethod + (formatFieldByteOffset())))) &
            (formatMask())) >= (firstCompiledMethodFormat()))) &&
         (((literalCountOf(newMethod)) > 0) &&
-         (((lit = longAt((void *)((newMethod + BaseHeaderSize) +
-                                  (1U << (shiftForWord()))))),
+         (((lit = fetchPointerofObject(1U, newMethod)),
            (/* isArray: */
             ((!(lit & (tagMask())))) &&
             (((byteAt((void *)(lit + (formatFieldByteOffset())))) &

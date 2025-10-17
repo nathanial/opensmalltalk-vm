@@ -36,8 +36,7 @@ static void processEphemerons(void) {
             (/* begin keyOfEphemeron: */
              assert((isNonImmediate(referrer)) && (isObjEphemeron(referrer))),
              /* fetchPointer:ofObject: */
-             longAt((void *)((referrer + BaseHeaderSize) +
-                             (0U << (shiftForWord()))))))) {
+             fetchPointerofObject(0U, referrer)))) {
       unfiredEphemeronsScavenged = 1;
       hasNewReferents = scavengeReferentsOf(referrer);
 
@@ -73,8 +72,7 @@ static void processEphemerons(void) {
 
       /* begin keyOfEphemeron: */
       assert((isNonImmediate(ephemeron)) && (isObjEphemeron(ephemeron)));
-      key = longAt(
-          (void *)((ephemeron + BaseHeaderSize) + (0U << (shiftForWord()))));
+      key = fetchPointerofObject(0U, ephemeron);
       if (!(isScavengeSurvivor(key))) {
         valuePointer = copyAndForward(key);
 
@@ -136,8 +134,7 @@ static void processEphemerons(void) {
 
       /* begin keyOfMaybeFiredEphemeron: */
       assert((isNonImmediate(ephemeron)) && (isMaybeFiredEphemeron(ephemeron)));
-      key = longAt(
-          (void *)((ephemeron + BaseHeaderSize) + (0U << (shiftForWord()))));
+      key = fetchPointerofObject(0U, ephemeron);
       if (!(isScavengeSurvivor(key))) {
         valuePointer = copyAndForward(key);
 

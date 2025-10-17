@@ -104,9 +104,7 @@ static void primitiveContextAtPut(void) {
     }
     class = fetchClassOfNonImm(aContext);
     fixedFieldsSqInt =
-        (((longAt((void *)((class + BaseHeaderSize) +
-                           ((((usqInt)(InstanceSpecificationIndex)
-                              << (shiftForWord()))))))) >>
+        (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
           3)) &
         ((1U << (fixedFieldsFieldWidth())) - 1);
     /* end fixedFieldsOf:format:length: */
@@ -115,9 +113,7 @@ static void primitiveContextAtPut(void) {
         ((hdrSqLong & (classIndexMask())) == ClassMethodContextCompactIndex)) {
       /* begin stackPointerForMaybeMarriedContext: */
       if (/* isStillMarriedContext: */
-          (((((longAt(
-                 (void *)((aContext + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+          (((((fetchPointerofObject(SenderIndex, aContext))) &
              7) == 1)) &&
           (!(isWidowedContext(aContext)))) {
         spUsqInt = stackPointerIndexForFrame(frameOfMarriedContext(aContext));
@@ -127,9 +123,7 @@ static void primitiveContextAtPut(void) {
       }
 
       /* begin fetchStackPointerOf: */
-      spSqInt = longAt(
-          (void *)((aContext + BaseHeaderSize) +
-                   ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+      spSqInt = fetchPointerofObject(StackPointerIndex, aContext);
       if (!((((spSqInt) & 7) == 1))) {
         stSizeSqInt = 0;
         goto l5;
@@ -277,9 +271,7 @@ static void primitiveContextAtPut(void) {
   (stackPage->headSP = stackPointer);
   assert(pageListIsWellFormed());
   if (!(/* isStillMarriedContext: */
-        (((((longAt(
-               (void *)((aContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+        (((((fetchPointerofObject(SenderIndex, aContext))) &
            7) == 1)) &&
         (!(isWidowedContext(aContext))))) {
     fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
@@ -333,9 +325,7 @@ static void primitiveContextAtPut(void) {
       goto l2;
     }
     class = fetchClassOfNonImm(aContext);
-    fixedFields = (((longAt((void *)((class + BaseHeaderSize) +
-                                     ((((usqInt)(InstanceSpecificationIndex)
-                                        << (shiftForWord()))))))) >>
+    fixedFields = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
                     3)) &
                   ((1U << (fixedFieldsFieldWidth())) - 1);
     /* end fixedFieldsOf:format:length: */
@@ -343,8 +333,7 @@ static void primitiveContextAtPut(void) {
 
     /* begin fetchStackPointerOf: */
     spSqInt =
-        longAt((void *)((aContext + BaseHeaderSize) +
-                        ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+        fetchPointerofObject(StackPointerIndex, aContext);
     if (!((((spSqInt) & 7) == 1))) {
       stSize = 0;
       goto l1;
@@ -448,8 +437,7 @@ static void primitiveContextAtPut(void) {
   }
 
   /* begin frameOfMarriedContext: */
-  senderOop = longAt((void *)((aContext + BaseHeaderSize) +
-                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  senderOop = fetchPointerofObject(SenderIndex, aContext);
   assert((((senderOop) & 7) == 1));
   spouseFP = ((char *)(senderOop - (smallIntegerTag())));
   if (!(((index >= 1) && (index <= (stackPointerIndexForFrame(spouseFP)))))) {

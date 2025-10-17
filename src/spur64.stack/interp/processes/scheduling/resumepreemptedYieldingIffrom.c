@@ -22,24 +22,17 @@ static sqInt resumepreemptedYieldingIffrom(sqInt aProcess,
 
   /* begin activeProcess */
   objOop =
-      longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                        ((((usqInt)(SchedulerAssociation)
-                                           << (shiftForWord()))))))) +
-                       BaseHeaderSize) +
-                      ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
   activeProc =
-      longAt((void *)((objOop + BaseHeaderSize) +
-                      ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ActiveProcessIndex, objOop);
 
   /* begin quickFetchInteger:ofObject: */
-  oop = longAt((void *)((activeProc + BaseHeaderSize) +
-                        ((((usqInt)(PriorityIndex) << (shiftForWord()))))));
+  oop = fetchPointerofObject(PriorityIndex, activeProc);
   assert((((oop) & 7) == 1));
   activePriority = (oop >> 3);
 
   /* begin quickFetchInteger:ofObject: */
-  oop = longAt((void *)((aProcess + BaseHeaderSize) +
-                        ((((usqInt)(PriorityIndex) << (shiftForWord()))))));
+  oop = fetchPointerofObject(PriorityIndex, aProcess);
   assert((((oop) & 7) == 1));
   newPriority = (oop >> 3);
   if (newPriority <= activePriority) {

@@ -42,8 +42,7 @@ static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
 
           /* begin assertValidFreeObject: */
           assert(assertInnerValidFreeObject(node));
-          next = longAt(
-              (void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))));
+          next = fetchPointerofObject(0U, node);
           if (((segmentContainingObj(node))->containsPinned)) {
             if (prev) {
               /* begin setNextFreeChunkOf:withValue:chunkBytes: */
@@ -81,8 +80,7 @@ static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
 
               /* For some reason the assertion is not compiled correctly */
               freeLists[initialIndex] =
-                  ((nextSqInt = longAt((void *)((node + BaseHeaderSize) +
-                                                (0U << (shiftForWord()))))));
+                  ((nextSqInt = fetchPointerofObject(0U, node)));
               if ((!lilliputian) && (nextSqInt != 0)) {
                 /* begin storePointer:ofFreeChunk:withValue: */
                 assert(isFreeObject(nextSqInt));
@@ -114,8 +112,7 @@ static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
 
             /* begin assertValidFreeObject: */
             assert(assertInnerValidFreeObject(node));
-            next = longAt(
-                (void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))));
+            next = fetchPointerofObject(0U, node);
             if (((segmentContainingObj(node))->containsPinned)) {
               if (prev) {
                 /* begin setNextFreeChunkOf:withValue:isLilliputianSize: */
@@ -140,8 +137,7 @@ static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
 
                 /* For some reason the assertion is not compiled correctly */
                 freeLists[index] =
-                    ((nextSqInt = longAt((void *)((node + BaseHeaderSize) +
-                                                  (0U << (shiftForWord()))))));
+                    ((nextSqInt = fetchPointerofObject(0U, node)));
                 if (nextSqInt) {
                   /* begin storePointer:ofFreeChunk:withValue: */
                   assert(isFreeObject(nextSqInt));
@@ -186,8 +182,7 @@ static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
 
             /* begin assertValidFreeObject: */
             assert(assertInnerValidFreeObject(node));
-            next = longAt(
-                (void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))));
+            next = fetchPointerofObject(0U, node);
             if (((segmentContainingObj(node))->containsPinned)) {
               if (prev) {
                 /* begin setNextFreeChunkOf:withValue:isLilliputianSize: */
@@ -212,8 +207,7 @@ static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
 
                 /* For some reason the assertion is not compiled correctly */
                 freeLists[index] =
-                    ((nextSqInt = longAt((void *)((node + BaseHeaderSize) +
-                                                  (0U << (shiftForWord()))))));
+                    ((nextSqInt = fetchPointerofObject(0U, node)));
                 if (nextSqInt) {
                   /* begin storePointer:ofFreeChunk:withValue: */
                   assert(isFreeObject(nextSqInt));
@@ -260,15 +254,13 @@ static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
       node = child;
       while (1) {
         prev = node;
-        node = longAt(
-            (void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))));
+        node = fetchPointerofObject(0U, node);
         if (!(node != 0))
           break;
         if (((segmentContainingObj(node))->containsPinned)) {
           /* begin assertValidFreeObject: */
           assert(assertInnerValidFreeObject(node));
-          nextFreeChunk = longAt(
-              (void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))));
+          nextFreeChunk = fetchPointerofObject(0U, node);
 
           /* begin setNextFreeChunkOf:withValue:isLilliputianSize: */
           /* begin storePointer:ofFreeChunk:withValue: */
@@ -294,8 +286,7 @@ static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
         }
       }
       if (((segmentContainingObj(child))->containsPinned)) {
-        next = longAt(
-            (void *)((child + BaseHeaderSize) + (0U << (shiftForWord()))));
+        next = fetchPointerofObject(0U, child);
         if (next) {
           inFreeTreeReplacewith(child, next);
         } else {
@@ -316,19 +307,16 @@ static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
     /* size match; try to remove from list at node. */
     if (child) {
       if (childBytes <= (totalBytes + 8 /* allocationUnit */)) {
-        child = longAt(
-            (void *)((child + BaseHeaderSize) + (4U << (shiftForWord()))));
+        child = fetchPointerofObject(4U, child);
       } else {
         node = child;
-        child = longAt(
-            (void *)((node + BaseHeaderSize) + (3U << (shiftForWord()))));
+        child = fetchPointerofObject(3U, node);
         if (!acceptedNode) {
           acceptedChunk = node;
 
           /* first search the list. */
           do {
-            acceptedChunk = longAt((void *)((acceptedChunk + BaseHeaderSize) +
-                                            (0U << (shiftForWord()))));
+            acceptedChunk = fetchPointerofObject(0U, acceptedChunk);
             if ((acceptedChunk != 0) &&
                 (((segmentContainingObj(acceptedChunk))->containsPinned))) {
               acceptedNode = node;
@@ -353,14 +341,12 @@ static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
     if (acceptedChunk) {
       assert((bytesInBody(acceptedChunk)) >= (totalBytes + (allocationUnit())));
       while (1) {
-        next = longAt((void *)((acceptedNode + BaseHeaderSize) +
-                               (0U << (shiftForWord()))));
+        next = fetchPointerofObject(0U, acceptedNode);
         if (!(next != acceptedChunk))
           break;
         acceptedNode = next;
       }
-      nextFreeChunk = longAt((void *)((acceptedChunk + BaseHeaderSize) +
-                                      (0U << (shiftForWord()))));
+      nextFreeChunk = fetchPointerofObject(0U, acceptedChunk);
 
       /* begin setNextFreeChunkOf:withValue:isLilliputianSize: */
       /* begin storePointer:ofFreeChunk:withValue: */
@@ -392,8 +378,7 @@ static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
                : acceptedChunk);
       goto l1;
     }
-    next = longAt(
-        (void *)((acceptedNode + BaseHeaderSize) + (0U << (shiftForWord()))));
+    next = fetchPointerofObject(0U, acceptedNode);
     if (next) {
       inFreeTreeReplacewith(acceptedNode, next);
     } else {

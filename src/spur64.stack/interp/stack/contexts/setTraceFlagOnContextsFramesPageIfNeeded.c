@@ -9,14 +9,12 @@ static void setTraceFlagOnContextsFramesPageIfNeeded(sqInt aContext) {
   StackPage *thePage;
 
   if (/* isStillMarriedContextDuringGC: */
-      (((((longAt((void *)((aContext + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+      (((((fetchPointerofObject(SenderIndex, aContext))) &
          7) == 1)) &&
       (!(isWidowedContextDuringGC(aContext)))) {
     /* begin frameOfMarriedContext: */
     senderOop =
-        longAt((void *)((aContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SenderIndex, aContext);
     assert((((senderOop) & 7) == 1));
     pointer = ((char *)(senderOop - (smallIntegerTag())));
 

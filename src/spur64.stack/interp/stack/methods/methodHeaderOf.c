@@ -6,6 +6,5 @@
 
 static sqInt methodHeaderOf(sqInt methodObj) {
   assert(isCompiledMethod(methodObj));
-  return longAt((void *)((methodObj + BaseHeaderSize) +
-                         ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  return fetchPointerofObject(HeaderIndex, methodObj);
 }

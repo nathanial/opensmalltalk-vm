@@ -84,9 +84,7 @@ static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
         (((longAt((void *)(array1))) & (classIndexMask())) ==
          ClassMethodContextCompactIndex)) {
       /* begin fetchStackPointerOf: */
-      sp = longAt(
-          (void *)((array1 + BaseHeaderSize) +
-                   ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+      sp = fetchPointerofObject(StackPointerIndex, array1);
       if (!((((sp) & 7) == 1))) {
         contextSize = 0;
         goto l5;
@@ -124,8 +122,7 @@ static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(array1));
-  header = longAt((void *)((array1 + BaseHeaderSize) +
-                           ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  header = fetchPointerofObject(HeaderIndex, array1);
   fieldOffset = (((((/* begin literalCountOfMethodHeader: */
                      assert((((header) & 7) == 1)),
                      /* literalCountOfAlternateHeader: */
@@ -279,15 +276,13 @@ l6:
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
       /* begin followField:ofObject: */
-      obj1 = longAt((void *)((array1 + BaseHeaderSize) +
-                             ((((usqInt)(i) << (shiftForWord()))))));
+      obj1 = fetchPointerofObject(i, array1);
       if (isOopForwarded(obj1)) {
         obj1 = fixFollowedFieldofObjectwithInitialValue(i, array1, obj1);
       }
 
       /* begin followField:ofObject: */
-      obj2 = longAt((void *)((array2 + BaseHeaderSize) +
-                             ((((usqInt)(i) << (shiftForWord()))))));
+      obj2 = fetchPointerofObject(i, array2);
       if (isOopForwarded(obj2)) {
         obj2 = fixFollowedFieldofObjectwithInitialValue(i, array2, obj2);
       }
@@ -374,15 +369,13 @@ l6:
         }
         /* end doBecome:and:copyHash: */
       l1:
-        objOop = longAt((void *)((array1 + BaseHeaderSize) +
-                                 ((((usqInt)(i) << (shiftForWord()))))));
+        objOop = fetchPointerofObject(i, array1);
         if (isOopForwarded(objOop)) {
           objOop = fixFollowedFieldofObjectwithInitialValue(i, array1, objOop);
         }
 
         /* begin followField:ofObject: */
-        objOopSqInt = longAt((void *)((array2 + BaseHeaderSize) +
-                                      ((((usqInt)(i) << (shiftForWord()))))));
+        objOopSqInt = fetchPointerofObject(i, array2);
         if (isOopForwarded(objOopSqInt)) {
           objOopSqInt =
               fixFollowedFieldofObjectwithInitialValue(i, array2, objOopSqInt);
@@ -404,15 +397,13 @@ l6:
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
       /* begin followField:ofObject: */
-      obj1 = longAt((void *)((array1 + BaseHeaderSize) +
-                             ((((usqInt)(i) << (shiftForWord()))))));
+      obj1 = fetchPointerofObject(i, array1);
       if (isOopForwarded(obj1)) {
         obj1 = fixFollowedFieldofObjectwithInitialValue(i, array1, obj1);
       }
 
       /* begin followField:ofObject: */
-      obj2 = longAt((void *)((array2 + BaseHeaderSize) +
-                             ((((usqInt)(i) << (shiftForWord()))))));
+      obj2 = fetchPointerofObject(i, array2);
       if (isOopForwarded(obj2)) {
         obj2 = fixFollowedFieldofObjectwithInitialValue(i, array2, obj2);
       }
@@ -486,8 +477,7 @@ l6:
         assert(!((isOopForwarded(obj2))));
 
         /* begin followField:ofObject: */
-        objOop = longAt((void *)((array1 + BaseHeaderSize) +
-                                 ((((usqInt)(i) << (shiftForWord()))))));
+        objOop = fetchPointerofObject(i, array1);
         if (isOopForwarded(objOop)) {
           objOop = fixFollowedFieldofObjectwithInitialValue(i, array1, objOop);
         }

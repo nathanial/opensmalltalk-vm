@@ -28,8 +28,7 @@ static sqInt totalFreeListBytes(void) {
       /* begin assertValidFreeObject: */
       assert(assertInnerValidFreeObject(listNode));
       assert(bytesInChunk == (bytesInBody(listNode)));
-      nextNode = longAt(
-          (void *)((listNode + BaseHeaderSize) + (0U << (shiftForWord()))));
+      nextNode = fetchPointerofObject(0U, listNode);
       assert(nextNode != listNode);
       listNode = nextNode;
     }
@@ -44,10 +43,8 @@ static sqInt totalFreeListBytes(void) {
   do {
     assert((bytesInBody(treeNodeSqInt)) >=
            ((numFreeLists()) * (allocationUnit())));
-    smallChild = longAt(
-        (void *)((treeNodeSqInt + BaseHeaderSize) + (3U << (shiftForWord()))));
-    largeChild = longAt(
-        (void *)((treeNodeSqInt + BaseHeaderSize) + (4U << (shiftForWord()))));
+    smallChild = fetchPointerofObject(3U, treeNodeSqInt);
+    largeChild = fetchPointerofObject(4U, treeNodeSqInt);
     assert((smallChild == 0) ||
            (treeNodeSqInt ==
             (fetchPointerofFreeChunk(freeChunkParentIndex(), smallChild))));
@@ -71,8 +68,7 @@ static sqInt totalFreeListBytes(void) {
             ((fetchPointerofFreeChunk(freeChunkParentIndex(), listNode)) == 0));
         totalFreeBytes += bytesInChunk;
         assert(bytesInChunk == (bytesInBody(listNode)));
-        nextNode = longAt(
-            (void *)((listNode + BaseHeaderSize) + (0U << (shiftForWord()))));
+        nextNode = fetchPointerofObject(0U, listNode);
         assert(nextNode != listNode);
         listNode = nextNode;
       }
@@ -81,8 +77,7 @@ static sqInt totalFreeListBytes(void) {
 
       /* and since we've applied we must move on up */
       cameFrom = treeNodeSqInt;
-      treeNodeSqInt = longAt((void *)((treeNodeSqInt + BaseHeaderSize) +
-                                      (2U << (shiftForWord()))));
+      treeNodeSqInt = fetchPointerofObject(2U, treeNodeSqInt);
     } else {
       if ((smallChild != 0) && (cameFrom != smallChild)) {
         treeNodeSqInt = smallChild;

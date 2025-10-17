@@ -21,9 +21,7 @@ static void primitivePinnedNew(void) {
   classObj = longAt(stackPointer);
 
   /* begin inOldSpaceInstantiatePinnedClass: */
-  classFormat = ((longAt((void *)((classObj + BaseHeaderSize) +
-                                  ((((usqInt)(InstanceSpecificationIndex)
-                                     << (shiftForWord()))))))) >>
+  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, classObj)) >>
                  3);
   instSpec =
       (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());
@@ -86,9 +84,7 @@ l1:
     reasonCode =
         (isFixedSizePointerFormat(
              (((usqInt)((
-                  ((longAt((void *)(((longAt(stackPointer)) + BaseHeaderSize) +
-                                    ((((usqInt)(InstanceSpecificationIndex)
-                                       << (shiftForWord()))))))) >>
+                  ((fetchPointerofObject(InstanceSpecificationIndex, longAt(stackPointer))) >>
                    3)))) >>
               (fixedFieldsFieldWidth())) &
              (formatMask()))

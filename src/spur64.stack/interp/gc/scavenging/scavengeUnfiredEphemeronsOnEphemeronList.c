@@ -38,8 +38,7 @@ static sqInt scavengeUnfiredEphemeronsOnEphemeronList(void) {
             (/* begin keyOfEphemeron: */
              assert((isNonImmediate(ephemeron)) && (isObjEphemeron(ephemeron))),
              /* fetchPointer:ofObject: */
-             longAt((void *)((ephemeron + BaseHeaderSize) +
-                             (0U << (shiftForWord()))))))) {
+             fetchPointerofObject(0U, ephemeron)))) {
       if (corpseOffset == ephemeronList) {
         ephemeronList = (offsetToNextCorpse ? offsetToNextCorpse : 0);
       } else {

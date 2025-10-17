@@ -27,8 +27,7 @@ static void postBecomeScanClassTable(sqInt effectsFlags) {
     return;
   }
   for (i = 0; i < numClassTablePages; i += 1) {
-    page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                           ((((usqInt)(i) << (shiftForWord()))))));
+    page = fetchPointerofObject(i, hiddenRootsObj);
     assert(!(isForwarded(page)));
     toDoLimit =
         ((/* begin numSlotsOf: */
@@ -43,8 +42,7 @@ static void postBecomeScanClassTable(sqInt effectsFlags) {
                : numSlots))) -
         1;
     for (j = 0; j <= toDoLimit; j += 1) {
-      classOrNil = longAt((void *)((page + BaseHeaderSize) +
-                                   ((((usqInt)(j) << (shiftForWord()))))));
+      classOrNil = fetchPointerofObject(j, page);
       if (classOrNil != nilObj) {
         if ((!((longAt((void *)(classOrNil))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

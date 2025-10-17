@@ -30,9 +30,7 @@ sqInt maybeSelectorOfMethod(sqInt methodObj) {
       (isWordsOrBytesNonImm(penultimateLiteral))) {
     return (((longAt((void *)(penultimateLiteral))) & (classIndexMask())) ==
                     (fetchClassTagOfNonImm(
-                        longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                        ((((usqInt)(SelectorDoesNotUnderstand)
-                                           << (shiftForWord()))))))))
+                        fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop)))
                 ? penultimateLiteral
                 : 0);
   }
@@ -54,20 +52,15 @@ sqInt maybeSelectorOfMethod(sqInt methodObj) {
                                               << 8)))))) >>
                              8
                        : numSlots))) >= 2) &&
-               (((longAt((void *)((penultimateLiteral + BaseHeaderSize) +
-                                  (0U << (shiftForWord()))))) == methodObj) &&
+               (((fetchPointerofObject(0U, penultimateLiteral)) == methodObj) &&
                 (((maybeSelector =
-                       longAt((void *)((penultimateLiteral + BaseHeaderSize) +
-                                       (1U << (shiftForWord()))))),
+                       fetchPointerofObject(1U, penultimateLiteral)),
                   (/* isWordsOrBytes: */
                    ((!(maybeSelector & (tagMask())))) &&
                    (isWordsOrBytesNonImm(maybeSelector))) &&
                       (((longAt((void *)(maybeSelector))) &
                         (classIndexMask())) ==
-                       (fetchClassTagOfNonImm(longAt(
-                           (void *)((specialObjectsOop + BaseHeaderSize) +
-                                    ((((usqInt)(SelectorDoesNotUnderstand)
-                                       << (shiftForWord())))))))))))))
+                       (fetchClassTagOfNonImm(fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop))))))))
           ? maybeSelector
           : 0);
 }

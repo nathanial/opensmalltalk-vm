@@ -31,21 +31,15 @@ sqInt sendInvokeCallbackContext(VMCallbackContext *vmCallbackContext) {
   /* begin recordTrace:thing:source: */
   if (TraceLog) {
     traceLog[traceLogIndex] = TraceVMCallback;
-    traceLog[traceLogIndex + 1] = (longAt(
-        (void *)((specialObjectsOop + BaseHeaderSize) +
-                 ((((usqInt)(SelectorInvokeCallback) << (shiftForWord())))))));
+    traceLog[traceLogIndex + 1] = (fetchPointerofObject(SelectorInvokeCallback, specialObjectsOop));
     traceLog[traceLogIndex + 2] = 0;
     traceLogIndex = (traceLogIndex + 3) % TraceBufferSize;
   }
 
   /* begin fetchClassTagOfNonImm: */
-  classTag = (longAt((void *)(longAt(
-                 (void *)((specialObjectsOop + BaseHeaderSize) +
-                          ((((usqInt)(ClassAlien) << (shiftForWord()))))))))) &
+  classTag = (longAt((void *)(fetchPointerofObject(ClassAlien, specialObjectsOop)))) &
              (classIndexMask());
-  messageSelector = longAt(
-      (void *)((specialObjectsOop + BaseHeaderSize) +
-               ((((usqInt)(SelectorInvokeCallback) << (shiftForWord()))))));
+  messageSelector = fetchPointerofObject(SelectorInvokeCallback, specialObjectsOop);
   if (!(lookupInMethodCacheSelclassTag(messageSelector, classTag))) {
     if (lookupOrdinaryNoMNUEtcInClass(classForClassTag(classTag))) {
       return 0;
@@ -59,8 +53,7 @@ sqInt sendInvokeCallbackContext(VMCallbackContext *vmCallbackContext) {
   memcpy(((void *)((vmCallbackContext->savedReenterInterpreter))),
          reenterInterpreter, sizeof(jmp_buf));
   longAtput((sp = stackPointer - BytesPerWord),
-            longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                            ((((usqInt)(ClassAlien) << (shiftForWord())))))));
+            fetchPointerofObject(ClassAlien, specialObjectsOop));
   stackPointer = sp;
   if ((argumentCountOf(newMethod)) == 4) {
     object = positive64BitIntegerFor(((usqInt)((vmCallbackContext->thunkp))));
@@ -90,8 +83,7 @@ sqInt sendInvokeCallbackContext(VMCallbackContext *vmCallbackContext) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(newMethod));
   methodHeader =
-      longAt((void *)((newMethod + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, newMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 

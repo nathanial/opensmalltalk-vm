@@ -66,9 +66,7 @@ static void primitiveSetImmutability(void) {
 
     /* No clue what is going on for semaphores so they can't be immutable */
     if (((longAt((void *)(rcvr))) & (classIndexMask())) ==
-        (rawHashBitsOf(longAt(
-            (void *)((specialObjectsOop + BaseHeaderSize) +
-                     ((((usqInt)(ClassSemaphore) << (shiftForWord()))))))))) {
+        (rawHashBitsOf(fetchPointerofObject(ClassSemaphore, specialObjectsOop)))) {
       goto l1;
     }
 
@@ -76,16 +74,10 @@ static void primitiveSetImmutability(void) {
        instances to be immutable as well as the Processor and the array of
        activeProcess */
 
-    /* begin fetchPointer:ofObject: */
     scheduler =
-        longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                          ((((usqInt)(SchedulerAssociation)
-                                             << (shiftForWord()))))))) +
-                         BaseHeaderSize) +
-                        ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+        fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
     processLists =
-        longAt((void *)((scheduler + BaseHeaderSize) +
-                        ((((usqInt)(ProcessListsIndex) << (shiftForWord()))))));
+        fetchPointerofObject(ProcessListsIndex, scheduler);
     if (rcvr == scheduler) {
       goto l1;
     }
@@ -94,16 +86,13 @@ static void primitiveSetImmutability(void) {
     }
 
     /* Is it a linkedList ? */
-    if ((classIndexOf(longAt((void *)((processLists + BaseHeaderSize) +
-                                      (1U << (shiftForWord())))))) ==
+    if ((classIndexOf(fetchPointerofObject(1U, processLists))) ==
         ((longAt((void *)(rcvr))) & (classIndexMask()))) {
       goto l1;
     }
 
     /* is it a Process ? */
-    if ((classIndexOf(longAt((void *)((scheduler + BaseHeaderSize) +
-                                      ((((usqInt)(ActiveProcessIndex)
-                                         << (shiftForWord())))))))) ==
+    if ((classIndexOf(fetchPointerofObject(ActiveProcessIndex, scheduler))) ==
         ((longAt((void *)(rcvr))) & (classIndexMask()))) {
       goto l1;
     }

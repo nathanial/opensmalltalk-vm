@@ -179,9 +179,7 @@ l2:
               (((longAt((void *)(current))) & (classIndexMask())) ==
                        ClassMethodContextCompactIndex
                    ? fieldOrSenderFPofContext(index, current)
-                   : longAt(
-                         (void *)((current + BaseHeaderSize) +
-                                  ((((usqInt)(index) << (shiftForWord())))))));
+                   : fetchPointerofObject(index, current));
         } else {
           next = fetchClassOfNonImm(current);
         }
@@ -308,9 +306,7 @@ l2:
                 (((longAt((void *)(next))) & (classIndexMask())) ==
                  ClassMethodContextCompactIndex)) {
               /* begin fetchStackPointerOf: */
-              spSqInt = longAt((void *)((next + BaseHeaderSize) +
-                                        ((((usqInt)(StackPointerIndex)
-                                           << (shiftForWord()))))));
+              spSqInt = fetchPointerofObject(StackPointerIndex, next);
               if (!((((spSqInt) & 7) == 1))) {
                 contextSize = 0;
                 goto l3;
@@ -351,8 +347,7 @@ l2:
           /* begin methodHeaderOf: */
           assert(isCompiledMethod(next));
           header =
-              longAt((void *)((next + BaseHeaderSize) +
-                              ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+              fetchPointerofObject(HeaderIndex, next);
 
           /* begin literalCountOfMethodHeader: */
           assert((((header) & 7) == 1));
@@ -392,12 +387,10 @@ l2:
       goto l5;
     }
     index =
-        ((longAt((void *)((stack + BaseHeaderSize) +
-                          ((((usqInt)((stackp - 1)) << (shiftForWord()))))))) >>
+        ((fetchPointerofObject(stackp - 1, stack)) >>
          3);
     current =
-        longAt((void *)((stack + BaseHeaderSize) +
-                        ((((usqInt)((stackp - 2)) << (shiftForWord()))))));
+        fetchPointerofObject(stackp - 2, stack);
     stackp -= 2;
   }
   /* end pathTo:using:followWeak: */

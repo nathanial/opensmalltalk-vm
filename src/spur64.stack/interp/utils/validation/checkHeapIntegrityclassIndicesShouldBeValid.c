@@ -120,8 +120,7 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs,
       }
       if ((!((longAt((void *)(objOop))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        fieldOop = longAt(
-            (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+        fieldOop = fetchPointerofObject(0U, objOop);
         if (/* isInHeapBounds: */
             (oopisGreaterThanOrEqualTo(fieldOop, newSpaceStart)) &&
             (oopisLessThan(fieldOop, endOfMemory))) {
@@ -146,10 +145,8 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs,
         fieldIndex =
             ((usqInt)(classIndexSqInt)) >> (classTableMajorIndexShift());
 
-        /* begin fetchPointer:ofObject: */
         classTablePage =
-            longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                            ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+            fetchPointerofObject(fieldIndex, hiddenRootsObj);
         if (classTablePage == nilObj) {
           classOop = nilObj;
           goto l1;
@@ -157,8 +154,7 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs,
         fieldIndex =
             classIndexSqInt & ((1U << (classTableMajorIndexShift())) - 1);
         classOop =
-            longAt((void *)((classTablePage + BaseHeaderSize) +
-                            ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+            fetchPointerofObject(fieldIndex, classTablePage);
         /* end classOrNilAtIndex: */
       l1:
         if (classIndicesShouldBeValid &&
@@ -172,8 +168,7 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs,
         }
         toDoLimit = (numPointerSlotsOf(objOop)) - 1;
         for (fi = 0; fi <= toDoLimit; fi += 1) {
-          fieldOop = longAt((void *)((objOop + BaseHeaderSize) +
-                                     ((((usqInt)(fi) << (shiftForWord()))))));
+          fieldOop = fetchPointerofObject(fi, objOop);
           if ((!(fieldOop & (tagMask())))) {
             if (/* isInHeapBounds: */
                 (oopisGreaterThanOrEqualTo(fieldOop, newSpaceStart)) &&
@@ -233,8 +228,7 @@ l6:
                 ((void *)objOop));
         ok = 0;
       }
-      fieldOop = longAt(
-          (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fieldOop = fetchPointerofObject(0U, objOop);
       if ((fieldOop != 0) && ((heapMapAtWord(pointerForOop(fieldOop))) != 0)) {
         fprintf(transcript, "leak in free chunk %p @ 0 = %p is mapped\n",
                 ((void *)objOop), ((void *)fieldOop));
@@ -245,8 +239,7 @@ l6:
       /* begin isLilliputianSize: */
       assert(chunkBytes >= (BaseHeaderSize + (allocationUnit())));
       if (!(chunkBytes == (BaseHeaderSize + 8 /* allocationUnit */))) {
-        fieldOop = longAt(
-            (void *)((objOop + BaseHeaderSize) + (1U << (shiftForWord()))));
+        fieldOop = fetchPointerofObject(1U, objOop);
         if ((fieldOop != 0) &&
             ((heapMapAtWord(pointerForOop(fieldOop))) != 0)) {
           fprintf(transcript, "leak in free chunk %p @ 1 = %p is mapped\n",
@@ -258,8 +251,7 @@ l6:
           0x200 /* (numFreeLists * #allocationUnit) */) {
         for (fi = 2 /* freeChunkParentIndex */;
              fi <= 4 /* freeChunkLargerIndex */; fi += 1) {
-          fieldOop = longAt((void *)((objOop + BaseHeaderSize) +
-                                     ((((usqInt)(fi) << (shiftForWord()))))));
+          fieldOop = fetchPointerofObject(fi, objOop);
           if ((fieldOop != 0) &&
               ((heapMapAtWord(pointerForOop(fieldOop))) != 0)) {
             fprintf(transcript, "leak in free chunk %p @ %d = %p is mapped\n",
@@ -291,8 +283,7 @@ l6:
         }
         if ((!((longAt((void *)(objOop))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          fieldOop = longAt(
-              (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+          fieldOop = fetchPointerofObject(0U, objOop);
           if (/* isInHeapBounds: */
               (oopisGreaterThanOrEqualTo(fieldOop, newSpaceStart)) &&
               (oopisLessThan(fieldOop, endOfMemory))) {
@@ -325,10 +316,8 @@ l6:
           fieldIndex =
               ((usqInt)(classIndexSqInt)) >> (classTableMajorIndexShift());
 
-          /* begin fetchPointer:ofObject: */
           classTablePage =
-              longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                              ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+              fetchPointerofObject(fieldIndex, hiddenRootsObj);
           if (classTablePage == nilObj) {
             classOop = nilObj;
             goto l3;
@@ -336,8 +325,7 @@ l6:
           fieldIndex =
               classIndexSqInt & ((1U << (classTableMajorIndexShift())) - 1);
           classOop =
-              longAt((void *)((classTablePage + BaseHeaderSize) +
-                              ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+              fetchPointerofObject(fieldIndex, classTablePage);
           /* end classOrNilAtIndex: */
         l3:
           if (classIndicesShouldBeValid &&
@@ -349,8 +337,7 @@ l6:
           }
           toDoLimit1 = (numPointerSlotsOf(objOop)) - 1;
           for (fi = 0; fi <= toDoLimit1; fi += 1) {
-            fieldOop = longAt((void *)((objOop + BaseHeaderSize) +
-                                       ((((usqInt)(fi) << (shiftForWord()))))));
+            fieldOop = fetchPointerofObject(fi, objOop);
             if ((!(fieldOop & (tagMask())))) {
               if (/* isInHeapBounds: */
                   (oopisGreaterThanOrEqualTo(fieldOop, newSpaceStart)) &&
@@ -444,12 +431,10 @@ l6:
   objStackPage = mournQueue;
   while (objStackPage != 0) {
     numOnThisPage =
-        longAt((void *)((objStackPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+        fetchPointerofObject(ObjStackTopx, objStackPage);
     for (iSqInt = ((numOnThisPage + ObjStackFixedSlots) - 1);
          iSqInt >= ObjStackFixedSlots; iSqInt += -1) {
-      obj = longAt((void *)((objStackPage + BaseHeaderSize) +
-                            ((((usqInt)(iSqInt) << (shiftForWord()))))));
+      obj = fetchPointerofObject(iSqInt, objStackPage);
       if (obj & (BytesPerWord - 1)) {
         fprintf(transcript, "misaligned oop in mournQueue @ %d in %p = %p\n",
                 ((int)iSqInt), ((void *)objStackPage), ((void *)obj));
@@ -467,8 +452,7 @@ l6:
       }
     }
     objStackPage =
-        longAt((void *)((objStackPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+        fetchPointerofObject(ObjStackNextx, objStackPage);
   }
   /* end objStack:do: */
 l4:

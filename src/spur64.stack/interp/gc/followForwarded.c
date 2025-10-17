@@ -21,10 +21,9 @@ sqInt followForwarded(sqInt objOop) {
 
   assert(isUnambiguouslyForwarder(objOop));
   referent =
-      longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fetchPointerofObject(0U, objOop);
   while (isOopForwarded(referent)) {
-    referent = longAt(
-        (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
+    referent = fetchPointerofObject(0U, referent);
   }
   return referent;
 }

@@ -7,8 +7,7 @@ usqInt argumentCountOf(sqInt methodPointer) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(methodPointer));
-  header = longAt((void *)((methodPointer + BaseHeaderSize) +
-                           ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  header = fetchPointerofObject(HeaderIndex, methodPointer);
 
   /* begin argumentCountOfMethodHeader: */
   return (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;

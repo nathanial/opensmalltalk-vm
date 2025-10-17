@@ -51,8 +51,7 @@ void printMethodReferencesTo(sqInt anOop) {
         i = ((literalCountOf(objSqInt)) + LiteralStart) - 1;
         while (((i -= 1)) >= 0) {
           if (anOop ==
-              (longAt((void *)((objSqInt + BaseHeaderSize) +
-                               ((((usqInt)(i) << (shiftForWord())))))))) {
+              (fetchPointerofObject(i, objSqInt))) {
             printHex(objSqInt);
             print(" @ ");
             printNum(i);

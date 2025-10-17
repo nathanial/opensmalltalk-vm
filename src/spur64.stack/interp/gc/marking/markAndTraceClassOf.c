@@ -23,17 +23,14 @@ static void markAndTraceClassOf(sqInt objOop) {
   assert((classIndex <= (tagMask())) || (classIndex >= (arrayClassIndexPun())));
   fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
-  /* begin fetchPointer:ofObject: */
   classTablePage =
-      longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                      ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+      fetchPointerofObject(fieldIndex, hiddenRootsObj);
   if (classTablePage == nilObj) {
     classObj = nilObj;
     goto l1;
   }
   fieldIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);
-  classObj = longAt((void *)((classTablePage + BaseHeaderSize) +
-                             ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  classObj = fetchPointerofObject(fieldIndex, classTablePage);
   /* end classOrNilAtIndex: */
 l1:
   assert(objCouldBeClassObj(classObj));

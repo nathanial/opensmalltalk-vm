@@ -12,12 +12,9 @@ static sqInt isLiveContext(sqInt oop) {
          ClassMethodContextCompactIndex))) {
     return 0;
   }
-  if ((!((longAt((void *)((oop + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord()))))))) &
+  if ((!((fetchPointerofObject(SenderIndex, oop)) &
          (tagMask())))) {
-    return ((((longAt((void *)((oop + BaseHeaderSize) +
-                               ((((usqInt)(InstructionPointerIndex)
-                                  << (shiftForWord())))))))) &
+    return ((((fetchPointerofObject(InstructionPointerIndex, oop))) &
              7) == 1);
   }
   return !(isWidowedContext(oop));

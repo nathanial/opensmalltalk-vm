@@ -12,12 +12,10 @@ void printMethodDictionary(sqInt dictionary) {
   sqInt toDoLimit;
 
   methodArray =
-      longAt((void *)((dictionary + BaseHeaderSize) +
-                      ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
+      fetchPointerofObject(MethodArrayIndex, dictionary);
   toDoLimit = (numSlotsOf(dictionary)) - 1;
   for (index = SelectorStart; index <= toDoLimit; index += 1) {
-    selector = longAt((void *)((dictionary + BaseHeaderSize) +
-                               ((((usqInt)(index) << (shiftForWord()))))));
+    selector = fetchPointerofObject(index, dictionary);
     if (selector != nilObj) {
       meth = longAt((
           void *)((methodArray + BaseHeaderSize) +

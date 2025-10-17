@@ -27,8 +27,7 @@ sqInt indexOfin(sqInt anElement, sqInt anObject) {
              : numSlotsUsqInt);
     for (i = 0; i <= numSlots; i += 1) {
       if (anElement ==
-          (longAt((void *)((anObject + BaseHeaderSize) +
-                           ((((usqInt)(i) << (shiftForWord())))))))) {
+          (fetchPointerofObject(i, anObject))) {
         return i;
       }
     }

@@ -16,8 +16,7 @@ sqInt methodPrimitiveIndex(void) {
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(newMethod));
   methodHeader =
-      longAt((void *)((newMethod + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, newMethod);
 
   /* begin primitiveIndexOfMethod:header: */
   return (((methodHeader & AlternateHeaderHasPrimFlag) != 0)

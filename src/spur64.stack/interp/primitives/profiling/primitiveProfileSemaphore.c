@@ -23,9 +23,7 @@ primitiveProfileSemaphore(void) {
     if (!(/* isSemaphoreOop: */
           ((!(sema & (tagMask())))) &&
           (((longAt((void *)(sema))) & (classIndexMask())) ==
-           (rawHashBitsOf(longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                          ((((usqInt)(ClassSemaphore)
-                                             << (shiftForWord()))))))))))) {
+           (rawHashBitsOf(fetchPointerofObject(ClassSemaphore, specialObjectsOop)))))) {
       return (primFailCode = PrimErrBadArgument);
     }
     profileSemaphore = sema;

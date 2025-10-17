@@ -18,12 +18,10 @@ static void inFreeTreeReplacewith(sqInt treeNode, sqInt newNode) {
   /* copy parent, smaller, larger */
   for (i = 2 /* freeChunkParentIndex */; i <= 4 /* freeChunkLargerIndex */;
        i += 1) {
-    relative = longAt((void *)((treeNode + BaseHeaderSize) +
-                               ((((usqInt)(i) << (shiftForWord()))))));
+    relative = fetchPointerofObject(i, treeNode);
     if (i == 2 /* freeChunkParentIndex */) {
       if (relative) {
-        fieldIndex = (treeNode == (longAt((void *)((relative + BaseHeaderSize) +
-                                                   (3U << (shiftForWord())))))
+        fieldIndex = (treeNode == (fetchPointerofObject(3U, relative))
                           ? 3 /* freeChunkSmallerIndex */
                           : 4 /* freeChunkLargerIndex */);
 

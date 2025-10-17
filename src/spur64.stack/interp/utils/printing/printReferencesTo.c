@@ -59,9 +59,7 @@ void printReferencesTo(sqInt anOop) {
             (((longAt((void *)(objSqInt))) & (classIndexMask())) ==
              ClassMethodContextCompactIndex)) {
           /* begin fetchStackPointerOf: */
-          sp = longAt(
-              (void *)((objSqInt + BaseHeaderSize) +
-                       ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+          sp = fetchPointerofObject(StackPointerIndex, objSqInt);
           if (!((((sp) & 7) == 1))) {
             contextSize = 0;
             goto l2;
@@ -101,8 +99,7 @@ void printReferencesTo(sqInt anOop) {
       /* begin methodHeaderOf: */
       assert(isCompiledMethod(objSqInt));
       header =
-          longAt((void *)((objSqInt + BaseHeaderSize) +
-                          ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+          fetchPointerofObject(HeaderIndex, objSqInt);
 
       /* begin literalCountOfMethodHeader: */
       assert((((header) & 7) == 1));
@@ -112,8 +109,7 @@ void printReferencesTo(sqInt anOop) {
     l3:
       while (((i -= 1)) >= 0) {
         if (anOop ==
-            (longAt((void *)((objSqInt + BaseHeaderSize) +
-                             ((((usqInt)(i) << (shiftForWord())))))))) {
+            (fetchPointerofObject(i, objSqInt))) {
           printHex(objSqInt);
           print(" @ ");
           printNum(i);

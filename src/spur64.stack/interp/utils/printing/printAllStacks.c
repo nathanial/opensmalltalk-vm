@@ -35,10 +35,7 @@ void printAllStacks(void) {
   proc = activeProcess();
   printNameOfClasscount(/* fetchClassOf: */
                         ((tagBits = proc & (tagMask()))
-                             ? longAt((void *)((classTableFirstPage +
-                                                BaseHeaderSize) +
-                                               ((((usqInt)(tagBits)
-                                                  << (shiftForWord()))))))
+                             ? fetchPointerofObject(tagBits, classTableFirstPage)
                              : fetchClassOfNonImm(proc)),
                         5);
 
@@ -54,29 +51,20 @@ void printAllStacks(void) {
     printProcessStack(proc);
   }
   objOop =
-      longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                        ((((usqInt)(SchedulerAssociation)
-                                           << (shiftForWord()))))))) +
-                       BaseHeaderSize) +
-                      ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
 
-  /* begin fetchPointer:ofObject: */
   schedLists =
-      longAt((void *)((objOop + BaseHeaderSize) +
-                      ((((usqInt)(ProcessListsIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ProcessListsIndex, objOop);
   linkedListClass = null;
 
   /* then the runnable processes */
   p = (highestRunnableProcessPriority ? highestRunnableProcessPriority
                                       : numSlotsOf(schedLists));
   for (pri = (p - 1); pri >= 0; pri += -1) {
-    processList = longAt((void *)((schedLists + BaseHeaderSize) +
-                                  ((((usqInt)(pri) << (shiftForWord()))))));
+    processList = fetchPointerofObject(pri, schedLists);
     if (!(isEmptyList(processList))) {
       if (proc == nilObj) {
-        proc = longAt(
-            (void *)((processList + BaseHeaderSize) +
-                     ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))));
+        proc = fetchPointerofObject(FirstLinkIndex, processList);
       }
       cr();
       print("processes at priority ");
@@ -89,14 +77,12 @@ void printAllStacks(void) {
   }
   if (!linkedListClass) {
     classPointer =
-        longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                        ((((usqInt)(ClassSemaphore) << (shiftForWord()))))));
+        fetchPointerofObject(ClassSemaphore, specialObjectsOop);
 
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
     linkedListClass =
-        longAt((void *)((classPointer + BaseHeaderSize) +
-                        ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SuperclassIndex, classPointer);
     assert(isNonImmediate(linkedListClass));
     if ((!((longAt((void *)(linkedListClass))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -118,8 +104,7 @@ void printAllStacks(void) {
   processClass =
       (!(proc == nilObj) ? /* fetchClassOf: */
            ((tagBits = proc & (tagMask()))
-                ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                                  ((((usqInt)(tagBits) << (shiftForWord()))))))
+                ? fetchPointerofObject(tagBits, classTableFirstPage)
                 : fetchClassOfNonImm(proc))
                          : 0);
   minProcessInstSize = MyListIndex + 1;
@@ -127,8 +112,7 @@ void printAllStacks(void) {
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
     objOop =
-        longAt((void *)((processClass + BaseHeaderSize) +
-                        ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SuperclassIndex, processClass);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -167,13 +151,10 @@ void printAllStacks(void) {
       if ((((byteAt((void *)(objSqInt + (formatFieldByteOffset())))) &
             (formatMask())) <= 5 /* lastPointerFormat */) &&
           (((numSlotsOf(objSqInt)) >= minProcessInstSize) &&
-           ((isContext(longAt((void *)((objSqInt + BaseHeaderSize) +
-                                       ((((usqInt)(SuspendedContextIndex)
-                                          << (shiftForWord())))))))) &&
+           ((isContext(fetchPointerofObject(SuspendedContextIndex, objSqInt))) &&
             (isKindOfClass(objSqInt, processClass))))) {
         myList =
-            longAt((void *)((objSqInt + BaseHeaderSize) +
-                            ((((usqInt)(MyListIndex) << (shiftForWord()))))));
+            fetchPointerofObject(MyListIndex, objSqInt);
         if ((myList != nilObj) &&
             ((((myListClass = fetchClassOfNonImm(myList))) !=
               linkedListClass) &&

@@ -22,17 +22,12 @@ sqInt objCouldBeClassObj(sqInt objOop) {
                 (formatMask())) <= 5 /* lastPointerFormat */) ||
               ((isOopForwarded(fieldOop)) &&
                (isPointers(followForwarded(fieldOop)))))) &&
-                (((fieldOop = longAt((void *)((objOop + BaseHeaderSize) +
-                                              ((((usqInt)(MethodDictionaryIndex)
-                                                 << (shiftForWord()))))))),
+                (((fieldOop = fetchPointerofObject(MethodDictionaryIndex, objOop)),
                   ((addressCouldBeObj(fieldOop)) &&
                    ((((byteAt((void *)(fieldOop + (formatFieldByteOffset())))) &
                       (formatMask())) <= 5 /* lastPointerFormat */) ||
                     ((isOopForwarded(fieldOop)) &&
                      (isPointers(followForwarded(fieldOop)))))) &&
-                      (((((longAt(
-                             (void *)((objOop + BaseHeaderSize) +
-                                      ((((usqInt)(InstanceSpecificationIndex)
-                                         << (shiftForWord())))))))) &
+                      (((((fetchPointerofObject(InstanceSpecificationIndex, objOop))) &
                          7) == 1)))))));
 }

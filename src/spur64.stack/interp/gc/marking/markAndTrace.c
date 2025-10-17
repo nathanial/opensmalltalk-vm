@@ -155,9 +155,7 @@ NeverInline void markAndTrace(sqInt objOop) {
         if (fmt == (weakArrayFormat())) {
           objOopSqIntSqInt = fetchClassOfNonImm(objToScan);
           numStrongSlots =
-              (((longAt((void *)((objOopSqIntSqInt + BaseHeaderSize) +
-                                 ((((usqInt)(InstanceSpecificationIndex)
-                                    << (shiftForWord()))))))) >>
+              (((fetchPointerofObject(InstanceSpecificationIndex, objOopSqIntSqInt)) >>
                 3)) &
               ((1U << (fixedFieldsFieldWidth())) - 1);
           goto l4;
@@ -177,8 +175,7 @@ NeverInline void markAndTrace(sqInt objOop) {
       /* begin methodHeaderOf: */
       assert(isCompiledMethod(objToScan));
       header =
-          longAt((void *)((objToScan + BaseHeaderSize) +
-                          ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+          fetchPointerofObject(HeaderIndex, objToScan);
 
       /* begin literalCountOfMethodHeader: */
       assert((((header) & 7) == 1));
@@ -198,8 +195,7 @@ NeverInline void markAndTrace(sqInt objOop) {
       }
       while (index > 0) {
         index -= 1;
-        field = longAt((void *)((objToScan + BaseHeaderSize) +
-                                ((((usqInt)(index) << (shiftForWord()))))));
+        field = fetchPointerofObject(index, objToScan);
         if ((!(field & (tagMask())))) {
           if ((!((longAt((void *)(field))) &
                  ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -332,8 +328,7 @@ NeverInline void markAndTrace(sqInt objOop) {
       markAndTraceClassOf(objToScan);
       while (index > 0) {
         index -= 1;
-        field = longAt((void *)((objToScan + BaseHeaderSize) +
-                                ((((usqInt)(index) << (shiftForWord()))))));
+        field = fetchPointerofObject(index, objToScan);
         if ((!(field & (tagMask())))) {
           if ((!((longAt((void *)(field))) &
                  ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

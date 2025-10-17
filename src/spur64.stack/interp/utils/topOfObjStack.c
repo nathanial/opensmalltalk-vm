@@ -14,13 +14,10 @@ static sqInt topOfObjStack(sqInt objStack) {
       objStack ==
           (fetchPointerofObject(fetchPointerofObject(ObjStackMyx, objStack),
                                 hiddenRootsObj))));
-  topx = longAt((void *)((objStack + BaseHeaderSize) +
-                         ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+  topx = fetchPointerofObject(ObjStackTopx, objStack);
   if (!topx) {
     assert((fetchPointerofObject(ObjStackNextx, objStack)) == 0);
     return null;
   }
-  return longAt((void *)((objStack + BaseHeaderSize) +
-                         ((((usqInt)(((topx + ObjStackFixedSlots) - 1))
-                            << (shiftForWord()))))));
+  return fetchPointerofObject((topx + ObjStackFixedSlots) - 1, objStack);
 }

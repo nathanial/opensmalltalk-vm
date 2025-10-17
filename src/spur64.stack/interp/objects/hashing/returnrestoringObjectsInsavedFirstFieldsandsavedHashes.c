@@ -32,10 +32,8 @@ static sqInt returnrestoringObjectsInsavedFirstFieldsandsavedHashes(
                  8
            : numSlotsUsqInt);
   for (i = 0; i < numSlots; i += 1) {
-    oop = longAt((void *)((reachableObjectsArray + BaseHeaderSize) +
-                          ((((usqInt)(i) << (shiftForWord()))))));
-    valuePointer = longAt((void *)((savedFirstFields + BaseHeaderSize) +
-                                   ((((usqInt)(i) << (shiftForWord()))))));
+    oop = fetchPointerofObject(i, reachableObjectsArray);
+    valuePointer = fetchPointerofObject(i, savedFirstFields);
 
     /* begin storePointerUnchecked:ofObject:withValue: */
     assert((isNonImmediate(oop)) && (!(isForwarded(oop))));
@@ -77,8 +75,7 @@ static sqInt returnrestoringObjectsInsavedFirstFieldsandsavedHashes(
       }
       goto l1;
     }
-    oop = longAt((void *)((outPointersArray + BaseHeaderSize) +
-                          ((((usqInt)(i) << (shiftForWord()))))));
+    oop = fetchPointerofObject(i, outPointersArray);
 
     /* begin setHashBitsOf:to: */
     long32Atput((void *)(oop + 4), ((((long32At((void *)(oop + 4))) |

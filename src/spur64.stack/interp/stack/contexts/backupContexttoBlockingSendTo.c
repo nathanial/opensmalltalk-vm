@@ -21,17 +21,12 @@ static void backupContexttoBlockingSendTo(sqInt suspendedContext,
   StackPage *thePage;
 
   assert(isContext(suspendedContext));
-  theMethod = longAt((void *)((suspendedContext + BaseHeaderSize) +
-                              ((((usqInt)(MethodIndex) << (shiftForWord()))))));
-  if ((!((longAt((void *)((suspendedContext + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord()))))))) &
+  theMethod = fetchPointerofObject(MethodIndex, suspendedContext);
+  if ((!((fetchPointerofObject(SenderIndex, suspendedContext)) &
          (tagMask())))) {
-    pc = longAt(
-        (void *)((suspendedContext + BaseHeaderSize) +
-                 ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))));
+    pc = fetchPointerofObject(InstructionPointerIndex, suspendedContext);
     sp =
-        longAt((void *)((suspendedContext + BaseHeaderSize) +
-                        ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+        fetchPointerofObject(StackPointerIndex, suspendedContext);
     assert(((((pc) & 7) == 1)) && (((pc >> 3)) > 0));
     assert(((((sp) & 7) == 1)) && (((sp >> 3)) > 0));
     theIP = ((theMethod + BaseHeaderSize) + ((pc >> 3))) - 1;
@@ -79,8 +74,7 @@ static void backupContexttoBlockingSendTo(sqInt suspendedContext,
   assert(!((isWidowedContextNoConvert(suspendedContext))));
 
   /* begin frameOfMarriedContext: */
-  senderOop = longAt((void *)((suspendedContext + BaseHeaderSize) +
-                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  senderOop = fetchPointerofObject(SenderIndex, suspendedContext);
   assert((((senderOop) & 7) == 1));
   theFP = ((char *)(senderOop - (smallIntegerTag())));
 

@@ -22,21 +22,17 @@ static void primitiveBeDisplay(void) {
          (((byteAt((void *)(rcvr + (formatFieldByteOffset())))) &
            (formatMask())) <= 5 /* lastPointerFormat */)) &&
         (((lengthOf(rcvr)) >= 4) &&
-         (((bitsOop = longAt(
-                (void *)((rcvr + BaseHeaderSize) + (0U << (shiftForWord()))))),
+         (((bitsOop = fetchPointerofObject(0U, rcvr)),
            ((/* isWordsOrBytes: */
              ((!(bitsOop & (tagMask())))) && (isWordsOrBytesNonImm(bitsOop))) ||
             ((((bitsOop) & 7) == 1))) &&
-               (((((((widthOop = longAt((void *)((rcvr + BaseHeaderSize) +
-                                                 (1U << (shiftForWord()))))))) &
+               (((((((widthOop = fetchPointerofObject(1U, rcvr)))) &
                    7) == 1)) &&
                 (((((((heightOop =
-                           longAt((void *)((rcvr + BaseHeaderSize) +
-                                           (2U << (shiftForWord()))))))) &
+                           fetchPointerofObject(2U, rcvr)))) &
                     7) == 1)) &&
                  ((((((depthOop =
-                           longAt((void *)((rcvr + BaseHeaderSize) +
-                                           (3U << (shiftForWord()))))))) &
+                           fetchPointerofObject(3U, rcvr)))) &
                     7) == 1))))))))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadReceiver;

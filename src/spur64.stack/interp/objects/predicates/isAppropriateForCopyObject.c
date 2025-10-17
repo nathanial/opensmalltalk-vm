@@ -10,9 +10,7 @@ static sqInt isAppropriateForCopyObject(sqInt oop) {
   if (((longAt((void *)(oop))) & (classIndexMask())) ==
       ClassMethodContextCompactIndex) {
     return !(/* isStillMarriedContext: */
-             (((((longAt((void *)((oop + BaseHeaderSize) +
-                                  ((((usqInt)(SenderIndex)
-                                     << (shiftForWord())))))))) &
+             (((((fetchPointerofObject(SenderIndex, oop))) &
                 7) == 1)) &&
              (!(isWidowedContext(oop))));
   }

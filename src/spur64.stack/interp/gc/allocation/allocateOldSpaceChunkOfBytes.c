@@ -44,8 +44,7 @@ static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
 
         /* For some reason the assertion is not compiled correctly */
         freeLists[initialIndex] =
-            ((next = longAt((void *)((chunk + BaseHeaderSize) +
-                                     (0U << (shiftForWord()))))));
+            ((next = fetchPointerofObject(0U, chunk)));
         if ((!lilliputian) && (next != 0)) {
           /* begin storePointer:ofFreeChunk:withValue: */
           assert(isFreeObject(next));
@@ -72,8 +71,7 @@ static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
 
           /* For some reason the assertion is not compiled correctly */
           freeLists[index] =
-              ((next = longAt((void *)((chunk + BaseHeaderSize) +
-                                       (0U << (shiftForWord()))))));
+              ((next = fetchPointerofObject(0U, chunk)));
           if (next) {
             /* begin storePointer:ofFreeChunk:withValue: */
             assert(isFreeObject(next));
@@ -115,8 +113,7 @@ static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
 
           /* For some reason the assertion is not compiled correctly */
           freeLists[index] =
-              ((next = longAt((void *)((chunk + BaseHeaderSize) +
-                                       (0U << (shiftForWord()))))));
+              ((next = fetchPointerofObject(0U, chunk)));
           if (next) {
             /* begin storePointer:ofFreeChunk:withValue: */
             assert(isFreeObject(next));
@@ -153,12 +150,11 @@ static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
     childBytes = bytesInBody(child);
     if (childBytes == chunkBytes) {
       chunk =
-          longAt((void *)((child + BaseHeaderSize) + (0U << (shiftForWord()))));
+          fetchPointerofObject(0U, child);
       if (chunk) {
         /* begin assertValidFreeObject: */
         assert(assertInnerValidFreeObject(chunk));
-        nextFreeChunk = longAt(
-            (void *)((chunk + BaseHeaderSize) + (0U << (shiftForWord()))));
+        nextFreeChunk = fetchPointerofObject(0U, chunk);
 
         /* begin setNextFreeChunkOf:withValue:isLilliputianSize: */
         /* begin storePointer:ofFreeChunk:withValue: */
@@ -187,14 +183,12 @@ static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
       child = 0;
     } else {
       if (childBytes <= (chunkBytes + 8 /* allocationUnit */)) {
-        child = longAt(
-            (void *)((child + BaseHeaderSize) + (4U << (shiftForWord()))));
+        child = fetchPointerofObject(4U, child);
       } else {
         /* parent will be smallest node >= chunkBytes + allocationUnit */
         parent = child;
         nodeBytes = childBytes;
-        child = longAt(
-            (void *)((child + BaseHeaderSize) + (3U << (shiftForWord()))));
+        child = fetchPointerofObject(3U, child);
       }
     }
   }
@@ -211,12 +205,12 @@ static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
 
   /* attempt to remove from list */
   chunk =
-      longAt((void *)((parent + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fetchPointerofObject(0U, parent);
   if (chunk) {
     assert((chunkBytes == nodeBytes) ||
            ((chunkBytes + (allocationUnit())) < nodeBytes));
     nextFreeChunk =
-        longAt((void *)((chunk + BaseHeaderSize) + (0U << (shiftForWord()))));
+        fetchPointerofObject(0U, chunk);
 
     /* begin setNextFreeChunkOf:withValue:isLilliputianSize: */
     /* begin storePointer:ofFreeChunk:withValue: */

@@ -11,8 +11,7 @@ sqInt isKindOf(sqInt oop, char *className) {
 
   oopClass = /* fetchClassOf: */
       ((tagBits = oop & (tagMask()))
-           ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                             ((((usqInt)(tagBits) << (shiftForWord()))))))
+           ? fetchPointerofObject(tagBits, classTableFirstPage)
            : fetchClassOfNonImm(oop));
   while (!(oopClass == nilObj)) {
     if (classNameOfIs(oopClass, className)) {
@@ -22,8 +21,7 @@ sqInt isKindOf(sqInt oop, char *className) {
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
     objOop =
-        longAt((void *)((oopClass + BaseHeaderSize) +
-                        ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SuperclassIndex, oopClass);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

@@ -71,8 +71,7 @@ sqInt returnAsThroughCallbackContext(sqInt returnTypeOop,
 
   /* Mark callbackMethodContext as dead; the common case is that it is the
      current frame. We go the extra mile for the debugger. */
-  if ((!((longAt((void *)((callbackMethodContext + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord()))))))) &
+  if ((!((fetchPointerofObject(SenderIndex, callbackMethodContext)) &
          (tagMask())))) {
     assert(((debugCallbackPath = debugCallbackPath | 4)) > 0);
 
@@ -100,8 +99,7 @@ sqInt returnAsThroughCallbackContext(sqInt returnTypeOop,
 
     /* begin frameOfMarriedContext: */
     senderOop =
-        longAt((void *)((callbackMethodContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SenderIndex, callbackMethodContext);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
     assert((frameReceiver(theFP)) == (splObj(ClassAlien)));
@@ -125,8 +123,7 @@ sqInt returnAsThroughCallbackContext(sqInt returnTypeOop,
         /* begin methodHeaderOf: */
         assert(isCompiledMethod(method));
         methodHeader =
-            longAt((void *)((method + BaseHeaderSize) +
-                            ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+            fetchPointerofObject(HeaderIndex, method);
         if ((((sqLong)methodHeader)) < 0) {
           bytecodeSetSelector = 0x100;
         } else {
@@ -180,16 +177,14 @@ sqInt returnAsThroughCallbackContext(sqInt returnTypeOop,
      calloutMethodContext is immediately below callbackMethodContext on the same
      page is handled above. */
   if (/* isStillMarriedContext: */
-      (((((longAt((void *)((calloutMethodContext + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+      (((((fetchPointerofObject(SenderIndex, calloutMethodContext))) &
          7) == 1)) &&
       (!(isWidowedContext(calloutMethodContext)))) {
     assert(((debugCallbackPath = debugCallbackPath | 128)) > 0);
 
     /* begin frameOfMarriedContext: */
     senderOop =
-        longAt((void *)((calloutMethodContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SenderIndex, calloutMethodContext);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -221,16 +216,14 @@ sqInt returnAsThroughCallbackContext(sqInt returnTypeOop,
   instructionPointer = top;
 
   /* begin setMethod: */
-  method = longAt((void *)((calloutMethodContext + BaseHeaderSize) +
-                           ((((usqInt)(MethodIndex) << (shiftForWord()))))));
+  method = fetchPointerofObject(MethodIndex, calloutMethodContext);
   assert(isOopCompiledMethod(method));
 
   /* begin methodUsesAlternateBytecodeSet: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
   methodHeader =
-      longAt((void *)((method + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeader)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

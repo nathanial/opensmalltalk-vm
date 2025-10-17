@@ -25,8 +25,7 @@ static void printActivationNameForreceiverisBlockfirstTemporary(
        (addressCouldBeClassObj(
            (classObj = /* fetchClassOf: */
             ((tagBits = anObject & (tagMask()))
-                 ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                                   ((((usqInt)(tagBits) << (shiftForWord()))))))
+                 ? fetchPointerofObject(tagBits, classTableFirstPage)
                  : fetchClassOfNonImm(anObject))))))) {
     printNameOfClasscount(classObj, 5);
     if (!((classObj == methClass) || ((!methClass) || (methClass == nilObj)))) {
@@ -55,17 +54,11 @@ static void printActivationNameForreceiverisBlockfirstTemporary(
     print("INVALID SELECTOR = ");
     printHex(methodSel);
   }
-  if ((methodSel == (longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                     ((((usqInt)(SelectorDoesNotUnderstand)
-                                        << (shiftForWord())))))))) &&
+  if ((methodSel == (fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop))) &&
       ((addressCouldBeObj(maybeMessage)) &&
        ((fetchClassOfNonImm(maybeMessage)) ==
-        (longAt(
-            (void *)((specialObjectsOop + BaseHeaderSize) +
-                     ((((usqInt)(ClassMessage) << (shiftForWord())))))))))) {
-    methodSel = longAt(
-        (void *)((maybeMessage + BaseHeaderSize) +
-                 ((((usqInt)(MessageSelectorIndex) << (shiftForWord()))))));
+        (fetchPointerofObject(ClassMessage, specialObjectsOop))))) {
+    methodSel = fetchPointerofObject(MessageSelectorIndex, maybeMessage);
 
     /* begin space */
     printChar(' ');

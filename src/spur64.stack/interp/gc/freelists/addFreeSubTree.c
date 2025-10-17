@@ -32,8 +32,7 @@ static void addFreeSubTree(sqInt freeTree) {
     assert(bytesInNode >= ((numFreeLists()) * (allocationUnit())));
     assert(bytesInArg != bytesInNode);
     if (bytesInNode > bytesInArg) {
-      subNode = longAt(
-          (void *)((treeNode + BaseHeaderSize) + (3U << (shiftForWord()))));
+      subNode = fetchPointerofObject(3U, treeNode);
       if (!subNode) {
         /* begin storePointer:ofFreeChunk:withValue: */
         assert(isFreeObject(treeNode));
@@ -51,8 +50,7 @@ static void addFreeSubTree(sqInt freeTree) {
         return;
       }
     } else {
-      subNode = longAt(
-          (void *)((treeNode + BaseHeaderSize) + (4U << (shiftForWord()))));
+      subNode = fetchPointerofObject(4U, treeNode);
       if (!subNode) {
         /* begin storePointer:ofFreeChunk:withValue: */
         assert(isFreeObject(treeNode));

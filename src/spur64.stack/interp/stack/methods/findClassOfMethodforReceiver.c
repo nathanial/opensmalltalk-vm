@@ -12,8 +12,7 @@ sqInt findClassOfMethodforReceiver(sqInt meth, sqInt rcvr) {
     rclass = findClassContainingMethodstartingAt(
         meth, /* fetchClassOf: */
         ((tagBits = rcvr & (tagMask()))
-             ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
-                               ((((usqInt)(tagBits) << (shiftForWord()))))))
+             ? fetchPointerofObject(tagBits, classTableFirstPage)
              : fetchClassOfNonImm(rcvr)));
     if (rclass != nilObj) {
       return rclass;

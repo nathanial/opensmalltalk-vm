@@ -69,8 +69,7 @@ static NeverInline sqInt objectsReachableFromRoots(sqInt arrayOfRoots) {
       1;
   for (iSqInt = 0; iSqInt <= toDoLimitSqInt; iSqInt += 1) {
     /* begin followField:ofObject: */
-    oopSqInt = longAt((void *)((arrayOfRoots + BaseHeaderSize) +
-                               ((((usqInt)(iSqInt) << (shiftForWord()))))));
+    oopSqInt = fetchPointerofObject(iSqInt, arrayOfRoots);
     if (isOopForwarded(oopSqInt)) {
       oopSqInt = fixFollowedFieldofObjectwithInitialValue(iSqInt, arrayOfRoots,
                                                           oopSqInt);
@@ -109,8 +108,7 @@ static NeverInline sqInt objectsReachableFromRoots(sqInt arrayOfRoots) {
       1;
   for (iSqInt = 0; iSqInt <= toDoLimitSqInt; iSqInt += 1) {
     /* begin followField:ofObject: */
-    oopSqInt = longAt((void *)((arrayOfRoots + BaseHeaderSize) +
-                               ((((usqInt)(iSqInt) << (shiftForWord()))))));
+    oopSqInt = fetchPointerofObject(iSqInt, arrayOfRoots);
     if (isOopForwarded(oopSqInt)) {
       oopSqInt = fixFollowedFieldofObjectwithInitialValue(iSqInt, arrayOfRoots,
                                                           oopSqInt);
@@ -162,9 +160,7 @@ static NeverInline sqInt objectsReachableFromRoots(sqInt arrayOfRoots) {
     if ((((longAt((void *)(objOop))) & (classIndexMask())) ==
          ClassMethodContextCompactIndex) &&
         (/* isStillMarriedContext: */
-         (((((longAt(
-                (void *)((objOop + BaseHeaderSize) +
-                         ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+         (((((fetchPointerofObject(SenderIndex, objOop))) &
             7) == 1)) &&
          (!(isWidowedContext(objOop))))) {
       toDoLimit = (numSlotsOfMarriedContext(objOop)) - 1;
@@ -184,8 +180,7 @@ static NeverInline sqInt objectsReachableFromRoots(sqInt arrayOfRoots) {
     } else {
       toDoLimit1 = (numPointerSlotsOf(objOop)) - 1;
       for (i = 0; i <= toDoLimit1; i += 1) {
-        oop = longAt((void *)((objOop + BaseHeaderSize) +
-                              ((((usqInt)(i) << (shiftForWord()))))));
+        oop = fetchPointerofObject(i, objOop);
         if (!((((oop & (tagMask())) != 0)) ||
               (((byteAt((void *)(oop + (markBitsByteOffset())))) &
                 (1U << (markedBitByteShift()))) != 0))) {

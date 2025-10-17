@@ -10,10 +10,8 @@ static sqInt removeFirstLinkOfList(sqInt aList) {
   sqInt next;
 
   assert(!((isForwarded(aList))));
-  first = longAt((void *)((aList + BaseHeaderSize) +
-                          ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))));
-  last = longAt((void *)((aList + BaseHeaderSize) +
-                         ((((usqInt)(LastLinkIndex) << (shiftForWord()))))));
+  first = fetchPointerofObject(FirstLinkIndex, aList);
+  last = fetchPointerofObject(LastLinkIndex, aList);
   assert(!((isForwarded(first))));
   assert(!((isForwarded(last))));
   if (first == last) {
@@ -31,8 +29,7 @@ static sqInt removeFirstLinkOfList(sqInt aList) {
                        ((((usqInt)(LastLinkIndex) << (shiftForWord()))))),
               nilObj);
   } else {
-    next = longAt((void *)((first + BaseHeaderSize) +
-                           ((((usqInt)(NextLinkIndex) << (shiftForWord()))))));
+    next = fetchPointerofObject(NextLinkIndex, first);
 
     /* begin storePointer:ofObject:withValue: */
     assert(validStorePointerArgs(FirstLinkIndex, aList, next));

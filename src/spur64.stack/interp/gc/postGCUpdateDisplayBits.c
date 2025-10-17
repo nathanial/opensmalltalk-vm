@@ -11,8 +11,7 @@ static sqInt postGCUpdateDisplayBits(void) {
   sqInt bitsOop;
   sqInt displayObj;
 
-  displayObj = longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                               ((((usqInt)(TheDisplay) << (shiftForWord()))))));
+  displayObj = fetchPointerofObject(TheDisplay, specialObjectsOop);
   if (!((/* isPointers: */
          ((!(displayObj & (tagMask())))) &&
          (((byteAt((void *)(displayObj + (formatFieldByteOffset())))) &
@@ -22,8 +21,7 @@ static sqInt postGCUpdateDisplayBits(void) {
   }
 
   /* begin followOopField:ofObject: */
-  bitsOop = longAt(
-      (void *)((displayObj + BaseHeaderSize) + (0U << (shiftForWord()))));
+  bitsOop = fetchPointerofObject(0U, displayObj);
   if (isOopForwarded(bitsOop)) {
     bitsOop = fixFollowedFieldofObjectwithInitialValue(0, displayObj, bitsOop);
   }
@@ -40,8 +38,7 @@ static sqInt postGCUpdateDisplayBits(void) {
       pinObject(bitsOop);
 
       /* begin followOopField:ofObject: */
-      bitsOop = longAt(
-          (void *)((displayObj + BaseHeaderSize) + (0U << (shiftForWord()))));
+      bitsOop = fetchPointerofObject(0U, displayObj);
       if (isOopForwarded(bitsOop)) {
         bitsOop =
             fixFollowedFieldofObjectwithInitialValue(0, displayObj, bitsOop);

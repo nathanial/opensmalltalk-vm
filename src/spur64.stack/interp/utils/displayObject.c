@@ -3,6 +3,5 @@
 /* SpurMemoryManager>>#displayObject */
 
 sqInt displayObject(void) {
-  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(TheDisplay) << (shiftForWord()))))));
+  return fetchPointerofObject(TheDisplay, specialObjectsOop);
 }

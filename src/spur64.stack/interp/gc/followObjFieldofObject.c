@@ -9,8 +9,7 @@
 static sqInt followObjFieldofObject(sqInt fieldIndex, sqInt anObject) {
   sqInt objOop;
 
-  objOop = longAt((void *)((anObject + BaseHeaderSize) +
-                           ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  objOop = fetchPointerofObject(fieldIndex, anObject);
   assert(isNonImmediate(objOop));
   if ((!((longAt((void *)(objOop))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

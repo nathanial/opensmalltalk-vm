@@ -57,22 +57,17 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
     }
     if (((theBecomeEffectsFlags & BecamePointerObjectFlag) != 0)) {
       /* begin followForwardingPointersInScheduler */
-      schedAssoc = longAt(
-          (void *)((specialObjectsOop + BaseHeaderSize) +
-                   ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))));
+      schedAssoc = fetchPointerofObject(SchedulerAssociation, specialObjectsOop);
 
       /* the GC follows pointers in the special objects array for us. */
       assert(!(isForwarded(schedAssoc)));
 
       /* Make sure the active process has been followed. */
       followForwardedObjectFieldstoDepth(schedAssoc, 1);
-      sched = longAt((void *)((schedAssoc + BaseHeaderSize) +
-                              ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+      sched = fetchPointerofObject(ValueIndex, schedAssoc);
 
       /* begin followObjField:ofObject: */
-      procLists = longAt(
-          (void *)((sched + BaseHeaderSize) +
-                   ((((usqInt)(ProcessListsIndex) << (shiftForWord()))))));
+      procLists = fetchPointerofObject(ProcessListsIndex, sched);
       assert(isNonImmediate(procLists));
       if ((!((longAt((void *)(procLists))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -97,8 +92,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
           1;
       for (iSqInt = 0; iSqInt <= toDoLimit; iSqInt += 1) {
         /* begin followObjField:ofObject: */
-        list = longAt((void *)((procLists + BaseHeaderSize) +
-                               ((((usqInt)(iSqInt) << (shiftForWord()))))));
+        list = fetchPointerofObject(iSqInt, procLists);
         assert(isNonImmediate(list));
         if ((!((longAt((void *)(list))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -107,9 +101,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         }
 
         /* begin followObjField:ofObject: */
-        first = longAt(
-            (void *)((list + BaseHeaderSize) +
-                     ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))));
+        first = fetchPointerofObject(FirstLinkIndex, list);
         assert(isNonImmediate(first));
         if ((!((longAt((void *)(first))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -119,8 +111,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
 
         /* begin followObjField:ofObject: */
         last =
-            longAt((void *)((list + BaseHeaderSize) +
-                            ((((usqInt)(LastLinkIndex) << (shiftForWord()))))));
+            fetchPointerofObject(LastLinkIndex, list);
         assert(isNonImmediate(last));
         if ((!((longAt((void *)(last))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -129,9 +120,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         }
         while (first != last) {
           /* begin followObjField:ofObject: */
-          next = longAt(
-              (void *)((first + BaseHeaderSize) +
-                       ((((usqInt)(NextLinkIndex) << (shiftForWord()))))));
+          next = fetchPointerofObject(NextLinkIndex, first);
           assert(isNonImmediate(next));
           if ((!((longAt((void *)(next))) &
                  ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -144,9 +133,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
 
       /* begin followForwardingPointersInSpecialObjectsArray */
       /* begin followSemaphoreIn:at: */
-      obj = longAt(
-          (void *)((specialObjectsOop + BaseHeaderSize) +
-                   ((((usqInt)(TheLowSpaceSemaphore) << (shiftForWord()))))));
+      obj = fetchPointerofObject(TheLowSpaceSemaphore, specialObjectsOop);
       if ((!((longAt((void *)(obj))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
@@ -175,9 +162,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
       }
 
       /* begin followSemaphoreIn:at: */
-      obj = longAt(
-          (void *)((specialObjectsOop + BaseHeaderSize) +
-                   ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))));
+      obj = fetchPointerofObject(TheInterruptSemaphore, specialObjectsOop);
       if ((!((longAt((void *)(obj))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
@@ -206,9 +191,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
       }
 
       /* begin followSemaphoreIn:at: */
-      obj = longAt(
-          (void *)((specialObjectsOop + BaseHeaderSize) +
-                   ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))));
+      obj = fetchPointerofObject(TheTimerSemaphore, specialObjectsOop);
       if ((!((longAt((void *)(obj))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
@@ -237,9 +220,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
       }
 
       /* begin followSemaphoreIn:at: */
-      obj = longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                            ((((usqInt)(TheFinalizationSemaphore)
-                               << (shiftForWord()))))));
+      obj = fetchPointerofObject(TheFinalizationSemaphore, specialObjectsOop);
       if ((!((longAt((void *)(obj))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
@@ -266,9 +247,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
                               << (shiftForWord()))))),
                   obj);
       }
-      xArray = longAt(
-          (void *)((specialObjectsOop + BaseHeaderSize) +
-                   ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))));
+      xArray = fetchPointerofObject(ExternalObjectsArray, specialObjectsOop);
       if ((!((longAt((void *)(xArray))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         xArray = followForwarded(xArray);
@@ -311,8 +290,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
           1;
       for (ipdelta = 0; ipdelta <= toDoLimit; ipdelta += 1) {
         /* begin followSemaphoreIn:at: */
-        obj = longAt((void *)((xArray + BaseHeaderSize) +
-                              ((((usqInt)(ipdelta) << (shiftForWord()))))));
+        obj = fetchPointerofObject(ipdelta, xArray);
         if ((!((longAt((void *)(obj))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
           obj = followForwarded(obj);

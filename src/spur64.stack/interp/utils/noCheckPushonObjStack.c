@@ -12,8 +12,7 @@ static sqInt noCheckPushonObjStack(sqInt objOop, sqInt objStack) {
 
   /* for debugging markAndTrace: set (MarkStackRecord := OrderedCollection new)
    */
-  topx = longAt((void *)((objStack + BaseHeaderSize) +
-                         ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+  topx = fetchPointerofObject(ObjStackTopx, objStack);
   if (topx >= ObjStackLimit) {
     noCheckPushonObjStack(
         objOop, ensureRoomOnObjStackAt(longAt((

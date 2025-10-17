@@ -57,9 +57,7 @@ static void endCompaction(void) {
   /* begin endSlidingCompaction */
   gcPhaseInProgress = 0;
   if (rememberedSetSize > 0) {
-    objOop = longAt(
-        (void *)((hiddenRootsObj + BaseHeaderSize) +
-                 ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
+    objOop = fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj);
 
     /* begin storePointerUnchecked:ofObject:withValue: */
     assert((isNonImmediate(objOop)) && (!(isForwarded(objOop))));
@@ -68,15 +66,11 @@ static void endCompaction(void) {
     longAtput((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))),
               firstFieldOfRememberedSet);
   }
-  setIsPinnedOfto(longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                                  ((((usqInt)(RememberedSetRootIndex)
-                                     << (shiftForWord())))))),
+  setIsPinnedOfto(fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj),
                   1);
 
   /* begin relocateRememberedSet */
-  rememberedSet = firstIndexableField(longAt(
-      (void *)((hiddenRootsObj + BaseHeaderSize) +
-               ((((usqInt)(RememberedSetRootIndex) << (shiftForWord())))))));
+  rememberedSet = firstIndexableField(fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj));
   if (/* savedFirstFieldsSpaceWasAllocated */
       savedFirstFieldsSpaceNotInOldSpace &&
       (oopisGreaterThan((savedFirstFieldsSpace.start), nilObj))) {

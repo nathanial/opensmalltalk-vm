@@ -8,22 +8,19 @@
 void inOrderPrintFreeTreeprintList(sqInt freeChunk, sqInt printNextList) {
   sqInt next;
 
-  if ((next = longAt((void *)((freeChunk + BaseHeaderSize) +
-                              (3U << (shiftForWord())))))) {
+  if ((next = fetchPointerofObject(3U, freeChunk))) {
     inOrderPrintFreeTreeprintList(next, printNextList);
   }
   printFreeChunkprintAsTreeNode(freeChunk, 1);
   if (printNextList) {
     next = freeChunk;
-    while (((next = longAt((void *)((next + BaseHeaderSize) +
-                                    (0U << (shiftForWord())))))) != 0) {
+    while (((next = fetchPointerofObject(0U, next))) != 0) {
       /* begin tab */
       printChar('\t');
       printFreeChunkprintAsTreeNode(next, 0);
     }
   }
-  if ((next = longAt((void *)((freeChunk + BaseHeaderSize) +
-                              (4U << (shiftForWord())))))) {
+  if ((next = fetchPointerofObject(4U, freeChunk))) {
     inOrderPrintFreeTreeprintList(next, printNextList);
   }
 }

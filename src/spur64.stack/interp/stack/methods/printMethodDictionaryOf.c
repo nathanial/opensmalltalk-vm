@@ -5,7 +5,5 @@
 /* StackInterpreter>>#printMethodDictionaryOf: */
 
 void printMethodDictionaryOf(sqInt behavior) {
-  printMethodDictionary(longAt(
-      (void *)((behavior + BaseHeaderSize) +
-               ((((usqInt)(MethodDictionaryIndex) << (shiftForWord())))))));
+  printMethodDictionary(fetchPointerofObject(MethodDictionaryIndex, behavior));
 }

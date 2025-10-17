@@ -82,8 +82,7 @@ static sqInt checkHeapFreeSpaceIntegrity(void) {
       if (objOop != freeSpaceCheckOopToIgnore) {
         toDoLimit = (numPointerSlotsOf(objOop)) - 1;
         for (fi = 0; fi <= toDoLimit; fi += 1) {
-          fieldOop = longAt((void *)((objOop + BaseHeaderSize) +
-                                     ((((usqInt)(fi) << (shiftForWord()))))));
+          fieldOop = fetchPointerofObject(fi, objOop);
           if ((!(fieldOop & (tagMask())))) {
             if (heapMapAtWord(pointerForOop(fieldOop))) {
               fprintf(transcript, "object leak in %p @ %d = %p is free\n",
@@ -135,8 +134,7 @@ l2:
                 ((void *)objOop));
         ok = 0;
       }
-      fieldOop = longAt(
-          (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+      fieldOop = fetchPointerofObject(0U, objOop);
       if ((fieldOop != 0) && ((heapMapAtWord(pointerForOop(fieldOop))) == 0)) {
         fprintf(transcript, "leak in free chunk %p @ 0 = %p is unmapped\n",
                 ((void *)objOop), ((void *)fieldOop));
@@ -147,8 +145,7 @@ l2:
       /* begin isLilliputianSize: */
       assert(chunkBytes >= (BaseHeaderSize + (allocationUnit())));
       if (!(chunkBytes == (BaseHeaderSize + 8 /* allocationUnit */))) {
-        fieldOop = longAt(
-            (void *)((objOop + BaseHeaderSize) + (1U << (shiftForWord()))));
+        fieldOop = fetchPointerofObject(1U, objOop);
         if ((fieldOop != 0) &&
             ((heapMapAtWord(pointerForOop(fieldOop))) == 0)) {
           fprintf(transcript, "leak in free chunk %p @ 0 = %p is unmapped\n",
@@ -160,8 +157,7 @@ l2:
           0x200 /* (numFreeLists * #allocationUnit) */) {
         for (fi = 2 /* freeChunkParentIndex */;
              fi <= 4 /* freeChunkLargerIndex */; fi += 1) {
-          fieldOop = longAt((void *)((objOop + BaseHeaderSize) +
-                                     ((((usqInt)(fi) << (shiftForWord()))))));
+          fieldOop = fetchPointerofObject(fi, objOop);
           if ((fieldOop != 0) &&
               ((heapMapAtWord(pointerForOop(fieldOop))) == 0)) {
             fprintf(transcript, "leak in free chunk %p @ %d = %p is unmapped\n",
@@ -178,11 +174,9 @@ l2:
           if ((!((longAt((void *)(objOop))) &
                  ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
             assert(fi == 0);
-            fieldOop = longAt((void *)((objOop + BaseHeaderSize) +
-                                       ((((usqInt)(fi) << (shiftForWord()))))));
+            fieldOop = fetchPointerofObject(fi, objOop);
           } else {
-            fieldOop = longAt((void *)((objOop + BaseHeaderSize) +
-                                       ((((usqInt)(fi) << (shiftForWord()))))));
+            fieldOop = fetchPointerofObject(fi, objOop);
           }
 
           /* We keep #fetchPointer:ofObject: API here for assertions */

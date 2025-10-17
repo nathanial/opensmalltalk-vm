@@ -70,14 +70,9 @@ static sqInt transferTofrom(sqInt newProcOrNil, sqInt sourceCode) {
     assert(addressCouldBeOop(longAt(ptr)));
   }
   sched =
-      longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                        ((((usqInt)(SchedulerAssociation)
-                                           << (shiftForWord()))))))) +
-                       BaseHeaderSize) +
-                      ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
   oldProc =
-      longAt((void *)((sched + BaseHeaderSize) +
-                      ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ActiveProcessIndex, sched);
 
   /* begin recordContextSwitchFrom:in: */
   /* begin recordTrace:thing:source: */
@@ -149,12 +144,9 @@ l1:
             nilObj);
 
   /* begin externalSetStackPageAndPointersForSuspendedContextOfProcess: */
-  newContext = longAt(
-      (void *)((newProcOrNil + BaseHeaderSize) +
-               ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))));
+  newContext = fetchPointerofObject(SuspendedContextIndex, newProcOrNil);
   assert(isContext(newContext));
-  if (((((longAt((void *)((newContext + BaseHeaderSize) +
-                          ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+  if (((((fetchPointerofObject(SenderIndex, newContext))) &
         7) == 1)) {
     assert(checkIsStillMarriedContextcurrentFP(newContext, framePointer));
   }
@@ -167,14 +159,12 @@ l1:
                      ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))),
             nilObj);
   if (/* isStillMarriedContext: */
-      (((((longAt((void *)((newContext + BaseHeaderSize) +
-                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+      (((((fetchPointerofObject(SenderIndex, newContext))) &
          7) == 1)) &&
       (!(isWidowedContext(newContext)))) {
     /* begin frameOfMarriedContext: */
     senderOop =
-        longAt((void *)((newContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+        fetchPointerofObject(SenderIndex, newContext);
     assert((((senderOop) & 7) == 1));
     theFrame = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -242,8 +232,7 @@ l1:
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
   methodHeader =
-      longAt((void *)((method + BaseHeaderSize) +
-                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+      fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeader)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

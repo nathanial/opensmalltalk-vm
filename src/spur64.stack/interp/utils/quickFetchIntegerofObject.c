@@ -10,8 +10,7 @@
 static sqInt quickFetchIntegerofObject(sqInt fieldIndex, sqInt objectPointer) {
   sqInt oop;
 
-  oop = longAt((void *)((objectPointer + BaseHeaderSize) +
-                        ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  oop = fetchPointerofObject(fieldIndex, objectPointer);
   assert((((oop) & 7) == 1));
   return (oop >> 3);
 }

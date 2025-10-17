@@ -3,6 +3,5 @@
 /* SpurMemoryManager>>#classBitmap */
 
 sqInt classBitmap(void) {
-  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(ClassBitmap) << (shiftForWord()))))));
+  return fetchPointerofObject(ClassBitmap, specialObjectsOop);
 }

@@ -3,7 +3,5 @@
 /* SpurMemoryManager>>#classSmallInteger */
 
 sqInt classSmallInteger(void) {
-  return longAt(
-      (void *)((specialObjectsOop + BaseHeaderSize) +
-               ((((usqInt)(ClassSmallInteger) << (shiftForWord()))))));
+  return fetchPointerofObject(ClassSmallInteger, specialObjectsOop);
 }

@@ -13,7 +13,6 @@ static sqInt isValidObjStack(sqInt objStack) {
   }
   return isValidObjStackPagemyIndexfirstPage(
       objStack,
-      longAt((void *)((objStack + BaseHeaderSize) +
-                      ((((usqInt)(ObjStackMyx) << (shiftForWord())))))),
+      fetchPointerofObject(ObjStackMyx, objStack),
       1);
 }

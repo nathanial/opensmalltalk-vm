@@ -43,9 +43,7 @@ static sqInt numStrongSlotsOfInephemeral(sqInt objOop) {
         /* contexts end at the stack pointer */
 
         /* begin fetchStackPointerOf: */
-        sp = longAt(
-            (void *)((objOop + BaseHeaderSize) +
-                     ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+        sp = fetchPointerofObject(StackPointerIndex, objOop);
         if (!((((sp) & 7) == 1))) {
           contextSize = 0;
           goto l1;
@@ -62,9 +60,7 @@ static sqInt numStrongSlotsOfInephemeral(sqInt objOop) {
       objOopSqInt = fetchClassOfNonImm(objOop);
 
       /* begin fixedFieldsOfClass: */
-      return (((longAt((void *)((objOopSqInt + BaseHeaderSize) +
-                                ((((usqInt)(InstanceSpecificationIndex)
-                                   << (shiftForWord()))))))) >>
+      return (((fetchPointerofObject(InstanceSpecificationIndex, objOopSqInt)) >>
                3)) &
              ((1U << (fixedFieldsFieldWidth())) - 1);
     }
@@ -79,8 +75,7 @@ static sqInt numStrongSlotsOfInephemeral(sqInt objOop) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(objOop));
-  header = longAt((void *)((objOop + BaseHeaderSize) +
-                           ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  header = fetchPointerofObject(HeaderIndex, objOop);
 
   /* begin literalCountOfMethodHeader: */
   assert((((header) & 7) == 1));

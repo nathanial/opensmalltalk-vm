@@ -68,9 +68,7 @@ static sqInt checkStackIntegrity(void) {
                  ((!(oop & (tagMask())))) &&
                  (((longAt((void *)(oop))) & (classIndexMask())) ==
                   ClassMethodContextCompactIndex)) &&
-                (((((longAt((void *)((oop + BaseHeaderSize) +
-                                     ((((usqInt)(SenderIndex)
-                                        << (shiftForWord())))))))) &
+                (((((fetchPointerofObject(SenderIndex, oop))) &
                    7) == 1)))) {
             printFrameThingandFrameat("frame ctxt should be married", theFP,
                                       theFP + FoxThisContext);

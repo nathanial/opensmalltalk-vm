@@ -24,8 +24,7 @@ static sqInt classNameOfIs(sqInt aClass, char *className) {
              : numSlots))) <= classNameIndex) {
     return 0;
   }
-  name = longAt((void *)((aClass + BaseHeaderSize) +
-                         ((((usqInt)(classNameIndex) << (shiftForWord()))))));
+  name = fetchPointerofObject(classNameIndex, aClass);
   if (!(/* isBytes: */
         ((!(name & (tagMask())))) &&
         (((byteAt((void *)(name + (formatFieldByteOffset())))) &

@@ -3,7 +3,5 @@
 /* StackInterpreter>>#literal:ofMethod: */
 
 sqInt literalofMethod(sqInt offset, sqInt methodPointer) {
-  return longAt(
-      (void *)((methodPointer + BaseHeaderSize) +
-               ((((usqInt)((offset + LiteralStart)) << (shiftForWord()))))));
+  return fetchPointerofObject(offset + LiteralStart, methodPointer);
 }

@@ -12,8 +12,7 @@ static sqInt findHomeForContext(sqInt aContext) {
     return null;
   }
   closureOrNil =
-      longAt((void *)((aContext + BaseHeaderSize) +
-                      ((((usqInt)(ClosureIndex) << (shiftForWord()))))));
+      fetchPointerofObject(ClosureIndex, aContext);
   assert((isPointers(closureOrNil)) &&
          ((closureOrNil == (nilObject())) ||
           ((numSlotsOf(closureOrNil)) >= ClosureFirstCopiedValueIndex)));
@@ -28,7 +27,5 @@ static sqInt findHomeForContext(sqInt aContext) {
        ClassFullBlockClosureCompactIndex)) {
     return null;
   }
-  return findHomeForContext(longAt(
-      (void *)((closureOrNil + BaseHeaderSize) +
-               ((((usqInt)(ClosureOuterContextIndex) << (shiftForWord())))))));
+  return findHomeForContext(fetchPointerofObject(ClosureOuterContextIndex, closureOrNil));
 }

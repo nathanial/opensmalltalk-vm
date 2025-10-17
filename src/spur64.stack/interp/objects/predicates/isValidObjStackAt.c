@@ -8,8 +8,7 @@ static sqInt isValidObjStackAt(sqInt objStackRootIndex) {
   sqInt stackOrNil;
 
   stackOrNil =
-      longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
-                      ((((usqInt)(objStackRootIndex) << (shiftForWord()))))));
+      fetchPointerofObject(objStackRootIndex, hiddenRootsObj);
   return (stackOrNil == nilObj) || (isValidObjStackPagemyIndexfirstPage(
                                        stackOrNil, objStackRootIndex, 1));
 }

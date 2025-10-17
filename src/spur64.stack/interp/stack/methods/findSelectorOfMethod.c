@@ -34,9 +34,7 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
   classObj = safeMethodClassOf(homeMethod);
   if (addressCouldBeClassObj(classObj)) {
     /* begin noFixupFollowField:ofObject: */
-    classDict = longAt(
-        (void *)((classObj + BaseHeaderSize) +
-                 ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
+    classDict = fetchPointerofObject(MethodDictionaryIndex, classObj);
     if (isOopForwarded(classDict)) {
       classDict = followForwarded(classDict);
     }
@@ -54,9 +52,7 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
              : numSlots);
     if (classDictSize > MethodArrayIndex) {
       /* begin noFixupFollowField:ofObject: */
-      methodArray = longAt(
-          (void *)((classDict + BaseHeaderSize) +
-                   ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
+      methodArray = fetchPointerofObject(MethodArrayIndex, classDict);
       if (isOopForwarded(methodArray)) {
         methodArray = followForwarded(methodArray);
       }

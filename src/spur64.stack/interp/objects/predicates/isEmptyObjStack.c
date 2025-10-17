@@ -7,10 +7,6 @@ static sqInt isEmptyObjStack(sqInt objStack) {
     return 1;
   }
   eassert(isValidObjStack(objStack));
-  return (0 == (longAt((void *)((objStack + BaseHeaderSize) +
-                                ((((usqInt)(ObjStackTopx)
-                                   << (shiftForWord())))))))) &&
-         (0 == (longAt((void *)((objStack + BaseHeaderSize) +
-                                ((((usqInt)(ObjStackNextx)
-                                   << (shiftForWord()))))))));
+  return (0 == (fetchPointerofObject(ObjStackTopx, objStack))) &&
+         (0 == (fetchPointerofObject(ObjStackNextx, objStack)));
 }

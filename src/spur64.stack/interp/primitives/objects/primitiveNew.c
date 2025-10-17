@@ -17,9 +17,7 @@ static void primitiveNew(void) {
     reasonCode =
         (isFixedSizePointerFormat(
              (((usqInt)((
-                  ((longAt((void *)(((longAt(stackPointer)) + BaseHeaderSize) +
-                                    ((((usqInt)(InstanceSpecificationIndex)
-                                       << (shiftForWord()))))))) >>
+                  ((fetchPointerofObject(InstanceSpecificationIndex, longAt(stackPointer))) >>
                    3)))) >>
               (fixedFieldsFieldWidth())) &
              (formatMask()))

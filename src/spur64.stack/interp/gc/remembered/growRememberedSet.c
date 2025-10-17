@@ -15,9 +15,7 @@ static void growRememberedSet(void) {
   usqInt toDoLimit;
 
   /* Don't ruin locality in remember: */
-  obj = longAt(
-      (void *)((hiddenRootsObj + BaseHeaderSize) +
-               ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
+  obj = fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj);
 
   /* begin numSlotsOf: */
   assert((classIndexOf(obj)) > (isForwardedObjectClassIndexPun()));

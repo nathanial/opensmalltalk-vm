@@ -3,6 +3,5 @@
 /* SpurMemoryManager>>#classString */
 
 sqInt classString(void) {
-  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(ClassByteString) << (shiftForWord()))))));
+  return fetchPointerofObject(ClassByteString, specialObjectsOop);
 }

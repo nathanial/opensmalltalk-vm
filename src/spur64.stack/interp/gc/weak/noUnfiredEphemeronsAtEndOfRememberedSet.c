@@ -22,8 +22,7 @@ static sqInt noUnfiredEphemeronsAtEndOfRememberedSet(void) {
               (/* begin keyOfEphemeron: */
                assert((isNonImmediate(referrer)) && (isObjEphemeron(referrer))),
                /* fetchPointer:ofObject: */
-               longAt((void *)((referrer + BaseHeaderSize) +
-                               (0U << (shiftForWord())))))))) {
+               fetchPointerofObject(0U, referrer))))) {
         return 0;
       }
     }

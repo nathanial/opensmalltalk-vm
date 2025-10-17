@@ -17,8 +17,7 @@ static sqInt marriedContextpointsTostackDeltaForCurrentFrame(
   char *theSP;
 
   /* begin frameOfMarriedContext: */
-  senderOop = longAt((void *)((spouseContext + BaseHeaderSize) +
-                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  senderOop = fetchPointerofObject(SenderIndex, spouseContext);
   assert((((senderOop) & 7) == 1));
   theFP = ((char *)(senderOop - (smallIntegerTag())));
   if (theFP == framePointer) {

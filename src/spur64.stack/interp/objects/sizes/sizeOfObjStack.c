@@ -9,13 +9,11 @@ static sqInt sizeOfObjStack(sqInt objStack) {
   if (objStack == nilObj) {
     return 0;
   }
-  total = longAt((void *)((objStack + BaseHeaderSize) +
-                          ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+  total = fetchPointerofObject(ObjStackTopx, objStack);
   objStackPage = objStack;
   while (1) {
     objStackPage =
-        longAt((void *)((objStackPage + BaseHeaderSize) +
-                        ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+        fetchPointerofObject(ObjStackNextx, objStackPage);
     if (!(objStackPage != 0))
       break;
     total += ObjStackLimit;

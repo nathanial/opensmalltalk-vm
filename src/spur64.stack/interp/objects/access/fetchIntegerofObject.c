@@ -7,8 +7,7 @@
 sqInt fetchIntegerofObject(sqInt fieldIndex, sqInt objectPointer) {
   sqInt intOop;
 
-  intOop = longAt((void *)((objectPointer + BaseHeaderSize) +
-                           ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  intOop = fetchPointerofObject(fieldIndex, objectPointer);
 
   /* begin checkedIntegerValueOf: */
   if ((((intOop) & 7) == 1)) {

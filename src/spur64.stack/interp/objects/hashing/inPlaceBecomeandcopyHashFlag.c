@@ -63,10 +63,8 @@ static NeverInline void inPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2,
              : numSlots))) -
       1;
   for (i = 0; i <= toDoLimit; i += 1) {
-    temp1 = longAt((void *)((obj1 + BaseHeaderSize) +
-                            ((((usqInt)(i) << (shiftForWord()))))));
-    temp2 = longAt((void *)((obj2 + BaseHeaderSize) +
-                            ((((usqInt)(i) << (shiftForWord()))))));
+    temp1 = fetchPointerofObject(i, obj1);
+    temp2 = fetchPointerofObject(i, obj2);
 
     /* begin storePointerUnchecked:ofObject:withValue: */
     assert((isNonImmediate(obj1)) && (!(isForwarded(obj1))));

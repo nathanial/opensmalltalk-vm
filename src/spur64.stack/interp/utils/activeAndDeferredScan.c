@@ -13,8 +13,7 @@ static NeverInline sqInt activeAndDeferredScan(sqInt anEphemeron) {
   if ((isImmediate((/* begin keyOfEphemeron: */
                     assert((isNonImmediate(anEphemeron)) &&
                            (isObjEphemeron(anEphemeron))),
-                    (key = longAt((void *)((anEphemeron + BaseHeaderSize) +
-                                           (0U << (shiftForWord())))))))) ||
+                    (key = fetchPointerofObject(0U, anEphemeron))))) ||
       (((byteAt((void *)(key + (markBitsByteOffset())))) &
         (1U << (markedBitByteShift()))) != 0)) {
     return 0;

@@ -31,10 +31,8 @@ static sqInt returnrestoringObjectsInupTosavedFirstFields(
                    : numSlotsUsqInt))
            : limitOrTag);
   for (i = 0; i < numSlots; i += 1) {
-    oop = longAt((void *)((reachableObjectsArray + BaseHeaderSize) +
-                          ((((usqInt)(i) << (shiftForWord()))))));
-    valuePointer = longAt((void *)((savedFirstFields + BaseHeaderSize) +
-                                   ((((usqInt)(i) << (shiftForWord()))))));
+    oop = fetchPointerofObject(i, reachableObjectsArray);
+    valuePointer = fetchPointerofObject(i, savedFirstFields);
 
     /* begin storePointerUnchecked:ofObject:withValue: */
     assert((isNonImmediate(oop)) && (!(isForwarded(oop))));

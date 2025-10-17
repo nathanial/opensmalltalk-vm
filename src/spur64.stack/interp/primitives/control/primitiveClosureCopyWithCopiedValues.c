@@ -121,8 +121,7 @@ l1:
             (((usqInt)numArgs << 3) | 1));
   for (i = 0; i < numCopied; i += 1) {
     fieldIndex = i + ClosureFirstCopiedValueIndex;
-    valuePointer = longAt((void *)((copiedValues + BaseHeaderSize) +
-                                   ((((usqInt)(i) << (shiftForWord()))))));
+    valuePointer = fetchPointerofObject(i, copiedValues);
 
     /* begin storePointerUnchecked:ofObject:withValue: */
     assert((isNonImmediate(newClosure)) && (!(isForwarded(newClosure))));

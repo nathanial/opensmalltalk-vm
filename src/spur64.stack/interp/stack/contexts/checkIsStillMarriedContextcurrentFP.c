@@ -19,16 +19,13 @@ static sqInt checkIsStillMarriedContextcurrentFP(sqInt aContext,
          ((!(aContext & (tagMask())))) &&
          (((longAt((void *)(aContext))) & (classIndexMask())) ==
           ClassMethodContextCompactIndex)) &&
-        (((((longAt(
-               (void *)((aContext + BaseHeaderSize) +
-                        ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+        (((((fetchPointerofObject(SenderIndex, aContext))) &
            7) == 1)))) {
     return 0;
   }
 
   /* begin frameOfMarriedContext: */
-  senderOop = longAt((void *)((aContext + BaseHeaderSize) +
-                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  senderOop = fetchPointerofObject(SenderIndex, aContext);
   assert((((senderOop) & 7) == 1));
   maybeFP = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -46,9 +43,7 @@ static sqInt checkIsStillMarriedContextcurrentFP(sqInt aContext,
                      (BytesPerWord - 1)) == 0),
              (oopForPointer(((char *)(longAt(maybeFP + FoxSavedFP))))) +
                  (smallIntegerTag()))) ==
-           (longAt((void *)((aContext + BaseHeaderSize) +
-                            ((((usqInt)(InstructionPointerIndex)
-                               << (shiftForWord())))))))) &&
+           (fetchPointerofObject(InstructionPointerIndex, aContext))) &&
           ((byteAt((maybeFP + FoxFrameFlags) + 2)) != 0))))) {
     return 0;
   }
