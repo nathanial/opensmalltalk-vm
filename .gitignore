@@ -254,3 +254,6 @@ platforms/unix/config/autom4te.cache/
 # Editors
 .vs/*
 .vscode/*
+
+.duplo
+duplo_*
