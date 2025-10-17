@@ -11,8 +11,7 @@ static void primitiveVMPath(void) {
 
   sz = vmPathSize();
   s = instantiateClassindexableSize(
-      fetchPointerofObject(ClassByteString, specialObjectsOop),
-      sz);
+      fetchPointerofObject(ClassByteString, specialObjectsOop), sz);
   vmPathGetLength(s + BaseHeaderSize, sz);
 
   /* begin pop:thenPush: */

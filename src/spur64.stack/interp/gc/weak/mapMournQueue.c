@@ -16,8 +16,7 @@ static NeverInline void mapMournQueue(void) {
   eassert(isValidObjStack(mournQueue));
   objStackPage = mournQueue;
   while (objStackPage != 0) {
-    numOnThisPage =
-        fetchPointerofObject(ObjStackTopx, objStackPage);
+    numOnThisPage = fetchPointerofObject(ObjStackTopx, objStackPage);
     for (iSqInt = ((numOnThisPage + ObjStackFixedSlots) - 1);
          iSqInt >= ObjStackFixedSlots; iSqInt += -1) {
       mourner = fetchPointerofObject(iSqInt, objStackPage);
@@ -42,8 +41,7 @@ static NeverInline void mapMournQueue(void) {
                   mourner);
       }
     }
-    objStackPage =
-        fetchPointerofObject(ObjStackNextx, objStackPage);
+    objStackPage = fetchPointerofObject(ObjStackNextx, objStackPage);
   }
   /* end objStack:do: */
 l1:;

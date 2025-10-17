@@ -14,8 +14,7 @@ static sqInt handleForwardedSelectorFaultFor(sqInt selectorOop) {
   /* begin followForwardedFieldsInCurrentMethod */
   followForwardedObjectFieldstoDepth(method, 0);
   followForwardedObjectFieldstoDepth(
-      fetchPointerofObject(SpecialSelectors, specialObjectsOop),
-      0);
+      fetchPointerofObject(SpecialSelectors, specialObjectsOop), 0);
 
   return followForwarded(selectorOop);
 }

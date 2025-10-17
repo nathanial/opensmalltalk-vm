@@ -12,8 +12,7 @@ static sqInt fieldOrSenderFPofContext(sqInt index, sqInt contextObj) {
 
   tempIndex = index - CtxtTempFrameStart;
   if (!(/* isStillMarriedContext: */
-        (((((fetchPointerofObject(SenderIndex, contextObj))) &
-           7) == 1)) &&
+        (((((fetchPointerofObject(SenderIndex, contextObj))) & 7) == 1)) &&
         (!(isWidowedContext(contextObj))))) {
     if (tempIndex >= (fetchStackPointerOf(contextObj))) {
       return nilObj;

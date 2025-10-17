@@ -70,11 +70,9 @@ void printContext(sqInt aContext) {
   fprintf(transcript, "%p: ", ((void *)theMethod));
   shortPrintOop(theMethod);
   print("closure  ");
-  shortPrintOop(
-      fetchPointerofObject(ClosureIndex, aContext));
+  shortPrintOop(fetchPointerofObject(ClosureIndex, aContext));
   print("receiver ");
-  shortPrintOop(
-      fetchPointerofObject(ReceiverIndex, aContext));
+  shortPrintOop(fetchPointerofObject(ReceiverIndex, aContext));
   sp = (sp >> 3);
   sp = ((sp < ((lengthOf(aContext)) - ReceiverIndex))
             ? sp

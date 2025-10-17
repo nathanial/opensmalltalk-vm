@@ -16,9 +16,9 @@ static void primitiveNew(void) {
   } else {
     reasonCode =
         (isFixedSizePointerFormat(
-             (((usqInt)((
-                  ((fetchPointerofObject(InstanceSpecificationIndex, longAt(stackPointer))) >>
-                   3)))) >>
+             (((usqInt)((((fetchPointerofObject(InstanceSpecificationIndex,
+                                                longAt(stackPointer))) >>
+                          3)))) >>
               (fixedFieldsFieldWidth())) &
              (formatMask()))
              ? PrimErrNoMemory

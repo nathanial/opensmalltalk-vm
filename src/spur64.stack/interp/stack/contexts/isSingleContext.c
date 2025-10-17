@@ -3,7 +3,5 @@
 /* StackInterpreter>>#isSingleContext: */
 
 static int isSingleContext(sqInt aContext) {
-  return (
-      !((fetchPointerofObject(SenderIndex, aContext)) &
-        (tagMask())));
+  return (!((fetchPointerofObject(SenderIndex, aContext)) & (tagMask())));
 }

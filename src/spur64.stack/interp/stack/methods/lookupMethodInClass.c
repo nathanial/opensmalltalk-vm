@@ -120,8 +120,7 @@ static sqInt lookupMethodInClass(sqInt class) {
        the table. */
     wrapAround = 0;
     while (1) {
-      nextSelector =
-          fetchPointerofObject(index, dictionary);
+      nextSelector = fetchPointerofObject(index, dictionary);
       if (nextSelector == nilObj) {
         found = 0;
         goto l1;
@@ -169,8 +168,7 @@ static sqInt lookupMethodInClass(sqInt class) {
 
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
-    objOopSqInt =
-        fetchPointerofObject(SuperclassIndex, currentClass);
+    objOopSqInt = fetchPointerofObject(SuperclassIndex, currentClass);
     assert(isNonImmediate(objOopSqInt));
     if ((!((longAt((void *)(objOopSqInt))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -181,13 +179,15 @@ static sqInt lookupMethodInClass(sqInt class) {
   }
 
   /* Could not find #doesNotUnderstand: -- unrecoverable error. */
-  if (messageSelector == (fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop))) {
+  if (messageSelector ==
+      (fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop))) {
     error("Recursive not understood error encountered");
   }
 
   /* Cound not find a normal message -- raise exception #doesNotUnderstand: */
   createActualMessageTo(class);
-  messageSelector = fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop);
+  messageSelector =
+      fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop);
   sendBreakpointclassTag(
       messageSelector + BaseHeaderSize, lengthOf(messageSelector),
       (long32At((void *)(class + 4))) & (identityHashHalfWordMask()));

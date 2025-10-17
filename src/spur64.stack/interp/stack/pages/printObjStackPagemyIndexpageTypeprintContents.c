@@ -24,26 +24,21 @@ static void printObjStackPagemyIndexpageTypeprintContents(sqInt objStackPage,
     /* begin tab */
     printChar('\t');
     print("topx: ");
-    printNum(
-        fetchPointerofObject(ObjStackTopx, objStackPage));
+    printNum(fetchPointerofObject(ObjStackTopx, objStackPage));
     print(" next: ");
-    printHex(
-        fetchPointerofObject(ObjStackNextx, objStackPage));
+    printHex(fetchPointerofObject(ObjStackNextx, objStackPage));
     if (isFirstPage) {
       print(" free: ");
-      printHex(
-          fetchPointerofObject(ObjStackFreex, objStackPage));
+      printHex(fetchPointerofObject(ObjStackFreex, objStackPage));
     }
     cr();
   }
   if (isFirstPage) {
-    freeOrNextPage =
-        fetchPointerofObject(ObjStackFreex, objStackPage);
+    freeOrNextPage = fetchPointerofObject(ObjStackFreex, objStackPage);
     while (freeOrNextPage != 0) {
       printObjStackPagemyIndexpageTypeprintContents(freeOrNextPage, myx,
                                                     ObjStackFreex, 0);
-      page =
-          fetchPointerofObject(ObjStackFreex, freeOrNextPage);
+      page = fetchPointerofObject(ObjStackFreex, freeOrNextPage);
       if ((page == freeOrNextPage) || (page == objStackPage)) {
         print("circularity in free page list!!");
         cr();
@@ -52,24 +47,21 @@ static void printObjStackPagemyIndexpageTypeprintContents(sqInt objStackPage,
       freeOrNextPage = page;
     }
   }
-  freeOrNextPage =
-      fetchPointerofObject(ObjStackNextx, objStackPage);
+  freeOrNextPage = fetchPointerofObject(ObjStackNextx, objStackPage);
   if (freeOrNextPage) {
     printObjStackPagemyIndexpageTypeprintContents(freeOrNextPage, myx,
                                                   ObjStackNextx, printContents);
   }
   if (printContents) {
-    index =
-        (fetchPointerofObject(ObjStackTopx, objStackPage)) +
-        ObjStackNextx;
+    index = (fetchPointerofObject(ObjStackTopx, objStackPage)) + ObjStackNextx;
     while (index >= ObjStackFixedSlots) {
       /* begin space */
       printChar(' ');
       printHex(fetchPointerofObject(index, objStackPage));
       index -= 1;
     }
-    if (((fetchPointerofObject(ObjStackTopx, objStackPage)) +
-         ObjStackNextx) >= ObjStackFixedSlots) {
+    if (((fetchPointerofObject(ObjStackTopx, objStackPage)) + ObjStackNextx) >=
+        ObjStackFixedSlots) {
       cr();
     }
   }

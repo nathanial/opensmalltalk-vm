@@ -14,19 +14,17 @@ static void primitiveYield(void) {
   sqInt processLists;
   sqInt scheduler;
 
-  scheduler =
-      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
-  activeProc =
-      fetchPointerofObject(ActiveProcessIndex, scheduler);
+  scheduler = fetchPointerofObject(
+      ValueIndex,
+      fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+  activeProc = fetchPointerofObject(ActiveProcessIndex, scheduler);
 
   /* begin quickFetchInteger:ofObject: */
   oop = fetchPointerofObject(PriorityIndex, activeProc);
   assert((((oop) & 7) == 1));
   priority = (oop >> 3);
-  processLists =
-      fetchPointerofObject(ProcessListsIndex, scheduler);
-  processList =
-      fetchPointerofObject(priority - 1, processLists);
+  processLists = fetchPointerofObject(ProcessListsIndex, scheduler);
+  processList = fetchPointerofObject(priority - 1, processLists);
 
   /* begin isEmptyList: */
   assert(!(isForwarded(processList)));

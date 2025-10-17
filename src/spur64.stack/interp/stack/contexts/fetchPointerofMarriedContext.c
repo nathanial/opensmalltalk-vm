@@ -26,8 +26,7 @@ static sqInt fetchPointerofMarriedContext(sqInt offset, sqInt aContext) {
     }
 
     /* begin frameOfMarriedContext: */
-    senderOop =
-        fetchPointerofObject(SenderIndex, aContext);
+    senderOop = fetchPointerofObject(SenderIndex, aContext);
     assert((((senderOop) & 7) == 1));
     spouseFP = ((char *)(senderOop - (smallIntegerTag())));
     if (!offset) {

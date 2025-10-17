@@ -61,9 +61,8 @@ void printOop(sqInt oop) {
   if (/* isPureBitsFormat: */
       (fmt >= (sixtyFourBitIndexableFormat())) &&
       (fmt < (firstCompiledMethodFormat()))) {
-    if (isKindOfClass(
-            oop,
-            fetchPointerofObject(ClassAlien, specialObjectsOop))) {
+    if (isKindOfClass(oop,
+                      fetchPointerofObject(ClassAlien, specialObjectsOop))) {
       fprintf(transcript, " datasize %" PRIdSQINT " %s @ %p\n",
               longAt((void *)(oop + BaseHeaderSize)),
               ((longAt((void *)(oop + BaseHeaderSize))) < 0
@@ -73,7 +72,8 @@ void printOop(sqInt oop) {
               startOfAlienData(oop));
       return;
     }
-    if (isKindOfClass(oop, superclassOf(fetchPointerofObject(ClassByteString, specialObjectsOop)))) {
+    if (isKindOfClass(oop, superclassOf(fetchPointerofObject(
+                               ClassByteString, specialObjectsOop)))) {
       printStringDataOfon(oop, transcript);
       return;
     }
@@ -89,8 +89,7 @@ void printOop(sqInt oop) {
   lastIndex = ((0x100 < startIP) ? 0x100 : startIP);
   if (lastIndex > 0) {
     for (index = 1; index <= lastIndex; index += 1) {
-      printHex(
-          fetchPointerofObject(index - 1, oop));
+      printHex(fetchPointerofObject(index - 1, oop));
 
       /* begin space */
       printChar(' ');

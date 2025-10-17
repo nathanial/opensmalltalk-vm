@@ -15,8 +15,7 @@ static sqInt classAtIndexput(sqInt classIndex, sqInt objOop) {
           (objCouldBeClassObj(objOop))));
   fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
-  classTablePage =
-      fetchPointerofObject(fieldIndex, hiddenRootsObj);
+  classTablePage = fetchPointerofObject(fieldIndex, hiddenRootsObj);
   if (classTablePage == nilObj) {
     error("attempt to add class to empty page");
   }

@@ -46,16 +46,11 @@ static void primitiveBeCursor(void) {
     primFailCode = PrimErrBadReceiver;
     return;
   }
-  cursorBitsObj =
-      fetchPointerofObject(0U, cursorObj);
-  offsetObj =
-      fetchPointerofObject(4U, cursorObj);
-  if (!(((((((extentX = fetchPointerofObject(1U, cursorObj)))) &
-           7) == 1)) &&
-        (((((((extentY = fetchPointerofObject(2U, cursorObj)))) &
-            7) == 1)) &&
-         (((((((depth = fetchPointerofObject(3U, cursorObj)))) &
-             7) == 1)) &&
+  cursorBitsObj = fetchPointerofObject(0U, cursorObj);
+  offsetObj = fetchPointerofObject(4U, cursorObj);
+  if (!(((((((extentX = fetchPointerofObject(1U, cursorObj)))) & 7) == 1)) &&
+        (((((((extentY = fetchPointerofObject(2U, cursorObj)))) & 7) == 1)) &&
+         (((((((depth = fetchPointerofObject(3U, cursorObj)))) & 7) == 1)) &&
           ((/* isPointers: */
             ((!(offsetObj & (tagMask())))) &&
             (((byteAt((void *)(offsetObj + (formatFieldByteOffset())))) &
@@ -72,10 +67,10 @@ static void primitiveBeCursor(void) {
                                   << 8)))))) >>
                           8
                     : numSlots))) >= 2) &&
-            (((((((offsetX = fetchPointerofObject(0U, offsetObj)))) &
-                7) == 1)) &&
-             ((((((offsetY = fetchPointerofObject(1U, offsetObj)))) &
-                7) == 1))))))))) {
+            (((((((offsetX = fetchPointerofObject(0U, offsetObj)))) & 7) ==
+               1)) &&
+             ((((((offsetY = fetchPointerofObject(1U, offsetObj)))) & 7) ==
+               1))))))))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadReceiver;
     return;
@@ -179,14 +174,10 @@ static void primitiveBeCursor(void) {
                                         << 8)))))) >>
                        8
                  : numSlots))) >= 5) &&
-         (((fetchPointerofObject(1U, maskObj)) ==
-           ((((usqInt)16 << 3) | 1))) &&
-          (((fetchPointerofObject(2U, maskObj)) ==
-            ((((usqInt)16 << 3) | 1))) &&
-           (((fetchPointerofObject(3U, maskObj)) ==
-             ((((usqInt)1 << 3) | 1))) &&
-            ((isWords(
-                 (maskBitsObj = fetchPointerofObject(0U, maskObj)))) &&
+         (((fetchPointerofObject(1U, maskObj)) == ((((usqInt)16 << 3) | 1))) &&
+          (((fetchPointerofObject(2U, maskObj)) == ((((usqInt)16 << 3) | 1))) &&
+           (((fetchPointerofObject(3U, maskObj)) == ((((usqInt)1 << 3) | 1))) &&
+            ((isWords((maskBitsObj = fetchPointerofObject(0U, maskObj)))) &&
              ((lengthOfformat(maskBitsObj, firstLongFormat())) == 16)))))))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadArgument;

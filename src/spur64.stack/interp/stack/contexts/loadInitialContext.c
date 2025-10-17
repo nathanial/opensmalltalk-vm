@@ -13,16 +13,16 @@ void loadInitialContext(void) {
   /* primitiveSuspend needs to know the class of LinkedList */
 
   /* begin getClassTagOfLinkedList */
-  objOop =
-      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
-  objOop =
-      fetchPointerofObject(ProcessListsIndex, objOop);
+  objOop = fetchPointerofObject(
+      ValueIndex,
+      fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+  objOop = fetchPointerofObject(ProcessListsIndex, objOop);
   obj = fetchPointerofObject(0U, objOop);
   classLinkedListClassTag = (longAt((void *)(obj))) & (classIndexMask());
-  objOop =
-      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
-  activeProc =
-      fetchPointerofObject(ActiveProcessIndex, objOop);
+  objOop = fetchPointerofObject(
+      ValueIndex,
+      fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+  activeProc = fetchPointerofObject(ActiveProcessIndex, objOop);
   activeContext = fetchPointerofObject(SuspendedContextIndex, activeProc);
   marryContextInNewStackPageAndInitializeInterpreterRegisters(activeContext);
 }

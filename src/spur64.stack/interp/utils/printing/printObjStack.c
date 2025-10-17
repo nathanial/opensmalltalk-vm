@@ -11,8 +11,6 @@ void printObjStack(sqInt objStack) {
     cr();
   } else {
     printObjStackPagemyIndexpageTypeprintContents(
-        objStack,
-        fetchPointerofObject(ObjStackMyx, objStack),
-        ObjStackMyx, 0);
+        objStack, fetchPointerofObject(ObjStackMyx, objStack), ObjStackMyx, 0);
   }
 }

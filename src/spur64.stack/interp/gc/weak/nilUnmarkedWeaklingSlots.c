@@ -32,19 +32,16 @@ static NeverInline void nilUnmarkedWeaklingSlots(void) {
   /* begin objStack:from:do: */
   eassert(isValidObjStack(weaklingStack));
   size = fetchPointerofObject(ObjStackTopx, weaklingStack);
-  objStackPage =
-      fetchPointerofObject(ObjStackNextx, weaklingStack);
+  objStackPage = fetchPointerofObject(ObjStackNextx, weaklingStack);
   while (objStackPage != 0) {
     size += ObjStackLimit;
     assert((fetchPointerofObject(ObjStackTopx, objStackPage)) == ObjStackLimit);
-    objStackPage =
-        fetchPointerofObject(ObjStackNextx, objStackPage);
+    objStackPage = fetchPointerofObject(ObjStackNextx, objStackPage);
   }
   numToEnumerate = size;
   objStackPage = weaklingStack;
   while (numToEnumerate > 0) {
-    numOnThisPage =
-        fetchPointerofObject(ObjStackTopx, objStackPage);
+    numOnThisPage = fetchPointerofObject(ObjStackTopx, objStackPage);
     numToEnumerateOnThisPage =
         ((numToEnumerate < numOnThisPage) ? numToEnumerate : numOnThisPage);
     topIndex = (numOnThisPage + ObjStackFixedSlots) - 1;
@@ -109,8 +106,7 @@ static NeverInline void nilUnmarkedWeaklingSlots(void) {
       }
     }
     numToEnumerate -= numToEnumerateOnThisPage;
-    objStackPage =
-        fetchPointerofObject(ObjStackNextx, objStackPage);
+    objStackPage = fetchPointerofObject(ObjStackNextx, objStackPage);
   }
 
   /* begin emptyObjStack: */
@@ -124,18 +120,15 @@ static NeverInline void nilUnmarkedWeaklingSlots(void) {
   longAtput((void *)((weaklingStack + BaseHeaderSize) +
                      ((((usqInt)(ObjStackTopx) << (shiftForWord()))))),
             0);
-  nextPage =
-      fetchPointerofObject(ObjStackNextx, weaklingStack);
+  nextPage = fetchPointerofObject(ObjStackNextx, weaklingStack);
   while (nextPage != 0) {
-    nextNextPage =
-        fetchPointerofObject(ObjStackNextx, nextPage);
+    nextNextPage = fetchPointerofObject(ObjStackNextx, nextPage);
 
     /* begin storePointer:ofObjStack:withValue: */
     assert((formatOf(nextPage)) == (wordIndexableFormat()));
-    longAtput(
-        (void *)((nextPage + BaseHeaderSize) +
-                 ((((usqInt)(ObjStackFreex) << (shiftForWord()))))),
-        fetchPointerofObject(ObjStackFreex, weaklingStack));
+    longAtput((void *)((nextPage + BaseHeaderSize) +
+                       ((((usqInt)(ObjStackFreex) << (shiftForWord()))))),
+              fetchPointerofObject(ObjStackFreex, weaklingStack));
 
     /* begin storePointer:ofObjStack:withValue: */
     assert((formatOf(nextPage)) == (wordIndexableFormat()));

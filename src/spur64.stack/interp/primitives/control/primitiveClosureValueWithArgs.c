@@ -57,8 +57,7 @@ static void primitiveClosureValueWithArgs(void) {
 
   /* begin argumentCountOfClosure: */
   /* begin quickFetchInteger:ofObject: */
-  oop =
-      fetchPointerofObject(ClosureNumArgsIndex, blockClosure);
+  oop = fetchPointerofObject(ClosureNumArgsIndex, blockClosure);
   assert((((oop) & 7) == 1));
   numArgs = (oop >> 3);
   if (!(arraySize == numArgs)) {
@@ -82,8 +81,7 @@ static void primitiveClosureValueWithArgs(void) {
     }
     return;
   }
-  closureMethod =
-      fetchPointerofObject(MethodIndex, outerContext);
+  closureMethod = fetchPointerofObject(MethodIndex, outerContext);
 
   /* Check if the closure's method is actually a CompiledMethod. */
   if (!(/* isOopCompiledMethod: */
@@ -105,9 +103,8 @@ static void primitiveClosureValueWithArgs(void) {
   index = 1;
   while (index <= numArgs) {
     /* begin push: */
-    longAtput(
-        (sp = stackPointer - BytesPerWord),
-        fetchPointerofObject(index - 1, argumentArray));
+    longAtput((sp = stackPointer - BytesPerWord),
+              fetchPointerofObject(index - 1, argumentArray));
     stackPointer = sp;
     index += 1;
   }
@@ -172,8 +169,9 @@ static void primitiveClosureValueWithArgs(void) {
   /* Copy the copied values... */
   for (i = 0; i < numCopied; i += 1) {
     /* begin push: */
-    longAtput((sp = stackPointer - BytesPerWord),
-              fetchPointerofObject(i + ClosureFirstCopiedValueIndex, blockClosure));
+    longAtput(
+        (sp = stackPointer - BytesPerWord),
+        fetchPointerofObject(i + ClosureFirstCopiedValueIndex, blockClosure));
     stackPointer = sp;
   }
   assert(frameIsBlockActivation(framePointer));
@@ -186,8 +184,7 @@ static void primitiveClosureValueWithArgs(void) {
      -1 because it gets incremented BEFORE fetching currentByte */
 
   /* begin quickFetchInteger:ofObject: */
-  oop =
-      fetchPointerofObject(ClosureStartPCIndex, blockClosure);
+  oop = fetchPointerofObject(ClosureStartPCIndex, blockClosure);
   assert((((oop) & 7) == 1));
   closureIP = (oop >> 3);
   instructionPointer = ((closureMethod + closureIP) + BaseHeaderSize) - 2;
@@ -199,8 +196,7 @@ static void primitiveClosureValueWithArgs(void) {
   /* begin methodUsesAlternateBytecodeSet: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, method);
+  methodHeader = fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeader)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

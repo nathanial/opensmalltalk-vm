@@ -24,8 +24,7 @@ primitiveGetLogDirectory(void) {
   }
   sz = strlen(ptr);
   stringOop = instantiateClassindexableSize(
-      fetchPointerofObject(ClassByteString, specialObjectsOop),
-      sz);
+      fetchPointerofObject(ClassByteString, specialObjectsOop), sz);
   for (i = 0; i < sz; i += 1) {
     /* storeByte:ofObject:withValue: */
     byteAtput((void *)((stringOop + BaseHeaderSize) + i), ptr[i]);

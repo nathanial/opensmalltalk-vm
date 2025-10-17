@@ -20,15 +20,13 @@ void *startOfAlienData(sqInt oop) {
            (((byteAt((void *)(oopClass + (formatFieldByteOffset())))) &
              (formatMask())) <= 5 /* lastPointerFormat */)) &&
           ((numSlotsOfAny(oopClass)) > InstanceSpecificationIndex))) {
-    if (oopClass ==
-        (fetchPointerofObject(ClassAlien, specialObjectsOop))) {
+    if (oopClass == (fetchPointerofObject(ClassAlien, specialObjectsOop))) {
       goto l1;
     }
 
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
-    objOop =
-        fetchPointerofObject(SuperclassIndex, oopClass);
+    objOop = fetchPointerofObject(SuperclassIndex, oopClass);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

@@ -20,15 +20,15 @@ sqInt printStackCallStackOf(sqInt aContextOrProcessOrFrame) {
       return printStackCallStackOf(((sqInt)framePointer));
     }
     if (couldBeProcess(aContextOrProcessOrFrame)) {
-      return printCallStackOf(fetchPointerofObject(SuspendedContextIndex, aContextOrProcessOrFrame));
+      return printCallStackOf(fetchPointerofObject(SuspendedContextIndex,
+                                                   aContextOrProcessOrFrame));
     }
     return null;
   }
   theFP = ((void *)aContextOrProcessOrFrame);
   while (1) {
     context = shortReversePrintFrameAndCallers(theFP);
-    if (!((((((fetchPointerofObject(SenderIndex, context))) &
-             7) == 1)) &&
+    if (!((((((fetchPointerofObject(SenderIndex, context))) & 7) == 1)) &&
           ((/* begin frameOfMarriedContext: */
             (senderOop = fetchPointerofObject(SenderIndex, context)),
             assert((((senderOop) & 7) == 1)),

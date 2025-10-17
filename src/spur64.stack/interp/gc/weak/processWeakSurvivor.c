@@ -26,8 +26,8 @@ static sqInt processWeakSurvivor(sqInt weakObj) {
 
   /* begin numFixedSlotsOf: */
   classPointer = fetchClassOfNonImm(weakObj);
-  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, classPointer)) >>
-                 3);
+  classFormat =
+      ((fetchPointerofObject(InstanceSpecificationIndex, classPointer)) >> 3);
   numStrongSlots = classFormat & ((1U << (fixedFieldsFieldWidth())) - 1);
   for (i = 0; i < numStrongSlots; i += 1) {
     referent = fetchPointerofObject(i, weakObj);

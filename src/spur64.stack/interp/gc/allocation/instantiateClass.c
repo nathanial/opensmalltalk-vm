@@ -15,8 +15,8 @@ static sqInt instantiateClass(sqInt classObj) {
   usqInt p;
   usqInt toDoLimit;
 
-  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, classObj)) >>
-                 3);
+  classFormat =
+      ((fetchPointerofObject(InstanceSpecificationIndex, classObj)) >> 3);
   instSpec =
       (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());
   if (!(/* isFixedSizePointerFormat: */

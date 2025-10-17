@@ -18,10 +18,8 @@ static sqInt checkStackPointerForMaybeMarriedContext(sqInt aContext) {
     assert((ReceiverIndex + ((sp >> 3))) < (lengthOf(aContext)));
     return sp;
   }
-  if (((((fetchPointerofObject(SenderIndex, aContext))) &
-        7) == 1)) {
-    methodPointer =
-        fetchPointerofObject(MethodIndex, aContext);
+  if (((((fetchPointerofObject(SenderIndex, aContext))) & 7) == 1)) {
+    methodPointer = fetchPointerofObject(MethodIndex, aContext);
 
     /* begin argumentCountOf: */
     /* begin methodHeaderOf: */
@@ -31,8 +29,7 @@ static sqInt checkStackPointerForMaybeMarriedContext(sqInt aContext) {
     /* begin argumentCountOfMethodHeader: */
     return (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;
   }
-  spSqInt =
-      fetchPointerofObject(StackPointerIndex, aContext);
+  spSqInt = fetchPointerofObject(StackPointerIndex, aContext);
   if (!((((spSqInt) & 7) == 1))) {
     return 0;
   }

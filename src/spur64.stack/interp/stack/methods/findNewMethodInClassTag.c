@@ -35,15 +35,13 @@ static sqInt findNewMethodInClassTag(sqInt classTagArg) {
                                 (classTag <= (classIndexMask())))));
     fieldIndex = ((usqInt)(classTag)) >> (classTableMajorIndexShift());
 
-    classTablePage =
-        fetchPointerofObject(fieldIndex, hiddenRootsObj);
+    classTablePage = fetchPointerofObject(fieldIndex, hiddenRootsObj);
     if (classTablePage == nilObj) {
       lkupClass = null;
       goto l1;
     }
     fieldIndex = classTag & ((1U << (classTableMajorIndexShift())) - 1);
-    lkupClass =
-        fetchPointerofObject(fieldIndex, classTablePage);
+    lkupClass = fetchPointerofObject(fieldIndex, classTablePage);
     /* end classForClassTag: */
   l1:
     lookupMethodInClass(lkupClass);

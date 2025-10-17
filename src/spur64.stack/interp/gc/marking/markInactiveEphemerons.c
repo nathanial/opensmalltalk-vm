@@ -44,8 +44,7 @@ static sqInt markInactiveEphemerons(void) {
     assert((isNonImmediate(objOop)) && (isEphemeron(objOop)));
 
     /* begin followOopField:ofObject: */
-    key =
-        fetchPointerofObject(0U, objOop);
+    key = fetchPointerofObject(0U, objOop);
     if (isOopForwarded(key)) {
       key = fixFollowedFieldofObjectwithInitialValue(0, objOop, key);
     }
@@ -125,7 +124,8 @@ static sqInt markInactiveEphemerons(void) {
             if (fmt == (weakArrayFormat())) {
               objOopSqIntSqInt = fetchClassOfNonImm(objToScan);
               numStrongSlots =
-                  (((fetchPointerofObject(InstanceSpecificationIndex, objOopSqIntSqInt)) >>
+                  (((fetchPointerofObject(InstanceSpecificationIndex,
+                                          objOopSqIntSqInt)) >>
                     3)) &
                   ((1U << (fixedFieldsFieldWidth())) - 1);
               goto l4;
@@ -144,8 +144,7 @@ static sqInt markInactiveEphemerons(void) {
 
           /* begin methodHeaderOf: */
           assert(isCompiledMethod(objToScan));
-          header =
-              fetchPointerofObject(HeaderIndex, objToScan);
+          header = fetchPointerofObject(HeaderIndex, objToScan);
 
           /* begin literalCountOfMethodHeader: */
           assert((((header) & 7) == 1));

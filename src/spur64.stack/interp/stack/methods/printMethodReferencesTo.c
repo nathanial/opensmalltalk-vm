@@ -50,8 +50,7 @@ void printMethodReferencesTo(sqInt anOop) {
            (formatMask())) >= (firstCompiledMethodFormat())) {
         i = ((literalCountOf(objSqInt)) + LiteralStart) - 1;
         while (((i -= 1)) >= 0) {
-          if (anOop ==
-              (fetchPointerofObject(i, objSqInt))) {
+          if (anOop == (fetchPointerofObject(i, objSqInt))) {
             printHex(objSqInt);
             print(" @ ");
             printNum(i);

@@ -20,9 +20,11 @@ static void primitiveFlushCacheBySelector(void) {
     probe += MethodCacheEntrySize;
   }
   if ((selector ==
-       (fetchPointerofObject(32U, fetchPointerofObject(SpecialSelectors, specialObjectsOop)))) ||
+       (fetchPointerofObject(
+           32U, fetchPointerofObject(SpecialSelectors, specialObjectsOop)))) ||
       (selector ==
-       (fetchPointerofObject(34U, fetchPointerofObject(SpecialSelectors, specialObjectsOop))))) {
+       (fetchPointerofObject(
+           34U, fetchPointerofObject(SpecialSelectors, specialObjectsOop))))) {
     /* begin flushAtCache */
     memset(atCache, 0, AtCacheTotalSize * (sizeof(atCache[0])));
   }

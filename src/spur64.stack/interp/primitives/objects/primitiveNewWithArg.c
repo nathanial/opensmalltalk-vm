@@ -49,12 +49,12 @@ l1:
               obj);
     stackPointer = sp;
   } else {
-    instSpec =
-        (((usqInt)((
-             ((fetchPointerofObject(InstanceSpecificationIndex, longAt(stackPointer + (1 * BytesPerWord)))) >>
-              3)))) >>
-         (fixedFieldsFieldWidth())) &
-        (formatMask());
+    instSpec = (((usqInt)((((fetchPointerofObject(
+                                InstanceSpecificationIndex,
+                                longAt(stackPointer + (1 * BytesPerWord)))) >>
+                            3)))) >>
+                (fixedFieldsFieldWidth())) &
+               (formatMask());
     reasonCode = ((/* isIndexableFormat: */
                    (instSpec >= (arrayFormat())) &&
                    ((instSpec <= (weakArrayFormat())) ||

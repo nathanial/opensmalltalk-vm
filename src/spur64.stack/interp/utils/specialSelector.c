@@ -3,5 +3,6 @@
 /* StackInterpreter>>#specialSelector: */
 
 sqInt specialSelector(sqInt index) {
-  return fetchPointerofObject(index * 2, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+  return fetchPointerofObject(
+      index * 2, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
 }

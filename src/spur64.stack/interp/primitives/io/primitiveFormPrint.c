@@ -59,8 +59,7 @@ l1:
     }
   }
   if (!primFailCode) {
-    bitsArray =
-        fetchPointerofObject(0U, rcvr);
+    bitsArray = fetchPointerofObject(0U, rcvr);
     w = fetchIntegerofObject(1, rcvr);
     h = fetchIntegerofObject(2, rcvr);
     depth = fetchIntegerofObject(3, rcvr);

@@ -15,7 +15,6 @@ static sqInt fixedFieldsOfformatlength(sqInt objOop, sqInt fmt,
     return wordLength;
   }
   class = fetchClassOfNonImm(objOop);
-  return (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
-           3)) &
+  return (((fetchPointerofObject(InstanceSpecificationIndex, class)) >> 3)) &
          ((1U << (fixedFieldsFieldWidth())) - 1);
 }

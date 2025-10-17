@@ -21,10 +21,10 @@ static sqInt resumepreemptedYieldingIffrom(sqInt aProcess,
   sqInt oop;
 
   /* begin activeProcess */
-  objOop =
-      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
-  activeProc =
-      fetchPointerofObject(ActiveProcessIndex, objOop);
+  objOop = fetchPointerofObject(
+      ValueIndex,
+      fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+  activeProc = fetchPointerofObject(ActiveProcessIndex, objOop);
 
   /* begin quickFetchInteger:ofObject: */
   oop = fetchPointerofObject(PriorityIndex, activeProc);

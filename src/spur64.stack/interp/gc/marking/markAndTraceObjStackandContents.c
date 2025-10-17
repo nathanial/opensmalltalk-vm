@@ -44,8 +44,7 @@ static void markAndTraceObjStackandContents(sqInt stackOrNil,
   /* There are four fixed slots in an obj stack, and a Topx of 0 indicates
      empty, so if there were 6 slots in an oop stack, full would be 2, and the
      last 0-rel index is 5. */
-  index = (fetchPointerofObject(ObjStackTopx, stackOrNil)) +
-          ObjStackNextx;
+  index = (fetchPointerofObject(ObjStackTopx, stackOrNil)) + ObjStackNextx;
   while (index >= ObjStackFixedSlots) {
     /* begin followObjField:ofObject: */
     field = fetchPointerofObject(index, stackOrNil);

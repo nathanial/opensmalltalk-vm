@@ -115,8 +115,7 @@ static void primitiveVMParameter(void) {
   if (!argumentCount) {
     /* begin primitiveAllVMParameters: */
     resultSqInt = instantiateClassindexableSize(
-        fetchPointerofObject(ClassArray, specialObjectsOop),
-        paramsArraySize);
+        fetchPointerofObject(ClassArray, specialObjectsOop), paramsArraySize);
     valuePointer = positive64BitIntegerFor(
         (/* begin oldSpaceSize */ /* begin totalOldSpaceSize */
          assert((totalBytesInSegments()) == totalHeapSizeIncludingBridges),

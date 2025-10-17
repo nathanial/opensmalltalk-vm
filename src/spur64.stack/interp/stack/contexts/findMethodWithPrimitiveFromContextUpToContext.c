@@ -33,8 +33,7 @@ static sqInt findMethodWithPrimitiveFromContextUpToContext(sqInt primitive,
     if (theContext == nilObj) {
       return theContext;
     }
-    if (((((fetchPointerofObject(SenderIndex, theContext))) &
-          7) == 1))
+    if (((((fetchPointerofObject(SenderIndex, theContext))) & 7) == 1))
       break;
     if (theContext == homeContext) {
       return 0;
@@ -42,8 +41,7 @@ static sqInt findMethodWithPrimitiveFromContextUpToContext(sqInt primitive,
     if (!((primitive == 0) ||
           ((fetchPointerofObject(ClosureIndex, theContext)) != nilObj))) {
       /* begin followObjField:ofObject: */
-      theMethod =
-          fetchPointerofObject(MethodIndex, theContext);
+      theMethod = fetchPointerofObject(MethodIndex, theContext);
       assert(isNonImmediate(theMethod));
       if ((!((longAt((void *)(theMethod))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

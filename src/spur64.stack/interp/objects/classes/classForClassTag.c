@@ -15,8 +15,7 @@ static sqInt classForClassTag(sqInt classIndex) {
                                 (classIndex <= (classIndexMask())))));
   fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
-  classTablePage =
-      fetchPointerofObject(fieldIndex, hiddenRootsObj);
+  classTablePage = fetchPointerofObject(fieldIndex, hiddenRootsObj);
   if (classTablePage == nilObj) {
     return null;
   }

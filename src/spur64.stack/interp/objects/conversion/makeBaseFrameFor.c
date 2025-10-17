@@ -58,8 +58,7 @@ l1:
   /* If the frame is a closure activation then the closure should be on the
      stack in the pushed receiver position (closures receive the value[:value:]
      messages). Otherwise it should be the receiver proper. */
-  maybeClosure =
-      fetchPointerofObject(ClosureIndex, aContext);
+  maybeClosure = fetchPointerofObject(ClosureIndex, aContext);
   if (maybeClosure != nilObj) {
     if ((!((longAt((void *)(maybeClosure))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

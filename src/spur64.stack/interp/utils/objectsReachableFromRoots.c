@@ -160,8 +160,7 @@ static NeverInline sqInt objectsReachableFromRoots(sqInt arrayOfRoots) {
     if ((((longAt((void *)(objOop))) & (classIndexMask())) ==
          ClassMethodContextCompactIndex) &&
         (/* isStillMarriedContext: */
-         (((((fetchPointerofObject(SenderIndex, objOop))) &
-            7) == 1)) &&
+         (((((fetchPointerofObject(SenderIndex, objOop))) & 7) == 1)) &&
          (!(isWidowedContext(objOop))))) {
       toDoLimit = (numSlotsOfMarriedContext(objOop)) - 1;
       for (i = 0; i <= toDoLimit; i += 1) {

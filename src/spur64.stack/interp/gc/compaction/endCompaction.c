@@ -70,7 +70,8 @@ static void endCompaction(void) {
                   1);
 
   /* begin relocateRememberedSet */
-  rememberedSet = firstIndexableField(fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj));
+  rememberedSet = firstIndexableField(
+      fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj));
   if (/* savedFirstFieldsSpaceWasAllocated */
       savedFirstFieldsSpaceNotInOldSpace &&
       (oopisGreaterThan((savedFirstFieldsSpace.start), nilObj))) {

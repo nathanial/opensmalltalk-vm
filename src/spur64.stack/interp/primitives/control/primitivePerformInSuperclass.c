@@ -46,8 +46,7 @@ static void primitivePerformInSuperclass(void) {
   while (currentClass != lookupClass) {
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
-    objOop =
-        fetchPointerofObject(SuperclassIndex, currentClass);
+    objOop = fetchPointerofObject(SuperclassIndex, currentClass);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

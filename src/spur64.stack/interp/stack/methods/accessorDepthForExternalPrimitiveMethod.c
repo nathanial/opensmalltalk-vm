@@ -8,8 +8,7 @@ static sqInt accessorDepthForExternalPrimitiveMethod(sqInt methodObj) {
   sqInt lit;
 
   assert(isLinkedExternalPrimitive(methodObj));
-  lit =
-      fetchPointerofObject(1U, methodObj);
+  lit = fetchPointerofObject(1U, methodObj);
   flags = fetchPointerofObject(ExternalCallLiteralFlagsIndex, lit);
   return (((flags >> 3))) >> SpurPrimitiveAccessorDepthShift;
 }

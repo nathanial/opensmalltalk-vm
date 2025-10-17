@@ -10,8 +10,7 @@ sqInt superclassOf(sqInt classPointer) {
   sqInt objOop;
 
   /* begin followObjField:ofObject: */
-  objOop =
-      fetchPointerofObject(SuperclassIndex, classPointer);
+  objOop = fetchPointerofObject(SuperclassIndex, classPointer);
   assert(isNonImmediate(objOop));
   if ((!((longAt((void *)(objOop))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

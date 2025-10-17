@@ -27,11 +27,13 @@ static void setSignalLowSpaceFlagAndSaveProcess(void) {
      self lowSpaceThreshold: 0
      is inlined into setSignalLowSpaceFlagAndSaveProcess */
   assert(totalFreeOldSpace >= lowSpaceThreshold);
-  lastSavedProcess = fetchPointerofObject(ProcessSignalingLowSpace, specialObjectsOop);
+  lastSavedProcess =
+      fetchPointerofObject(ProcessSignalingLowSpace, specialObjectsOop);
   if (lastSavedProcess == nilObj) {
     /* begin activeProcess */
-    objOop =
-        fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+    objOop = fetchPointerofObject(
+        ValueIndex,
+        fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
     activeProc = fetchPointerofObject(ActiveProcessIndex, objOop);
 
     /* begin splObj:put: */

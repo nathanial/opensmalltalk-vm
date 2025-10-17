@@ -15,16 +15,14 @@ static sqInt isValidObjStackPagemyIndexfirstPage(sqInt objStackPage, sqInt myx,
   if (!(isValidObjStackPagemyIndex(objStackPage, myx))) {
     return 0;
   }
-  freeOrNextPage =
-      fetchPointerofObject(ObjStackFreex, objStackPage);
+  freeOrNextPage = fetchPointerofObject(ObjStackFreex, objStackPage);
   while (freeOrNextPage != 0) {
     if (!isFirstPage) {
       objStackInvalidBecause = "free page on other than first page";
       invalidObjStackPage = objStackPage;
       return 0;
     }
-    if (freeOrNextPage ==
-        (fetchPointerofObject(ObjStackNextx, objStackPage))) {
+    if (freeOrNextPage == (fetchPointerofObject(ObjStackNextx, objStackPage))) {
       objStackInvalidBecause = "free page = next page";
       invalidObjStackPage = freeOrNextPage;
       return 0;
@@ -55,8 +53,7 @@ static sqInt isValidObjStackPagemyIndexfirstPage(sqInt objStackPage, sqInt myx,
       invalidObjStackPage = objStackPage;
       return 0;
     }
-    if (!((fetchPointerofObject(myx, hiddenRootsObj)) ==
-          objStackPage)) {
+    if (!((fetchPointerofObject(myx, hiddenRootsObj)) == objStackPage)) {
       objStackInvalidBecause = "firstPage is not root";
       invalidObjStackPage = objStackPage;
       return 0;
@@ -68,8 +65,7 @@ static sqInt isValidObjStackPagemyIndexfirstPage(sqInt objStackPage, sqInt myx,
     invalidObjStackPage = objStackPage;
     return 0;
   }
-  freeOrNextPage =
-      fetchPointerofObject(ObjStackNextx, objStackPage);
+  freeOrNextPage = fetchPointerofObject(ObjStackNextx, objStackPage);
   if (!freeOrNextPage) {
     return 1;
   }

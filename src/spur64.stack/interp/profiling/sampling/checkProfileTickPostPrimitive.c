@@ -17,7 +17,9 @@ static NeverInline void checkProfileTickPostPrimitive(sqInt aPrimitiveMethod) {
     if ((nextProfileTick > 0) && ((ioHighResClock()) >= nextProfileTick)) {
       if (!profileProcess) {
         /* begin activeProcess */
-        objOop = fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+        objOop = fetchPointerofObject(
+            ValueIndex,
+            fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
         profileProcess = fetchPointerofObject(ActiveProcessIndex, objOop);
         if (primFailCode) {
           profileMethod = null;

@@ -8,10 +8,8 @@ static sqInt printContextCallStackOf(sqInt aContext) {
   sqInt ctxt;
 
   ctxt = aContext;
-  while (!(
-      (ctxt == nilObj) ||
-      (((((fetchPointerofObject(SenderIndex, ctxt))) &
-         7) == 1)))) {
+  while (!((ctxt == nilObj) ||
+           (((((fetchPointerofObject(SenderIndex, ctxt))) & 7) == 1)))) {
     shortPrintContext(ctxt);
     ctxt = fetchPointerofObject(SenderIndex, ctxt);
   }

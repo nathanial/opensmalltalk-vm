@@ -18,8 +18,8 @@ sqInt instantiateClassindexableSize(sqInt classObj, usqInt nElements) {
   usqInt p;
   usqInt toDoLimit;
 
-  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, classObj)) >>
-                 3);
+  classFormat =
+      ((fetchPointerofObject(InstanceSpecificationIndex, classObj)) >> 3);
   instSpec =
       (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());
   classIndex =

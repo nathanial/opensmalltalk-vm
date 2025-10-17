@@ -66,7 +66,8 @@ static void primitiveSetImmutability(void) {
 
     /* No clue what is going on for semaphores so they can't be immutable */
     if (((longAt((void *)(rcvr))) & (classIndexMask())) ==
-        (rawHashBitsOf(fetchPointerofObject(ClassSemaphore, specialObjectsOop)))) {
+        (rawHashBitsOf(
+            fetchPointerofObject(ClassSemaphore, specialObjectsOop)))) {
       goto l1;
     }
 
@@ -74,10 +75,10 @@ static void primitiveSetImmutability(void) {
        instances to be immutable as well as the Processor and the array of
        activeProcess */
 
-    scheduler =
-        fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
-    processLists =
-        fetchPointerofObject(ProcessListsIndex, scheduler);
+    scheduler = fetchPointerofObject(
+        ValueIndex,
+        fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+    processLists = fetchPointerofObject(ProcessListsIndex, scheduler);
     if (rcvr == scheduler) {
       goto l1;
     }

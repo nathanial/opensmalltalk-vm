@@ -26,8 +26,7 @@ sqInt indexOfin(sqInt anElement, sqInt anObject) {
                    8
              : numSlotsUsqInt);
     for (i = 0; i <= numSlots; i += 1) {
-      if (anElement ==
-          (fetchPointerofObject(i, anObject))) {
+      if (anElement == (fetchPointerofObject(i, anObject))) {
         return i;
       }
     }

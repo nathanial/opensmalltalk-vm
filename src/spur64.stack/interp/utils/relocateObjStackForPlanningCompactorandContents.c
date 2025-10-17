@@ -27,8 +27,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack,
   assert((relocateContents ? (rawHashBitsOf(objStack)) < ObjStackLimit
                            : (rawHashBitsOf(objStack)) == 0));
   stackOrNil = objStack;
-  freeList =
-      fetchPointerofObject(ObjStackFreex, objStack);
+  freeList = fetchPointerofObject(ObjStackFreex, objStack);
   while (1) {
     assert((numSlotsOfAny(stackOrNil)) == ObjStackPageSlots);
 
@@ -53,8 +52,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack,
            (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) &
                (1U << (pinnedBitByteShift()))) != 0)))) {
         assert(isMarked(oop));
-        fwd =
-            fetchPointerofObject(0U, oop);
+        fwd = fetchPointerofObject(0U, oop);
         assert(isPostMobile(fwd));
 
         /* begin storePointerUnchecked:ofObject:withValue: */
@@ -94,8 +92,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack,
            (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) &
                (1U << (pinnedBitByteShift()))) != 0)))) {
         assert(isMarked(oop));
-        fwd =
-            fetchPointerofObject(0U, oop);
+        fwd = fetchPointerofObject(0U, oop);
         assert(isPostMobile(fwd));
 
         /* begin storePointerUnchecked:ofObject:withValue: */

@@ -50,8 +50,7 @@ sqInt reestablishContextPriorToCallback(sqInt callbackContext) {
 
   /* Mark callbackContext as dead; the common case is that it is the current
      frame. We go the extra mile for the debugger. */
-  if ((!((fetchPointerofObject(SenderIndex, callbackContext)) &
-         (tagMask())))) {
+  if ((!((fetchPointerofObject(SenderIndex, callbackContext)) & (tagMask())))) {
     /* begin markContextAsDead: */
     assert(isContext(callbackContext));
     assert((isNonImmediate(callbackContext)) &&
@@ -73,8 +72,7 @@ sqInt reestablishContextPriorToCallback(sqInt callbackContext) {
         nilObj);
   } else {
     /* begin frameOfMarriedContext: */
-    senderOop =
-        fetchPointerofObject(SenderIndex, callbackContext);
+    senderOop = fetchPointerofObject(SenderIndex, callbackContext);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
     if (framePointer == theFP) {
@@ -119,12 +117,10 @@ sqInt reestablishContextPriorToCallback(sqInt callbackContext) {
   /* Make the calloutContext the active frame.  The case where calloutContext
      is immediately below callbackContext on the same page is handled above. */
   if (/* isStillMarriedContext: */
-      (((((fetchPointerofObject(SenderIndex, calloutContext))) &
-         7) == 1)) &&
+      (((((fetchPointerofObject(SenderIndex, calloutContext))) & 7) == 1)) &&
       (!(isWidowedContext(calloutContext)))) {
     /* begin frameOfMarriedContext: */
-    senderOop =
-        fetchPointerofObject(SenderIndex, calloutContext);
+    senderOop = fetchPointerofObject(SenderIndex, calloutContext);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
 

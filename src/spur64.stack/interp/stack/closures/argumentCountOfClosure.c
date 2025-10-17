@@ -8,8 +8,7 @@ sqInt argumentCountOfClosure(sqInt closurePointer) {
   sqInt oop;
 
   /* begin quickFetchInteger:ofObject: */
-  oop =
-      fetchPointerofObject(ClosureNumArgsIndex, closurePointer);
+  oop = fetchPointerofObject(ClosureNumArgsIndex, closurePointer);
   assert((((oop) & 7) == 1));
   return (oop >> 3);
 }

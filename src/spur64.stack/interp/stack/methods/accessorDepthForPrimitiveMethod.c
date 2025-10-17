@@ -10,8 +10,7 @@ signed char accessorDepthForPrimitiveMethod(sqInt aMethodObj) {
   /* begin primitiveIndexOf: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(aMethodObj));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, aMethodObj);
+  methodHeader = fetchPointerofObject(HeaderIndex, aMethodObj);
   if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
     firstBytecode =
         (aMethodObj + ((LiteralStart + (((methodHeader >> 3)) &

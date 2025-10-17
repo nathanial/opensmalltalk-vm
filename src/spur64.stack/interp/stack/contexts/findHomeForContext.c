@@ -11,8 +11,7 @@ static sqInt findHomeForContext(sqInt aContext) {
          ClassMethodContextCompactIndex))) {
     return null;
   }
-  closureOrNil =
-      fetchPointerofObject(ClosureIndex, aContext);
+  closureOrNil = fetchPointerofObject(ClosureIndex, aContext);
   assert((isPointers(closureOrNil)) &&
          ((closureOrNil == (nilObject())) ||
           ((numSlotsOf(closureOrNil)) >= ClosureFirstCopiedValueIndex)));
@@ -27,5 +26,6 @@ static sqInt findHomeForContext(sqInt aContext) {
        ClassFullBlockClosureCompactIndex)) {
     return null;
   }
-  return findHomeForContext(fetchPointerofObject(ClosureOuterContextIndex, closureOrNil));
+  return findHomeForContext(
+      fetchPointerofObject(ClosureOuterContextIndex, closureOrNil));
 }

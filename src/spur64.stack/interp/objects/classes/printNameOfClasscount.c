@@ -19,16 +19,14 @@ static void printNameOfClasscount(sqInt classOop, sqInt cnt) {
   }
   numSlots = numSlotsOf(classOop);
   if ((numSlots == metaclassNumSlots) && (metaclassNumSlots > thisClassIndex)) {
-    printNameOfClasscount(
-        fetchPointerofObject(thisClassIndex, classOop),
-        cnt - 1);
+    printNameOfClasscount(fetchPointerofObject(thisClassIndex, classOop),
+                          cnt - 1);
     print(" class");
   } else {
     if (numSlots <= classNameIndex) {
       print("bad class");
     } else {
-      printStringOf(
-          fetchPointerofObject(classNameIndex, classOop));
+      printStringOf(fetchPointerofObject(classNameIndex, classOop));
     }
   }
 }

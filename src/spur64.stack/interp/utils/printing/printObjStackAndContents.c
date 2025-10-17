@@ -9,8 +9,6 @@ void printObjStackAndContents(sqInt objStack) {
     cr();
   } else {
     printObjStackPagemyIndexpageTypeprintContents(
-        objStack,
-        fetchPointerofObject(ObjStackMyx, objStack),
-        ObjStackMyx, 1);
+        objStack, fetchPointerofObject(ObjStackMyx, objStack), ObjStackMyx, 1);
   }
 }

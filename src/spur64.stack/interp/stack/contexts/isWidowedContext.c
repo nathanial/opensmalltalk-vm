@@ -31,7 +31,8 @@ static sqInt isWidowedContext(sqInt aOnceMarriedContext) {
       pageIndexForstackMemorybytesPerPage(theFrame, stackMemory, bytesPerPage),
       pages);
   if (!((isFree(thePage)) || (theFrame < ((thePage->headFP))))) {
-    anInteger = fetchPointerofObject(InstructionPointerIndex, aOnceMarriedContext);
+    anInteger =
+        fetchPointerofObject(InstructionPointerIndex, aOnceMarriedContext);
 
     /* begin withoutSmallIntegerTags: */
     assert((((anInteger) & 7) == 1));

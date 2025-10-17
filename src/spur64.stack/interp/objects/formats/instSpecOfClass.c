@@ -7,7 +7,8 @@
 /* SpurMemoryManager>>#instSpecOfClass: */
 
 static sqInt instSpecOfClass(sqInt classPointer) {
-  return (((usqInt)((((fetchPointerofObject(InstanceSpecificationIndex, classPointer)) >>
+  return (((usqInt)((((fetchPointerofObject(InstanceSpecificationIndex,
+                                            classPointer)) >>
                       3)))) >>
           (fixedFieldsFieldWidth())) &
          (formatMask());

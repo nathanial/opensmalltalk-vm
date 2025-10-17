@@ -73,9 +73,9 @@ l1:
     goto l2;
   }
   class = fetchClassOfNonImm(oop);
-  fixedFields = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
-                  3)) &
-                ((1U << (fixedFieldsFieldWidth())) - 1);
+  fixedFields =
+      (((fetchPointerofObject(InstanceSpecificationIndex, class)) >> 3)) &
+      ((1U << (fixedFieldsFieldWidth())) - 1);
   /* end fixedFieldsOf:format:length: */
 l2:
   if (fmt == (indexablePointersFormat())) {

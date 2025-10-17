@@ -64,8 +64,7 @@ sqInt interpret(void) {
   /* begin methodUsesAlternateBytecodeSet: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, method);
+  methodHeader = fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeader)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {
@@ -104,9 +103,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode1);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(1, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(1, longAt(localFP + FoxReceiver)));
     } break;
     case 2:   // pushReceiverVariableBytecode
     case 258: // 2	pushReceiverVariableBytecode
@@ -114,9 +112,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode2);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(2, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(2, longAt(localFP + FoxReceiver)));
     } break;
     case 3:   // pushReceiverVariableBytecode
     case 259: // 3	pushReceiverVariableBytecode
@@ -124,9 +121,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode3);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(3, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(3, longAt(localFP + FoxReceiver)));
     } break;
     case 4:   // pushReceiverVariableBytecode
     case 260: // 4	pushReceiverVariableBytecode
@@ -134,9 +130,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode4);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(4, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(4, longAt(localFP + FoxReceiver)));
     } break;
     case 5:   // pushReceiverVariableBytecode
     case 261: // 5	pushReceiverVariableBytecode
@@ -144,9 +139,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode5);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(5, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(5, longAt(localFP + FoxReceiver)));
     } break;
     case 6:   // pushReceiverVariableBytecode
     case 262: // 6	pushReceiverVariableBytecode
@@ -154,9 +148,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode6);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(6, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(6, longAt(localFP + FoxReceiver)));
     } break;
     case 7:   // pushReceiverVariableBytecode
     case 263: // 7	pushReceiverVariableBytecode
@@ -164,9 +157,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode7);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(7, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(7, longAt(localFP + FoxReceiver)));
     } break;
     case 8:   // pushReceiverVariableBytecode
     case 264: // 8	pushReceiverVariableBytecode
@@ -174,9 +166,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode8);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(8, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(8, longAt(localFP + FoxReceiver)));
     } break;
     case 9:   // pushReceiverVariableBytecode
     case 265: // 9	pushReceiverVariableBytecode
@@ -184,9 +175,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode9);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(9, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(9, longAt(localFP + FoxReceiver)));
     } break;
     case 10:  // pushReceiverVariableBytecode
     case 266: // 10	pushReceiverVariableBytecode
@@ -194,9 +184,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode10);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(10, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(10, longAt(localFP + FoxReceiver)));
     } break;
     case 11:  // pushReceiverVariableBytecode
     case 267: // 11	pushReceiverVariableBytecode
@@ -204,9 +193,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode11);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(11, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(11, longAt(localFP + FoxReceiver)));
     } break;
     case 12:  // pushReceiverVariableBytecode
     case 268: // 12	pushReceiverVariableBytecode
@@ -214,9 +202,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode12);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(12, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(12, longAt(localFP + FoxReceiver)));
     } break;
     case 13:  // pushReceiverVariableBytecode
     case 269: // 13	pushReceiverVariableBytecode
@@ -224,9 +211,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode13);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(13, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(13, longAt(localFP + FoxReceiver)));
     } break;
     case 14:  // pushReceiverVariableBytecode
     case 270: // 14	pushReceiverVariableBytecode
@@ -234,9 +220,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode14);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(14, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(14, longAt(localFP + FoxReceiver)));
     } break;
     case 15:  // pushReceiverVariableBytecode
     case 271: // 15	pushReceiverVariableBytecode
@@ -244,9 +229,8 @@ sqInt interpret(void) {
       VM_LABEL(pushReceiverVariableBytecode15);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(15, longAt(localFP + FoxReceiver)));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(15, longAt(localFP + FoxReceiver)));
     } break;
     case 16:  // pushTemporaryVariableBytecode
     case 320: // 64	pushTemporaryVariableBytecode
@@ -693,8 +677,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(12 + LiteralStart, method);
+      object = fetchPointerofObject(12 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -708,8 +691,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(13 + LiteralStart, method);
+      object = fetchPointerofObject(13 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -723,8 +705,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(14 + LiteralStart, method);
+      object = fetchPointerofObject(14 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -738,8 +719,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(15 + LiteralStart, method);
+      object = fetchPointerofObject(15 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -753,8 +733,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(16 + LiteralStart, method);
+      object = fetchPointerofObject(16 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -768,8 +747,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(17 + LiteralStart, method);
+      object = fetchPointerofObject(17 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -783,8 +761,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(18 + LiteralStart, method);
+      object = fetchPointerofObject(18 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -798,8 +775,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(19 + LiteralStart, method);
+      object = fetchPointerofObject(19 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -813,8 +789,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(20 + LiteralStart, method);
+      object = fetchPointerofObject(20 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -828,8 +803,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(21 + LiteralStart, method);
+      object = fetchPointerofObject(21 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -843,8 +817,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(22 + LiteralStart, method);
+      object = fetchPointerofObject(22 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -858,8 +831,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(23 + LiteralStart, method);
+      object = fetchPointerofObject(23 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -873,8 +845,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(24 + LiteralStart, method);
+      object = fetchPointerofObject(24 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -888,8 +859,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(25 + LiteralStart, method);
+      object = fetchPointerofObject(25 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -903,8 +873,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(26 + LiteralStart, method);
+      object = fetchPointerofObject(26 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -918,8 +887,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(27 + LiteralStart, method);
+      object = fetchPointerofObject(27 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -933,8 +901,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(28 + LiteralStart, method);
+      object = fetchPointerofObject(28 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -948,8 +915,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(29 + LiteralStart, method);
+      object = fetchPointerofObject(29 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -963,8 +929,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(30 + LiteralStart, method);
+      object = fetchPointerofObject(30 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -978,8 +943,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       assert(method == (iframeMethod(localFP)));
-      object =
-          fetchPointerofObject(31 + LiteralStart, method);
+      object = fetchPointerofObject(31 + LiteralStart, method);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop), object);
@@ -1232,8 +1196,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode12);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(12 + LiteralStart, method);
+      litVar = fetchPointerofObject(12 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1253,8 +1216,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode13);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(13 + LiteralStart, method);
+      litVar = fetchPointerofObject(13 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1274,8 +1236,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode14);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(14 + LiteralStart, method);
+      litVar = fetchPointerofObject(14 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1295,8 +1256,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode15);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(15 + LiteralStart, method);
+      litVar = fetchPointerofObject(15 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1315,8 +1275,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode16);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(16 + LiteralStart, method);
+      litVar = fetchPointerofObject(16 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1335,8 +1294,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode17);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(17 + LiteralStart, method);
+      litVar = fetchPointerofObject(17 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1355,8 +1313,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode18);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(18 + LiteralStart, method);
+      litVar = fetchPointerofObject(18 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1375,8 +1332,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode19);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(19 + LiteralStart, method);
+      litVar = fetchPointerofObject(19 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1395,8 +1351,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode20);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(20 + LiteralStart, method);
+      litVar = fetchPointerofObject(20 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1415,8 +1370,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode21);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(21 + LiteralStart, method);
+      litVar = fetchPointerofObject(21 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1435,8 +1389,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode22);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(22 + LiteralStart, method);
+      litVar = fetchPointerofObject(22 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1455,8 +1408,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode23);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(23 + LiteralStart, method);
+      litVar = fetchPointerofObject(23 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1475,8 +1427,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode24);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(24 + LiteralStart, method);
+      litVar = fetchPointerofObject(24 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1495,8 +1446,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode25);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(25 + LiteralStart, method);
+      litVar = fetchPointerofObject(25 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1515,8 +1465,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode26);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(26 + LiteralStart, method);
+      litVar = fetchPointerofObject(26 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1535,8 +1484,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode27);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(27 + LiteralStart, method);
+      litVar = fetchPointerofObject(27 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1555,8 +1503,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode28);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(28 + LiteralStart, method);
+      litVar = fetchPointerofObject(28 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1575,8 +1522,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode29);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(29 + LiteralStart, method);
+      litVar = fetchPointerofObject(29 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1595,8 +1541,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode30);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(30 + LiteralStart, method);
+      litVar = fetchPointerofObject(30 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1615,8 +1560,7 @@ sqInt interpret(void) {
       VM_LABEL(pushLiteralVariableBytecode31);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      litVar =
-          fetchPointerofObject(31 + LiteralStart, method);
+      litVar = fetchPointerofObject(31 + LiteralStart, method);
       assert(isNonImmediate(litVar));
       if ((!((longAt((void *)(litVar))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -1667,7 +1611,8 @@ sqInt interpret(void) {
         longAtput((localSP -= BytesPerOop), rcvr);
         longAtput((localSP -= BytesPerOop), top);
         longAtput((localSP -= BytesPerOop), (((instVarIndex + 1) << 3) | 1));
-        messageSelector = fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
+        messageSelector =
+            fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
         argumentCount = 2;
         goto normalSend;
         goto l1;
@@ -2072,13 +2017,13 @@ sqInt interpret(void) {
            or 0 if no unwind is found but the sender is. */
 
         /* begin findUnwindThroughContext: */
-        onSamePage = (/* isStillMarriedContext: */
-                      (((((fetchPointerofObject(SenderIndex, home))) &
-                         7) == 1)) &&
-                      (!(isWidowedContext(home)))) &&
-                     ((pageIndexForstackMemorybytesPerPage(
-                          framePointer, stackMemory, bytesPerPage)) ==
-                      (pageIndexFor(frameOfMarriedContext(home))));
+        onSamePage =
+            (/* isStillMarriedContext: */
+             (((((fetchPointerofObject(SenderIndex, home))) & 7) == 1)) &&
+             (!(isWidowedContext(home)))) &&
+            ((pageIndexForstackMemorybytesPerPage(framePointer, stackMemory,
+                                                  bytesPerPage)) ==
+             (pageIndexFor(frameOfMarriedContext(home))));
 
         /* Since nothing changes we don't need to internalize. */
 
@@ -2137,8 +2082,7 @@ sqInt interpret(void) {
       l159:
         assert(!((onSamePage && (ctxtOrNilOrZero == (nilObject())))));
         if (!ctxtOrNilOrZero) {
-          theMethod =
-              fetchPointerofObject(MethodIndex, home);
+          theMethod = fetchPointerofObject(MethodIndex, home);
           if ((primitiveIndexOf(theMethod)) == PrimNumberUnwindMarker) {
             unwindContextOrNilOrZero = home;
             goto l155;
@@ -2210,13 +2154,11 @@ sqInt interpret(void) {
            We could be returning to either a context or a frame.  Find out
            which. */
         contextToReturnTo = null;
-        if (((((fetchPointerofObject(SenderIndex, home))) &
-              7) == 1)) {
+        if (((((fetchPointerofObject(SenderIndex, home))) & 7) == 1)) {
           assert(checkIsStillMarriedContextcurrentFP(home, localFP));
 
           /* begin frameOfMarriedContext: */
-          senderOop =
-              fetchPointerofObject(SenderIndex, home);
+          senderOop = fetchPointerofObject(SenderIndex, home);
           assert((((senderOop) & 7) == 1));
           theFP = ((char *)(senderOop - (smallIntegerTag())));
           if (longAt(theFP + FoxSavedFP)) {
@@ -2227,8 +2169,7 @@ sqInt interpret(void) {
             contextToReturnTo = longAt(theFP + FoxCallerContext);
           }
         } else {
-          contextToReturnTo =
-              fetchPointerofObject(SenderIndex, home);
+          contextToReturnTo = fetchPointerofObject(SenderIndex, home);
           if ((/* isContext: */
                ((!(contextToReturnTo & (tagMask())))) &&
                (((longAt((void *)(contextToReturnTo))) & (classIndexMask())) ==
@@ -2257,8 +2198,8 @@ sqInt interpret(void) {
             frameToReturnTo = 0;
             goto l156;
           }
-          if (((((fetchPointerofObject(SenderIndex, contextToReturnTo))) &
-                7) == 1)) {
+          if (((((fetchPointerofObject(SenderIndex, contextToReturnTo))) & 7) ==
+               1)) {
             if (isWidowedContext(contextToReturnTo)) {
               frameToReturnTo = 0;
               goto l156;
@@ -2272,7 +2213,8 @@ sqInt interpret(void) {
             frameToReturnTo = ((char *)(senderOop - (smallIntegerTag())));
             goto l156;
           }
-          if (!(((((fetchPointerofObject(InstructionPointerIndex, contextToReturnTo))) &
+          if (!(((((fetchPointerofObject(InstructionPointerIndex,
+                                         contextToReturnTo))) &
                   7) == 1))) {
             frameToReturnTo = 0;
             goto l156;
@@ -2327,13 +2269,13 @@ sqInt interpret(void) {
           freeStackPage(stackPage);
           while (1) {
             assert(isContext(currentCtx));
-            if ((((((fetchPointerofObject(SenderIndex, currentCtx))) &
-                   7) == 1)) &&
+            if ((((((fetchPointerofObject(SenderIndex, currentCtx))) & 7) ==
+                  1)) &&
                 ((stackPageFor((theFP = frameOfMarriedContext(currentCtx)))) ==
                  newPage))
               break;
-            if (((((fetchPointerofObject(SenderIndex, currentCtx))) &
-                  7) == 1)) {
+            if (((((fetchPointerofObject(SenderIndex, currentCtx))) & 7) ==
+                 1)) {
               /* begin stackPageFor: */
               thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(
                                              theFP, stackMemory, bytesPerPage),
@@ -2421,8 +2363,7 @@ sqInt interpret(void) {
         /* begin methodUsesAlternateBytecodeSet: */
         /* begin methodHeaderOf: */
         assert(isCompiledMethod(method));
-        methodHeader =
-            fetchPointerofObject(HeaderIndex, method);
+        methodHeader = fetchPointerofObject(HeaderIndex, method);
         if ((((sqLong)methodHeader)) < 0) {
           bytecodeSetSelector = 0x100;
         } else {
@@ -2552,7 +2493,8 @@ sqInt interpret(void) {
             }
           } else {
             if (!(isAContext &&
-                  (((((fetchPointerofObject(InstructionPointerIndex, contextToReturnTo))) &
+                  (((((fetchPointerofObject(InstructionPointerIndex,
+                                            contextToReturnTo))) &
                      7) == 1)))) {
               /* begin internalCannotReturn: */
               /* begin ensureFrameIsMarried:SP: */
@@ -2598,8 +2540,7 @@ sqInt interpret(void) {
           /* begin methodUsesAlternateBytecodeSet: */
           /* begin methodHeaderOf: */
           assert(isCompiledMethod(method));
-          methodHeader =
-              fetchPointerofObject(HeaderIndex, method);
+          methodHeader = fetchPointerofObject(HeaderIndex, method);
           if ((((sqLong)methodHeader)) < 0) {
             bytecodeSetSelector = 0x100;
           } else {
@@ -2632,8 +2573,7 @@ sqInt interpret(void) {
         /* begin methodUsesAlternateBytecodeSet: */
         /* begin methodHeaderOf: */
         assert(isCompiledMethod(method));
-        methodHeader =
-            fetchPointerofObject(HeaderIndex, method);
+        methodHeader = fetchPointerofObject(HeaderIndex, method);
         if ((((sqLong)methodHeader)) < 0) {
           bytecodeSetSelector = 0x100;
         } else {
@@ -2675,7 +2615,8 @@ sqInt interpret(void) {
                                           << 8)))))) >>
                                   8
                             : numSlots)))
-                 ? fetchPointerofObject(SelectorUnknownBytecode, specialObjectsOop)
+                 ? fetchPointerofObject(SelectorUnknownBytecode,
+                                        specialObjectsOop)
                  : 0);
         if ((!messageSelector) || (messageSelector == nilObj)) {
           error("Unknown bytecode");
@@ -2760,9 +2701,8 @@ sqInt interpret(void) {
         }
 
         /* begin internalPush: */
-        longAtput(
-            (localSP -= BytesPerOop),
-            fetchPointerofObject(ValueIndex, litVar));
+        longAtput((localSP -= BytesPerOop),
+                  fetchPointerofObject(ValueIndex, litVar));
         goto l2;
       }
     }
@@ -3057,7 +2997,8 @@ sqInt interpret(void) {
 
       /* begin literal: */
       assert(method == (iframeMethod(localFP)));
-      messageSelector = fetchPointerofObject((descriptor & 0x1F) + LiteralStart, method);
+      messageSelector =
+          fetchPointerofObject((descriptor & 0x1F) + LiteralStart, method);
       argumentCount = ((usqInt)(descriptor)) >> 5;
 
       /* goto normalSend */
@@ -3175,16 +3116,14 @@ sqInt interpret(void) {
           fieldIndex =
               ((usqInt)(lkupClassTag)) >> (classTableMajorIndexShift());
 
-          classTablePage =
-              fetchPointerofObject(fieldIndex, hiddenRootsObj);
+          classTablePage = fetchPointerofObject(fieldIndex, hiddenRootsObj);
           if (classTablePage == nilObj) {
             lkupClass = null;
             goto l169;
           }
           fieldIndex =
               lkupClassTag & ((1U << (classTableMajorIndexShift())) - 1);
-          lkupClass =
-              fetchPointerofObject(fieldIndex, classTablePage);
+          lkupClass = fetchPointerofObject(fieldIndex, classTablePage);
           /* end classForClassTag: */
         l169:
           lookupMethodInClass(lkupClass);
@@ -3209,8 +3148,8 @@ sqInt interpret(void) {
 
               /* Quick return inst vars */
               if (localPrimIndex >= 264) {
-                longAtput(localSP,
-                          fetchPointerofObject(localPrimIndex - 264, longAt(localSP)));
+                longAtput(localSP, fetchPointerofObject(localPrimIndex - 264,
+                                                        longAt(localSP)));
                 goto l168;
               }
 
@@ -3285,8 +3224,7 @@ sqInt interpret(void) {
           /* begin internalActivateNewMethod */
           /* begin methodHeaderOf: */
           assert(isCompiledMethod(newMethod));
-          methodHeader =
-              fetchPointerofObject(HeaderIndex, newMethod);
+          methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
           numTemps =
               (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
           assert(argumentCount == (argumentCountOfMethodHeader(methodHeader)));
@@ -3421,10 +3359,8 @@ sqInt interpret(void) {
           /* begin instVar:ofContext: */
           assert(byte3 < MethodIndex);
           assert(isContext(obj));
-          if (!(((((fetchPointerofObject(SenderIndex, obj))) &
-                  7) == 1))) {
-            object =
-                fetchPointerofObject(byte3, obj);
+          if (!(((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1))) {
+            object = fetchPointerofObject(byte3, obj);
             goto l10;
           }
 
@@ -3441,14 +3377,12 @@ sqInt interpret(void) {
           (stackPage->headSP = localSP);
           assert(pageListIsWellFormed());
           if (isWidowedContext(obj)) {
-            object =
-                fetchPointerofObject(byte3, obj);
+            object = fetchPointerofObject(byte3, obj);
             goto l10;
           }
 
           /* begin frameOfMarriedContext: */
-          senderOop =
-              fetchPointerofObject(SenderIndex, obj);
+          senderOop = fetchPointerofObject(SenderIndex, obj);
           assert((((senderOop) & 7) == 1));
           spouseFP = ((char *)(senderOop - (smallIntegerTag())));
           if (!byte3) {
@@ -3500,9 +3434,7 @@ sqInt interpret(void) {
           longAtput((localSP -= BytesPerOop), object);
         } else {
           /* begin internalPush: */
-          longAtput(
-              (localSP -= BytesPerOop),
-              fetchPointerofObject(byte3, obj));
+          longAtput((localSP -= BytesPerOop), fetchPointerofObject(byte3, obj));
         }
         goto l7;
       }
@@ -3528,9 +3460,8 @@ sqInt interpret(void) {
         }
 
         /* begin internalPush: */
-        longAtput(
-            (localSP -= BytesPerOop),
-            fetchPointerofObject(ValueIndex, litVar));
+        longAtput((localSP -= BytesPerOop),
+                  fetchPointerofObject(ValueIndex, litVar));
         goto l7;
       }
       top = longAt(localSP);
@@ -3602,8 +3533,7 @@ sqInt interpret(void) {
       if ((byte3 <= ReceiverIndex) &&
           ((((longAt((void *)(obj))) & (classIndexMask())) ==
             ClassMethodContextCompactIndex) &&
-           (((((fetchPointerofObject(SenderIndex, obj))) &
-              7) == 1)))) {
+           (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)))) {
         /* begin instVar:ofContext:put: */
         assert(isMarriedOrWidowedContext(obj));
         assert(!((isObjImmutable(obj))));
@@ -3621,8 +3551,7 @@ sqInt interpret(void) {
         (stackPage->headSP = localSP);
         assert(pageListIsWellFormed());
         if (!(/* isStillMarriedContext: */
-              (((((fetchPointerofObject(SenderIndex, obj))) &
-                 7) == 1)) &&
+              (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)) &&
               (!(isWidowedContext(obj))))) {
           /* begin storePointer:ofObject:withValue: */
           assert(validStorePointerArgs(byte3, obj, top));
@@ -3647,8 +3576,7 @@ sqInt interpret(void) {
         }
 
         /* begin frameOfMarriedContext: */
-        senderOop =
-            fetchPointerofObject(SenderIndex, obj);
+        senderOop = fetchPointerofObject(SenderIndex, obj);
         assert((((senderOop) & 7) == 1));
         theFP = ((char *)(senderOop - (smallIntegerTag())));
         if (!byte3) {
@@ -3763,7 +3691,8 @@ sqInt interpret(void) {
 
       /* begin literal: */
       assert(method == (iframeMethod(localFP)));
-      messageSelector = fetchPointerofObject((descriptor & 0x1F) + LiteralStart, method);
+      messageSelector =
+          fetchPointerofObject((descriptor & 0x1F) + LiteralStart, method);
       argumentCount = ((usqInt)(descriptor)) >> 5;
 
       /* goto superclassSend */
@@ -3856,7 +3785,8 @@ sqInt interpret(void) {
 
       /* begin literal: */
       assert(method == (iframeMethod(localFP)));
-      messageSelector = fetchPointerofObject((descriptor & 0x3F) + LiteralStart, method);
+      messageSelector =
+          fetchPointerofObject((descriptor & 0x3F) + LiteralStart, method);
       argumentCount = ((usqInt)(descriptor)) >> 6;
       goto normalSend;
     } break;
@@ -4001,8 +3931,7 @@ sqInt interpret(void) {
       VM_LABEL(callPrimitiveBytecode);
       /* begin methodHeaderOf: */
       assert(isCompiledMethod(method));
-      header =
-          fetchPointerofObject(HeaderIndex, method);
+      header = fetchPointerofObject(HeaderIndex, method);
       if ((((header & AlternateHeaderHasPrimFlag) != 0)) &&
           ((((sqInt)localIP)) ==
            (((((usqInt)(pointerForOop(method)))) +
@@ -4644,7 +4573,8 @@ sqInt interpret(void) {
           goto l20;
         }
       }
-      messageSelector = fetchPointerofObject(0U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          0U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -4780,7 +4710,8 @@ sqInt interpret(void) {
           goto l23;
         }
       }
-      messageSelector = fetchPointerofObject(2U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          2U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -4821,7 +4752,8 @@ sqInt interpret(void) {
         }
         goto l26;
       }
-      messageSelector = fetchPointerofObject(4U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          4U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -4913,7 +4845,8 @@ sqInt interpret(void) {
         }
         goto l27;
       }
-      messageSelector = fetchPointerofObject(6U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          6U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -4994,7 +4927,8 @@ sqInt interpret(void) {
         }
         goto l28;
       }
-      messageSelector = fetchPointerofObject(8U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          8U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5035,7 +4969,8 @@ sqInt interpret(void) {
         }
         goto l29;
       }
-      messageSelector = fetchPointerofObject(10U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          10U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5073,7 +5008,8 @@ sqInt interpret(void) {
         }
         goto l30;
       }
-      messageSelector = fetchPointerofObject(12U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          12U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5111,7 +5047,8 @@ sqInt interpret(void) {
         }
         goto l31;
       }
-      messageSelector = fetchPointerofObject(14U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          14U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5259,7 +5196,8 @@ sqInt interpret(void) {
           goto l32;
         }
       }
-      messageSelector = fetchPointerofObject(16U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          16U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5409,7 +5347,8 @@ sqInt interpret(void) {
           goto l35;
         }
       }
-      messageSelector = fetchPointerofObject(18U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          18U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5432,7 +5371,8 @@ sqInt interpret(void) {
         currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
         goto l38;
       }
-      messageSelector = fetchPointerofObject(20U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          20U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5520,7 +5460,8 @@ sqInt interpret(void) {
         currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
         goto l39;
       }
-      messageSelector = fetchPointerofObject(22U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          22U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5603,7 +5544,8 @@ sqInt interpret(void) {
         currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
         goto l41;
       }
-      messageSelector = fetchPointerofObject(24U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          24U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5626,7 +5568,8 @@ sqInt interpret(void) {
         currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
         goto l43;
       }
-      messageSelector = fetchPointerofObject(26U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          26U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5665,7 +5608,8 @@ sqInt interpret(void) {
         currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
         goto l44;
       }
-      messageSelector = fetchPointerofObject(28U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          28U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5704,7 +5648,8 @@ sqInt interpret(void) {
         currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
         goto l45;
       }
-      messageSelector = fetchPointerofObject(30U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          30U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -5740,7 +5685,8 @@ sqInt interpret(void) {
         atIx = rcvr & AtCacheMask;
         if ((atCache[atIx + AtCacheOop]) != rcvr) {
           lkupClassTag = (longAt((void *)(rcvr))) & (classIndexMask());
-          messageSelector = fetchPointerofObject(32U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+          messageSelector = fetchPointerofObject(
+              32U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
           if (!(lookupInMethodCacheSelclassTag(messageSelector,
                                                lkupClassTag))) {
             argumentCount = 1;
@@ -5999,7 +5945,8 @@ sqInt interpret(void) {
         /* begin initPrimCall */
         primFailCode = 0;
       }
-      messageSelector = fetchPointerofObject(32U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          32U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -6050,7 +5997,8 @@ sqInt interpret(void) {
         atIx = (rcvr & AtCacheMask) + AtPutBase;
         if ((atCache[atIx + AtCacheOop]) != rcvr) {
           lkupClassTag = (longAt((void *)(rcvr))) & (classIndexMask());
-          messageSelector = fetchPointerofObject(34U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+          messageSelector = fetchPointerofObject(
+              34U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
           if (!(lookupInMethodCacheSelclassTag(messageSelector,
                                                lkupClassTag))) {
             argumentCount = 2;
@@ -6377,7 +6325,8 @@ sqInt interpret(void) {
         /* begin initPrimCall */
         primFailCode = 0;
       }
-      messageSelector = fetchPointerofObject(34U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          34U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 2;
       goto normalSend;
     }
@@ -6526,7 +6475,8 @@ sqInt interpret(void) {
         currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
         goto l66;
       }
-      messageSelector = fetchPointerofObject(36U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          36U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 0;
       goto normalSend;
     }
@@ -6537,33 +6487,36 @@ sqInt interpret(void) {
     case 371: // 115	bytecodePrimNext
     {
       VM_LABEL(bytecodePrimNext);
-      messageSelector = fetchPointerofObject(38U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
-      argumentCount =
-          ((fetchPointerofObject(
-               39, fetchPointerofObject(SpecialSelectors, specialObjectsOop))) >>
-           3);
+      messageSelector = fetchPointerofObject(
+          38U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      argumentCount = ((fetchPointerofObject(
+                           39, fetchPointerofObject(SpecialSelectors,
+                                                    specialObjectsOop))) >>
+                       3);
       goto normalSend;
     } break;
     case 196: // bytecodePrimNextPut
     case 372: // 116	bytecodePrimNextPut
     {
       VM_LABEL(bytecodePrimNextPut);
-      messageSelector = fetchPointerofObject(40U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
-      argumentCount =
-          ((fetchPointerofObject(
-               41, fetchPointerofObject(SpecialSelectors, specialObjectsOop))) >>
-           3);
+      messageSelector = fetchPointerofObject(
+          40U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      argumentCount = ((fetchPointerofObject(
+                           41, fetchPointerofObject(SpecialSelectors,
+                                                    specialObjectsOop))) >>
+                       3);
       goto normalSend;
     } break;
     case 197: // bytecodePrimAtEnd
     case 373: // 117	bytecodePrimAtEnd
     {
       VM_LABEL(bytecodePrimAtEnd);
-      messageSelector = fetchPointerofObject(42U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
-      argumentCount =
-          ((fetchPointerofObject(
-               43, fetchPointerofObject(SpecialSelectors, specialObjectsOop))) >>
-           3);
+      messageSelector = fetchPointerofObject(
+          42U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      argumentCount = ((fetchPointerofObject(
+                           43, fetchPointerofObject(SpecialSelectors,
+                                                    specialObjectsOop))) >>
+                       3);
       goto normalSend;
     } break;
     case 198: // bytecodePrimIdentical
@@ -6676,7 +6629,8 @@ sqInt interpret(void) {
         }
         primFailCode = 0;
       }
-      messageSelector = fetchPointerofObject(50U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          50U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       goto normalSend;
     }
       /* end case */
@@ -6727,7 +6681,8 @@ sqInt interpret(void) {
         }
         primFailCode = 0;
       }
-      messageSelector = fetchPointerofObject(52U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          52U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       goto normalSend;
     }
       /* end case */
@@ -6737,18 +6692,20 @@ sqInt interpret(void) {
     case 379: // 123	bytecodePrimDo
     {
       VM_LABEL(bytecodePrimDo);
-      messageSelector = fetchPointerofObject(54U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
-      argumentCount =
-          ((fetchPointerofObject(
-               55, fetchPointerofObject(SpecialSelectors, specialObjectsOop))) >>
-           3);
+      messageSelector = fetchPointerofObject(
+          54U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      argumentCount = ((fetchPointerofObject(
+                           55, fetchPointerofObject(SpecialSelectors,
+                                                    specialObjectsOop))) >>
+                       3);
       goto normalSend;
     } break;
     case 204: // bytecodePrimNew
     case 380: // 124	bytecodePrimNew
     {
       VM_LABEL(bytecodePrimNew);
-      messageSelector = fetchPointerofObject(56U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          56U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 0;
       goto normalSend;
     } break;
@@ -6756,7 +6713,8 @@ sqInt interpret(void) {
     case 381: // 125	bytecodePrimNewWithArg
     {
       VM_LABEL(bytecodePrimNewWithArg);
-      messageSelector = fetchPointerofObject(58U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          58U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     } break;
@@ -6778,16 +6736,15 @@ sqInt interpret(void) {
         isClassOfNonImmequalTocompactClassIndexRV =
             ClassPointCompactIndex == ccIndex;
         if (isClassOfNonImmequalTocompactClassIndexRV) {
-          longAtput(
-              localSP,
-              fetchPointerofObject(XIndex, rcvr));
+          longAtput(localSP, fetchPointerofObject(XIndex, rcvr));
 
           /* begin fetchNextBytecode */
           currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
           goto l75;
         }
       }
-      messageSelector = fetchPointerofObject(60U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          60U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 0;
       goto normalSend;
     }
@@ -6812,16 +6769,15 @@ sqInt interpret(void) {
         isClassOfNonImmequalTocompactClassIndexRV =
             ClassPointCompactIndex == ccIndex;
         if (isClassOfNonImmequalTocompactClassIndexRV) {
-          longAtput(
-              localSP,
-              fetchPointerofObject(YIndex, rcvr));
+          longAtput(localSP, fetchPointerofObject(YIndex, rcvr));
 
           /* begin fetchNextBytecode */
           currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
           goto l76;
         }
       }
-      messageSelector = fetchPointerofObject(0x3EU, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          0x3EU, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 0;
       goto normalSend;
     }
@@ -6998,7 +6954,9 @@ sqInt interpret(void) {
         break;
       case 1:
         /* begin activeProcess */
-        objOop = fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+        objOop = fetchPointerofObject(
+            ValueIndex,
+            fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
         theThingToPush = fetchPointerofObject(ActiveProcessIndex, objOop);
         break;
       default:
@@ -7090,7 +7048,8 @@ sqInt interpret(void) {
         }
         goto l84;
       }
-      messageSelector = fetchPointerofObject(4U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          4U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -7181,7 +7140,8 @@ sqInt interpret(void) {
         }
         goto l85;
       }
-      messageSelector = fetchPointerofObject(6U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          6U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -7262,7 +7222,8 @@ sqInt interpret(void) {
         }
         goto l86;
       }
-      messageSelector = fetchPointerofObject(8U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          8U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -7303,7 +7264,8 @@ sqInt interpret(void) {
         }
         goto l87;
       }
-      messageSelector = fetchPointerofObject(10U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          10U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -7341,7 +7303,8 @@ sqInt interpret(void) {
         }
         goto l88;
       }
-      messageSelector = fetchPointerofObject(12U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          12U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -7379,7 +7342,8 @@ sqInt interpret(void) {
         }
         goto l89;
       }
-      messageSelector = fetchPointerofObject(14U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
+      messageSelector = fetchPointerofObject(
+          14U, fetchPointerofObject(SpecialSelectors, specialObjectsOop));
       argumentCount = 1;
       goto normalSend;
     }
@@ -7514,8 +7478,7 @@ sqInt interpret(void) {
         /* begin instVar:ofContext: */
         assert(index < MethodIndex);
         assert(isContext(obj));
-        if (!(((((fetchPointerofObject(SenderIndex, obj))) &
-                7) == 1))) {
+        if (!(((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1))) {
           object = fetchPointerofObject(index, obj);
           goto l138;
         }
@@ -7538,8 +7501,7 @@ sqInt interpret(void) {
         }
 
         /* begin frameOfMarriedContext: */
-        senderOop =
-            fetchPointerofObject(SenderIndex, obj);
+        senderOop = fetchPointerofObject(SenderIndex, obj);
         assert((((senderOop) & 7) == 1));
         spouseFP = ((char *)(senderOop - (smallIntegerTag())));
         if (!index) {
@@ -7590,8 +7552,7 @@ sqInt interpret(void) {
         longAtput((localSP -= BytesPerOop), object);
       } else {
         /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop),
-                  fetchPointerofObject(index, obj));
+        longAtput((localSP -= BytesPerOop), fetchPointerofObject(index, obj));
       }
     } break;
     case 483: // 227	extPushLiteralVariableBytecode
@@ -7618,9 +7579,8 @@ sqInt interpret(void) {
       }
 
       /* begin internalPush: */
-      longAtput(
-          (localSP -= BytesPerOop),
-          fetchPointerofObject(ValueIndex, litVar));
+      longAtput((localSP -= BytesPerOop),
+                fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 484: // 228	extPushLiteralBytecode
     {
@@ -7702,10 +7662,9 @@ sqInt interpret(void) {
 
       /* begin literal: */
       assert(method == (iframeMethod(localFP)));
-      messageSelector =
-          fetchPointerofObject(((((usqInt)(byte)) >> 3) +
-                                        ((((usqInt)(extA) << 5)))) +
-                                       LiteralStart, method);
+      messageSelector = fetchPointerofObject(
+          ((((usqInt)(byte)) >> 3) + ((((usqInt)(extA) << 5)))) + LiteralStart,
+          method);
       extA = 0;
       argumentCount = (byte & 7) + ((((usqInt)(extB) << 3)));
       extB = 0;
@@ -7726,10 +7685,9 @@ sqInt interpret(void) {
 
       /* begin literal: */
       assert(method == (iframeMethod(localFP)));
-      messageSelector =
-          fetchPointerofObject(((((usqInt)(byte)) >> 3) +
-                                        ((((usqInt)(extA) << 5)))) +
-                                       LiteralStart, method);
+      messageSelector = fetchPointerofObject(
+          ((((usqInt)(byte)) >> 3) + ((((usqInt)(extA) << 5)))) + LiteralStart,
+          method);
       extA = 0;
       if (extB >= 64) {
         argumentCount = (byte & 7) + ((((usqInt)((extB - 64)) << 3)));
@@ -7940,8 +7898,7 @@ sqInt interpret(void) {
       if ((variableIndex <= ReceiverIndex) &&
           ((((longAt((void *)(obj))) & (classIndexMask())) ==
             ClassMethodContextCompactIndex) &&
-           (((((fetchPointerofObject(SenderIndex, obj))) &
-              7) == 1)))) {
+           (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)))) {
         /* begin instVar:ofContext:put: */
         assert(isMarriedOrWidowedContext(obj));
         assert(!((isObjImmutable(obj))));
@@ -7959,8 +7916,7 @@ sqInt interpret(void) {
         (stackPage->headSP = localSP);
         assert(pageListIsWellFormed());
         if (!(/* isStillMarriedContext: */
-              (((((fetchPointerofObject(SenderIndex, obj))) &
-                 7) == 1)) &&
+              (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)) &&
               (!(isWidowedContext(obj))))) {
           /* begin storePointer:ofObject:withValue: */
           assert(validStorePointerArgs(variableIndex, obj, value));
@@ -7985,8 +7941,7 @@ sqInt interpret(void) {
         }
 
         /* begin frameOfMarriedContext: */
-        senderOop =
-            fetchPointerofObject(SenderIndex, obj);
+        senderOop = fetchPointerofObject(SenderIndex, obj);
         assert((((senderOop) & 7) == 1));
         theFP = ((char *)(senderOop - (smallIntegerTag())));
         if (!variableIndex) {
@@ -8130,7 +8085,8 @@ sqInt interpret(void) {
         longAtput((localSP -= BytesPerOop), value);
         longAtput((localSP -= BytesPerOop),
                   (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
-        messageSelector = fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
+        messageSelector =
+            fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
         argumentCount = 2;
         goto normalSend;
         goto l145;
@@ -8206,8 +8162,7 @@ sqInt interpret(void) {
       if ((variableIndex <= ReceiverIndex) &&
           ((((longAt((void *)(obj))) & (classIndexMask())) ==
             ClassMethodContextCompactIndex) &&
-           (((((fetchPointerofObject(SenderIndex, obj))) &
-              7) == 1)))) {
+           (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)))) {
         /* begin instVar:ofContext:put: */
         assert(isMarriedOrWidowedContext(obj));
         assert(!((isObjImmutable(obj))));
@@ -8225,8 +8180,7 @@ sqInt interpret(void) {
         (stackPage->headSP = localSP);
         assert(pageListIsWellFormed());
         if (!(/* isStillMarriedContext: */
-              (((((fetchPointerofObject(SenderIndex, obj))) &
-                 7) == 1)) &&
+              (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)) &&
               (!(isWidowedContext(obj))))) {
           /* begin storePointer:ofObject:withValue: */
           assert(validStorePointerArgs(variableIndex, obj, anObject));
@@ -8251,8 +8205,7 @@ sqInt interpret(void) {
         }
 
         /* begin frameOfMarriedContext: */
-        senderOop =
-            fetchPointerofObject(SenderIndex, obj);
+        senderOop = fetchPointerofObject(SenderIndex, obj);
         assert((((senderOop) & 7) == 1));
         theFP = ((char *)(senderOop - (smallIntegerTag())));
         if (!variableIndex) {
@@ -8393,7 +8346,8 @@ sqInt interpret(void) {
         longAtput((localSP -= BytesPerOop), anObject);
         longAtput((localSP -= BytesPerOop),
                   (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
-        messageSelector = fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
+        messageSelector =
+            fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
         argumentCount = 2;
         goto normalSend;
         goto l148;
@@ -8473,7 +8427,8 @@ sqInt interpret(void) {
 
       /* begin followObjLiteral:ofMethod: */
       /* begin followObjField:ofObject: */
-      compiledBlock = fetchPointerofObject(compiledBlockLiteralIndex + LiteralStart, method);
+      compiledBlock = fetchPointerofObject(
+          compiledBlockLiteralIndex + LiteralStart, method);
       assert(isNonImmediate(compiledBlock));
       if ((!((longAt((void *)(compiledBlock))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -8485,8 +8440,7 @@ sqInt interpret(void) {
       /* begin argumentCountOf: */
       /* begin methodHeaderOf: */
       assert(isCompiledMethod(compiledBlock));
-      header =
-          fetchPointerofObject(HeaderIndex, compiledBlock);
+      header = fetchPointerofObject(HeaderIndex, compiledBlock);
       numArgs = (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;
       byte = byteAt(++localIP);
       numCopied = byte & (0x3F);

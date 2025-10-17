@@ -11,7 +11,8 @@ void printProcessStack(sqInt aProcess) {
   cr();
   printNameOfClasscount(/* fetchClassOf: */
                         ((tagBits = aProcess & (tagMask()))
-                             ? fetchPointerofObject(tagBits, classTableFirstPage)
+                             ? fetchPointerofObject(tagBits,
+                                                    classTableFirstPage)
                              : fetchClassOfNonImm(aProcess)),
                         5);
 

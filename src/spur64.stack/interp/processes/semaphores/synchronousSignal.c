@@ -18,8 +18,7 @@ static sqInt synchronousSignal(sqInt aSemaphore) {
 
   /* begin isEmptyList: */
   assert(!(isForwarded(aSemaphore)));
-  if ((fetchPointerofObject(FirstLinkIndex, aSemaphore)) ==
-      nilObj) {
+  if ((fetchPointerofObject(FirstLinkIndex, aSemaphore)) == nilObj) {
     excessSignals = fetchIntegerofObject(ExcessSignalsIndex, aSemaphore);
     integerValue = excessSignals + 1;
 

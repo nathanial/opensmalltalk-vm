@@ -12,8 +12,8 @@ static sqInt imageSegmentVersion(void) {
   sqInt wholeWord;
 
   /* first data word, 'does' */
-  wholeWord =
-      long32At((void *)((fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop)) +
-                        BaseHeaderSize));
+  wholeWord = long32At((void *)((fetchPointerofObject(SelectorDoesNotUnderstand,
+                                                      specialObjectsOop)) +
+                                BaseHeaderSize));
   return 68021 /* imageFormatVersion */ | (wholeWord & 0xFF000000U);
 }

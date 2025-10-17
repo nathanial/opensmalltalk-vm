@@ -23,11 +23,9 @@ static char *nameOfClass(sqInt classOop) {
                  8
            : numSlotsUsqInt);
   if (numSlots == metaclassNumSlots) {
-    maybeThisClassOop =
-        fetchPointerofObject(thisClassIndex, classOop);
+    maybeThisClassOop = fetchPointerofObject(thisClassIndex, classOop);
     if (addressCouldBeClassObj(maybeThisClassOop)) {
-      return nameOfClass(
-          fetchPointerofObject(thisClassIndex, classOop));
+      return nameOfClass(fetchPointerofObject(thisClassIndex, classOop));
     }
     return "bad class";
   }

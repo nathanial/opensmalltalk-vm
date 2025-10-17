@@ -170,8 +170,7 @@ static NeverInline void updatePointers(void) {
            (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) &
                (1U << (pinnedBitByteShift()))) != 0)))) {
         assert((isMarked(oop)) || (objOopSqInt == (hiddenRootsObject())));
-        fwd =
-            fetchPointerofObject(0U, oop);
+        fwd = fetchPointerofObject(0U, oop);
         assert(isPostMobile(fwd));
 
         /* begin storePointerUnchecked:ofObject:withValue: */
@@ -280,8 +279,7 @@ static NeverInline void updatePointers(void) {
 
       /* begin methodHeaderOf: */
       assert(isCompiledMethod(objOopSqInt));
-      header =
-          fetchPointerofObject(HeaderIndex, objOopSqInt);
+      header = fetchPointerofObject(HeaderIndex, objOopSqInt);
 
       /* begin literalCountOfMethodHeader: */
       assert((((header) & 7) == 1));
@@ -419,8 +417,7 @@ l7:
 
         /* begin methodHeaderOf: */
         assert(isCompiledMethod(objOop));
-        header =
-            fetchPointerofObject(HeaderIndex, objOop);
+        header = fetchPointerofObject(HeaderIndex, objOop);
 
         /* begin literalCountOfMethodHeader: */
         assert((((header) & 7) == 1));
@@ -600,8 +597,7 @@ l11:
 
           /* begin methodHeaderOf: */
           assert(isCompiledMethod(objOopSqInt));
-          header =
-              fetchPointerofObject(HeaderIndex, objOopSqInt);
+          header = fetchPointerofObject(HeaderIndex, objOopSqInt);
 
           /* begin literalCountOfMethodHeader: */
           assert((((header) & 7) == 1));

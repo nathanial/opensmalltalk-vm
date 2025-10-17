@@ -24,8 +24,7 @@ static void printStringOf(sqInt oop) {
                                                    : ((len = lengthOf(oop))));
   i = 0;
   if ((isinstanceOfcompactClassIndex(
-          oop,
-          fetchPointerofObject(ClassByteArray, specialObjectsOop),
+          oop, fetchPointerofObject(ClassByteArray, specialObjectsOop),
           classByteArrayCompactIndex)) ||
       (/* isLargeIntegerInstance: */
        ((!(oop & (tagMask())))) &&

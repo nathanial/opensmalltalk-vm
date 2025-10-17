@@ -57,7 +57,8 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
     }
     if (((theBecomeEffectsFlags & BecamePointerObjectFlag) != 0)) {
       /* begin followForwardingPointersInScheduler */
-      schedAssoc = fetchPointerofObject(SchedulerAssociation, specialObjectsOop);
+      schedAssoc =
+          fetchPointerofObject(SchedulerAssociation, specialObjectsOop);
 
       /* the GC follows pointers in the special objects array for us. */
       assert(!(isForwarded(schedAssoc)));
@@ -110,8 +111,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         }
 
         /* begin followObjField:ofObject: */
-        last =
-            fetchPointerofObject(LastLinkIndex, list);
+        last = fetchPointerofObject(LastLinkIndex, list);
         assert(isNonImmediate(last));
         if ((!((longAt((void *)(last))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

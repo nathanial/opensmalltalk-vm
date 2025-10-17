@@ -74,8 +74,7 @@ static void initializeObjectMemory(sqInt bytesToShift) {
            : numSlots);
   assert(numClassTablePages == ((classTableRootSlots()) + (hiddenRootSlots())));
   for (i = 2; i < numClassTablePages; i += 1) {
-    if ((fetchPointerofObject(i, classTableRoot)) ==
-        nilObjPreSwizzle) {
+    if ((fetchPointerofObject(i, classTableRoot)) == nilObjPreSwizzle) {
       numClassTablePages = i;
       goto l4;
     }
@@ -120,8 +119,7 @@ l4:
           if (chunkBytes >= 0x200 /* (numFreeLists * #allocationUnit) */) {
             for (index = 2 /* freeChunkParentIndex */;
                  index <= 4 /* freeChunkLargerIndex */; index += 1) {
-              field =
-                  fetchPointerofObject(index, obj);
+              field = fetchPointerofObject(index, obj);
               if (field) {
                 valuePointer = swizzleObj(field);
 
@@ -197,8 +195,7 @@ l4:
   classTableIndex =
       ((sqInt)((usqInt)(numClassTablePages) << (classTableMajorIndexShift())));
   for (i = 1; i < numClassTablePages; i += 1) {
-    if (((page = fetchPointerofObject(i, hiddenRootsObj))) ==
-        nilObj) {
+    if (((page = fetchPointerofObject(i, hiddenRootsObj))) == nilObj) {
       if ((((usqInt)(classTableIndex)) >> (classTableMajorIndexShift())) > i) {
         classTableIndex = ((sqInt)((usqInt)(((((i - 1) < 1) ? 1 : (i - 1))))
                                    << (classTableMajorIndexShift())));
@@ -210,8 +207,7 @@ l4:
       if ((((usqInt)(classTableIndex)) >> (classTableMajorIndexShift())) > i) {
         j = 0;
         while (j < (1U << (classTableMajorIndexShift()))) {
-          if ((fetchPointerofObject(j, page)) ==
-              nilObj) {
+          if ((fetchPointerofObject(j, page)) == nilObj) {
             classTableIndex =
                 ((((usqInt)(i) << (classTableMajorIndexShift())))) + j;
             j = 1U << (classTableMajorIndexShift());

@@ -98,8 +98,7 @@ void printReferencesTo(sqInt anOop) {
 
       /* begin methodHeaderOf: */
       assert(isCompiledMethod(objSqInt));
-      header =
-          fetchPointerofObject(HeaderIndex, objSqInt);
+      header = fetchPointerofObject(HeaderIndex, objSqInt);
 
       /* begin literalCountOfMethodHeader: */
       assert((((header) & 7) == 1));
@@ -108,8 +107,7 @@ void printReferencesTo(sqInt anOop) {
       /* end numPointerSlotsOf: */
     l3:
       while (((i -= 1)) >= 0) {
-        if (anOop ==
-            (fetchPointerofObject(i, objSqInt))) {
+        if (anOop == (fetchPointerofObject(i, objSqInt))) {
           printHex(objSqInt);
           print(" @ ");
           printNum(i);

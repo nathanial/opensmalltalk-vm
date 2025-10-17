@@ -31,8 +31,7 @@ static sqInt externalInstVarofContext(sqInt offset, sqInt aContext) {
     (stackPage->headSP = stackPointer);
     assert(pageListIsWellFormed());
     if (/* isStillMarriedContext: */
-        (((((fetchPointerofObject(SenderIndex, aContext))) &
-           7) == 1)) &&
+        (((((fetchPointerofObject(SenderIndex, aContext))) & 7) == 1)) &&
         (!(isWidowedContext(aContext)))) {
       return fetchPointerofMarriedContext(offset, aContext);
     }

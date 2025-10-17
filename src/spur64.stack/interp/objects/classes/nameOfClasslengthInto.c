@@ -23,12 +23,10 @@ static char *nameOfClasslengthInto(sqInt classOop, sqInt *lengthPtr) {
                  8
            : numSlotsUsqInt);
   if (numSlots == metaclassNumSlots) {
-    maybeThisClassOop =
-        fetchPointerofObject(thisClassIndex, classOop);
+    maybeThisClassOop = fetchPointerofObject(thisClassIndex, classOop);
     if (addressCouldBeClassObj(maybeThisClassOop)) {
       return nameOfClasslengthInto(
-          fetchPointerofObject(thisClassIndex, classOop),
-          lengthPtr);
+          fetchPointerofObject(thisClassIndex, classOop), lengthPtr);
     }
     lengthPtr[0] = 9;
     return "bad class";

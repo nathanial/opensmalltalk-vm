@@ -10,8 +10,7 @@ static sqInt stackPointerForMaybeMarriedContext(sqInt aContext) {
   sqInt spSqInt;
 
   if (/* isStillMarriedContext: */
-      (((((fetchPointerofObject(SenderIndex, aContext))) &
-         7) == 1)) &&
+      (((((fetchPointerofObject(SenderIndex, aContext))) & 7) == 1)) &&
       (!(isWidowedContext(aContext)))) {
     sp = stackPointerIndexForFrame(frameOfMarriedContext(aContext));
     assert((ReceiverIndex + ((sp >> 3))) < (lengthOf(aContext)));
@@ -19,8 +18,7 @@ static sqInt stackPointerForMaybeMarriedContext(sqInt aContext) {
   }
 
   /* begin fetchStackPointerOf: */
-  spSqInt =
-      fetchPointerofObject(StackPointerIndex, aContext);
+  spSqInt = fetchPointerofObject(StackPointerIndex, aContext);
   if (!((((spSqInt) & 7) == 1))) {
     return 0;
   }

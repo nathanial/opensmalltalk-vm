@@ -32,8 +32,7 @@ static void printActivationNameForSelectorstartClass(sqInt aSelector,
                : numSlots);
       i = SelectorStart;
       while (i < classDictSize) {
-        if (aSelector ==
-            (fetchPointerofObject(i, classDict))) {
+        if (aSelector == (fetchPointerofObject(i, classDict))) {
           methClass = currClass;
           goto l1;
         }
@@ -42,8 +41,7 @@ static void printActivationNameForSelectorstartClass(sqInt aSelector,
 
       /* begin superclassOf: */
       /* begin followObjField:ofObject: */
-      objOop =
-          fetchPointerofObject(SuperclassIndex, currClass);
+      objOop = fetchPointerofObject(SuperclassIndex, currClass);
       assert(isNonImmediate(objOop));
       if ((!((longAt((void *)(objOop))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -59,7 +57,8 @@ static void printActivationNameForSelectorstartClass(sqInt aSelector,
       printNameOfClasscount(methClass, 5);
       printChar('>');
       if (!methClass) {
-        printStringOf(fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop));
+        printStringOf(
+            fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop));
         print(" ");
       }
     } else {

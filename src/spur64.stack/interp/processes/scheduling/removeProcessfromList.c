@@ -21,8 +21,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
    */
 
   /* begin followObjField:ofObject: */
-  firstLink =
-      fetchPointerofObject(FirstLinkIndex, aList);
+  firstLink = fetchPointerofObject(FirstLinkIndex, aList);
   assert(isNonImmediate(firstLink));
   if ((!((longAt((void *)(firstLink))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -31,8 +30,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
   }
 
   /* begin followObjField:ofObject: */
-  lastLink =
-      fetchPointerofObject(LastLinkIndex, aList);
+  lastLink = fetchPointerofObject(LastLinkIndex, aList);
   assert(isNonImmediate(lastLink));
   if ((!((longAt((void *)(lastLink))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -41,8 +39,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
   }
   if (aProcess == firstLink) {
     /* begin followObjField:ofObject: */
-    nextLink =
-        fetchPointerofObject(NextLinkIndex, aProcess);
+    nextLink = fetchPointerofObject(NextLinkIndex, aProcess);
     assert(isNonImmediate(nextLink));
     if ((!((longAt((void *)(nextLink))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -102,8 +99,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
       }
 
       /* begin followObjField:ofObject: */
-      nextLink =
-          fetchPointerofObject(NextLinkIndex, tempLink);
+      nextLink = fetchPointerofObject(NextLinkIndex, tempLink);
       assert(isNonImmediate(nextLink));
       if ((!((longAt((void *)(nextLink))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -114,8 +110,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
         break;
       tempLink = nextLink;
     }
-    nextLink =
-        fetchPointerofObject(NextLinkIndex, aProcess);
+    nextLink = fetchPointerofObject(NextLinkIndex, aProcess);
 
     /* begin storePointer:ofObject:withValue: */
     assert(validStorePointerArgs(NextLinkIndex, tempLink, nextLink));

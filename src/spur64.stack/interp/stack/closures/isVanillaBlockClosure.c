@@ -11,6 +11,5 @@
 static int isVanillaBlockClosure(sqInt aClosure) {
   assert((isPointers(aClosure)) &&
          ((numSlotsOf(aClosure)) >= ClosureFirstCopiedValueIndex));
-  return ((((fetchPointerofObject(ClosureStartPCIndex, aClosure))) &
-           7) == 1);
+  return ((((fetchPointerofObject(ClosureStartPCIndex, aClosure))) & 7) == 1);
 }

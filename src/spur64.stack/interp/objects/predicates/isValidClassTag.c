@@ -18,8 +18,7 @@ sqInt isValidClassTag(sqInt classIndex) {
   assert((classIndex <= (tagMask())) || (classIndex >= (arrayClassIndexPun())));
   fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
-  classTablePage =
-      fetchPointerofObject(fieldIndex, hiddenRootsObj);
+  classTablePage = fetchPointerofObject(fieldIndex, hiddenRootsObj);
   if (classTablePage == nilObj) {
     classOrNil = nilObj;
     goto l1;

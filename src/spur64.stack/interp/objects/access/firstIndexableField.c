@@ -25,8 +25,9 @@ void *firstIndexableField(sqInt objOop) {
       classPointer = fetchClassOfNonImm(objOop);
 
       /* begin formatOfClass: */
-      classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, classPointer)) >>
-                     3);
+      classFormat =
+          ((fetchPointerofObject(InstanceSpecificationIndex, classPointer)) >>
+           3);
       return pointerForOop(
           (objOop + BaseHeaderSize) +
           ((((usqInt)((classFormat & ((1U << (fixedFieldsFieldWidth())) - 1)))

@@ -51,8 +51,7 @@ void printContextReferencesTo(sqInt anOop) {
           ClassMethodContextCompactIndex) {
         i = CtxtTempFrameStart + (fetchStackPointerOf(objSqInt));
         while (((i -= 1)) >= 0) {
-          if (anOop ==
-              (fetchPointerofObject(i, objSqInt))) {
+          if (anOop == (fetchPointerofObject(i, objSqInt))) {
             printHex(objSqInt);
             print(" @ ");
             printNum(i);

@@ -8,8 +8,9 @@
 sqInt activeProcess(void) {
   sqInt objOop;
 
-  objOop =
-      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+  objOop = fetchPointerofObject(
+      ValueIndex,
+      fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
 
   return fetchPointerofObject(ActiveProcessIndex, objOop);
 }

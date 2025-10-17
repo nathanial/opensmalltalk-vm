@@ -38,8 +38,7 @@ marryContextInNewStackPageAndInitializeInterpreterRegisters(sqInt aContext) {
   /* begin methodUsesAlternateBytecodeSet: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, method);
+  methodHeader = fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeader)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

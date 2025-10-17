@@ -7,8 +7,7 @@ static sqInt printCallStackFP(char *theFP) {
 
   context = shortReversePrintFrameAndCallers(theFP);
   while (!(context == nilObj)) {
-    if (((((fetchPointerofObject(SenderIndex, context))) &
-          7) == 1)) {
+    if (((((fetchPointerofObject(SenderIndex, context))) & 7) == 1)) {
       if (!(checkIsStillMarriedContextcurrentFP(context, framePointer))) {
         shortPrintContext(context);
         return null;

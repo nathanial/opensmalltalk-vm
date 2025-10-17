@@ -8,8 +8,7 @@ sqInt primitiveIndexOf(sqInt methodPointer) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(methodPointer));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, methodPointer);
+  methodHeader = fetchPointerofObject(HeaderIndex, methodPointer);
 
   /* begin primitiveIndexOfMethod:header: */
   return (((methodHeader & AlternateHeaderHasPrimFlag) != 0)

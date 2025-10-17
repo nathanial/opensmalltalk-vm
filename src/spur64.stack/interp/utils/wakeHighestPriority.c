@@ -34,11 +34,11 @@ static sqInt wakeHighestPriority(void) {
   (stackPage->headFP = framePointer);
   (stackPage->headSP = stackPointer);
   assert(pageListIsWellFormed());
-  objOop =
-      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+  objOop = fetchPointerofObject(
+      ValueIndex,
+      fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
 
-  schedLists =
-      fetchPointerofObject(ProcessListsIndex, objOop);
+  schedLists = fetchPointerofObject(ProcessListsIndex, objOop);
   p = (highestRunnableProcessPriority
            ? highestRunnableProcessPriority
            : (/* begin numSlotsOf: */

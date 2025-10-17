@@ -39,10 +39,10 @@ static sqInt snapshot(sqInt embedded) {
   /* update state of active process */
 
   /* begin activeProcess */
-  objOop =
-      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
-  activeProc =
-      fetchPointerofObject(ActiveProcessIndex, objOop);
+  objOop = fetchPointerofObject(
+      ValueIndex,
+      fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+  activeProc = fetchPointerofObject(ActiveProcessIndex, objOop);
 
   /* begin storePointer:ofObject:withValue: */
   assert(
@@ -101,11 +101,11 @@ static sqInt snapshot(sqInt embedded) {
   tempOop = 0;
   if (!primFailCode) {
     /* begin quickFetchInteger:ofObject: */
-    oop =
-        fetchPointerofObject(StackPointerIndex, activeContext);
+    oop = fetchPointerofObject(StackPointerIndex, activeContext);
     assert((((oop) & 7) == 1));
     stackIndex = (oop >> 3);
-    rcvr = fetchPointerofObject((stackIndex + CtxtTempFrameStart) - 1, activeContext);
+    rcvr = fetchPointerofObject((stackIndex + CtxtTempFrameStart) - 1,
+                                activeContext);
 
     /* begin storePointerUnchecked:ofObject:withValue: */
     assert((isNonImmediate(activeContext)) && (!(isForwarded(activeContext))));
@@ -158,8 +158,7 @@ static sqInt snapshot(sqInt embedded) {
     /* begin justActivateNewMethod: */
     /* begin methodHeaderOf: */
     assert(isCompiledMethod(newMethod));
-    methodHeader =
-        fetchPointerofObject(HeaderIndex, newMethod);
+    methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
     numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
     numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 

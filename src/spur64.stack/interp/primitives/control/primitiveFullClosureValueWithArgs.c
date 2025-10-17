@@ -58,8 +58,7 @@ static void primitiveFullClosureValueWithArgs(void) {
 
   /* begin argumentCountOfClosure: */
   /* begin quickFetchInteger:ofObject: */
-  oop =
-      fetchPointerofObject(ClosureNumArgsIndex, blockClosure);
+  oop = fetchPointerofObject(ClosureNumArgsIndex, blockClosure);
   assert((((oop) & 7) == 1));
   numArgs = (oop >> 3);
   if (!(arraySize == numArgs)) {
@@ -69,7 +68,8 @@ static void primitiveFullClosureValueWithArgs(void) {
     }
     return;
   }
-  closureMethod = fetchPointerofObject(FullClosureCompiledBlockIndex, blockClosure);
+  closureMethod =
+      fetchPointerofObject(FullClosureCompiledBlockIndex, blockClosure);
   if (!(/* isOopCompiledMethod: */
         ((!(closureMethod & (tagMask())))) &&
         (((byteAt((void *)(closureMethod + (formatFieldByteOffset())))) &
@@ -89,9 +89,8 @@ static void primitiveFullClosureValueWithArgs(void) {
   index = 1;
   while (index <= numArgs) {
     /* begin push: */
-    longAtput(
-        (sp = stackPointer - BytesPerWord),
-        fetchPointerofObject(index - 1, argumentArray));
+    longAtput((sp = stackPointer - BytesPerWord),
+              fetchPointerofObject(index - 1, argumentArray));
     stackPointer = sp;
     index += 1;
   }
@@ -155,9 +154,9 @@ static void primitiveFullClosureValueWithArgs(void) {
   /* Copy the copied values... */
   for (i = 0; i < numCopied; i += 1) {
     /* begin push: */
-    longAtput(
-        (sp = stackPointer - BytesPerWord),
-        fetchPointerofObject(i + FullClosureFirstCopiedValueIndex, blockClosure));
+    longAtput((sp = stackPointer - BytesPerWord),
+              fetchPointerofObject(i + FullClosureFirstCopiedValueIndex,
+                                   blockClosure));
     stackPointer = sp;
   }
   assert(frameIsBlockActivation(framePointer));
@@ -165,8 +164,7 @@ static void primitiveFullClosureValueWithArgs(void) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(closureMethod));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, closureMethod);
+  methodHeader = fetchPointerofObject(HeaderIndex, closureMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   for (i = ((numArgs + numCopied) + 1); i <= numTemps; i += 1) {
     /* begin push: */
@@ -189,8 +187,7 @@ static void primitiveFullClosureValueWithArgs(void) {
   /* begin methodUsesAlternateBytecodeSet: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
-  methodHeaderSqInt =
-      fetchPointerofObject(HeaderIndex, method);
+  methodHeaderSqInt = fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeaderSqInt)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

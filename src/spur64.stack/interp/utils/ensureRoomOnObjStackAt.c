@@ -14,14 +14,12 @@ static sqInt ensureRoomOnObjStackAt(sqInt objStackRootIndex) {
   sqInt freeOrNewPage;
   sqInt stackOrNil;
 
-  stackOrNil =
-      fetchPointerofObject(objStackRootIndex, hiddenRootsObj);
+  stackOrNil = fetchPointerofObject(objStackRootIndex, hiddenRootsObj);
   if ((stackOrNil == nilObj) ||
-      ((fetchPointerofObject(ObjStackTopx, stackOrNil)) >=
-       ObjStackLimit)) {
-    freeOrNewPage =
-        (stackOrNil == nilObj ? 0
-                              : fetchPointerofObject(ObjStackFreex, stackOrNil));
+      ((fetchPointerofObject(ObjStackTopx, stackOrNil)) >= ObjStackLimit)) {
+    freeOrNewPage = (stackOrNil == nilObj
+                         ? 0
+                         : fetchPointerofObject(ObjStackFreex, stackOrNil));
     if (freeOrNewPage) {
       /* begin storePointer:ofObjStack:withValue: */
       assert((formatOf(stackOrNil)) == (wordIndexableFormat()));

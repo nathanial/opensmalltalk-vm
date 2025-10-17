@@ -12,8 +12,7 @@ static sqInt sizeOfObjStack(sqInt objStack) {
   total = fetchPointerofObject(ObjStackTopx, objStack);
   objStackPage = objStack;
   while (1) {
-    objStackPage =
-        fetchPointerofObject(ObjStackNextx, objStackPage);
+    objStackPage = fetchPointerofObject(ObjStackNextx, objStackPage);
     if (!(objStackPage != 0))
       break;
     total += ObjStackLimit;

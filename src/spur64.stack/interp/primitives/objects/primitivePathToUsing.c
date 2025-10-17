@@ -175,11 +175,10 @@ l2:
         next = (index >= 0 ? fieldofFrame(index, ((char *)current)) : nilObj);
       } else {
         if (index >= 0) {
-          next =
-              (((longAt((void *)(current))) & (classIndexMask())) ==
-                       ClassMethodContextCompactIndex
-                   ? fieldOrSenderFPofContext(index, current)
-                   : fetchPointerofObject(index, current));
+          next = (((longAt((void *)(current))) & (classIndexMask())) ==
+                          ClassMethodContextCompactIndex
+                      ? fieldOrSenderFPofContext(index, current)
+                      : fetchPointerofObject(index, current));
         } else {
           next = fetchClassOfNonImm(current);
         }
@@ -346,8 +345,7 @@ l2:
 
           /* begin methodHeaderOf: */
           assert(isCompiledMethod(next));
-          header =
-              fetchPointerofObject(HeaderIndex, next);
+          header = fetchPointerofObject(HeaderIndex, next);
 
           /* begin literalCountOfMethodHeader: */
           assert((((header) & 7) == 1));
@@ -386,11 +384,8 @@ l2:
       err = PrimErrNotFound;
       goto l5;
     }
-    index =
-        ((fetchPointerofObject(stackp - 1, stack)) >>
-         3);
-    current =
-        fetchPointerofObject(stackp - 2, stack);
+    index = ((fetchPointerofObject(stackp - 1, stack)) >> 3);
+    current = fetchPointerofObject(stackp - 2, stack);
     stackp -= 2;
   }
   /* end pathTo:using:followWeak: */

@@ -19,8 +19,7 @@ static sqInt checkIsStillMarriedContextcurrentFP(sqInt aContext,
          ((!(aContext & (tagMask())))) &&
          (((longAt((void *)(aContext))) & (classIndexMask())) ==
           ClassMethodContextCompactIndex)) &&
-        (((((fetchPointerofObject(SenderIndex, aContext))) &
-           7) == 1)))) {
+        (((((fetchPointerofObject(SenderIndex, aContext))) & 7) == 1)))) {
     return 0;
   }
 

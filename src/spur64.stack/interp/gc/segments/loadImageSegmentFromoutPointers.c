@@ -252,8 +252,7 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
         errorCode = PrimErrBadIndex;
         goto l8;
       }
-      mappedOop =
-          fetchPointerofObject(classIndex, outPointerArray);
+      mappedOop = fetchPointerofObject(classIndex, outPointerArray);
       hash = (long32At((void *)(mappedOop + 4))) & (identityHashHalfWordMask());
       if (!((hash == 0) || ((hash > (lastClassIndexPun())) &&
                             ((classOrNilAtIndex(hash)) == mappedOop)))) {

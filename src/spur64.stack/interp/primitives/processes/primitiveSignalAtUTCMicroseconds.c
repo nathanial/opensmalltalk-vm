@@ -19,7 +19,8 @@ static void primitiveSignalAtUTCMicroseconds(void) {
     if (/* isSemaphoreOop: */
         ((!(sema & (tagMask())))) &&
         (((longAt((void *)(sema))) & (classIndexMask())) ==
-         (rawHashBitsOf(fetchPointerofObject(ClassSemaphore, specialObjectsOop))))) {
+         (rawHashBitsOf(
+             fetchPointerofObject(ClassSemaphore, specialObjectsOop))))) {
       /* begin splObj:put: */
       /* begin storePointer:ofObject:withValue: */
       assert(validStorePointerArgs(TheTimerSemaphore, specialObjectsOop, sema));

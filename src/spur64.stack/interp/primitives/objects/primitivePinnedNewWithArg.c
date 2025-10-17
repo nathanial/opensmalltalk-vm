@@ -56,8 +56,8 @@ l1:
   classObj = longAt(stackPointer + (1 * BytesPerWord));
 
   /* begin inOldSpaceInstantiatePinnedClass:indexableSize: */
-  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, classObj)) >>
-                 3);
+  classFormat =
+      ((fetchPointerofObject(InstanceSpecificationIndex, classObj)) >> 3);
   instSpecSqInt =
       (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());
   classIndex =
@@ -165,12 +165,12 @@ l2:
               obj);
     stackPointer = sp;
   } else {
-    instSpec =
-        (((usqInt)((
-             ((fetchPointerofObject(InstanceSpecificationIndex, longAt(stackPointer + (1 * BytesPerWord)))) >>
-              3)))) >>
-         (fixedFieldsFieldWidth())) &
-        (formatMask());
+    instSpec = (((usqInt)((((fetchPointerofObject(
+                                InstanceSpecificationIndex,
+                                longAt(stackPointer + (1 * BytesPerWord)))) >>
+                            3)))) >>
+                (fixedFieldsFieldWidth())) &
+               (formatMask());
     reasonCode = ((/* isIndexableFormat: */
                    (instSpec >= (arrayFormat())) &&
                    ((instSpec <= (weakArrayFormat())) ||

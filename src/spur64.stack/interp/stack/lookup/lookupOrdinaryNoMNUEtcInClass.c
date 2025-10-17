@@ -42,8 +42,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
     if (dictionary == nilObj) {
       /* begin superclassOf: */
       /* begin followObjField:ofObject: */
-      objOop =
-          fetchPointerofObject(SuperclassIndex, currentClass);
+      objOop = fetchPointerofObject(SuperclassIndex, currentClass);
       assert(isNonImmediate(objOop));
       if ((!((longAt((void *)(objOop))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -92,8 +91,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
           }
 
           /* begin followField:ofObject: */
-          objOopSqInt =
-              fetchPointerofObject(index, methodArray);
+          objOopSqInt = fetchPointerofObject(index, methodArray);
           if (isOopForwarded(objOopSqInt)) {
             objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
                 index, methodArray, objOopSqInt);
@@ -119,8 +117,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
        the table. */
     wrapAround = 0;
     while (1) {
-      nextSelector =
-          fetchPointerofObject(index, dictionary);
+      nextSelector = fetchPointerofObject(index, dictionary);
       if (nextSelector == nilObj) {
         found = 0;
         goto l1;
@@ -169,8 +166,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
 
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
-    objOopSqInt =
-        fetchPointerofObject(SuperclassIndex, currentClass);
+    objOopSqInt = fetchPointerofObject(SuperclassIndex, currentClass);
     assert(isNonImmediate(objOopSqInt));
     if ((!((longAt((void *)(objOopSqInt))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

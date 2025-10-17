@@ -25,21 +25,19 @@ static void putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly) {
       (priority > highestRunnableProcessPriority)) {
     highestRunnableProcessPriority = priority;
   }
-  objOop =
-      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+  objOop = fetchPointerofObject(
+      ValueIndex,
+      fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
 
-  processLists =
-      fetchPointerofObject(ProcessListsIndex, objOop);
-  processList =
-      fetchPointerofObject(priority - 1, processLists);
+  processLists = fetchPointerofObject(ProcessListsIndex, objOop);
+  processList = fetchPointerofObject(priority - 1, processLists);
   if (yieldImplicitly) {
     addLastLinktoList(aProcess, processList);
   } else {
     /* begin addFirstLink:toList: */
     assert(!(isForwarded(processList)));
     assert((fetchPointerofObject(NextLinkIndex, aProcess)) == (nilObject()));
-    firstLink =
-        fetchPointerofObject(FirstLinkIndex, processList);
+    firstLink = fetchPointerofObject(FirstLinkIndex, processList);
     assert(firstLink != aProcess);
 
     /* begin storePointer:ofObject:withValue: */

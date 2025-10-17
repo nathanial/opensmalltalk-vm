@@ -35,7 +35,8 @@ void printAllStacks(void) {
   proc = activeProcess();
   printNameOfClasscount(/* fetchClassOf: */
                         ((tagBits = proc & (tagMask()))
-                             ? fetchPointerofObject(tagBits, classTableFirstPage)
+                             ? fetchPointerofObject(tagBits,
+                                                    classTableFirstPage)
                              : fetchClassOfNonImm(proc)),
                         5);
 
@@ -50,11 +51,11 @@ void printAllStacks(void) {
   } else {
     printProcessStack(proc);
   }
-  objOop =
-      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+  objOop = fetchPointerofObject(
+      ValueIndex,
+      fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
 
-  schedLists =
-      fetchPointerofObject(ProcessListsIndex, objOop);
+  schedLists = fetchPointerofObject(ProcessListsIndex, objOop);
   linkedListClass = null;
 
   /* then the runnable processes */
@@ -76,13 +77,11 @@ void printAllStacks(void) {
     }
   }
   if (!linkedListClass) {
-    classPointer =
-        fetchPointerofObject(ClassSemaphore, specialObjectsOop);
+    classPointer = fetchPointerofObject(ClassSemaphore, specialObjectsOop);
 
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
-    linkedListClass =
-        fetchPointerofObject(SuperclassIndex, classPointer);
+    linkedListClass = fetchPointerofObject(SuperclassIndex, classPointer);
     assert(isNonImmediate(linkedListClass));
     if ((!((longAt((void *)(linkedListClass))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -101,18 +100,16 @@ void printAllStacks(void) {
 
   /* Find the root of the Process hierarchy. It is the class, or superclass,
      of a process, that has inst size at least large enough to include myList */
-  processClass =
-      (!(proc == nilObj) ? /* fetchClassOf: */
-           ((tagBits = proc & (tagMask()))
-                ? fetchPointerofObject(tagBits, classTableFirstPage)
-                : fetchClassOfNonImm(proc))
-                         : 0);
+  processClass = (!(proc == nilObj) ? /* fetchClassOf: */
+                      ((tagBits = proc & (tagMask()))
+                           ? fetchPointerofObject(tagBits, classTableFirstPage)
+                           : fetchClassOfNonImm(proc))
+                                    : 0);
   minProcessInstSize = MyListIndex + 1;
   while ((instanceSizeOf(superclassOf(processClass))) >= minProcessInstSize) {
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
-    objOop =
-        fetchPointerofObject(SuperclassIndex, processClass);
+    objOop = fetchPointerofObject(SuperclassIndex, processClass);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -151,10 +148,10 @@ void printAllStacks(void) {
       if ((((byteAt((void *)(objSqInt + (formatFieldByteOffset())))) &
             (formatMask())) <= 5 /* lastPointerFormat */) &&
           (((numSlotsOf(objSqInt)) >= minProcessInstSize) &&
-           ((isContext(fetchPointerofObject(SuspendedContextIndex, objSqInt))) &&
+           ((isContext(
+                fetchPointerofObject(SuspendedContextIndex, objSqInt))) &&
             (isKindOfClass(objSqInt, processClass))))) {
-        myList =
-            fetchPointerofObject(MyListIndex, objSqInt);
+        myList = fetchPointerofObject(MyListIndex, objSqInt);
         if ((myList != nilObj) &&
             ((((myListClass = fetchClassOfNonImm(myList))) !=
               linkedListClass) &&

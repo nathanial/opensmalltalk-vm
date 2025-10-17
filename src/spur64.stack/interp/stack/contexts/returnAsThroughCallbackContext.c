@@ -98,8 +98,7 @@ sqInt returnAsThroughCallbackContext(sqInt returnTypeOop,
     assert(((debugCallbackPath = debugCallbackPath | 8)) > 0);
 
     /* begin frameOfMarriedContext: */
-    senderOop =
-        fetchPointerofObject(SenderIndex, callbackMethodContext);
+    senderOop = fetchPointerofObject(SenderIndex, callbackMethodContext);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
     assert((frameReceiver(theFP)) == (splObj(ClassAlien)));
@@ -122,8 +121,7 @@ sqInt returnAsThroughCallbackContext(sqInt returnTypeOop,
         /* begin methodUsesAlternateBytecodeSet: */
         /* begin methodHeaderOf: */
         assert(isCompiledMethod(method));
-        methodHeader =
-            fetchPointerofObject(HeaderIndex, method);
+        methodHeader = fetchPointerofObject(HeaderIndex, method);
         if ((((sqLong)methodHeader)) < 0) {
           bytecodeSetSelector = 0x100;
         } else {
@@ -177,14 +175,13 @@ sqInt returnAsThroughCallbackContext(sqInt returnTypeOop,
      calloutMethodContext is immediately below callbackMethodContext on the same
      page is handled above. */
   if (/* isStillMarriedContext: */
-      (((((fetchPointerofObject(SenderIndex, calloutMethodContext))) &
-         7) == 1)) &&
+      (((((fetchPointerofObject(SenderIndex, calloutMethodContext))) & 7) ==
+        1)) &&
       (!(isWidowedContext(calloutMethodContext)))) {
     assert(((debugCallbackPath = debugCallbackPath | 128)) > 0);
 
     /* begin frameOfMarriedContext: */
-    senderOop =
-        fetchPointerofObject(SenderIndex, calloutMethodContext);
+    senderOop = fetchPointerofObject(SenderIndex, calloutMethodContext);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -222,8 +219,7 @@ sqInt returnAsThroughCallbackContext(sqInt returnTypeOop,
   /* begin methodUsesAlternateBytecodeSet: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, method);
+  methodHeader = fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeader)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

@@ -41,8 +41,8 @@ static void primitiveNewMethod(void) {
   size = ((literalCount + LiteralStart) * BytesPerOop) + bytecodeCount;
 
   /* begin instantiateCompiledMethodClass:indexableSize: */
-  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
-                 3);
+  classFormat =
+      ((fetchPointerofObject(InstanceSpecificationIndex, class)) >> 3);
   instSpec =
       (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());
   if (instSpec != (firstCompiledMethodFormat())) {

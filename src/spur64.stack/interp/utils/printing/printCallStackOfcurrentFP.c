@@ -10,11 +10,9 @@ static sqInt printCallStackOfcurrentFP(sqInt aContext, char *currFP) {
 
   ctxt = aContext;
   while (!(ctxt == nilObj)) {
-    if (((((fetchPointerofObject(SenderIndex, ctxt))) &
-          7) == 1)) {
+    if (((((fetchPointerofObject(SenderIndex, ctxt))) & 7) == 1)) {
       /* begin frameOfMarriedContext: */
-      senderOop =
-          fetchPointerofObject(SenderIndex, ctxt);
+      senderOop = fetchPointerofObject(SenderIndex, ctxt);
       assert((((senderOop) & 7) == 1));
       theFP = ((char *)(senderOop - (smallIntegerTag())));
       if (checkIsStillMarriedContextcurrentFP(ctxt, currFP)) {

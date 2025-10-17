@@ -69,10 +69,10 @@ static sqInt transferTofrom(sqInt newProcOrNil, sqInt sourceCode) {
        ptr <= toDoLimit; ptr += BytesPerWord) {
     assert(addressCouldBeOop(longAt(ptr)));
   }
-  sched =
-      fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
-  oldProc =
-      fetchPointerofObject(ActiveProcessIndex, sched);
+  sched = fetchPointerofObject(
+      ValueIndex,
+      fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+  oldProc = fetchPointerofObject(ActiveProcessIndex, sched);
 
   /* begin recordContextSwitchFrom:in: */
   /* begin recordTrace:thing:source: */
@@ -146,8 +146,7 @@ l1:
   /* begin externalSetStackPageAndPointersForSuspendedContextOfProcess: */
   newContext = fetchPointerofObject(SuspendedContextIndex, newProcOrNil);
   assert(isContext(newContext));
-  if (((((fetchPointerofObject(SenderIndex, newContext))) &
-        7) == 1)) {
+  if (((((fetchPointerofObject(SenderIndex, newContext))) & 7) == 1)) {
     assert(checkIsStillMarriedContextcurrentFP(newContext, framePointer));
   }
 
@@ -159,12 +158,10 @@ l1:
                      ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))),
             nilObj);
   if (/* isStillMarriedContext: */
-      (((((fetchPointerofObject(SenderIndex, newContext))) &
-         7) == 1)) &&
+      (((((fetchPointerofObject(SenderIndex, newContext))) & 7) == 1)) &&
       (!(isWidowedContext(newContext)))) {
     /* begin frameOfMarriedContext: */
-    senderOop =
-        fetchPointerofObject(SenderIndex, newContext);
+    senderOop = fetchPointerofObject(SenderIndex, newContext);
     assert((((senderOop) & 7) == 1));
     theFrame = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -231,8 +228,7 @@ l1:
   /* begin methodUsesAlternateBytecodeSet: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, method);
+  methodHeader = fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeader)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

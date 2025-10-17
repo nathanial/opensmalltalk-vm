@@ -58,8 +58,7 @@ static void primitiveImageName(void) {
   }
   sz = imageNameSize();
   s = instantiateClassindexableSize(
-      fetchPointerofObject(ClassByteString, specialObjectsOop),
-      sz);
+      fetchPointerofObject(ClassByteString, specialObjectsOop), sz);
   imageNameGetLength(s + BaseHeaderSize, sz);
 
   /* begin methodReturnValue: */

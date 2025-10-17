@@ -31,8 +31,8 @@ static sqInt externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext,
   /* Assign the field of a married context. */
   assert(!((isObjImmutable(maybeMarriedContext))));
   if (!(/* isStillMarriedContext: */
-        (((((fetchPointerofObject(SenderIndex, maybeMarriedContext))) &
-           7) == 1)) &&
+        (((((fetchPointerofObject(SenderIndex, maybeMarriedContext))) & 7) ==
+          1)) &&
         (!(isWidowedContext(maybeMarriedContext))))) {
     /* begin storePointer:ofObject:withValue: */
     assert(validStorePointerArgs(index, maybeMarriedContext, anOop));

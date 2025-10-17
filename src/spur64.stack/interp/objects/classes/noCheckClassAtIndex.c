@@ -8,8 +8,7 @@ static sqInt noCheckClassAtIndex(sqInt classIndex) {
 
   fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
-  classTablePage =
-      fetchPointerofObject(fieldIndex, hiddenRootsObj);
+  classTablePage = fetchPointerofObject(fieldIndex, hiddenRootsObj);
   if (classTablePage == nilObj) {
     return null;
   }

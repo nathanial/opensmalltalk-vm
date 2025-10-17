@@ -11,8 +11,7 @@
 sqInt showDisplayBitsLeftTopRightBottom(sqInt aForm, sqInt l, sqInt t, sqInt r,
                                         sqInt b) {
   if (deferDisplayUpdates ||
-      (aForm !=
-       (fetchPointerofObject(TheDisplay, specialObjectsOop)))) {
+      (aForm != (fetchPointerofObject(TheDisplay, specialObjectsOop)))) {
     return null;
   }
   updateDisplayLeftTopRightBottom(l, t, r, b);

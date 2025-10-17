@@ -53,15 +53,12 @@ static sqInt markAndTraceStackPages(sqInt fullGCFlag) {
          ((!(context & (tagMask())))) &&
          (((longAt((void *)(context))) & (classIndexMask())) ==
           ClassMethodContextCompactIndex)) &&
-        ((((((fetchPointerofObject(SenderIndex, context))) &
-            7) == 1)) &&
+        ((((((fetchPointerofObject(SenderIndex, context))) & 7) == 1)) &&
          (/* isStillMarriedContext: */
-          (((((fetchPointerofObject(SenderIndex, context))) &
-             7) == 1)) &&
+          (((((fetchPointerofObject(SenderIndex, context))) & 7) == 1)) &&
           (!(isWidowedContext(context)))))) {
       /* begin frameOfMarriedContext: */
-      senderOop =
-          fetchPointerofObject(SenderIndex, context);
+      senderOop = fetchPointerofObject(SenderIndex, context);
       assert((((senderOop) & 7) == 1));
       pointer = ((char *)(senderOop - (smallIntegerTag())));
 

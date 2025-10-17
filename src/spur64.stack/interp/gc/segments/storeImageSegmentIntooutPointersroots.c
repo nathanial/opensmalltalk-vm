@@ -188,8 +188,7 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
         ((classOrNilAtIndex(hash)) == objOopSqInt)) {
       numClassesInSegment += 1;
       if (there > 0) {
-        tempObjOop =
-            fetchPointerofObject(there, arrayOfObjects);
+        tempObjOop = fetchPointerofObject(there, arrayOfObjects);
 
         /* begin storePointerUnchecked:ofObject:withValue: */
         assert((isNonImmediate(arrayOfObjects)) &&

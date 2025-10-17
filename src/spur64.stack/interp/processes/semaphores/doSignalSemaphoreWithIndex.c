@@ -19,6 +19,7 @@ sqInt doSignalSemaphoreWithIndex(sqInt index) {
   return (/* isSemaphoreOop: */
           ((!(sema & (tagMask())))) &&
           (((longAt((void *)(sema))) & (classIndexMask())) ==
-           (rawHashBitsOf(fetchPointerofObject(ClassSemaphore, specialObjectsOop))))) &&
+           (rawHashBitsOf(
+               fetchPointerofObject(ClassSemaphore, specialObjectsOop))))) &&
          (synchronousSignal(sema));
 }

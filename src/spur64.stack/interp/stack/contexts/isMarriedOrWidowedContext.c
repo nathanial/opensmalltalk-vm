@@ -3,7 +3,5 @@
 /* StackInterpreter>>#isMarriedOrWidowedContext: */
 
 static int isMarriedOrWidowedContext(sqInt aContext) {
-  return (
-      (((fetchPointerofObject(SenderIndex, aContext))) &
-       7) == 1);
+  return ((((fetchPointerofObject(SenderIndex, aContext))) & 7) == 1);
 }

@@ -18,8 +18,7 @@ static void primitiveExitCriticalSection(void) {
 
   /* begin isEmptyList: */
   assert(!(isForwarded(criticalSection)));
-  if ((fetchPointerofObject(FirstLinkIndex, criticalSection)) ==
-      nilObj) {
+  if ((fetchPointerofObject(FirstLinkIndex, criticalSection)) == nilObj) {
     /* begin storePointerUnchecked:ofObject:withValue: */
     assert((isNonImmediate(criticalSection)) &&
            (!(isForwarded(criticalSection))));

@@ -24,8 +24,7 @@ static NeverInline sqInt fetchClassOfNonImm(sqInt objOop) {
   assert((classIndex <= (tagMask())) || (classIndex >= (arrayClassIndexPun())));
   fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
-  classTablePage =
-      fetchPointerofObject(fieldIndex, hiddenRootsObj);
+  classTablePage = fetchPointerofObject(fieldIndex, hiddenRootsObj);
   if (classTablePage == nilObj) {
     return nilObj;
   }

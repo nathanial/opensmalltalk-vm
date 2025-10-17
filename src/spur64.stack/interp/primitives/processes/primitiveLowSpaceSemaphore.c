@@ -9,11 +9,11 @@ static void primitiveLowSpaceSemaphore(void) {
   sqInt arg;
 
   arg = longAt(stackPointer);
-  if ((arg == nilObj) ||
-      (/* isSemaphoreOop: */
-       ((!(arg & (tagMask())))) &&
-       (((longAt((void *)(arg))) & (classIndexMask())) ==
-        (rawHashBitsOf(fetchPointerofObject(ClassSemaphore, specialObjectsOop)))))) {
+  if ((arg == nilObj) || (/* isSemaphoreOop: */
+                          ((!(arg & (tagMask())))) &&
+                          (((longAt((void *)(arg))) & (classIndexMask())) ==
+                           (rawHashBitsOf(fetchPointerofObject(
+                               ClassSemaphore, specialObjectsOop)))))) {
     /* begin splObj:put: */
     /* begin storePointer:ofObject:withValue: */
     assert(validStorePointerArgs(TheLowSpaceSemaphore, specialObjectsOop, arg));

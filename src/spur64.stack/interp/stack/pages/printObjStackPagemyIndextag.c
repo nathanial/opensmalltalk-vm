@@ -12,8 +12,7 @@ static void printObjStackPagemyIndextag(sqInt objStackPage, sqInt myx,
                  (formatMask()))),
           ((int)(sixtyFourBitIndexableFormat())),
           ((int)(numSlotsOfAny(objStackPage))), ObjStackPageSlots,
-          ((int)(fetchPointerofObject(ObjStackMyx, objStackPage))),
-          ((int)myx),
+          ((int)(fetchPointerofObject(ObjStackMyx, objStackPage))), ((int)myx),
           ((byteAt((void *)(objStackPage + (markBitsByteOffset())))) &
                    (1U << (markedBitByteShift()))
                ? ") mkd"

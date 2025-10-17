@@ -268,7 +268,8 @@ l1:
             (ClassLargeNegativeIntegerCompactIndex >= 1) &&
             (ClassLargeNegativeIntegerCompactIndex <= (classTablePageSize())))),
         /* fetchPointer:ofObject: */
-        fetchPointerofObject(ClassLargeNegativeIntegerCompactIndex, classTableFirstPage)))) {
+        fetchPointerofObject(ClassLargeNegativeIntegerCompactIndex,
+                             classTableFirstPage)))) {
     invalidCompactClassError("LargeNegativeInteger");
   }
 
@@ -279,7 +280,8 @@ l1:
             (ClassLargePositiveIntegerCompactIndex >= 1) &&
             (ClassLargePositiveIntegerCompactIndex <= (classTablePageSize())))),
         /* fetchPointer:ofObject: */
-        fetchPointerofObject(ClassLargePositiveIntegerCompactIndex, classTableFirstPage)))) {
+        fetchPointerofObject(ClassLargePositiveIntegerCompactIndex,
+                             classTableFirstPage)))) {
     invalidCompactClassError("LargePositiveInteger");
   }
 
@@ -299,7 +301,8 @@ l1:
         assert(((ClassBlockClosureCompactIndex >= 1) &&
                 (ClassBlockClosureCompactIndex <= (classTablePageSize())))),
         /* fetchPointer:ofObject: */
-        fetchPointerofObject(ClassBlockClosureCompactIndex, classTableFirstPage)))) {
+        fetchPointerofObject(ClassBlockClosureCompactIndex,
+                             classTableFirstPage)))) {
     invalidCompactClassError("BlockClosure");
   }
 
@@ -309,7 +312,8 @@ l1:
         assert(((ClassMethodContextCompactIndex >= 1) &&
                 (ClassMethodContextCompactIndex <= (classTablePageSize())))),
         /* fetchPointer:ofObject: */
-        fetchPointerofObject(ClassMethodContextCompactIndex, classTableFirstPage)))) {
+        fetchPointerofObject(ClassMethodContextCompactIndex,
+                             classTableFirstPage)))) {
     invalidCompactClassError("MethodContext");
   }
   objOop = fetchPointerofObject(ClassByteArray, specialObjectsOop);
@@ -320,8 +324,7 @@ l1:
       (long32At((void *)(objOop + 4))) & (identityHashHalfWordMask());
 
   /* begin initializeExtraClassInstVarIndices */
-  classArrayObj =
-      fetchPointerofObject(ClassArray, specialObjectsOop);
+  classArrayObj = fetchPointerofObject(ClassArray, specialObjectsOop);
   classArrayClass = fetchClassOfNonImm(classArrayObj);
 
   /* begin numSlotsOf: */
@@ -354,8 +357,7 @@ l1:
     toDoLimit = numSlots;
   }
   for (i = (InstanceSpecificationIndex + 1); i <= toDoLimit; i += 1) {
-    if ((fetchPointerofObject(i - 1, classArrayClass)) ==
-        classArrayObj) {
+    if ((fetchPointerofObject(i - 1, classArrayClass)) == classArrayObj) {
       thisClassIndex = i - 1;
     }
   }

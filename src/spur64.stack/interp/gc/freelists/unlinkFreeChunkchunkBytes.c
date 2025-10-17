@@ -23,8 +23,7 @@ static sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk, sqInt chunkBytes) {
   if (chunkBytes == (BaseHeaderSize + 8 /* allocationUnit */)) {
     return unlinkLilliputianChunkindex(freeChunk, index);
   }
-  prev =
-      fetchPointerofObject(1U, freeChunk);
+  prev = fetchPointerofObject(1U, freeChunk);
 
   /* Has prev element: update double linked list */
   if (prev) {
@@ -60,8 +59,7 @@ static sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk, sqInt chunkBytes) {
            ((index > 1) && ((startOfObject(freeChunk)) == freeChunk)));
 
     /* For some reason the assertion is not compiled correctly */
-    freeLists[index] =
-        ((nextSqInt = fetchPointerofObject(0U, freeChunk)));
+    freeLists[index] = ((nextSqInt = fetchPointerofObject(0U, freeChunk)));
     if (nextSqInt) {
       /* begin storePointer:ofFreeChunk:withValue: */
       assert(isFreeObject(nextSqInt));
@@ -72,8 +70,7 @@ static sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk, sqInt chunkBytes) {
   }
 
   /* Large chunk */
-  next =
-      fetchPointerofObject(0U, freeChunk);
+  next = fetchPointerofObject(0U, freeChunk);
   if (next) {
     inFreeTreeReplacewith(freeChunk, next);
   } else {

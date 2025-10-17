@@ -69,12 +69,10 @@ static void primitiveStoreStackp(void) {
   (stackPage->headSP = stackPointer);
   assert(pageListIsWellFormed());
   if (/* isStillMarriedContext: */
-      (((((fetchPointerofObject(SenderIndex, ctxt))) &
-         7) == 1)) &&
+      (((((fetchPointerofObject(SenderIndex, ctxt))) & 7) == 1)) &&
       (!(isWidowedContext(ctxt)))) {
     /* begin frameOfMarriedContext: */
-    senderOop =
-        fetchPointerofObject(SenderIndex, ctxt);
+    senderOop = fetchPointerofObject(SenderIndex, ctxt);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
 

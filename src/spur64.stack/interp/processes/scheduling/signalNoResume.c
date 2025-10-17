@@ -11,9 +11,7 @@ int signalNoResume(sqInt aSemaphore) {
 
   /* begin isEmptyList: */
   assert(!(isForwarded(aSemaphore)));
-  empty =
-      (fetchPointerofObject(FirstLinkIndex, aSemaphore)) ==
-      nilObj;
+  empty = (fetchPointerofObject(FirstLinkIndex, aSemaphore)) == nilObj;
   if (!empty) {
     putToSleepyieldingIf(removeFirstLinkOfList(aSemaphore), 1);
   }

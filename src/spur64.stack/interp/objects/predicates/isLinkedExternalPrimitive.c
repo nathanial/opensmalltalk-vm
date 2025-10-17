@@ -46,7 +46,8 @@ static sqInt isLinkedExternalPrimitive(sqInt methodObj) {
                                   << 8)))))) >>
                           8
                     : numSlots))) == 4) &&
-            (((targetFunctionIndex = fetchPointerofObject(ExternalCallLiteralTargetFunctionIndex, literal)),
+            (((targetFunctionIndex = fetchPointerofObject(
+                   ExternalCallLiteralTargetFunctionIndex, literal)),
               ((((targetFunctionIndex) & 7) == 1)) &&
                   (((targetFunctionIndex >> 3)) > 0))))));
 }

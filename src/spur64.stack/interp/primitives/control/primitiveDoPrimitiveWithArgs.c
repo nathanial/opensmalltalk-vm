@@ -93,9 +93,8 @@ static void primitiveDoPrimitiveWithArgs(void) {
   index = 1;
   while (index <= arraySize) {
     /* begin push: */
-    longAtput(
-        (sp = stackPointer - BytesPerWord),
-        fetchPointerofObject(index - 1, argumentArray));
+    longAtput((sp = stackPointer - BytesPerWord),
+              fetchPointerofObject(index - 1, argumentArray));
     stackPointer = sp;
     index += 1;
   }

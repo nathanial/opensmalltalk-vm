@@ -21,8 +21,8 @@ static void primitivePinnedNew(void) {
   classObj = longAt(stackPointer);
 
   /* begin inOldSpaceInstantiatePinnedClass: */
-  classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, classObj)) >>
-                 3);
+  classFormat =
+      ((fetchPointerofObject(InstanceSpecificationIndex, classObj)) >> 3);
   instSpec =
       (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());
   if (!(/* isFixedSizePointerFormat: */
@@ -83,9 +83,9 @@ l1:
   } else {
     reasonCode =
         (isFixedSizePointerFormat(
-             (((usqInt)((
-                  ((fetchPointerofObject(InstanceSpecificationIndex, longAt(stackPointer))) >>
-                   3)))) >>
+             (((usqInt)((((fetchPointerofObject(InstanceSpecificationIndex,
+                                                longAt(stackPointer))) >>
+                          3)))) >>
               (fixedFieldsFieldWidth())) &
              (formatMask()))
              ? PrimErrNoMemory

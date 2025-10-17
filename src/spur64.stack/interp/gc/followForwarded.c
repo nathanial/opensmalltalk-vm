@@ -20,8 +20,7 @@ sqInt followForwarded(sqInt objOop) {
   sqInt referent;
 
   assert(isUnambiguouslyForwarder(objOop));
-  referent =
-      fetchPointerofObject(0U, objOop);
+  referent = fetchPointerofObject(0U, objOop);
   while (isOopForwarded(referent)) {
     referent = fetchPointerofObject(0U, referent);
   }

@@ -154,8 +154,7 @@ void longPrintOop(sqInt oop) {
              (((byteAt((void *)(oopClass + (formatFieldByteOffset())))) &
                (formatMask())) <= 5 /* lastPointerFormat */)) &&
             ((numSlotsOfAny(oopClass)) > InstanceSpecificationIndex))) {
-      if (oopClass ==
-          (fetchPointerofObject(ClassAlien, specialObjectsOop))) {
+      if (oopClass == (fetchPointerofObject(ClassAlien, specialObjectsOop))) {
         fprintf(transcript, " datasize %" PRIdSQINT " %s @ %p\n",
                 longAt((void *)(oop + BaseHeaderSize)),
                 ((longAt((void *)(oop + BaseHeaderSize))) < 0
@@ -168,8 +167,7 @@ void longPrintOop(sqInt oop) {
 
       /* begin superclassOf: */
       /* begin followObjField:ofObject: */
-      objOop =
-          fetchPointerofObject(SuperclassIndex, oopClass);
+      objOop = fetchPointerofObject(SuperclassIndex, oopClass);
       assert(isNonImmediate(objOop));
       if ((!((longAt((void *)(objOop))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -178,13 +176,11 @@ void longPrintOop(sqInt oop) {
       }
       oopClass = objOop;
     }
-    classPointer =
-        fetchPointerofObject(ClassByteString, specialObjectsOop);
+    classPointer = fetchPointerofObject(ClassByteString, specialObjectsOop);
 
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
-    objOop =
-        fetchPointerofObject(SuperclassIndex, classPointer);
+    objOop = fetchPointerofObject(SuperclassIndex, classPointer);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
@@ -211,8 +207,7 @@ void longPrintOop(sqInt oop) {
 
       /* begin superclassOf: */
       /* begin followObjField:ofObject: */
-      objOop =
-          fetchPointerofObject(SuperclassIndex, oopClass);
+      objOop = fetchPointerofObject(SuperclassIndex, oopClass);
       assert(isNonImmediate(objOop));
       if ((!((longAt((void *)(objOop))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

@@ -48,8 +48,7 @@ static void addNewMethodToCache(sqInt classObj) {
     /* begin primitiveIndexOf: */
     /* begin methodHeaderOf: */
     assert(isCompiledMethod(newMethod));
-    methodHeader =
-        fetchPointerofObject(HeaderIndex, newMethod);
+    methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
     if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
       firstBytecode =
           (newMethod + ((LiteralStart + (((methodHeader >> 3)) &

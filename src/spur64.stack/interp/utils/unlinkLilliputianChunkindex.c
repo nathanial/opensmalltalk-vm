@@ -32,8 +32,7 @@ static NeverInline sqInt unlinkLilliputianChunkindex(sqInt freeChunk,
                ((index > 1) && ((startOfObject(freeChunk)) == freeChunk)));
 
         /* For some reason the assertion is not compiled correctly */
-        freeLists[index] =
-            ((nextSqInt = fetchPointerofObject(0U, freeChunk)));
+        freeLists[index] = ((nextSqInt = fetchPointerofObject(0U, freeChunk)));
       }
       return freeChunk;
     }

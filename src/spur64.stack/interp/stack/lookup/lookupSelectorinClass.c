@@ -104,8 +104,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
 
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
-    objOop =
-        fetchPointerofObject(SuperclassIndex, currentClass);
+    objOop = fetchPointerofObject(SuperclassIndex, currentClass);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

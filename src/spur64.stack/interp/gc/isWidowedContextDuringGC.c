@@ -40,7 +40,8 @@ static sqInt isWidowedContextDuringGC(sqInt aOnceMarriedContext) {
                                  maybeFrame, stackMemory, bytesPerPage),
                              pages);
   if (!((isFree(thePage)) || (maybeFrame < ((thePage->headFP))))) {
-    anInteger = fetchPointerofObject(InstructionPointerIndex, aOnceMarriedContext);
+    anInteger =
+        fetchPointerofObject(InstructionPointerIndex, aOnceMarriedContext);
 
     /* begin withoutSmallIntegerTags: */
     assert((((anInteger) & 7) == 1));

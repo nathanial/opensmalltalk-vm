@@ -103,9 +103,9 @@ static void primitiveStringReplace(void) {
       goto l5;
     }
     class = fetchClassOfNonImm(array);
-    arrayInstSize = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
-                      3)) &
-                    ((1U << (fixedFieldsFieldWidth())) - 1);
+    arrayInstSize =
+        (((fetchPointerofObject(InstanceSpecificationIndex, class)) >> 3)) &
+        ((1U << (fixedFieldsFieldWidth())) - 1);
     /* end fixedFieldsOf:format:length: */
   l5:
 
@@ -131,9 +131,9 @@ static void primitiveStringReplace(void) {
       goto l6;
     }
     class = fetchClassOfNonImm(repl);
-    replInstSize = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
-                     3)) &
-                   ((1U << (fixedFieldsFieldWidth())) - 1);
+    replInstSize =
+        (((fetchPointerofObject(InstanceSpecificationIndex, class)) >> 3)) &
+        ((1U << (fixedFieldsFieldWidth())) - 1);
     /* end fixedFieldsOf:format:length: */
   l6:
     if (!((start >= 1) &&

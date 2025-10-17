@@ -31,8 +31,7 @@ static sqInt executeNewMethod(void) {
   /* begin justActivateNewMethod: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(newMethod));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, newMethod);
+  methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 

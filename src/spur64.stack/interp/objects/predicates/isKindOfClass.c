@@ -25,8 +25,7 @@ sqInt isKindOfClass(sqInt oop, sqInt aClass) {
 
     /* begin superclassOf: */
     /* begin followObjField:ofObject: */
-    objOop =
-        fetchPointerofObject(SuperclassIndex, oopClass);
+    objOop = fetchPointerofObject(SuperclassIndex, oopClass);
     assert(isNonImmediate(objOop));
     if ((!((longAt((void *)(objOop))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {

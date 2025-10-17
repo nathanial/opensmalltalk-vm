@@ -78,12 +78,10 @@ static void primitiveTerminateTo(void) {
      termination. */
   if ((aContextOrNil != nilObj) &&
       (/* isStillMarriedContext: */
-       (((((fetchPointerofObject(SenderIndex, aContextOrNil))) &
-          7) == 1)) &&
+       (((((fetchPointerofObject(SenderIndex, aContextOrNil))) & 7) == 1)) &&
        (!(isWidowedContext(aContextOrNil))))) {
     /* begin frameOfMarriedContext: */
-    senderOop =
-        fetchPointerofObject(SenderIndex, aContextOrNil);
+    senderOop = fetchPointerofObject(SenderIndex, aContextOrNil);
     assert((((senderOop) & 7) == 1));
     contextsFP = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -98,12 +96,10 @@ static void primitiveTerminateTo(void) {
   /* if thisCtx is married ensure it is a base frame.  Then we can assign its
    * sender. */
   if (/* isStillMarriedContext: */
-      (((((fetchPointerofObject(SenderIndex, thisCtx))) &
-         7) == 1)) &&
+      (((((fetchPointerofObject(SenderIndex, thisCtx))) & 7) == 1)) &&
       (!(isWidowedContext(thisCtx)))) {
     /* begin frameOfMarriedContext: */
-    senderOop =
-        fetchPointerofObject(SenderIndex, thisCtx);
+    senderOop = fetchPointerofObject(SenderIndex, thisCtx);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -196,12 +192,10 @@ static void primitiveTerminateTo(void) {
     /* May also reclaim aContextOrNil's page, hence... */
     if ((aContextOrNil != nilObj) &&
         (/* isStillMarriedContext: */
-         (((((fetchPointerofObject(SenderIndex, aContextOrNil))) &
-            7) == 1)) &&
+         (((((fetchPointerofObject(SenderIndex, aContextOrNil))) & 7) == 1)) &&
          (!(isWidowedContext(aContextOrNil))))) {
       /* begin frameOfMarriedContext: */
-      senderOop =
-          fetchPointerofObject(SenderIndex, aContextOrNil);
+      senderOop = fetchPointerofObject(SenderIndex, aContextOrNil);
       assert((((senderOop) & 7) == 1));
       contextsFP = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -214,8 +208,7 @@ static void primitiveTerminateTo(void) {
       pageToStopOn = 0;
     }
   } else {
-    currentCtx =
-        fetchPointerofObject(SenderIndex, thisCtx);
+    currentCtx = fetchPointerofObject(SenderIndex, thisCtx);
   }
 
   /* begin context:hasSender: */
@@ -224,11 +217,9 @@ static void primitiveTerminateTo(void) {
   if (!handlerOrNilOrZero) {
     while (!((currentCtx == aContextOrNil) || (currentCtx == nilObj))) {
       assert(isContext(currentCtx));
-      if (((((fetchPointerofObject(SenderIndex, currentCtx))) &
-            7) == 1)) {
+      if (((((fetchPointerofObject(SenderIndex, currentCtx))) & 7) == 1)) {
         /* begin frameOfMarriedContext: */
-        senderOop =
-            fetchPointerofObject(SenderIndex, currentCtx);
+        senderOop = fetchPointerofObject(SenderIndex, currentCtx);
         assert((((senderOop) & 7) == 1));
         theFP = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -299,8 +290,8 @@ static void primitiveTerminateTo(void) {
           frameAbove = externalEnsureIsBaseFrame(frameAbove);
           if ((aContextOrNil != nilObj) &&
               (/* isStillMarriedContext: */
-               (((((fetchPointerofObject(SenderIndex, aContextOrNil))) &
-                  7) == 1)) &&
+               (((((fetchPointerofObject(SenderIndex, aContextOrNil))) & 7) ==
+                 1)) &&
                (!(isWidowedContext(aContextOrNil))))) {
             /* begin frameOfMarriedContext: */
             senderOopSqInt = fetchPointerofObject(SenderIndex, aContextOrNil);
@@ -369,8 +360,7 @@ static void primitiveTerminateTo(void) {
           }
         }
       } else {
-        nextCntx =
-            fetchPointerofObject(SenderIndex, currentCtx);
+        nextCntx = fetchPointerofObject(SenderIndex, currentCtx);
 
         /* begin markContextAsDead: */
         assert(isContext(currentCtx));
@@ -395,14 +385,12 @@ static void primitiveTerminateTo(void) {
 
   /* Need to walk the stack freeing stack pages and nilling contexts. */
   assert(pageListIsWellFormed());
-  if (((((fetchPointerofObject(SenderIndex, thisCtx))) &
-        7) == 1)) {
+  if (((((fetchPointerofObject(SenderIndex, thisCtx))) & 7) == 1)) {
     assert(checkIsStillMarriedContextcurrentFP(thisCtx, framePointer));
     assert(isBaseFrame(frameOfMarriedContext(thisCtx)));
 
     /* begin frameOfMarriedContext: */
-    senderOop =
-        fetchPointerofObject(SenderIndex, thisCtx);
+    senderOop = fetchPointerofObject(SenderIndex, thisCtx);
     assert((((senderOop) & 7) == 1));
     theFP = ((char *)(senderOop - (smallIntegerTag())));
 

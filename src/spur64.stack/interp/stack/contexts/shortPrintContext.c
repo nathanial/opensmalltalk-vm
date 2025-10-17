@@ -20,12 +20,10 @@ static sqInt shortPrintContext(sqInt aContext) {
     return null;
   }
   printHex(aContext);
-  if (((((fetchPointerofObject(SenderIndex, aContext))) &
-        7) == 1)) {
+  if (((((fetchPointerofObject(SenderIndex, aContext))) & 7) == 1)) {
     if (checkIsStillMarriedContextcurrentFP(aContext, framePointer)) {
       /* begin frameOfMarriedContext: */
-      senderOop =
-          fetchPointerofObject(SenderIndex, aContext);
+      senderOop = fetchPointerofObject(SenderIndex, aContext);
       assert((((senderOop) & 7) == 1));
       theFP = ((char *)(senderOop - (smallIntegerTag())));
 
@@ -46,8 +44,7 @@ static sqInt shortPrintContext(sqInt aContext) {
   if ((home = findHomeForContext(aContext))) {
     rcvr = fetchPointerofObject(ReceiverIndex, home);
     printActivationNameForreceiverisBlockfirstTemporary(
-        fetchPointerofObject(MethodIndex, aContext),
-        rcvr, home != aContext,
+        fetchPointerofObject(MethodIndex, aContext), rcvr, home != aContext,
         fetchPointerofObject(0 + CtxtTempFrameStart, home));
 
     /* begin space */

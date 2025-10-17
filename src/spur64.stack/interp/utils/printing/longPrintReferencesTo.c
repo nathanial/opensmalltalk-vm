@@ -77,8 +77,7 @@ void longPrintReferencesTo(sqInt anOop) {
           }
         }
         while (((i -= 1)) >= 0) {
-          if (anOop ==
-              (fetchPointerofObject(i, objSqInt))) {
+          if (anOop == (fetchPointerofObject(i, objSqInt))) {
             fprintf(transcript, "%p @ %d\n", ((void *)objSqInt), ((int)i));
             prntObj = 1;
             i = 0;

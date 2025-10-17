@@ -40,8 +40,7 @@ static void primitivePin(void) {
            (((longAt((void *)(obj))) & (classIndexMask())) ==
             ClassMethodContextCompactIndex)) &&
           (/* isStillMarriedContext: */
-           (((((fetchPointerofObject(SenderIndex, obj))) &
-              7) == 1)) &&
+           (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)) &&
            (!(isWidowedContext(obj))))) {
         /* primitiveFailFor: */
         primFailCode = PrimErrBadReceiver;

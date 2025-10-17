@@ -4,6 +4,5 @@
 
 static int isEmptyList(sqInt aLinkedList) {
   assert(!(isForwarded(aLinkedList)));
-  return (fetchPointerofObject(FirstLinkIndex, aLinkedList)) ==
-         nilObj;
+  return (fetchPointerofObject(FirstLinkIndex, aLinkedList)) == nilObj;
 }

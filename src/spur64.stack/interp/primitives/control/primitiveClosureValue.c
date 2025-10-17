@@ -21,8 +21,7 @@ static void primitiveClosureValue(void) {
 
   /* begin argumentCountOfClosure: */
   /* begin quickFetchInteger:ofObject: */
-  oop =
-      fetchPointerofObject(ClosureNumArgsIndex, blockClosure);
+  oop = fetchPointerofObject(ClosureNumArgsIndex, blockClosure);
   assert((((oop) & 7) == 1));
   numArgs = (oop >> 3);
   if (!(argumentCount == numArgs)) {
@@ -46,8 +45,7 @@ static void primitiveClosureValue(void) {
     }
     return;
   }
-  closureMethod =
-      fetchPointerofObject(MethodIndex, outerContext);
+  closureMethod = fetchPointerofObject(MethodIndex, outerContext);
 
   /* Check if the closure's method is actually a CompiledMethod. */
   if (!(/* isOopCompiledMethod: */
@@ -121,8 +119,9 @@ static void primitiveClosureValue(void) {
   /* Copy the copied values... */
   for (i = 0; i < numCopied; i += 1) {
     /* begin push: */
-    longAtput((sp = stackPointer - BytesPerWord),
-              fetchPointerofObject(i + ClosureFirstCopiedValueIndex, blockClosure));
+    longAtput(
+        (sp = stackPointer - BytesPerWord),
+        fetchPointerofObject(i + ClosureFirstCopiedValueIndex, blockClosure));
     stackPointer = sp;
   }
   assert(frameIsBlockActivation(framePointer));
@@ -135,8 +134,7 @@ static void primitiveClosureValue(void) {
      -1 because it gets incremented BEFORE fetching currentByte */
 
   /* begin quickFetchInteger:ofObject: */
-  oop =
-      fetchPointerofObject(ClosureStartPCIndex, blockClosure);
+  oop = fetchPointerofObject(ClosureStartPCIndex, blockClosure);
   assert((((oop) & 7) == 1));
   closureIP = (oop >> 3);
   instructionPointer = ((closureMethod + closureIP) + BaseHeaderSize) - 2;
@@ -148,8 +146,7 @@ static void primitiveClosureValue(void) {
   /* begin methodUsesAlternateBytecodeSet: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, method);
+  methodHeader = fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeader)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

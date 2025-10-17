@@ -21,8 +21,7 @@ static sqInt lengthOfNameOfClass(sqInt classOop) {
                  8
            : numSlotsUsqInt);
   if (numSlots == metaclassNumSlots) {
-    return lengthOfNameOfClass(
-        fetchPointerofObject(thisClassIndex, classOop));
+    return lengthOfNameOfClass(fetchPointerofObject(thisClassIndex, classOop));
   }
   if (numSlots <= classNameIndex) {
     return 0;

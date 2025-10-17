@@ -60,7 +60,8 @@ static sqInt numStrongSlotsOfInephemeral(sqInt objOop) {
       objOopSqInt = fetchClassOfNonImm(objOop);
 
       /* begin fixedFieldsOfClass: */
-      return (((fetchPointerofObject(InstanceSpecificationIndex, objOopSqInt)) >>
+      return (((fetchPointerofObject(InstanceSpecificationIndex,
+                                     objOopSqInt)) >>
                3)) &
              ((1U << (fixedFieldsFieldWidth())) - 1);
     }

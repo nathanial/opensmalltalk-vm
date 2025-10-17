@@ -37,20 +37,17 @@ static void markWeaklingsAndMarkAndFireEphemerons(void) {
       /* begin objStack:from:do: */
       eassert(isValidObjStack(weaklingStack));
       size = fetchPointerofObject(ObjStackTopx, weaklingStack);
-      objStackPage =
-          fetchPointerofObject(ObjStackNextx, weaklingStack);
+      objStackPage = fetchPointerofObject(ObjStackNextx, weaklingStack);
       while (objStackPage != 0) {
         size += ObjStackLimit;
         assert((fetchPointerofObject(ObjStackTopx, objStackPage)) ==
                ObjStackLimit);
-        objStackPage =
-            fetchPointerofObject(ObjStackNextx, objStackPage);
+        objStackPage = fetchPointerofObject(ObjStackNextx, objStackPage);
       }
       numToEnumerate = size - numTracedWeaklings;
       objStackPage = weaklingStack;
       while (numToEnumerate > 0) {
-        numOnThisPage =
-            fetchPointerofObject(ObjStackTopx, objStackPage);
+        numOnThisPage = fetchPointerofObject(ObjStackTopx, objStackPage);
         numToEnumerateOnThisPage =
             ((numToEnumerate < numOnThisPage) ? numToEnumerate : numOnThisPage);
         topIndex = (numOnThisPage + ObjStackFixedSlots) - 1;
@@ -58,8 +55,7 @@ static void markWeaklingsAndMarkAndFireEphemerons(void) {
              iSqInt >= ((topIndex - numToEnumerateOnThisPage) + 1);
              iSqInt += -1) {
           assert(isWeak(fetchPointerofObject(iSqInt, objStackPage)));
-          weakling =
-              fetchPointerofObject(iSqInt, objStackPage);
+          weakling = fetchPointerofObject(iSqInt, objStackPage);
           assert(!((isForwarded(weakling))));
           markAndTraceClassOf(weakling);
 
@@ -81,8 +77,7 @@ static void markWeaklingsAndMarkAndFireEphemerons(void) {
           }
         }
         numToEnumerate -= numToEnumerateOnThisPage;
-        objStackPage =
-            fetchPointerofObject(ObjStackNextx, objStackPage);
+        objStackPage = fetchPointerofObject(ObjStackNextx, objStackPage);
       }
       numTracedWeaklings = size;
     } while ((sizeOfObjStack(weaklingStack)) > numTracedWeaklings);

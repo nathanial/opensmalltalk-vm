@@ -22,8 +22,7 @@ unfollowFirstLiteralOfMaybeCalloutMethodprimitiveIndex(sqInt methodObj,
   found = 0;
 
   /* inlined self literal: 0 ofMethod: methodObj for clarity... */
-  firstLiteral =
-      fetchPointerofObject(LiteralStart, methodObj);
+  firstLiteral = fetchPointerofObject(LiteralStart, methodObj);
   if (isOopForwarded(firstLiteral)) {
     found = 1;
     firstLiteral = fixFollowedFieldofObjectwithInitialValue(

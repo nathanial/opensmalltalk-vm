@@ -11,8 +11,7 @@ void printMethodDictionary(sqInt dictionary) {
   sqInt selector;
   sqInt toDoLimit;
 
-  methodArray =
-      fetchPointerofObject(MethodArrayIndex, dictionary);
+  methodArray = fetchPointerofObject(MethodArrayIndex, dictionary);
   toDoLimit = (numSlotsOf(dictionary)) - 1;
   for (index = SelectorStart; index <= toDoLimit; index += 1) {
     selector = fetchPointerofObject(index, dictionary);

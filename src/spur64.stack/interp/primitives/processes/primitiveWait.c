@@ -33,8 +33,9 @@ static void primitiveWait(void) {
     }
   } else {
     /* begin activeProcess */
-    objOop =
-        fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+    objOop = fetchPointerofObject(
+        ValueIndex,
+        fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
     activeProc = fetchPointerofObject(ActiveProcessIndex, objOop);
     addLastLinktoList(activeProc, sema);
 

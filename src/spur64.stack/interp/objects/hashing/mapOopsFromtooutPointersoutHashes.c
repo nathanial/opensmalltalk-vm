@@ -93,7 +93,8 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
       if (/* is:outPointerClassHashFor:in:limit: */
           (((hash & TopHashBit) != 0)) &&
           (((hash - TopHashBit) <= outIndex) &&
-           (heapOop == (fetchPointerofObject(hash - TopHashBit, outPointerArray))))) {
+           (heapOop ==
+            (fetchPointerofObject(hash - TopHashBit, outPointerArray))))) {
         segIndex = hash;
       } else {
         /* begin newOutPointer:at:in:hashes: */
@@ -189,7 +190,8 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
           if (/* is:outPointerClassHashFor:in:limit: */
               (((hash & TopHashBit) != 0)) &&
               (((hash - TopHashBit) <= outIndex) &&
-               (heapOop == (fetchPointerofObject(hash - TopHashBit, outPointerArray))))) {
+               (heapOop ==
+                (fetchPointerofObject(hash - TopHashBit, outPointerArray))))) {
             oop = ((hash - TopHashBit) * BytesPerOop) + TopOopBit;
           } else {
             /* begin newOutPointer:at:in:hashes: */

@@ -99,8 +99,7 @@ static void primitiveContextAt(void) {
     }
     class = fetchClassOfNonImm(aContext);
     fixedFieldsSqInt =
-        (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
-          3)) &
+        (((fetchPointerofObject(InstanceSpecificationIndex, class)) >> 3)) &
         ((1U << (fixedFieldsFieldWidth())) - 1);
     /* end fixedFieldsOf:format:length: */
   l6:
@@ -108,8 +107,7 @@ static void primitiveContextAt(void) {
         ((hdrSqLong & (classIndexMask())) == ClassMethodContextCompactIndex)) {
       /* begin stackPointerForMaybeMarriedContext: */
       if (/* isStillMarriedContext: */
-          (((((fetchPointerofObject(SenderIndex, aContext))) &
-             7) == 1)) &&
+          (((((fetchPointerofObject(SenderIndex, aContext))) & 7) == 1)) &&
           (!(isWidowedContext(aContext)))) {
         spUsqInt = stackPointerIndexForFrame(frameOfMarriedContext(aContext));
         assert((ReceiverIndex + ((spUsqInt >> 3))) < (lengthOf(aContext)));
@@ -221,8 +219,7 @@ static void primitiveContextAt(void) {
   (stackPage->headSP = stackPointer);
   assert(pageListIsWellFormed());
   if (!(/* isStillMarriedContext: */
-        (((((fetchPointerofObject(SenderIndex, aContext))) &
-           7) == 1)) &&
+        (((((fetchPointerofObject(SenderIndex, aContext))) & 7) == 1)) &&
         (!(isWidowedContext(aContext))))) {
     fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
 
@@ -275,15 +272,14 @@ static void primitiveContextAt(void) {
       goto l3;
     }
     class = fetchClassOfNonImm(aContext);
-    fixedFields = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
-                    3)) &
-                  ((1U << (fixedFieldsFieldWidth())) - 1);
+    fixedFields =
+        (((fetchPointerofObject(InstanceSpecificationIndex, class)) >> 3)) &
+        ((1U << (fixedFieldsFieldWidth())) - 1);
     /* end fixedFieldsOf:format:length: */
   l3:
 
     /* begin fetchStackPointerOf: */
-    spSqInt =
-        fetchPointerofObject(StackPointerIndex, aContext);
+    spSqInt = fetchPointerofObject(StackPointerIndex, aContext);
     if (!((((spSqInt) & 7) == 1))) {
       stSize = 0;
       goto l1;

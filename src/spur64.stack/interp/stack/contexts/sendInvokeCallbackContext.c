@@ -31,15 +31,18 @@ sqInt sendInvokeCallbackContext(VMCallbackContext *vmCallbackContext) {
   /* begin recordTrace:thing:source: */
   if (TraceLog) {
     traceLog[traceLogIndex] = TraceVMCallback;
-    traceLog[traceLogIndex + 1] = (fetchPointerofObject(SelectorInvokeCallback, specialObjectsOop));
+    traceLog[traceLogIndex + 1] =
+        (fetchPointerofObject(SelectorInvokeCallback, specialObjectsOop));
     traceLog[traceLogIndex + 2] = 0;
     traceLogIndex = (traceLogIndex + 3) % TraceBufferSize;
   }
 
   /* begin fetchClassTagOfNonImm: */
-  classTag = (longAt((void *)(fetchPointerofObject(ClassAlien, specialObjectsOop)))) &
-             (classIndexMask());
-  messageSelector = fetchPointerofObject(SelectorInvokeCallback, specialObjectsOop);
+  classTag =
+      (longAt((void *)(fetchPointerofObject(ClassAlien, specialObjectsOop)))) &
+      (classIndexMask());
+  messageSelector =
+      fetchPointerofObject(SelectorInvokeCallback, specialObjectsOop);
   if (!(lookupInMethodCacheSelclassTag(messageSelector, classTag))) {
     if (lookupOrdinaryNoMNUEtcInClass(classForClassTag(classTag))) {
       return 0;
@@ -82,8 +85,7 @@ sqInt sendInvokeCallbackContext(VMCallbackContext *vmCallbackContext) {
   /* begin justActivateNewMethod: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(newMethod));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, newMethod);
+  methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 

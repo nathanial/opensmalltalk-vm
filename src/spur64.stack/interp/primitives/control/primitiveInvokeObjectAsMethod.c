@@ -120,8 +120,7 @@ l1:
   stackPointer = sp;
 
   /* stack is clean here */
-  messageSelector =
-      fetchPointerofObject(SelectorRunWithIn, specialObjectsOop);
+  messageSelector = fetchPointerofObject(SelectorRunWithIn, specialObjectsOop);
   argumentCount = 3;
   lookupClassTag = /* fetchClassTagOf: */
       ((tagBits = newMethod & (tagMask()))
@@ -146,8 +145,7 @@ l1:
   /* begin justActivateNewMethod: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(newMethod));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, newMethod);
+  methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 

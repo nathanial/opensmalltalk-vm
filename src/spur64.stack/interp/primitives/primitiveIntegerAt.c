@@ -167,8 +167,8 @@ static void primitiveIntegerAt(void) {
 
     /* begin numFixedSlotsOf: */
     classPointer = fetchClassOfNonImm(rcvr);
-    classFormat = ((fetchPointerofObject(InstanceSpecificationIndex, classPointer)) >>
-                   3);
+    classFormat =
+        ((fetchPointerofObject(InstanceSpecificationIndex, classPointer)) >> 3);
     numFixed = classFormat & ((1U << (fixedFieldsFieldWidth())) - 1);
     if ((((index + 1) >= numFixed) && ((index + 1) <= numSlots))) {
       /* begin methodReturnValue: */

@@ -29,8 +29,8 @@ sqInt maybeSelectorOfMethod(sqInt methodObj) {
       ((!(penultimateLiteral & (tagMask())))) &&
       (isWordsOrBytesNonImm(penultimateLiteral))) {
     return (((longAt((void *)(penultimateLiteral))) & (classIndexMask())) ==
-                    (fetchClassTagOfNonImm(
-                        fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop)))
+                    (fetchClassTagOfNonImm(fetchPointerofObject(
+                        SelectorDoesNotUnderstand, specialObjectsOop)))
                 ? penultimateLiteral
                 : 0);
   }
@@ -60,7 +60,8 @@ sqInt maybeSelectorOfMethod(sqInt methodObj) {
                    (isWordsOrBytesNonImm(maybeSelector))) &&
                       (((longAt((void *)(maybeSelector))) &
                         (classIndexMask())) ==
-                       (fetchClassTagOfNonImm(fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop))))))))
+                       (fetchClassTagOfNonImm(fetchPointerofObject(
+                           SelectorDoesNotUnderstand, specialObjectsOop))))))))
           ? maybeSelector
           : 0);
 }

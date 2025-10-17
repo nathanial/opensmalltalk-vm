@@ -145,16 +145,14 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs,
         fieldIndex =
             ((usqInt)(classIndexSqInt)) >> (classTableMajorIndexShift());
 
-        classTablePage =
-            fetchPointerofObject(fieldIndex, hiddenRootsObj);
+        classTablePage = fetchPointerofObject(fieldIndex, hiddenRootsObj);
         if (classTablePage == nilObj) {
           classOop = nilObj;
           goto l1;
         }
         fieldIndex =
             classIndexSqInt & ((1U << (classTableMajorIndexShift())) - 1);
-        classOop =
-            fetchPointerofObject(fieldIndex, classTablePage);
+        classOop = fetchPointerofObject(fieldIndex, classTablePage);
         /* end classOrNilAtIndex: */
       l1:
         if (classIndicesShouldBeValid &&
@@ -316,16 +314,14 @@ l6:
           fieldIndex =
               ((usqInt)(classIndexSqInt)) >> (classTableMajorIndexShift());
 
-          classTablePage =
-              fetchPointerofObject(fieldIndex, hiddenRootsObj);
+          classTablePage = fetchPointerofObject(fieldIndex, hiddenRootsObj);
           if (classTablePage == nilObj) {
             classOop = nilObj;
             goto l3;
           }
           fieldIndex =
               classIndexSqInt & ((1U << (classTableMajorIndexShift())) - 1);
-          classOop =
-              fetchPointerofObject(fieldIndex, classTablePage);
+          classOop = fetchPointerofObject(fieldIndex, classTablePage);
           /* end classOrNilAtIndex: */
         l3:
           if (classIndicesShouldBeValid &&
@@ -430,8 +426,7 @@ l6:
   eassert(isValidObjStack(mournQueue));
   objStackPage = mournQueue;
   while (objStackPage != 0) {
-    numOnThisPage =
-        fetchPointerofObject(ObjStackTopx, objStackPage);
+    numOnThisPage = fetchPointerofObject(ObjStackTopx, objStackPage);
     for (iSqInt = ((numOnThisPage + ObjStackFixedSlots) - 1);
          iSqInt >= ObjStackFixedSlots; iSqInt += -1) {
       obj = fetchPointerofObject(iSqInt, objStackPage);
@@ -451,8 +446,7 @@ l6:
         }
       }
     }
-    objStackPage =
-        fetchPointerofObject(ObjStackNextx, objStackPage);
+    objStackPage = fetchPointerofObject(ObjStackNextx, objStackPage);
   }
   /* end objStack:do: */
 l4:

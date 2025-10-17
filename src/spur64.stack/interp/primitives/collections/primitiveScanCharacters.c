@@ -106,14 +106,10 @@ static void primitiveScanCharacters(void) {
   }
 
   /* Check required rcvr instVars */
-  scanDestX =
-      fetchPointerofObject(0U, rcvr);
-  scanLastIndex =
-      fetchPointerofObject(1U, rcvr);
-  scanXTable =
-      fetchPointerofObject(2U, rcvr);
-  scanMap =
-      fetchPointerofObject(3U, rcvr);
+  scanDestX = fetchPointerofObject(0U, rcvr);
+  scanLastIndex = fetchPointerofObject(1U, rcvr);
+  scanXTable = fetchPointerofObject(2U, rcvr);
+  scanMap = fetchPointerofObject(3U, rcvr);
   if (!((/* isArray: */
          ((!(scanXTable & (tagMask())))) &&
          (((byteAt((void *)(scanXTable + (formatFieldByteOffset())))) &
@@ -144,9 +140,7 @@ static void primitiveScanCharacters(void) {
         byteAt((void *)((sourceString + BaseHeaderSize) + (scanLastIndex - 1)));
 
     /* Known to be okay since stops size >= 258 */
-    if (!(((stopReason =
-                fetchPointerofObject(ascii, stops))) ==
-          nilObj)) {
+    if (!(((stopReason = fetchPointerofObject(ascii, stops))) == nilObj)) {
       if (!(scanDestX >= 0)) {
         /* primitiveFailFor: */
         primFailCode = PrimErrLimitExceeded;
@@ -205,8 +199,7 @@ static void primitiveScanCharacters(void) {
       return;
     }
     sourceX = fetchPointerofObject(glyphIndex, scanXTable);
-    sourceX2 =
-        fetchPointerofObject(glyphIndex + 1, scanXTable);
+    sourceX2 = fetchPointerofObject(glyphIndex + 1, scanXTable);
 
     /* Above may fail if non-integer entries in scanXTable */
     if (!(((((sourceX) & 7) == 1)) && ((((sourceX2) & 7) == 1)))) {
@@ -300,8 +293,7 @@ static void primitiveScanCharacters(void) {
 
   /* begin methodReturnValue: */
   assert(!((failed())));
-  longAtput(
-      (sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-      fetchPointerofObject(EndOfRun - 1, stops));
+  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+            fetchPointerofObject(EndOfRun - 1, stops));
   stackPointer = sp;
 }

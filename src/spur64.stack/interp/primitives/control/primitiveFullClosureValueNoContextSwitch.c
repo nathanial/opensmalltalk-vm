@@ -27,8 +27,7 @@ void primitiveFullClosureValueNoContextSwitch(void) {
 
   /* begin argumentCountOfClosure: */
   /* begin quickFetchInteger:ofObject: */
-  oop =
-      fetchPointerofObject(ClosureNumArgsIndex, blockClosure);
+  oop = fetchPointerofObject(ClosureNumArgsIndex, blockClosure);
   assert((((oop) & 7) == 1));
   numArgs = (oop >> 3);
   if (!(argumentCount == numArgs)) {
@@ -38,7 +37,8 @@ void primitiveFullClosureValueNoContextSwitch(void) {
     }
     return;
   }
-  closureMethod = fetchPointerofObject(FullClosureCompiledBlockIndex, blockClosure);
+  closureMethod =
+      fetchPointerofObject(FullClosureCompiledBlockIndex, blockClosure);
   if (!(/* isOopCompiledMethod: */
         ((!(closureMethod & (tagMask())))) &&
         (((byteAt((void *)(closureMethod + (formatFieldByteOffset())))) &
@@ -110,9 +110,9 @@ void primitiveFullClosureValueNoContextSwitch(void) {
   /* Copy the copied values... */
   for (i = 0; i < numCopied; i += 1) {
     /* begin push: */
-    longAtput(
-        (sp = stackPointer - BytesPerWord),
-        fetchPointerofObject(i + FullClosureFirstCopiedValueIndex, blockClosure));
+    longAtput((sp = stackPointer - BytesPerWord),
+              fetchPointerofObject(i + FullClosureFirstCopiedValueIndex,
+                                   blockClosure));
     stackPointer = sp;
   }
   assert(frameIsBlockActivation(framePointer));
@@ -120,8 +120,7 @@ void primitiveFullClosureValueNoContextSwitch(void) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(closureMethod));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, closureMethod);
+  methodHeader = fetchPointerofObject(HeaderIndex, closureMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   for (i = ((numArgs + numCopied) + 1); i <= numTemps; i += 1) {
     /* begin push: */
@@ -144,8 +143,7 @@ void primitiveFullClosureValueNoContextSwitch(void) {
   /* begin methodUsesAlternateBytecodeSet: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(method));
-  methodHeaderSqInt =
-      fetchPointerofObject(HeaderIndex, method);
+  methodHeaderSqInt = fetchPointerofObject(HeaderIndex, method);
   if ((((sqLong)methodHeaderSqInt)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

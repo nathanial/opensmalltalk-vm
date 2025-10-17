@@ -100,12 +100,10 @@ l1:
               valuePointer);
   }
   if (/* isStillMarriedContext: */
-      (((((fetchPointerofObject(SenderIndex, aContext))) &
-         7) == 1)) &&
+      (((((fetchPointerofObject(SenderIndex, aContext))) & 7) == 1)) &&
       (!(isWidowedContext(aContext)))) {
     /* begin frameOfMarriedContext: */
-    senderOop =
-        fetchPointerofObject(SenderIndex, aContext);
+    senderOop = fetchPointerofObject(SenderIndex, aContext);
     assert((((senderOop) & 7) == 1));
     spouseFP = ((char *)(senderOop - (smallIntegerTag())));
     sp = (stackPointerIndexForFrame(spouseFP)) - 1;

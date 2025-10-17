@@ -188,8 +188,8 @@ static NeverInline void compact(void) {
 l5:
 
   /* begin unpinRememberedSet */
-  firstFieldOfRememberedSet =
-      fetchPointerofObject(0U, fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj));
+  firstFieldOfRememberedSet = fetchPointerofObject(
+      0U, fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj));
   setIsPinnedOfto(fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj),
                   0);
 
@@ -215,7 +215,8 @@ l5:
                   (identityHashHalfWordMask()))) +
                     ((fetchPointerofObject(ObjStackTopx, stackOrNil)) &
                      (identityHashHalfWordMask())));
-  } while (((stackOrNil = fetchPointerofObject(ObjStackNextx, stackOrNil))) != 0);
+  } while (((stackOrNil = fetchPointerofObject(ObjStackNextx, stackOrNil))) !=
+           0);
   /* end prepareObjStackForPlanningCompactor: */
 l7:
   if (weaklingStack == nilObj) {
@@ -232,7 +233,8 @@ l7:
                   (identityHashHalfWordMask()))) +
                     ((fetchPointerofObject(ObjStackTopx, stackOrNil)) &
                      (identityHashHalfWordMask())));
-  } while (((stackOrNil = fetchPointerofObject(ObjStackNextx, stackOrNil))) != 0);
+  } while (((stackOrNil = fetchPointerofObject(ObjStackNextx, stackOrNil))) !=
+           0);
   /* end prepareObjStackForPlanningCompactor: */
 l9:
   if (mournQueue == nilObj) {
@@ -249,7 +251,8 @@ l9:
                   (identityHashHalfWordMask()))) +
                     ((fetchPointerofObject(ObjStackTopx, stackOrNil)) &
                      (identityHashHalfWordMask())));
-  } while (((stackOrNil = fetchPointerofObject(ObjStackNextx, stackOrNil))) != 0);
+  } while (((stackOrNil = fetchPointerofObject(ObjStackNextx, stackOrNil))) !=
+           0);
   /* end prepareObjStackForPlanningCompactor: */
 l6:
   totalFreeOldSpace = 0;

@@ -25,8 +25,7 @@ static void backupContexttoBlockingSendTo(sqInt suspendedContext,
   if ((!((fetchPointerofObject(SenderIndex, suspendedContext)) &
          (tagMask())))) {
     pc = fetchPointerofObject(InstructionPointerIndex, suspendedContext);
-    sp =
-        fetchPointerofObject(StackPointerIndex, suspendedContext);
+    sp = fetchPointerofObject(StackPointerIndex, suspendedContext);
     assert(((((pc) & 7) == 1)) && (((pc >> 3)) > 0));
     assert(((((sp) & 7) == 1)) && (((sp >> 3)) > 0));
     theIP = ((theMethod + BaseHeaderSize) + ((pc >> 3))) - 1;

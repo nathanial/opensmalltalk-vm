@@ -29,8 +29,7 @@ static void primitiveUtcAndTimezoneOffset(void) {
     }
   } else {
     resultArray = instantiateClassindexableSize(
-        fetchPointerofObject(ClassArray, specialObjectsOop),
-        2);
+        fetchPointerofObject(ClassArray, specialObjectsOop), 2);
   }
 
   /* N.B. No pushRemappableOop:/popRemappableOop in Cog because

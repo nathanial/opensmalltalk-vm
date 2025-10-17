@@ -68,17 +68,16 @@ l2:
     goto l1;
   }
   class = fetchClassOfNonImm(array);
-  fixedFields = (((fetchPointerofObject(InstanceSpecificationIndex, class)) >>
-                  3)) &
-                ((1U << (fixedFieldsFieldWidth())) - 1);
+  fixedFields =
+      (((fetchPointerofObject(InstanceSpecificationIndex, class)) >> 3)) &
+      ((1U << (fixedFieldsFieldWidth())) - 1);
   /* end fixedFieldsOf:format:length: */
 l1:
   if ((fmt == (indexablePointersFormat())) &&
       ((hdr & (classIndexMask())) == ClassMethodContextCompactIndex)) {
     /* begin stackPointerForMaybeMarriedContext: */
     if (/* isStillMarriedContext: */
-        (((((fetchPointerofObject(SenderIndex, array))) &
-           7) == 1)) &&
+        (((((fetchPointerofObject(SenderIndex, array))) & 7) == 1)) &&
         (!(isWidowedContext(array)))) {
       sp = stackPointerIndexForFrame(frameOfMarriedContext(array));
       assert((ReceiverIndex + ((sp >> 3))) < (lengthOf(array)));
@@ -87,8 +86,7 @@ l1:
     }
 
     /* begin fetchStackPointerOf: */
-    spSqInt =
-        fetchPointerofObject(StackPointerIndex, array);
+    spSqInt = fetchPointerofObject(StackPointerIndex, array);
     if (!((((spSqInt) & 7) == 1))) {
       stSize = 0;
       goto l3;
@@ -100,8 +98,7 @@ l1:
     if ((oopisGreaterThanOrEqualTo(index, 1)) &&
         ((oopisLessThanOrEqualTo(index, stSize)) &&
          (/* isStillMarriedContext: */
-          (((((fetchPointerofObject(SenderIndex, array))) &
-             7) == 1)) &&
+          (((((fetchPointerofObject(SenderIndex, array))) & 7) == 1)) &&
           (!(isWidowedContext(array)))))) {
       return temporaryin(index - 1, frameOfMarriedContext(array));
     }

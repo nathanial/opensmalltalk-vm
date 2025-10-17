@@ -61,8 +61,7 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth, sqInt classObj) {
 
     /* begin noFixupSuperclassOf: */
     /* begin noFixupFollowField:ofObject: */
-    objOop =
-        fetchPointerofObject(SuperclassIndex, currClass);
+    objOop = fetchPointerofObject(SuperclassIndex, currClass);
     if (isOopForwarded(objOop)) {
       objOop = followForwarded(objOop);
     }

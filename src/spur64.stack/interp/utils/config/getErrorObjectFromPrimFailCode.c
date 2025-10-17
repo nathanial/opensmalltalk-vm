@@ -96,8 +96,7 @@ static sqInt getErrorObjectFromPrimFailCode(void) {
         /* end eeInstantiateAnySmallClassIndex:format:numSlots: */
       l1:
         for (i = 0; i < numSlots; i += 1) {
-          valuePointer =
-              fetchPointerofObject(i, errObj);
+          valuePointer = fetchPointerofObject(i, errObj);
 
           /* begin storePointerUnchecked:ofObject:withValue: */
           assert((isNonImmediate(clone)) && (!(isForwarded(clone))));

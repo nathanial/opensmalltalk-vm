@@ -22,8 +22,7 @@ static sqInt isValidObjStackPagemyIndex(sqInt objStackPage, sqInt myx) {
     invalidObjStackPage = objStackPage;
     return 0;
   }
-  if (!(myx ==
-        (fetchPointerofObject(ObjStackMyx, objStackPage)))) {
+  if (!(myx == (fetchPointerofObject(ObjStackMyx, objStackPage)))) {
     objStackInvalidBecause = "wrong myx";
     invalidObjStackPage = objStackPage;
     return 0;

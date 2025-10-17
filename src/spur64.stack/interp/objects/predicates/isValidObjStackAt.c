@@ -7,8 +7,7 @@
 static sqInt isValidObjStackAt(sqInt objStackRootIndex) {
   sqInt stackOrNil;
 
-  stackOrNil =
-      fetchPointerofObject(objStackRootIndex, hiddenRootsObj);
+  stackOrNil = fetchPointerofObject(objStackRootIndex, hiddenRootsObj);
   return (stackOrNil == nilObj) || (isValidObjStackPagemyIndexfirstPage(
                                        stackOrNil, objStackRootIndex, 1));
 }

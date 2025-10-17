@@ -26,14 +26,12 @@ static void primitiveBeDisplay(void) {
            ((/* isWordsOrBytes: */
              ((!(bitsOop & (tagMask())))) && (isWordsOrBytesNonImm(bitsOop))) ||
             ((((bitsOop) & 7) == 1))) &&
-               (((((((widthOop = fetchPointerofObject(1U, rcvr)))) &
-                   7) == 1)) &&
-                (((((((heightOop =
-                           fetchPointerofObject(2U, rcvr)))) &
-                    7) == 1)) &&
-                 ((((((depthOop =
-                           fetchPointerofObject(3U, rcvr)))) &
-                    7) == 1))))))))) {
+               (((((((widthOop = fetchPointerofObject(1U, rcvr)))) & 7) ==
+                  1)) &&
+                (((((((heightOop = fetchPointerofObject(2U, rcvr)))) & 7) ==
+                   1)) &&
+                 ((((((depthOop = fetchPointerofObject(3U, rcvr)))) & 7) ==
+                   1))))))))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadReceiver;
     return;

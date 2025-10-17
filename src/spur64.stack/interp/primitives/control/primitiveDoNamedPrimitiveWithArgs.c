@@ -70,8 +70,7 @@ static void primitiveDoNamedPrimitiveWithArgs(void) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(methodArg));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, methodArg);
+  methodHeader = fetchPointerofObject(HeaderIndex, methodArg);
   if (!(((/* begin literalCountOfMethodHeader: */
           assert((((methodHeader) & 7) == 1)),
           /* literalCountOfAlternateHeader: */
@@ -80,8 +79,7 @@ static void primitiveDoNamedPrimitiveWithArgs(void) {
     primFailCode = -3;
     return;
   }
-  spec =
-      fetchPointerofObject(1U, methodArg);
+  spec = fetchPointerofObject(1U, methodArg);
 
   /* first literal */
 
@@ -131,8 +129,7 @@ l2:
     primFailCode = -2;
     return;
   }
-  moduleName =
-      fetchPointerofObject(0U, spec);
+  moduleName = fetchPointerofObject(0U, spec);
   if (moduleName == nilObj) {
     moduleLength = 0;
   } else {
@@ -168,8 +165,7 @@ l2:
           << (shiftForWord()))) -
         (fmt & 7);
   }
-  functionName =
-      fetchPointerofObject(1U, spec);
+  functionName = fetchPointerofObject(1U, spec);
   successBoolean = /* isBytes: */
       ((!(functionName & (tagMask())))) &&
       (((byteAt((void *)(functionName + (formatFieldByteOffset())))) &
@@ -301,9 +297,8 @@ l1:
   argumentCount = arraySize;
   for (index = 1; index <= arraySize; index += 1) {
     /* begin push: */
-    longAtput(
-        (sp = stackPointer - BytesPerWord),
-        fetchPointerofObject(index - 1, argumentArray));
+    longAtput((sp = stackPointer - BytesPerWord),
+              fetchPointerofObject(index - 1, argumentArray));
     stackPointer = sp;
   }
 

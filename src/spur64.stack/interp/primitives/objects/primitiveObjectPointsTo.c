@@ -34,8 +34,7 @@ static void primitiveObjectPointsTo(void) {
   if (fmt <= 5 /* lastPointerFormat */) {
     if ((fmt == (indexablePointersFormat())) &&
         ((header & (classIndexMask())) == ClassMethodContextCompactIndex)) {
-      if (((((fetchPointerofObject(SenderIndex, rcvr))) &
-            7) == 1)) {
+      if (((((fetchPointerofObject(SenderIndex, rcvr))) & 7) == 1)) {
         /* begin externalWriteBackHeadFramePointers */
         assert((framePointer - stackPointer) <
                (LargeContextSlots * BytesPerOop));
@@ -95,8 +94,7 @@ static void primitiveObjectPointsTo(void) {
 
     /* begin methodHeaderOf: */
     assert(isCompiledMethod(rcvr));
-    methodHeader =
-        fetchPointerofObject(HeaderIndex, rcvr);
+    methodHeader = fetchPointerofObject(HeaderIndex, rcvr);
     if (methodHeader == thang) {
       /* begin pop:thenPushBool: */
       popthenPushBool(2, trueObj);

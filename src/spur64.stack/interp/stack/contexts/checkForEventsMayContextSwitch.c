@@ -103,8 +103,9 @@ static sqInt checkForEventsMayContextSwitch(sqInt mayContextSwitch) {
   /* Take a sample (if not already done so) for the profiler. */
   if (!profileProcess) {
     /* begin activeProcess */
-    objOop =
-        fetchPointerofObject(ValueIndex, fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
+    objOop = fetchPointerofObject(
+        ValueIndex,
+        fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
     profileProcess = fetchPointerofObject(ActiveProcessIndex, objOop);
     profileMethod = null;
   }

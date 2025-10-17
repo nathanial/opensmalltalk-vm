@@ -43,8 +43,7 @@ static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
                ((initialIndex > 1) && ((startOfObject(chunk)) == chunk)));
 
         /* For some reason the assertion is not compiled correctly */
-        freeLists[initialIndex] =
-            ((next = fetchPointerofObject(0U, chunk)));
+        freeLists[initialIndex] = ((next = fetchPointerofObject(0U, chunk)));
         if ((!lilliputian) && (next != 0)) {
           /* begin storePointer:ofFreeChunk:withValue: */
           assert(isFreeObject(next));
@@ -70,8 +69,7 @@ static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
                  ((index > 1) && ((startOfObject(chunk)) == chunk)));
 
           /* For some reason the assertion is not compiled correctly */
-          freeLists[index] =
-              ((next = fetchPointerofObject(0U, chunk)));
+          freeLists[index] = ((next = fetchPointerofObject(0U, chunk)));
           if (next) {
             /* begin storePointer:ofFreeChunk:withValue: */
             assert(isFreeObject(next));
@@ -112,8 +110,7 @@ static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
                  ((index > 1) && ((startOfObject(chunk)) == chunk)));
 
           /* For some reason the assertion is not compiled correctly */
-          freeLists[index] =
-              ((next = fetchPointerofObject(0U, chunk)));
+          freeLists[index] = ((next = fetchPointerofObject(0U, chunk)));
           if (next) {
             /* begin storePointer:ofFreeChunk:withValue: */
             assert(isFreeObject(next));
@@ -149,8 +146,7 @@ static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
     assert(assertInnerValidFreeObject(child));
     childBytes = bytesInBody(child);
     if (childBytes == chunkBytes) {
-      chunk =
-          fetchPointerofObject(0U, child);
+      chunk = fetchPointerofObject(0U, child);
       if (chunk) {
         /* begin assertValidFreeObject: */
         assert(assertInnerValidFreeObject(chunk));
@@ -204,13 +200,11 @@ static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
   assert((bytesInBody(parent)) == nodeBytes);
 
   /* attempt to remove from list */
-  chunk =
-      fetchPointerofObject(0U, parent);
+  chunk = fetchPointerofObject(0U, parent);
   if (chunk) {
     assert((chunkBytes == nodeBytes) ||
            ((chunkBytes + (allocationUnit())) < nodeBytes));
-    nextFreeChunk =
-        fetchPointerofObject(0U, chunk);
+    nextFreeChunk = fetchPointerofObject(0U, chunk);
 
     /* begin setNextFreeChunkOf:withValue:isLilliputianSize: */
     /* begin storePointer:ofFreeChunk:withValue: */

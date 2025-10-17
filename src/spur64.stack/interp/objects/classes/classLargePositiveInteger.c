@@ -6,5 +6,6 @@ sqInt classLargePositiveInteger(void) {
   /* begin knownClassAtIndex: */
   assert(((ClassLargePositiveIntegerCompactIndex >= 1) &&
           (ClassLargePositiveIntegerCompactIndex <= (classTablePageSize()))));
-  return fetchPointerofObject(ClassLargePositiveIntegerCompactIndex, classTableFirstPage);
+  return fetchPointerofObject(ClassLargePositiveIntegerCompactIndex,
+                              classTableFirstPage);
 }

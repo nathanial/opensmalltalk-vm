@@ -154,10 +154,10 @@ NeverInline void markAndTrace(sqInt objOop) {
         }
         if (fmt == (weakArrayFormat())) {
           objOopSqIntSqInt = fetchClassOfNonImm(objToScan);
-          numStrongSlots =
-              (((fetchPointerofObject(InstanceSpecificationIndex, objOopSqIntSqInt)) >>
-                3)) &
-              ((1U << (fixedFieldsFieldWidth())) - 1);
+          numStrongSlots = (((fetchPointerofObject(InstanceSpecificationIndex,
+                                                   objOopSqIntSqInt)) >>
+                             3)) &
+                           ((1U << (fixedFieldsFieldWidth())) - 1);
           goto l4;
         }
         numStrongSlots = numSlots;
@@ -174,8 +174,7 @@ NeverInline void markAndTrace(sqInt objOop) {
 
       /* begin methodHeaderOf: */
       assert(isCompiledMethod(objToScan));
-      header =
-          fetchPointerofObject(HeaderIndex, objToScan);
+      header = fetchPointerofObject(HeaderIndex, objToScan);
 
       /* begin literalCountOfMethodHeader: */
       assert((((header) & 7) == 1));

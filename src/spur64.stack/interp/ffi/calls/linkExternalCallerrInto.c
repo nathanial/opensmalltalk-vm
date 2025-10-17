@@ -19,7 +19,8 @@ static void (*linkExternalCallerrInto(sqInt externalCallLiteral,
   usqInt numSlots;
 
   metadata = 0;
-  moduleName = fetchPointerofObject(ExternalCallLiteralModuleNameIndex, externalCallLiteral);
+  moduleName = fetchPointerofObject(ExternalCallLiteralModuleNameIndex,
+                                    externalCallLiteral);
   if (moduleName == nilObj) {
     moduleLength = 0;
   } else {
@@ -53,8 +54,8 @@ static void (*linkExternalCallerrInto(sqInt externalCallLiteral,
           << (shiftForWord()))) -
         (fmt & 7);
   }
-  functionName =
-      fetchPointerofObject(ExternalCallLiteralFunctionNameIndex, externalCallLiteral);
+  functionName = fetchPointerofObject(ExternalCallLiteralFunctionNameIndex,
+                                      externalCallLiteral);
   if (!(/* isBytes: */
         ((!(functionName & (tagMask())))) &&
         (((byteAt((void *)(functionName + (formatFieldByteOffset())))) &

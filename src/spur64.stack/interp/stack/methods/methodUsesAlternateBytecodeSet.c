@@ -9,8 +9,7 @@ int methodUsesAlternateBytecodeSet(sqInt aMethodObj) {
 
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(aMethodObj));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, aMethodObj);
+  methodHeader = fetchPointerofObject(HeaderIndex, aMethodObj);
 
   /* begin headerIndicatesAlternateBytecodeSet: */
   return (((sqLong)methodHeader)) < 0;

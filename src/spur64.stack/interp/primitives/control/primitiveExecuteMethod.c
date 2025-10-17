@@ -43,8 +43,7 @@ static void primitiveExecuteMethod(void) {
   /* begin primitiveIndexOf: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(newMethod));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, newMethod);
+  methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
   if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
     firstBytecode =
         (newMethod + ((LiteralStart + (((methodHeader >> 3)) &
@@ -81,8 +80,7 @@ static void primitiveExecuteMethod(void) {
   /* begin justActivateNewMethod: */
   /* begin methodHeaderOf: */
   assert(isCompiledMethod(newMethod));
-  methodHeader =
-      fetchPointerofObject(HeaderIndex, newMethod);
+  methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 

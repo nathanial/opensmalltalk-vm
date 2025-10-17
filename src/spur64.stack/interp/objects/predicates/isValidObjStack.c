@@ -12,7 +12,5 @@ static sqInt isValidObjStack(sqInt objStack) {
     return 0;
   }
   return isValidObjStackPagemyIndexfirstPage(
-      objStack,
-      fetchPointerofObject(ObjStackMyx, objStack),
-      1);
+      objStack, fetchPointerofObject(ObjStackMyx, objStack), 1);
 }

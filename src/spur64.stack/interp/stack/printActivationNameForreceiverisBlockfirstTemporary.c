@@ -54,7 +54,8 @@ static void printActivationNameForreceiverisBlockfirstTemporary(
     print("INVALID SELECTOR = ");
     printHex(methodSel);
   }
-  if ((methodSel == (fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop))) &&
+  if ((methodSel ==
+       (fetchPointerofObject(SelectorDoesNotUnderstand, specialObjectsOop))) &&
       ((addressCouldBeObj(maybeMessage)) &&
        ((fetchClassOfNonImm(maybeMessage)) ==
         (fetchPointerofObject(ClassMessage, specialObjectsOop))))) {

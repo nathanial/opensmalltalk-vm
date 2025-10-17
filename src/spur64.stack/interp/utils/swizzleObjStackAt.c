@@ -26,9 +26,7 @@ static sqInt swizzleObjStackAt(sqInt objStackRootIndex) {
        empty, so if there were 5 slots in an oop stack, full would be 2, and the
        last 0-rel index is 4. Hence the last index is topx + fixed slots - 1, or
        topx + ObjStackNextx */
-    index =
-        (fetchPointerofObject(ObjStackTopx, stackOrNil)) +
-        ObjStackNextx;
+    index = (fetchPointerofObject(ObjStackTopx, stackOrNil)) + ObjStackNextx;
 
     /* swizzle fields including ObjStackNextx, excluding ObjStackFreex and leave
      * field containing the next link. */

@@ -17,22 +17,19 @@ static NeverInline sqInt assertInnerValidFreeObject(sqInt objOop) {
   sqInt treeNode;
 
   assert(oopisLessThanOrEqualTo(addressAfter(objOop), endOfMemory));
-  chunk =
-      fetchPointerofObject(0U, objOop);
+  chunk = fetchPointerofObject(0U, objOop);
   assert((chunk == 0) || (isFreeOop(chunk)));
   chunkBytes = bytesInBody(objOop);
 
   /* begin isLilliputianSize: */
   assert(chunkBytes >= (BaseHeaderSize + (allocationUnit())));
   if (!(chunkBytes == (BaseHeaderSize + 8 /* allocationUnit */))) {
-    chunk =
-        fetchPointerofObject(0U, objOop);
+    chunk = fetchPointerofObject(0U, objOop);
     if (chunk) {
       assert(isFreeOop(chunk));
       assert(objOop == (fetchPointerofFreeChunk(freeChunkPrevIndex(), chunk)));
     }
-    chunk =
-        fetchPointerofObject(1U, objOop);
+    chunk = fetchPointerofObject(1U, objOop);
     index = (bytesInBody(objOop)) / 8 /* allocationUnit */;
     if ((index < 64 /* numFreeLists */) && ((1ULL << index) <= freeListsMask)) {
       if ((freeLists[index]) == objOop) {
@@ -90,14 +87,11 @@ static NeverInline sqInt assertInnerValidFreeObject(sqInt objOop) {
 
   /* double linkedlist assertions */
   if ((bytesInBody(objOop)) >= 0x200 /* (numFreeLists * #allocationUnit) */) {
-    chunk =
-        fetchPointerofObject(2U, objOop);
+    chunk = fetchPointerofObject(2U, objOop);
     assert((chunk == 0) || ((isFreeOop(chunk)) && (isLargeFreeObject(chunk))));
-    chunk =
-        fetchPointerofObject(3U, objOop);
+    chunk = fetchPointerofObject(3U, objOop);
     assert((chunk == 0) || ((isFreeOop(chunk)) && (isLargeFreeObject(chunk))));
-    chunk =
-        fetchPointerofObject(4U, objOop);
+    chunk = fetchPointerofObject(4U, objOop);
     assert((chunk == 0) || ((isFreeOop(chunk)) && (isLargeFreeObject(chunk))));
   }
 
