@@ -1,5 +1,9 @@
 /* Extracted from interp.c:59455 (function printCallStackOf). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printCallStackOf: */
+
 sqInt
 printCallStackOf(sqInt aContextOrProcessOrFrame)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

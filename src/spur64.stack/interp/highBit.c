@@ -1,5 +1,10 @@
 /* Extracted from interp.c:54668 (function highBit). */
 
+/*	This is a C implementation needed by ioSetMaxExtSemTableSize
+	and e.g. stackPageByteSize. */
+
+	/* StackInterpreter>>#highBit: */
+
 sqInt
 highBit(usqInt anUnsignedValue)
 {

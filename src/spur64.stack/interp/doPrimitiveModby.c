@@ -1,5 +1,7 @@
 /* Extracted from interp.c:52014 (function doPrimitiveModby). */
 
+	/* StackInterpreter>>#doPrimitiveMod:by: */
+
 static NoDbgRegParms sqInt
 doPrimitiveModby(sqInt rcvr, sqInt arg)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

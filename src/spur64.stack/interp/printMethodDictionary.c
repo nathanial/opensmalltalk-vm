@@ -1,5 +1,9 @@
 /* Extracted from interp.c:60278 (function printMethodDictionary). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printMethodDictionary: */
+
 void
 printMethodDictionary(sqInt dictionary)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

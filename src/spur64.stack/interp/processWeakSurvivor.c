@@ -1,5 +1,12 @@
 /* Extracted from interp.c:28771 (function processWeakSurvivor). */
 
+/*	Process a weak survivor on the weakList. Those of its fields
+	which have not survived the scavenge should be nilled, and if any
+	are, the coInterpreter should be informed via fireFinalization:.
+	Answer if the weakObj has any young referents. */
+
+	/* SpurGenerationScavenger>>#processWeakSurvivor: */
+
 static NoDbgRegParms sqInt
 processWeakSurvivor(sqInt weakObj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

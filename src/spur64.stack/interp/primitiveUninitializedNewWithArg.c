@@ -1,5 +1,11 @@
 /* Extracted from interp.c:25424 (function primitiveUninitializedNewWithArg). */
 
+/*	Allocate a new indexable instance. Fail if the allocation would leave less
+	than lowSpaceThreshold bytes free. May cause a GC.
+ */
+
+	/* InterpreterPrimitives>>#primitiveUninitializedNewWithArg */
+
 static void
 primitiveUninitializedNewWithArg(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:57915 (function methodUsesPrimitiveErrorCode). */
 
+/*	Answer if aMethodObj contains a primitive and uses the primitive error
+	code. 
+ */
+
+	/* StackInterpreter>>#methodUsesPrimitiveErrorCode: */
+
 static NoDbgRegParms sqInt
 methodUsesPrimitiveErrorCode(sqInt aMethodObj)
 {

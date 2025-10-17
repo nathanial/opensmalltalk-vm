@@ -1,5 +1,15 @@
 /* Extracted from interp.c:55355 (function isWidowedContext). */
 
+/*	Answer if the argument is married to a live frame or not.
+	If it is not, turn it into a bereaved single context. This version is safe
+	for use
+	only when no frameContext fields may be forwarded (as maybe the case
+	when scavenging). Post become: all frameContext fields are followed, and
+	hence normally no following of frameContext fields is necessary. But
+	during a scavenge one must use isWidowedContextDuringGC:. */
+
+	/* StackInterpreter>>#isWidowedContext: */
+
 static NoDbgRegParms sqInt
 isWidowedContext(sqInt aOnceMarriedContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

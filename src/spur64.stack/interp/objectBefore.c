@@ -1,5 +1,9 @@
 /* Extracted from interp.c:41438 (function objectBefore). */
 
+/*	useful for debugging */
+
+	/* SpurMemoryManager>>#objectBefore: */
+
 sqInt
 objectBefore(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

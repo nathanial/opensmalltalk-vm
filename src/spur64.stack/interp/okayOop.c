@@ -1,5 +1,11 @@
 /* Extracted from interp.c:42015 (function okayOop). */
 
+/*	Verify that the given oop is legitimate. Check address, header, and size
+	but not class.
+ */
+
+	/* SpurMemoryManager>>#okayOop: */
+
 static NoDbgRegParms sqInt
 okayOop(sqInt signedOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

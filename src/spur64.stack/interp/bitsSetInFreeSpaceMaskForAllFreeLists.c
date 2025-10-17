@@ -1,5 +1,7 @@
 /* Extracted from interp.c:31760 (function bitsSetInFreeSpaceMaskForAllFreeLists). */
 
+	/* SpurMemoryManager>>#bitsSetInFreeSpaceMaskForAllFreeLists */
+
 static sqInt
 bitsSetInFreeSpaceMaskForAllFreeLists(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,13 @@
 /* Extracted from interp.c:53408 (function findNewMethodInClassTag). */
 
+/*	Find the compiled method to be run when the current messageSelector is
+	looked up in the
+	class/classIndex classTagArg, setting the values of newMethod and
+	primitiveFunctionPointer. 
+ */
+
+	/* StackInterpreter>>#findNewMethodInClassTag: */
+
 static NoDbgRegParms sqInt
 findNewMethodInClassTag(sqInt classTagArg)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

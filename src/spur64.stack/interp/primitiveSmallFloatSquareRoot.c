@@ -1,5 +1,7 @@
 /* Extracted from interp.c:23826 (function primitiveSmallFloatSquareRoot). */
 
+	/* InterpreterPrimitives>>#primitiveSmallFloatSquareRoot */
+
 static void
 primitiveSmallFloatSquareRoot(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:54987 (function isFrameonPage). */
 
+	/* StackInterpreter>>#isFrame:onPage: */
+
 static NoDbgRegParms sqInt
 isFrameonPage(char *aFrame, StackPage *aPage)
 {

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:61211 (function pushFloat). */
 
+	/* StackInterpreter>>#pushFloat: */
+
 void
 pushFloat(double f)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:53865 (function forceInterruptCheck). */
 
+/*	Force an interrupt check ASAP.
+	Must set the stack page's limit before stackLimit to avoid
+	a race condition if this is called from an interrupt handler. */
+
+	/* StackInterpreter>>#forceInterruptCheck */
+
 sqInt
 forceInterruptCheck(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

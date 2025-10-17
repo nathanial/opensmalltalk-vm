@@ -1,5 +1,17 @@
 /* Extracted from interp.c:32289 (function checkHeapIntegrityclassIndicesShouldBeValid). */
 
+/*	Perform an integrity/leak check using the heapMap. Assume
+	clearLeakMapAndMapAccessibleObjects has set a bit at each (non-free)
+	object's header. Scan all objects in the heap checking that every
+	pointer points to a header. Scan the rememberedSet, remapBuffer and
+	extraRootTable checking
+	that every entry is a pointer to a header. Check that the number of roots
+	is correct and that all
+	rememberedSet entries have their isRemembered: flag set. Answer if all
+	checks pass. */
+
+	/* SpurMemoryManager>>#checkHeapIntegrity:classIndicesShouldBeValid: */
+
 static NoDbgRegParms sqInt
 checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs, sqInt classIndicesShouldBeValid)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

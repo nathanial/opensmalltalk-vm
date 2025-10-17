@@ -1,5 +1,10 @@
 /* Extracted from interp.c:25948 (function signed32BitValueOf). */
 
+/*	Convert the given object into an integer value.
+	The object may be either a SmallInteger or a four-byte LargeInteger. */
+
+	/* InterpreterPrimitives>>#signed32BitValueOf: */
+
 int
 signed32BitValueOf(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

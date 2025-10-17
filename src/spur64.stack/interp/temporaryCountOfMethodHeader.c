@@ -1,5 +1,7 @@
 /* Extracted from interp.c:65125 (function temporaryCountOfMethodHeader). */
 
+	/* StackInterpreter>>#temporaryCountOfMethodHeader: */
+
 usqInt
 temporaryCountOfMethodHeader(sqInt header)
 {

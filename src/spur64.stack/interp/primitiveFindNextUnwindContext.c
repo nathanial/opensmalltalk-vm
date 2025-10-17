@@ -1,5 +1,13 @@
 /* Extracted from interp.c:68360 (function primitiveFindNextUnwindContext). */
 
+/*	Primitive. Search up the context stack for the next method context marked
+	for unwind
+	handling from the receiver up to but not including the argument. Return
+	nil if none found.
+ */
+
+	/* StackInterpreterPrimitives>>#primitiveFindNextUnwindContext */
+
 static void
 primitiveFindNextUnwindContext(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

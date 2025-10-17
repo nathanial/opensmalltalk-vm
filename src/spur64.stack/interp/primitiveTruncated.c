@@ -1,5 +1,9 @@
 /* Extracted from interp.c:25373 (function primitiveTruncated). */
 
+/*	Integral part of float receiver; receiver *must* be a float instance. */
+
+	/* InterpreterPrimitives>>#primitiveTruncated */
+
 static void
 primitiveTruncated(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

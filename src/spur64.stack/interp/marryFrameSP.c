@@ -1,5 +1,11 @@
 /* Extracted from interp.c:57469 (function marryFrameSP). */
 
+/*	Marry an unmarried frame. This means creating a spouse context
+	initialized with a subset of the frame's state (state through the last
+	argument) that references the frame. */
+
+	/* StackInterpreter>>#marryFrame:SP: */
+
 static NoDbgRegParms usqInt
 marryFrameSP(char *theFP, char *theSP)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

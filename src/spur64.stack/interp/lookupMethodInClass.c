@@ -1,5 +1,7 @@
 /* Extracted from interp.c:56103 (function lookupMethodInClass). */
 
+	/* StackInterpreter>>#lookupMethodInClass: */
+
 static NoDbgRegParms sqInt
 lookupMethodInClass(sqInt class)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

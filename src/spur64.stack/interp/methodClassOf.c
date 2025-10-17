@@ -1,5 +1,15 @@
 /* Extracted from interp.c:57726 (function methodClassOf). */
 
+/*	Answer the method class of a method which is the value of an Association
+	in the last literal,
+	or answer nil if there isn't one.
+	Using a read barrier here simplifies the become implementation and costs
+	very little
+	because the class index and ValueIndex of the association almost certainly
+	share a cache line. */
+
+	/* StackInterpreter>>#methodClassOf: */
+
 sqInt
 methodClassOf(sqInt methodPointer)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

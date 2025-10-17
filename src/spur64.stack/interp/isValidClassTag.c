@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37656 (function isValidClassTag). */
 
+	/* SpurMemoryManager>>#isValidClassTag: */
+
 sqInt
 isValidClassTag(sqInt classIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

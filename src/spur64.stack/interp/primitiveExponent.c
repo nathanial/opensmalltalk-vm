@@ -1,5 +1,9 @@
 /* Extracted from interp.c:15185 (function primitiveExponent). */
 
+/*	Exponent part of float receiver; receiver *must* be a float instance. */
+
+	/* InterpreterPrimitives>>#primitiveExponent */
+
 static void
 primitiveExponent(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

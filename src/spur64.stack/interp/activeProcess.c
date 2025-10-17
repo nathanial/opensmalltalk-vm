@@ -1,5 +1,10 @@
 /* Extracted from interp.c:49882 (function activeProcess). */
 
+/*	Answer the current activeProcess. */
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#activeProcess */
+
 sqInt
 activeProcess(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

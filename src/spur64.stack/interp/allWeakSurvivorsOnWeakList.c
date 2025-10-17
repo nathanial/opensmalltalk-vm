@@ -1,5 +1,7 @@
 /* Extracted from interp.c:27808 (function allWeakSurvivorsOnWeakList). */
 
+	/* SpurGenerationScavenger>>#allWeakSurvivorsOnWeakList */
+
 static sqInt
 allWeakSurvivorsOnWeakList(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

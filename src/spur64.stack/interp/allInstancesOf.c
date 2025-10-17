@@ -1,5 +1,14 @@
 /* Extracted from interp.c:29935 (function allInstancesOf). */
 
+/*	Attempt to answer an array of all objects, excluding those that may
+	be garbage collected as a side effect of allocating the result array.
+	If no memory is available answer the number of instances as a
+	SmallInteger. Since objects are at least 16 bytes big, and the largest
+	SmallInteger covers
+	1/4 of the address space, the count can never overflow. */
+
+	/* SpurMemoryManager>>#allInstancesOf: */
+
 static NoDbgRegParms sqInt
 allInstancesOf(sqInt aClass)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

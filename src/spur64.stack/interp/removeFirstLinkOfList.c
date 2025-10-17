@@ -1,5 +1,9 @@
 /* Extracted from interp.c:62030 (function removeFirstLinkOfList). */
 
+/*	Remove the first process from the given linked list. */
+
+	/* StackInterpreter>>#removeFirstLinkOfList: */
+
 static NoDbgRegParms sqInt
 removeFirstLinkOfList(sqInt aList)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

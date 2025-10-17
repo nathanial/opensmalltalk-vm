@@ -1,5 +1,9 @@
 /* Extracted from interp.c:27094 (function initFreeChunkWithBytesat). */
 
+/*	must have room for a header (single or double) plus the next free pointer */
+
+	/* Spur64BitMemoryManager>>#initFreeChunkWithBytes:at: */
+
 static NoDbgRegParms sqInt
 initFreeChunkWithBytesat(usqLong numBytes, sqInt address)
 {

@@ -1,5 +1,26 @@
 /* Extracted from interp.c:55219 (function isWidowedContextDuringGC). */
 
+/*	See if the argument is married to a live frame or not. i.e. see if there
+	is a matching
+	frame whose frameContext field is aOnceMarriedContext, or a forwarder to
+	it. If aOnceMarriedContext is not married to a live frame, turn it into a
+	bereaved single context.
+	This version is for use during scavenging when stack references may be
+	forwarded. Following what appear to be references to forwarded objects on
+	the stack is dangerous;
+	an instruction ponter may be correctly aligned and may point to bytes that
+	just happen
+	to look like a forwarder. So it is only safe to follow fields that we know
+	are frameContext
+	fields; hence the stack page is walked to check that aOnceMarriedContext
+	is pointing to
+	a live frame. This only has to happen during scavenging because after a
+	become: all
+	frameContext fields have been followed and so there is no need to follow
+	forwarders.  */
+
+	/* StackInterpreter>>#isWidowedContextDuringGC: */
+
 static NoDbgRegParms sqInt
 isWidowedContextDuringGC(sqInt aOnceMarriedContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

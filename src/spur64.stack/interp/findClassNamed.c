@@ -1,5 +1,7 @@
 /* Extracted from interp.c:35083 (function findClassNamed). */
 
+	/* SpurMemoryManager>>#findClassNamed: */
+
 sqInt
 findClassNamed(char *aString)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

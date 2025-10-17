@@ -1,5 +1,11 @@
 /* Extracted from interp.c:17102 (function primitiveGetAttribute). */
 
+/*	Fetch the system attribute with the given integer ID. The result is a
+	string, or nil if the attribute is not defined.
+ */
+
+	/* InterpreterPrimitives>>#primitiveGetAttribute */
+
 static void
 primitiveGetAttribute(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

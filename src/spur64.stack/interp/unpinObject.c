@@ -1,5 +1,7 @@
 /* Extracted from interp.c:46636 (function unpinObject). */
 
+	/* SpurMemoryManager>>#unpinObject: */
+
 sqInt
 unpinObject(sqInt objOop)
 {

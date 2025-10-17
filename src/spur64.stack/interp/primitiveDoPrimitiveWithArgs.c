@@ -1,5 +1,13 @@
 /* Extracted from interp.c:67680 (function primitiveDoPrimitiveWithArgs). */
 
+/*	Implement either ProtoObject>>tryPrimitive: primIndex withArgs: argArray
+	or Context>>receiver: anObject tryPrimitive: primIndex withArgs: argArray.
+	If this primitive fails, arrange that its error code is a negative
+	integer, to
+	distinguish between this failing and the primitive it invokes failing. */
+
+	/* StackInterpreterPrimitives>>#primitiveDoPrimitiveWithArgs */
+
 static void
 primitiveDoPrimitiveWithArgs(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

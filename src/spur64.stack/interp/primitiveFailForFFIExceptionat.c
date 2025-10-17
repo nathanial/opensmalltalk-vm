@@ -1,5 +1,18 @@
 /* Extracted from interp.c:15252 (function primitiveFailForFFIExceptionat). */
 
+/*	Set PrimErrFFIException primitive failure and associated exceptionCode
+	(a.k.a. 
+	secondaryErrorCode) and exceptionPC. Under control of the
+	ffiExceptionResponse flag,
+	if in a primitive with an error code and ffiCalloutVMHandle indicates
+	we're in an FFI call,
+	then fail the primitive.
+	ffiExceptionResponse < 0 never fail
+	ffiExceptionResponse = 0 fail if method has a primitive error code
+	(default) ffiExceptionResponse > 0 always fail */
+
+	/* InterpreterPrimitives>>#primitiveFailForFFIException:at: */
+
 sqInt
 primitiveFailForFFIExceptionat(usqLong exceptionCode, usqInt pc)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

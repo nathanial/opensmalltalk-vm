@@ -1,5 +1,7 @@
 /* Extracted from interp.c:19836 (function primitiveNotEqual). */
 
+	/* InterpreterPrimitives>>#primitiveNotEqual */
+
 static void
 primitiveNotEqual(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

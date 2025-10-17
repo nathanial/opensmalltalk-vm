@@ -1,5 +1,7 @@
 /* Extracted from interp.c:35449 (function fixedFieldsOfformatlength). */
 
+	/* SpurMemoryManager>>#fixedFieldsOf:format:length: */
+
 static NoDbgRegParms sqInt
 fixedFieldsOfformatlength(sqInt objOop, sqInt fmt, sqInt wordLength)
 {

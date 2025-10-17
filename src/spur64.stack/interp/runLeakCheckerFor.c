@@ -1,5 +1,7 @@
 /* Extracted from interp.c:45263 (function runLeakCheckerFor). */
 
+	/* SpurMemoryManager>>#runLeakCheckerFor: */
+
 static NoDbgRegParms void
 runLeakCheckerFor(sqInt gcModes)
 {

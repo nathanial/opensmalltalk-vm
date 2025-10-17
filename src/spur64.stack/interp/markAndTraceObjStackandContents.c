@@ -1,5 +1,12 @@
 /* Extracted from interp.c:39380 (function markAndTraceObjStackandContents). */
 
+/*	An obj stack is a stack of objects stored in a hidden root slot, such
+	as the markStack or the ephemeronQueue. It is a linked list of
+	segments, with the hot end at the head of the list. It is a word object.
+	The stack pointer is in ObjStackTopx and 0 means empty. */
+
+	/* SpurMemoryManager>>#markAndTraceObjStack:andContents: */
+
 static NoDbgRegParms void
 markAndTraceObjStackandContents(sqInt stackOrNil, sqInt markAndTraceContents)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

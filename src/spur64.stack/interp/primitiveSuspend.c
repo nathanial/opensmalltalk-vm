@@ -1,5 +1,15 @@
 /* Extracted from interp.c:25081 (function primitiveSuspend). */
 
+/*	Primitive #88. Suspend the receiver, aProcess, such that it can be
+	executed again
+	by sending #resume. If the given process is not the active process, take
+	it off
+	its corresponding list. The primitive returns the list the receiver was
+	previously on.
+	c.f. primitiveSuspendBackingUpV1,#568 & primitiveSuspendBackingUpV2,#578 */
+
+	/* InterpreterPrimitives>>#primitiveSuspend */
+
 static void
 primitiveSuspend(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

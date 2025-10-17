@@ -1,5 +1,14 @@
 /* Extracted from interp.c:70634 (function primitiveUnloadModule). */
 
+/*	Primitive. Unload the module with the given name.
+	Reloading of the module will happen *later* automatically, when a 
+	function from it is called. This is forced by invalidating all external
+	primitive methods and activations in flushExternalPrimitives.
+	N.B. since this is most likely a development time activity we don't care
+	about performance. */
+
+	/* StackInterpreterPrimitives>>#primitiveUnloadModule */
+
 static void
 primitiveUnloadModule(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

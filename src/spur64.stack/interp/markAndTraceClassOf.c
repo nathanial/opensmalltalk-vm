@@ -1,5 +1,16 @@
 /* Extracted from interp.c:39309 (function markAndTraceClassOf). */
 
+/*	Ensure the class of the argument is marked, pushing it on the markStack if
+	not already marked.
+	And for one-way become, which can create duplicate entries in the class
+	table, make sure
+	objOop's classIndex refers to the classObj's actual classIndex.
+	Note that this is recursive, but the metaclass chain should terminate
+	quickly. 
+ */
+
+	/* SpurMemoryManager>>#markAndTraceClassOf: */
+
 static NoDbgRegParms void
 markAndTraceClassOf(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

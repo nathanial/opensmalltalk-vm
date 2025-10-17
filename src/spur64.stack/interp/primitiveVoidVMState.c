@@ -1,5 +1,9 @@
 /* Extracted from interp.c:72123 (function primitiveVoidVMState). */
 
+/*	Void all internal VM state in the stack and machine code zones */
+
+	/* StackInterpreterPrimitives>>#primitiveVoidVMState */
+
 static void
 primitiveVoidVMState(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

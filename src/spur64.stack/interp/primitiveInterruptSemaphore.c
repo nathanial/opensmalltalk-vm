@@ -1,5 +1,11 @@
 /* Extracted from interp.c:18426 (function primitiveInterruptSemaphore). */
 
+/*	Register the user interrupt semaphore. If the argument is 
+	not a Semaphore, unregister the current interrupt 
+	semaphore. */
+
+	/* InterpreterPrimitives>>#primitiveInterruptSemaphore */
+
 static void
 primitiveInterruptSemaphore(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

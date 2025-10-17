@@ -1,5 +1,7 @@
 /* Extracted from interp.c:38215 (function literalCountOf). */
 
+	/* SpurMemoryManager>>#literalCountOf: */
+
 usqInt
 literalCountOf(sqInt methodPointer)
 {

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:35680 (function followMaybeForwarded). */
 
+	/* SpurMemoryManager>>#followMaybeForwarded: */
+
 static NoDbgRegParms sqInt
 followMaybeForwarded(sqInt objOop)
 {

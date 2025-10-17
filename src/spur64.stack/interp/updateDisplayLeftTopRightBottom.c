@@ -1,5 +1,11 @@
 /* Extracted from interp.c:65439 (function updateDisplayLeftTopRightBottom). */
 
+/*	Repaint the portion of the Smalltalk screen bounded by the affected
+	rectangle. Used to synchronize the screen after a Bitblt to the Smalltalk
+	Display object. */
+
+	/* StackInterpreter>>#updateDisplayLeft:Top:Right:Bottom: */
+
 static NoDbgRegParms sqInt
 updateDisplayLeftTopRightBottom(sqInt l, sqInt t, sqInt r, sqInt b)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

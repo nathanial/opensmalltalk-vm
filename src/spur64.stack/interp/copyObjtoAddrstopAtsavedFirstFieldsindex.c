@@ -1,5 +1,18 @@
 /* Extracted from interp.c:33830 (function copyObjtoAddrstopAtsavedFirstFieldsindex). */
 
+/*	This is part of storeImageSegmentInto:outPointers:roots:.
+	Copy objOop into the segment beginning at segAddr, and forward it to the
+	copy, saving its first field in savedFirstField, and setting its marked
+	bit to indicate it has
+	been copied. If it is a class in the class table, set the copy's hash to 0
+	for reassignment
+	on load, and mark it as a class by setting its isRemembered bit.
+	Answer the next segmentAddr if successful. Answer an appropriate error
+	code if not */
+/*	Copy the object... */
+
+	/* SpurMemoryManager>>#copyObj:toAddr:stopAt:savedFirstFields:index: */
+
 static NoDbgRegParms sqInt
 copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop, sqInt segAddr, sqInt endSeg, sqInt savedFirstFields, sqInt i)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

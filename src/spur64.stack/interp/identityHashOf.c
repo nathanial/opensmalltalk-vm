@@ -1,5 +1,12 @@
 /* Extracted from interp.c:11147 (function identityHashOf). */
 
+/*	Answer the identity hash of an object, assigning a hash if it doesn't have
+	one. On Spur refuse to assign a hash to something that looks like a
+	behavior. 
+ */
+
+	/* InterpreterPrimitives>>#identityHashOf: */
+
 sqInt
 identityHashOf(sqInt anOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

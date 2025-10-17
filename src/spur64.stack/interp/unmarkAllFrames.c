@@ -1,5 +1,7 @@
 /* Extracted from interp.c:72398 (function unmarkAllFrames). */
 
+	/* StackInterpreterPrimitives>>#unmarkAllFrames */
+
 static void
 unmarkAllFrames(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,18 @@
 /* Extracted from interp.c:50010 (function addNewMethodToCache). */
 
+/*	Add the given entry to the method cache.
+	The policy is as follows:
+	Look for an empty entry anywhere in the reprobe chain.
+	If found, install the new entry there.
+	If not found, then install the new entry at the first probe position
+	and delete the entries in the rest of the reprobe chain.
+	This has two useful purposes:
+	If there is active contention over the first slot, the second
+	or third will likely be free for reentry after ejection.
+	Also, flushing is good when reprobe chains are getting full. */
+
+	/* StackInterpreter>>#addNewMethodToCache: */
+
 static NoDbgRegParms void
 addNewMethodToCache(sqInt classObj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

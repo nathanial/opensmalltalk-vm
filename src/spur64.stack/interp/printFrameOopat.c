@@ -1,5 +1,7 @@
 /* Extracted from interp.c:59733 (function printFrameOopat). */
 
+	/* StackInterpreter>>#printFrameOop:at: */
+
 static NoDbgRegParms void
 printFrameOopat(char *name, char *address)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

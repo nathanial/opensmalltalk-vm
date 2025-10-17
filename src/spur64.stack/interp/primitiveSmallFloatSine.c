@@ -1,5 +1,7 @@
 /* Extracted from interp.c:23798 (function primitiveSmallFloatSine). */
 
+	/* InterpreterPrimitives>>#primitiveSmallFloatSine */
+
 static void
 primitiveSmallFloatSine(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

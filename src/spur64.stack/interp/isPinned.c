@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37543 (function isPinned). */
 
+	/* SpurMemoryManager>>#isPinned: */
+
 int
 isPinned(sqInt objOop)
 {

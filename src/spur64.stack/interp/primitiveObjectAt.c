@@ -1,5 +1,9 @@
 /* Extracted from interp.c:19932 (function primitiveObjectAt). */
 
+/*	Defined for CompiledMethods only */
+
+	/* InterpreterPrimitives>>#primitiveObjectAt */
+
 static void
 primitiveObjectAt(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

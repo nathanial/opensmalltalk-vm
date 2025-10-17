@@ -1,5 +1,9 @@
 /* Extracted from interp.c:14655 (function primitiveCosine). */
 
+/*	Computes cosine of float receiver; receiver *must* be a float instance. */
+
+	/* InterpreterPrimitives>>#primitiveCosine */
+
 static void
 primitiveCosine(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

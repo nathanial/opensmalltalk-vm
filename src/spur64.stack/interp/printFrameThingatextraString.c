@@ -1,5 +1,7 @@
 /* Extracted from interp.c:59815 (function printFrameThingatextraString). */
 
+	/* StackInterpreter>>#printFrameThing:at:extraString: */
+
 static NoDbgRegParms void
 printFrameThingatextraString(char *name, char *address, char *extraStringOrNil)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,9 @@
 /* Extracted from interp.c:33374 (function classTableRootObj). */
 
+/*	For Cogit & bootstrap */
+
+	/* SpurMemoryManager>>#classTableRootObj */
+
 sqInt
 classTableRootObj(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

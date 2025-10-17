@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37231 (function isEmptyObjStack). */
 
+	/* SpurMemoryManager>>#isEmptyObjStack: */
+
 static NoDbgRegParms sqInt
 isEmptyObjStack(sqInt objStack)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,9 @@
 /* Extracted from interp.c:64415 (function stackPositiveMachineIntegerValue). */
 
+/*	In the StackInterpreter stacks grow down. */
+
+	/* StackInterpreter>>#stackPositiveMachineIntegerValue: */
+
 usqIntptr_t
 stackPositiveMachineIntegerValue(sqInt offset)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

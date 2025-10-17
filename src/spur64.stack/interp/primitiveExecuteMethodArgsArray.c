@@ -1,5 +1,13 @@
 /* Extracted from interp.c:67994 (function primitiveExecuteMethodArgsArray). */
 
+/*	receiver, argsArray, then method are on top of stack. Execute method
+	against receiver and args. Allow for up to two extra arguments (e.g. for
+	mirror primitives).
+	Set primitiveFunctionPointer because no cache lookup has been done for the
+	method, and hence primitiveFunctionPointer is stale. */
+
+	/* StackInterpreterPrimitives>>#primitiveExecuteMethodArgsArray */
+
 static void
 primitiveExecuteMethodArgsArray(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

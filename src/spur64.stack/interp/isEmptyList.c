@@ -1,5 +1,7 @@
 /* Extracted from interp.c:54967 (function isEmptyList). */
 
+	/* StackInterpreter>>#isEmptyList: */
+
 static NoDbgRegParms int
 isEmptyList(sqInt aLinkedList)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

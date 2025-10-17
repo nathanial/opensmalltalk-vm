@@ -1,5 +1,9 @@
 /* Extracted from interp.c:35050 (function fetchClassTagOfNonImm). */
 
+/*	In Spur an object's classIndex is the tag in all method caches. */
+
+	/* SpurMemoryManager>>#fetchClassTagOfNonImm: */
+
 static NoDbgRegParms sqInt
 fetchClassTagOfNonImm(sqInt obj)
 {

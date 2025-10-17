@@ -1,5 +1,12 @@
 /* Extracted from interp.c:44760 (function printWeaklings). */
 
+ /* LLDB */
+
+
+/*	Print all objects that have weak array format. */
+
+	/* SpurMemoryManager>>#printWeaklings */
+
 void
 printWeaklings(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

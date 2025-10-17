@@ -1,5 +1,11 @@
 /* Extracted from interp.c:56720 (function makeContextSnapshotSafe). */
 
+/*	Convert married contexts to widowed contexts, and in the CoInterpreter,
+	map any machine code pcs to bytecode pcs, and then nil all slots beyond
+	top of stack, so that the context can be resumed on any VM. */
+
+	/* StackInterpreter>>#makeContextSnapshotSafe: */
+
 static NoDbgRegParms void
 makeContextSnapshotSafe(sqInt ctxt)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

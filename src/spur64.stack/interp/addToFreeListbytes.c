@@ -1,5 +1,16 @@
 /* Extracted from interp.c:29772 (function addToFreeListbytes). */
 
+/*	Add freeChunk to the relevant freeList.
+	For the benefit of sortedFreeObject:, if freeChunk is large, answer the
+	treeNode it
+	is added to, if it is added to the next list of a freeTreeNode, otherwise
+	answer 0. */
+/*	coInterpreter transcript ensureCr. coInterpreter print: 'freeing '. self
+	printFreeChunk: freeChunk.
+ */
+
+	/* SpurMemoryManager>>#addToFreeList:bytes: */
+
 static NoDbgRegParms sqInt
 addToFreeListbytes(sqInt freeChunk, sqInt chunkBytes)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

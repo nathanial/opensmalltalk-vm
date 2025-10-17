@@ -1,5 +1,10 @@
 /* Extracted from interp.c:69988 (function primitiveStoreStackp). */
 
+/*	Atomic store into context stackPointer. 
+	Also ensures that any newly accessible cells are initialized to nil */
+
+	/* StackInterpreterPrimitives>>#primitiveStoreStackp */
+
 static void
 primitiveStoreStackp(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

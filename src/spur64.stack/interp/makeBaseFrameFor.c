@@ -1,5 +1,11 @@
 /* Extracted from interp.c:56551 (function makeBaseFrameFor). */
 
+/*	<Integer> */
+/*	Marry aContext with the base frame of a new stack page. Build the base
+	frame to reflect the context's state. Answer the new page. */
+
+	/* StackInterpreter>>#makeBaseFrameFor: */
+
 static NoDbgRegParms StackPage *
 makeBaseFrameFor(sqInt aContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

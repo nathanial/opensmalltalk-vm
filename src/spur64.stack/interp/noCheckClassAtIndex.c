@@ -1,5 +1,7 @@
 /* Extracted from interp.c:40903 (function noCheckClassAtIndex). */
 
+	/* SpurMemoryManager>>#noCheckClassAtIndex: */
+
 static NoDbgRegParms sqInt
 noCheckClassAtIndex(sqInt classIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

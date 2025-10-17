@@ -1,5 +1,9 @@
 /* Extracted from interp.c:41328 (function numStrongSlotsOfWeakling). */
 
+/*	Answer the number of strong pointer fields in the given weakling. */
+
+	/* SpurMemoryManager>>#numStrongSlotsOfWeakling: */
+
 static NoDbgRegParms sqInt
 numStrongSlotsOfWeakling(sqInt objOop)
 {

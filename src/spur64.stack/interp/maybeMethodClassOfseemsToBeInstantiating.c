@@ -1,5 +1,17 @@
 /* Extracted from interp.c:40697 (function maybeMethodClassOfseemsToBeInstantiating). */
 
+/*	Answers if the code is installed in a class instantiating objects with the
+	format. Used in primitive 
+	generation to make a quick path based on where the method is installed.
+	This method cannot
+	be used as a guarantee as there can be false positive, it's just a
+	heuristic. Tries to interpret the last literal of the method as a behavior
+	(more than 3 fields, 3rd field a Smi).
+	If it can be interpreted as a behavior, answers if instSpec matches the
+	format, else answers false. */
+
+	/* SpurMemoryManager>>#maybeMethodClassOf:seemsToBeInstantiating: */
+
 sqInt
 maybeMethodClassOfseemsToBeInstantiating(sqInt methodObj, sqInt format)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

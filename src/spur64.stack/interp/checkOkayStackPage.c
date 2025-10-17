@@ -1,5 +1,7 @@
 /* Extracted from interp.c:51090 (function checkOkayStackPage). */
 
+	/* StackInterpreter>>#checkOkayStackPage: */
+
 static NoDbgRegParms sqInt
 checkOkayStackPage(StackPage *thePage)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:12479 (function primitiveBeCursor). */
 
+/*	Set the cursor to the given shape. The Mac only supports 16x16 pixel
+	cursors. Cursor offsets are handled by Smalltalk.
+ */
+
+	/* InterpreterPrimitives>>#primitiveBeCursor */
+
 static void
 primitiveBeCursor(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

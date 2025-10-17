@@ -1,5 +1,9 @@
 /* Extracted from interp.c:28466 (function noUnfiredEphemeronsAtEndOfRememberedSet). */
 
+/*	For assert checking only. */
+
+	/* SpurGenerationScavenger>>#noUnfiredEphemeronsAtEndOfRememberedSet */
+
 static sqInt
 noUnfiredEphemeronsAtEndOfRememberedSet(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

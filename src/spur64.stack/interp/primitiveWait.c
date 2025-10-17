@@ -1,5 +1,7 @@
 /* Extracted from interp.c:25846 (function primitiveWait). */
 
+	/* InterpreterPrimitives>>#primitiveWait */
+
 static void
 primitiveWait(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

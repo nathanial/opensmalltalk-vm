@@ -1,5 +1,12 @@
 /* Extracted from interp.c:30715 (function allocateLargestFreeChunk). */
 
+/*	Answer the largest free chunk in the free lists. */
+/*	would like to use ifNotNil: but the ^next inside the ^blah ifNotNil:
+	confused Slang
+ */
+
+	/* SpurMemoryManager>>#allocateLargestFreeChunk */
+
 static sqInt
 allocateLargestFreeChunk(void)
 {

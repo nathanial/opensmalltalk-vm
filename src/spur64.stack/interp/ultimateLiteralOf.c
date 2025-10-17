@@ -1,5 +1,7 @@
 /* Extracted from interp.c:65385 (function ultimateLiteralOf). */
 
+	/* StackInterpreter>>#ultimateLiteralOf: */
+
 sqInt
 ultimateLiteralOf(sqInt aMethodOop)
 {

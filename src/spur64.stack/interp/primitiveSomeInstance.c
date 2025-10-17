@@ -1,5 +1,7 @@
 /* Extracted from interp.c:24047 (function primitiveSomeInstance). */
 
+	/* InterpreterPrimitives>>#primitiveSomeInstance */
+
 static void
 primitiveSomeInstance(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

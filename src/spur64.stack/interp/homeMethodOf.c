@@ -1,5 +1,11 @@
 /* Extracted from interp.c:54716 (function homeMethodOf). */
 
+/*	With the full block implementation a CompiledBlock's method is found along
+	the chain through the last literal. See CompiledBlock>>#method. Answer
+	the home mehtod, or nilObj if it cannot be found. */
+
+	/* StackInterpreter>>#homeMethodOf: */
+
 sqInt
 homeMethodOf(sqInt aMethodOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

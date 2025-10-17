@@ -1,5 +1,13 @@
 /* Extracted from interp.c:41348 (function objCouldBeClassObj). */
 
+/*	Answer if objOop looks like a class object. WIth Spur be lenient if the
+	object doesn't
+	yet have a hash (i.e. is not yet in the classTable), and accept forwarding
+	pointers. 
+ */
+
+	/* SpurMemoryManager>>#objCouldBeClassObj: */
+
 sqInt
 objCouldBeClassObj(sqInt objOop)
 {

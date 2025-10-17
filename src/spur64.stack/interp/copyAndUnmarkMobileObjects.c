@@ -1,5 +1,22 @@
 /* Extracted from interp.c:47255 (function copyAndUnmarkMobileObjects). */
 
+/*	Sweep the mobile portion of the heap, moving objects to their eventual
+	locations, and clearing their marked bits.
+	Remember to update the savedFirstFields of pointer objects, as these have
+	been forwarded.
+	Answer if the end of the heap was reached (savedFirstFieldsSpace has not
+	overflowed). 
+	The enumerations in planCompactSavingForwarders,
+	updatePointersInMobileObjects and copyAndUnmarkMobileObjects
+	match. We could implement them as a single enumeration method taking
+	several block arguments, but arguably that
+	would make understanding an already tricky algorithm more difficult.
+	Instead we tolerate the duplication and encourage
+	the reader to diff the three methods to see where they diverge (e.g. via
+	Cmd-shift-C).  */
+
+	/* SpurPlanningCompactor>>#copyAndUnmarkMobileObjects */
+
 static NeverInline sqInt
 copyAndUnmarkMobileObjects(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

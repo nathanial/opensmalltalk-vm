@@ -1,5 +1,7 @@
 /* Extracted from interp.c:59700 (function printFrameFlagsForFP). */
 
+	/* StackInterpreter>>#printFrameFlagsForFP: */
+
 static NoDbgRegParms void
 printFrameFlagsForFP(char *theFP)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

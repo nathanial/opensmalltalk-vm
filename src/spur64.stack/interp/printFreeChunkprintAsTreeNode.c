@@ -1,5 +1,7 @@
 /* Extracted from interp.c:43200 (function printFreeChunkprintAsTreeNode). */
 
+	/* SpurMemoryManager>>#printFreeChunk:printAsTreeNode: */
+
 static NoDbgRegParms void
 printFreeChunkprintAsTreeNode(sqInt freeChunk, sqInt printAsTreeNode)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

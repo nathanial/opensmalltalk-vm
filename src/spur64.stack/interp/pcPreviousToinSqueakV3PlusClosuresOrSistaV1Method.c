@@ -1,5 +1,7 @@
 /* Extracted from interp.c:58223 (function pcPreviousToinSqueakV3PlusClosuresOrSistaV1Method). */
 
+	/* StackInterpreter>>#pcPreviousTo:inSqueakV3PlusClosuresOrSistaV1Method: */
+
 usqInt
 pcPreviousToinSqueakV3PlusClosuresOrSistaV1Method(sqInt theIP, sqInt aMethod)
 {

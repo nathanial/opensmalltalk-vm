@@ -1,5 +1,9 @@
 /* Extracted from interp.c:35832 (function freeObject). */
 
+/*	Free an object in oldSpace. Coalesce if possible to reduce fragmentation. */
+
+	/* SpurMemoryManager>>#freeObject: */
+
 sqInt
 freeObject(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

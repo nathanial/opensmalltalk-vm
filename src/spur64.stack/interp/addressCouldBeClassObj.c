@@ -1,5 +1,9 @@
 /* Extracted from interp.c:29729 (function addressCouldBeClassObj). */
 
+/*	Answer if maybeClassObj looks like a class object */
+
+	/* SpurMemoryManager>>#addressCouldBeClassObj: */
+
 static NoDbgRegParms sqInt
 addressCouldBeClassObj(sqInt maybeClassObj)
 {

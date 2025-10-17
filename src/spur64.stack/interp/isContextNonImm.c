@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37206 (function isContextNonImm). */
 
+	/* SpurMemoryManager>>#isContextNonImm: */
+
 static NoDbgRegParms int
 isContextNonImm(sqInt oop)
 {

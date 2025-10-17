@@ -1,5 +1,11 @@
 /* Extracted from interp.c:52561 (function externalDivorceFrameandContext). */
 
+/*	Divorce a single frame and its context. If it is not the top frame of a
+	stack this means splitting its stack. */
+/*	stackPage needs to have current head pointers to avoid confusion. */
+
+	/* StackInterpreter>>#externalDivorceFrame:andContext: */
+
 static NoDbgRegParms void
 externalDivorceFrameandContext(char *theFP, sqInt ctxt)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

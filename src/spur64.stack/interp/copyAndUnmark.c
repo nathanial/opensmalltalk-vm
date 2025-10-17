@@ -1,5 +1,11 @@
 /* Extracted from interp.c:47498 (function copyAndUnmark). */
 
+/*	Sweep the heap, unmarking all objects and moving mobile objects to their
+	correct positions,
+	restoring their savedFirstFields. */
+
+	/* SpurPlanningCompactor>>#copyAndUnmark: */
+
 static NoDbgRegParms NeverInline void
 copyAndUnmark(sqInt firstPass)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

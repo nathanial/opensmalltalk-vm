@@ -1,5 +1,12 @@
 /* Extracted from interp.c:35892 (function fullGC). */
 
+/*	Perform a full eager compacting GC. Answer the size of the largest free
+	chunk. 
+ */
+/*	for profiling */
+
+	/* SpurMemoryManager>>#fullGC */
+
 NeverInline usqLong
 fullGC(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

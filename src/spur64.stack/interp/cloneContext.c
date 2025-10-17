@@ -1,5 +1,7 @@
 /* Extracted from interp.c:65951 (function cloneContext). */
 
+	/* StackInterpreterPrimitives>>#cloneContext: */
+
 static NoDbgRegParms usqInt
 cloneContext(sqInt aContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

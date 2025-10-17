@@ -1,5 +1,9 @@
 /* Extracted from interp.c:51521 (function copiedValueCountOfClosure). */
 
+/*	for Cogit */
+
+	/* StackInterpreter>>#copiedValueCountOfClosure: */
+
 sqInt
 copiedValueCountOfClosure(sqInt closureObj)
 {

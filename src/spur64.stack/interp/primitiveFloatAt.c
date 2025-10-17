@@ -1,5 +1,11 @@
 /* Extracted from interp.c:15785 (function primitiveFloatAt). */
 
+/*	Provide platform-independent access to 32-bit words comprising
+	a Float. Map index 1 onto the most significant word and index 2
+	onto the least significant word. */
+
+	/* InterpreterPrimitives>>#primitiveFloatAt */
+
 static void
 primitiveFloatAt(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

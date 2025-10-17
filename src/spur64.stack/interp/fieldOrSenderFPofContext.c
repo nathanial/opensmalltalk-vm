@@ -1,5 +1,10 @@
 /* Extracted from interp.c:66079 (function fieldOrSenderFPofContext). */
 
+/*	Arrange to answer naked frame pointers for unmarried
+	senders to avoid reifying contexts in the search. */
+
+	/* StackInterpreterPrimitives>>#fieldOrSenderFP:ofContext: */
+
 static NoDbgRegParms sqInt
 fieldOrSenderFPofContext(sqInt index, sqInt contextObj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

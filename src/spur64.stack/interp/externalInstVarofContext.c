@@ -1,5 +1,11 @@
 /* Extracted from interp.c:52743 (function externalInstVarofContext). */
 
+/*	Fetch an instance variable from a maybe married context.
+	If the context is still married compute the value of the
+	relevant inst var from the spouse frame's state. */
+
+	/* StackInterpreter>>#externalInstVar:ofContext: */
+
 static NoDbgRegParms sqInt
 externalInstVarofContext(sqInt offset, sqInt aContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

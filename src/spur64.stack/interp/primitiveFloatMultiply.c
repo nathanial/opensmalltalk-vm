@@ -1,5 +1,7 @@
 /* Extracted from interp.c:16138 (function primitiveFloatMultiply). */
 
+	/* InterpreterPrimitives>>#primitiveFloatMultiply */
+
 static void
 primitiveFloatMultiply(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

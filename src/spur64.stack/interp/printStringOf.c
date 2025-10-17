@@ -1,5 +1,7 @@
 /* Extracted from interp.c:61114 (function printStringOf). */
 
+	/* StackInterpreter>>#printStringOf: */
+
 static NoDbgRegParms void
 printStringOf(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

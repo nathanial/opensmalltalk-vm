@@ -1,5 +1,12 @@
 /* Extracted from interp.c:27993 (function copyAndForwardMourner). */
 
+/*	A special version of copyAndForward: for objects in the mournQueue. If
+	we're in the good times tenuring regime then copy to futureSpace,
+	otherwise tenure.
+	Also, don't repeat any of the ephemeron processing. */
+
+	/* SpurGenerationScavenger>>#copyAndForwardMourner: */
+
 static NoDbgRegParms sqInt
 copyAndForwardMourner(sqInt mourner)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

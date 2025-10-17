@@ -1,5 +1,9 @@
 /* Extracted from interp.c:36260 (function indexOfin). */
 
+ /* IMMUTABILITY */
+
+	/* SpurMemoryManager>>#indexOf:in: */
+
 sqInt
 indexOfin(sqInt anElement, sqInt anObject)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

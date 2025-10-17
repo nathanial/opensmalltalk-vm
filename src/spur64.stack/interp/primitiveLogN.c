@@ -1,5 +1,9 @@
 /* Extracted from interp.c:19009 (function primitiveLogN). */
 
+/*	Natural log of float receiver; receiver *must* be a float instance. */
+
+	/* InterpreterPrimitives>>#primitiveLogN */
+
 static void
 primitiveLogN(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

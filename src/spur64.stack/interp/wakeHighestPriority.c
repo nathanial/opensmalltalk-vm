@@ -1,5 +1,14 @@
 /* Extracted from interp.c:65760 (function wakeHighestPriority). */
 
+/*	Return the highest priority process that is ready to run.
+	To save time looking at many empty lists before finding a
+	runnable process the VM maintains a variable holding the
+	highest priority runnable process. If this variable is 0 then the
+	VM does not know the highest priority and must search all lists.
+	Answer nil if no process can be found. */
+
+	/* StackInterpreter>>#wakeHighestPriority */
+
 static sqInt
 wakeHighestPriority(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

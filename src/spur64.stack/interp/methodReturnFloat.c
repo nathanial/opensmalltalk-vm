@@ -1,5 +1,9 @@
 /* Extracted from interp.c:57800 (function methodReturnFloat). */
 
+/*	Sets the return value for a method. */
+
+	/* StackInterpreter>>#methodReturnFloat: */
+
 sqInt
 methodReturnFloat(double aFloat)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

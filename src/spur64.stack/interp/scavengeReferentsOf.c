@@ -1,5 +1,17 @@
 /* Extracted from interp.c:29028 (function scavengeReferentsOf). */
 
+/*	scavengeReferentsOf: referrer inspects relevant pointers in referrer. If
+	any are new objects, it has them moved to FutureSurvivorSpace, and
+	answers truth. If there are no new referents, it answers falsity. To
+	handle weak arrays, if the referrer is weak only scavenge strong slots and
+	answer true so that it won't be removed from the remembered set until
+	later. To handle ephemerons, only scavenge other slots if the key slot has
+	already been scavenged. */
+/*	forwarding objects should be followed by callers,
+	unless the forwarder is a root in the remembered table. */
+
+	/* SpurGenerationScavenger>>#scavengeReferentsOf: */
+
 static NoDbgRegParms sqInt
 scavengeReferentsOf(sqInt referrer)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

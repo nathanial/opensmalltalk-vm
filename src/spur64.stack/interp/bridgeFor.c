@@ -1,5 +1,7 @@
 /* Extracted from interp.c:49117 (function bridgeFor). */
 
+	/* SpurSegmentManager>>#bridgeFor: */
+
 static NoDbgRegParms sqInt
 bridgeFor(SpurSegmentInfo *aSegment)
 {

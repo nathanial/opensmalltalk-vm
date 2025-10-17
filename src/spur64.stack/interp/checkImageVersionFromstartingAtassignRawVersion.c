@@ -1,5 +1,14 @@
 /* Extracted from interp.c:50734 (function checkImageVersionFromstartingAtassignRawVersion). */
 
+/*	Read and verify the image file version number and answer it.
+	Assign through rawVersionPtr the unswapped version number. The caller can
+	then infer if the given image file needs to be byte-swapped by seeing if
+	the returned value
+	equals tha assigned through rawVersionPtr.
+	0 is answered if no valid version could be found. */
+
+	/* StackInterpreter>>#checkImageVersionFrom:startingAt:assignRawVersion: */
+
 static NoDbgRegParms sqInt
 checkImageVersionFromstartingAtassignRawVersion(sqImageFile f, squeakFileOffsetType imageOffset, sqInt *rawVersionPtr)
 {

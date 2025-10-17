@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37452 (function isMaybeFiredEphemeron). */
 
+	/* SpurMemoryManager>>#isMaybeFiredEphemeron: */
+
 static NoDbgRegParms sqInt
 isMaybeFiredEphemeron(sqInt objOop)
 {

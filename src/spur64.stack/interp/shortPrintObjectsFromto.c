@@ -1,5 +1,9 @@
 /* Extracted from interp.c:45568 (function shortPrintObjectsFromto). */
 
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#shortPrintObjectsFrom:to: */
+
 void
 shortPrintObjectsFromto(sqInt startAddress, sqInt endAddress)
 {

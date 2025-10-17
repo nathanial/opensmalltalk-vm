@@ -1,5 +1,7 @@
 /* Extracted from interp.c:49248 (function isInSegments). */
 
+	/* SpurSegmentManager>>#isInSegments: */
+
 static NoDbgRegParms sqInt
 isInSegments(usqInt address)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

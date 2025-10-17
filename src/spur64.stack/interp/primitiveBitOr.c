@@ -1,5 +1,10 @@
 /* Extracted from interp.c:12849 (function primitiveBitOr). */
 
+/*	Note no short-cut for SmallIntegers. Either the inline interpreter
+	bytecode or the JIT primitive will handle this case. */
+
+	/* InterpreterPrimitives>>#primitiveBitOr */
+
 static void
 primitiveBitOr(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

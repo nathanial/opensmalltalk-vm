@@ -1,5 +1,10 @@
 /* Extracted from interp.c:28869 (function remember). */
 
+/*	Add the argument to the remembered set and set its isRemembered bit to
+	true. Answer the argument for the benefit of the Cogit. */
+
+	/* SpurGenerationScavenger>>#remember: */
+
 sqInt
 remember(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

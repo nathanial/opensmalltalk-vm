@@ -1,5 +1,11 @@
 /* Extracted from interp.c:31025 (function allocateSlotsInOldSpacebytesformatclassIndex). */
 
+/*	Answer the oop of a chunk of space in oldSpace with numSlots slots. The
+	header will have been filled-in but not the contents. If no memory is
+	available answer nil. */
+
+	/* SpurMemoryManager>>#allocateSlotsInOldSpace:bytes:format:classIndex: */
+
 static NoDbgRegParms sqInt
 allocateSlotsInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt totalBytes, sqInt formatField, sqInt classIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

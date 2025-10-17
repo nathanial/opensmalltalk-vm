@@ -1,5 +1,7 @@
 /* Extracted from interp.c:61182 (function pushBool). */
 
+	/* StackInterpreter>>#pushBool: */
+
 void
 pushBool(sqInt trueOrFalse)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

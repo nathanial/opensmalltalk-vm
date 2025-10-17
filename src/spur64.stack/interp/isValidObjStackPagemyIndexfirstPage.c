@@ -1,5 +1,9 @@
 /* Extracted from interp.c:37741 (function isValidObjStackPagemyIndexfirstPage). */
 
+/*	Answer if the obj stack at stackRootIndex is valid. */
+
+	/* SpurMemoryManager>>#isValidObjStackPage:myIndex:firstPage: */
+
 static NoDbgRegParms sqInt
 isValidObjStackPagemyIndexfirstPage(sqInt objStackPage, sqInt myx, sqInt isFirstPage)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

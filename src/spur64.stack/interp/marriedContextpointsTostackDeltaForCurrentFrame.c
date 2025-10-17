@@ -1,5 +1,12 @@
 /* Extracted from interp.c:57343 (function marriedContextpointsTostackDeltaForCurrentFrame). */
 
+/*	This is a helper for primitiveObjectPointsTo so it *does not* check the
+	frameContext field because that is an implicit self-reference not present
+	in the state .
+ */
+
+	/* StackInterpreter>>#marriedContext:pointsTo:stackDeltaForCurrentFrame: */
+
 static NoDbgRegParms sqInt
 marriedContextpointsTostackDeltaForCurrentFrame(sqInt spouseContext, sqInt anOop, sqInt stackDeltaForCurrentFrame)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

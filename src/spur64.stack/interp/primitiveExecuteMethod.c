@@ -1,5 +1,13 @@
 /* Extracted from interp.c:67839 (function primitiveExecuteMethod). */
 
+/*	receiver, args, then method are on top of stack. Execute method against
+	receiver and args.
+	Set primitiveFunctionPointer because no cache lookup has been done for the
+	method, and
+	hence primitiveFunctionPointer is stale. */
+
+	/* StackInterpreterPrimitives>>#primitiveExecuteMethod */
+
 static void
 primitiveExecuteMethod(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

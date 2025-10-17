@@ -1,5 +1,7 @@
 /* Extracted from interp.c:72270 (function unmarkAfterPathTo). */
 
+	/* StackInterpreterPrimitives>>#unmarkAfterPathTo */
+
 static void
 unmarkAfterPathTo(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

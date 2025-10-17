@@ -1,5 +1,11 @@
 /* Extracted from interp.c:28697 (function processWeaklings). */
 
+/*	Go through the remembered set and the weak list, nilling references to
+	any objects that didn't survive the scavenge. Read the class comment
+	for a more in-depth description of the algorithm. */
+
+	/* SpurGenerationScavenger>>#processWeaklings */
+
 static void
 processWeaklings(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

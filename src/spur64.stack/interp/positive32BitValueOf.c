@@ -1,5 +1,12 @@
 /* Extracted from interp.c:11423 (function positive32BitValueOf). */
 
+/*	Convert the given object into an integer value.
+	The object may be either a positive SmallInteger or a four-byte
+	LargePositiveInteger. 
+ */
+
+	/* InterpreterPrimitives>>#positive32BitValueOf: */
+
 unsigned int
 positive32BitValueOf(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

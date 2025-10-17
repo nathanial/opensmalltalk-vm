@@ -1,5 +1,9 @@
 /* Extracted from interp.c:63276 (function shortPrintFrameAndNCallers). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#shortPrintFrame:AndNCallers: */
+
 void
 shortPrintFrameAndNCallers(char *theFP, sqInt n)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

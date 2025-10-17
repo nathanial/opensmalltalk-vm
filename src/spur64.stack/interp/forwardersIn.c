@@ -1,5 +1,11 @@
 /* Extracted from interp.c:35761 (function forwardersIn). */
 
+/*	Answer if anObject is itself forwarded, or is a pointer object containing
+	any references to forwarded objects.
+ */
+
+	/* SpurMemoryManager>>#forwardersIn: */
+
 static NoDbgRegParms sqInt
 forwardersIn(sqInt anObject)
 {

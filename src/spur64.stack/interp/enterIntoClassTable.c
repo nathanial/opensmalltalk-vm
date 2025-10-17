@@ -1,5 +1,10 @@
 /* Extracted from interp.c:34771 (function enterIntoClassTable). */
 
+/*	Enter aBehavior into the class table and answer 0. Otherwise answer a
+	primitive failure code. */
+
+	/* SpurMemoryManager>>#enterIntoClassTable: */
+
 static NoDbgRegParms sqInt
 enterIntoClassTable(sqInt aBehavior)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:53621 (function flushExternalPrimitiveOf). */
 
+/*	methodObj is a CompiledMethod. If it contains an external primitive,
+	flush the function address and session ID of the CM. Answer the prim
+	index for the benefit of subclass overrides. */
+
+	/* StackInterpreter>>#flushExternalPrimitiveOf: */
+
 static NoDbgRegParms sqInt
 flushExternalPrimitiveOf(sqInt methodObj)
 {

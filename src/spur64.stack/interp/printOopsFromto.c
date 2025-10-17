@@ -1,5 +1,9 @@
 /* Extracted from interp.c:44316 (function printOopsFromto). */
 
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printOopsFrom:to: */
+
 void
 printOopsFromto(sqInt startAddress, sqInt endAddress)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

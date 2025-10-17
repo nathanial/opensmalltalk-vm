@@ -1,5 +1,12 @@
 /* Extracted from interp.c:59223 (function printAllStacks). */
 
+/*	Print all the stacks of all running processes, including those that are
+	currently suspended.
+ */
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printAllStacks */
+
 void
 printAllStacks(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

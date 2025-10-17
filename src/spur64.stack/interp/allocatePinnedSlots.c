@@ -1,5 +1,7 @@
 /* Extracted from interp.c:30993 (function allocatePinnedSlots). */
 
+	/* SpurMemoryManager>>#allocatePinnedSlots: */
+
 sqInt
 allocatePinnedSlots(sqInt nSlots)
 {

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:42652 (function printBridgeon). */
 
+	/* SpurMemoryManager>>#printBridge:on: */
+
 static NoDbgRegParms void
 printBridgeon(sqInt oop, FILE *aStream)
 {

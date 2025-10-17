@@ -1,5 +1,7 @@
 /* Extracted from interp.c:46780 (function validFreeTreeChunk). */
 
+	/* SpurMemoryManager>>#validFreeTreeChunk: */
+
 static NoDbgRegParms sqInt
 validFreeTreeChunk(sqInt chunk)
 {

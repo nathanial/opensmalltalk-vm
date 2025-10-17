@@ -1,5 +1,9 @@
 /* Extracted from interp.c:33018 (function classAtIndexput). */
 
+/*	for become & GC of classes */
+
+	/* SpurMemoryManager>>#classAtIndex:put: */
+
 static NoDbgRegParms sqInt
 classAtIndexput(sqInt classIndex, sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

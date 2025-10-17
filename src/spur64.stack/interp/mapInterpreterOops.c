@@ -1,5 +1,11 @@
 /* Extracted from interp.c:56828 (function mapInterpreterOops). */
 
+/*	Map all oops in the interpreter's state to their new values 
+	during garbage collection or a become: operation. */
+/*	Assume: All traced variables contain valid oops. */
+
+	/* StackInterpreter>>#mapInterpreterOops */
+
 static void
 mapInterpreterOops(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

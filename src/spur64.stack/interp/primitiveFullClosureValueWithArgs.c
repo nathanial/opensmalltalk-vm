@@ -1,5 +1,7 @@
 /* Extracted from interp.c:16923 (function primitiveFullClosureValueWithArgs). */
 
+	/* InterpreterPrimitives>>#primitiveFullClosureValueWithArgs */
+
 static void
 primitiveFullClosureValueWithArgs(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

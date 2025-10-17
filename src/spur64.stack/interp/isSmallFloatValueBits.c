@@ -1,5 +1,7 @@
 /* Extracted from interp.c:27376 (function isSmallFloatValueBits). */
 
+	/* Spur64BitMemoryManager>>#isSmallFloatValueBits: */
+
 static NoDbgRegParms int
 isSmallFloatValueBits(usqLong rawFloatBits)
 {

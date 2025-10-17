@@ -1,5 +1,7 @@
 /* Extracted from interp.c:53207 (function findClassOfMethodforReceiver). */
 
+	/* StackInterpreter>>#findClassOfMethod:forReceiver: */
+
 sqInt
 findClassOfMethodforReceiver(sqInt meth, sqInt rcvr)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

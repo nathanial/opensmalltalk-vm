@@ -1,5 +1,9 @@
 /* Extracted from interp.c:55015 (function isKindOfInteger). */
 
+/*	Answer true if the oop is kind of Integer (Small or Large). */
+
+	/* StackInterpreter>>#isKindOfInteger: */
+
 sqInt
 isKindOfInteger(sqInt oop)
 {

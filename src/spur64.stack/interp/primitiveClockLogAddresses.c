@@ -1,5 +1,13 @@
 /* Extracted from interp.c:13537 (function primitiveClockLogAddresses). */
 
+/*	Take a boolean which if true turns or keeps clock logging on. Answer an
+	array supplying
+	the size of the clock logs, the address of the usecs log, the index in it,
+	the address of the
+	msecs log, and the index into it. */
+
+	/* InterpreterPrimitives>>#primitiveClockLogAddresses */
+
 EXPORT(sqInt)
 primitiveClockLogAddresses(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

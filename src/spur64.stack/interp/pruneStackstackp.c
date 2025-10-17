@@ -1,5 +1,13 @@
 /* Extracted from interp.c:72153 (function pruneStackstackp). */
 
+/*	Prune the stack to contain only the path, removing stacked indices
+	and mapping frame pointers to contexts The issue here is that a
+	GC can occur during ensureFrameIsMarried:SP:, but frame pointers
+	are not valid objects. So first prune back to objects and framePointers
+	as integers, and then replace frame pointers as integers by contexts. */
+
+	/* StackInterpreterPrimitives>>#pruneStack:stackp: */
+
 static NoDbgRegParms void
 pruneStackstackp(sqInt stack, sqInt stackp)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

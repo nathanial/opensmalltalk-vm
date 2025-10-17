@@ -1,5 +1,7 @@
 /* Extracted from interp.c:65111 (function tempCountOf). */
 
+	/* StackInterpreter>>#tempCountOf: */
+
 usqInt
 tempCountOf(sqInt methodPointer)
 {

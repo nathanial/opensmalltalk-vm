@@ -1,5 +1,11 @@
 /* Extracted from interp.c:69454 (function primitiveSetGCSemaphore). */
 
+/*	Primitive. Indicate the semaphore to be signalled for upon garbage
+	collection 
+ */
+
+	/* StackInterpreterPrimitives>>#primitiveSetGCSemaphore */
+
 EXPORT(void)
 primitiveSetGCSemaphore(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

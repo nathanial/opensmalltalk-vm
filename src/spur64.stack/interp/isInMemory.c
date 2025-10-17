@@ -1,5 +1,9 @@
 /* Extracted from interp.c:37374 (function isInMemory). */
 
+/*	Answer if the given address is in ST object memory. */
+
+	/* SpurMemoryManager>>#isInMemory: */
+
 sqInt
 isInMemory(sqInt address)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

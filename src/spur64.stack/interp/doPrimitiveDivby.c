@@ -1,5 +1,9 @@
 /* Extracted from interp.c:51953 (function doPrimitiveDivby). */
 
+/*	Rounds negative results towards negative infinity, rather than zero. */
+
+	/* StackInterpreter>>#doPrimitiveDiv:by: */
+
 static NoDbgRegParms sqInt
 doPrimitiveDivby(sqInt rcvr, sqInt arg)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

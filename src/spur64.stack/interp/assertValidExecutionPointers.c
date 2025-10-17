@@ -1,5 +1,7 @@
 /* Extracted from interp.c:50178 (function assertValidExecutionPointers). */
 
+	/* StackInterpreter>>#assertValidExecutionPointe:r:s: */
+
 void
 assertValidExecutionPointers(usqInt lip, char *lifp, char *lisp)
 {

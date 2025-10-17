@@ -1,5 +1,19 @@
 /* Extracted from interp.c:41626 (function objectsAccessibleFromRoots). */
 
+/*	This primitive is called from Squeak as...
+	arrayOfRoots uniquelyAccessibleObjects
+	
+	This primitive answers an array of the receiver and every object in its
+	proper tree of subParts (ie, that is not refered to from anywhere else
+	outside the tree).
+	
+	The primitive can fail for the following reasons with the specified
+	failure codes:
+	PrimErrNoMemory:			additional allocations failed
+ */
+
+	/* SpurMemoryManager>>#objectsAccessibleFromRoots: */
+
 static NoDbgRegParms sqInt
 objectsAccessibleFromRoots(sqInt arrayOfRootsArg)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

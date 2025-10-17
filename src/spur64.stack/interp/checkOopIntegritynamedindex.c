@@ -1,5 +1,7 @@
 /* Extracted from interp.c:32961 (function checkOopIntegritynamedindex). */
 
+	/* SpurMemoryManager>>#checkOopIntegrity:named:index: */
+
 static NoDbgRegParms sqInt
 checkOopIntegritynamedindex(sqInt obj, char *name, sqInt i)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

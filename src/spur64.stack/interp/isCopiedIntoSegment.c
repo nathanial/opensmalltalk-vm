@@ -1,5 +1,9 @@
 /* Extracted from interp.c:37224 (function isCopiedIntoSegment). */
 
+/*	This is part of storeImageSegmentInto:outPointers:roots:. */
+
+	/* SpurMemoryManager>>#isCopiedIntoSegment: */
+
 static NoDbgRegParms int
 isCopiedIntoSegment(sqInt anObjectInTheHeap)
 {

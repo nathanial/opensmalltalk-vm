@@ -1,5 +1,12 @@
 /* Extracted from interp.c:12711 (function primitiveBehaviorHash). */
 
+/*	For the mirror prims check that the class obj is actually a valid class.
+	No need to check if it's the receiver since the method exists only on
+	Behavior. 
+ */
+
+	/* InterpreterPrimitives>>#primitiveBehaviorHash */
+
 static void
 primitiveBehaviorHash(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

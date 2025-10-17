@@ -1,5 +1,9 @@
 /* Extracted from interp.c:49310 (function prepareForSnapshot). */
 
+/*	shorten all segments by any trailing free space. */
+
+	/* SpurSegmentManager>>#prepareForSnapshot */
+
 static NeverInline void
 prepareForSnapshot(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

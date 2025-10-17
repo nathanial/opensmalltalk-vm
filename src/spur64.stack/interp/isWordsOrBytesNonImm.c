@@ -1,5 +1,12 @@
 /* Extracted from interp.c:37858 (function isWordsOrBytesNonImm). */
 
+/*	Answer if the contains only indexable words or bytes (no oops). See
+	comment in formatOf:
+ */
+/*	Note: Excludes CompiledMethods. */
+
+	/* SpurMemoryManager>>#isWordsOrBytesNonImm: */
+
 static NoDbgRegParms sqInt
 isWordsOrBytesNonImm(sqInt objOop)
 {

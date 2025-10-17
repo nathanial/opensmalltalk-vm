@@ -1,5 +1,13 @@
 /* Extracted from interp.c:39866 (function markInactiveEphemerons). */
 
+/*	Go through the unscanned ephemerons, marking the inactive ones, and
+	removing them from the unscanned ephemerons. Answer if any inactive
+	ones were found. We cannot fire the ephemerons until all are found to
+	be active since scan-marking an inactive ephemeron later in the set may
+	render a previously-observed active ephemeron as inactive. */
+
+	/* SpurMemoryManager>>#markInactiveEphemerons */
+
 static sqInt
 markInactiveEphemerons(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

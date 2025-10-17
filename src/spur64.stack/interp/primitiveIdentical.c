@@ -1,5 +1,10 @@
 /* Extracted from interp.c:17734 (function primitiveIdentical). */
 
+/*	is the receiver/first argument the same object as the (last) argument?.
+	pop argumentCount because this can be used as a mirror primitive. */
+
+	/* InterpreterPrimitives>>#primitiveIdentical */
+
 static void
 primitiveIdentical(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

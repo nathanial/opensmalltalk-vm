@@ -1,5 +1,9 @@
 /* Extracted from interp.c:40926 (function noCheckPushonObjStack). */
 
+/*	Push an element on an objStack. Split from push:onObjStack: for testing. */
+
+	/* SpurMemoryManager>>#noCheckPush:onObjStack: */
+
 static NoDbgRegParms sqInt
 noCheckPushonObjStack(sqInt objOop, sqInt objStack)
 {

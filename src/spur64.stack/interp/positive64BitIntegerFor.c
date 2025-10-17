@@ -1,5 +1,10 @@
 /* Extracted from interp.c:58348 (function positive64BitIntegerFor). */
 
+/*	Answer a Large Positive Integer object for the given integer value. N.B.
+	will *not* cause a GC. */
+
+	/* StackInterpreter>>#positive64BitIntegerFor: */
+
 sqInt
 positive64BitIntegerFor(usqLong integerValue)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

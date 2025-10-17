@@ -1,5 +1,10 @@
 /* Extracted from interp.c:14372 (function primitiveConstantFill). */
 
+/*	Fill the receiver, which must be an indexable non-pointer
+	object, with the given integer value. */
+
+	/* InterpreterPrimitives>>#primitiveConstantFill */
+
 static void
 primitiveConstantFill(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

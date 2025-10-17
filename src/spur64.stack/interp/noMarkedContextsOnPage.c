@@ -1,5 +1,9 @@
 /* Extracted from interp.c:58122 (function noMarkedContextsOnPage). */
 
+/*	Answer true if there are no marked contexts on thePage. */
+
+	/* StackInterpreter>>#noMarkedContextsOnPage: */
+
 static NoDbgRegParms sqInt
 noMarkedContextsOnPage(StackPage *thePage)
 {

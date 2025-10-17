@@ -1,5 +1,9 @@
 /* Extracted from interp.c:65149 (function temporaryinput). */
 
+/*	See StackInterpreter class>>initializeFrameIndices */
+
+	/* StackInterpreter>>#temporary:in:put: */
+
 static NoDbgRegParms sqInt
 temporaryinput(sqInt offset, char *theFP, sqInt valueOop)
 {

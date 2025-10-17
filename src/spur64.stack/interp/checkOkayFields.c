@@ -1,5 +1,10 @@
 /* Extracted from interp.c:50983 (function checkOkayFields). */
 
+/*	Check if the argument is an ok object.
+	If this is a pointers object, check that its fields are all okay oops. */
+
+	/* StackInterpreter>>#checkOkayFields: */
+
 static NoDbgRegParms sqInt
 checkOkayFields(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

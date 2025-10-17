@@ -1,5 +1,7 @@
 /* Extracted from interp.c:43330 (function printFreeObjecton). */
 
+	/* SpurMemoryManager>>#printFreeObject:on: */
+
 static NoDbgRegParms void
 printFreeObjecton(sqInt oop, FILE *aStream)
 {

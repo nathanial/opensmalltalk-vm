@@ -1,5 +1,14 @@
 /* Extracted from interp.c:67350 (function primitiveDeferDisplayUpdates). */
 
+ /* VMInvestigations */
+
+
+/*	Set or clear the flag that controls whether modifications of 
+	the Display object are propagated to the underlying 
+	platform's screen. */
+
+	/* StackInterpreterPrimitives>>#primitiveDeferDisplayUpdates */
+
 static void
 primitiveDeferDisplayUpdates(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

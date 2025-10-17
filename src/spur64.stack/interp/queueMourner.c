@@ -1,5 +1,9 @@
 /* Extracted from interp.c:44886 (function queueMourner). */
 
+/*	Add the ephemeron or weak array to the queue. */
+
+	/* SpurMemoryManager>>#queueMourner: */
+
 static NoDbgRegParms void
 queueMourner(sqInt anEphemeronOrWeakArray)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

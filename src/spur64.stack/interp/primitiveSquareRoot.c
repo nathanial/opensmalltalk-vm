@@ -1,5 +1,11 @@
 /* Extracted from interp.c:24110 (function primitiveSquareRoot). */
 
+/*	Computes square root of float receiver; receiver *must* be a float
+	instance. 
+ */
+
+	/* InterpreterPrimitives>>#primitiveSquareRoot */
+
 static void
 primitiveSquareRoot(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,9 @@
 /* Extracted from interp.c:26228 (function startOfAlienData). */
 
+/*	Answer the start of the Alien's data or fail if oop is not an Alien. */
+
+	/* InterpreterPrimitives>>#startOfAlienData: */
+
 void *
 startOfAlienData(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

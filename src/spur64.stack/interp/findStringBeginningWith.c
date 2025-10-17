@@ -1,5 +1,12 @@
 /* Extracted from interp.c:35143 (function findStringBeginningWith). */
 
+/*	Print the oops of all string-like things that start with the same
+	characters as aCString
+ */
+/*	useful for debugging */
+
+	/* SpurMemoryManager>>#findStringBeginningWith: */
+
 void
 findStringBeginningWith(char *aCString)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

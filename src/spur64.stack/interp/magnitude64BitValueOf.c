@@ -1,5 +1,12 @@
 /* Extracted from interp.c:11352 (function magnitude64BitValueOf). */
 
+/*	Convert the given object into an integer value.
+	The object may be either a positive SmallInteger or up to an eight-byte
+	LargeInteger. 
+ */
+
+	/* InterpreterPrimitives>>#magnitude64BitValueOf: */
+
 static NoDbgRegParms usqLong
 magnitude64BitValueOf(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

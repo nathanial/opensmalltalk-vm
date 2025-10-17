@@ -1,5 +1,11 @@
 /* Extracted from interp.c:19797 (function primitiveNextObject). */
 
+/*	Return the object following the receiver in the heap. Return the
+	SmallInteger zero when there are no more objects.
+ */
+
+	/* InterpreterPrimitives>>#primitiveNextObject */
+
 static void
 primitiveNextObject(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

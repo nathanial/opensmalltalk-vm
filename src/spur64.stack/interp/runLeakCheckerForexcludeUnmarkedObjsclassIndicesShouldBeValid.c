@@ -1,5 +1,7 @@
 /* Extracted from interp.c:45288 (function runLeakCheckerForexcludeUnmarkedObjsclassIndicesShouldBeValid). */
 
+	/* SpurMemoryManager>>#runLeakCheckerFor:excludeUnmarkedObjs:classIndicesShouldBeValid: */
+
 static NoDbgRegParms void
 runLeakCheckerForexcludeUnmarkedObjsclassIndicesShouldBeValid(sqInt gcModes, sqInt excludeUnmarkedObjs, sqInt classIndicesShouldBeValid)
 {

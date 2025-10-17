@@ -1,5 +1,9 @@
 /* Extracted from interp.c:63219 (function shortPrintFramesOnStackPageListInUse). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#shortPrintFramesOnStackPageListInUse */
+
 void
 shortPrintFramesOnStackPageListInUse(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,9 @@
 /* Extracted from interp.c:60810 (function printProcessStack). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printProcessStack: */
+
 void
 printProcessStack(sqInt aProcess)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

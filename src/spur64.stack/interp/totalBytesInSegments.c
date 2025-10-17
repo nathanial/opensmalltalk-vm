@@ -1,5 +1,9 @@
 /* Extracted from interp.c:49768 (function totalBytesInSegments). */
 
+/*	This ``slow'' count is for asserts only. */
+
+	/* SpurSegmentManager>>#totalBytesInSegments */
+
 static usqInt
 totalBytesInSegments(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

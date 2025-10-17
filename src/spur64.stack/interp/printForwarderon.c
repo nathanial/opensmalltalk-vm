@@ -1,5 +1,7 @@
 /* Extracted from interp.c:43060 (function printForwarderon). */
 
+	/* SpurMemoryManager>>#printForwarder:on: */
+
 static NoDbgRegParms void
 printForwarderon(sqInt oop, FILE *aStream)
 {

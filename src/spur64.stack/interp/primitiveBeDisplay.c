@@ -1,5 +1,11 @@
 /* Extracted from interp.c:12628 (function primitiveBeDisplay). */
 
+/*	Record the system Display object in the specialObjectsTable,
+	and if possible pin the display bitmap. Further, invoke ioBeDisplay
+	to alow the VM to record the location, width heigth & depth of the bitmap. */
+
+	/* InterpreterPrimitives>>#primitiveBeDisplay */
+
 static void
 primitiveBeDisplay(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

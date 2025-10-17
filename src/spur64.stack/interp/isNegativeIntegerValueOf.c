@@ -1,5 +1,10 @@
 /* Extracted from interp.c:11205 (function isNegativeIntegerValueOf). */
 
+/*	Answer true if integer object is negative.
+	Fail if object pointed by oop i not an integer. */
+
+	/* InterpreterPrimitives>>#isNegativeIntegerValueOf: */
+
 static NoDbgRegParms sqInt
 isNegativeIntegerValueOf(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

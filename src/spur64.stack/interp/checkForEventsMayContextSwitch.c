@@ -1,5 +1,10 @@
 /* Extracted from interp.c:50516 (function checkForEventsMayContextSwitch). */
 
+/*	Check for possible interrupts and handle one if necessary.
+	Answer if a context switch has occurred. */
+
+	/* StackInterpreter>>#checkForEventsMayContextSwitch: */
+
 static NoDbgRegParms sqInt
 checkForEventsMayContextSwitch(sqInt mayContextSwitch)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

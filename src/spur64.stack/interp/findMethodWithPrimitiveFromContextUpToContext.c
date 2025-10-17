@@ -1,5 +1,16 @@
 /* Extracted from interp.c:53299 (function findMethodWithPrimitiveFromContextUpToContext). */
 
+/*	See findUnwindThroughContext:. Alas this is mutually recursive with
+	findMethodWithPrimitive:FromFP:SP:ThroughContext: instead of iterative.
+	We're doing the simplest thing that could possibly work. Niceties can
+	wait.  */
+/*	Being mutually-recursive with findMethodWithPrimitive:FromFP:UpToContext:
+	gives the author's type inference algorithm headaches. Wimp out by
+	declaring the return type.
+ */
+
+	/* StackInterpreter>>#findMethodWithPrimitive:FromContext:UpToContext: */
+
 static NoDbgRegParms sqInt
 findMethodWithPrimitiveFromContextUpToContext(sqInt primitive, sqInt senderContext, sqInt homeContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:61173 (function print). */
 
+	/* StackInterpreter>>#print: */
+
 void
 print(char *s)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

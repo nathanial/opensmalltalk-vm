@@ -1,5 +1,12 @@
 /* Extracted from interp.c:62436 (function returnAsThroughCallbackContext). */
 
+/*	callbackMethodContext is an activation of
+	invokeCallback:[stack:registers:jmpbuf:]. Its sender is the VM's state
+	prior to the callback. Reestablish that state (via longjmp),
+	and mark callbackMethodContext as dead. */
+
+	/* StackInterpreter>>#returnAs:ThroughCallback:Context: */
+
 sqInt
 returnAsThroughCallbackContext(sqInt returnTypeOop, VMCallbackContext *vmCallbackContext, sqInt callbackMethodContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

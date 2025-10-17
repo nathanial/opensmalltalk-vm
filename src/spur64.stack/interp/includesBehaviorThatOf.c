@@ -1,5 +1,11 @@
 /* Extracted from interp.c:54798 (function includesBehaviorThatOf). */
 
+/*	Return the equivalent of 
+	aClass includesBehavior: aSuperclass.
+	Note: written for efficiency and better inlining (only 1 temp) */
+
+	/* StackInterpreter>>#includesBehavior:ThatOf: */
+
 sqInt
 includesBehaviorThatOf(sqInt aClass, sqInt aSuperclass)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:45312 (function safePrintStringOf). */
 
+	/* SpurMemoryManager>>#safePrintStringOf: */
+
 static NoDbgRegParms void
 safePrintStringOf(sqInt oop)
 {

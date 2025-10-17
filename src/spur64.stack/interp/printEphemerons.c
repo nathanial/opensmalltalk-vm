@@ -1,5 +1,9 @@
 /* Extracted from interp.c:42866 (function printEphemerons). */
 
+/*	Actually print all objects that have ephemeron format. */
+
+	/* SpurMemoryManager>>#printEphemerons */
+
 void
 printEphemerons(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

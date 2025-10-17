@@ -1,5 +1,9 @@
 /* Extracted from interp.c:18821 (function primitiveListBuiltinModule). */
 
+/*	Primitive. Return the n-th builtin module name. */
+
+	/* InterpreterPrimitives>>#primitiveListBuiltinModule */
+
 static void
 primitiveListBuiltinModule(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

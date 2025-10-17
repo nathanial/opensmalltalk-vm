@@ -1,5 +1,9 @@
 /* Extracted from interp.c:55504 (function isMemberOf). */
 
+/*	Support for external primitives */
+
+	/* StackInterpreter>>#is:MemberOf: */
+
 sqInt
 isMemberOf(sqInt oop, char *className)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

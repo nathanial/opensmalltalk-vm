@@ -1,5 +1,7 @@
 /* Extracted from interp.c:36130 (function hasPointerFieldsNonImm). */
 
+	/* SpurMemoryManager>>#hasPointerFieldsNonImm: */
+
 static NoDbgRegParms sqInt
 hasPointerFieldsNonImm(sqInt oop)
 {

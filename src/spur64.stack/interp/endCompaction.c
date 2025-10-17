@@ -1,5 +1,7 @@
 /* Extracted from interp.c:47564 (function endCompaction). */
 
+	/* SpurPlanningCompactor>>#endCompaction */
+
 static void
 endCompaction(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

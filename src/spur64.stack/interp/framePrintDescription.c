@@ -1,5 +1,7 @@
 /* Extracted from interp.c:54022 (function framePrintDescription). */
 
+	/* StackInterpreter>>#framePrintDescription: */
+
 static NoDbgRegParms void
 framePrintDescription(sqInt it)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

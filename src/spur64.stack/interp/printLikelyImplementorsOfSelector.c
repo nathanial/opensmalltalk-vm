@@ -1,5 +1,12 @@
 /* Extracted from interp.c:60028 (function printLikelyImplementorsOfSelector). */
 
+/*	Print all methods whose penultimate literal is either selector,
+	or an object whose first inst var is the method and whose
+	second is selector (e.g. an AdditionalMethodState). */
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printLikelyImplementorsOfSelector: */
+
 void
 printLikelyImplementorsOfSelector(sqInt selector)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,16 @@
 /* Extracted from interp.c:11588 (function positiveMachineIntegerValueOf). */
 
+/*	Answer a value of an integer in address range, i.e up to the size of a
+	machine word.
+	The object may be either a positive SmallInteger or a LargePositiveInteger
+	of size <= word size.
+ */
+/*	some important callers such as primitiveNewWithArg, so inline the common
+	case 
+ */
+
+	/* InterpreterPrimitives>>#positiveMachineIntegerValueOf: */
+
 usqIntptr_t
 positiveMachineIntegerValueOf(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

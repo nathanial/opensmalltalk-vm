@@ -1,5 +1,7 @@
 /* Extracted from interp.c:44094 (function printObjStackPagemyIndexpageTypeprintContents). */
 
+	/* SpurMemoryManager>>#printObjStackPage:myIndex:pageType:printContents: */
+
 static NoDbgRegParms void
 printObjStackPagemyIndexpageTypeprintContents(sqInt objStackPage, sqInt myx, sqInt pageType, sqInt printContents)
 {

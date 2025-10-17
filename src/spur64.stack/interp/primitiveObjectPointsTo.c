@@ -1,5 +1,14 @@
 /* Extracted from interp.c:69105 (function primitiveObjectPointsTo). */
 
+ /* LRPCheck */
+
+
+/*	This primitive is assumed to be fast (see e.g.
+	MethodDictionary>>includesKey:) so make it so.
+	N.B. Works correctly for cogged methods too. */
+
+	/* StackInterpreterPrimitives>>#primitiveObjectPointsTo */
+
 static void
 primitiveObjectPointsTo(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

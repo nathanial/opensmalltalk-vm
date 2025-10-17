@@ -1,5 +1,7 @@
 /* Extracted from interp.c:19459 (function primitiveNewMethod). */
 
+	/* InterpreterPrimitives>>#primitiveNewMethod */
+
 static void
 primitiveNewMethod(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

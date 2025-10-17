@@ -1,5 +1,13 @@
 /* Extracted from interp.c:46933 (function compact). */
 
+/*	Sweep all of old space, sliding unpinned marked objects down over free and
+	unmarked objects.
+	Let the segmentManager mark which segments contain pinned objects via
+	notePinned:. 
+ */
+
+	/* SpurPlanningCompactor>>#compact */
+
 static NeverInline void
 compact(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:17454 (function primitiveGreaterOrEqual). */
 
+	/* InterpreterPrimitives>>#primitiveGreaterOrEqual */
+
 static void
 primitiveGreaterOrEqual(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

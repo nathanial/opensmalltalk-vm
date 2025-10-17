@@ -1,5 +1,11 @@
 /* Extracted from interp.c:49809 (function writeSegmentnextSegmenttoFile). */
 
+/*	Write the segment contents, the size of and the distance to the next
+	segment to aBinaryStream.
+ */
+
+	/* SpurSegmentManager>>#writeSegment:nextSegment:toFile: */
+
 static NoDbgRegParms sqInt
 writeSegmentnextSegmenttoFile(SpurSegmentInfo *segment, SpurSegmentInfo *nextSegment, sqImageFile aBinaryStream)
 {

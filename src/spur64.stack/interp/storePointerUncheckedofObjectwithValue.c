@@ -1,5 +1,7 @@
 /* Extracted from interp.c:46053 (function storePointerUncheckedofObjectwithValue). */
 
+	/* SpurMemoryManager>>#storePointerUnchecked:ofObject:withValue: */
+
 sqInt
 storePointerUncheckedofObjectwithValue(sqInt fieldIndex, sqInt objOop, sqInt valuePointer)
 {

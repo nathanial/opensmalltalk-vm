@@ -1,5 +1,9 @@
 /* Extracted from interp.c:63601 (function snapshot). */
 
+/*	update state of active context */
+
+	/* StackInterpreter>>#snapshot: */
+
 static NoDbgRegParms sqInt
 snapshot(sqInt embedded)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

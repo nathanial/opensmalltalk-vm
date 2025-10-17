@@ -1,5 +1,16 @@
 /* Extracted from interp.c:65668 (function voidVMStateForSnapshotFlushingExternalPrimitivesIf). */
 
+ /* LRPCheck */
+
+
+/*	Make sure that all VM state that affects the heap contents is voided so
+	that the heap is
+	ready to be snapshotted. If flushExtPrims is true, flush references to
+	external primitives in methods. Answer the activeContext that should be
+	stored in the snapshot. */
+
+	/* StackInterpreter>>#voidVMStateForSnapshotFlushingExternalPrimitivesIf: */
+
 static NoDbgRegParms sqInt
 voidVMStateForSnapshotFlushingExternalPrimitivesIf(sqInt flushExtPrims)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

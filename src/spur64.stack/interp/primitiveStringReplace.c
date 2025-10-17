@@ -1,5 +1,11 @@
 /* Extracted from interp.c:24657 (function primitiveStringReplace). */
 
+/*	<array> primReplaceFrom: start to: stop with: replacement startingAt:
+	repStart 
+	<primitive: 105> */
+
+	/* InterpreterPrimitives>>#primitiveStringReplace */
+
 static void
 primitiveStringReplace(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

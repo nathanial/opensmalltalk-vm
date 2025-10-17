@@ -1,5 +1,10 @@
 /* Extracted from interp.c:38059 (function lastPointerOf). */
 
+/*	Answer the byte offset of the last pointer field of the given object.
+	Works with CompiledMethods, as well as ordinary objects. */
+
+	/* SpurMemoryManager>>#lastPointerOf: */
+
 static NoDbgRegParms sqInt
 lastPointerOf(sqInt objOop)
 {

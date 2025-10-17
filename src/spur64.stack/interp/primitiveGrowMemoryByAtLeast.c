@@ -1,5 +1,7 @@
 /* Extracted from interp.c:17552 (function primitiveGrowMemoryByAtLeast). */
 
+	/* InterpreterPrimitives>>#primitiveGrowMemoryByAtLeast */
+
 static void
 primitiveGrowMemoryByAtLeast(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

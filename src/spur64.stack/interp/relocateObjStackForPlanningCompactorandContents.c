@@ -1,5 +1,11 @@
 /* Extracted from interp.c:44988 (function relocateObjStackForPlanningCompactorandContents). */
 
+/*	Relocate all objStack pages that comprise objStack, including contents if
+	requested. 
+ */
+
+	/* SpurMemoryManager>>#relocateObjStackForPlanningCompactor:andContents: */
+
 static NoDbgRegParms sqInt
 relocateObjStackForPlanningCompactorandContents(sqInt objStack, sqInt relocateContents)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

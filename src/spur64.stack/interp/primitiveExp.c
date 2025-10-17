@@ -1,5 +1,10 @@
 /* Extracted from interp.c:15147 (function primitiveExp). */
 
+/*	Computes E raised to the receiver power.
+	Receiver *must* be a float instance. */
+
+	/* InterpreterPrimitives>>#primitiveExp */
+
 static void
 primitiveExp(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

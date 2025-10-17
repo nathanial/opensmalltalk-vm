@@ -1,5 +1,10 @@
 /* Extracted from interp.c:50389 (function checkAllAccessibleObjectsOkay). */
 
+/*	Ensure that all accessible objects in the heap are okay. */
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#checkAllAccessibleObjectsOkay */
+
 sqInt
 checkAllAccessibleObjectsOkay(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

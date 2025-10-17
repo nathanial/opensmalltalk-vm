@@ -1,5 +1,7 @@
 /* Extracted from interp.c:34625 (function ensureBehaviorHash). */
 
+	/* SpurMemoryManager>>#ensureBehaviorHash: */
+
 static NoDbgRegParms sqInt
 ensureBehaviorHash(sqInt aBehavior)
 {

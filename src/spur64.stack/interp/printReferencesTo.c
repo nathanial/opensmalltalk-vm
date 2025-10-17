@@ -1,5 +1,10 @@
 /* Extracted from interp.c:44486 (function printReferencesTo). */
 
+/*	Scan the heap printing the oops of any and all objects that refer to anOop */
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printReferencesTo: */
+
 void
 printReferencesTo(sqInt anOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

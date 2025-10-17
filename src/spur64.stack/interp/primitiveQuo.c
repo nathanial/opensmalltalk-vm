@@ -1,5 +1,9 @@
 /* Extracted from interp.c:21263 (function primitiveQuo). */
 
+/*	Rounds negative results towards zero. */
+
+	/* InterpreterPrimitives>>#primitiveQuo */
+
 static void
 primitiveQuo(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

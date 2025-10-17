@@ -1,5 +1,9 @@
 /* Extracted from interp.c:43273 (function printFreeListHeads). */
 
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printFreeListHeads */
+
 void
 printFreeListHeads(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

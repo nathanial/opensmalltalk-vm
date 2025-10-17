@@ -1,5 +1,12 @@
 /* Extracted from interp.c:61300 (function putToSleepyieldingIf). */
 
+/*	Save the given process on the scheduler process list for its priority,
+	adding to the back if yieldImplicitly or to the front if not
+	yieldImplicitly. 
+ */
+
+	/* StackInterpreter>>#putToSleep:yieldingIf: */
+
 static NoDbgRegParms void
 putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

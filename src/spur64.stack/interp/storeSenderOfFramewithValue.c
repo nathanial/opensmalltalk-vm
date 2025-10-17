@@ -1,5 +1,14 @@
 /* Extracted from interp.c:64843 (function storeSenderOfFramewithValue). */
 
+/*	Set the sender of a frame. If the frame is a base frame then this is
+	trivial; merely store into the FoxCallerSavedIP/FoxCallerContext field. If
+	not, then
+	split the stack at the frame, moving the frame and those hotter than it to
+	a new stack page. In the new stack page the frame will be the base frame
+	and storing trivial. Answer the possibly changed location of theFP. */
+
+	/* StackInterpreter>>#storeSenderOfFrame:withValue: */
+
 static NoDbgRegParms char *
 storeSenderOfFramewithValue(char *theFP, sqInt anOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

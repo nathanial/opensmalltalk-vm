@@ -1,5 +1,7 @@
 /* Extracted from interp.c:46497 (function unlinkLilliputianChunkindex). */
 
+	/* SpurMemoryManager>>#unlinkLilliputianChunk:index: */
+
 static NoDbgRegParms NeverInline sqInt
 unlinkLilliputianChunkindex(sqInt freeChunk, sqInt index)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

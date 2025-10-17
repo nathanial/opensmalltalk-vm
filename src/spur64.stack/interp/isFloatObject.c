@@ -1,5 +1,7 @@
 /* Extracted from interp.c:54975 (function isFloatObject). */
 
+	/* StackInterpreter>>#isFloatObject: */
+
 int
 isFloatObject(sqInt oop)
 {

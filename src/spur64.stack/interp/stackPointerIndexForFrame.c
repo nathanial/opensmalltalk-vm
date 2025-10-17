@@ -1,5 +1,11 @@
 /* Extracted from interp.c:64399 (function stackPointerIndexForFrame). */
 
+/*	Return the 0-based index rel to the given frame.
+	(This is what stackPointer used to be before conversion to pointer) */
+/*	In the StackInterpreter stacks grow down. */
+
+	/* StackInterpreter>>#stackPointerIndexForFrame: */
+
 static NoDbgRegParms usqInt
 stackPointerIndexForFrame(char *theFP)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

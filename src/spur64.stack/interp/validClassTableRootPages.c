@@ -1,5 +1,10 @@
 /* Extracted from interp.c:46724 (function validClassTableRootPages). */
 
+/*	Answer if hiddenRootsObj is of the right size with the
+	expected contents, and if numClassTablePages is correct. */
+
+	/* SpurMemoryManager>>#validClassTableRootPages */
+
 static sqInt
 validClassTableRootPages(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

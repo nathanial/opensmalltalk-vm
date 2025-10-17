@@ -1,5 +1,7 @@
 /* Extracted from interp.c:48954 (function segLimit). */
 
+	/* SpurSegmentInfo>>#segLimit */
+
 static NoDbgRegParms usqInt
 segLimit(SpurSegmentInfo *self_in_SpurSegmentInfo)
 {

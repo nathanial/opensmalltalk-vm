@@ -1,5 +1,7 @@
 /* Extracted from interp.c:30665 (function allOldMarkedWeakObjectsOnWeaklingStack). */
 
+	/* SpurMemoryManager>>#allOldMarkedWeakObjectsOnWeaklingStack */
+
 static sqInt
 allOldMarkedWeakObjectsOnWeaklingStack(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

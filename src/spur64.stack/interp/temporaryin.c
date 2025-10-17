@@ -1,5 +1,9 @@
 /* Extracted from interp.c:65135 (function temporaryin). */
 
+/*	See StackInterpreter class>>initializeFrameIndices */
+
+	/* StackInterpreter>>#temporary:in: */
+
 static NoDbgRegParms sqInt
 temporaryin(sqInt offset, char *theFP)
 {

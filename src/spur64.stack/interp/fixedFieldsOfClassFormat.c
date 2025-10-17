@@ -1,5 +1,7 @@
 /* Extracted from interp.c:35442 (function fixedFieldsOfClassFormat). */
 
+	/* SpurMemoryManager>>#fixedFieldsOfClassFormat: */
+
 sqInt
 fixedFieldsOfClassFormat(sqInt classFormat)
 {

@@ -1,5 +1,39 @@
 /* Extracted from interp.c:21521 (function primitiveScanCharacters). */
 
+/*	The character scanner primitive
+	primScanCharactersFrom: startIndex to: stopIndex in: sourceString rightX:
+	rightX stopConditions: stops kern: kernDelta
+	This is the inner loop of measurement and scanning for text display. March
+	through sourceString from startIndex to stopIndex.
+	If any character is flagged with a non-nil entry in stops, then return the
+	corresponding value. Determine width of each character
+	from xTable, indexed by map. If destX would exceed rightX, then return
+	stops at: 258. Advance destX by the width of the
+	character. If stopIndex has been reached, then return stops at: 257.
+	
+	Receiver inst vars:
+	destX			horizontal position for next character (distance from left of
+	composition area)
+	lastIndex		the Integer index of next character to be processed in the
+	sourceString argument
+	xTable			an array mapping character code to glyph x coordinate in a form
+	of glyphs
+	map			an array mapping character code to glyph position.
+	
+	Failure codes:
+	PrimErrBadArgument	one of the indices is not a SmallInteger, or the sting
+	argument is not a byte string, or the stops array is too small.
+	PrimErrBadReceiver	the receiver has less than four inst vars or any of
+	scanDestX & scanLastIndex are not SmallIntegers, or the scanXTable or
+	scanMap are not arrays of the right size
+	PrimErrBadIndex		either a glyph index in scanMap or a start index in
+	scanXTable are not SmallIntegers
+	PrimErrLimitExceeded	arithmetic on scanDestX has wrapped around to become
+	negative 
+ */
+
+	/* InterpreterPrimitives>>#primitiveScanCharacters */
+
 static void
 primitiveScanCharacters(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

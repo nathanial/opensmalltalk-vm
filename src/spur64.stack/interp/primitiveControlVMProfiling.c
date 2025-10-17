@@ -1,5 +1,12 @@
 /* Extracted from interp.c:14476 (function primitiveControlVMProfiling). */
 
+/*	Primitive. Start or stop the VM profiler. The first argument is a boolean
+	to switch profiling on or off. The second argument is an integer or nil.
+	If an integer it determines the maximum number of samples in the VM's
+	sample buffer. Answer the current number of samples in the buffer. */
+
+	/* InterpreterPrimitives>>#primitiveControlVMProfiling */
+
 static void
 primitiveControlVMProfiling(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

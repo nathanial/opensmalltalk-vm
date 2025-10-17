@@ -1,5 +1,9 @@
 /* Extracted from interp.c:38124 (function lengthOfMaybeImmediate). */
 
+/*	for the message send breakpoint; selectors can be immediates. */
+
+	/* SpurMemoryManager>>#lengthOfMaybeImmediate: */
+
 static NoDbgRegParms sqInt
 lengthOfMaybeImmediate(sqInt oop)
 {

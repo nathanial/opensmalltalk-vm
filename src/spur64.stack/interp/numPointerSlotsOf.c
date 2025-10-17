@@ -1,5 +1,10 @@
 /* Extracted from interp.c:41131 (function numPointerSlotsOf). */
 
+/*	Answer the number of pointer fields in the given object.
+	Works with CompiledMethods, as well as ordinary objects. */
+
+	/* SpurMemoryManager>>#numPointerSlotsOf: */
+
 static NoDbgRegParms usqInt
 numPointerSlotsOf(sqInt objOop)
 {

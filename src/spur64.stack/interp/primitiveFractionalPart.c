@@ -1,5 +1,9 @@
 /* Extracted from interp.c:16616 (function primitiveFractionalPart). */
 
+/*	Fractional part of float receiver; receiver *must* be a float instance. */
+
+	/* InterpreterPrimitives>>#primitiveFractionalPart */
+
 static void
 primitiveFractionalPart(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

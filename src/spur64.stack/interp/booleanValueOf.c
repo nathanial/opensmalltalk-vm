@@ -1,5 +1,9 @@
 /* Extracted from interp.c:50301 (function booleanValueOf). */
 
+/*	convert true and false (Smalltalk) to true or false(C) */
+
+	/* StackInterpreter>>#booleanValueOf: */
+
 sqInt
 booleanValueOf(sqInt obj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

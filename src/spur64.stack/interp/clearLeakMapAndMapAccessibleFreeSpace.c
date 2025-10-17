@@ -1,5 +1,10 @@
 /* Extracted from interp.c:33451 (function clearLeakMapAndMapAccessibleFreeSpace). */
 
+/*	Perform an integrity/leak check using the heapMap. Set a bit at each free
+	chunk's header. */
+
+	/* SpurMemoryManager>>#clearLeakMapAndMapAccessibleFreeSpace */
+
 static void
 clearLeakMapAndMapAccessibleFreeSpace(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

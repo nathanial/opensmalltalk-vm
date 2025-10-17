@@ -1,5 +1,9 @@
 /* Extracted from interp.c:17292 (function primitiveGetNextEvent). */
 
+/*	Primitive. Return the next input event from the VM event queue. */
+
+	/* InterpreterPrimitives>>#primitiveGetNextEvent */
+
 static void
 primitiveGetNextEvent(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

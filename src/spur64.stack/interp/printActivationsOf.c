@@ -1,5 +1,12 @@
 /* Extracted from interp.c:42550 (function printActivationsOf). */
 
+/*	Scan the heap printing the oops of any and all contexts that refer to
+	anOop 
+ */
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printActivationsOf: */
+
 void
 printActivationsOf(sqInt aMethodObj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

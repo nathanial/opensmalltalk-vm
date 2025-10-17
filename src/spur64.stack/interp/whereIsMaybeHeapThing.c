@@ -1,5 +1,7 @@
 /* Extracted from interp.c:46899 (function whereIsMaybeHeapThing). */
 
+	/* SpurMemoryManager>>#whereIsMaybeHeapThing: */
+
 static NoDbgRegParms char *
 whereIsMaybeHeapThing(sqInt anOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

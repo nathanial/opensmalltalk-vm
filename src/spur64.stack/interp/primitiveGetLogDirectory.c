@@ -1,5 +1,12 @@
 /* Extracted from interp.c:17258 (function primitiveGetLogDirectory). */
 
+ /* IMMUTABILITY */
+
+
+/*	Primitive. Answer the VM's current log directory */
+
+	/* InterpreterPrimitives>>#primitiveGetLogDirectory */
+
 EXPORT(sqInt)
 primitiveGetLogDirectory(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

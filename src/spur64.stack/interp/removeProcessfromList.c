@@ -1,5 +1,11 @@
 /* Extracted from interp.c:62090 (function removeProcessfromList). */
 
+/*	Attempt to remove a process from a linked list. Answer if the attempt
+	succeeded. 
+ */
+
+	/* StackInterpreter>>#removeProcess:fromList: */
+
 static NoDbgRegParms sqInt
 removeProcessfromList(sqInt aProcess, sqInt aList)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

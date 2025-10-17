@@ -1,5 +1,7 @@
 /* Extracted from interp.c:19086 (function primitiveMakePoint). */
 
+	/* InterpreterPrimitives>>#primitiveMakePoint */
+
 static void
 primitiveMakePoint(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:52159 (function dumpTraceLog). */
 
+/*	The trace log is a circular buffer of pairs of entries. If there is
+	an entry at traceLogIndex - 3 \\ TraceBufferSize it has entries.
+	If there is something at traceLogIndex it has wrapped. */
+
+	/* StackInterpreter>>#dumpTraceLog */
+
 void
 dumpTraceLog(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

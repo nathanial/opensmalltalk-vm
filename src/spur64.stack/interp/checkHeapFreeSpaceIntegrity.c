@@ -1,5 +1,13 @@
 /* Extracted from interp.c:32052 (function checkHeapFreeSpaceIntegrity). */
 
+/*	Perform an integrity/leak check using the heapMap. Assume
+	clearLeakMapAndMapAccessibleFreeSpace has set a bit at each free chunk's
+	header. Scan all objects in the heap checking that no pointer points
+	to a free chunk and that all free chunks that refer to others refer to
+	marked chunks. Answer if all checks pass. */
+
+	/* SpurMemoryManager>>#checkHeapFreeSpaceIntegrity */
+
 static sqInt
 checkHeapFreeSpaceIntegrity(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:48961 (function addSegmentOfSize). */
 
+	/* SpurSegmentManager>>#addSegmentOfSize: */
+
 static NoDbgRegParms SpurSegmentInfo *
 addSegmentOfSize(sqInt ammount)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

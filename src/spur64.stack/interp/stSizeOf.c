@@ -1,5 +1,12 @@
 /* Extracted from interp.c:64934 (function stSizeOf). */
 
+/*	Answer the number of indexable fields in the given object. (i.e., what
+	Smalltalk would return for <obj> size).
+ */
+/*	Note: Assume oop is not an immediate! */
+
+	/* StackInterpreter>>#stSizeOf: */
+
 sqInt
 stSizeOf(sqInt oop)
 {

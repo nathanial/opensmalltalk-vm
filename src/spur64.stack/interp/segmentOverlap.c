@@ -1,5 +1,9 @@
 /* Extracted from interp.c:49611 (function segmentOverlap). */
 
+/*	Answers true if a segment overlaps with another one. */
+
+	/* SpurSegmentManager>>#segmentOverlap */
+
 static sqInt
 segmentOverlap(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

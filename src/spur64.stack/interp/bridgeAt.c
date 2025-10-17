@@ -1,5 +1,7 @@
 /* Extracted from interp.c:49102 (function bridgeAt). */
 
+	/* SpurSegmentManager>>#bridgeAt: */
+
 static NoDbgRegParms sqInt
 bridgeAt(sqInt segIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

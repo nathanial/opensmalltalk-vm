@@ -1,5 +1,10 @@
 /* Extracted from interp.c:36333 (function inFreeTreeReplacewith). */
 
+/*	Part of reorderReversedTreeList:. Switch treeNode with newNode in
+	the tree, but do nothing to the list linked through freeChunkNextIndex. */
+
+	/* SpurMemoryManager>>#inFreeTreeReplace:with: */
+
 static NoDbgRegParms void
 inFreeTreeReplacewith(sqInt treeNode, sqInt newNode)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

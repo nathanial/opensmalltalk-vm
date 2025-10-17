@@ -1,5 +1,7 @@
 /* Extracted from interp.c:49840 (function accessorDepthForExternalPrimitiveMethod). */
 
+	/* StackInterpreter>>#accessorDepthForExternalPrimitiveMethod: */
+
 static NoDbgRegParms sqInt
 accessorDepthForExternalPrimitiveMethod(sqInt methodObj)
 {

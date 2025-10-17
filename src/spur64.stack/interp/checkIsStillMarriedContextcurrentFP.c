@@ -1,5 +1,10 @@
 /* Extracted from interp.c:50877 (function checkIsStillMarriedContextcurrentFP). */
 
+/*	Another version of isWidowedContext: for debugging.
+	This will not bereave a widowed context. */
+
+	/* StackInterpreter>>#checkIsStillMarriedContext:currentFP: */
+
 static NoDbgRegParms sqInt
 checkIsStillMarriedContextcurrentFP(sqInt aContext, char *currentFP)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

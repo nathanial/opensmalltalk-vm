@@ -1,5 +1,10 @@
 /* Extracted from interp.c:43750 (function printMethodReferencesTo). */
 
+/*	Scan the heap printing the oops of any and all methods that refer to anOop */
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printMethodReferencesTo: */
+
 void
 printMethodReferencesTo(sqInt anOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

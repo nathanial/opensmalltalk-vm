@@ -1,5 +1,12 @@
 /* Extracted from interp.c:62654 (function reverseDisplayFromto). */
 
+/*	Reverse the given range of Display pixels, rounded to whole word boundary.
+	Used to give feedback during VM activities such as garbage collection when
+	debugging. It is assumed that the given word range falls entirely within
+	the first line of the Display. */
+
+	/* StackInterpreter>>#reverseDisplayFrom:to: */
+
 static NoDbgRegParms void
 reverseDisplayFromto(sqInt startIndex, sqInt endIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

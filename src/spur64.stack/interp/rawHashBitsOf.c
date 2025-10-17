@@ -1,5 +1,7 @@
 /* Extracted from interp.c:44936 (function rawHashBitsOf). */
 
+	/* SpurMemoryManager>>#rawHashBitsOf: */
+
 sqInt
 rawHashBitsOf(sqInt objOop)
 {

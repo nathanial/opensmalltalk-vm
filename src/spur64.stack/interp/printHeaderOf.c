@@ -1,5 +1,10 @@
 /* Extracted from interp.c:43371 (function printHeaderOf). */
 
+/*	useful for VM debugging */
+/*	N.B. No safety bounds checks!! We need to look e.g. at corpses. */
+
+	/* SpurMemoryManager>>#printHeaderOf: */
+
 void
 printHeaderOf(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

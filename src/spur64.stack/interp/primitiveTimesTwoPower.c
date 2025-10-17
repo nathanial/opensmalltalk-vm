@@ -1,5 +1,13 @@
 /* Extracted from interp.c:25313 (function primitiveTimesTwoPower). */
 
+ /* TestingPrimitives */
+
+
+/*	Multiply the receiver by the power of the argument.
+	Receiver *must* be a float instance. */
+
+	/* InterpreterPrimitives>>#primitiveTimesTwoPower */
+
 static void
 primitiveTimesTwoPower(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

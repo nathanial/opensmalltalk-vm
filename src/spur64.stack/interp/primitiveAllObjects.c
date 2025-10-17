@@ -1,5 +1,11 @@
 /* Extracted from interp.c:11790 (function primitiveAllObjects). */
 
+/*	Answer an array of all objects that exist when the primitive
+	is called, excluding those that may be garbage collected as
+	a side effect of allocating the result array. */
+
+	/* InterpreterPrimitives>>#primitiveAllObjects */
+
 EXPORT(void)
 primitiveAllObjects(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

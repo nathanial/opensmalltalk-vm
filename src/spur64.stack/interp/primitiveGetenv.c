@@ -1,5 +1,9 @@
 /* Extracted from interp.c:17130 (function primitiveGetenv). */
 
+/*	Access to environment variables via getenv. No putenv or setenv as yet. */
+
+	/* InterpreterPrimitives>>#primitiveGetenv */
+
 EXPORT(sqInt)
 primitiveGetenv(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

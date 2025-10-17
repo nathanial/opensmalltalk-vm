@@ -1,5 +1,12 @@
 /* Extracted from interp.c:48886 (function validRelocationPlanInPass). */
 
+/*	Answer 0 if all the mobile objects from firstMobileObject to
+	lastMobileObject have sane forwarding addresses, and that
+	savedFirstFieldsSpace is of
+	matching capacity. Otherwise answer an error code identifying the anomaly. */
+
+	/* SpurPlanningCompactor>>#validRelocationPlanInPass: */
+
 static NoDbgRegParms sqInt
 validRelocationPlanInPass(sqInt onePass)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

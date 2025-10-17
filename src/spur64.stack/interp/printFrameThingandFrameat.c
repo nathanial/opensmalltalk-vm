@@ -1,5 +1,7 @@
 /* Extracted from interp.c:59784 (function printFrameThingandFrameat). */
 
+	/* StackInterpreter>>#printFrameThing:andFrame:at: */
+
 static NoDbgRegParms void
 printFrameThingandFrameat(char *name, char *theFP, char *address)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:57752 (function methodPrimitiveIndex). */
 
+	/* StackInterpreter>>#methodPrimitiveIndex */
+
 sqInt
 methodPrimitiveIndex(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

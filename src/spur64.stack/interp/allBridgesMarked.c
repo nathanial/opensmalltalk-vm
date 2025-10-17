@@ -1,5 +1,7 @@
 /* Extracted from interp.c:49054 (function allBridgesMarked). */
 
+	/* SpurSegmentManager>>#allBridgesMarked */
+
 static sqInt
 allBridgesMarked(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

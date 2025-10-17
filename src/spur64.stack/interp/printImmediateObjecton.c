@@ -1,5 +1,7 @@
 /* Extracted from interp.c:43448 (function printImmediateObjecton). */
 
+	/* SpurMemoryManager>>#printImmediateObject:on: */
+
 static NoDbgRegParms void
 printImmediateObjecton(sqInt oop, FILE *aStream)
 {

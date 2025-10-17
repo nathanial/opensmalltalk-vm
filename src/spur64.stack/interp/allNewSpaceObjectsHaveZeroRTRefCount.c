@@ -1,5 +1,7 @@
 /* Extracted from interp.c:27732 (function allNewSpaceObjectsHaveZeroRTRefCount). */
 
+	/* SpurGenerationScavenger>>#allNewSpaceObjectsHaveZeroRTRefCount */
+
 static sqInt
 allNewSpaceObjectsHaveZeroRTRefCount(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

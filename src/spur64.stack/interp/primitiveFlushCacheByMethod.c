@@ -1,5 +1,12 @@
 /* Extracted from interp.c:68499 (function primitiveFlushCacheByMethod). */
 
+/*	The receiver is a compiledMethod. Clear all entries in the method lookup
+	cache that refer to this method, presumably because it has been redefined,
+	overridden or removed.
+ */
+
+	/* StackInterpreterPrimitives>>#primitiveFlushCacheByMethod */
+
 static void
 primitiveFlushCacheByMethod(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

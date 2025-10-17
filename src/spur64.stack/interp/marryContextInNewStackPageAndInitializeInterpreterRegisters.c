@@ -1,5 +1,11 @@
 /* Extracted from interp.c:57418 (function marryContextInNewStackPageAndInitializeInterpreterRegisters). */
 
+/*	Establish aContext at the base of a new stackPage, make the stackPage the
+	active one and set-up the interreter registers. This is used to boot the
+	system and bring it back after a snapshot. */
+
+	/* StackInterpreter>>#marryContextInNewStackPageAndInitializeInterpreterRegisters: */
+
 static NoDbgRegParms void
 marryContextInNewStackPageAndInitializeInterpreterRegisters(sqInt aContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

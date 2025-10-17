@@ -1,5 +1,11 @@
 /* Extracted from interp.c:48178 (function updatePointers). */
 
+/*	Sweep the heap, updating all objects to their eventual locations.
+	Remember to update the savedFirstFields of pointer objects, as these have
+	been forwarded. */
+
+	/* SpurPlanningCompactor>>#updatePointers */
+
 static NeverInline void
 updatePointers(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

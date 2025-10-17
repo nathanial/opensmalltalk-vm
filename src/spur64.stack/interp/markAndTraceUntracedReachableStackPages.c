@@ -1,5 +1,9 @@
 /* Extracted from interp.c:57315 (function markAndTraceUntracedReachableStackPages). */
 
+/*	Trace any untraced pages */
+
+	/* StackInterpreter>>#markAndTraceUntracedReachableStackPages */
+
 static void
 markAndTraceUntracedReachableStackPages(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

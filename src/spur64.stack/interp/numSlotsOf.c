@@ -1,5 +1,9 @@
 /* Extracted from interp.c:41237 (function numSlotsOf). */
 
+/*	numSlotsOf: should not be applied to free or forwarded objects. */
+
+	/* SpurMemoryManager>>#numSlotsOf: */
+
 usqInt
 numSlotsOf(sqInt objOop)
 {

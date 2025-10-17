@@ -1,5 +1,9 @@
 /* Extracted from interp.c:11819 (function primitiveArctan). */
 
+/*	Computes arctan of float receiver; receiver *must* be a float instance. */
+
+	/* InterpreterPrimitives>>#primitiveArctan */
+
 static void
 primitiveArctan(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

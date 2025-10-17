@@ -1,5 +1,7 @@
 /* Extracted from interp.c:66158 (function isAppropriateForCopyObject). */
 
+	/* StackInterpreterPrimitives>>#isAppropriateForCopyObject: */
+
 static NoDbgRegParms sqInt
 isAppropriateForCopyObject(sqInt oop)
 {

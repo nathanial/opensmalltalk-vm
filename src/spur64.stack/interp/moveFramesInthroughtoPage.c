@@ -1,5 +1,11 @@
 /* Extracted from interp.c:57957 (function moveFramesInthroughtoPage). */
 
+/*	Move frames from the hot end of oldPage through to theFP to newPage.
+	This has the effect of making theFP a base frame which can be stored into.
+	Answer theFP's new location. */
+
+	/* StackInterpreter>>#moveFramesIn:through:toPage: */
+
 static NoDbgRegParms char *
 moveFramesInthroughtoPage(StackPage *oldPage, char *theFP, StackPage *newPage)
 {

@@ -1,5 +1,15 @@
 /* Extracted from interp.c:35386 (function firstIndexableField). */
 
+/*	NOTE: overridden in various simulator subclasses to add coercion to
+	CArray, so please duplicate any changes.
+	There are only two important cases, both for objects with named inst vars,
+	i.e. formats 2,3 & 5.
+	The first indexable field for formats 2 & 5 is the slot count (by
+	convention, even though that's off the end
+	of the object). For 3 we must go to the class. */
+
+	/* SpurMemoryManager>>#firstIndexableField: */
+
 void *
 firstIndexableField(sqInt objOop)
 {

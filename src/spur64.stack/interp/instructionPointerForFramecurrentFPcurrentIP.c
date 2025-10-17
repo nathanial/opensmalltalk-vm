@@ -1,5 +1,18 @@
 /* Extracted from interp.c:54870 (function instructionPointerForFramecurrentFPcurrentIP). */
 
+/*	Answer the bytecode pc object (i.e. SmallInteger) for an active frame. The
+	bytecode pc is derived from the frame's pc. If the frame is the top frame
+	on the current stack
+	the frame pc is whatever the current instruction pointer is. If the frame
+	is the top
+	frame on some other stack the frame pc is the value on top of stack.
+	Otherwise the
+	frame pc is the saved pc of the frame above. Once the frame pc is found it
+	must be
+	mapped to a bytecode pc. */
+
+	/* StackInterpreter>>#instructionPointerForFrame:currentFP:currentIP: */
+
 static NoDbgRegParms sqInt
 instructionPointerForFramecurrentFPcurrentIP(char *spouseFP, char *currentFP, sqInt instrPtr)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

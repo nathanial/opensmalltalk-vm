@@ -1,5 +1,9 @@
 /* Extracted from interp.c:43312 (function printFreeList). */
 
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printFreeList: */
+
 sqInt
 printFreeList(sqInt chunkOrIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

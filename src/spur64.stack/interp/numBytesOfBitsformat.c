@@ -1,5 +1,11 @@
 /* Extracted from interp.c:41044 (function numBytesOfBitsformat). */
 
+/*	Answer the number of indexable bytes in the given non-immediate pure bits
+	object with format.
+ */
+
+	/* SpurMemoryManager>>#numBytesOfBits:format: */
+
 static NoDbgRegParms sqInt
 numBytesOfBitsformat(sqInt objOop, sqInt format)
 {

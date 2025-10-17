@@ -1,5 +1,10 @@
 /* Extracted from interp.c:62709 (function safeMethodClassOf). */
 
+/*	Safe version of methodClassOf: that deals with malformed compiled methods,
+	etc, and does not fixup forwarding pointers.. */
+
+	/* StackInterpreter>>#safeMethodClassOf: */
+
 static NoDbgRegParms sqInt
 safeMethodClassOf(sqInt methodPointer)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

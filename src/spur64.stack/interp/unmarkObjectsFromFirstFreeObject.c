@@ -1,5 +1,10 @@
 /* Extracted from interp.c:48086 (function unmarkObjectsFromFirstFreeObject). */
 
+/*	Sweep the final immobile heap, freeing and coalescing unmarked and free
+	objects, and unmarking all marked objects up to the end of memory. */
+
+	/* SpurPlanningCompactor>>#unmarkObjectsFromFirstFreeObject */
+
 static void
 unmarkObjectsFromFirstFreeObject(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

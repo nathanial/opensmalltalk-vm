@@ -1,5 +1,7 @@
 /* Extracted from interp.c:51594 (function couldBeProcess). */
 
+	/* StackInterpreter>>#couldBeProcess: */
+
 static NoDbgRegParms NeverInline sqInt
 couldBeProcess(sqInt oop)
 {

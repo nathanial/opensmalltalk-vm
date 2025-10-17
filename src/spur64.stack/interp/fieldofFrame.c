@@ -1,5 +1,10 @@
 /* Extracted from interp.c:66113 (function fieldofFrame). */
 
+/*	Arrange to answer naked frame pointers for unmarried
+	senders to avoid reifying contexts in the search. */
+
+	/* StackInterpreterPrimitives>>#field:ofFrame: */
+
 static NoDbgRegParms sqInt
 fieldofFrame(sqInt index, char *theFP)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

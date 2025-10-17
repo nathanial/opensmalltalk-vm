@@ -1,5 +1,12 @@
 /* Extracted from interp.c:31120 (function assertInnerValidFreeObject). */
 
+/*	we don't want to inline so we can nest that in an assertion with the
+	return true so the production VM does not generate any code here, while in
+	simulation, the code breaks on the assertion we want to.
+ */
+
+	/* SpurMemoryManager>>#assertInnerValidFreeObject: */
+
 static NoDbgRegParms NeverInline sqInt
 assertInnerValidFreeObject(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,10 @@
 /* Extracted from interp.c:56444 (function lookupSelectorinClass). */
 
+/*	Lookup selector in class. Answer the method or nil. This is a debugging
+	routine. It does /not/ side-effect lookupClass or newMethod. */
+
+	/* StackInterpreter>>#lookupSelector:inClass: */
+
 sqInt
 lookupSelectorinClass(sqInt selector, sqInt class)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

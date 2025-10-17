@@ -1,5 +1,12 @@
 /* Extracted from interp.c:11049 (function cStringOrNullFor). */
 
+/*	Answer either a malloced string with the null-terminated contents of oop
+	if oop is a string,
+	or the null pointer if oop is nil, or fail. It is the client's
+	responsibility to free the string later. */
+
+	/* InterpreterPrimitives>>#cStringOrNullFor: */
+
 char *
 cStringOrNullFor(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

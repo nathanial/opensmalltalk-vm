@@ -1,5 +1,7 @@
 /* Extracted from interp.c:33281 (function classLargeNegativeInteger). */
 
+	/* SpurMemoryManager>>#classLargeNegativeInteger */
+
 sqInt
 classLargeNegativeInteger(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

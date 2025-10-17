@@ -1,5 +1,7 @@
 /* Extracted from interp.c:55043 (function isLargePositiveIntegerObject). */
 
+	/* StackInterpreter>>#isLargePositiveIntegerObject: */
+
 sqInt
 isLargePositiveIntegerObject(sqInt oop)
 {

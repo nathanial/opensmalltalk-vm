@@ -1,5 +1,7 @@
 /* Extracted from interp.c:69216 (function primitivePerform). */
 
+	/* StackInterpreterPrimitives>>#primitivePerform */
+
 static void
 primitivePerform(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

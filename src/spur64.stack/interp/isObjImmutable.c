@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37484 (function isObjImmutable). */
 
+	/* SpurMemoryManager>>#isObjImmutable: */
+
 static NoDbgRegParms sqInt
 isObjImmutable(sqInt anOop)
 {

@@ -1,5 +1,9 @@
 /* Extracted from interp.c:61051 (function printStackReferencesTo). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printStackReferencesTo: */
+
 void
 printStackReferencesTo(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

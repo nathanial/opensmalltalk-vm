@@ -1,5 +1,7 @@
 /* Extracted from interp.c:31254 (function becomewith). */
 
+	/* SpurMemoryManager>>#become:with: */
+
 sqInt
 becomewith(sqInt array1, sqInt array2)
 {

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37117 (function invalidCompactClassError). */
 
+	/* SpurMemoryManager>>#invalidCompactClassError: */
+
 static NoDbgRegParms void
 invalidCompactClassError(const char *className)
 {

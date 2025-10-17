@@ -1,5 +1,12 @@
 /* Extracted from interp.c:54633 (function handleStackOverflowOrEventAllowContextSwitch). */
 
+/*	The stackPointer is below the stackLimit. This is either because of a
+	stack overflow or the setting of stackLimit to indicate a possible
+	interrupt. Check for stackOverflow and interrupts anddeal with each
+	appropriately. Answer if a context switch occurred. */
+
+	/* StackInterpreter>>#handleStackOverflowOrEventAllowContextSwitch: */
+
 static NoDbgRegParms sqInt
 handleStackOverflowOrEventAllowContextSwitch(sqInt mayContextSwitch)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:25893 (function primitiveYield). */
 
+/*	Primitively do the equivalent of Process>yield, avoiding the overhead of a
+	fork and a wait in the standard implementation.
+ */
+
+	/* InterpreterPrimitives>>#primitiveYield */
+
 static void
 primitiveYield(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

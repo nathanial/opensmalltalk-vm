@@ -1,5 +1,9 @@
 /* Extracted from interp.c:68674 (function primitiveInstVarAt). */
 
+/*	because of externalInstVar:ofContext: below */
+
+	/* StackInterpreterPrimitives>>#primitiveInstVarAt */
+
 static void
 primitiveInstVarAt(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

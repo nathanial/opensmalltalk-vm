@@ -1,5 +1,15 @@
 /* Extracted from interp.c:34653 (function ensureRoomOnObjStackAt). */
 
+/*	An obj stack is a stack of objects stored in a hidden root slot, such as
+	the markStack or the ephemeronQueue. It is a linked list of segments,
+	with the hot end at the head of the list. It is a word object. The stack
+	pointer is in ObjStackTopx and 0 means empty. The list goes through
+	ObjStackNextx. We don't want to shrink objStacks, since they're used
+	in GC and its good to keep their memory around. So unused pages
+	created by popping emptying pages are kept on the ObjStackFreex list. */
+
+	/* SpurMemoryManager>>#ensureRoomOnObjStackAt: */
+
 static NoDbgRegParms sqInt
 ensureRoomOnObjStackAt(sqInt objStackRootIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:19159 (function primitiveMaxIdentityHash). */
 
+	/* InterpreterPrimitives>>#primitiveMaxIdentityHash */
+
 static void
 primitiveMaxIdentityHash(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

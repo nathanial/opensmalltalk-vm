@@ -1,5 +1,12 @@
 /* Extracted from interp.c:40780 (function nilUnmarkedWeaklingSlots). */
 
+/*	Nil the unmarked slots in the weaklings on the
+	weakling stack, finalizing those that lost references.
+	Finally, empty the weaklingStack. */
+/*	for profiling */
+
+	/* SpurMemoryManager>>#nilUnmarkedWeaklingSlots */
+
 static NeverInline void
 nilUnmarkedWeaklingSlots(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

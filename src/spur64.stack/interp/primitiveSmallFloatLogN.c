@@ -1,5 +1,9 @@
 /* Extracted from interp.c:23605 (function primitiveSmallFloatLogN). */
 
+/*	Natural log. */
+
+	/* InterpreterPrimitives>>#primitiveSmallFloatLogN */
+
 static void
 primitiveSmallFloatLogN(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:55602 (function loadInitialContext). */
 
+	/* StackInterpreter>>#loadInitialContext */
+
 void
 loadInitialContext(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

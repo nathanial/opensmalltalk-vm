@@ -1,5 +1,13 @@
 /* Extracted from interp.c:52205 (function ensureCallerContext). */
 
+ /* SEND_PRINTING */
+
+
+/*	Answer the caller context for a frame. If the frame has a caller
+	frame that doesn't have a context, then marry the caller frame. */
+
+	/* StackInterpreter>>#ensureCallerContext: */
+
 static NoDbgRegParms sqInt
 ensureCallerContext(char *theFP)
 {

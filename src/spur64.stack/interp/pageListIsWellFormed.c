@@ -1,5 +1,14 @@
 /* Extracted from interp.c:10954 (function pageListIsWellFormed). */
 
+/*	Answer if the stack page list is well-formed.
+	MRUP-->used page<->used page<->used page<->used page<--LRUP
+	^ <-next-prev-> ^
+	| |
+	v <-prev-next-> v
+	free page<->free page<->free page<->free page */
+
+	/* CogStackPages>>#pageListIsWellFormed */
+
 static sqInt
 pageListIsWellFormed(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

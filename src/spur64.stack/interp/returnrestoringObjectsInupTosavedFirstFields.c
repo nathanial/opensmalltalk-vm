@@ -1,5 +1,9 @@
 /* Extracted from interp.c:45178 (function returnrestoringObjectsInupTosavedFirstFields). */
 
+/*	This is part of storeImageSegmentInto:outPointers:roots:. */
+
+	/* SpurMemoryManager>>#return:restoringObjectsIn:upTo:savedFirstFields: */
+
 static NoDbgRegParms sqInt
 returnrestoringObjectsInupTosavedFirstFields(sqInt errCode, sqInt reachableObjectsArray, sqInt limitOrTag, sqInt savedFirstFields)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

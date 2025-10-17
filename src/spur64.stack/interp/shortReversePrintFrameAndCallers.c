@@ -1,5 +1,7 @@
 /* Extracted from interp.c:63321 (function shortReversePrintFrameAndCallers). */
 
+	/* StackInterpreter>>#shortReversePrintFrameAndCallers: */
+
 static NoDbgRegParms sqInt
 shortReversePrintFrameAndCallers(char *aFramePointer)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

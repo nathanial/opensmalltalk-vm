@@ -1,5 +1,9 @@
 /* Extracted from interp.c:11274 (function magnitude64BitIntegerForneg). */
 
+/*	Return a Large Integer object for the given integer magnitude and sign */
+
+	/* InterpreterPrimitives>>#magnitude64BitIntegerFor:neg: */
+
 static NoDbgRegParms sqInt
 magnitude64BitIntegerForneg(usqLong magnitude, sqInt isNegative)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:51800 (function divorceAllFrames). */
 
+	/* StackInterpreter>>#divorceAllFrames */
+
 static sqInt
 divorceAllFrames(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

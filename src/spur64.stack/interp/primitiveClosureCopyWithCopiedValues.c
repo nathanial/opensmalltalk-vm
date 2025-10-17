@@ -1,5 +1,7 @@
 /* Extracted from interp.c:66342 (function primitiveClosureCopyWithCopiedValues). */
 
+	/* StackInterpreterPrimitives>>#primitiveClosureCopyWithCopiedValues */
+
 static void
 primitiveClosureCopyWithCopiedValues(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

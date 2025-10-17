@@ -1,5 +1,12 @@
 /* Extracted from interp.c:56065 (function lookupInMethodCacheSelclassTag). */
 
+/*	This method implements a simple method lookup cache. If an entry for the
+	given selector and classTag is found in the cache, set the values of
+	'newMethod' and
+	'primitiveFunctionPointer' and answer true. Otherwise, answer false. */
+
+	/* StackInterpreter>>#lookupInMethodCacheSel:classTag: */
+
 static NoDbgRegParms sqInt
 lookupInMethodCacheSelclassTag(sqInt selector, sqInt classTag)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

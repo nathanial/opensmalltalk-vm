@@ -1,5 +1,7 @@
 /* Extracted from interp.c:46645 (function updateListStartingAt). */
 
+	/* SpurMemoryManager>>#updateListStartingAt: */
+
 static NoDbgRegParms void
 updateListStartingAt(sqInt freeNode)
 {

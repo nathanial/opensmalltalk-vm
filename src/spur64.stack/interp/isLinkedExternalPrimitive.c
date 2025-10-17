@@ -1,5 +1,7 @@
 /* Extracted from interp.c:55052 (function isLinkedExternalPrimitive). */
 
+	/* StackInterpreter>>#isLinkedExternalPrimitive: */
+
 static NoDbgRegParms sqInt
 isLinkedExternalPrimitive(sqInt methodObj)
 {

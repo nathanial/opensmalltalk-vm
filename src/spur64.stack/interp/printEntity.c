@@ -1,5 +1,9 @@
 /* Extracted from interp.c:42785 (function printEntity). */
 
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printEntity: */
+
 void
 printEntity(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

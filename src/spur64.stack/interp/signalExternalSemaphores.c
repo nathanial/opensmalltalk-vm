@@ -1,5 +1,9 @@
 /* Extracted from interp.c:63371 (function signalExternalSemaphores). */
 
+/*	Signal all requested semaphores. Answer if a context switch has occurred. */
+
+	/* StackInterpreter>>#signalExternalSemaphores */
+
 static sqInt
 signalExternalSemaphores(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

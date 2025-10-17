@@ -1,5 +1,9 @@
 /* Extracted from interp.c:26424 (function addressAfter). */
 
+/*	Answer the address immediately following an object. */
+
+	/* Spur64BitMemoryManager>>#addressAfter: */
+
 static NoDbgRegParms usqInt
 addressAfter(sqInt objOop)
 {

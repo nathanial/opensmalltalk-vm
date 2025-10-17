@@ -1,5 +1,10 @@
 /* Extracted from interp.c:14262 (function primitiveCompareWith). */
 
+/*	<string1> primitiveCompareWith: string2 [collated: order] */
+/*	1 - fetch the parameters from the stack */
+
+	/* InterpreterPrimitives>>#primitiveCompareWith */
+
 EXPORT(void)
 primitiveCompareWith(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

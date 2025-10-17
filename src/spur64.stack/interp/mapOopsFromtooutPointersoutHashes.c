@@ -1,5 +1,22 @@
 /* Extracted from interp.c:39088 (function mapOopsFromtooutPointersoutHashes). */
 
+/*	This is part of storeImageSegmentInto:outPointers:roots:.
+	Now scan, adding out pointers to the outPointersArray; all objects in
+	arrayOfObjects have had their first fields set to point to their copies in
+	segmentWordArray. Answer
+	the outIndex if the scan succeded. Fail if outPointers is too small and
+	answer -1.
+	
+	As established by copyObj:toAddr:startAt:stopAt:savedFirstFields:index:,
+	the marked bit is set for all objects in the segment
+	the remembered bit is set for all classes in the segment.
+	
+	Class indices should be set as follows (see
+	assignClassIndicesAndPinFrom:to:outPointers:filling:) - class indices for
+	classes in the segment */
+
+	/* SpurMemoryManager>>#mapOopsFrom:to:outPointers:outHashes: */
+
 static NoDbgRegParms sqInt
 mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr, sqInt outPointerArray, sqInt savedOutHashes)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

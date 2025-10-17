@@ -1,5 +1,11 @@
 /* Extracted from interp.c:58469 (function primitiveEventProcessingControl). */
 
+/*	With 0 args answers whether ioProcessEvents is enabled and being called.
+	With 1 arg expects a boolean which will enable ioProcessEvents if true and
+	disable it if false, answering its previous state. */
+
+	/* StackInterpreter>>#primitiveEventProcessingControl */
+
 EXPORT(void)
 primitiveEventProcessingControl(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

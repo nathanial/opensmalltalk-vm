@@ -1,5 +1,15 @@
 /* Extracted from interp.c:49441 (function readHeapFromImageFiledataBytes). */
 
+/*	Read numBytes of image data from f into memory at memoryBaseForImageRead.
+	Answer the number of bytes written. In addition, read each segment, build
+	up the
+	segment info for swizzling, while eliminating the bridge objects at the
+	end of each
+	segment that specify the distance to and the size of the subsequent
+	segment.  */
+
+	/* SpurSegmentManager>>#readHeapFromImageFile:dataBytes: */
+
 static NoDbgRegParms sqInt
 readHeapFromImageFiledataBytes(sqImageFile f, sqInt numBytes)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

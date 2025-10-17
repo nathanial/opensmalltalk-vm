@@ -1,5 +1,7 @@
 /* Extracted from interp.c:33106 (function classDoubleWordArray). */
 
+	/* SpurMemoryManager>>#classDoubleWordArray */
+
 sqInt
 classDoubleWordArray(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

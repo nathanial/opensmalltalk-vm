@@ -1,5 +1,11 @@
 /* Extracted from interp.c:19976 (function primitiveObjectAtPut). */
 
+/*	Store a literal into a CompiledMethod at the given index. Defined for
+	CompiledMethods only.
+ */
+
+	/* InterpreterPrimitives>>#primitiveObjectAtPut */
+
 static void
 primitiveObjectAtPut(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

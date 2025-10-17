@@ -1,5 +1,9 @@
 /* Extracted from interp.c:45109 (function returnrestoringObjectsInsavedFirstFieldsandsavedHashes). */
 
+/*	This is part of storeImageSegmentInto:outPointers:roots:. */
+
+	/* SpurMemoryManager>>#return:restoringObjectsIn:savedFirstFields:and:savedHashes: */
+
 static NoDbgRegParms sqInt
 returnrestoringObjectsInsavedFirstFieldsandsavedHashes(sqInt errCode, sqInt reachableObjectsArray, sqInt savedFirstFields, sqInt outPointersArray, sqInt savedHashes)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

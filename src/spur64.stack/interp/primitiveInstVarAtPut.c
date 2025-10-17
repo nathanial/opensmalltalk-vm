@@ -1,5 +1,7 @@
 /* Extracted from interp.c:68799 (function primitiveInstVarAtPut). */
 
+	/* StackInterpreterPrimitives>>#primitiveInstVarAtPut */
+
 static void
 primitiveInstVarAtPut(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

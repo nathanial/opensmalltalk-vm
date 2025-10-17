@@ -1,5 +1,9 @@
 /* Extracted from interp.c:44200 (function printOopsExcept). */
 
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printOopsExcept: */
+
 NeverInline void
 printOopsExcept(sqInt (*function)(sqInt))
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

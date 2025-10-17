@@ -1,5 +1,7 @@
 /* Extracted from interp.c:33299 (function classOrNilAtIndex). */
 
+	/* SpurMemoryManager>>#classOrNilAtIndex: */
+
 sqInt
 classOrNilAtIndex(sqInt classIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

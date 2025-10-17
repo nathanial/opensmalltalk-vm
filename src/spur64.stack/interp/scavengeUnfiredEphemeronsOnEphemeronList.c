@@ -1,5 +1,11 @@
 /* Extracted from interp.c:29411 (function scavengeUnfiredEphemeronsOnEphemeronList). */
 
+/*	There may be ephemerons to be scavenged on the ephemeronList.
+	Scavenge any with unfired (live) keys, removing them from the
+	list, and answer if any with unfired keys were found. */
+
+	/* SpurGenerationScavenger>>#scavengeUnfiredEphemeronsOnEphemeronList */
+
 static sqInt
 scavengeUnfiredEphemeronsOnEphemeronList(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37004 (function instantiateClass). */
 
+	/* SpurMemoryManager>>#instantiateClass: */
+
 static NoDbgRegParms sqInt
 instantiateClass(sqInt classObj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

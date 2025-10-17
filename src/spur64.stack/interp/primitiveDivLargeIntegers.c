@@ -1,5 +1,9 @@
 /* Extracted from interp.c:14902 (function primitiveDivLargeIntegers). */
 
+/*	Primitive arithmetic operations for large integers in 64 bit range */
+
+	/* InterpreterPrimitives>>#primitiveDivLargeIntegers */
+
 EXPORT(void)
 primitiveDivLargeIntegers(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

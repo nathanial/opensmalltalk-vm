@@ -1,5 +1,48 @@
 /* Extracted from interp.c:45764 (function storeImageSegmentIntooutPointersroots). */
 
+/*	This primitive is called from Squeak as...
+	<imageSegment> storeSegmentFor: arrayOfRoots into: aWordArray outPointers:
+	anArray. 
+	This primitive will store a binary image segment (in the same format as
+	objects in the heap) of the
+	set of objects in arrayOfObjects. All pointers from within the set to
+	objects outside the set will be
+	copied into the array of outPointers. In their place in the image segment
+	will be an oop equal to the
+	offset in the outPointer array (the first would be 8), but with the high
+	bit set.
+	
+	Since Spur has a class table the load primitive must insert classes that
+	have instances into the
+	class table. This primitive marks such classes using the isRemembered bit,
+	which isn't meaningful
+	as a remembered bit in the segment.
+	
+	The primitive expects the segmentWordArray and outPointerArray to be more
+	than adequately long.
+	In this case it returns normally, and truncates the two arrays to exactly
+	the right size.
+	
+	The primitive can fail for the following reasons with the specified
+	failure codes:
+	PrimErrGenericFailure:		the segmentWordArray is too small for the version
+	stamp PrimErrWritePastObject:		the segmentWordArray is too small to
+	contain the reachable objects
+	PrimErrBadIndex:				the outPointerArray is too small
+	PrimErrNoMemory:			there is insufficient free space to store the array
+	answered by objectsReachableFromRoots:,
+	or the savedFirstFields and savedOutHashes arrays.
+	PrimErrNeedCompaction:		a GC is needed to make room for the array answered
+	by objectsReachableFromRoots:
+	PrimErrLimitExceeded:		there is no room in the hash field to store out
+	pointer indices or class references,
+	or the outPointerArray is larger than the max value of the hash field.
+	PrimErrNoModification:		the segmentWordArrayArg or outPointerArrayArg are
+	immutable PrimErrObjectIsPinned:		the segmentWordArrayArg or
+	outPointerArrayArg are pinned */
+
+	/* SpurMemoryManager>>#storeImageSegmentInto:outPointers:roots: */
+
 static NoDbgRegParms sqInt
 storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg, sqInt outPointersArrayArg, sqInt arrayOfRootsArg)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

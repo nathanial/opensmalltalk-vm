@@ -1,5 +1,11 @@
 /* Extracted from interp.c:53560 (function findSPOfon). */
 
+/*	Search for the stack pointer for theFP. This points to the hottest item on
+	the frame's stack.
+	DO NOT CALL THIS WITH theFP == localFP OR theFP == framePointer! */
+
+	/* StackInterpreter>>#findSPOf:on: */
+
 static NoDbgRegParms char *
 findSPOfon(char *theFP, StackPage *thePage)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

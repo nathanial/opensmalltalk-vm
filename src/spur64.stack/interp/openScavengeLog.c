@@ -1,5 +1,7 @@
 /* Extracted from interp.c:28494 (function openScavengeLog). */
 
+	/* SpurGenerationScavenger>>#openScavengeLog */
+
 void
 openScavengeLog(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

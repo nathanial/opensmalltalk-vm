@@ -1,5 +1,7 @@
 /* Extracted from interp.c:61461 (function readImageFromFileHeapSizeStartingAt). */
 
+	/* StackInterpreter>>#readImageFromFile:HeapSize:StartingAt: */
+
 size_t
 readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squeakFileOffsetType imageOffset)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

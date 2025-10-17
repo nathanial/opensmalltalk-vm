@@ -1,5 +1,13 @@
 /* Extracted from interp.c:57633 (function maybeLeakCheckExternalPrimCall). */
 
+/*	Assert-only check for leaks after external prim calls if checkForLeaks
+	includes the GCCheckPrimCall flag.
+	This is ionly really useful from a low-level C debugger, hence no
+	accessors for checkedPluginName.
+ */
+
+	/* StackInterpreter>>#maybeLeakCheckExternalPrimCall: */
+
 static NoDbgRegParms sqInt
 maybeLeakCheckExternalPrimCall(sqInt aMethodObj)
 {

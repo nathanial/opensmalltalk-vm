@@ -1,5 +1,10 @@
 /* Extracted from interp.c:21928 (function primitiveSetDisplayMode). */
 
+/*	Ask the GUI to set the requested display mode.
+	See DisplayScreen class depth:width:height:fullscreen: */
+
+	/* InterpreterPrimitives>>#primitiveSetDisplayMode */
+
 static void
 primitiveSetDisplayMode(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

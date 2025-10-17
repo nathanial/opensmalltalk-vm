@@ -1,5 +1,12 @@
 /* Extracted from interp.c:38888 (function longPrintReferencesTo). */
 
+/*	Scan the heap long printing the oops of any and all objects that refer to
+	anOop 
+ */
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#longPrintReferencesTo: */
+
 void
 longPrintReferencesTo(sqInt anOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

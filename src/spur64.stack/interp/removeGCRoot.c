@@ -1,5 +1,9 @@
 /* Extracted from interp.c:45090 (function removeGCRoot). */
 
+/*	Remove the given variable location to the extra roots table. */
+
+	/* SpurMemoryManager>>#removeGCRoot: */
+
 sqInt
 removeGCRoot(sqInt *varLoc)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

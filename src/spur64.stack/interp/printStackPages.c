@@ -1,5 +1,9 @@
 /* Extracted from interp.c:60936 (function printStackPages). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printStackPages */
+
 void
 printStackPages(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

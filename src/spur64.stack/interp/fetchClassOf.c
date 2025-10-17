@@ -1,5 +1,7 @@
 /* Extracted from interp.c:35036 (function fetchClassOf). */
 
+	/* SpurMemoryManager>>#fetchClassOf: */
+
 sqInt
 fetchClassOf(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

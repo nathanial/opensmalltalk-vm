@@ -1,5 +1,12 @@
 /* Extracted from interp.c:47884 (function reinitializeScanFrom). */
 
+/*	Search for firstFreeObject and firstMobileObject from initialObject, which
+	is the
+	hiddenRootsObject on the first pass, and the objectAfterLastMobileObject
+	on subsequent passes). */
+
+	/* SpurPlanningCompactor>>#reinitializeScanFrom: */
+
 static NoDbgRegParms void
 reinitializeScanFrom(sqInt initialObject)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

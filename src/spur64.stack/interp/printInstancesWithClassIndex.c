@@ -1,5 +1,12 @@
 /* Extracted from interp.c:43498 (function printInstancesWithClassIndex). */
 
+/*	Scan the heap printing the oops of any and all objects whose classIndex
+	equals the argument.
+ */
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printInstancesWithClassIndex: */
+
 void
 printInstancesWithClassIndex(sqInt classIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

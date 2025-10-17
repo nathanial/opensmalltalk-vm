@@ -1,5 +1,11 @@
 /* Extracted from interp.c:22757 (function primitiveSizeInBytesOfInstance). */
 
+/*	Answer the byte size of an instance of the receiver. If num args > 0
+	then the last argument is a variable size and the size answered is the
+	size of an instance of the receiver with that many indexable elements. */
+
+	/* InterpreterPrimitives>>#primitiveSizeInBytesOfInstance */
+
 static void
 primitiveSizeInBytesOfInstance(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

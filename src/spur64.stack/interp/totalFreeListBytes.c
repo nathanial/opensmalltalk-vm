@@ -1,5 +1,12 @@
 /* Extracted from interp.c:46275 (function totalFreeListBytes). */
 
+/*	This method both computes the actual number of free bytes by traversing
+	all free objects
+	on the free lists/tree, and checks that the tree is valid. It is used
+	mainly by checkFreeSpace. */
+
+	/* SpurMemoryManager>>#totalFreeListBytes */
+
 static sqInt
 totalFreeListBytes(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

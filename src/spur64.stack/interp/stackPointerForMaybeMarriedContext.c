@@ -1,5 +1,9 @@
 /* Extracted from interp.c:64370 (function stackPointerForMaybeMarriedContext). */
 
+/*	Return the stackPointer of a Context or BlockContext. */
+
+	/* StackInterpreter>>#stackPointerForMaybeMarriedContext: */
+
 static NoDbgRegParms sqInt
 stackPointerForMaybeMarriedContext(sqInt aContext)
 {

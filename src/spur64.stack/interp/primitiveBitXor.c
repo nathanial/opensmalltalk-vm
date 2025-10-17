@@ -1,5 +1,7 @@
 /* Extracted from interp.c:13069 (function primitiveBitXor). */
 
+	/* InterpreterPrimitives>>#primitiveBitXor */
+
 static void
 primitiveBitXor(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

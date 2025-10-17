@@ -1,5 +1,23 @@
 /* Extracted from interp.c:53740 (function followForwardingPointersOfReceiversInStackZone). */
 
+/*	Spur's become: is lazy, turning the becommed object into a forwarding
+	object to the other.
+	The read-barrier is minimised by arranging that forwarding pointers will
+	fail a method cache
+	probe, since notionally objects' internals are accessed only via sending
+	messages to them,
+	the exception is primitives that access the internals of the non-receiver
+	argument(s). 
+	To avoid a read barrier on bytecode, literal and inst var fetch and
+	non-local return, we scan
+	the receivers (including the stacked receiver for non-local return) and
+	method references
+	in the stack zone and follow any forwarded ones. This is of course way
+	cheaper than
+	scanning all of memory as in the old become. */
+
+	/* StackInterpreter>>#followForwardingPointersOfReceiversInStackZone */
+
 static void
 followForwardingPointersOfReceiversInStackZone(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

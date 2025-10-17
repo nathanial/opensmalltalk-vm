@@ -1,5 +1,10 @@
 /* Extracted from interp.c:49137 (function bridgeFromto). */
 
+/*	Create a bridge from aSegment to the next segment,
+	or create a terminating bridge if there is no next segment. */
+
+	/* SpurSegmentManager>>#bridgeFrom:to: */
+
 static NoDbgRegParms void
 bridgeFromto(SpurSegmentInfo *aSegment, SpurSegmentInfo *nextSegmentOrNil)
 {

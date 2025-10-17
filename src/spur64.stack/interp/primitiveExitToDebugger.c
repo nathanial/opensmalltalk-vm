@@ -1,5 +1,7 @@
 /* Extracted from interp.c:15136 (function primitiveExitToDebugger). */
 
+	/* InterpreterPrimitives>>#primitiveExitToDebugger */
+
 static void
 primitiveExitToDebugger(void)
 {

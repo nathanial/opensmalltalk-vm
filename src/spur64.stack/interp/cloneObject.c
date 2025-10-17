@@ -1,5 +1,7 @@
 /* Extracted from interp.c:33675 (function cloneObject). */
 
+	/* SpurMemoryManager>>#cloneObject: */
+
 sqInt
 cloneObject(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

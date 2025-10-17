@@ -1,5 +1,29 @@
 /* Extracted from interp.c:26313 (function initializeStacknumSlotspageSize). */
 
+/*	Initialize the stack pages. For testing I want stack addresses to be
+	disjoint from
+	normal memory addresses so stack addresses are negative. The first address
+	is -pageSize bytes. So for example if there are 1024 bytes per page and 3
+	pages then the pages are organized as
+	
+	byte address: -1024 <-> -2047 | -2048 <-> -3071 | -3072 <-> -4096 |
+	page 3			page 2			page 1
+	mem index: 769 <-> 513 | 512 <-> 257 | 256 <-> 1 |
+	
+	The byte address is the external address corresponding to a real address
+	in the VM.
+	mem index is the index in the memory Array holding the stack, an index
+	internal to
+	the stack pages. The first stack page allocated will be the last page in
+	the array of pages
+	at the highest effective address. Its base address be -1024 and grow down
+	towards -2047. */
+/*	The lFoo's are to get around the foo->variable scheme in the C call to
+	allocStackPages below.
+ */
+
+	/* InterpreterStackPages>>#initializeStack:numSlots:pageSize: */
+
 static NoDbgRegParms void
 initializeStacknumSlotspageSize(char *theStackPages, sqInt stackSlots, sqInt slotsPerPage)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

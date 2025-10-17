@@ -1,5 +1,7 @@
 /* Extracted from interp.c:55518 (function lengthOfNameOfClass). */
 
+	/* StackInterpreter>>#lengthOfNameOfClass: */
+
 static NoDbgRegParms sqInt
 lengthOfNameOfClass(sqInt classOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

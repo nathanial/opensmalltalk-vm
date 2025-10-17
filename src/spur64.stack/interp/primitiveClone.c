@@ -1,5 +1,12 @@
 /* Extracted from interp.c:66292 (function primitiveClone). */
 
+/*	Return a shallow copy of the receiver.
+	Special-case non-single contexts (because of context-to-stack mapping).
+	Can't fail for contexts cuz of image context instantiation code (sigh). */
+/*	because of cloneContext: below */
+
+	/* StackInterpreterPrimitives>>#primitiveClone */
+
 static void
 primitiveClone(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

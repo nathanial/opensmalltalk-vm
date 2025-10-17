@@ -1,5 +1,14 @@
 /* Extracted from interp.c:38025 (function lastPointerOfWhileSwizzling). */
 
+/*	Answer the byte offset of the last pointer field of the given object.
+	Works with CompiledMethods, as well as ordinary objects.
+	Does not examine the stack pointer of contexts to be sure to swizzle
+	the nils that fill contexts on snapshot.
+	It is invariant that on image load no object contains a forwarding
+	pointer, and the image contains no forwarders (see class comment). */
+
+	/* SpurMemoryManager>>#lastPointerOfWhileSwizzling: */
+
 static NoDbgRegParms sqInt
 lastPointerOfWhileSwizzling(sqInt objOop)
 {

@@ -1,5 +1,10 @@
 /* Extracted from interp.c:65033 (function synchronousSignal). */
 
+/*	Signal the given semaphore from within the interpreter.
+	Answer if the current process was preempted. */
+
+	/* StackInterpreter>>#synchronousSignal: */
+
 static NoDbgRegParms sqInt
 synchronousSignal(sqInt aSemaphore)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

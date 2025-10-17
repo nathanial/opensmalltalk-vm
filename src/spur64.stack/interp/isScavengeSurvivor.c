@@ -1,5 +1,17 @@
 /* Extracted from interp.c:28426 (function isScavengeSurvivor). */
 
+/*	Answer whether the oop has survived a scavenge. This is equivalent to
+	| target |
+	(manager isImmediate: oop) ifTrue:
+	[^true].
+	target := (manager isForwarded: oop)
+	ifTrue: [manager followForwarded: oop]
+	ifFalse: [oop].
+	^((manager isInEden: target)
+	or: [(manager isInPastSpace: target)]) not */
+
+	/* SpurGenerationScavenger>>#isScavengeSurvivor: */
+
 static NoDbgRegParms sqInt
 isScavengeSurvivor(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

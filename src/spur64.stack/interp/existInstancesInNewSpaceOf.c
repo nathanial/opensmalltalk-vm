@@ -1,5 +1,7 @@
 /* Extracted from interp.c:34869 (function existInstancesInNewSpaceOf). */
 
+	/* SpurMemoryManager>>#existInstancesInNewSpaceOf: */
+
 static NoDbgRegParms sqInt
 existInstancesInNewSpaceOf(sqInt classObj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

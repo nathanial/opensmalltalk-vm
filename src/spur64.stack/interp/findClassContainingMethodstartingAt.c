@@ -1,5 +1,7 @@
 /* Extracted from interp.c:53103 (function findClassContainingMethodstartingAt). */
 
+	/* StackInterpreter>>#findClassContainingMethod:startingAt: */
+
 static NoDbgRegParms sqInt
 findClassContainingMethodstartingAt(sqInt meth, sqInt classObj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

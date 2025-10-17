@@ -1,5 +1,12 @@
 /* Extracted from interp.c:19296 (function primitiveMultipleBytecodeSetsActive). */
 
+/*	Given one boolean parameter, set multipleBytecodeSetsActive to inform
+	the VM that alternate bytecode sets such as SistaV1 are now in use and
+	that the image format number should be updated accordingly. With zero
+	parameters, answer the current value of multipleBytecodeSetsActive. */
+
+	/* InterpreterPrimitives>>#primitiveMultipleBytecodeSetsActive */
+
 EXPORT(sqInt)
 primitiveMultipleBytecodeSetsActive(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

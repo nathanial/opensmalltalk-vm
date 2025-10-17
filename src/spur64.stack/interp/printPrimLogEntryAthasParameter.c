@@ -1,5 +1,11 @@
 /* Extracted from interp.c:60715 (function printPrimLogEntryAthasParameter). */
 
+/*	print the entry and answer if it takes a parameter (as the following
+	entry) 
+ */
+
+	/* StackInterpreter>>#printPrimLogEntryAt:hasParameter: */
+
 static NoDbgRegParms sqInt
 printPrimLogEntryAthasParameter(sqInt i, sqInt hasParameter)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

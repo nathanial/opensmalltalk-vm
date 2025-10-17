@@ -1,5 +1,9 @@
 /* Extracted from interp.c:45340 (function scavengingGCTenuringIf). */
 
+/*	Run the scavenger. */
+
+	/* SpurMemoryManager>>#scavengingGCTenuringIf: */
+
 static NoDbgRegParms void
 scavengingGCTenuringIf(sqInt tenuringCriterion)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

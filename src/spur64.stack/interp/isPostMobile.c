@@ -1,5 +1,9 @@
 /* Extracted from interp.c:47715 (function isPostMobile). */
 
+/*	For asserts */
+
+	/* SpurPlanningCompactor>>#isPostMobile: */
+
 static NoDbgRegParms sqInt
 isPostMobile(sqInt obj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

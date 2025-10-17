@@ -1,5 +1,9 @@
 /* Extracted from interp.c:46546 (function unlinkSolitaryFreeTreeNode). */
 
+/*	Unlink a freeTreeNode. Assumes the node has no list (null next link). */
+
+	/* SpurMemoryManager>>#unlinkSolitaryFreeTreeNode: */
+
 static NoDbgRegParms void
 unlinkSolitaryFreeTreeNode(sqInt freeTreeNode)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

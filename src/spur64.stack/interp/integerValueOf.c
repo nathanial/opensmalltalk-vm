@@ -1,5 +1,9 @@
 /* Extracted from interp.c:27313 (function integerValueOf). */
 
+/*	Translator produces 'oop >> 3' */
+
+	/* Spur64BitMemoryManager>>#integerValueOf: */
+
 sqInt
 integerValueOf(sqInt oop)
 {

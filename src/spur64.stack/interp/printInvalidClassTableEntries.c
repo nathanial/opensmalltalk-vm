@@ -1,5 +1,10 @@
 /* Extracted from interp.c:43607 (function printInvalidClassTableEntries). */
 
+/*	Print the objects in the classTable that have bad hashes. */
+/*	useful for debugging */
+
+	/* SpurMemoryManager>>#printInvalidClassTableEntries */
+
 void
 printInvalidClassTableEntries(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

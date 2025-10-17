@@ -1,5 +1,12 @@
 /* Extracted from interp.c:35535 (function followForwardedObjectFieldstoDepth). */
 
+/*	Follow pointers in the object to depth.
+	Answer if any forwarders were found.
+	How to avoid cyclic structures?? A temporary mark bit? eem 6/22/2020 no
+	need since depth is always finite. */
+
+	/* SpurMemoryManager>>#followForwardedObjectFields:toDepth: */
+
 static NoDbgRegParms sqInt
 followForwardedObjectFieldstoDepth(sqInt objOop, sqInt depth)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

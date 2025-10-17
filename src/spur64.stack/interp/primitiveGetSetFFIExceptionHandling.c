@@ -1,5 +1,7 @@
 /* Extracted from interp.c:68585 (function primitiveGetSetFFIExceptionHandling). */
 
+	/* StackInterpreterPrimitives>>#primitiveGetSetFFIExceptionHandling */
+
 static void
 primitiveGetSetFFIExceptionHandling(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

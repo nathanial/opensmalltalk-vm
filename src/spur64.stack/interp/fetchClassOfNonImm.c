@@ -1,5 +1,7 @@
 /* Extracted from interp.c:34999 (function fetchClassOfNonImm). */
 
+	/* SpurMemoryManager>>#fetchClassOfNonImm: */
+
 static NoDbgRegParms NeverInline sqInt
 fetchClassOfNonImm(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

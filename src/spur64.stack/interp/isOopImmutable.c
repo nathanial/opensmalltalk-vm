@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37527 (function isOopImmutable). */
 
+	/* SpurMemoryManager>>#isOopImmutable: */
+
 sqInt
 isOopImmutable(sqInt oop)
 {

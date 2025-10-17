@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37333 (function isInClassTable). */
 
+	/* SpurMemoryManager>>#isInClassTable: */
+
 static NoDbgRegParms sqInt
 isInClassTable(sqInt objOop)
 {

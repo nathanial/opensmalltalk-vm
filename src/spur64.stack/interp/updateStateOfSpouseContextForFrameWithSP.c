@@ -1,5 +1,12 @@
 /* Extracted from interp.c:65480 (function updateStateOfSpouseContextForFrameWithSP). */
 
+/*	Update the frame's spouse context with the frame's current state except
+	for the
+	sender and instruction pointer, which are used to mark the context as
+	married, and the receiver and method, which are already set. */
+
+	/* StackInterpreter>>#updateStateOfSpouseContextForFrame:WithSP: */
+
 static NoDbgRegParms void
 updateStateOfSpouseContextForFrameWithSP(char *theFP, char *theSP)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

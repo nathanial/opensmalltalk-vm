@@ -1,5 +1,7 @@
 /* Extracted from interp.c:28365 (function isInRememberedSet). */
 
+	/* SpurGenerationScavenger>>#isInRememberedSet: */
+
 static NoDbgRegParms sqInt
 isInRememberedSet(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

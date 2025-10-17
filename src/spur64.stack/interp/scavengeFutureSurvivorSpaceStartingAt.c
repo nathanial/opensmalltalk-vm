@@ -1,5 +1,10 @@
 /* Extracted from interp.c:28894 (function scavengeFutureSurvivorSpaceStartingAt). */
 
+/*	scavengeFutureSurvivorSpaceStartingAt: does a depth-first traversal of the
+	new objects starting at the one at initialAddress in futureSurvivorSpace. */
+
+	/* SpurGenerationScavenger>>#scavengeFutureSurvivorSpaceStartingAt: */
+
 static NoDbgRegParms void
 scavengeFutureSurvivorSpaceStartingAt(sqInt initialAddress)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

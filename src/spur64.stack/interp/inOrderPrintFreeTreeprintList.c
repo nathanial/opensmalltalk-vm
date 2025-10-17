@@ -1,5 +1,10 @@
 /* Extracted from interp.c:36856 (function inOrderPrintFreeTreeprintList). */
 
+/*	print free chunks in freeTree in order. */
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#inOrderPrintFreeTree:printList: */
+
 void
 inOrderPrintFreeTreeprintList(sqInt freeChunk, sqInt printNextList)
 {

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:46416 (function unlinkFreeChunkchunkBytes). */
 
+/*	Unlink a free object from the free lists. Do not alter totalFreeOldSpace.
+	Used for coalescing.
+ */
+
+	/* SpurMemoryManager>>#unlinkFreeChunk:chunkBytes: */
+
 static NoDbgRegParms sqInt
 unlinkFreeChunkchunkBytes(sqInt freeChunk, sqInt chunkBytes)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

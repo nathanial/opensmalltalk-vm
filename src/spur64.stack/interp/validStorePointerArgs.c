@@ -1,5 +1,7 @@
 /* Extracted from interp.c:46845 (function validStorePointerArgs). */
 
+	/* SpurMemoryManager>>#validStorePointerArgs:_:_: */
+
 static NoDbgRegParms sqInt
 validStorePointerArgs(sqInt fieldIndex, sqInt objOop, sqInt valuePointer)
 {

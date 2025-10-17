@@ -1,5 +1,11 @@
 /* Extracted from interp.c:16366 (function primitiveFlushCache). */
 
+/*	Clear the method lookup cache. This must be done after every programming
+	change. 
+ */
+
+	/* InterpreterPrimitives>>#primitiveFlushCache */
+
 static void
 primitiveFlushCache(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

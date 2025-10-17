@@ -1,5 +1,7 @@
 /* Extracted from interp.c:63190 (function shortPrintFrameAndCallers). */
 
+	/* StackInterpreter>>#shortPrintFrameAndCallers: */
+
 static NoDbgRegParms sqInt
 shortPrintFrameAndCallers(char *theFP)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

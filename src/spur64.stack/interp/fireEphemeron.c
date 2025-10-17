@@ -1,5 +1,7 @@
 /* Extracted from interp.c:35320 (function fireEphemeron). */
 
+	/* SpurMemoryManager>>#fireEphemeron: */
+
 static NoDbgRegParms void
 fireEphemeron(sqInt ephemeron)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

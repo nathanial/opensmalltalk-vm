@@ -1,5 +1,9 @@
 /* Extracted from interp.c:17483 (function primitiveGreaterOrEqualLargeIntegers). */
 
+/*	Primitive comparison operations for large integers in 64 bit range */
+
+	/* InterpreterPrimitives>>#primitiveGreaterOrEqualLargeIntegers */
+
 EXPORT(void)
 primitiveGreaterOrEqualLargeIntegers(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

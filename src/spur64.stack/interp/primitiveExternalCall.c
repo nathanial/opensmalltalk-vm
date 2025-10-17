@@ -1,5 +1,41 @@
 /* Extracted from interp.c:68214 (function primitiveExternalCall). */
 
+/*	Call an external primitive. External primitive methods first literals are
+	an array of
+	* The module name (String | Symbol)
+	* The function name (String | Symbol)
+	* The session ID (SmallInteger) [OBSOLETE], or in Spur, the metadata
+	(accessorDepth and flags; Integer))
+	* The function index (Integer) in the externalPrimitiveTable
+	For fast interpreter dispatch in subsequent invocations the
+	primitiveFunctionPointer in the method cache is rewritten, either to the
+	function itself, or to zero if the external
+	function is not found. This allows for fast responses as long as the
+	method stays in
+	the cache. The cache rewrite relies on lastMethodCacheProbeWrite which is
+	set in
+	addNewMethodToCache:.
+	Now that the VM flushes function addresses from its tables, the session ID
+	is obsolete,
+	but it is kept for backward compatibility. Also, a failed lookup is
+	reported specially. If a
+	method has been looked up and not been found, the function address is
+	stored as -1
+	(i.e., the SmallInteger -1 to distinguish from 16rFFFFFFFF which may be
+	returned from
+	lookup), and the primitive fails with PrimErrNotFound.
+ */
+/*	because the primitive accesses newMethod's first literal, which is checked
+	for explicitly in checkForAndFollowForwardedPrimitiveState
+ */
+/*	since call may invoke a callback */
+/*	since external primitive linkage is in first literal... */
+/*	Check for it being a method for primitiveDoPrimitiveWithArgs.
+	Fetch the first literal of the method; check its an Array of length 4.
+	Look at the function index in case it has been loaded before */
+
+	/* StackInterpreterPrimitives>>#primitiveExternalCall */
+
 static void
 primitiveExternalCall(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

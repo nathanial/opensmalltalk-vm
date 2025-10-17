@@ -1,5 +1,12 @@
 /* Extracted from interp.c:26060 (function signedMachineIntegerValueOfObj). */
 
+/*	Answer a signed value of an integer up to the size of a machine word.
+	The object is not an immediate and is hoped to be a LargeInteger of size
+	<= word size.
+ */
+
+	/* InterpreterPrimitives>>#signedMachineIntegerValueOfObj: */
+
 static NoDbgRegParms sqIntptr_t
 signedMachineIntegerValueOfObj(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

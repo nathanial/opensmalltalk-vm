@@ -1,5 +1,7 @@
 /* Extracted from interp.c:57705 (function methodClassAssociationOf). */
 
+	/* StackInterpreter>>#methodClassAssociationOf: */
+
 sqInt
 methodClassAssociationOf(sqInt methodPointer)
 {

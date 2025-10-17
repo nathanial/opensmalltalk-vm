@@ -1,5 +1,11 @@
 /* Extracted from interp.c:16385 (function primitiveFlushExternalPrimitives). */
 
+/*	Primitive. Flush all the existing external primitives in the image thus
+	forcing a reload on next invocation.
+ */
+
+	/* InterpreterPrimitives>>#primitiveFlushExternalPrimitives */
+
 static void
 primitiveFlushExternalPrimitives(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

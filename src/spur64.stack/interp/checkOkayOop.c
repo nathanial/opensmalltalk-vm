@@ -1,5 +1,12 @@
 /* Extracted from interp.c:32812 (function checkOkayOop). */
 
+/*	Verify that the given oop is legitimate. Check address, header, and size
+	but not class.
+	Answer true if OK. Otherwise print reason and answer false. */
+/*	useful for debugging */
+
+	/* SpurMemoryManager>>#checkOkayOop: */
+
 sqInt
 checkOkayOop(usqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:63815 (function specialSelector). */
 
+	/* StackInterpreter>>#specialSelector: */
+
 sqInt
 specialSelector(sqInt index)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

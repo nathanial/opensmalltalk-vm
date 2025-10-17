@@ -1,5 +1,7 @@
 /* Extracted from interp.c:57194 (function markAndTraceStackPage). */
 
+	/* StackInterpreter>>#markAndTraceStackPage: */
+
 static NoDbgRegParms void
 markAndTraceStackPage(StackPage *thePage)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

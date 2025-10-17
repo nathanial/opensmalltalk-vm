@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37827 (function isWeakNonImm). */
 
+	/* SpurMemoryManager>>#isWeakNonImm: */
+
 static NoDbgRegParms int
 isWeakNonImm(sqInt objOop)
 {

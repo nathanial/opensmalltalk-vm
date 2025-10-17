@@ -1,5 +1,9 @@
 /* Extracted from interp.c:18872 (function primitiveListExternalModule). */
 
+/*	Primitive. Answer the n-th loaded external module name. */
+
+	/* InterpreterPrimitives>>#primitiveListExternalModule */
+
 static void
 primitiveListExternalModule(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

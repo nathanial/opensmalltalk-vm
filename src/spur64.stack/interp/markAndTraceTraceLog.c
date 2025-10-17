@@ -1,5 +1,12 @@
 /* Extracted from interp.c:57281 (function markAndTraceTraceLog). */
 
+/*	The trace log is a circular buffer of pairs of entries. If there is an
+	entry at
+	traceLogIndex - 3 \\ TraceBufferSize it has entries. If there is something
+	at traceLogIndex it has wrapped. */
+
+	/* StackInterpreter>>#markAndTraceTraceLog */
+
 static void
 markAndTraceTraceLog(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

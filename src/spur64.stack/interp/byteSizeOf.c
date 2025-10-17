@@ -1,5 +1,7 @@
 /* Extracted from interp.c:31796 (function byteSizeOf). */
 
+	/* SpurMemoryManager>>#byteSizeOf: */
+
 sqInt
 byteSizeOf(sqInt oop)
 {

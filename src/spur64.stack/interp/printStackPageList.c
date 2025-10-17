@@ -1,5 +1,9 @@
 /* Extracted from interp.c:60899 (function printStackPageList). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printStackPageList */
+
 void
 printStackPageList(void)
 {

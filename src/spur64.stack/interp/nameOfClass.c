@@ -1,5 +1,10 @@
 /* Extracted from interp.c:58050 (function nameOfClass). */
 
+/*	Brain-damaged nameOfClass: for C VM. Does *not* answer Foo class for
+	metaclasses. Use e.g. classIsMeta: to avoid being fooled. */
+
+	/* StackInterpreter>>#nameOfClass: */
+
 static NoDbgRegParms char *
 nameOfClass(sqInt classOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

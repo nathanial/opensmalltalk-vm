@@ -1,5 +1,11 @@
 /* Extracted from interp.c:48858 (function useSegmentForSavedFirstFieldsSpace). */
 
+/*	Attempt to allocate a memory segment large enough to hold the
+	savedFirstFieldsSpace. Invoked when neither eden nor a large free chunk
+	are found to be big enough for the job. */
+
+	/* SpurPlanningCompactor>>#useSegmentForSavedFirstFieldsSpace: */
+
 static NoDbgRegParms sqInt
 useSegmentForSavedFirstFieldsSpace(sqInt spaceEstimate)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

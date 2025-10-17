@@ -1,5 +1,11 @@
 /* Extracted from interp.c:49509 (function restorePostSnapshot). */
 
+/*	Restore all shortened segments to their proper size, re-freeing the
+	trailing space.
+ */
+
+	/* SpurSegmentManager>>#restorePostSnapshot */
+
 static void
 restorePostSnapshot(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

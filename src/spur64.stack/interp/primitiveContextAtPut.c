@@ -1,5 +1,10 @@
 /* Extracted from interp.c:66773 (function primitiveContextAtPut). */
 
+/*	Special version of primitiveAtPut for accessing contexts.
+	Written to be varargs for use from mirror primitives. */
+
+	/* StackInterpreterPrimitives>>#primitiveContextAtPut */
+
 static void
 primitiveContextAtPut(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:49229 (function isEmptySegment). */
 
+	/* SpurSegmentManager>>#isEmptySegment: */
+
 static NoDbgRegParms sqInt
 isEmptySegment(SpurSegmentInfo *seg)
 {

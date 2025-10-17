@@ -1,5 +1,11 @@
 /* Extracted from interp.c:31231 (function becomeEffectFlagsFor). */
 
+/*	Answer the appropriate become effect flags for objOop, or 0 if none.
+	The effect flags determine how much work is done after the become
+	in following forwarding pointers, voiding method caches, etc. */
+
+	/* SpurMemoryManager>>#becomeEffectFlagsFor: */
+
 static NoDbgRegParms sqInt
 becomeEffectFlagsFor(sqInt objOop)
 {

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:13236 (function primitiveBytesLeft). */
 
+/*	Answer bytes available at this moment. For more meaningful 
+	results, calls to this primitive should be precedeed by a full 
+	or incremental garbage collection. */
+
+	/* InterpreterPrimitives>>#primitiveBytesLeft */
+
 static void
 primitiveBytesLeft(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

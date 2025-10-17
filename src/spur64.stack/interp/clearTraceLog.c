@@ -1,5 +1,7 @@
 /* Extracted from interp.c:51479 (function clearTraceLog). */
 
+	/* StackInterpreter>>#clearTraceLog */
+
 void
 clearTraceLog(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

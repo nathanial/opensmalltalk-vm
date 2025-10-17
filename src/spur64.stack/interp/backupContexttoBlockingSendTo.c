@@ -1,5 +1,14 @@
 /* Extracted from interp.c:50217 (function backupContexttoBlockingSendTo). */
 
+/*	Support for primitiveSuspend.
+	Assume suspendedContext is that of a process waiting on a condition
+	variable. Backup the PC of suspendedContext to the send that entered the
+	wait state.
+	primitiveEnterCriticalSection pushes false for blocked waiters. false must
+	be replaced by the condition variable. */
+
+	/* StackInterpreter>>#backupContext:toBlockingSendTo: */
+
 static NoDbgRegParms void
 backupContexttoBlockingSendTo(sqInt suspendedContext, sqInt conditionVariable)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

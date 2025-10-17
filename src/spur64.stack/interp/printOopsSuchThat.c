@@ -1,5 +1,9 @@
 /* Extracted from interp.c:44369 (function printOopsSuchThat). */
 
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printOopsSuchThat: */
+
 NeverInline void
 printOopsSuchThat(sqInt (*function)(sqInt))
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

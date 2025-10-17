@@ -1,5 +1,9 @@
 /* Extracted from interp.c:53678 (function followForwardedFrameContentsstackPointer). */
 
+/*	follow pointers in the current stack frame up to theSP. */
+
+	/* StackInterpreter>>#followForwardedFrameContents:stackPointer: */
+
 static NoDbgRegParms void
 followForwardedFrameContentsstackPointer(char *theFP, char *theSP)
 {

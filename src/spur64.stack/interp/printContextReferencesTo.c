@@ -1,5 +1,12 @@
 /* Extracted from interp.c:42696 (function printContextReferencesTo). */
 
+/*	Scan the heap printing the oops of any and all contexts that refer to
+	anOop 
+ */
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printContextReferencesTo: */
+
 void
 printContextReferencesTo(sqInt anOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

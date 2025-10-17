@@ -1,5 +1,11 @@
 /* Extracted from interp.c:43356 (function printFreeTreeChunk). */
 
+/*	Slang is blind-sided by the inlining of printFreeTreeChunk: into
+	printFreeTree. 
+ */
+
+	/* SpurMemoryManager>>#printFreeTreeChunk: */
+
 static NoDbgRegParms void
 printFreeTreeChunk(sqInt chunkOrZero)
 {

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:57091 (function markAndTracePrimTraceLog). */
 
+/*	The prim trace log is a circular buffer of objects. If there is
+	an entry at primTraceLogIndex - 1 \\ PrimTraceBufferSize it has entries.
+	If there is something at primTraceLogIndex it has wrapped. */
+
+	/* StackInterpreter>>#markAndTracePrimTraceLog */
+
 static void
 markAndTracePrimTraceLog(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,12 @@
 /* Extracted from interp.c:61894 (function reestablishContextPriorToCallback). */
 
+/*	callbackContext is an activation of
+	invokeCallback:[stack:registers:jmpbuf:]. Its sender is the VM's state
+	prior to the callback. Reestablish that state,
+	and mark calloutContext as dead. */
+
+	/* StackInterpreter>>#reestablishContextPriorToCallback: */
+
 sqInt
 reestablishContextPriorToCallback(sqInt callbackContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

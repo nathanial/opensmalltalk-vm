@@ -1,5 +1,16 @@
 /* Extracted from interp.c:32897 (function checkOopHasOkayClass). */
 
+/*	Attempt to verify that the given obj has a reasonable behavior. The class
+	must be a
+	valid, non-integer oop and must not be nilObj. It must be a pointers
+	object with three
+	or more fields. Finally, the instance specification field of the behavior
+	must match that
+	of the instance. If OK answer true. If not, print reason and answer false. */
+/*	useful for debugging */
+
+	/* SpurMemoryManager>>#checkOopHasOkayClass: */
+
 sqInt
 checkOopHasOkayClass(usqInt obj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,18 @@
 /* Extracted from interp.c:68640 (function primitiveIncrementalGC). */
 
+/*	Do a quick, incremental garbage collection and return the number of bytes
+	immediately available.
+	(Note: more space may be made available by doing a full garbage
+	collection. 
+ */
+/*	Do a quick, incremental garbage collection and return the number of bytes
+	immediately available.
+	(Note: more space may be made available by doing a full garbage
+	collection. 
+ */
+
+	/* StackInterpreterPrimitives>>#primitiveIncrementalGC */
+
 static void
 primitiveIncrementalGC(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

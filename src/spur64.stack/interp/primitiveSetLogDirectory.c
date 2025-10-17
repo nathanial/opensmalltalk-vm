@@ -1,5 +1,9 @@
 /* Extracted from interp.c:22232 (function primitiveSetLogDirectory). */
 
+/*	Primitive. Set the VM's log directory */
+
+	/* InterpreterPrimitives>>#primitiveSetLogDirectory */
+
 EXPORT(sqInt)
 primitiveSetLogDirectory(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

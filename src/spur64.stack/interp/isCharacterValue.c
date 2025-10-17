@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37175 (function isCharacterValue). */
 
+	/* SpurMemoryManager>>#isCharacterValue: */
+
 int
 isCharacterValue(sqInt anInteger)
 {

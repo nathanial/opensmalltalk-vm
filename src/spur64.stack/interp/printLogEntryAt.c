@@ -1,5 +1,7 @@
 /* Extracted from interp.c:60115 (function printLogEntryAt). */
 
+	/* StackInterpreter>>#printLogEntryAt: */
+
 static NoDbgRegParms void
 printLogEntryAt(sqInt i)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

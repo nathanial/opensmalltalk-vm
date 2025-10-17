@@ -1,5 +1,9 @@
 /* Extracted from interp.c:54324 (function getImageHeaderFlags). */
 
+/*	Answer the flags that are contained in the 7th long of the image header. */
+
+	/* StackInterpreter>>#getImageHeaderFlags */
+
 static sqInt
 getImageHeaderFlags(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

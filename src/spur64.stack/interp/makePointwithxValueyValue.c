@@ -1,5 +1,10 @@
 /* Extracted from interp.c:56769 (function makePointwithxValueyValue). */
 
+/*	make a Point xValue@yValue.
+	We know both will be integers so no value nor root checking is needed */
+
+	/* StackInterpreter>>#makePointwithxValue:yValue: */
+
 usqInt
 makePointwithxValueyValue(sqInt xValue, sqInt yValue)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

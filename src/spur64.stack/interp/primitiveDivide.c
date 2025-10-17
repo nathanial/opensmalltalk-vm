@@ -1,5 +1,7 @@
 /* Extracted from interp.c:14795 (function primitiveDivide). */
 
+	/* InterpreterPrimitives>>#primitiveDivide */
+
 static void
 primitiveDivide(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

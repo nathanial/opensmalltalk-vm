@@ -1,5 +1,9 @@
 /* Extracted from interp.c:46159 (function swizzleObjStackAt). */
 
+/*	On load, swizzle the pointers in an obj stack. Answer the obj stack's oop. */
+
+	/* SpurMemoryManager>>#swizzleObjStackAt: */
+
 static NoDbgRegParms sqInt
 swizzleObjStackAt(sqInt objStackRootIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

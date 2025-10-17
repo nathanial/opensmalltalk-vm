@@ -1,5 +1,10 @@
 /* Extracted from interp.c:49911 (function addLastLinktoList). */
 
+/*	Add the given process to the end of the given linked list
+	and set the backpointer of process to its new list. */
+
+	/* StackInterpreter>>#addLastLink:toList: */
+
 static NoDbgRegParms void
 addLastLinktoList(sqInt proc, sqInt aList)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

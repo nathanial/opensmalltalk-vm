@@ -1,5 +1,11 @@
 /* Extracted from interp.c:20095 (function primitivePathToUsing). */
 
+/*	primitivePathTo: anObject using: stack <Array> followWeak: boolean
+	Answer a path to anObject from the root that does not pass through
+	the current context */
+
+	/* InterpreterPrimitives>>#primitivePathToUsing */
+
 EXPORT(sqInt)
 primitivePathToUsing(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

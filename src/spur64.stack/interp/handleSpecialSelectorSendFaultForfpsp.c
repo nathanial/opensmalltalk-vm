@@ -1,5 +1,11 @@
 /* Extracted from interp.c:54501 (function handleSpecialSelectorSendFaultForfpsp). */
 
+/*	Handle a special send fault that may be due to a special selector
+	send accessing a forwarded object. obj is forwarded.
+	Unforward stack contents and and inst vars and answer obj's target. */
+
+	/* StackInterpreter>>#handleSpecialSelectorSendFaultFor:fp:sp: */
+
 static NoDbgRegParms sqInt
 handleSpecialSelectorSendFaultForfpsp(sqInt obj, char *theFP, char *theSP)
 {

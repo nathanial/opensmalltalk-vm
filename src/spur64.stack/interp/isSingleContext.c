@@ -1,5 +1,7 @@
 /* Extracted from interp.c:55175 (function isSingleContext). */
 
+	/* StackInterpreter>>#isSingleContext: */
+
 static NoDbgRegParms int
 isSingleContext(sqInt aContext)
 {

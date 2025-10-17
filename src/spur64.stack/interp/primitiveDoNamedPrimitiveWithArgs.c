@@ -1,5 +1,12 @@
 /* Extracted from interp.c:67390 (function primitiveDoNamedPrimitiveWithArgs). */
 
+/*	Simulate an primitiveExternalCall invocation (e.g. for the Debugger). Do
+	not cache anything.
+	e.g. ContextPart>>tryNamedPrimitiveIn: aCompiledMethod for: aReceiver
+	withArgs: arguments */
+
+	/* StackInterpreterPrimitives>>#primitiveDoNamedPrimitiveWithArgs */
+
 static void
 primitiveDoNamedPrimitiveWithArgs(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

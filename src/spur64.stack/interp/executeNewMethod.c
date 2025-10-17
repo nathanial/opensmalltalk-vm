@@ -1,5 +1,11 @@
 /* Extracted from interp.c:52456 (function executeNewMethod). */
 
+/*	Execute newMethod - either primitiveFunctionPointer must be set directly
+	(i.e. from primitiveExecuteMethod et al), or it would have been set
+	probing the method cache (i.e. primitivePerform et al). */
+
+	/* StackInterpreter>>#executeNewMethod */
+
 static sqInt
 executeNewMethod(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

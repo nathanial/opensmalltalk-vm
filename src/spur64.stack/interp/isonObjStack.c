@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37960 (function isonObjStack). */
 
+	/* SpurMemoryManager>>#is:onObjStack: */
+
 static NoDbgRegParms sqInt
 isonObjStack(sqInt oop, sqInt objStack)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

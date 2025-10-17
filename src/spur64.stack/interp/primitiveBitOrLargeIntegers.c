@@ -1,5 +1,9 @@
 /* Extracted from interp.c:12911 (function primitiveBitOrLargeIntegers). */
 
+/*	Primitive logical operations for large integers in 64 bit range */
+
+	/* InterpreterPrimitives>>#primitiveBitOrLargeIntegers */
+
 EXPORT(void)
 primitiveBitOrLargeIntegers(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

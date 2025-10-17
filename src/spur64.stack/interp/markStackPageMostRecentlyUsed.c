@@ -1,5 +1,14 @@
 /* Extracted from interp.c:10869 (function markStackPageMostRecentlyUsed). */
 
+/*	<InterpreterStackPage> */
+/*	MRUP-->used page<->used page<->used page<->used page<--LRUP
+	^ <-next-prev-> ^
+	| |
+	v <-prev-next-> v
+	free page<->free page<->free page<->free page */
+
+	/* CogStackPages>>#markStackPageMostRecentlyUsed: */
+
 static NoDbgRegParms sqInt
 markStackPageMostRecentlyUsed(StackPage *page)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

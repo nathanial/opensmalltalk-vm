@@ -1,5 +1,7 @@
 /* Extracted from interp.c:45519 (function setIsPinnedOfto). */
 
+	/* SpurMemoryManager>>#setIsPinnedOf:to: */
+
 static NoDbgRegParms void
 setIsPinnedOfto(sqInt objOop, sqInt aBoolean)
 {

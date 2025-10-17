@@ -1,5 +1,9 @@
 /* Extracted from interp.c:27144 (function instantiateClassindexableSize). */
 
+/*	Allocate an instance of a variable class, excepting CompiledMethod. */
+
+	/* Spur64BitMemoryManager>>#instantiateClass:indexableSize: */
+
 sqInt
 instantiateClassindexableSize(sqInt classObj, usqInt nElements)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,9 @@
 /* Extracted from interp.c:37691 (function isValidObjStackAt). */
 
+/*	Answer if the obj stack at objStackRootIndex is valid. */
+
+	/* SpurMemoryManager>>#isValidObjStackAt: */
+
 static NoDbgRegParms sqInt
 isValidObjStackAt(sqInt objStackRootIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

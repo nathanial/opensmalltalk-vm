@@ -1,5 +1,7 @@
 /* Extracted from interp.c:28240 (function growRememberedSet). */
 
+	/* SpurGenerationScavenger>>#growRememberedSet */
+
 static void
 growRememberedSet(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

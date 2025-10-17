@@ -1,5 +1,9 @@
 /* Extracted from interp.c:29472 (function writeScavengeLog). */
 
+/*	Output the entire record. */
+
+	/* SpurGenerationScavenger>>#writeScavengeLog */
+
 static NeverInline void
 writeScavengeLog(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

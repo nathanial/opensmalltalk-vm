@@ -1,5 +1,15 @@
 /* Extracted from interp.c:14536 (function primitiveCopyObject). */
 
+/*	Primitive. Copy the state of the receiver from the argument. 
+	Fail if receiver and argument are of a different class.
+	Fail if the receiver or argument are contexts (because of context-to-stack
+	mapping). Fail if receiver and argument have different lengths (for
+	indexable objects).
+	Fail if the objects are not in a fit state to be copied (e.g. married
+	contexts and Cogged methods) */
+
+	/* InterpreterPrimitives>>#primitiveCopyObject */
+
 static void
 primitiveCopyObject(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

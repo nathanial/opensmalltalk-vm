@@ -1,5 +1,11 @@
 /* Extracted from interp.c:11757 (function primitiveAllInstances). */
 
+/*	Answer an array of all instances of the receiver that exist
+	when the primitive is called, excluding any that may be
+	garbage collected as a side effect of allocating the result array. */
+
+	/* InterpreterPrimitives>>#primitiveAllInstances */
+
 EXPORT(void)
 primitiveAllInstances(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

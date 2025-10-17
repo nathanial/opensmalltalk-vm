@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37605 (function isRemembered). */
 
+	/* SpurMemoryManager>>#isRemembered: */
+
 static NoDbgRegParms int
 isRemembered(sqInt objOop)
 {

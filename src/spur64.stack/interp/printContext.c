@@ -1,5 +1,9 @@
 /* Extracted from interp.c:59578 (function printContext). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printContext: */
+
 void
 printContext(sqInt aContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

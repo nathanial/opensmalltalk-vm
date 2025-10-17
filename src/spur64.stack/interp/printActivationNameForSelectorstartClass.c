@@ -1,5 +1,7 @@
 /* Extracted from interp.c:59060 (function printActivationNameForSelectorstartClass). */
 
+	/* StackInterpreter>>#printActivationNameForSelector:startClass: */
+
 static NoDbgRegParms void
 printActivationNameForSelectorstartClass(sqInt aSelector, sqInt startClass)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

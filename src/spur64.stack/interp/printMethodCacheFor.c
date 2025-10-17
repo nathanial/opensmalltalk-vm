@@ -1,5 +1,9 @@
 /* Extracted from interp.c:60178 (function printMethodCacheFor). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printMethodCacheFor: */
+
 void
 printMethodCacheFor(sqInt thing)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

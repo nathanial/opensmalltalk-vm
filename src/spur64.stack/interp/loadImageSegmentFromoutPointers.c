@@ -1,5 +1,25 @@
 /* Extracted from interp.c:38249 (function loadImageSegmentFromoutPointers). */
 
+/*	This primitive is called from Smalltalk as...
+	<imageSegment> loadSegmentFrom: aWordArray outPointers: anArray. */
+/*	This primitive will load a binary image segment created by
+	primitiveStoreImageSegment. It expects the outPointer array to be of the
+	proper size, and the wordArray to be well formed.
+	It will return as its value the original array of roots, and the
+	segmentWordArray will become an
+	array of the loaded objects. If this primitive should fail, the
+	segmentWordArray will, sadly, have
+	been reduced to an unrecognizable and unusable jumble. But what more could
+	you have done
+	with it anyway?
+	
+	The primitive, if it succeeds, also becomes the segmentWordArray into the
+	array of loaded objects.
+	This allows fixing up of loaded objects directly, without nextObject,
+	which Spur doesn't support. */
+
+	/* SpurMemoryManager>>#loadImageSegmentFrom:outPointers: */
+
 static NoDbgRegParms NeverInline sqInt
 loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

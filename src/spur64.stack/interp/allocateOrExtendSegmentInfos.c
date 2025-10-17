@@ -1,5 +1,9 @@
 /* Extracted from interp.c:49082 (function allocateOrExtendSegmentInfos). */
 
+/*	Increase the number of allocated segInfos by 16. */
+
+	/* SpurSegmentManager>>#allocateOrExtendSegmentInfos */
+
 static void
 allocateOrExtendSegmentInfos(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

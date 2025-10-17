@@ -1,5 +1,9 @@
 /* Extracted from interp.c:23939 (function primitiveSmallFloatTimesTwoPower). */
 
+/*	Multiply the receiver by the power of the argument. */
+
+	/* InterpreterPrimitives>>#primitiveSmallFloatTimesTwoPower */
+
 static void
 primitiveSmallFloatTimesTwoPower(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

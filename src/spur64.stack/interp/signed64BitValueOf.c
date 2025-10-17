@@ -1,5 +1,12 @@
 /* Extracted from interp.c:25979 (function signed64BitValueOf). */
 
+/*	Convert the given object into an integer value.
+	The object may be either a positive SmallInteger or a eight-byte
+	LargeInteger. 
+ */
+
+	/* InterpreterPrimitives>>#signed64BitValueOf: */
+
 sqLong
 signed64BitValueOf(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

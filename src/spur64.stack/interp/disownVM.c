@@ -1,5 +1,22 @@
 /* Extracted from interp.c:51758 (function disownVM). */
 
+ /* SEND_PRINTING */
+
+
+/*	Release the VM to other threads and answer the current thread's index.
+	Currently valid flags for the non-threaded VM are:
+	DisownVMForThreading	- allow the VM to thread-switch; this is ignored
+	DisownVMForFFICall		- informs the VM that it is entering an FFI call
+	
+	This is the entry-point for plugins and primitives that wish to release
+	the VM while
+	performing some operation that may potentially block, and for callbacks
+	returning back to some blocking operation. While this exists for the
+	threaded FFI VM we use
+	it to reset newMethod and the argumentCount after a callback. */
+
+	/* StackInterpreter>>#disownVM: */
+
 void *
 disownVM(sqInt flags)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

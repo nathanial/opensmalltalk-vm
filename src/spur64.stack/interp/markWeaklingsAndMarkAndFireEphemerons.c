@@ -1,5 +1,13 @@
 /* Extracted from interp.c:40556 (function markWeaklingsAndMarkAndFireEphemerons). */
 
+/*	After the initial scan-mark is complete ephemerons can be processed.
+	Weaklings have accumulated on the weaklingStack, but more may be
+	uncovered during ephemeron processing. So trace the strong slots
+	of the weaklings, and as ephemerons are processed ensure any newly
+	reached weaklings are also traced. */
+
+	/* SpurMemoryManager>>#markWeaklingsAndMarkAndFireEphemerons */
+
 static void
 markWeaklingsAndMarkAndFireEphemerons(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

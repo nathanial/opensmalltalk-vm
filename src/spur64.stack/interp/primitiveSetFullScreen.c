@@ -1,5 +1,11 @@
 /* Extracted from interp.c:22022 (function primitiveSetFullScreen). */
 
+/*	On platforms that support it, set full-screen mode to the value of the
+	boolean argument.
+ */
+
+	/* InterpreterPrimitives>>#primitiveSetFullScreen */
+
 static void
 primitiveSetFullScreen(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

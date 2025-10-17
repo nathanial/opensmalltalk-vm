@@ -1,5 +1,7 @@
 /* Extracted from interp.c:33566 (function cloneInOldSpaceforPinning). */
 
+	/* SpurMemoryManager>>#cloneInOldSpace:forPinning: */
+
 static NoDbgRegParms sqInt
 cloneInOldSpaceforPinning(sqInt objOop, sqInt forPinning)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

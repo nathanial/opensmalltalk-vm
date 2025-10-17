@@ -1,5 +1,7 @@
 /* Extracted from interp.c:27322 (function isFloatInstance). */
 
+	/* Spur64BitMemoryManager>>#isFloatInstance: */
+
 static NoDbgRegParms int
 isFloatInstance(sqInt oop)
 {

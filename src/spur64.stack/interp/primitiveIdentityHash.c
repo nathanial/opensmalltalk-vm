@@ -1,5 +1,7 @@
 /* Extracted from interp.c:17764 (function primitiveIdentityHash). */
 
+	/* InterpreterPrimitives>>#primitiveIdentityHash */
+
 static void
 primitiveIdentityHash(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

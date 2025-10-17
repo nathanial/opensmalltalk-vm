@@ -1,5 +1,9 @@
 /* Extracted from interp.c:35114 (function findLargestFreeChunk). */
 
+/*	Answer, but do not remove, the largest free chunk in the free lists. */
+
+	/* SpurMemoryManager>>#findLargestFreeChunk */
+
 static sqInt
 findLargestFreeChunk(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

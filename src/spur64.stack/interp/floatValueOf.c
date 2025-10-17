@@ -1,5 +1,11 @@
 /* Extracted from interp.c:27022 (function floatValueOf). */
 
+/*	Answer the C double precision floating point value of the argument,
+	or fail if it is not a Float, and answer 0.
+	Note: May be called by translated primitive code. */
+
+	/* Spur64BitMemoryManager>>#floatValueOf: */
+
 double
 floatValueOf(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

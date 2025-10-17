@@ -1,5 +1,7 @@
 /* Extracted from interp.c:42359 (function popObjStack). */
 
+	/* SpurMemoryManager>>#popObjStack: */
+
 static NoDbgRegParms sqInt
 popObjStack(sqInt objStack)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

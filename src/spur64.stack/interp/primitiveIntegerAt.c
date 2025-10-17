@@ -1,5 +1,7 @@
 /* Extracted from interp.c:18007 (function primitiveIntegerAt). */
 
+	/* InterpreterPrimitives>>#primitiveIntegerAt */
+
 static void
 primitiveIntegerAt(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

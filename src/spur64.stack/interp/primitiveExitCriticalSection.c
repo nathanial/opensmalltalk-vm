@@ -1,5 +1,10 @@
 /* Extracted from interp.c:15094 (function primitiveExitCriticalSection). */
 
+/*	Exit the critical section.
+	This may change the active process as a result. */
+
+	/* InterpreterPrimitives>>#primitiveExitCriticalSection */
+
 static void
 primitiveExitCriticalSection(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,14 @@
 /* Extracted from interp.c:44951 (function refireQueuedEphemeronsPostSnapshot). */
 
+/*	Ephemerons in the mourn queue will have been fired (had their
+	ephemeron-ness turned off),
+	but the ephemeron queue is not saved in the snapshot. So the snapshotted
+	ephemerons need to be unfired so they're still unqueued ephemerons in the
+	loaded image.
+	This must be undone post snapshot. */
+
+	/* SpurMemoryManager>>#refireQueuedEphemeronsPostSnapshot */
+
 static void
 refireQueuedEphemeronsPostSnapshot(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

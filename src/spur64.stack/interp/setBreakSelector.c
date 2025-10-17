@@ -1,5 +1,9 @@
 /* Extracted from interp.c:62972 (function setBreakSelector). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#setBreakSelector: */
+
 void
 setBreakSelector(char *aString)
 {

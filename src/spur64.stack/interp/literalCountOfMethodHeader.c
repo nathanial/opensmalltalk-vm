@@ -1,5 +1,7 @@
 /* Extracted from interp.c:38207 (function literalCountOfMethodHeader). */
 
+	/* SpurMemoryManager>>#literalCountOfMethodHeader: */
+
 usqInt
 literalCountOfMethodHeader(sqInt header)
 {

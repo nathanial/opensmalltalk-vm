@@ -1,5 +1,14 @@
 /* Extracted from interp.c:30761 (function allocateOldSpaceChunkOfBytes). */
 
+/*	Answer a chunk of oldSpace from the free lists, if available,
+	otherwise answer nil. Break up a larger chunk if one of the
+	exact size does not exist. N.B. the chunk is simply a pointer, it
+	has no valid header. The caller *must* fill in the header correctly. */
+/*	for debugging: */
+/*	totalFreeOldSpace := self totalFreeListBytes */
+
+	/* SpurMemoryManager>>#allocateOldSpaceChunkOfBytes: */
+
 static NoDbgRegParms sqInt
 allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:26929 (function floatObjectOf). */
 
+	/* Spur64BitMemoryManager>>#floatObjectOf: */
+
 sqInt
 floatObjectOf(double aFloat)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

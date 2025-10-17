@@ -1,5 +1,10 @@
 /* Extracted from interp.c:29627 (function activeAndDeferredScan). */
 
+/*	Answer whether an ephemeron is active (has an unmarked
+	key) and was pushed on the unscanned ephemerons stack. */
+
+	/* SpurMemoryManager>>#activeAndDeferredScan: */
+
 static NoDbgRegParms NeverInline sqInt
 activeAndDeferredScan(sqInt anEphemeron)
 {

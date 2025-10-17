@@ -1,5 +1,11 @@
 /* Extracted from interp.c:49205 (function firstGapOfSizeAtLeast). */
 
+/*	Answer the segment limit of the first segment followed by a gap of at
+	least size bytes.
+ */
+
+	/* SpurSegmentManager>>#firstGapOfSizeAtLeast: */
+
 static NoDbgRegParms void *
 firstGapOfSizeAtLeast(sqInt size)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

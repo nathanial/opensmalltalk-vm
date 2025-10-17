@@ -1,5 +1,7 @@
 /* Extracted from interp.c:46860 (function validStorePointerUncheckedArgs). */
 
+	/* SpurMemoryManager>>#validStorePointerUncheckedArgs:_:_: */
+
 static NoDbgRegParms sqInt
 validStorePointerUncheckedArgs(sqInt fieldIndex, sqInt objOop, sqInt valuePointer)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

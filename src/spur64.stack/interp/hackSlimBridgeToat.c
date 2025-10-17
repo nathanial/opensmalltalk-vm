@@ -1,5 +1,13 @@
 /* Extracted from interp.c:27068 (function hackSlimBridgeToat). */
 
+/*	This is a horrible hack for getting to the first object in eden if
+	pastSpace is almost full.
+	If there is only one (64-bit) word at the end of pastSpace there is no
+	room for a full
+	bridge, but there is room for this hack. */
+
+	/* Spur64BitMemoryManager>>#hackSlimBridgeTo:at: */
+
 static NoDbgRegParms void
 hackSlimBridgeToat(sqInt objOop, sqInt startAddress)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

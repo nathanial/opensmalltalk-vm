@@ -1,5 +1,9 @@
 /* Extracted from interp.c:34951 (function expungeFromClassTable). */
 
+/*	Remove aBehavior from the class table. */
+
+	/* SpurMemoryManager>>#expungeFromClassTable: */
+
 static NoDbgRegParms void
 expungeFromClassTable(sqInt aBehavior)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

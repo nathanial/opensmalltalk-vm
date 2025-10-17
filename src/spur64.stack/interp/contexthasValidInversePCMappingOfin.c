@@ -1,5 +1,10 @@
 /* Extracted from interp.c:51495 (function contexthasValidInversePCMappingOfin). */
 
+/*	For asserts. Check that theIP maps back correctly to the context's pc.
+	The CallPrimitive bytecode presents a complication. */
+
+	/* StackInterpreter>>#context:hasValidInversePCMappingOf:in: */
+
 static NoDbgRegParms sqInt
 contexthasValidInversePCMappingOfin(sqInt aContext, sqInt theIP, char *theFP)
 {

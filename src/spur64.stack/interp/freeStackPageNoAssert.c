@@ -1,5 +1,14 @@
 /* Extracted from interp.c:10820 (function freeStackPageNoAssert). */
 
+/*	<InterpreterStackPage> */
+/*	MRUP-->used page<->used page<->used page<->used page<--LRUP
+	^ <-next-prev-> ^
+	| |
+	v <-prev-next-> v
+	free page<->free page<->free page<->free page */
+
+	/* CogStackPages>>#freeStackPageNoAssert: */
+
 static NoDbgRegParms sqInt
 freeStackPageNoAssert(StackPage *aPage)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

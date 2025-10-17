@@ -1,5 +1,7 @@
 /* Extracted from interp.c:54009 (function frameOfMarriedContext). */
 
+	/* StackInterpreter>>#frameOfMarriedContext: */
+
 static NoDbgRegParms char *
 frameOfMarriedContext(sqInt aContext)
 {

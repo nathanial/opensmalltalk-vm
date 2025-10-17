@@ -1,5 +1,12 @@
 /* Extracted from interp.c:53004 (function fetchPointerofMarriedContext). */
 
+/*	Fetch a slot from a married context. Compute the value
+	of the relevant inst var from the spouse frame's state.
+	
+	This method assumes frame pointers have been written back. */
+
+	/* StackInterpreter>>#fetchPointer:ofMarriedContext: */
+
 static NoDbgRegParms sqInt
 fetchPointerofMarriedContext(sqInt offset, sqInt aContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

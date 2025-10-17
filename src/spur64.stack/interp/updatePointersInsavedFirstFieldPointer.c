@@ -1,5 +1,15 @@
 /* Extracted from interp.c:48754 (function updatePointersInsavedFirstFieldPointer). */
 
+/*	Sweep the pointer fields in obj, updating all references to mobile objects
+	to their eventual locations.
+	firstFieldPtr is supplied for mobile objects so that the saved first field
+	can be updated, and so that
+	the first field of a compiled method (which is its header, or reference to
+	a CogMethod holding its header)
+	can be retrieved. */
+
+	/* SpurPlanningCompactor>>#updatePointersIn:savedFirstFieldPointer: */
+
 static NoDbgRegParms void
 updatePointersInsavedFirstFieldPointer(sqInt obj, sqInt firstFieldPtr)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:41254 (function numStrongSlotsOfInephemeral). */
 
+/*	Answer the number of strong pointer fields in the given object,
+	which is expected not to be an active ephemeron.
+	Works with CompiledMethods as well as ordinary objects. */
+
+	/* SpurMemoryManager>>#numStrongSlotsOfInephemeral: */
+
 static NoDbgRegParms sqInt
 numStrongSlotsOfInephemeral(sqInt objOop)
 {

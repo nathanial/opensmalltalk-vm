@@ -1,5 +1,7 @@
 /* Extracted from interp.c:60352 (function printOopShortInner). */
 
+	/* StackInterpreter>>#printOopShortInner: */
+
 static NoDbgRegParms void
 printOopShortInner(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

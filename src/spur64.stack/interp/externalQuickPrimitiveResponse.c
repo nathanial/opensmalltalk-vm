@@ -1,5 +1,10 @@
 /* Extracted from interp.c:52876 (function externalQuickPrimitiveResponse). */
 
+/*	Invoke a quick primitive.
+	Called under the assumption that primFunctionPtr has been preloaded */
+
+	/* StackInterpreter>>#externalQuickPrimitiveResponse */
+
 static sqInt
 externalQuickPrimitiveResponse(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

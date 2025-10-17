@@ -1,5 +1,7 @@
 /* Extracted from interp.c:59143 (function printActivationNameForreceiverisBlockfirstTemporary). */
 
+	/* StackInterpreter>>#printActivationNameFor:receiver:isBlock:firstTemporary: */
+
 static NoDbgRegParms void
 printActivationNameForreceiverisBlockfirstTemporary(sqInt aMethod, sqInt anObject, sqInt isBlock, sqInt maybeMessage)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

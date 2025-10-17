@@ -1,5 +1,10 @@
 /* Extracted from interp.c:58085 (function nameOfClasslengthInto). */
 
+/*	Brain-damaged nameOfClass: for C VM. Does *not* answer Foo class for
+	metaclasses. Use e.g. classIsMeta: to avoid being fooled. */
+
+	/* StackInterpreter>>#nameOfClass:lengthInto: */
+
 static NoDbgRegParms char *
 nameOfClasslengthInto(sqInt classOop, sqInt *lengthPtr)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:29737 (function addressCouldBeObj). */
 
+	/* SpurMemoryManager>>#addressCouldBeObj: */
+
 sqInt
 addressCouldBeObj(sqInt address)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

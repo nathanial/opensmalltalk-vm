@@ -1,5 +1,13 @@
 /* Extracted from interp.c:51334 (function checkStackPointerForMaybeMarriedContext). */
 
+/*	Version of stackPointerForMaybeMarriedContext: with no side-effects (does
+	not widow).
+	Used for assertion checking. Safe only in external primitives
+	(framePointer valid).
+	Answer the stackPointer of a Context. */
+
+	/* StackInterpreter>>#checkStackPointerForMaybeMarriedContext: */
+
 static NoDbgRegParms sqInt
 checkStackPointerForMaybeMarriedContext(sqInt aContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

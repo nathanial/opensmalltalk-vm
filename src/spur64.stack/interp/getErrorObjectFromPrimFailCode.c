@@ -1,5 +1,15 @@
 /* Extracted from interp.c:54199 (function getErrorObjectFromPrimFailCode). */
 
+/*	Answer the errorCode object to supply to a failing primitive method that
+	accepts one.
+	If there is a primitive error table and the primFailCode is a valid index
+	there-in answer
+	the corresponding entry in the table, otherwise simply answer the code as
+	an integer.
+ */
+
+	/* StackInterpreter>>#getErrorObjectFromPrimFailCode */
+
 static sqInt
 getErrorObjectFromPrimFailCode(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

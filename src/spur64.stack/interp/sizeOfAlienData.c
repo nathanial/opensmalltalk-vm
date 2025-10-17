@@ -1,5 +1,9 @@
 /* Extracted from interp.c:26186 (function sizeOfAlienData). */
 
+/*	Answer the start of the Alien's data or fail if oop is not an Alien. */
+
+	/* InterpreterPrimitives>>#sizeOfAlienData: */
+
 usqInt
 sizeOfAlienData(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

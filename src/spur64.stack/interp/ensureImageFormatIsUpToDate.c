@@ -1,5 +1,9 @@
 /* Extracted from interp.c:52235 (function ensureImageFormatIsUpToDate). */
 
+/*	Ensure the image data has been updated to suit the current VM. */
+
+	/* StackInterpreter>>#ensureImageFormatIsUpToDate: */
+
 static NoDbgRegParms void
 ensureImageFormatIsUpToDate(sqInt swapBytes)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

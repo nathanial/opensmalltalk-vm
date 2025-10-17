@@ -1,5 +1,10 @@
 /* Extracted from interp.c:17963 (function primitiveInputSemaphore). */
 
+/*	Register the input semaphore. If the argument is not a 
+	Semaphore, unregister the current input semaphore. */
+
+	/* InterpreterPrimitives>>#primitiveInputSemaphore */
+
 static void
 primitiveInputSemaphore(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

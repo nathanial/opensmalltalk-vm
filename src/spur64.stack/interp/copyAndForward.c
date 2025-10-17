@@ -1,5 +1,12 @@
 /* Extracted from interp.c:28070 (function copyAndForward). */
 
+/*	copyAndForward: survivor copies a survivor object either to
+	futureSurvivorSpace or, if it is to be promoted, to oldSpace.
+	It leaves a forwarding pointer behind. If the object is weak
+	then corpse is threaded onto the weakList for later treatment. */
+
+	/* SpurGenerationScavenger>>#copyAndForward: */
+
 static NoDbgRegParms sqInt
 copyAndForward(sqInt survivor)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

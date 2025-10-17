@@ -1,5 +1,7 @@
 /* Extracted from interp.c:35335 (function firstAccessibleObject). */
 
+	/* SpurMemoryManager>>#firstAccessibleObject */
+
 static sqInt
 firstAccessibleObject(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

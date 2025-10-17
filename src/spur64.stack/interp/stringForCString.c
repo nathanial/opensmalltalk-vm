@@ -1,5 +1,10 @@
 /* Extracted from interp.c:46094 (function stringForCString). */
 
+/*	Answer a new String copied from a null-terminated C string,
+	or nil if out of memory. */
+
+	/* SpurMemoryManager>>#stringForCString: */
+
 sqInt
 stringForCString(const char *aCString)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

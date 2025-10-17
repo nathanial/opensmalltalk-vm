@@ -1,5 +1,13 @@
 /* Extracted from interp.c:17919 (function primitiveImmediateAsInteger). */
 
+/*	For a Smalllnteger, answer itself.
+	For a Character, answer its code as an unsigned integer.
+	For a SmallFloat, answer the signed, but unadjusted bit pattern (so as to
+	keep the result a SmallInteger).
+	This is a good value for an immediate's hash. */
+
+	/* InterpreterPrimitives>>#primitiveImmediateAsInteger */
+
 static void
 primitiveImmediateAsInteger(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

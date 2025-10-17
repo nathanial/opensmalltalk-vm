@@ -1,5 +1,7 @@
 /* Extracted from interp.c:27390 (function isSmallFloatValue). */
 
+	/* Spur64BitMemoryManager>>#isSmallFloatValue: */
+
 static NoDbgRegParms int
 isSmallFloatValue(double aFloat)
 {

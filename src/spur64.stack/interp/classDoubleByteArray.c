@@ -1,5 +1,7 @@
 /* Extracted from interp.c:33084 (function classDoubleByteArray). */
 
+	/* SpurMemoryManager>>#classDoubleByteArray */
+
 sqInt
 classDoubleByteArray(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,10 @@
 /* Extracted from interp.c:17625 (function primitiveHeartbeatFrequency). */
 
+/*	Answer the heartbeat frequency in beats per second. If the argument is
+	true, reset the frequency measure. */
+
+	/* InterpreterPrimitives>>#primitiveHeartbeatFrequency */
+
 EXPORT(sqInt)
 primitiveHeartbeatFrequency(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

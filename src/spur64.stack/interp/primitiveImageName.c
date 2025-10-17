@@ -1,5 +1,13 @@
 /* Extracted from interp.c:17851 (function primitiveImageName). */
 
+/*	When called with a single string argument, record the string as the
+	current image file name.
+	When called with zero arguments, return a string containing the current
+	image file name.
+ */
+
+	/* InterpreterPrimitives>>#primitiveImageName */
+
 static void
 primitiveImageName(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

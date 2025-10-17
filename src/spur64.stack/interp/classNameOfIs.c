@@ -1,5 +1,9 @@
 /* Extracted from interp.c:51435 (function classNameOfIs). */
 
+/*	Check if aClass's name is className */
+
+	/* StackInterpreter>>#classNameOf:Is: */
+
 static NoDbgRegParms sqInt
 classNameOfIs(sqInt aClass, char *className)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

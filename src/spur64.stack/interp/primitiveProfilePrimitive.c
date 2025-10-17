@@ -1,5 +1,9 @@
 /* Extracted from interp.c:21135 (function primitiveProfilePrimitive). */
 
+/*	Primitive. Answer the last primitive method sampled by the profiler. */
+
+	/* InterpreterPrimitives>>#primitiveProfilePrimitive */
+
 EXPORT(sqInt)
 primitiveProfilePrimitive(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

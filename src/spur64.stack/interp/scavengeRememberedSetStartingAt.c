@@ -1,5 +1,15 @@
 /* Extracted from interp.c:29352 (function scavengeRememberedSetStartingAt). */
 
+/*	scavengeRememberedSetStartingAt: n traverses objects in the remembered
+	set starting at the nth one. If the object does not refer to any new
+	objects, it
+	is removed from the set. Otherwise, its new referents are scavenged. Defer
+	scavenging ephemerons until after a complete scavenge has been performed,
+	so that triggered ephemerons can be fired. Move them to the front of the
+	set and count them in numRememberedEphemerons for later scanning. */
+
+	/* SpurGenerationScavenger>>#scavengeRememberedSetStartingAt: */
+
 static NoDbgRegParms void
 scavengeRememberedSetStartingAt(sqInt n)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

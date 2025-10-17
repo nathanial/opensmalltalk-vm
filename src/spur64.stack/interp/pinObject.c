@@ -1,5 +1,12 @@
 /* Extracted from interp.c:42255 (function pinObject). */
 
+/*	Attempt to pin objOop, which must not be immediate.
+	If the attempt succeeds answer objOop's (possibly moved) oop.
+	If the attempt fails, which can only occur if there is no memory, answer
+	0.  */
+
+	/* SpurMemoryManager>>#pinObject: */
+
 sqInt
 pinObject(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:31094 (function allUnscannedEphemeronsAreActive). */
 
+	/* SpurMemoryManager>>#allUnscannedEphemeronsAreActive */
+
 static sqInt
 allUnscannedEphemeronsAreActive(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

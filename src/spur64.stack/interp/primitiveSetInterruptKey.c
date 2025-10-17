@@ -1,5 +1,14 @@
 /* Extracted from interp.c:22203 (function primitiveSetInterruptKey). */
 
+ /* IMMUTABILITY */
+
+
+/*	Set the user interrupt keycode. The keycode is an integer whose encoding
+	is described in the comment for primitiveKbdNext.
+ */
+
+	/* InterpreterPrimitives>>#primitiveSetInterruptKey */
+
 static void
 primitiveSetInterruptKey(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

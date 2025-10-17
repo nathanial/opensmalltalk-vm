@@ -1,5 +1,11 @@
 /* Extracted from interp.c:13472 (function primitiveClipboardText). */
 
+/*	When called with a single string argument, post the string to 
+	the clipboard. When called with zero arguments, return a 
+	string containing the current clipboard contents. */
+
+	/* InterpreterPrimitives>>#primitiveClipboardText */
+
 static void
 primitiveClipboardText(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

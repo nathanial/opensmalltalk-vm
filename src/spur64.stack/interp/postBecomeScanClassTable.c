@@ -1,5 +1,17 @@
 /* Extracted from interp.c:42461 (function postBecomeScanClassTable). */
 
+/*	Scan the class table post-become (iff an active class object was becommed)
+	to ensure no
+	forwarding pointers, and no unhashed classes exist in the class table.
+	
+	Note that one-way become can cause duplications in the class table.
+	So if pointer objects have been becommed, scan all pages in the class
+	table and eliminate ay entries that have a zero hash.
+	doBecome:and:copyHash: has
+	already ensured that any becomed class has been stored at the right index. */
+
+	/* SpurMemoryManager>>#postBecomeScanClassTable: */
+
 static NoDbgRegParms void
 postBecomeScanClassTable(sqInt effectsFlags)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

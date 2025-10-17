@@ -1,5 +1,16 @@
 /* Extracted from interp.c:42114 (function outOfPlaceBecomeandcopyHashFlag). */
 
+/*	in an effort to fix a compiler bug with two-way become post r3427 */
+/*	Allocate two new objects, n1 & n2. Copy the contents appropriately.
+	Convert obj1 and obj2
+	into forwarding objects pointing to n2 and n1 respectively. No need to
+	check if cloneObject:
+	succeeds because an earlier pass over objects ensured that there is enough
+	memory. 
+ */
+
+	/* SpurMemoryManager>>#outOfPlaceBecome:and:copyHashFlag: */
+
 static NoDbgRegParms NeverInline void
 outOfPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

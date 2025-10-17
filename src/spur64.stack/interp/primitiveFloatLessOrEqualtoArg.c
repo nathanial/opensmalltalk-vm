@@ -1,5 +1,7 @@
 /* Extracted from interp.c:58819 (function primitiveFloatLessOrEqualtoArg). */
 
+	/* StackInterpreter>>#primitiveFloatLessOrEqual:toArg: */
+
 static NoDbgRegParms int
 primitiveFloatLessOrEqualtoArg(sqInt rcvrOop, sqInt argOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

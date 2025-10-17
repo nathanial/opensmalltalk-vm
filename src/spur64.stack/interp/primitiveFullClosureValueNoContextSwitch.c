@@ -1,5 +1,12 @@
 /* Extracted from interp.c:16790 (function primitiveFullClosureValueNoContextSwitch). */
 
+/*	An exact clone of primitiveFullClosureValue except that this version will
+	not check for interrupts on stack overflow. It may invoke the garbage
+	collector but will not switch processes. See
+	checkForInterruptsMayContextSwitch:  */
+
+	/* InterpreterPrimitives>>#primitiveFullClosureValueNoContextSwitch */
+
 void
 primitiveFullClosureValueNoContextSwitch(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

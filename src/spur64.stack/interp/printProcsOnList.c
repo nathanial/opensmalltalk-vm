@@ -1,5 +1,9 @@
 /* Extracted from interp.c:60838 (function printProcsOnList). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printProcsOnList: */
+
 sqInt
 printProcsOnList(sqInt procList)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

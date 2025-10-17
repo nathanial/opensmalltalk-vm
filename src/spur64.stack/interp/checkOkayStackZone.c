@@ -1,5 +1,9 @@
 /* Extracted from interp.c:51150 (function checkOkayStackZone). */
 
+/*	Check that all objects in the stack zone are okay */
+
+	/* StackInterpreter>>#checkOkayStackZone: */
+
 static NoDbgRegParms sqInt
 checkOkayStackZone(sqInt writeBack)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,9 @@
 /* Extracted from interp.c:55096 (function isLiveContext). */
 
+/*	Answer if the argument, which can be any object, is a live context. */
+
+	/* StackInterpreter>>#isLiveContext: */
+
 static NoDbgRegParms sqInt
 isLiveContext(sqInt oop)
 {

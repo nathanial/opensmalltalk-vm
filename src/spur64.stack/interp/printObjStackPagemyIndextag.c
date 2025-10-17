@@ -1,5 +1,7 @@
 /* Extracted from interp.c:44159 (function printObjStackPagemyIndextag). */
 
+	/* SpurMemoryManager>>#printObjStackPage:myIndex:tag: */
+
 static NoDbgRegParms void
 printObjStackPagemyIndextag(sqInt objStackPage, sqInt myx, char *pageType)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

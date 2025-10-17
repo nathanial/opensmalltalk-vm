@@ -1,5 +1,17 @@
 /* Extracted from interp.c:34218 (function doShortentoIndexableSize). */
 
+/*	Reduce the number of indexable fields in objOop, a pointer object, to
+	nSlots. If in oldSpace,
+	convert the unused residual to a free chunk. If in eden, cut back
+	freeStart if possible.
+	Without changes to numSlotsForShortening:toIndexableSize: this only works
+	for arrayFormat, longFormat, and on 64-bits sixtyFourBitIndexableFormat,
+	objects. Answer the number of bytes returned to free memory, which may be
+	zero if no change
+	was possible. */
+
+	/* SpurMemoryManager>>#doShorten:toIndexableSize: */
+
 static NoDbgRegParms sqInt
 doShortentoIndexableSize(sqInt objOop, sqInt indexableSize)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

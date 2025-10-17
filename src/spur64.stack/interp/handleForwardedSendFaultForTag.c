@@ -1,5 +1,10 @@
 /* Extracted from interp.c:54458 (function handleForwardedSendFaultForTag). */
 
+/*	Handle a send fault that may be due to a send to a forwarded object.
+	Unforward the receiver on the stack and answer its actual class. */
+
+	/* StackInterpreter>>#handleForwardedSendFaultForTag: */
+
 static NoDbgRegParms sqInt
 handleForwardedSendFaultForTag(sqInt classTag)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

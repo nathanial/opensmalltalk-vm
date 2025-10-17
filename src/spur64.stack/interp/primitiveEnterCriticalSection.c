@@ -1,5 +1,15 @@
 /* Extracted from interp.c:14958 (function primitiveEnterCriticalSection). */
 
+/*	Attempt to enter a CriticalSection/Mutex. If not owned, set the owner to
+	the current
+	process and answer false. If owned by the current process answer true.
+	Otherwise suspend the process. Answer if the receiver is owned by the
+	current process.
+	For simulation, if there is an argument it is taken to be the effective
+	activeProcess (see Process>>effectiveProcess). */
+
+	/* InterpreterPrimitives>>#primitiveEnterCriticalSection */
+
 static void
 primitiveEnterCriticalSection(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

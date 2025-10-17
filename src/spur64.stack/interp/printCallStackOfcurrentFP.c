@@ -1,5 +1,7 @@
 /* Extracted from interp.c:59488 (function printCallStackOfcurrentFP). */
 
+	/* StackInterpreter>>#printCallStackOf:currentFP: */
+
 static NoDbgRegParms sqInt
 printCallStackOfcurrentFP(sqInt aContext, char *currFP)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

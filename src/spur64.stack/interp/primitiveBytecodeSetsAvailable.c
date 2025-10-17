@@ -1,5 +1,9 @@
 /* Extracted from interp.c:13169 (function primitiveBytecodeSetsAvailable). */
 
+/*	Answer the encoder names for the supported bytecode sets. */
+
+	/* InterpreterPrimitives>>#primitiveBytecodeSetsAvailable */
+
 EXPORT(sqInt)
 primitiveBytecodeSetsAvailable(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

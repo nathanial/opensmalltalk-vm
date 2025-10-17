@@ -1,5 +1,9 @@
 /* Extracted from interp.c:26995 (function floatValueBitsOf). */
 
+/*	Answer the 64-bit value of the argument as raw bits. */
+
+	/* Spur64BitMemoryManager>>#floatValueBitsOf: */
+
 static NoDbgRegParms sqLong
 floatValueBitsOf(sqInt floatOop)
 {

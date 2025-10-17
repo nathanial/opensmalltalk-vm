@@ -1,5 +1,9 @@
 /* Extracted from interp.c:59766 (function printFramesOnStackPageListInUse). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printFramesOnStackPageListInUse */
+
 void
 printFramesOnStackPageListInUse(void)
 {

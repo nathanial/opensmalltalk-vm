@@ -1,5 +1,13 @@
 /* Extracted from interp.c:65167 (function transferTofrom). */
 
+/*	Record a process to be awoken on the next interpreter cycle.
+	Note: It is currently a fatal VM error if there is no runnable process
+	(indicated by newProcOrNil being nil), but the right thing to do is to
+	enter a wait state until the next event/expired delay/available input,
+	etc.  */
+
+	/* StackInterpreter>>#transferTo:from: */
+
 static NoDbgRegParms sqInt
 transferTofrom(sqInt newProcOrNil, sqInt sourceCode)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

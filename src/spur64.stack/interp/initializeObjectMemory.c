@@ -1,5 +1,17 @@
 /* Extracted from interp.c:36486 (function initializeObjectMemory). */
 
+/*	Initialize object memory variables at startup time. Assume endOfMemory at
+	al are
+	initialised by the image-reading code via
+	setHeapBase:memoryLimit:endOfMemory:. endOfMemory is assumed to point to
+	the end of the last object in the image.
+	Assume: image reader also initializes the following variables:
+	specialObjectsOop
+	lastHash */
+/*	Catch mis-initializations leading to bad translations to C */
+
+	/* SpurMemoryManager>>#initializeObjectMemory: */
+
 static NoDbgRegParms void
 initializeObjectMemory(sqInt bytesToShift)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

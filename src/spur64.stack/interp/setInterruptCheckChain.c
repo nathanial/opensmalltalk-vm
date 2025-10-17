@@ -1,5 +1,7 @@
 /* Extracted from interp.c:62991 (function setInterruptCheckChain). */
 
+	/* StackInterpreter>>#setInterruptCheckChain: */
+
 void *
 setInterruptCheckChain(void (*aFunction)())
 {

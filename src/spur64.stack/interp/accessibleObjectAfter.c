@@ -1,5 +1,19 @@
 /* Extracted from interp.c:29524 (function accessibleObjectAfter). */
 
+/*	Answer the accessible object following the given object or 
+	free chunk in the heap. Return nil when heap is exhausted.
+	This is for primitiveNextObject subsequent to primitiveSomeObject.
+	It also tries to handle more general use by ordering objects as
+	eden
+	past
+	old
+	but this is tricky becaus ethe order in memory is
+	past
+	eden
+	old */
+
+	/* SpurMemoryManager>>#accessibleObjectAfter: */
+
 static NoDbgRegParms sqInt
 accessibleObjectAfter(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

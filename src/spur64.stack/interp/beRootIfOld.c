@@ -1,5 +1,10 @@
 /* Extracted from interp.c:31746 (function beRootIfOld). */
 
+/*	If this object is old, mark it as a root (because a new object
+	may be stored into it). */
+
+	/* SpurMemoryManager>>#beRootIfOld: */
+
 void
 beRootIfOld(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

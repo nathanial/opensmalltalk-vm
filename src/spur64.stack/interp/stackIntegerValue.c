@@ -1,5 +1,9 @@
 /* Extracted from interp.c:64236 (function stackIntegerValue). */
 
+/*	In the StackInterpreter stacks grow down. */
+
+	/* StackInterpreter>>#stackIntegerValue: */
+
 sqInt
 stackIntegerValue(sqInt offset)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

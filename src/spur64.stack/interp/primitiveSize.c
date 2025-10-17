@@ -1,5 +1,7 @@
 /* Extracted from interp.c:22644 (function primitiveSize). */
 
+	/* InterpreterPrimitives>>#primitiveSize */
+
 static void
 primitiveSize(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

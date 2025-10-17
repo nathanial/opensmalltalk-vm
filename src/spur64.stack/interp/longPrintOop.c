@@ -1,5 +1,9 @@
 /* Extracted from interp.c:55629 (function longPrintOop). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#longPrintOop: */
+
 void
 longPrintOop(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

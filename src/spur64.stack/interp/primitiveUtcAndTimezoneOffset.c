@@ -1,5 +1,11 @@
 /* Extracted from interp.c:25650 (function primitiveUtcAndTimezoneOffset). */
 
+/*	Answer an array with UTC microseconds since the Smalltalk epoch and the
+	current seconds offset from GMT in the local time zone. Any pointer object
+	with two or more slots) may be supplied as a parameter. */
+
+	/* InterpreterPrimitives>>#primitiveUtcAndTimezoneOffset */
+
 static void
 primitiveUtcAndTimezoneOffset(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

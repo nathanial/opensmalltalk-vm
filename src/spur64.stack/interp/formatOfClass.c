@@ -1,5 +1,7 @@
 /* Extracted from interp.c:35710 (function formatOfClass). */
 
+	/* SpurMemoryManager>>#formatOfClass: */
+
 sqInt
 formatOfClass(sqInt classPointer)
 {

@@ -1,5 +1,10 @@
 /* Extracted from interp.c:41095 (function numBytesOf). */
 
+/*	Answer the number of indexable bytes in the given non-immediate object.
+	Does not adjust the size of contexts by stackPointer. */
+
+	/* SpurMemoryManager>>#numBytesOf: */
+
 sqInt
 numBytesOf(sqInt objOop)
 {

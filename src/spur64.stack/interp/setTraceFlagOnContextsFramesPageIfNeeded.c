@@ -1,5 +1,7 @@
 /* Extracted from interp.c:63094 (function setTraceFlagOnContextsFramesPageIfNeeded). */
 
+	/* StackInterpreter>>#setTraceFlagOnContextsFramesPageIfNeeded: */
+
 static NoDbgRegParms void
 setTraceFlagOnContextsFramesPageIfNeeded(sqInt aContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

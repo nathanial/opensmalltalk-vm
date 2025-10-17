@@ -1,5 +1,13 @@
 /* Extracted from interp.c:25804 (function primitiveVMProfileSamplesInto). */
 
+/*	Primitive.
+	0 args: Answer whether the VM Profiler is running or not.
+	1 arg:	Copy the sample data into the supplied argument, which must be a
+	Bitmap of suitable size. Answer the number of samples copied into the
+	buffer.  */
+
+	/* InterpreterPrimitives>>#primitiveVMProfileSamplesInto */
+
 static void
 primitiveVMProfileSamplesInto(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

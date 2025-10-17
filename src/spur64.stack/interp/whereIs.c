@@ -1,5 +1,9 @@
 /* Extracted from interp.c:65829 (function whereIs). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#whereIs: */
+
 char *
 whereIs(sqInt anOop)
 {

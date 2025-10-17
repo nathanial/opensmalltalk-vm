@@ -1,5 +1,10 @@
 /* Extracted from interp.c:63568 (function slowPrimitiveResponse). */
 
+/*	Invoke a normal (non-quick) primitive.
+	Called under the assumption that primFunctionPointer has been preloaded. */
+
+	/* StackInterpreter>>#slowPrimitiveResponse */
+
 static int
 slowPrimitiveResponse(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

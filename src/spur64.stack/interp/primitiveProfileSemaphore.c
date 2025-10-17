@@ -1,5 +1,11 @@
 /* Extracted from interp.c:21182 (function primitiveProfileSemaphore). */
 
+/*	Primitive. Install the semaphore to be used for profiling, 
+	or nil if no semaphore should be used.
+	See also primitiveProfileStart. */
+
+	/* InterpreterPrimitives>>#primitiveProfileSemaphore */
+
 EXPORT(sqInt)
 primitiveProfileSemaphore(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

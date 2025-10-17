@@ -1,5 +1,10 @@
 /* Extracted from interp.c:36051 (function growOldSpaceByAtLeast). */
 
+/*	Attempt to grow memory by at least minAmmount.
+	Answer the size of the new segment, or nil if the attempt failed. */
+
+	/* SpurMemoryManager>>#growOldSpaceByAtLeast: */
+
 static NoDbgRegParms usqInt
 growOldSpaceByAtLeast(sqInt minAmmount)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

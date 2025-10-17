@@ -1,5 +1,7 @@
 /* Extracted from interp.c:58162 (function objectequalsString). */
 
+	/* StackInterpreter>>#object:equalsString: */
+
 static NoDbgRegParms sqInt
 objectequalsString(sqInt anOop, char *aCString)
 {

@@ -1,5 +1,12 @@
 /* Extracted from interp.c:40986 (function noInlineAllocateSlotsformatclassIndex). */
 
+/*	Allocate an object with numSlots space. If there is room beneath
+	scavengeThreshold allocate in newSpace, otherwise alocate in oldSpace. If
+	there is not room in newSpace
+	and a scavenge is not already scheduled, schedule a scavenge. */
+
+	/* SpurMemoryManager>>#noInlineAllocateSlots:format:classIndex: */
+
 static NoDbgRegParms NeverInline sqInt
 noInlineAllocateSlotsformatclassIndex(sqInt numSlots, sqInt formatField, sqInt classIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

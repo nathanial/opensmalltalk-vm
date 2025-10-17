@@ -1,5 +1,12 @@
 /* Extracted from interp.c:38777 (function longPrintInstancesWithClassIndex). */
 
+/*	Scan the heap printing any and all objects whose classIndex equals the
+	argument. 
+ */
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#longPrintInstancesWithClassIndex: */
+
 void
 longPrintInstancesWithClassIndex(sqInt classIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

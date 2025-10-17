@@ -1,5 +1,15 @@
 /* Extracted from interp.c:11954 (function primitiveArrayBecomeOneWayCopyHashArg). */
 
+/*	Similar to primitiveArrayBecomeOneWay but accepts a third argument
+	deciding whether to
+	copy the receiver's elements identity hashes over the argument's elements
+	identity hashes.
+	See the comment in primitiveArrayBecome for handling pervasive effects on
+	method cacheing and jitting.
+ */
+
+	/* InterpreterPrimitives>>#primitiveArrayBecomeOneWayCopyHashArg */
+
 static void
 primitiveArrayBecomeOneWayCopyHashArg(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

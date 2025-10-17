@@ -1,5 +1,11 @@
 /* Extracted from interp.c:47642 (function freeFromupTonextObject). */
 
+/*	Free from toFinger up to limit, dealing with possible intervening pinned
+	objects. 
+ */
+
+	/* SpurPlanningCompactor>>#freeFrom:upTo:nextObject: */
+
 static NoDbgRegParms void
 freeFromupTonextObject(usqInt initialToFinger, usqInt limit, sqInt nextObject)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

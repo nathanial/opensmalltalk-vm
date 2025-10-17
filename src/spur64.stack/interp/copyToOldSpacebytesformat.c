@@ -1,5 +1,10 @@
 /* Extracted from interp.c:28160 (function copyToOldSpacebytesformat). */
 
+/*	Copy survivor to oldSpace. Answer the new oop of the object. */
+/*	Should be too infrequent to lower icache density of copyAndForward: */
+
+	/* SpurGenerationScavenger>>#copyToOldSpace:bytes:format: */
+
 static NoDbgRegParms NeverInline sqInt
 copyToOldSpacebytesformat(sqInt survivor, sqInt bytesInObject, sqInt formatOfSurvivor)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

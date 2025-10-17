@@ -1,5 +1,12 @@
 /* Extracted from interp.c:22384 (function primitiveShortAt). */
 
+/*	Treat the receiver, which can be indexible by either bytes or words, as
+	an array of signed 16-bit values. Answer the contents of the given index.
+	Note that the index specifies the i-th 16-bit entry, not the i-th byte or
+	word.  */
+
+	/* InterpreterPrimitives>>#primitiveShortAt */
+
 static void
 primitiveShortAt(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

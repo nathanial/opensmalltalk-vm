@@ -1,5 +1,7 @@
 /* Extracted from interp.c:52776 (function externalInstVarofContextput). */
 
+	/* StackInterpreter>>#externalInstVar:ofContext:put: */
+
 static NoDbgRegParms sqInt
 externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext, sqInt anOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

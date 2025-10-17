@@ -1,5 +1,11 @@
 /* Extracted from interp.c:21816 (function primitiveScreenScaleFactor). */
 
+/*	Answer a float indicating the current scale factor for pixels of the
+	Smalltalk window.
+ */
+
+	/* InterpreterPrimitives>>#primitiveScreenScaleFactor */
+
 EXPORT(sqInt)
 primitiveScreenScaleFactor(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

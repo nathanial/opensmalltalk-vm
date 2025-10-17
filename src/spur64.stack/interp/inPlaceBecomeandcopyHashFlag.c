@@ -1,5 +1,10 @@
 /* Extracted from interp.c:36883 (function inPlaceBecomeandcopyHashFlag). */
 
+/*	in an effort to fix a compiler bug with two-way become post r3427 */
+/*	Do become in place by swapping object contents. */
+
+	/* SpurMemoryManager>>#inPlaceBecome:and:copyHashFlag: */
+
 static NoDbgRegParms NeverInline void
 inPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

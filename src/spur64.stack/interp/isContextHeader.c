@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37199 (function isContextHeader). */
 
+	/* SpurMemoryManager>>#isContextHeader: */
+
 static NoDbgRegParms int
 isContextHeader(sqInt aHeader)
 {

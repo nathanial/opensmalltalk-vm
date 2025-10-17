@@ -1,5 +1,11 @@
 /* Extracted from interp.c:27123 (function initSegmentBridgeWithBytesat). */
 
+/*	Must have room for a double header or a short object with the forwarding
+	slot (16 bytes either way).
+ */
+
+	/* Spur64BitMemoryManager>>#initSegmentBridgeWithBytes:at: */
+
 static NoDbgRegParms void
 initSegmentBridgeWithBytesat(usqLong numBytes, sqInt address)
 {

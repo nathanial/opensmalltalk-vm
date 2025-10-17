@@ -1,5 +1,7 @@
 /* Extracted from interp.c:42665 (function printCantBeObjecton). */
 
+	/* SpurMemoryManager>>#printCantBeObject:on: */
+
 static NoDbgRegParms void
 printCantBeObjecton(sqInt oop, FILE *aStream)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

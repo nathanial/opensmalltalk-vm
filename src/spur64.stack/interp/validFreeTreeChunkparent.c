@@ -1,5 +1,7 @@
 /* Extracted from interp.c:46790 (function validFreeTreeChunkparent). */
 
+	/* SpurMemoryManager>>#validFreeTreeChunk:parent: */
+
 static NoDbgRegParms const char *
 validFreeTreeChunkparent(sqInt chunk, sqInt parent)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

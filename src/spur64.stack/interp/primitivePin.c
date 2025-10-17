@@ -1,5 +1,12 @@
 /* Extracted from interp.c:69394 (function primitivePin). */
 
+/*	Pin or unpin the receiver, i.e. make it immobile or mobile, based on the
+	argument. Answer whether the object was already pinned. N.B. pinning does
+	*not* prevent
+	an object from being garbage collected. */
+
+	/* StackInterpreterPrimitives>>#primitivePin */
+
 static void
 primitivePin(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

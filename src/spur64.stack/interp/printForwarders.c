@@ -1,5 +1,9 @@
 /* Extracted from interp.c:42955 (function printForwarders). */
 
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printForwarders */
+
 void
 printForwarders(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

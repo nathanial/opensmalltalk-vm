@@ -1,5 +1,10 @@
 /* Extracted from interp.c:28505 (function printRememberedSet). */
 
+/*	Print the objects in the remembered set. */
+/*	useful for debugging */
+
+	/* SpurGenerationScavenger>>#printRememberedSet */
+
 void
 printRememberedSet(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

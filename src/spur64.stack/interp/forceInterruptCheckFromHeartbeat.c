@@ -1,5 +1,11 @@
 /* Extracted from interp.c:53902 (function forceInterruptCheckFromHeartbeat). */
 
+/*	Force an interrupt check ASAP. This version is the
+	entry-point to forceInterruptCheck for the heartbeat
+	timer to allow for repeatable debugging. */
+
+	/* StackInterpreter>>#forceInterruptCheckFromHeartbeat */
+
 void
 forceInterruptCheckFromHeartbeat(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

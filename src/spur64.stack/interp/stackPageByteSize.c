@@ -1,5 +1,12 @@
 /* Extracted from interp.c:64329 (function stackPageByteSize). */
 
+/*	Answer a page size that is a power-of-two and contains a useful number of
+	frames. Room for 256 slots for frames gives around 40 frames a page which
+	is a
+	good compromise between overflow rate and latency in divorcing a page. */
+
+	/* StackInterpreter>>#stackPageByteSize */
+
 static sqInt
 stackPageByteSize(void)
 {

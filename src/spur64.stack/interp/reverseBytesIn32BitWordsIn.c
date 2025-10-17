@@ -1,5 +1,11 @@
 /* Extracted from interp.c:45224 (function reverseBytesIn32BitWordsIn). */
 
+/*	This exists to get around a compiler bug in Apple LLVM version 7.0.0
+	(clang-700.1.76) that was avoiding the second comparison of segVersion
+	after the first byte swap. */
+
+	/* SpurMemoryManager>>#reverseBytesIn32BitWordsIn: */
+
 static NoDbgRegParms NeverInline void
 reverseBytesIn32BitWordsIn(sqInt segmentWordArray)
 {

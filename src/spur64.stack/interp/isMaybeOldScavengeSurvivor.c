@@ -1,5 +1,11 @@
 /* Extracted from interp.c:28384 (function isMaybeOldScavengeSurvivor). */
 
+/*	Answer whether the oop has survived a scavenge. This version is
+	for processing weak survivors and must cope with the scavenge in
+	freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact. */
+
+	/* SpurGenerationScavenger>>#isMaybeOldScavengeSurvivor: */
+
 static NoDbgRegParms sqInt
 isMaybeOldScavengeSurvivor(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

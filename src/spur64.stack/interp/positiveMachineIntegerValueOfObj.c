@@ -1,5 +1,13 @@
 /* Extracted from interp.c:11525 (function positiveMachineIntegerValueOfObj). */
 
+/*	Answer a value of an integer in address range, i.e up to the size of a
+	machine word.
+	The object is known not to be a SmallIntege. It is hoped to be a
+	LargePositiveInteger of size <= word size.
+ */
+
+	/* InterpreterPrimitives>>#positiveMachineIntegerValueOfObj: */
+
 static NoDbgRegParms usqIntptr_t
 positiveMachineIntegerValueOfObj(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:69486 (function primitiveSignalAtMilliseconds). */
 
+/*	Cause the time semaphore, if one has been registered, to be
+	signalled when the microsecond clock is greater than or equal to
+	the given tick value. A tick value of zero turns off timer interrupts. */
+
+	/* StackInterpreterPrimitives>>#primitiveSignalAtMilliseconds */
+
 static void
 primitiveSignalAtMilliseconds(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

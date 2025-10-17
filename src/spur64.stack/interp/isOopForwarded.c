@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37519 (function isOopForwarded). */
 
+	/* SpurMemoryManager>>#isOopForwarded: */
+
 sqInt
 isOopForwarded(sqInt oop)
 {

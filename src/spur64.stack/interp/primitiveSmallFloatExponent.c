@@ -1,5 +1,9 @@
 /* Extracted from interp.c:23189 (function primitiveSmallFloatExponent). */
 
+/*	Answer the exponent part of this float. */
+
+	/* InterpreterPrimitives>>#primitiveSmallFloatExponent */
+
 static void
 primitiveSmallFloatExponent(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

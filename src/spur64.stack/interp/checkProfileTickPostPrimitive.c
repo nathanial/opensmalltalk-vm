@@ -1,5 +1,13 @@
 /* Extracted from interp.c:51192 (function checkProfileTickPostPrimitive). */
 
+/*	Check if the profile timer has expired during a primitive and if so take a
+	sample. If the primitive has failed sample the profileMethod as nil. */
+/*	If continuing from primitive[Full]ClosureValueNoContextSwitch defer until
+	the next check
+ */
+
+	/* StackInterpreter>>#checkProfileTickPostPrimitive: */
+
 static NoDbgRegParms NeverInline void
 checkProfileTickPostPrimitive(sqInt aPrimitiveMethod)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

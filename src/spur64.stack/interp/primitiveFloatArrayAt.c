@@ -1,5 +1,11 @@
 /* Extracted from interp.c:15534 (function primitiveFloatArrayAt). */
 
+/*	Index the receiver, which must be an indexable non-pointer object, and
+	yield a float.
+ */
+
+	/* InterpreterPrimitives>>#primitiveFloatArrayAt */
+
 static void
 primitiveFloatArrayAt(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

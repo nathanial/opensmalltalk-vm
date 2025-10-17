@@ -1,5 +1,11 @@
 /* Extracted from interp.c:31074 (function allStrongSlotsOfWeaklingAreMarked). */
 
+/*	N.B. generateToByDoLimitExpression:negative:on: guards against (unsigned)0
+	- 1 going +ve
+ */
+
+	/* SpurMemoryManager>>#allStrongSlotsOfWeaklingAreMarked: */
+
 static NoDbgRegParms sqInt
 allStrongSlotsOfWeaklingAreMarked(sqInt aWeakling)
 {

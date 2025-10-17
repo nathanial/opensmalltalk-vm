@@ -1,5 +1,15 @@
 /* Extracted from interp.c:51376 (function checkStackPointerIndexForFrame). */
 
+/*	Version of stackPointerIndexForFrame: that does not depend on writing back
+	head frame pointers.
+	Used for assertion checking. Safe only in external primitives
+	(framePointer valid).
+	Answer the 0-based index rel to the given frame.
+	(This is what stackPointer used to be before conversion to pointer) */
+/*	In the StackInterpreter stacks grow down. */
+
+	/* StackInterpreter>>#checkStackPointerIndexForFrame: */
+
 static NoDbgRegParms sqInt
 checkStackPointerIndexForFrame(char *theFP)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,24 @@
 /* Extracted from interp.c:45475 (function setHeapBasememoryLimitendOfMemory). */
 
+/*	Set the dimensions of the heap, answering the start of oldSpace. edenBytes
+	holds the desired ``size of eden''
+	which is actually the total size of new space minus the reserve. edenBytes
+	is then divided up between eden
+	and the two survivor spaces, where each survivor space is a
+	scavengerDenominator (one seventh) of the total. */
+/*	Transcript
+	cr; nextPutAll: 'heapBase: '; print: baseOfHeap; nextPut: $/; nextPutAll:
+	baseOfHeap hex;
+	nextPutAll: ' memLimit '; print: memLimit; nextPut: $/; nextPutAll:
+	memLimit hex;
+	nextPutAll: ' memEnd '; print: memEnd; nextPut: $/; nextPutAll: memEnd
+	hex; cr; flush. */
+/*	This is more than a little counter-intuitive. Eden must include
+	interpreterAllocationReserveBytes. 
+ */
+
+	/* SpurMemoryManager>>#setHeapBase:memoryLimit:endOfMemory: */
+
 static NoDbgRegParms NeverInline sqInt
 setHeapBasememoryLimitendOfMemory(sqInt baseOfHeap, sqInt memLimit, sqInt memEnd)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

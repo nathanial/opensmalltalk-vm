@@ -1,5 +1,14 @@
 /* Extracted from interp.c:55304 (function isWidowedContextNoConvert). */
 
+/*	Answer if the argument is married to a live frame or not.
+	This method is safe for use only when no frameContext fields may be
+	forwarded (as maybe the case when scavenging). Post become: all
+	frameContext fields are followed, and hence normally no following of
+	frameContext fields is necessary. */
+/*	i.e. inline into isWidowedContext: */
+
+	/* StackInterpreter>>#isWidowedContextNoConvert: */
+
 static NoDbgRegParms sqInt
 isWidowedContextNoConvert(sqInt aOnceMarriedContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:41215 (function numSlotsOfIndexablePointerObj). */
 
+/*	Answer the number of strong pointer fields in the given indexable pointer
+	object. 
+ */
+
+	/* SpurMemoryManager>>#numSlotsOfIndexablePointerObj: */
+
 static NoDbgRegParms usqInt
 numSlotsOfIndexablePointerObj(sqInt objOop)
 {

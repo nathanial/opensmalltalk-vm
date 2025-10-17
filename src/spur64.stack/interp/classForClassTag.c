@@ -1,5 +1,10 @@
 /* Extracted from interp.c:33188 (function classForClassTag). */
 
+/*	No need to check this; classAtIndex: has a stricter assert:
+	self assert: classIndex ~= self isForwardedObjectClassIndexPun. */
+
+	/* SpurMemoryManager>>#classForClassTag: */
+
 static NoDbgRegParms sqInt
 classForClassTag(sqInt classIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

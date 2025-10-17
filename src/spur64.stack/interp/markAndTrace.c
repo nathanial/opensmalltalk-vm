@@ -1,5 +1,13 @@
 /* Extracted from interp.c:39435 (function markAndTrace). */
 
+/*	Mark the argument, and all objects reachable from it, and any remaining
+	objects on the mark stack. Follow forwarding pointers in the scan. */
+/*	if markAndTrace: is to follow and eliminate forwarding pointers
+	in its scan it cannot be handed an r-value which is forwarded.
+	The assert for this is in markAndShouldScan: */
+
+	/* SpurMemoryManager>>#markAndTrace: */
+
 NeverInline void
 markAndTrace(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

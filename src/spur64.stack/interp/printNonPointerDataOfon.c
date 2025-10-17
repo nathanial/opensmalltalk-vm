@@ -1,5 +1,7 @@
 /* Extracted from interp.c:43834 (function printNonPointerDataOfon). */
 
+	/* SpurMemoryManager>>#printNonPointerDataOf:on: */
+
 static NoDbgRegParms void
 printNonPointerDataOfon(sqInt oop, FILE *aStream)
 {

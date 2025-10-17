@@ -1,5 +1,9 @@
 /* Extracted from interp.c:18695 (function primitiveIsPinned). */
 
+/*	Answer if the receiver is pinned, i.e. immobile. */
+
+	/* InterpreterPrimitives>>#primitiveIsPinned */
+
 static void
 primitiveIsPinned(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

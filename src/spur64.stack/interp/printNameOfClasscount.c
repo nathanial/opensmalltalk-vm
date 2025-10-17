@@ -1,5 +1,11 @@
 /* Extracted from interp.c:60311 (function printNameOfClasscount). */
 
+/*	Details: The count argument is used to avoid a possible infinite recursion
+	if classOop is a corrupted object.
+ */
+
+	/* StackInterpreter>>#printNameOfClass:count: */
+
 static NoDbgRegParms void
 printNameOfClasscount(sqInt classOop, sqInt cnt)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37344 (function isIndexable). */
 
+	/* SpurMemoryManager>>#isIndexable: */
+
 sqInt
 isIndexable(sqInt objOop)
 {

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:65849 (function writeImageFileIO). */
 
+/*	Write the image header and heap contents to imageFile for snapshot. c.f.
+	writeImageFileIOSimulation. The game below is to maintain 64-bit alignment
+	for all putLong:toFile: occurrences. */
+
+	/* StackInterpreter>>#writeImageFileIO */
+
 static NeverInline sqInt
 writeImageFileIO(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

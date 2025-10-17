@@ -1,5 +1,9 @@
 /* Extracted from interp.c:50165 (function asciiOfCharacter). */
 
+/*	Returns an integer object */
+
+	/* StackInterpreter>>#asciiOfCharacter: */
+
 static NoDbgRegParms sqInt
 asciiOfCharacter(sqInt characterObj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

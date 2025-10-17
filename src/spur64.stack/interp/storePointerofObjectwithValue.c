@@ -1,5 +1,10 @@
 /* Extracted from interp.c:46067 (function storePointerofObjectwithValue). */
 
+/*	Note must check here for stores of young objects into old ones. */
+/*	See SistaCogit */
+
+	/* SpurMemoryManager>>#storePointer:ofObject:withValue: */
+
 sqInt
 storePointerofObjectwithValue(sqInt fieldIndex, sqInt objOop, sqInt valuePointer)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

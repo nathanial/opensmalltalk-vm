@@ -1,5 +1,7 @@
 /* Extracted from interp.c:23511 (function primitiveSmallFloatLessThan). */
 
+	/* InterpreterPrimitives>>#primitiveSmallFloatLessThan */
+
 static void
 primitiveSmallFloatLessThan(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

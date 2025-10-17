@@ -1,5 +1,7 @@
 /* Extracted from interp.c:36389 (function initialInstanceOf). */
 
+	/* SpurMemoryManager>>#initialInstanceOf: */
+
 static NoDbgRegParms sqInt
 initialInstanceOf(sqInt classObj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

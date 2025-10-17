@@ -1,5 +1,9 @@
 /* Extracted from interp.c:24075 (function primitiveSomeObject). */
 
+/*	Return the first object in the heap. */
+
+	/* InterpreterPrimitives>>#primitiveSomeObject */
+
 static void
 primitiveSomeObject(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

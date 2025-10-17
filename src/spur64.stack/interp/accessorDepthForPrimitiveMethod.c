@@ -1,5 +1,7 @@
 /* Extracted from interp.c:49853 (function accessorDepthForPrimitiveMethod). */
 
+	/* StackInterpreter>>#accessorDepthForPrimitiveMethod: */
+
 signed char
 accessorDepthForPrimitiveMethod(sqInt aMethodObj)
 {

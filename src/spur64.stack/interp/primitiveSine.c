@@ -1,5 +1,9 @@
 /* Extracted from interp.c:22609 (function primitiveSine). */
 
+/*	Computes sine of float receiver; receiver *must* be a float instance. */
+
+	/* InterpreterPrimitives>>#primitiveSine */
+
 static void
 primitiveSine(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

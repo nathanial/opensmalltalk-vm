@@ -1,5 +1,7 @@
 /* Extracted from interp.c:45600 (function sizeOfObjStack). */
 
+	/* SpurMemoryManager>>#sizeOfObjStack: */
+
 static NoDbgRegParms sqInt
 sizeOfObjStack(sqInt objStack)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

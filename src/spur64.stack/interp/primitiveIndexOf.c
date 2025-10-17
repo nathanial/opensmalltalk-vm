@@ -1,5 +1,7 @@
 /* Extracted from interp.c:59042 (function primitiveIndexOf). */
 
+	/* StackInterpreter>>#primitiveIndexOf: */
+
 sqInt
 primitiveIndexOf(sqInt methodPointer)
 {

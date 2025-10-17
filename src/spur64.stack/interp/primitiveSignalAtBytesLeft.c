@@ -1,5 +1,12 @@
 /* Extracted from interp.c:22576 (function primitiveSignalAtBytesLeft). */
 
+/*	Set the low-water mark for free space. When the free space falls
+	below this level, the new and new: primitives fail and system attempts
+	to allocate space (e.g., to create a method context) cause the low-space
+	semaphore (if one is registered) to be signalled. */
+
+	/* InterpreterPrimitives>>#primitiveSignalAtBytesLeft */
+
 static void
 primitiveSignalAtBytesLeft(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

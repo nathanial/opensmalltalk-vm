@@ -1,5 +1,10 @@
 /* Extracted from interp.c:54532 (function handleStackOverflow). */
 
+/*	Check for stack overflow, moving frames to another stack if so.
+	This should *only* be sent from checkForStackOverflow. */
+
+	/* StackInterpreter>>#handleStackOverflow */
+
 static NeverInline void
 handleStackOverflow(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,9 @@
 /* Extracted from interp.c:64489 (function stObjectat). */
 
+/*	Return what ST would return for <obj> at: index. */
+
+	/* StackInterpreter>>#stObject:at: */
+
 sqInt
 stObjectat(sqInt array, sqInt index)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:34131 (function doScavenge). */
 
+/*	The inner shell for scavenge, abstrascted out so globalGarbageCollect can
+	use it.
+ */
+
+	/* SpurMemoryManager>>#doScavenge: */
+
 static NoDbgRegParms void
 doScavenge(sqInt tenuringCriterion)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

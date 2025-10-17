@@ -1,5 +1,11 @@
 /* Extracted from interp.c:25929 (function signalNoResume). */
 
+/*	Signal the given semaphore from within the interpreter. Used to serialize
+	callbacks. 
+ */
+
+	/* InterpreterPrimitives>>#signalNoResume: */
+
 int
 signalNoResume(sqInt aSemaphore)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

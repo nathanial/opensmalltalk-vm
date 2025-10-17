@@ -1,5 +1,11 @@
 /* Extracted from interp.c:20964 (function primitivePinnedNewWithArg). */
 
+/*	Allocate a new pinned indexable instance. Fail if the allocation would
+	leave less than lowSpaceThreshold bytes free.
+ */
+
+	/* InterpreterPrimitives>>#primitivePinnedNewWithArg */
+
 static void
 primitivePinnedNewWithArg(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

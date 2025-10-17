@@ -1,5 +1,7 @@
 /* Extracted from interp.c:58280 (function penultimateLiteralOf). */
 
+	/* StackInterpreter>>#penultimateLiteralOf: */
+
 static NoDbgRegParms sqInt
 penultimateLiteralOf(sqInt aMethodOop)
 {

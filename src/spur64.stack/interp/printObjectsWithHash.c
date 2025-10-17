@@ -1,5 +1,12 @@
 /* Extracted from interp.c:43977 (function printObjectsWithHash). */
 
+/*	Scan the heap printing the oops of any and all objects whose hash equals
+	the argument.
+ */
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printObjectsWithHash: */
+
 void
 printObjectsWithHash(sqInt hash)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

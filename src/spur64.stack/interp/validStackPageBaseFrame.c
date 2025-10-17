@@ -1,5 +1,9 @@
 /* Extracted from interp.c:65620 (function validStackPageBaseFrame). */
 
+/*	Check that the base frame in the stack page has a valid sender context. */
+
+	/* StackInterpreter>>#validStackPageBaseFrame: */
+
 static NoDbgRegParms sqInt
 validStackPageBaseFrame(StackPage *aPage)
 {

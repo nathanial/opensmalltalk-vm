@@ -1,5 +1,11 @@
 /* Extracted from interp.c:35236 (function findString). */
 
+/*	Print the oops of all string-like things that have the same characters as
+	aCString 
+ */
+
+	/* SpurMemoryManager>>#findString: */
+
 void
 findString(char *aCString)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

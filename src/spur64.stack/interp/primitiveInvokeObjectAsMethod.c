@@ -1,5 +1,11 @@
 /* Extracted from interp.c:18469 (function primitiveInvokeObjectAsMethod). */
 
+/*	Primitive. 'Invoke' an object like a function, sending the special message
+	run: originalSelector with: arguments in: aReceiver.
+	 */
+
+	/* InterpreterPrimitives>>#primitiveInvokeObjectAsMethod */
+
 static void
 primitiveInvokeObjectAsMethod(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

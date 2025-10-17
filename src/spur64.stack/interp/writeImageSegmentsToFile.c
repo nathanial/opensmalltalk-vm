@@ -1,5 +1,7 @@
 /* Extracted from interp.c:49782 (function writeImageSegmentsToFile). */
 
+	/* SpurSegmentManager>>#writeImageSegmentsToFile: */
+
 static NoDbgRegParms sqInt
 writeImageSegmentsToFile(sqImageFile aBinaryStream)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

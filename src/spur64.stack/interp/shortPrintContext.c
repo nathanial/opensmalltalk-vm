@@ -1,5 +1,7 @@
 /* Extracted from interp.c:63119 (function shortPrintContext). */
 
+	/* StackInterpreter>>#shortPrintContext: */
+
 static NoDbgRegParms sqInt
 shortPrintContext(sqInt aContext)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

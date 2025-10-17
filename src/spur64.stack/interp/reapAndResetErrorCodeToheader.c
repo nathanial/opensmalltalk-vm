@@ -1,5 +1,13 @@
 /* Extracted from interp.c:61868 (function reapAndResetErrorCodeToheader). */
 
+/*	Assuming the primFailCode is non-zero, check if the method consumes the
+	error code
+	and if so, assign it through theSP. Then zero the primFailCode. This is
+	infrequent code,
+	so keep it out of the common path. */
+
+	/* StackInterpreter>>#reapAndResetErrorCodeTo:header: */
+
 static NoDbgRegParms NeverInline void
 reapAndResetErrorCodeToheader(char *theSP, sqInt methodHeader)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

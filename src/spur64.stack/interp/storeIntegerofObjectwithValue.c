@@ -1,5 +1,9 @@
 /* Extracted from interp.c:64815 (function storeIntegerofObjectwithValue). */
 
+/*	Note: May be called by translated primitive code. */
+
+	/* StackInterpreter>>#storeInteger:ofObject:withValue: */
+
 sqInt
 storeIntegerofObjectwithValue(sqInt fieldIndex, sqInt objectPointer, sqInt integerValue)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

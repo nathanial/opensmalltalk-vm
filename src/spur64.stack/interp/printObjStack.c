@@ -1,5 +1,9 @@
 /* Extracted from interp.c:44183 (function printObjStack). */
 
+/*	useful for debugging */
+
+	/* SpurMemoryManager>>#printObjStack: */
+
 void
 printObjStack(sqInt objStack)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

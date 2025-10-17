@@ -1,5 +1,13 @@
 /* Extracted from interp.c:25718 (function primitiveUtcWithOffset). */
 
+/*	Answer an array with UTC microseconds since the Posix epoch and the
+	current seconds offset from GMT in the local time zone. An empty two
+	element array (or any object with two or more slots) may be supplied
+	as a parameter.
+	This is a named (not numbered) primitive in the null module (ie the VM) */
+
+	/* InterpreterPrimitives>>#primitiveUtcWithOffset */
+
 EXPORT(sqInt)
 primitiveUtcWithOffset(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

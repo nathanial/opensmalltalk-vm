@@ -1,5 +1,10 @@
 /* Extracted from interp.c:53239 (function findFrameAboveinPage). */
 
+/*	Answer the frame above theFP (adjacent frame nearest head end).
+	If theFP is the head frame answer 0. */
+
+	/* StackInterpreter>>#findFrameAbove:inPage: */
+
 static NoDbgRegParms char *
 findFrameAboveinPage(char *theFP, StackPage *thePage)
 {

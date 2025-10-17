@@ -1,5 +1,7 @@
 /* Extracted from interp.c:56951 (function mapStackPages). */
 
+	/* StackInterpreter>>#mapStackPages */
+
 static NeverInline void
 mapStackPages(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

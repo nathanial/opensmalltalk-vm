@@ -1,5 +1,12 @@
 /* Extracted from interp.c:33999 (function countMarkedAndUnmarkdObjects). */
 
+/*	print the count of marked and unmarked objects.
+	In addition if 1 is set in printFlags, short-print marked objects,
+	and/or if 2 is set, short-print unmarked obejcts. */
+/*	useful for debugging */
+
+	/* SpurMemoryManager>>#countMarkedAndUnmarkdObjects: */
+
 void
 countMarkedAndUnmarkdObjects(sqInt printFlags)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

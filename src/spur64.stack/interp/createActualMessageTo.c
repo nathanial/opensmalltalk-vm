@@ -1,5 +1,12 @@
 /* Extracted from interp.c:51611 (function createActualMessageTo). */
 
+/*	Bundle up the selector, arguments and lookupClass into a Message object. 
+	In the process it pops the arguments off the stack, and pushes the message
+	object. 
+	This can then be presented as the argument of e.g. #doesNotUnderstand: */
+
+	/* StackInterpreter>>#createActualMessageTo: */
+
 static NoDbgRegParms void
 createActualMessageTo(sqInt lookupClass)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

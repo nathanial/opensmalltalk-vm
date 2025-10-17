@@ -1,5 +1,9 @@
 /* Extracted from interp.c:54062 (function freeUntracedStackPages). */
 
+/*	Free any untraced stack pages. */
+
+	/* StackInterpreter>>#freeUntracedStackPages */
+
 static void
 freeUntracedStackPages(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

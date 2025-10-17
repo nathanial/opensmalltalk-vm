@@ -1,5 +1,7 @@
 /* Extracted from interp.c:35815 (function freeChunkWithBytesat). */
 
+	/* SpurMemoryManager>>#freeChunkWithBytes:at: */
+
 static NoDbgRegParms sqInt
 freeChunkWithBytesat(sqInt bytes, sqInt address)
 {

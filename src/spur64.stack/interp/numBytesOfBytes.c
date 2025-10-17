@@ -1,5 +1,11 @@
 /* Extracted from interp.c:41075 (function numBytesOfBytes). */
 
+/*	Answer the number of indexable bytes in the given non-immediate
+	byte-indexable object.
+ */
+
+	/* SpurMemoryManager>>#numBytesOfBytes: */
+
 static NoDbgRegParms sqInt
 numBytesOfBytes(sqInt objOop)
 {

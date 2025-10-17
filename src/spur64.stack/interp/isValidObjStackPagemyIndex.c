@@ -1,5 +1,9 @@
 /* Extracted from interp.c:37705 (function isValidObjStackPagemyIndex). */
 
+/*	Just check the page itself. */
+
+	/* SpurMemoryManager>>#isValidObjStackPage:myIndex: */
+
 static NoDbgRegParms sqInt
 isValidObjStackPagemyIndex(sqInt objStackPage, sqInt myx)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

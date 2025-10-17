@@ -2514,976 +2514,426 @@ volatile int sendTrace;
 #define oopisLessThan(anOop,otherOop) ((usqInt)(anOop) < (usqInt)(otherOop))
 
 
-/*** Methods ***/
-
-
-/*	This is the main interpreter loop. It normally loops forever, fetching and
-	executing bytecodes. When running in the context of a browser plugin VM,
-	however, it must return control to the browser periodically. This should
-	done only when the state of the currently running Squeak thread is safely
-	stored in the object heap. Since this is the case at the moment that a
-	check for interrupts is performed, that is when we return to the browser
-	if it is time to do so. Interrupt checks happen quite frequently.
- */
-/*	If stacklimit is zero then the stack pages have not been initialized. */
-
-	/* StackInterpreter>>#interpret */
 #include "interp/interpret.c"
 
 
 
-/*	For assert-checking */
-
-	/* CogStackPage>>#addressIsInPage: */
 #include "interp/addressIsInPage.c"
 
 
-	/* CogStackPage>>#isFree */
 #include "interp/isFree.c"
 
 
 
-/*	<InterpreterStackPage> */
-/*	MRUP-->used page<->used page<->used page<->used page<--LRUP
-	^ <-next-prev-> ^
-	| |
-	v <-prev-next-> v
-	free page<->free page<->free page<->free page */
-
-	/* CogStackPages>>#freeStackPageNoAssert: */
 #include "interp/freeStackPageNoAssert.c"
 
 
 
-/*	<InterpreterStackPage> */
-/*	MRUP-->used page<->used page<->used page<->used page<--LRUP
-	^ <-next-prev-> ^
-	| |
-	v <-prev-next-> v
-	free page<->free page<->free page<->free page */
-
-	/* CogStackPages>>#freeStackPage: */
 #include "interp/freeStackPage.c"
 
 
 
-/*	<InterpreterStackPage> */
-/*	MRUP-->used page<->used page<->used page<->used page<--LRUP
-	^ <-next-prev-> ^
-	| |
-	v <-prev-next-> v
-	free page<->free page<->free page<->free page */
-
-	/* CogStackPages>>#markStackPageMostRecentlyUsed: */
 #include "interp/markStackPageMostRecentlyUsed.c"
 
 
 
-/*	<InterpreterStackPage> */
-/*	This method is used to move a page to a position in the list such that it
-	cannot be deallocated when a new page is allocated, without changing the
-	most recently
-	used page. There must be at least 3 pages in the system. So making the
-	page the MRU's prevPage is sufficient to ensure it won't be deallocated. */
-/*	MRUP-->used page<->used page<->used page<->used page<--LRUP
-	^ <-next-prev-> ^
-	| |
-	v <-prev-next-> v
-	free page<->free page<->free page<->free page */
-
-	/* CogStackPages>>#markStackPageNextMostRecentlyUsed: */
 #include "interp/markStackPageNextMostRecentlyUsed.c"
 
 
 
-/*	MRUP-->used page<->used page<->used page<->used page<--LRUP
-	^ <-next-prev-> ^
-	| |
-	v <-prev-next-> v
-	free page<->free page<->free page<->free page */
-
-	/* CogStackPages>>#newStackPage */
 #include "interp/newStackPage.c"
 
 
 
-/*	Answer if the stack page list is well-formed.
-	MRUP-->used page<->used page<->used page<->used page<--LRUP
-	^ <-next-prev-> ^
-	| |
-	v <-prev-next-> v
-	free page<->free page<->free page<->free page */
-
-	/* CogStackPages>>#pageListIsWellFormed */
 #include "interp/pageListIsWellFormed.c"
 
 
 
-/*	Answer the page for a page index.
-	N.B. This is a zero-relative index. */
-
-	/* CogStackPages>>#stackPageAt: */
 #include "interp/stackPageAt.c"
 
 
 
-/*	<Integer> */
-
-	/* CogStackPages>>#stackPageFor: */
 #include "interp/stackPageFor.c"
 
 
-	/* CogStackPages>>#statAverageLivePagesWhenMapping */
 #include "interp/statAverageLivePagesWhenMapping.c"
 
 
 
-/*	Initialization is completed by initializing the stack zone on entry to the
-	interpreter. Answer when this has been done. This allows e.g. the crash
-	dump processing to
-	be avoided until the system has been initialized, easing debugging of new
-	ports as they fail in early system initialization attempts. */
-
-	/* CogStackPages>>#vmIsInitialized */
 #include "interp/vmIsInitialized.c"
 
 
 
-/*	Answer either a malloced string with the null-terminated contents of oop
-	if oop is a string,
-	or the null pointer if oop is nil, or fail. It is the client's
-	responsibility to free the string later. */
-
-	/* InterpreterPrimitives>>#cStringOrNullFor: */
 #include "interp/cStringOrNullFor.c"
 
 
 
-/*	In C, non-zero is true, so avoid computation by simply answering
-	primFailCode in the C version.
- */
-
-	/* InterpreterPrimitives>>#failed */
 #include "interp/failed.c"
 
 
 
-/*	Answer the identity hash of an object, assigning a hash if it doesn't have
-	one. On Spur refuse to assign a hash to something that looks like a
-	behavior. 
- */
-
-	/* InterpreterPrimitives>>#identityHashOf: */
 #include "interp/identityHashOf.c"
 
 
 
-/*	Answer true if integer object is negative.
-	Fail if object pointed by oop i not an integer. */
-
-	/* InterpreterPrimitives>>#isNegativeIntegerValueOf: */
 #include "interp/isNegativeIntegerValueOf.c"
 
 
 
-/*	Answer if oop is a value of an integer in address range, i.e up to the
-	size of a machine word.
-	The object may be either a positive SmallInteger or a LargePositiveInteger
-	of size <= word size.
- */
-
-	/* InterpreterPrimitives>>#isPositiveMachineIntegerObject: */
 #include "interp/isPositiveMachineIntegerObject.c"
 
 
 
-/*	Return a Large Integer object for the given integer magnitude and sign */
-
-	/* InterpreterPrimitives>>#magnitude64BitIntegerFor:neg: */
 #include "interp/magnitude64BitIntegerForneg.c"
 
 
 
-/*	Convert the given object into an integer value.
-	The object may be either a positive SmallInteger or up to an eight-byte
-	LargeInteger. 
- */
-
-	/* InterpreterPrimitives>>#magnitude64BitValueOf: */
 #include "interp/magnitude64BitValueOf.c"
 
 
 
-/*	Convert the given object into an integer value.
-	The object may be either a positive SmallInteger or a four-byte
-	LargePositiveInteger. 
- */
-
-	/* InterpreterPrimitives>>#positive32BitValueOf: */
 #include "interp/positive32BitValueOf.c"
 
 
 
-/*	Convert the given object into an integer value.
-	The object may be either a positive SmallInteger or up to an eight-byte
-	LargePositiveInteger. 
- */
-
-	/* InterpreterPrimitives>>#positive64BitValueOf: */
 #include "interp/positive64BitValueOf.c"
 
 
 
-/*	Answer a value of an integer in address range, i.e up to the size of a
-	machine word.
-	The object is known not to be a SmallIntege. It is hoped to be a
-	LargePositiveInteger of size <= word size.
- */
-
-	/* InterpreterPrimitives>>#positiveMachineIntegerValueOfObj: */
 #include "interp/positiveMachineIntegerValueOfObj.c"
 
 
 
-/*	Answer a value of an integer in address range, i.e up to the size of a
-	machine word.
-	The object may be either a positive SmallInteger or a LargePositiveInteger
-	of size <= word size.
- */
-/*	some important callers such as primitiveNewWithArg, so inline the common
-	case 
- */
-
-	/* InterpreterPrimitives>>#positiveMachineIntegerValueOf: */
 #include "interp/positiveMachineIntegerValueOf.c"
 
 
-	/* InterpreterPrimitives>>#primitiveAdd */
 #include "interp/primitiveAdd.c"
 
 
 
-/*	Primitive arithmetic operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveAddLargeIntegers */
 #include "interp/primitiveAddLargeIntegers.c"
 
 
 
-/*	Primitive. Change the class of the argument to make it an instance of the
-	receiver given that the format of the receiver matches the format of the
-	argument's class.
-	Fail if receiver or argument are SmallIntegers, or the receiver is an
-	instance of a
-	compact class and the argument isn't, or when the argument's class is
-	compact and
-	the receiver isn't, or when the format of the receiver is different from
-	the format of
-	the argument's class, or when the arguments class is fixed and the
-	receiver's size
-	differs from the size that an instance of the argument's class should
-	have. 
- */
-
-	/* InterpreterPrimitives>>#primitiveAdoptInstance */
 #include "interp/primitiveAdoptInstance.c"
 
 
 
-/*	Answer an array of all instances of the receiver that exist
-	when the primitive is called, excluding any that may be
-	garbage collected as a side effect of allocating the result array. */
-
-	/* InterpreterPrimitives>>#primitiveAllInstances */
 #include "interp/primitiveAllInstances.c"
 
 
 
-/*	Answer an array of all objects that exist when the primitive
-	is called, excluding those that may be garbage collected as
-	a side effect of allocating the result array. */
-
-	/* InterpreterPrimitives>>#primitiveAllObjects */
 #include "interp/primitiveAllObjects.c"
 
 
 
-/*	Computes arctan of float receiver; receiver *must* be a float instance. */
-
-	/* InterpreterPrimitives>>#primitiveArctan */
 #include "interp/primitiveArctan.c"
 
 
 
-/*	Invoke the two-way become primitive.
-	We must at least flush the method cache here, to eliminate stale
-	references to mutated classes and/or selectors.
-	
-	If in the CoInterpreter, we must deal with jitted methods being becommed.
-	In the conception of the abstract VM,
-	unless a CompiledMethod is becommed to one with equivalent bytecode
-	contexts referring to the becommed
-	method will likely fetch invalid bytecodes on resumption. The
-	responsibility for validity here lies with the user of
-	the become primitive, not the VM. So one could imagine checking for
-	methods becomming equivalent methods
-	and updating Cog methods to refer to their becommed duals. But that
-	requires machinery to compare two
-	compiled methods to check if their code is equivalent. A much simpler
-	approach, which also gets the VM to fail
-	in a less confusing place if it is going to fail because the programmer
-	has not ensured compiled code validity
-	across become, is to simply divorce all frames and map context pcs back to
-	bytecode pcs when becomming
-	jitted methods. However, mapping native pcs in contexts whose methods are
-	flagged for become will not ensure
-	that pcs are mapped reliably. Consider this arc: a context on a method
-	that has been jitted exists with a native pc.
-	The method is unjitted to make room for other methods to be jitted. The
-	method is becommed. So the scan is only
-	effective for methods in the jit. Slowing down become so that a rare case
-	may fail more comprehensibly, when its
-	going to fail anyway, is a waste of effort. So we do divorce frames (since
-	machine code frames refer to CogMethods,
-	not methods), but don't scan the entire heap looking for native pcs in
-	contexts. Hence the primitive must be
-	prepared to have its calling frame divorced. We store the context for the
-	top frame in activeProcess.
-	BTW, as of late '22/early '23 this is only done for Spur.
-	See preBecomeAction: and postBecomeAction: */
-
-	/* InterpreterPrimitives>>#primitiveArrayBecome */
 #include "interp/primitiveArrayBecome.c"
 
 
 
-/*	Invoke the one-way become primitive.
-	See the comment in primitiveArrayBecome for handling pervasive effects on
-	method cacheing and jitting. */
-
-	/* InterpreterPrimitives>>#primitiveArrayBecomeOneWay */
 #include "interp/primitiveArrayBecomeOneWay.c"
 
 
 
-/*	Similar to primitiveArrayBecomeOneWay but accepts a third argument
-	deciding whether to
-	copy the receiver's elements identity hashes over the argument's elements
-	identity hashes.
-	See the comment in primitiveArrayBecome for handling pervasive effects on
-	method cacheing and jitting.
- */
-
-	/* InterpreterPrimitives>>#primitiveArrayBecomeOneWayCopyHashArg */
 #include "interp/primitiveArrayBecomeOneWayCopyHashArg.c"
 
 
 
-/*	Similar to primitiveArrayBecomeOneWay but does /not/ copy the receiver's
-	elements identity hashes over the argument's elements identity hashes.
-	See the comment in primitiveArrayBecome for handling pervasive effects on
-	method cacheing and jitting. */
-
-	/* InterpreterPrimitives>>#primitiveArrayBecomeOneWayNoCopyHash */
 #include "interp/primitiveArrayBecomeOneWayNoCopyHash.c"
 
 
-	/* InterpreterPrimitives>>#primitiveAsCharacter */
 #include "interp/primitiveAsCharacter.c"
 
 
 
-/*	N.B. This will answer inexact results for integers with > 53 bits of
-	magnitude. 
- */
-
-	/* InterpreterPrimitives>>#primitiveAsFloat */
 #include "interp/primitiveAsFloat.c"
 
 
-	/* InterpreterPrimitives>>#primitiveAt */
 #include "interp/primitiveAt.c"
 
 
-	/* InterpreterPrimitives>>#primitiveAtPut */
 #include "interp/primitiveAtPut.c"
 
 
 
-/*	Set the cursor to the given shape. The Mac only supports 16x16 pixel
-	cursors. Cursor offsets are handled by Smalltalk.
- */
-
-	/* InterpreterPrimitives>>#primitiveBeCursor */
 #include "interp/primitiveBeCursor.c"
 
 
 
-/*	Record the system Display object in the specialObjectsTable,
-	and if possible pin the display bitmap. Further, invoke ioBeDisplay
-	to alow the VM to record the location, width heigth & depth of the bitmap. */
-
-	/* InterpreterPrimitives>>#primitiveBeDisplay */
 #include "interp/primitiveBeDisplay.c"
 
 
 
-/*	make the basic beep noise */
-
-	/* InterpreterPrimitives>>#primitiveBeep */
 #include "interp/primitiveBeep.c"
 
 
 
-/*	For the mirror prims check that the class obj is actually a valid class.
-	No need to check if it's the receiver since the method exists only on
-	Behavior. 
- */
-
-	/* InterpreterPrimitives>>#primitiveBehaviorHash */
 #include "interp/primitiveBehaviorHash.c"
 
 
 
-/*	Note no short-cut for SmallIntegers. Either the inline interpreter
-	bytecode or the JIT primitive will handle this case. */
-
-	/* InterpreterPrimitives>>#primitiveBitAnd */
 #include "interp/primitiveBitAnd.c"
 
 
 
-/*	Primitive logical operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveBitAndLargeIntegers */
 #include "interp/primitiveBitAndLargeIntegers.c"
 
 
 
-/*	Note no short-cut for SmallIntegers. Either the inline interpreter
-	bytecode or the JIT primitive will handle this case. */
-
-	/* InterpreterPrimitives>>#primitiveBitOr */
 #include "interp/primitiveBitOr.c"
 
 
 
-/*	Primitive logical operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveBitOrLargeIntegers */
 #include "interp/primitiveBitOrLargeIntegers.c"
 
 
 
-/*	Perform a bitShift. In 32-bits deal only with non-negative 32-bit
-	integers. In 64-bits deal with signed 64-bit quantities (max (2^63)-1). */
-
-	/* InterpreterPrimitives>>#primitiveBitShift */
 #include "interp/primitiveBitShift.c"
 
 
 
-/*	Primitive arithmetic operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveBitShiftLargeIntegers */
 #include "interp/primitiveBitShiftLargeIntegers.c"
 
 
-	/* InterpreterPrimitives>>#primitiveBitXor */
 #include "interp/primitiveBitXor.c"
 
 
 
-/*	Primitive logical operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveBitXorLargeIntegers */
 #include "interp/primitiveBitXorLargeIntegers.c"
 
 
 
-/*	Answer the encoder names for the supported bytecode sets. */
-
-	/* InterpreterPrimitives>>#primitiveBytecodeSetsAvailable */
 #include "interp/primitiveBytecodeSetsAvailable.c"
 
 
 
-/*	Answer bytes available at this moment. For more meaningful 
-	results, calls to this primitive should be precedeed by a full 
-	or incremental garbage collection. */
-
-	/* InterpreterPrimitives>>#primitiveBytesLeft */
 #include "interp/primitiveBytesLeft.c"
 
 
 
-/*	Perform a function call to a foreign function.
-	Only invoked from method containing explicit external call spec.
-	Due to this we use the pluggable prim mechanism explicitly here
-	(the first literal of any FFI spec'ed method is an ExternalFunction
-	and not an array as used in the pluggable primitive mechanism). */
-/*	Manually copied from primitiveCalloutAccessorDepth in the
-	ThreadedFFIPlugins... 
- */
-/*	since call may invoke a callback */
-/*	since call signature is in first literal... */
-
-	/* InterpreterPrimitives>>#primitiveCalloutToFFI */
 #include "interp/primitiveCalloutToFFI.c"
 
 
 
-/*	Primitive. Change the class of the receiver into the class of the argument
-	given that
-	the format of the receiver matches the format of the argument's class.
-	Fail if the
-	receiver or argument are SmallIntegers, or the receiver is an instance of
-	a compact
-	class and the argument isn't, or when the argument's class is compact and
-	the receiver
-	isn't, or when the format of the receiver is different from the format of
-	the argument's
-	class, or when the arguments class is fixed and the receiver's size
-	differs from the size
-	that an instance of the argument's class should have. */
-
-	/* InterpreterPrimitives>>#primitiveChangeClass */
 #include "interp/primitiveChangeClass.c"
 
 
-	/* InterpreterPrimitives>>#primitiveClass */
 #include "interp/primitiveClass.c"
 
 
 
-/*	Primitive. Void the VM profile histograms. */
-
-	/* InterpreterPrimitives>>#primitiveClearVMProfile */
 #include "interp/primitiveClearVMProfile.c"
 
 
 
-/*	When called with a single string argument, post the string to 
-	the clipboard. When called with zero arguments, return a 
-	string containing the current clipboard contents. */
-
-	/* InterpreterPrimitives>>#primitiveClipboardText */
 #include "interp/primitiveClipboardText.c"
 
 
 
-/*	Take a boolean which if true turns or keeps clock logging on. Answer an
-	array supplying
-	the size of the clock logs, the address of the usecs log, the index in it,
-	the address of the
-	msecs log, and the index into it. */
-
-	/* InterpreterPrimitives>>#primitiveClockLogAddresses */
 #include "interp/primitiveClockLogAddresses.c"
 
 
-	/* InterpreterPrimitives>>#primitiveClosureValue */
 #include "interp/primitiveClosureValue.c"
 
 
 
-/*	An exact clone of primitiveClosureValue except that this version will not
-	check for interrupts on stack overflow. It may invoke the garbage
-	collector but will not switch processes. See
-	checkForInterruptsMayContextSwitch:  */
-
-	/* InterpreterPrimitives>>#primitiveClosureValueNoContextSwitch */
 #include "interp/primitiveClosureValueNoContextSwitch.c"
 
 
-	/* InterpreterPrimitives>>#primitiveClosureValueWithArgs */
 #include "interp/primitiveClosureValueWithArgs.c"
 
 
 
-/*	Return the value of the microsecond clock in the local timezone, as
-	updated by the heartbeat, as an integer.
-	This is the number of microseconds since the Smalltalk epoch, 1901/1/1
-	12:00am. The microsecond clock is at least 60 bits wide which means it'll
-	get to around August
-	38435 before it wraps around. Be sure to put it on your calendar. The
-	coarse clock is
-	updated by the heartbeat thread and as such is much cheaper than
-	primitiveUTCMicrosecondClock, which always entails a system call. */
-
-	/* InterpreterPrimitives>>#primitiveCoarseLocalMicrosecondClock */
 #include "interp/primitiveCoarseLocalMicrosecondClock.c"
 
 
 
-/*	Return the value of the microsecond clock as updated by the heartbeat as
-	an integer.
-	This is the number of microseconds since the Smalltalk epoch, 1901/1/1
-	12:00am. The microsecond clock is at least 60 bits wide which means it'll
-	get to around August
-	38435 before it wraps around. Be sure to put it on your calendar. The
-	coarse clock is
-	updated by the heartbeat thread and as such is much cheaper than
-	primitiveUTCMicrosecondClock, which always entails a system call. */
-
-	/* InterpreterPrimitives>>#primitiveCoarseUTCMicrosecondClock */
 #include "interp/primitiveCoarseUTCMicrosecondClock.c"
 
 
 
-/*	Primitive. Compare two byte-indexed objects for equality */
-
-	/* InterpreterPrimitives>>#primitiveCompareBytes */
 #include "interp/primitiveCompareBytes.c"
 
 
 
-/*	<string1> primitiveCompareWith: string2 [collated: order] */
-/*	1 - fetch the parameters from the stack */
-
-	/* InterpreterPrimitives>>#primitiveCompareWith */
 #include "interp/primitiveCompareWith.c"
 
 
 
-/*	Fill the receiver, which must be an indexable non-pointer
-	object, with the given integer value. */
-
-	/* InterpreterPrimitives>>#primitiveConstantFill */
 #include "interp/primitiveConstantFill.c"
 
 
 
-/*	Primitive. Start or stop the VM profiler. The first argument is a boolean
-	to switch profiling on or off. The second argument is an integer or nil.
-	If an integer it determines the maximum number of samples in the VM's
-	sample buffer. Answer the current number of samples in the buffer. */
-
-	/* InterpreterPrimitives>>#primitiveControlVMProfiling */
 #include "interp/primitiveControlVMProfiling.c"
 
 
 
-/*	Primitive. Copy the state of the receiver from the argument. 
-	Fail if receiver and argument are of a different class.
-	Fail if the receiver or argument are contexts (because of context-to-stack
-	mapping). Fail if receiver and argument have different lengths (for
-	indexable objects).
-	Fail if the objects are not in a fit state to be copied (e.g. married
-	contexts and Cogged methods) */
-
-	/* InterpreterPrimitives>>#primitiveCopyObject */
 #include "interp/primitiveCopyObject.c"
 
 
 
-/*	Computes cosine of float receiver; receiver *must* be a float instance. */
-
-	/* InterpreterPrimitives>>#primitiveCosine */
 #include "interp/primitiveCosine.c"
 
 
 
-/*	Crash the VM by indirecting through a null pointer. If the sole argument
-	is true crash in this thread, and if it is false crash in a new thread. If
-	the argument is an integer use the method that implies.
-	bit 0 = thread to crash in; 1 => this thread
-	bit 1 = crash method; 0 => indirect through null pointer; 1 => call exit */
-
-	/* InterpreterPrimitives>>#primitiveCrashVM */
 #include "interp/primitiveCrashVM.c"
 
 
 
-/*	Pass in a non-negative value to disable the architectures powermanager if
-	any, zero to enable. This is a named (not numbered) primitive in the null
-	module (ie the VM)
- */
-
-	/* InterpreterPrimitives>>#primitiveDisablePowerManager */
 #include "interp/primitiveDisablePowerManager.c"
 
 
-	/* InterpreterPrimitives>>#primitiveDiv */
 #include "interp/primitiveDiv.c"
 
 
-	/* InterpreterPrimitives>>#primitiveDivide */
 #include "interp/primitiveDivide.c"
 
 
 
-/*	Primitive arithmetic operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveDivideLargeIntegers */
 #include "interp/primitiveDivideLargeIntegers.c"
 
 
 
-/*	Primitive arithmetic operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveDivLargeIntegers */
 #include "interp/primitiveDivLargeIntegers.c"
 
 
 
-/*	Attempt to enter a CriticalSection/Mutex. If not owned, set the owner to
-	the current
-	process and answer false. If owned by the current process answer true.
-	Otherwise suspend the process. Answer if the receiver is owned by the
-	current process.
-	For simulation, if there is an argument it is taken to be the effective
-	activeProcess (see Process>>effectiveProcess). */
-
-	/* InterpreterPrimitives>>#primitiveEnterCriticalSection */
 #include "interp/primitiveEnterCriticalSection.c"
 
 
-	/* InterpreterPrimitives>>#primitiveEqual */
 #include "interp/primitiveEqual.c"
 
 
 
-/*	Primitive comparison operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveEqualLargeIntegers */
 #include "interp/primitiveEqualLargeIntegers.c"
 
 
 
-/*	Exit the critical section.
-	This may change the active process as a result. */
-
-	/* InterpreterPrimitives>>#primitiveExitCriticalSection */
 #include "interp/primitiveExitCriticalSection.c"
 
 
-	/* InterpreterPrimitives>>#primitiveExitToDebugger */
 #include "interp/primitiveExitToDebugger.c"
 
 
 
-/*	Computes E raised to the receiver power.
-	Receiver *must* be a float instance. */
-
-	/* InterpreterPrimitives>>#primitiveExp */
 #include "interp/primitiveExp.c"
 
 
 
-/*	Exponent part of float receiver; receiver *must* be a float instance. */
-
-	/* InterpreterPrimitives>>#primitiveExponent */
 #include "interp/primitiveExponent.c"
 
 
 
-/*	Set general (unspecified) primitive failure. Don't overwrite an error code
-	that has already been set. */
-/*	Use returnTypeC: #sqInt because that's the way it is defined in sq.h.
-	Use no explicit return so that Slang doesn't fail an inlining type-check
-	when a primitive with return type void uses ^self primitiveFail to exit. */
-
-	/* InterpreterPrimitives>>#primitiveFail */
 #include "interp/primitiveFail.c"
 
 
 
-/*	Set PrimErrFFIException primitive failure and associated exceptionCode
-	(a.k.a. 
-	secondaryErrorCode) and exceptionPC. Under control of the
-	ffiExceptionResponse flag,
-	if in a primitive with an error code and ffiCalloutVMHandle indicates
-	we're in an FFI call,
-	then fail the primitive.
-	ffiExceptionResponse < 0 never fail
-	ffiExceptionResponse = 0 fail if method has a primitive error code
-	(default) ffiExceptionResponse > 0 always fail */
-
-	/* InterpreterPrimitives>>#primitiveFailForFFIException:at: */
 #include "interp/primitiveFailForFFIExceptionat.c"
 
 
 
-/*	Set PrimErrOSError primitive failure and associated osErrorCode. */
-
-	/* InterpreterPrimitives>>#primitiveFailForOSError: */
 #include "interp/primitiveFailForOSError.c"
 
 
 
-/*	Set specific primitive failure.
-	N.B. primitiveFailFor: PrimNoErr is expected to clear the primFailCode. */
-
-	/* InterpreterPrimitives>>#primitiveFailFor: */
 #include "interp/primitiveFailFor.c"
 
 
 
-/*	Set primFailCode primitive failure and associated secondaryErrorCode. */
-
-	/* InterpreterPrimitives>>#primitiveFailFor:withSecondary: */
 #include "interp/primitiveFailForwithSecondary.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFailureCode */
 #include "interp/primitiveFailureCode.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFetchNextMourner */
 #include "interp/primitiveFetchNextMourner.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFloatAdd */
 #include "interp/primitiveFloatAdd.c"
 
 
 
-/*	Index the receiver, which must be an indexable non-pointer object, and
-	yield a float.
- */
-
-	/* InterpreterPrimitives>>#primitiveFloatArrayAt */
 #include "interp/primitiveFloatArrayAt.c"
 
 
 
-/*	Index the receiver, which must be an indexable non-pointer object, and
-	store a float.
- */
-
-	/* InterpreterPrimitives>>#primitiveFloatArrayAtPut */
 #include "interp/primitiveFloatArrayAtPut.c"
 
 
 
-/*	Provide platform-independent access to 32-bit words comprising
-	a Float. Map index 1 onto the most significant word and index 2
-	onto the least significant word. */
-
-	/* InterpreterPrimitives>>#primitiveFloatAt */
 #include "interp/primitiveFloatAt.c"
 
 
 
-/*	Provide platform-independent access to 32-bit words comprising
-	a Float. Map index 1 onto the most significant word and index 2
-	onto the least significant word. */
-
-	/* InterpreterPrimitives>>#primitiveFloatAtPut */
 #include "interp/primitiveFloatAtPut.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFloatDivide */
 #include "interp/primitiveFloatDivide.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFloatEqual */
 #include "interp/primitiveFloatEqual.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFloatGreaterOrEqual */
 #include "interp/primitiveFloatGreaterOrEqual.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFloatGreaterThan */
 #include "interp/primitiveFloatGreaterThan.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFloatLessOrEqual */
 #include "interp/primitiveFloatLessOrEqual.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFloatLessThan */
 #include "interp/primitiveFloatLessThan.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFloatMultiply */
 #include "interp/primitiveFloatMultiply.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFloatNotEqual */
 #include "interp/primitiveFloatNotEqual.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFloatSubtract */
 #include "interp/primitiveFloatSubtract.c"
 
 
 
-/*	Clear the method lookup cache. This must be done after every programming
-	change. 
- */
-
-	/* InterpreterPrimitives>>#primitiveFlushCache */
 #include "interp/primitiveFlushCache.c"
 
 
 
-/*	Primitive. Flush all the existing external primitives in the image thus
-	forcing a reload on next invocation.
- */
-
-	/* InterpreterPrimitives>>#primitiveFlushExternalPrimitives */
 #include "interp/primitiveFlushExternalPrimitives.c"
 
 
 
-/*	On some platforms, this primitive forces enqueued display updates to be
-	processed immediately. On others, it does nothing.
- */
-
-	/* InterpreterPrimitives>>#primitiveForceDisplayUpdate */
 #include "interp/primitiveForceDisplayUpdate.c"
 
 
 
-/*	On platforms that support it, this primitive prints the receiver, assumed
-	to be a Form, to the default printer.
- */
-
-	/* InterpreterPrimitives>>#primitiveFormPrint */
 #include "interp/primitiveFormPrint.c"
 
 
 
-/*	Fractional part of float receiver; receiver *must* be a float instance. */
-
-	/* InterpreterPrimitives>>#primitiveFractionalPart */
 #include "interp/primitiveFractionalPart.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFullClosureValue */
 #include "interp/primitiveFullClosureValue.c"
 
 
 
-/*	An exact clone of primitiveFullClosureValue except that this version will
-	not check for interrupts on stack overflow. It may invoke the garbage
-	collector but will not switch processes. See
-	checkForInterruptsMayContextSwitch:  */
-
-	/* InterpreterPrimitives>>#primitiveFullClosureValueNoContextSwitch */
 #include "interp/primitiveFullClosureValueNoContextSwitch.c"
 
 
-	/* InterpreterPrimitives>>#primitiveFullClosureValueWithArgs */
 #include "interp/primitiveFullClosureValueWithArgs.c"
 
 
 
-/*	Fetch the system attribute with the given integer ID. The result is a
-	string, or nil if the attribute is not defined.
- */
-
-	/* InterpreterPrimitives>>#primitiveGetAttribute */
 #include "interp/primitiveGetAttribute.c"
 
 
 
-/*	Access to environment variables via getenv. No putenv or setenv as yet. */
-
-	/* InterpreterPrimitives>>#primitiveGetenv */
 #include "interp/primitiveGetenv.c"
 
 
@@ -3491,657 +2941,299 @@ volatile int sendTrace;
 #if IMMUTABILITY
 #include "interp/primitiveGetImmutability.c"
 
-#endif /* IMMUTABILITY */
+#endif
 
-
-/*	Primitive. Answer the VM's current log directory */
-
-	/* InterpreterPrimitives>>#primitiveGetLogDirectory */
 #include "interp/primitiveGetLogDirectory.c"
 
 
 
-/*	Primitive. Return the next input event from the VM event queue. */
-
-	/* InterpreterPrimitives>>#primitiveGetNextEvent */
 #include "interp/primitiveGetNextEvent.c"
 
 
-	/* InterpreterPrimitives>>#primitiveGreaterOrEqual */
 #include "interp/primitiveGreaterOrEqual.c"
 
 
 
-/*	Primitive comparison operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveGreaterOrEqualLargeIntegers */
 #include "interp/primitiveGreaterOrEqualLargeIntegers.c"
 
 
-	/* InterpreterPrimitives>>#primitiveGreaterThan */
 #include "interp/primitiveGreaterThan.c"
 
 
 
-/*	Primitive comparison operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveGreaterThanLargeIntegers */
 #include "interp/primitiveGreaterThanLargeIntegers.c"
 
 
-	/* InterpreterPrimitives>>#primitiveGrowMemoryByAtLeast */
 #include "interp/primitiveGrowMemoryByAtLeast.c"
 
 
 
-/*	Implement 28-bit hashMultiply for SmallInteger and LargePositiveInteger
-	receivers. 
- */
-
-	/* InterpreterPrimitives>>#primitiveHashMultiply */
 #include "interp/primitiveHashMultiply.c"
 
 
 
-/*	Answer the heartbeat frequency in beats per second. If the argument is
-	true, reset the frequency measure. */
-
-	/* InterpreterPrimitives>>#primitiveHeartbeatFrequency */
 #include "interp/primitiveHeartbeatFrequency.c"
 
 
-	/* InterpreterPrimitives>>#primitiveHighBit */
 #include "interp/primitiveHighBit.c"
 
 
 
-/*	Return the value of the high resolution clock if this system has any.
-	The exact frequency of the high res clock is undefined specifically so
-	that we can use
-	processor dependent instructions (like RDTSC). The only use for the high
-	res clock is for
-	profiling where we can allocate time based on sub-msec resolution of the
-	high res clock.
-	If no high-resolution counter is available, the platform should return
-	zero. ar 6/22/2007 */
-
-	/* InterpreterPrimitives>>#primitiveHighResClock */
 #include "interp/primitiveHighResClock.c"
 
 
 
-/*	is the receiver/first argument the same object as the (last) argument?.
-	pop argumentCount because this can be used as a mirror primitive. */
-
-	/* InterpreterPrimitives>>#primitiveIdentical */
 #include "interp/primitiveIdentical.c"
 
 
-	/* InterpreterPrimitives>>#primitiveIdentityHash */
 #include "interp/primitiveIdentityHash.c"
 
 
 
-/*	Answer an integer identifying the type of image. The image version number
-	may identify the format of the image (e.g. 32 or 64-bit word size) or
-	specific requirements
-	of the image (e.g. block closure support required).
-	
-	This is a named (not numbered) primitive in the null module (ie the VM)
- */
-
-	/* InterpreterPrimitives>>#primitiveImageFormatVersion */
 #include "interp/primitiveImageFormatVersion.c"
 
 
 
-/*	When called with a single string argument, record the string as the
-	current image file name.
-	When called with zero arguments, return a string containing the current
-	image file name.
- */
-
-	/* InterpreterPrimitives>>#primitiveImageName */
 #include "interp/primitiveImageName.c"
 
 
 
-/*	For a Smalllnteger, answer itself.
-	For a Character, answer its code as an unsigned integer.
-	For a SmallFloat, answer the signed, but unadjusted bit pattern (so as to
-	keep the result a SmallInteger).
-	This is a good value for an immediate's hash. */
-
-	/* InterpreterPrimitives>>#primitiveImmediateAsInteger */
 #include "interp/primitiveImmediateAsInteger.c"
 
 
 
-/*	Register the input semaphore. If the argument is not a 
-	Semaphore, unregister the current input semaphore. */
-
-	/* InterpreterPrimitives>>#primitiveInputSemaphore */
 #include "interp/primitiveInputSemaphore.c"
 
 
 
-/*	Return an integer indicating the reason for the most recent input
-	interrupt. 
- */
-
-	/* InterpreterPrimitives>>#primitiveInputWord */
 #include "interp/primitiveInputWord.c"
 
 
-	/* InterpreterPrimitives>>#primitiveIntegerAt */
 #include "interp/primitiveIntegerAt.c"
 
 
-	/* InterpreterPrimitives>>#primitiveIntegerAtPut */
 #include "interp/primitiveIntegerAtPut.c"
 
 
 
-/*	Primitive. Answer the number of interrupt checks per milliseconds that we
-	execute on this machine. This can be used to adjust the sub-msecs profiler
-	to check (roughly) 
-	n times per millisecond.
- */
-
-	/* InterpreterPrimitives>>#primitiveInterruptChecksPerMSec */
 #include "interp/primitiveInterruptChecksPerMSec.c"
 
 
 
-/*	Register the user interrupt semaphore. If the argument is 
-	not a Semaphore, unregister the current interrupt 
-	semaphore. */
-
-	/* InterpreterPrimitives>>#primitiveInterruptSemaphore */
 #include "interp/primitiveInterruptSemaphore.c"
 
 
 
-/*	Primitive. 'Invoke' an object like a function, sending the special message
-	run: originalSelector with: arguments in: aReceiver.
-	 */
-
-	/* InterpreterPrimitives>>#primitiveInvokeObjectAsMethod */
 #include "interp/primitiveInvokeObjectAsMethod.c"
 
 
 
-/*	Answer if running on a big endian machine. */
-
-	/* InterpreterPrimitives>>#primitiveIsBigEnder */
 #include "interp/primitiveIsBigEnder.c"
 
 
 
-/*	Answer if the receiver is pinned, i.e. immobile. */
-
-	/* InterpreterPrimitives>>#primitiveIsPinned */
 #include "interp/primitiveIsPinned.c"
 
 
-	/* InterpreterPrimitives>>#primitiveLessOrEqual */
 #include "interp/primitiveLessOrEqual.c"
 
 
 
-/*	Primitive comparison operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveLessOrEqualLargeIntegers */
 #include "interp/primitiveLessOrEqualLargeIntegers.c"
 
 
-	/* InterpreterPrimitives>>#primitiveLessThan */
 #include "interp/primitiveLessThan.c"
 
 
 
-/*	Primitive comparison operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveLessThanLargeIntegers */
 #include "interp/primitiveLessThanLargeIntegers.c"
 
 
 
-/*	Primitive. Return the n-th builtin module name. */
-
-	/* InterpreterPrimitives>>#primitiveListBuiltinModule */
 #include "interp/primitiveListBuiltinModule.c"
 
 
 
-/*	Primitive. Answer the n-th loaded external module name. */
-
-	/* InterpreterPrimitives>>#primitiveListExternalModule */
 #include "interp/primitiveListExternalModule.c"
 
 
 
-/*	This primitive is called from Smalltalk as...
-	<imageSegment> loadSegmentFrom: aWordArray outPointers: anArray.
-	
-	This primitive will load a binary image segment created by
-	primitiveStoreImageSegment. It expects the outPointer array to be of the
-	proper size, and the wordArray to be well
-	formed. It will return as its value the original array of roots, and the
-	erstwhile segmentWordArray will have been truncated to a size of one word,
-	i.e. retaining the version
-	stamp. If this primitive should fail, the segmentWordArray will, sadly,
-	have been reduced to
-	an unrecognizable and unusable jumble. But what more could you have done
-	with it anyway?
-	[How about saving it so the system functions as primitives are intended?
-	eem 5/9/2017 16:31]
-	
-	In Spur, if the primitive succeeds, the segmentWordArray is also becomed
-	into the array of loaded
-	objects, to allow fixing up of loaded objects directly without nextObject,
-	which Spur doesn't support. */
-
-	/* InterpreterPrimitives>>#primitiveLoadImageSegment */
 #include "interp/primitiveLoadImageSegment.c"
 
 
 
-/*	Return the value of the microsecond clock in the local timezone as an
-	integer. This is the number of microseconds since the Smalltalk epoch,
-	1901/1/1 12:00am.
-	The microsecond clock is at least 60 bits wide which means it'll get to
-	around August
-	38435 before it wraps around. Be sure to put it on your calendar. This
-	primitive accesses the time as answered by the OS. */
-
-	/* InterpreterPrimitives>>#primitiveLocalMicrosecondClock */
 #include "interp/primitiveLocalMicrosecondClock.c"
 
 
 
-/*	Natural log of float receiver; receiver *must* be a float instance. */
-
-	/* InterpreterPrimitives>>#primitiveLogN */
 #include "interp/primitiveLogN.c"
 
 
 
-/*	Register the low-space semaphore. If the argument is not a 
-	Semaphore, unregister the current low-space Semaphore. */
-
-	/* InterpreterPrimitives>>#primitiveLowSpaceSemaphore */
 #include "interp/primitiveLowSpaceSemaphore.c"
 
 
-	/* InterpreterPrimitives>>#primitiveMakePoint */
 #include "interp/primitiveMakePoint.c"
 
 
-	/* InterpreterPrimitives>>#primitiveMaxIdentityHash */
 #include "interp/primitiveMaxIdentityHash.c"
 
 
 
-/*	Return the method an external primitive was defined in */
-
-	/* InterpreterPrimitives>>#primitiveMethod */
 #include "interp/primitiveMethod.c"
 
 
 
-/*	Return the value of the millisecond clock as an integer. Note that the
-	millisecond clock wraps around periodically. On some platforms it can wrap
-	daily. The range is limited to SmallInteger maxVal / 2 to allow delays of
-	up to that length without overflowing a SmallInteger.
- */
-
-	/* InterpreterPrimitives>>#primitiveMillisecondClock */
 #include "interp/primitiveMillisecondClock.c"
 
 
 
-/*	Provide access to the millisecond clock mask to support calculation
-	of durations based on the millisecond clock value. */
-
-	/* InterpreterPrimitives>>#primitiveMillisecondClockMask */
 #include "interp/primitiveMillisecondClockMask.c"
 
 
-	/* InterpreterPrimitives>>#primitiveMod */
 #include "interp/primitiveMod.c"
 
 
 
-/*	Primitive arithmetic operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveModLargeIntegers */
 #include "interp/primitiveModLargeIntegers.c"
 
 
 
-/*	Given one boolean parameter, set multipleBytecodeSetsActive to inform
-	the VM that alternate bytecode sets such as SistaV1 are now in use and
-	that the image format number should be updated accordingly. With zero
-	parameters, answer the current value of multipleBytecodeSetsActive. */
-
-	/* InterpreterPrimitives>>#primitiveMultipleBytecodeSetsActive */
 #include "interp/primitiveMultipleBytecodeSetsActive.c"
 
 
-	/* InterpreterPrimitives>>#primitiveMultiply */
 #include "interp/primitiveMultiply.c"
 
 
 
-/*	Primitive arithmetic operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveMultiplyLargeIntegers */
 #include "interp/primitiveMultiplyLargeIntegers.c"
 
 
-	/* InterpreterPrimitives>>#primitiveNew */
 #include "interp/primitiveNew.c"
 
 
-	/* InterpreterPrimitives>>#primitiveNewMethod */
 #include "interp/primitiveNewMethod.c"
 
 
 
-/*	Allocate a new indexable instance. Fail if the allocation would leave less
-	than lowSpaceThreshold bytes free. May cause a GC.
- */
-
-	/* InterpreterPrimitives>>#primitiveNewWithArg */
 #include "interp/primitiveNewWithArg.c"
 
 
-	/* InterpreterPrimitives>>#primitiveNextInstance */
 #include "interp/primitiveNextInstance.c"
 
 
 
-/*	Return the object following the receiver in the heap. Return the
-	SmallInteger zero when there are no more objects.
- */
-
-	/* InterpreterPrimitives>>#primitiveNextObject */
 #include "interp/primitiveNextObject.c"
 
 
 
-/*	A placeholder for primitives that haven't been implemented or are being
-	withdrawn gradually. Just absorbs any arguments and returns the receiver.
- */
-
-	/* InterpreterPrimitives>>#primitiveNoop */
 #include "interp/primitiveNoop.c"
 
 
-	/* InterpreterPrimitives>>#primitiveNotEqual */
 #include "interp/primitiveNotEqual.c"
 
 
 
-/*	Primitive comparison operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveNotEqualLargeIntegers */
 #include "interp/primitiveNotEqualLargeIntegers.c"
 
 
 
-/*	is the receiver/first argument not the same object as the (last)
-	argument?. pop argumentCount because this can be used as a mirror
-	primitive. 
- */
-/*	is the receiver/first argument the same object as the (last) argument?.
-	pop argumentCount because this can be used as a mirror primitive. */
-
-	/* InterpreterPrimitives>>#primitiveNotIdentical */
 #include "interp/primitiveNotIdentical.c"
 
 
 
-/*	Defined for CompiledMethods only */
-
-	/* InterpreterPrimitives>>#primitiveObjectAt */
 #include "interp/primitiveObjectAt.c"
 
 
 
-/*	Store a literal into a CompiledMethod at the given index. Defined for
-	CompiledMethods only.
- */
-
-	/* InterpreterPrimitives>>#primitiveObjectAtPut */
 #include "interp/primitiveObjectAtPut.c"
 
 
 
-/*	This primitive is called from Squeak as...
-	arrayOfRoots uniquelyAccessibleObjects */
-/*	This primitive answers an array of the receiver and every object in its
-	proper tree of subParts (ie, that is not refered to from anywhere else
-	outside the tree).
- */
-/*	This primitive could be used to implement the primitiveStoreImageSegment
-	segment, thanks to a suggestion from Igor Stassenko. Currently it is
-	used only to debug that primitive. */
-
-	/* InterpreterPrimitives>>#primitiveObjectsAccessibleFromRoots */
 #include "interp/primitiveObjectsAccessibleFromRoots.c"
 
 
 
-/*	primitivePathTo: anObject using: stack <Array> followWeak: boolean
-	Answer a path to anObject from the root that does not pass through
-	the current context */
-
-	/* InterpreterPrimitives>>#primitivePathToUsing */
 #include "interp/primitivePathToUsing.c"
 
 
-	/* InterpreterPrimitives>>#primitivePerformInSuperclass */
 #include "interp/primitivePerformInSuperclass.c"
 
 
-	/* InterpreterPrimitives>>#primitivePerformWithArgs */
 #include "interp/primitivePerformWithArgs.c"
 
 
-	/* InterpreterPrimitives>>#primitivePinnedNew */
 #include "interp/primitivePinnedNew.c"
 
 
 
-/*	Allocate a new pinned indexable instance. Fail if the allocation would
-	leave less than lowSpaceThreshold bytes free.
- */
-
-	/* InterpreterPrimitives>>#primitivePinnedNewWithArg */
 #include "interp/primitivePinnedNewWithArg.c"
 
 
 
-/*	Primitive. Answer the last primitive method sampled by the profiler. */
-
-	/* InterpreterPrimitives>>#primitiveProfilePrimitive */
 #include "interp/primitiveProfilePrimitive.c"
 
 
 
-/*	Primitive. Answer the last sample taken by the profiler, or nil if the
-	profiler isn't active.
-	See also primitiveProfileStart.
- */
-
-	/* InterpreterPrimitives>>#primitiveProfileSample */
 #include "interp/primitiveProfileSample.c"
 
 
 
-/*	Primitive. Install the semaphore to be used for profiling, 
-	or nil if no semaphore should be used.
-	See also primitiveProfileStart. */
-
-	/* InterpreterPrimitives>>#primitiveProfileSemaphore */
 #include "interp/primitiveProfileSemaphore.c"
 
 
 
-/*	Primitive. Begin profiling execution by using the high-resolution clock
-	instead of a time-based process
-	(which is limited to timing resolution and triggers off the same signal
-	that many of the processes being
-	profiled trigger off leading to consistently wrong results). The argument
-	is the number of ticks of the
-	high-resolution clock to elapse before taking a sample. The sample is
-	stored in the profileProcess and
-	profileMethod iVars which can be retrieved via primitiveProfileSample and
-	primitiveProfilePrimitive. So also void the sample iVars. Once a sample is
-	taken, the semaphore installed via
-	primitiveProfileSemaphore is signalled. If the argument is less or equal
-	to zero, profiling is disabled. */
-
-	/* InterpreterPrimitives>>#primitiveProfileStart */
 #include "interp/primitiveProfileStart.c"
 
 
-	/* InterpreterPrimitives>>#primitiveQuit */
 #include "interp/primitiveQuit.c"
 
 
 
-/*	Rounds negative results towards zero. */
-
-	/* InterpreterPrimitives>>#primitiveQuo */
 #include "interp/primitiveQuo.c"
 
 
 
-/*	Primitive arithmetic operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveQuoLargeIntegers */
 #include "interp/primitiveQuoLargeIntegers.c"
 
 
 
-/*	Relinquish the processor for up to the given number of microseconds. The
-	exact behavior of this primitive is platform dependent.
- */
-
-	/* InterpreterPrimitives>>#primitiveRelinquishProcessor */
 #include "interp/primitiveRelinquishProcessor.c"
 
 
 
-/*	Primitive arithmetic operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveRemLargeIntegers */
 #include "interp/primitiveRemLargeIntegers.c"
 
 
 
-/*	Put this process on the scheduler's lists thus allowing it to proceed next
-	time there is
-	a chance for processes of it's priority level. It must go to the back of
-	its run queue so
-	as not to preempt any already running processes at this level. If the
-	process's priority
-	is higher than the current process, preempt the current process. */
-
-	/* InterpreterPrimitives>>#primitiveResume */
 #include "interp/primitiveResume.c"
 
 
 
-/*	The character scanner primitive
-	primScanCharactersFrom: startIndex to: stopIndex in: sourceString rightX:
-	rightX stopConditions: stops kern: kernDelta
-	This is the inner loop of measurement and scanning for text display. March
-	through sourceString from startIndex to stopIndex.
-	If any character is flagged with a non-nil entry in stops, then return the
-	corresponding value. Determine width of each character
-	from xTable, indexed by map. If destX would exceed rightX, then return
-	stops at: 258. Advance destX by the width of the
-	character. If stopIndex has been reached, then return stops at: 257.
-	
-	Receiver inst vars:
-	destX			horizontal position for next character (distance from left of
-	composition area)
-	lastIndex		the Integer index of next character to be processed in the
-	sourceString argument
-	xTable			an array mapping character code to glyph x coordinate in a form
-	of glyphs
-	map			an array mapping character code to glyph position.
-	
-	Failure codes:
-	PrimErrBadArgument	one of the indices is not a SmallInteger, or the sting
-	argument is not a byte string, or the stops array is too small.
-	PrimErrBadReceiver	the receiver has less than four inst vars or any of
-	scanDestX & scanLastIndex are not SmallIntegers, or the scanXTable or
-	scanMap are not arrays of the right size
-	PrimErrBadIndex		either a glyph index in scanMap or a start index in
-	scanXTable are not SmallIntegers
-	PrimErrLimitExceeded	arithmetic on scanDestX has wrapped around to become
-	negative 
- */
-
-	/* InterpreterPrimitives>>#primitiveScanCharacters */
 #include "interp/primitiveScanCharacters.c"
 
 
 
-/*	Return a SmallInteger indicating the current depth of the OS screen.
-	Negative values are used to imply LSB type pixel format an there is some
-	support in the VM for handling either MSB or LSB
- */
-
-	/* InterpreterPrimitives>>#primitiveScreenDepth */
 #include "interp/primitiveScreenDepth.c"
 
 
 
-/*	Answer a float indicating the current scale factor for pixels of the
-	Smalltalk window.
- */
-
-	/* InterpreterPrimitives>>#primitiveScreenScaleFactor */
 #include "interp/primitiveScreenScaleFactor.c"
 
 
 
-/*	Answer a point indicating the current size of the Smalltalk window.
-	Currently there is a limit of 65535 in each direction because the
-	point is encoded into a single 32bit value in the image header.
-	This might well become a problem one day */
-
-	/* InterpreterPrimitives>>#primitiveScreenSize */
 #include "interp/primitiveScreenSize.c"
 
 
 
-/*	Return the number of seconds since January 1, 1901 as an integer. */
-
-	/* InterpreterPrimitives>>#primitiveSecondsClock */
 #include "interp/primitiveSecondsClock.c"
 
 
 
-/*	Ask the GUI to set the requested display mode.
-	See DisplayScreen class depth:width:height:fullscreen: */
-
-	/* InterpreterPrimitives>>#primitiveSetDisplayMode */
 #include "interp/primitiveSetDisplayMode.c"
 
 
 
-/*	On platforms that support it, set full-screen mode to the value of the
-	boolean argument.
- */
-
-	/* InterpreterPrimitives>>#primitiveSetFullScreen */
 #include "interp/primitiveSetFullScreen.c"
 
 
@@ -4149,333 +3241,169 @@ volatile int sendTrace;
 #if IMMUTABILITY
 #include "interp/primitiveSetImmutability.c"
 
-#endif /* IMMUTABILITY */
+#endif
 
-
-/*	Set the user interrupt keycode. The keycode is an integer whose encoding
-	is described in the comment for primitiveKbdNext.
- */
-
-	/* InterpreterPrimitives>>#primitiveSetInterruptKey */
 #include "interp/primitiveSetInterruptKey.c"
 
 
 
-/*	Primitive. Set the VM's log directory */
-
-	/* InterpreterPrimitives>>#primitiveSetLogDirectory */
 #include "interp/primitiveSetLogDirectory.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSetOrHasIdentityHash */
 #include "interp/primitiveSetOrHasIdentityHash.c"
 
 
 
-/*	Treat the receiver, which can be indexible by either bytes or words, as
-	an array of signed 16-bit values. Answer the contents of the given index.
-	Note that the index specifies the i-th 16-bit entry, not the i-th byte or
-	word.  */
-
-	/* InterpreterPrimitives>>#primitiveShortAt */
 #include "interp/primitiveShortAt.c"
 
 
 
-/*	Treat the receiver, which can be indexible by either bytes or words, as an
-	array of signed 16-bit values. Set the contents of the given index to the
-	given value.
-	Note that the index specifies the i-th 16-bit entry, not the i-th byte or
-	word. 
- */
-
-	/* InterpreterPrimitives>>#primitiveShortAtPut */
 #include "interp/primitiveShortAtPut.c"
 
 
 
-/*	Force the given rectangular section of the Display to be 
-	copied to the screen. */
-
-	/* InterpreterPrimitives>>#primitiveShowDisplayRect */
 #include "interp/primitiveShowDisplayRect.c"
 
 
 
-/*	Synchronously signal the semaphore.
-	This may change the active process as a result. */
-
-	/* InterpreterPrimitives>>#primitiveSignal */
 #include "interp/primitiveSignal.c"
 
 
 
-/*	Set the low-water mark for free space. When the free space falls
-	below this level, the new and new: primitives fail and system attempts
-	to allocate space (e.g., to create a method context) cause the low-space
-	semaphore (if one is registered) to be signalled. */
-
-	/* InterpreterPrimitives>>#primitiveSignalAtBytesLeft */
 #include "interp/primitiveSignalAtBytesLeft.c"
 
 
 
-/*	Computes sine of float receiver; receiver *must* be a float instance. */
-
-	/* InterpreterPrimitives>>#primitiveSine */
 #include "interp/primitiveSine.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSize */
 #include "interp/primitiveSize.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSizeInBytes */
 #include "interp/primitiveSizeInBytes.c"
 
 
 
-/*	Answer the byte size of an instance of the receiver. If num args > 0
-	then the last argument is a variable size and the size answered is the
-	size of an instance of the receiver with that many indexable elements. */
-
-	/* InterpreterPrimitives>>#primitiveSizeInBytesOfInstance */
 #include "interp/primitiveSizeInBytesOfInstance.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatAdd */
 #include "interp/primitiveSmallFloatAdd.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatArctan */
 #include "interp/primitiveSmallFloatArctan.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatCosine */
 #include "interp/primitiveSmallFloatCosine.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatDivide */
 #include "interp/primitiveSmallFloatDivide.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatEqual */
 #include "interp/primitiveSmallFloatEqual.c"
 
 
 
-/*	Computes E raised to the receiver power.
-	Since SmallFloats cannot represent NaNs there's no need to special case. */
-
-	/* InterpreterPrimitives>>#primitiveSmallFloatExp */
 #include "interp/primitiveSmallFloatExp.c"
 
 
 
-/*	Answer the exponent part of this float. */
-
-	/* InterpreterPrimitives>>#primitiveSmallFloatExponent */
 #include "interp/primitiveSmallFloatExponent.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatFractionalPart */
 #include "interp/primitiveSmallFloatFractionalPart.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatGreaterOrEqual */
 #include "interp/primitiveSmallFloatGreaterOrEqual.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatGreaterThan */
 #include "interp/primitiveSmallFloatGreaterThan.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatLessOrEqual */
 #include "interp/primitiveSmallFloatLessOrEqual.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatLessThan */
 #include "interp/primitiveSmallFloatLessThan.c"
 
 
 
-/*	Natural log. */
-
-	/* InterpreterPrimitives>>#primitiveSmallFloatLogN */
 #include "interp/primitiveSmallFloatLogN.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatMultiply */
 #include "interp/primitiveSmallFloatMultiply.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatNotEqual */
 #include "interp/primitiveSmallFloatNotEqual.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatSine */
 #include "interp/primitiveSmallFloatSine.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatSquareRoot */
 #include "interp/primitiveSmallFloatSquareRoot.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatSubtract */
 #include "interp/primitiveSmallFloatSubtract.c"
 
 
 
-/*	Multiply the receiver by the power of the argument. */
-
-	/* InterpreterPrimitives>>#primitiveSmallFloatTimesTwoPower */
 #include "interp/primitiveSmallFloatTimesTwoPower.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSmallFloatTruncated */
 #include "interp/primitiveSmallFloatTruncated.c"
 
 
 
-/*	Save a normal snapshot under the same name as it was loaded unless it has
-	been renamed by the last primitiveImageName.
-	Note that when executed this primitive answers false, but when the
-	resulting image is run afresh, the primitive answers true.
- */
-
-	/* InterpreterPrimitives>>#primitiveSnapshot */
 #include "interp/primitiveSnapshot.c"
 
 
 
-/*	save an embedded snapshot */
-
-	/* InterpreterPrimitives>>#primitiveSnapshotEmbedded */
 #include "interp/primitiveSnapshotEmbedded.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSomeInstance */
 #include "interp/primitiveSomeInstance.c"
 
 
 
-/*	Return the first object in the heap. */
-
-	/* InterpreterPrimitives>>#primitiveSomeObject */
 #include "interp/primitiveSomeObject.c"
 
 
 
-/*	Return the oop of the SpecialObjectsArray. */
-
-	/* InterpreterPrimitives>>#primitiveSpecialObjectsOop */
 #include "interp/primitiveSpecialObjectsOop.c"
 
 
 
-/*	Computes square root of float receiver; receiver *must* be a float
-	instance. 
- */
-
-	/* InterpreterPrimitives>>#primitiveSquareRoot */
 #include "interp/primitiveSquareRoot.c"
 
 
 
-/*	This primitive is called from Squeak as...
-	<imageSegment> storeSegmentFor: arrayOfRoots into: aWordArray outPointers:
-	anArray. 
- */
-/*	This primitive will store a binary image segment (in the same format as
-	the Squeak image file) of the receiver and every object in its proper tree
-	of subParts (ie, that is not refered to from anywhere else outside the
-	tree). All pointers from within the tree to objects outside the tree will
-	be copied into the array of outpointers. In their place in the image
-	segment will be an oop equal to the offset in the outPointer array (the
-	first would be 4). but with the high bit set.
- */
-/*	The primitive expects the array and wordArray to be more than adequately
-	long. In this case it returns normally, and truncates the two arrays to
-	exactly the right size. To simplify truncation, both incoming arrays are
-	required to be whatever the objectMemory considers long objects. If either
-	array is too small, the primitive will fail, but in no other case.
-	
-	During operation of the primitive, it is necessary to convert from both
-	internal and external oops to their mapped values. To make this fast, the
-	headers of the original objects in question are replaced by the mapped
-	values (and this is noted by adding the forbidden XX header type). Tables
-	are kept of both kinds of oops, as well as of the original headers for
-	restoration. 
-	To be specific, there are two similar two-part tables, the outpointer
-	array, and one in the upper fifth of the segmentWordArray. Each grows oops
-	from the bottom up, and preserved headers from halfway up.
-	
-	In case of either success or failure, the headers must be restored. In the
-	event of primitive failure, the table of outpointers must also be nilled
-	out (since the garbage in the high half will not have been discarded.
- */
-
-	/* InterpreterPrimitives>>#primitiveStoreImageSegment */
 #include "interp/primitiveStoreImageSegment.c"
 
 
-	/* InterpreterPrimitives>>#primitiveStringAt */
 #include "interp/primitiveStringAt.c"
 
 
-	/* InterpreterPrimitives>>#primitiveStringAtPut */
 #include "interp/primitiveStringAtPut.c"
 
 
 
-/*	<array> primReplaceFrom: start to: stop with: replacement startingAt:
-	repStart 
-	<primitive: 105> */
-
-	/* InterpreterPrimitives>>#primitiveStringReplace */
 #include "interp/primitiveStringReplace.c"
 
 
-	/* InterpreterPrimitives>>#primitiveSubtract */
 #include "interp/primitiveSubtract.c"
 
 
 
-/*	Primitive arithmetic operations for large integers in 64 bit range */
-
-	/* InterpreterPrimitives>>#primitiveSubtractLargeIntegers */
 #include "interp/primitiveSubtractLargeIntegers.c"
 
 
 
-/*	Primitive #88. Suspend the receiver, aProcess, such that it can be
-	executed again
-	by sending #resume. If the given process is not the active process, take
-	it off
-	its corresponding list. The primitive returns the list the receiver was
-	previously on.
-	c.f. primitiveSuspendBackingUpV1,#568 & primitiveSuspendBackingUpV2,#578 */
-
-	/* InterpreterPrimitives>>#primitiveSuspend */
 #include "interp/primitiveSuspend.c"
 
 
 
-/*	Attempt to test-and-set the ownership of the critical section. If not
-	owned, set the owner to the current process and answer false. If owned by
-	the current process answer true. If owned by some other process answer
-	nil. For simulation if there is an argument it is taken to be the
-	effective activeProcess
-	(see Process>>effectiveProcess). */
-
-	/* InterpreterPrimitives>>#primitiveTestAndSetOwnershipOfCriticalSection */
 #include "interp/primitiveTestAndSetOwnershipOfCriticalSection.c"
 
 
 
-/*	Return true if the host OS does support the given display depth. */
-
-	/* InterpreterPrimitives>>#primitiveTestDisplayDepth */
 #include "interp/primitiveTestDisplayDepth.c"
 
 
@@ -4538,1927 +3466,813 @@ primitiveTestShortenIndexableSize(void)
 	GIV(stackPointer) = sp;
 	return 0;
 }
-#endif /* TestingPrimitives */
+#endif
 
-
-/*	Multiply the receiver by the power of the argument.
-	Receiver *must* be a float instance. */
-
-	/* InterpreterPrimitives>>#primitiveTimesTwoPower */
 #include "interp/primitiveTimesTwoPower.c"
 
 
 
-/*	Integral part of float receiver; receiver *must* be a float instance. */
-
-	/* InterpreterPrimitives>>#primitiveTruncated */
 #include "interp/primitiveTruncated.c"
 
 
 
-/*	Allocate a new indexable instance. Fail if the allocation would leave less
-	than lowSpaceThreshold bytes free. May cause a GC.
- */
-
-	/* InterpreterPrimitives>>#primitiveUninitializedNewWithArg */
 #include "interp/primitiveUninitializedNewWithArg.c"
 
 
 
-/*	Update the VMs notion of the current timezone. The VM sets its notion
-	of the timezone once at start-up. If one wants the VM to keep its notion
-	up-to-date arrange to invoke this primitive periodically. */
-
-	/* InterpreterPrimitives>>#primitiveUpdateTimezone */
 #include "interp/primitiveUpdateTimezone.c"
 
 
 
-/*	Return the value of the microsecond clock in UTC as an integer.
-	This is the number of microseconds since the Smalltalk epoch, 1901/1/1
-	12:00am. The microsecond clock is at least 60 bits wide which means it'll
-	get to around August
-	38435 before it wraps around. Be sure to put it on your calendar. This
-	primitive accesses the time as answered by the OS. */
-
-	/* InterpreterPrimitives>>#primitiveUTCMicrosecondClock */
 #include "interp/primitiveUTCMicrosecondClock.c"
 
 
 
-/*	Answer an array with UTC microseconds since the Smalltalk epoch and the
-	current seconds offset from GMT in the local time zone. Any pointer object
-	with two or more slots) may be supplied as a parameter. */
-
-	/* InterpreterPrimitives>>#primitiveUtcAndTimezoneOffset */
 #include "interp/primitiveUtcAndTimezoneOffset.c"
 
 
 
-/*	Answer an array with UTC microseconds since the Posix epoch and the
-	current seconds offset from GMT in the local time zone. An empty two
-	element array (or any object with two or more slots) may be supplied
-	as a parameter.
-	This is a named (not numbered) primitive in the null module (ie the VM) */
-
-	/* InterpreterPrimitives>>#primitiveUtcWithOffset */
 #include "interp/primitiveUtcWithOffset.c"
 
 
 
-/*	Return a string containing the path name of VM's directory. */
-
-	/* InterpreterPrimitives>>#primitiveVMPath */
 #include "interp/primitiveVMPath.c"
 
 
 
-/*	Primitive.
-	0 args: Answer whether the VM Profiler is running or not.
-	1 arg:	Copy the sample data into the supplied argument, which must be a
-	Bitmap of suitable size. Answer the number of samples copied into the
-	buffer.  */
-
-	/* InterpreterPrimitives>>#primitiveVMProfileSamplesInto */
 #include "interp/primitiveVMProfileSamplesInto.c"
 
 
-	/* InterpreterPrimitives>>#primitiveWait */
 #include "interp/primitiveWait.c"
 
 
 
-/*	Primitively do the equivalent of Process>yield, avoiding the overhead of a
-	fork and a wait in the standard implementation.
- */
-
-	/* InterpreterPrimitives>>#primitiveYield */
 #include "interp/primitiveYield.c"
 
 
 
-/*	Signal the given semaphore from within the interpreter. Used to serialize
-	callbacks. 
- */
-
-	/* InterpreterPrimitives>>#signalNoResume: */
 #include "interp/signalNoResume.c"
 
 
 
-/*	Convert the given object into an integer value.
-	The object may be either a SmallInteger or a four-byte LargeInteger. */
-
-	/* InterpreterPrimitives>>#signed32BitValueOf: */
 #include "interp/signed32BitValueOf.c"
 
 
 
-/*	Convert the given object into an integer value.
-	The object may be either a positive SmallInteger or a eight-byte
-	LargeInteger. 
- */
-
-	/* InterpreterPrimitives>>#signed64BitValueOf: */
 #include "interp/signed64BitValueOf.c"
 
 
 
-/*	Answer a signed value of an integer up to the size of a machine word.
-	The object is not an immediate and is hoped to be a LargeInteger of size
-	<= word size.
- */
-
-	/* InterpreterPrimitives>>#signedMachineIntegerValueOfObj: */
 #include "interp/signedMachineIntegerValueOfObj.c"
 
 
 
-/*	Answer a signed value of an integer up to the size of a machine word.
-	The object may be either a positive SmallInteger or a LargeInteger of size
-	<= word size.
- */
-/*	inline the common case... */
-
-	/* InterpreterPrimitives>>#signedMachineIntegerValueOf: */
 #include "interp/signedMachineIntegerValueOf.c"
 
 
 
-/*	Answer the start of the Alien's data or fail if oop is not an Alien. */
-
-	/* InterpreterPrimitives>>#sizeOfAlienData: */
 #include "interp/sizeOfAlienData.c"
 
 
 
-/*	Answer the start of the Alien's data or fail if oop is not an Alien. */
-
-	/* InterpreterPrimitives>>#startOfAlienData: */
 #include "interp/startOfAlienData.c"
 
 
 
-/*	Set the state of the primitive failure code/success flag, iff
-	successBoolean is false. If primFailCode is non-zero a primitive has
-	failed. If primFailCode
-	is greater than one then its value indicates the reason for failure. */
-/*	Use returnTypeC: #sqInt because that's the way it is defined in sq.h.
-	Use no explicit return so that Slang doesn't fail an inlining type-check
-	when a primitive with return type void uses ^self success: false to exit. */
-
-	/* InterpreterPrimitives>>#success: */
 #include "interp/success.c"
 
 
 
-/*	Initialize the stack pages. For testing I want stack addresses to be
-	disjoint from
-	normal memory addresses so stack addresses are negative. The first address
-	is -pageSize bytes. So for example if there are 1024 bytes per page and 3
-	pages then the pages are organized as
-	
-	byte address: -1024 <-> -2047 | -2048 <-> -3071 | -3072 <-> -4096 |
-	page 3			page 2			page 1
-	mem index: 769 <-> 513 | 512 <-> 257 | 256 <-> 1 |
-	
-	The byte address is the external address corresponding to a real address
-	in the VM.
-	mem index is the index in the memory Array holding the stack, an index
-	internal to
-	the stack pages. The first stack page allocated will be the last page in
-	the array of pages
-	at the highest effective address. Its base address be -1024 and grow down
-	towards -2047. */
-/*	The lFoo's are to get around the foo->variable scheme in the C call to
-	allocStackPages below.
- */
-
-	/* InterpreterStackPages>>#initializeStack:numSlots:pageSize: */
 #include "interp/initializeStacknumSlotspageSize.c"
 
 
 
-/*	<Integer> */
-/*	Answer the page index for a pointer into stack memory, i.e. the index
-	for the page the address is in. N.B. This is a zero-relative index. */
-
-	/* InterpreterStackPages>>#pageIndexFor: */
 #include "interp/pageIndexFor.c"
 
 
 
-/*	If anOop is an address within the stack zone answer a string stating that,
-	otherwise answer nil.
- */
-
-	/* InterpreterStackPages>>#whereIsMaybeStackThing: */
 #include "interp/whereIsMaybeStackThing.c"
 
 
 
-/*	Answer the address immediately following an object. */
-
-	/* Spur64BitMemoryManager>>#addressAfter: */
 #include "interp/addressAfter.c"
 
 
 
-/*	Answer the oop of a chunk of space in oldSpace with numSlots slots. Try
-	and allocate in a segment that already includes pinned objects. The header
-	of the
-	result will have been filled-in but not the contents. */
-
-	/* Spur64BitMemoryManager>>#allocateSlotsForPinningInOldSpace:bytes:format:classIndex: */
 #include "interp/allocateSlotsForPinningInOldSpacebytesformatclassIndex.c"
 
 
 
-/*	Answer the given integer with its bytes in the reverse order. */
-
-	/* Spur64BitMemoryManager>>#byteSwapped: */
 #include "interp/byteSwapped.c"
 
 
 
-/*	Answer the total number of bytes in an object including header and
-	possible overflow size header.
- */
-
-	/* Spur64BitMemoryManager>>#bytesInBody: */
 #include "interp/bytesInBody.c"
 
 
 
-/*	Answer the default amount of memory to allocate for the eden space.
-	The actual value can be set via vmParameterAt: and/or a preference in the
-	ini file.
-	The shootout tests seem to plateau at 5 or 6Mb.
-	
-	Originally, both the 32-bit and 64-bit versions used the same 4Mb default.
-	Measuring the simulator on image start-up, the 64-bit system's eden at the
-	same point in start-up
-	(the first copyBits) is only 8% larger in bytes because it allocates 26%
-	fewer objects.
-	Some 21% of the objects in the 32-bit version's eden are large integers
-	and floats that
-	are representable as 64-bit immediates.
-	
-	But when running benchmarks such as the computer language shootout's
-	binary trees,
-	using the same amount of memory for the 64-bit system causes a significant
-	slow-down and a lot of compactions. So we now use 4Mb for 32-bits and 7Mb
-	for 64-bits. */
-
-	/* Spur64BitMemoryManager>>#defaultEdenBytes */
 #include "interp/defaultEdenBytes.c"
 
 
 
-/*	Answer the tag used in lookup caches for a receiver. This is the
-	receiver's classIndex. */
-
-	/* Spur64BitMemoryManager>>#fetchClassTagOf: */
 #include "interp/fetchClassTagOf.c"
 
 
-	/* Spur64BitMemoryManager>>#floatObjectOf: */
 #include "interp/floatObjectOf.c"
 
 
 
-/*	Answer the 64-bit value of the argument as raw bits. */
-
-	/* Spur64BitMemoryManager>>#floatValueBitsOf: */
 #include "interp/floatValueBitsOf.c"
 
 
 
-/*	Answer the C double precision floating point value of the argument,
-	or fail if it is not a Float, and answer 0.
-	Note: May be called by translated primitive code. */
-
-	/* Spur64BitMemoryManager>>#floatValueOf: */
 #include "interp/floatValueOf.c"
 
 
 
-/*	This is a horrible hack for getting to the first object in eden if
-	pastSpace is almost full.
-	If there is only one (64-bit) word at the end of pastSpace there is no
-	room for a full
-	bridge, but there is room for this hack. */
-
-	/* Spur64BitMemoryManager>>#hackSlimBridgeTo:at: */
 #include "interp/hackSlimBridgeToat.c"
 
 
 
-/*	A negative header selects the alternate bytecode set. */
-
-	/* Spur64BitMemoryManager>>#headerIndicatesAlternateBytecodeSet: */
 #include "interp/headerIndicatesAlternateBytecodeSet.c"
 
 
 
-/*	must have room for a header (single or double) plus the next free pointer */
-
-	/* Spur64BitMemoryManager>>#initFreeChunkWithBytes:at: */
 #include "interp/initFreeChunkWithBytesat.c"
 
 
 
-/*	Must have room for a double header or a short object with the forwarding
-	slot (16 bytes either way).
- */
-
-	/* Spur64BitMemoryManager>>#initSegmentBridgeWithBytes:at: */
 #include "interp/initSegmentBridgeWithBytesat.c"
 
 
 
-/*	Allocate an instance of a variable class, excepting CompiledMethod. */
-
-	/* Spur64BitMemoryManager>>#instantiateClass:indexableSize: */
 #include "interp/instantiateClassindexableSize.c"
 
 
 
-/*	Convert the integer value, assumed to be in SmallInteger range, into a
-	tagged SmallInteger object.
-	In C, use a shift and an add to set the tag bit.
-	In Smalltalk we have to work harder because the simulator works with
-	strictly positive bit patterns. */
-
-	/* Spur64BitMemoryManager>>#integerObjectOf: */
 #include "interp/integerObjectOf.c"
 
 
 
-/*	Translator produces 'oop >> 3' */
-
-	/* Spur64BitMemoryManager>>#integerValueOf: */
 #include "interp/integerValueOf.c"
 
 
-	/* Spur64BitMemoryManager>>#isFloatInstance: */
 #include "interp/isFloatInstance.c"
 
 
-	/* Spur64BitMemoryManager>>#isImmediateFloat: */
 #include "interp/isImmediateFloat.c"
 
 
-	/* Spur64BitMemoryManager>>#isIntegerObject: */
 #include "interp/isIntegerObject.c"
 
 
 
-/*	Answer if the given value can be represented as a Smalltalk integer value.
-	In 64-bits we use a 3 bit tag which leaves 61 bits for 2's complement
-	signed integers. In C, use a shift add and mask to test if the top 4 bits
-	are all the same.
-	Since 16rFFFFFFFFFFFFFFFF >> 60 = 16rF the computation intValue >> 60 + 1
-	bitAnd: 16rF
-	maps in-range -ve values to 0 and in-range +ve values to 1. */
-
-	/* Spur64BitMemoryManager>>#isIntegerValue: */
 #include "interp/isIntegerValue.c"
 
 
 
-/*	To have a prev pointer, which follows the next pointer, we need at least
-	two slots.
- */
-
-	/* Spur64BitMemoryManager>>#isLilliputianSize: */
 #include "interp/isLilliputianSize.c"
 
 
-	/* Spur64BitMemoryManager>>#isSmallFloatValueBits: */
 #include "interp/isSmallFloatValueBits.c"
 
 
-	/* Spur64BitMemoryManager>>#isSmallFloatValue: */
 #include "interp/isSmallFloatValue.c"
 
 
 
-/*	Answer if the argument contains only indexable words (no oops). See
-	comment in formatOf:
- */
-
-	/* Spur64BitMemoryManager>>#isWordsNonImm: */
 #include "interp/isWordsNonImm.c"
 
 
 
-/*	Answer the number of indexable units in the given object.
-	For a CompiledMethod, the size of the method header (in bytes)
-	should be subtracted from the result of this method. */
-
-	/* Spur64BitMemoryManager>>#lengthOf:format: */
 #include "interp/lengthOfformat.c"
 
 
 
-/*	If floatOrInt is an integer and we enable mixed arithmetic in primitives,
-	then convert it to a C double float and return it.
-	If it is a Float, then load its value and return it.
-	Otherwise fail -- ie return with primErrorCode non-zero. */
-
-	/* Spur64BitMemoryManager>>#loadFloatOrIntFrom: */
 #include "interp/loadFloatOrIntFrom.c"
 
 
 
-/*	Answer the maximum number of slots we are willing to attempt to allocate
-	in an object.
-	Must fit in 56-bits; c.f. bytesInObject: */
-
-	/* Spur64BitMemoryManager>>#maxSlotsForAlloc */
 #include "interp/maxSlotsForAlloc.c"
 
 
 
-/*	Answer the C double precision floating point value of the argument,
-	which *must* be something for which self isFloatInstance: answers true.
-	Note: May be called by translated primitive code. */
-
-	/* Spur64BitMemoryManager>>#noFailFloatValueOf: */
 #include "interp/noFailFloatValueOf.c"
 
 
 
-/*	Answer the number of free lists. We use freeListsMask, a bitmap, to avoid
-	reading empty list heads. This should fit in a machine word to end up in a
-	register during free chunk allocation. */
-
-	/* Spur64BitMemoryManager>>#numFreeLists */
 #include "interp/numFreeLists.c"
 
 
 
-/*	Object parsing.
-	1. all objects have at least a word following the header, for a forwarding
-	pointer. 2. objects with an overflow size have a preceding word with a
-	saturated numSlots. If the word
-	following an object doesn't have a saturated numSlots field it must be a
-	single-header object.
-	If the word following does have a saturated numSlots it must be the
-	overflow size word.
-	
-	This variation on objectAfter:limit: allows for a single (64-bit) word
-	bridge which may be needed
-	to bridge from an almost full pastSpace to eden. It is only used in the
-	flat enumerators that use
-	startAddressForBridgedHeapEnumeration and enumerate over pastSpace, eden
-	and oldSpace
-	in that order. Note that the order for allObjects, and allInstances
-	enumerates over oldSpace first.
-	
-	This hack is cheap. It increases the size of the objectAfter code, but
-	saves two extra copies of
-	the inner loop, since the inner loop now enumerates over all of pastSpace,
-	eden and oldSpace.
-	The test for a slim bridge is only performed if applied to an overflow
-	header, and typically only
-	1 in 400 objects have overflow headers in 32-bits, 1 in 500 in 64-bits.
-	The complication is that
-	image segment loading evaporates the word array by setting the overflow
-	slots to 1, and this
-	is ambiguous with a slimbridge. The resolution is that if the segmentArray
-	has an overflow header,
-	and is in new space, then its slot size can be zeroed and its overflow
-	header changed to a slimbridge.
-	
-	At some point we should allow slimbridges (slivers?) throughout object
-	memory, and use them to
-	provide object alignment by slimbridges (slivers?) padding up to the
-	following (aligned) object.
- */
-
-	/* Spur64BitMemoryManager>>#objectAfterMaybeSlimBridge:limit: */
 #include "interp/objectAfterMaybeSlimBridgelimit.c"
 
 
 
-/*	Answer the C double precision floating point value of the argument, a
-	SmallFloat. See section 61-bit Immediate Floats in the SpurMemoryManager
-	class comment.
-	msb lsb 
-	Decode:				[8expsubset][52mantissa][1s][3tags] 
-	shift away tags:		[ 000 ][8expsubset][52mantissa][1s] 
-	add exponent offset:	[ 11 exponent ][52mantissa][1s] 
-	rot sign:				[1s][ 11 exponent ][52mantissa] */
-
-	/* Spur64BitMemoryManager>>#smallFloatValueOf: */
 #include "interp/smallFloatValueOf.c"
 
 
 
-/*	Answer the total number of bytes in an object without an overflow header,
-	including header bytes.
- */
-
-	/* Spur64BitMemoryManager>>#smallObjectBytesForSlots: */
 #include "interp/smallObjectBytesForSlots.c"
 
 
-	/* Spur64BitMemoryManager>>#wordIndexableFormat */
 #include "interp/wordIndexableFormat.c"
 
 
-	/* Spur64BitMemoryManager>>#wordSizeClassIndexPun */
 #include "interp/wordSizeClassIndexPun.c"
 
 
 
-/*	ephemeronCorpse is the corpse of an ephemeron that was copied and
-	forwarded. Later on its surviving copy must be scanned to nil weak
-	references. Thread the corpse onto the weakList. Later, the weakList can
-	be followed, and
-	the forwarding pointer followed to locate the survivor. */
-/*	Should be too infrequent to lower icache density of copyAndForward: */
-
-	/* SpurGenerationScavenger>>#addToEphemeronList: */
 #include "interp/addToEphemeronList.c"
 
 
 
-/*	weakCorpse is the corpse of a weak array that was copied and forwarded.
-	Later on its surviving copy must be scanned to nil weak references.
-	Thread the corpse onto the weakList. Later, the weakList can be followed,
-	and the forwarding pointer followed to locate the survivor. */
-/*	Should be too infrequent to lower icache density of copyAndForward: */
-
-	/* SpurGenerationScavenger>>#addToWeakList: */
 #include "interp/addToWeakList.c"
 
 
-	/* SpurGenerationScavenger>>#allNewSpaceObjectsHaveZeroRTRefCount */
 #include "interp/allNewSpaceObjectsHaveZeroRTRefCount.c"
 
 
-	/* SpurGenerationScavenger>>#allWeakSurvivorsOnWeakList */
 #include "interp/allWeakSurvivorsOnWeakList.c"
 
 
 
-/*	Some time in every scavenger's life there may come a time when someone
-	writes code that stresses
-	the remembered table. One might conclude that if the remembered table is
-	full, then the right thing
-	to do is simply to tenure everything, emptying the remembered table. But
-	in some circumstances this
-	can be counter-productive, and result in the same situation arising soon
-	after tenuring everything.
-	Instead, we can try and selectively prune the remembered table, tenuring
-	only those objects that
-	are referenced by many objects in the remembered table. That's what this
-	algorithm does. It
-	reference counts young objects referenced from the remembered set, and
-	then sets a threshold
-	used to tenure objects oft referenced from the remembered set, thereby
-	allowing the remembered
-	set to shrink, while not tenuring everything.
-	
-	Once in a network monitoring application in a galaxy not dissimilar from
-	the one this code inhabits,
-	a tree of nodes referring to large integers was in precisely this
-	situation. The nodes were old, and
-	the integers were in new space. Some of the nodes referred to shared
-	numbers, some their own
-	unique numbers. The numbers were updated frequently. Were new space simply
-	tenured when the
-	remembered table was full, the remembered table would soon fill up as new
-	numbers were computed.
-	Only by selectively pruning the remembered table of nodes that shared
-	data, was a balance achieved
-	whereby the remembered table population was kept small, and tenuring rates
-	were low. */
-
-	/* SpurGenerationScavenger>>#computeRefCountToShrinkRT */
 #include "interp/computeRefCountToShrinkRT.c"
 
 
 
-/*	A special version of copyAndForward: for objects in the mournQueue. If
-	we're in the good times tenuring regime then copy to futureSpace,
-	otherwise tenure.
-	Also, don't repeat any of the ephemeron processing. */
-
-	/* SpurGenerationScavenger>>#copyAndForwardMourner: */
 #include "interp/copyAndForwardMourner.c"
 
 
 
-/*	copyAndForward: survivor copies a survivor object either to
-	futureSurvivorSpace or, if it is to be promoted, to oldSpace.
-	It leaves a forwarding pointer behind. If the object is weak
-	then corpse is threaded onto the weakList for later treatment. */
-
-	/* SpurGenerationScavenger>>#copyAndForward: */
 #include "interp/copyAndForward.c"
 
 
 
-/*	Copy survivor to oldSpace. Answer the new oop of the object. */
-/*	Should be too infrequent to lower icache density of copyAndForward: */
-
-	/* SpurGenerationScavenger>>#copyToOldSpace:bytes:format: */
 #include "interp/copyToOldSpacebytesformat.c"
 
 
-	/* SpurGenerationScavenger>>#firstCorpse: */
 #include "interp/firstCorpse.c"
 
 
-	/* SpurGenerationScavenger>>#growRememberedSet */
 #include "interp/growRememberedSet.c"
 
 
-	/* SpurGenerationScavenger>>#isInRememberedSet: */
 #include "interp/isInRememberedSet.c"
 
 
 
-/*	Answer whether the oop has survived a scavenge. This version is
-	for processing weak survivors and must cope with the scavenge in
-	freeUnmarkedObjectsAndSortAndCoalesceFreeSpaceForPigCompact. */
-
-	/* SpurGenerationScavenger>>#isMaybeOldScavengeSurvivor: */
 #include "interp/isMaybeOldScavengeSurvivor.c"
 
 
 
-/*	Answer whether the oop has survived a scavenge. This is equivalent to
-	| target |
-	(manager isImmediate: oop) ifTrue:
-	[^true].
-	target := (manager isForwarded: oop)
-	ifTrue: [manager followForwarded: oop]
-	ifFalse: [oop].
-	^((manager isInEden: target)
-	or: [(manager isInPastSpace: target)]) not */
-
-	/* SpurGenerationScavenger>>#isScavengeSurvivor: */
 #include "interp/isScavengeSurvivor.c"
 
 
-	/* SpurGenerationScavenger>>#newSpaceCapacity */
 #include "interp/newSpaceCapacity.c"
 
 
 
-/*	For assert checking only. */
-
-	/* SpurGenerationScavenger>>#noUnfiredEphemeronsAtEndOfRememberedSet */
 #include "interp/noUnfiredEphemeronsAtEndOfRememberedSet.c"
 
 
-	/* SpurGenerationScavenger>>#openScavengeLog */
 #include "interp/openScavengeLog.c"
 
 
 
-/*	Print the objects in the remembered set. */
-/*	useful for debugging */
-
-	/* SpurGenerationScavenger>>#printRememberedSet */
 #include "interp/printRememberedSet.c"
 
 
 
-/*	There are ephemerons to be scavenged. Scavenge them and fire any whose
-	keys are
-	still in pastSpace and/or eden. The unscavenged ephemerons in this cycle
-	can only be
-	fired if all the unscavenged ephemerons in this cycle are firable, because
-	references to ephemeron keys from unfired ephemerons should prevent the
-	ephemerons with
-	those keys from firing. So scavenge ephemerons with surviving keys, and
-	only if none
-	are found, fire ephemerons with unreferenced keys, and scavenge them. Read
-	the class comment for a more in-depth description of the algorithm. */
-
-	/* SpurGenerationScavenger>>#processEphemerons */
 #include "interp/processEphemerons.c"
 
 
 
-/*	Go through the remembered set and the weak list, nilling references to
-	any objects that didn't survive the scavenge. Read the class comment
-	for a more in-depth description of the algorithm. */
-
-	/* SpurGenerationScavenger>>#processWeaklings */
 #include "interp/processWeaklings.c"
 
 
 
-/*	Process a weak survivor on the weakList. Those of its fields
-	which have not survived the scavenge should be nilled, and if any
-	are, the coInterpreter should be informed via fireFinalization:.
-	Answer if the weakObj has any young referents. */
-
-	/* SpurGenerationScavenger>>#processWeakSurvivor: */
 #include "interp/processWeakSurvivor.c"
 
 
 
-/*	Add the argument to the remembered set and set its isRemembered bit to
-	true. Answer the argument for the benefit of the Cogit. */
-
-	/* SpurGenerationScavenger>>#remember: */
 #include "interp/remember.c"
 
 
 
-/*	scavengeFutureSurvivorSpaceStartingAt: does a depth-first traversal of the
-	new objects starting at the one at initialAddress in futureSurvivorSpace. */
-
-	/* SpurGenerationScavenger>>#scavengeFutureSurvivorSpaceStartingAt: */
 #include "interp/scavengeFutureSurvivorSpaceStartingAt.c"
 
 
 
-/*	This is the inner loop of the main routine, scavenge. It first scavenges
-	the new objects immediately
-	reachable from old ones. Then it scavenges those that are transitively
-	reachable. If this results in a
-	promotion, the promotee gets remembered, and it first scavenges objects
-	adjacent to the promotee,
-	then scavenges the ones reachable from the promoted. This loop continues
-	until no more reachable
-	objects are left. At that point, pastSurvivorSpace is exchanged with
-	futureSurvivorSpace. 
-	Notice that each pointer in a live object is inspected once and only once.
-	The previousRememberedSetSize
-	and previousFutureSurvivorSpaceLimit variables ensure that no object is
-	scanned twice, as well as
-	detecting closure. If this were not true, some pointers might get
-	forwarded twice.
-	
-	An extension of the algorithm presented in David's original paper is to
-	handle weak arrays and ephemerons.
-	Weak arrays should not have their weak referents scavenged unless there
-	are strong references to them.
-	Ephemerons should fire if their key is not reachable other than from
-	ephemerons and weak arrays.
-	Handle this by maintaining a list for weak arrays and a list for
-	ephemerons, which allow scavenging these
-	objects once all other objects in new space have been scavenged, hence
-	allowing the scavenger to
-	detect which referents in new space of weak arrays are dead and of
-	ephemeron keys are only live due to
-	ephemerons. Read the class comment for a more in-depth description of the
-	algorithm.  */
-
-	/* SpurGenerationScavenger>>#scavengeLoop */
 #include "interp/scavengeLoop.c"
 
 
 
-/*	scavengeReferentsOf: referrer inspects relevant pointers in referrer. If
-	any are new objects, it has them moved to FutureSurvivorSpace, and
-	answers truth. If there are no new referents, it answers falsity. To
-	handle weak arrays, if the referrer is weak only scavenge strong slots and
-	answer true so that it won't be removed from the remembered set until
-	later. To handle ephemerons, only scavenge other slots if the key slot has
-	already been scavenged. */
-/*	forwarding objects should be followed by callers,
-	unless the forwarder is a root in the remembered table. */
-
-	/* SpurGenerationScavenger>>#scavengeReferentsOf: */
 #include "interp/scavengeReferentsOf.c"
 
 
 
-/*	scavengeRememberedSetStartingAt: n traverses objects in the remembered
-	set starting at the nth one. If the object does not refer to any new
-	objects, it
-	is removed from the set. Otherwise, its new referents are scavenged. Defer
-	scavenging ephemerons until after a complete scavenge has been performed,
-	so that triggered ephemerons can be fired. Move them to the front of the
-	set and count them in numRememberedEphemerons for later scanning. */
-
-	/* SpurGenerationScavenger>>#scavengeRememberedSetStartingAt: */
 #include "interp/scavengeRememberedSetStartingAt.c"
 
 
 
-/*	(Slang flattens so need unique selectors) */
-
-	/* SpurGenerationScavenger>>#scavengerTenuringThreshold */
 #include "interp/scavengerTenuringThreshold.c"
 
 
 
-/*	There may be ephemerons to be scavenged on the ephemeronList.
-	Scavenge any with unfired (live) keys, removing them from the
-	list, and answer if any with unfired keys were found. */
-
-	/* SpurGenerationScavenger>>#scavengeUnfiredEphemeronsOnEphemeronList */
 #include "interp/scavengeUnfiredEphemeronsOnEphemeronList.c"
 
 
 
-/*	Output the entire record. */
-
-	/* SpurGenerationScavenger>>#writeScavengeLog */
 #include "interp/writeScavengeLog.c"
 
 
 
-/*	Answer the accessible object following the given object or 
-	free chunk in the heap. Return nil when heap is exhausted.
-	This is for primitiveNextObject subsequent to primitiveSomeObject.
-	It also tries to handle more general use by ordering objects as
-	eden
-	past
-	old
-	but this is tricky becaus ethe order in memory is
-	past
-	eden
-	old */
-
-	/* SpurMemoryManager>>#accessibleObjectAfter: */
 #include "interp/accessibleObjectAfter.c"
 
 
 
-/*	Answer whether an ephemeron is active (has an unmarked
-	key) and was pushed on the unscanned ephemerons stack. */
-
-	/* SpurMemoryManager>>#activeAndDeferredScan: */
 #include "interp/activeAndDeferredScan.c"
 
 
 
-/*	Add a freeChunk sub tree back into the large free chunk tree.
-	This is for allocateOldSpaceChunkOf[Exactly]Bytes:[suchThat:]. */
-/*	N.B. *can't* use numSlotsOfAny: because of rounding up of odd slots
-	and/or step in size at 1032 bytes in 32-bits or 2048 bytes in 64-bits. */
-
-	/* SpurMemoryManager>>#addFreeSubTree: */
 #include "interp/addFreeSubTree.c"
 
 
 
-/*	Add the given variable location to the extra roots table. */
-
-	/* SpurMemoryManager>>#addGCRoot: */
 #include "interp/addGCRoot.c"
 
 
 
-/*	Answer if maybeClassObj looks like a class object */
-
-	/* SpurMemoryManager>>#addressCouldBeClassObj: */
 #include "interp/addressCouldBeClassObj.c"
 
 
-	/* SpurMemoryManager>>#addressCouldBeObj: */
 #include "interp/addressCouldBeObj.c"
 
 
 
-/*	Answer if address appears to be that of either an immediate or an object.
-	For code disassembly and assertions. */
-
-	/* SpurMemoryManager>>#addressCouldBeOop: */
 #include "interp/addressCouldBeOop.c"
 
 
 
-/*	Add freeChunk to the relevant freeList.
-	For the benefit of sortedFreeObject:, if freeChunk is large, answer the
-	treeNode it
-	is added to, if it is added to the next list of a freeTreeNode, otherwise
-	answer 0. */
-/*	coInterpreter transcript ensureCr. coInterpreter print: 'freeing '. self
-	printFreeChunk: freeChunk.
- */
-
-	/* SpurMemoryManager>>#addToFreeList:bytes: */
 #include "interp/addToFreeListbytes.c"
 
 
 
-/*	Attempt to answer an array of all objects, excluding those that may
-	be garbage collected as a side effect of allocating the result array.
-	If no memory is available answer the number of instances as a
-	SmallInteger. Since objects are at least 16 bytes big, and the largest
-	SmallInteger covers
-	1/4 of the address space, the count can never overflow. */
-
-	/* SpurMemoryManager>>#allInstancesOf: */
 #include "interp/allInstancesOf.c"
 
 
 
-/*	Attempt to answer an array of all objects, excluding those that may
-	be garbage collected as a side effect of allocating the result array.
-	If no memory is available answer the number of objects as a SmallInteger.
-	Since objects are at least 16 bytes big, and the largest SmallInteger
-	covers 1/4 of the address space, the count can never overflow. */
-
-	/* SpurMemoryManager>>#allObjects */
 #include "interp/allObjects.c"
 
 
-	/* SpurMemoryManager>>#allObjectsUnmarked */
 #include "interp/allObjectsUnmarked.c"
 
 
-	/* SpurMemoryManager>>#allOldMarkedWeakObjectsOnWeaklingStack */
 #include "interp/allOldMarkedWeakObjectsOnWeaklingStack.c"
 
 
 
-/*	Answer the largest free chunk in the free lists. */
-/*	would like to use ifNotNil: but the ^next inside the ^blah ifNotNil:
-	confused Slang
- */
-
-	/* SpurMemoryManager>>#allocateLargestFreeChunk */
 #include "interp/allocateLargestFreeChunk.c"
 
 
 
-/*	Answer a chunk of oldSpace from the free lists, if available,
-	otherwise answer nil. Break up a larger chunk if one of the
-	exact size does not exist. N.B. the chunk is simply a pointer, it
-	has no valid header. The caller *must* fill in the header correctly. */
-/*	for debugging: */
-/*	totalFreeOldSpace := self totalFreeListBytes */
-
-	/* SpurMemoryManager>>#allocateOldSpaceChunkOfBytes: */
 #include "interp/allocateOldSpaceChunkOfBytes.c"
 
 
-	/* SpurMemoryManager>>#allocatePinnedSlots: */
 #include "interp/allocatePinnedSlots.c"
 
 
 
-/*	Answer the oop of a chunk of space in oldSpace with numSlots slots. The
-	header will have been filled-in but not the contents. If no memory is
-	available answer nil. */
-
-	/* SpurMemoryManager>>#allocateSlotsInOldSpace:bytes:format:classIndex: */
 #include "interp/allocateSlotsInOldSpacebytesformatclassIndex.c"
 
 
 
-/*	All objects are a multiple of 8 bytes in length */
-
-	/* SpurMemoryManager>>#allocationUnit */
 #include "interp/allocationUnit.c"
 
 
 
-/*	N.B. generateToByDoLimitExpression:negative:on: guards against (unsigned)0
-	- 1 going +ve
- */
-
-	/* SpurMemoryManager>>#allStrongSlotsOfWeaklingAreMarked: */
 #include "interp/allStrongSlotsOfWeaklingAreMarked.c"
 
 
-	/* SpurMemoryManager>>#allUnscannedEphemeronsAreActive */
 #include "interp/allUnscannedEphemeronsAreActive.c"
 
 
 
-/*	we don't want to inline so we can nest that in an assertion with the
-	return true so the production VM does not generate any code here, while in
-	simulation, the code breaks on the assertion we want to.
- */
-
-	/* SpurMemoryManager>>#assertInnerValidFreeObject: */
 #include "interp/assertInnerValidFreeObject.c"
 
 
 
-/*	Answer the appropriate become effect flags for objOop, or 0 if none.
-	The effect flags determine how much work is done after the become
-	in following forwarding pointers, voiding method caches, etc. */
-
-	/* SpurMemoryManager>>#becomeEffectFlagsFor: */
 #include "interp/becomeEffectFlagsFor.c"
 
 
-	/* SpurMemoryManager>>#become:with: */
 #include "interp/becomewith.c"
 
 
 
-/*	All references to each object in array1 are swapped with all references to
-	the corresponding object in array2. That is, all pointers to one object
-	are replaced
-	with with pointers to the other. The arguments must be arrays of the same
-	length. 
-	Answers PrimNoErr if the primitive succeeds, otherwise a relevant error
-	code. 
- */
-/*	Implementation: Uses lazy forwarding to defer updating references until
-	message send.
- */
-
-	/* SpurMemoryManager>>#become:with:twoWay:copyHash: */
 #include "interp/becomewithtwoWaycopyHash.c"
 
 
 
-/*	If this object is old, mark it as a root (because a new object
-	may be stored into it). */
-
-	/* SpurMemoryManager>>#beRootIfOld: */
 #include "interp/beRootIfOld.c"
 
 
-	/* SpurMemoryManager>>#bitsSetInFreeSpaceMaskForAllFreeLists */
 #include "interp/bitsSetInFreeSpaceMaskForAllFreeLists.c"
 
 
-	/* SpurMemoryManager>>#bridgeSize */
 #include "interp/bridgeSize.c"
 
 
-	/* SpurMemoryManager>>#byteFormatForNumBytes: */
 #include "interp/byteFormatForNumBytes.c"
 
 
-	/* SpurMemoryManager>>#byteFormatMask */
 #include "interp/byteFormatMask.c"
 
 
-	/* SpurMemoryManager>>#byteSizeOf: */
 #include "interp/byteSizeOf.c"
 
 
 
-/*	Answer the basic element size for the receiver. Answer 0 for immediates
-	and CompiledCode
-	(element size could be wordSize for literals or 1 for bytes, so its
-	indeterminable). Answer
-	wordSize for pointer objects. Otherwise answer the actual element size of
-	a bits container. */
-
-	/* SpurMemoryManager>>#bytesPerElement: */
 #include "interp/bytesPerElement.c"
 
 
 
-/*	Attempt to change the class of the receiver to the argument given that the
-	format of the receiver matches the format of the argument. If successful,
-	answer 0, otherwise answer an error code indicating the reason for
-	failure. 
-	Fail if the format of the receiver is incompatible with the format of the
-	argument, or if the argument is a fixed class and the receiver's size
-	differs from the size
-	that an instance of the argument should have. */
-
-	/* SpurMemoryManager>>#changeClassOf:to: */
 #include "interp/changeClassOfto.c"
 
 
-	/* SpurMemoryManager>>#characterObjectOf: */
 #include "interp/characterObjectOf.c"
 
 
 
-/*	Immediate characters are unsigned */
-
-	/* SpurMemoryManager>>#characterValueOf: */
 #include "interp/characterValueOf.c"
 
 
 
-/*	Assumes zero-based array indexing. */
-
-	/* SpurMemoryManager>>#checkedLongAt: */
 #include "interp/checkedLongAt.c"
 
 
 
-/*	Perform an integrity/leak check using the heapMap. Assume
-	clearLeakMapAndMapAccessibleFreeSpace has set a bit at each free chunk's
-	header. Scan all objects in the heap checking that no pointer points
-	to a free chunk and that all free chunks that refer to others refer to
-	marked chunks. Answer if all checks pass. */
-
-	/* SpurMemoryManager>>#checkHeapFreeSpaceIntegrity */
 #include "interp/checkHeapFreeSpaceIntegrity.c"
 
 
 
-/*	Perform an integrity/leak check using the heapMap. Assume
-	clearLeakMapAndMapAccessibleObjects has set a bit at each (non-free)
-	object's header. Scan all objects in the heap checking that every
-	pointer points to a header. Scan the rememberedSet, remapBuffer and
-	extraRootTable checking
-	that every entry is a pointer to a header. Check that the number of roots
-	is correct and that all
-	rememberedSet entries have their isRemembered: flag set. Answer if all
-	checks pass. */
-
-	/* SpurMemoryManager>>#checkHeapIntegrity:classIndicesShouldBeValid: */
 #include "interp/checkHeapIntegrityclassIndicesShouldBeValid.c"
 
 
 
-/*	Verify that the given oop is legitimate. Check address, header, and size
-	but not class.
-	Answer true if OK. Otherwise print reason and answer false. */
-/*	useful for debugging */
-
-	/* SpurMemoryManager>>#checkOkayOop: */
 #include "interp/checkOkayOop.c"
 
 
 
-/*	Attempt to verify that the given obj has a reasonable behavior. The class
-	must be a
-	valid, non-integer oop and must not be nilObj. It must be a pointers
-	object with three
-	or more fields. Finally, the instance specification field of the behavior
-	must match that
-	of the instance. If OK answer true. If not, print reason and answer false. */
-/*	useful for debugging */
-
-	/* SpurMemoryManager>>#checkOopHasOkayClass: */
 #include "interp/checkOopHasOkayClass.c"
 
 
-	/* SpurMemoryManager>>#checkOopIntegrity:named: */
 #include "interp/checkOopIntegritynamed.c"
 
 
-	/* SpurMemoryManager>>#checkOopIntegrity:named:index: */
 #include "interp/checkOopIntegritynamedindex.c"
 
 
-	/* SpurMemoryManager>>#classAlien */
 #include "interp/classAlien.c"
 
 
-	/* SpurMemoryManager>>#classArray */
 #include "interp/classArray.c"
 
 
-	/* SpurMemoryManager>>#classAtIndex: */
 #include "interp/classAtIndex.c"
 
 
 
-/*	for become & GC of classes */
-
-	/* SpurMemoryManager>>#classAtIndex:put: */
 #include "interp/classAtIndexput.c"
 
 
-	/* SpurMemoryManager>>#classBitmap */
 #include "interp/classBitmap.c"
 
 
 
-/*	a.k.a. self fetchPointer: ClassByteArrayCompactIndex ofObject:
-	classTableFirstPage 
- */
-
-	/* SpurMemoryManager>>#classByteArray */
 #include "interp/classByteArray.c"
 
 
-	/* SpurMemoryManager>>#classCharacter */
 #include "interp/classCharacter.c"
 
 
-	/* SpurMemoryManager>>#classDoubleByteArray */
 #include "interp/classDoubleByteArray.c"
 
 
-	/* SpurMemoryManager>>#classDoubleWordArray */
 #include "interp/classDoubleWordArray.c"
 
 
-	/* SpurMemoryManager>>#classExternalAddress */
 #include "interp/classExternalAddress.c"
 
 
-	/* SpurMemoryManager>>#classExternalData */
 #include "interp/classExternalData.c"
 
 
-	/* SpurMemoryManager>>#classExternalFunction */
 #include "interp/classExternalFunction.c"
 
 
-	/* SpurMemoryManager>>#classExternalLibrary */
 #include "interp/classExternalLibrary.c"
 
 
-	/* SpurMemoryManager>>#classExternalStructure */
 #include "interp/classExternalStructure.c"
 
 
-	/* SpurMemoryManager>>#classFloat */
 #include "interp/classFloat.c"
 
 
-	/* SpurMemoryManager>>#classFloat32Array */
 #include "interp/classFloat32Array.c"
 
 
-	/* SpurMemoryManager>>#classFloat64Array */
 #include "interp/classFloat64Array.c"
 
 
 
-/*	No need to check this; classAtIndex: has a stricter assert:
-	self assert: classIndex ~= self isForwardedObjectClassIndexPun. */
-
-	/* SpurMemoryManager>>#classForClassTag: */
 #include "interp/classForClassTag.c"
 
 
 
-/*	0 = 0 sized objects (UndefinedObject True False et al)
-	1 = non-indexable objects with inst vars (Point et al)
-	2 = indexable objects with no inst vars (Array et al)
-	3 = indexable objects with inst vars (MethodContext AdditionalMethodState
-	et al)
-	4 = weak indexable objects with inst vars (WeakArray et al)
-	5 = weak non-indexable objects with inst vars (ephemerons) (Ephemeron)
-	6 unused, reserved for exotic pointer objects?
-	7 Forwarded Object, 1st field is pointer, rest of fields are ignored
-	8 unused, reserved for exotic non-pointer objects?
-	9 64-bit indexable
-	10 - 11 32-bit indexable
-	12 - 15 16-bit indexable
-	16 - 23 byte indexable
-	24 - 31 compiled method */
-
-	/* SpurMemoryManager>>#classFormatFromInstFormat: */
 #include "interp/classFormatFromInstFormat.c"
 
 
 
-/*	22-bit class mask => ~ 4M classes */
-
-	/* SpurMemoryManager>>#classIndexFieldWidth */
 #include "interp/classIndexFieldWidth.c"
 
 
 
-/*	Answer objOop's classIndex from the object header.
-	A note on performance:
-	This routine uses longAt:, which does a 32-bit load on the 32-bit system,
-	and a 64-bit load
-	on the 64-bit system. Since the only 64-bit implementation(s) is/are
-	little-endian, and
-	since all of UNUSED,isPinned,isRemembered,format,isImmutable and
-	classIndex fit within
-	the least significant 32-bits we could use long32At: to access these, in
-	the hope that the
-	32-bit access will be quicker on 64-bits by virtue of fetching half the
-	bits. But experiments
-	show that doing this does not produce any increase; at least any signal is
-	lost in the noise. */
-
-	/* SpurMemoryManager>>#classIndexOf: */
 #include "interp/classIndexOf.c"
 
 
-	/* SpurMemoryManager>>#classLargeNegativeInteger */
 #include "interp/classLargeNegativeInteger.c"
 
 
-	/* SpurMemoryManager>>#classLargePositiveInteger */
 #include "interp/classLargePositiveInteger.c"
 
 
-	/* SpurMemoryManager>>#classOrNilAtIndex: */
 #include "interp/classOrNilAtIndex.c"
 
 
-	/* SpurMemoryManager>>#classPoint */
 #include "interp/classPoint.c"
 
 
-	/* SpurMemoryManager>>#classSemaphore */
 #include "interp/classSemaphore.c"
 
 
-	/* SpurMemoryManager>>#classSmallInteger */
 #include "interp/classSmallInteger.c"
 
 
-	/* SpurMemoryManager>>#classString */
 #include "interp/classString.c"
 
 
 
-/*	1024 entries per page (2^10); 22 bit classIndex implies 2^12 pages */
-/*	self basicNew classTableMinorIndexMask */
-
-	/* SpurMemoryManager>>#classTableMinorIndexMask */
 #include "interp/classTableMinorIndexMask.c"
 
 
 
-/*	1024 entries per page (2^10); 22 bit classIndex implies 2^12 pages */
-/*	self basicNew classTablePageSize */
-
-	/* SpurMemoryManager>>#classTablePageSize */
 #include "interp/classTablePageSize.c"
 
 
 
-/*	For Cogit & bootstrap */
-
-	/* SpurMemoryManager>>#classTableRootObj */
 #include "interp/classTableRootObj.c"
 
 
 
-/*	Answer the number of slots for class table pages in the hidden root
-	object. 
- */
-
-	/* SpurMemoryManager>>#classTableRootSlots */
 #include "interp/classTableRootSlots.c"
 
 
 
-/*	Answer the classObj's identityHash to use as a tag in the first-level
-	method lookup cache.
- */
-
-	/* SpurMemoryManager>>#classTagForClass: */
 #include "interp/classTagForClass.c"
 
 
-	/* SpurMemoryManager>>#classUnsafeAlien */
 #include "interp/classUnsafeAlien.c"
 
 
-	/* SpurMemoryManager>>#classWordArray */
 #include "interp/classWordArray.c"
 
 
 
-/*	Perform an integrity/leak check using the heapMap. Set a bit at each free
-	chunk's header. */
-
-	/* SpurMemoryManager>>#clearLeakMapAndMapAccessibleFreeSpace */
 #include "interp/clearLeakMapAndMapAccessibleFreeSpace.c"
 
 
 
-/*	Perform an integrity/leak check using the heapMap. Set a bit at each
-	object's header. */
-
-	/* SpurMemoryManager>>#clearLeakMapAndMapAccessibleObjects */
 #include "interp/clearLeakMapAndMapAccessibleObjects.c"
 
 
-	/* SpurMemoryManager>>#cloneInOldSpace:forPinning: */
 #include "interp/cloneInOldSpaceforPinning.c"
 
 
-	/* SpurMemoryManager>>#cloneObject: */
 #include "interp/cloneObject.c"
 
 
 
-/*	This is part of storeImageSegmentInto:outPointers:roots:.
-	Copy objOop into the segment beginning at segAddr, and forward it to the
-	copy, saving its first field in savedFirstField, and setting its marked
-	bit to indicate it has
-	been copied. If it is a class in the class table, set the copy's hash to 0
-	for reassignment
-	on load, and mark it as a class by setting its isRemembered bit.
-	Answer the next segmentAddr if successful. Answer an appropriate error
-	code if not */
-/*	Copy the object... */
-
-	/* SpurMemoryManager>>#copyObj:toAddr:stopAt:savedFirstFields:index: */
 #include "interp/copyObjtoAddrstopAtsavedFirstFieldsindex.c"
 
 
 
-/*	print the count of marked and unmarked objects.
-	In addition if 1 is set in printFlags, short-print marked objects,
-	and/or if 2 is set, short-print unmarked obejcts. */
-/*	useful for debugging */
-
-	/* SpurMemoryManager>>#countMarkedAndUnmarkdObjects: */
 #include "interp/countMarkedAndUnmarkdObjects.c"
 
 
 
-/*	Compute the current allocated bytes since last set.
-	This is the cumulative total in statAllocatedBytes plus the allocation
-	since the last scavenge. */
-/*	Slang infers the type of the difference between two unsigned variables as
-	signed. In this case we want it to be unsigned. */
-
-	/* SpurMemoryManager>>#currentAllocatedBytes */
 #include "interp/currentAllocatedBytes.c"
 
 
-	/* SpurMemoryManager>>#displayObject */
 #include "interp/displayObject.c"
 
 
 
-/*	The inner shell for scavenge, abstrascted out so globalGarbageCollect can
-	use it.
- */
-
-	/* SpurMemoryManager>>#doScavenge: */
 #include "interp/doScavenge.c"
 
 
 
-/*	Reduce the number of indexable fields in objOop, a pointer object, to
-	nSlots. If in oldSpace,
-	convert the unused residual to a free chunk. If in eden, cut back
-	freeStart if possible.
-	Without changes to numSlotsForShortening:toIndexableSize: this only works
-	for arrayFormat, longFormat, and on 64-bits sixtyFourBitIndexableFormat,
-	objects. Answer the number of bytes returned to free memory, which may be
-	zero if no change
-	was possible. */
-
-	/* SpurMemoryManager>>#doShorten:toIndexableSize: */
 #include "interp/doShortentoIndexableSize.c"
 
 
 
-/*	Instantiate an instance of a compact class. ee stands for execution engine
-	and implies that this allocation will *NOT* cause a GC. N.B. the
-	instantiated object
-	IS NOT FILLED and must be completed before returning it to Smalltalk.
-	Since this
-	call is used in routines that do just that we are safe. Break this rule
-	and die in GC.
-	Result is guaranteed to be young. */
-
-	/* SpurMemoryManager>>#eeInstantiateClassIndex:format:numSlots: */
 #include "interp/eeInstantiateClassIndexformatnumSlots.c"
 
 
 
-/*	For breakpointing the end of a leak check print message */
-
-	/* SpurMemoryManager>>#eek */
 #include "interp/eek.c"
 
 
 
-/*	We use bridges to stitch segments together to make it appear that the heap
-	is one contiguous space.
-	Bridges at the end of oldSpace segments are maintained. Bridges at the end
-	of pastSpace and eden
-	are temporary, and are established here, depending on the current sizes of
-	pastSpace end eden.
-	
-	N.B. this introduces complications. Either or both pastSpace and eden may
-	be empty, so the 
-	bridge from pastSpace may skip eden. pastSpace may be full, so there may
-	be no bridge at
-	the end of pastSpace. Most difficult, pastSpace could be one 64-bit word
-	short of full, but normal
-	bridges are two word objects. To make this work we introduce a hack,
-	objectAfterMaybeSlimBridge:limit:, which uses a fake overflow slot count
-	to get to the start of the next object, which is either one or two
-	words away, depending on whether the first object in eden has a normal or
-	an overflow header. */
-
-	/* SpurMemoryManager>>#enableObjectEnumerationFrom: */
 #include "interp/enableObjectEnumerationFrom.c"
 
 
-	/* SpurMemoryManager>>#ensureBehaviorHash: */
 #include "interp/ensureBehaviorHash.c"
 
 
 
-/*	An obj stack is a stack of objects stored in a hidden root slot, such as
-	the markStack or the ephemeronQueue. It is a linked list of segments,
-	with the hot end at the head of the list. It is a word object. The stack
-	pointer is in ObjStackTopx and 0 means empty. The list goes through
-	ObjStackNextx. We don't want to shrink objStacks, since they're used
-	in GC and its good to keep their memory around. So unused pages
-	created by popping emptying pages are kept on the ObjStackFreex list. */
-
-	/* SpurMemoryManager>>#ensureRoomOnObjStackAt: */
 #include "interp/ensureRoomOnObjStackAt.c"
 
 
 
-/*	Enter aBehavior into the class table and answer 0. Otherwise answer a
-	primitive failure code. */
-
-	/* SpurMemoryManager>>#enterIntoClassTable: */
 #include "interp/enterIntoClassTable.c"
 
 
-	/* SpurMemoryManager>>#existInstancesInNewSpaceOf: */
 #include "interp/existInstancesInNewSpaceOf.c"
 
 
 
-/*	Remove aBehavior from the class table. */
-
-	/* SpurMemoryManager>>#expungeFromClassTable: */
 #include "interp/expungeFromClassTable.c"
 
 
-	/* SpurMemoryManager>>#falseObject */
 #include "interp/falseObject.c"
 
 
-	/* SpurMemoryManager>>#fetchByte:ofObject: */
 #include "interp/fetchByteofObject.c"
 
 
-	/* SpurMemoryManager>>#fetchClassOfNonImm: */
 #include "interp/fetchClassOfNonImm.c"
 
 
-	/* SpurMemoryManager>>#fetchClassOf: */
 #include "interp/fetchClassOf.c"
 
 
 
-/*	In Spur an object's classIndex is the tag in all method caches. */
-
-	/* SpurMemoryManager>>#fetchClassTagOfNonImm: */
 #include "interp/fetchClassTagOfNonImm.c"
 
 
 
-/*	index by 32-bit units, and return a 32-bit value. Intended to replace
-	fetchWord:ofObject: 
- */
-
-	/* SpurMemoryManager>>#fetchLong32:ofObject: */
 #include "interp/fetchLong32ofObject.c"
 
 
-	/* SpurMemoryManager>>#fetchPointer:ofFreeChunk: */
 #include "interp/fetchPointerofFreeChunk.c"
 
 
-	/* SpurMemoryManager>>#fetchPointer:ofObject: */
 #include "interp/fetchPointerofObject.c"
 
 
-	/* SpurMemoryManager>>#findClassNamed: */
 #include "interp/findClassNamed.c"
 
 
 
-/*	Answer, but do not remove, the largest free chunk in the free lists. */
-
-	/* SpurMemoryManager>>#findLargestFreeChunk */
 #include "interp/findLargestFreeChunk.c"
 
 
 
-/*	Print the oops of all string-like things that start with the same
-	characters as aCString
- */
-/*	useful for debugging */
-
-	/* SpurMemoryManager>>#findStringBeginningWith: */
 #include "interp/findStringBeginningWith.c"
 
 
 
-/*	Print the oops of all string-like things that have the same characters as
-	aCString 
- */
-
-	/* SpurMemoryManager>>#findString: */
 #include "interp/findString.c"
 
 
-	/* SpurMemoryManager>>#fireEphemeron: */
 #include "interp/fireEphemeron.c"
 
 
-	/* SpurMemoryManager>>#firstAccessibleObject */
 #include "interp/firstAccessibleObject.c"
 
 
 
-/*	for the message send breakpoint; selectors can be immediates. */
-
-	/* SpurMemoryManager>>#firstFixedFieldOfMaybeImmediate: */
 #include "interp/firstFixedFieldOfMaybeImmediate.c"
 
 
-	/* SpurMemoryManager>>#firstFixedField: */
 #include "interp/firstFixedField.c"
 
 
 
-/*	NOTE: overridden in various simulator subclasses to add coercion to
-	CArray, so please duplicate any changes.
-	There are only two important cases, both for objects with named inst vars,
-	i.e. formats 2,3 & 5.
-	The first indexable field for formats 2 & 5 is the slot count (by
-	convention, even though that's off the end
-	of the object). For 3 we must go to the class. */
-
-	/* SpurMemoryManager>>#firstIndexableField: */
 #include "interp/firstIndexableField.c"
 
 
 
-/*	A fake format for the interpreter used to mark indexable strings in
-	the interpreter's at cache. This is larger than any format. */
-
-	/* SpurMemoryManager>>#firstStringyFakeFormat */
 #include "interp/firstStringyFakeFormat.c"
 
 
-	/* SpurMemoryManager>>#fixedFieldsOfClassFormatMask */
 #include "interp/fixedFieldsOfClassFormatMask.c"
 
 
-	/* SpurMemoryManager>>#fixedFieldsOfClassFormat: */
 #include "interp/fixedFieldsOfClassFormat.c"
 
 
-	/* SpurMemoryManager>>#fixedFieldsOf:format:length: */
 #include "interp/fixedFieldsOfformatlength.c"
 
 
 
-/*	Private helper for followField:ofObject: to avoid code duplication for
-	rare case.
- */
-
-	/* SpurMemoryManager>>#fixFollowedField:ofObject:withInitialValue: */
 #include "interp/fixFollowedFieldofObjectwithInitialValue.c"
 
 
 
-/*	Make sure the oop at fieldIndex in anObject is not forwarded (follow the
-	forwarder there-in if so). Answer the (possibly followed) oop at
-	fieldIndex.  */
-
-	/* SpurMemoryManager>>#followField:ofObject: */
 #include "interp/followFieldofObject.c"
 
 
 
-/*	Follow pointers in the object to depth.
-	Answer if any forwarders were found.
-	How to avoid cyclic structures?? A temporary mark bit? eem 6/22/2020 no
-	need since depth is always finite. */
-
-	/* SpurMemoryManager>>#followForwardedObjectFields:toDepth: */
 #include "interp/followForwardedObjectFieldstoDepth.c"
 
 
 
-/*	Follow a forwarding pointer. This must be a loop because we cannot prevent
-	forwarders to
-	forwarders being created by lazy become. Consider the following example by
-	Igor Stasenko:
-	array := { a. b. c }.
-	- array at: 1 points to &a. array at: 2 points to &b. array at: 3 points
-	to &c
-	a becomeForward: b
-	- array at: 1 still points to &a. array at: 2 still points to &b. array
-	at: 3 still points to &c
-	b becomeForward: c.
-	- array at: 1 still points to &a. array at: 2 still points to &b. array
-	at: 3 still points to &c
-	- when accessing array first one has to follow a forwarding chain:
-	&a -> &b -> c */
-
-	/* SpurMemoryManager>>#followForwarded: */
 #include "interp/followForwarded.c"
 
 
-	/* SpurMemoryManager>>#followMaybeForwarded: */
 #include "interp/followMaybeForwarded.c"
 
 
 
-/*	Make sure the obj at fieldIndex in anObject is not forwarded (follow the
-	forwarder there-in if so). Answer the (possibly followed) obj at
-	fieldIndex.  */
-
-	/* SpurMemoryManager>>#followObjField:ofObject: */
 #include "interp/followObjFieldofObject.c"
 
 
-	/* SpurMemoryManager>>#formatOfClass: */
 #include "interp/formatOfClass.c"
 
 
 
-/*	0 = 0 sized objects (UndefinedObject True False et al)
-	1 = non-indexable objects with inst vars (Point et al)
-	2 = indexable objects with no inst vars (Array et al)
-	3 = indexable objects with inst vars (MethodContext AdditionalMethodState
-	et al)
-	4 = weak indexable objects with inst vars (WeakArray et al)
-	5 = weak non-indexable objects with inst vars (ephemerons) (Ephemeron)
-	6 unused, reserved for exotic pointer objects?
-	7 Forwarded Object, 1st field is pointer, rest of fields are ignored
-	8 unused, reserved for exotic non-pointer objects?
-	9 64-bit indexable
-	10 - 11 32-bit indexable	(lsb = # of unused 32-bit fields, 11 unused in 32
-	bits) 12 - 15 16-bit indexable	(ls2b = # of unused 16-bit fields, 14 & 15
-	unused in 32-bits)
-	16 - 23 byte indexable	(ls3b = # of unused 8-bit fields, 20, 21, 22, 23
-	unused in 32-bits)
-	24 - 31 compiled method	(ls3b = # of unused 8-bit fields, 20, 21, 22, 23
-	unused in 32-bits) */
-/*	A note on performance. Since the format field is, by design, aligned on a
-	byte boundary
-	in the fourth byte of the header (see headerForSlots:format:classIndex:)
-	it is accessed
-	as below. But it used to be accessed via
-	^(self longAt: objOop) >> self formatShift bitAnd: self formatMask
-	This potentially involves more operations (a shift) and larger literals,
-	In practice clang
-	optimizes the long form to the byte form on x86_64, showing it is to be
-	preferred on at
-	least one architecture. On arm64 for example both forms take two
-	instructions.  */
-
-	/* SpurMemoryManager>>#formatOf: */
 #include "interp/formatOf.c"
 
 
 
-/*	Answer if anObject is itself forwarded, or is a pointer object containing
-	any references to forwarded objects.
- */
-
-	/* SpurMemoryManager>>#forwardersIn: */
 #include "interp/forwardersIn.c"
 
 
 
-/*	for linking objecs on each free list, or, during pigCompact, doubly-
-	linking the free objects in address order using the xor link hack. */
-
-	/* SpurMemoryManager>>#freeChunkNextIndex */
 #include "interp/freeChunkNextIndex.c"
 
 
 
-/*	for organizing the tree of large free chunks. */
-
-	/* SpurMemoryManager>>#freeChunkParentIndex */
 #include "interp/freeChunkParentIndex.c"
 
 
 
-/*	For linking objecs on each free list, doubly-linking the free objects.
-	Free chunks of size 1 do not have a prev index. */
-
-	/* SpurMemoryManager>>#freeChunkPrevIndex */
 #include "interp/freeChunkPrevIndex.c"
 
 
-	/* SpurMemoryManager>>#freeChunkWithBytes:at: */
 #include "interp/freeChunkWithBytesat.c"
 
 
 
-/*	Free an object in oldSpace. Coalesce if possible to reduce fragmentation. */
-
-	/* SpurMemoryManager>>#freeObject: */
 #include "interp/freeObject.c"
 
 
 
-/*	Perform a full eager compacting GC. Answer the size of the largest free
-	chunk. 
- */
-/*	for profiling */
-
-	/* SpurMemoryManager>>#fullGC */
 #include "interp/fullGC.c"
 
 
-	/* SpurMemoryManager>>#getHeapGrowthToSizeGCRatio */
 #include "interp/getHeapGrowthToSizeGCRatio.c"
 
 
-	/* SpurMemoryManager>>#goodContextSize: */
 #include "interp/goodContextSize.c"
 
 
 
-/*	Attempt to grow memory by at least minAmmount.
-	Answer the size of the new segment, or nil if the attempt failed. */
-
-	/* SpurMemoryManager>>#growOldSpaceByAtLeast: */
 #include "interp/growOldSpaceByAtLeast.c"
 
 
-	/* SpurMemoryManager>>#hasPointerFieldsNonImm: */
 #include "interp/hasPointerFieldsNonImm.c"
 
 
 
-/*	The header format in LSB is
-	MSB:	| 8: numSlots		| (on a byte boundary)
-	| 2 bits				|	(msb,lsb = {isMarked,isGrey})
-	| 22: identityHash	| (on a word boundary)
-	| 3 bits				|	(msb <-> lsb = {UNUSED,isPinned,isRemembered}
-	| 5: format			| (on a byte boundary)
-	| 2 bits				|	(msb,lsb = {isImmutable,isExtraAligned})
-	| 22: classIndex		| (on a word boundary) : LSB
-	The 7 bit flags are used (or reserved) for
-	isExtraAligned		(bit 22)
-	isImmutable		(bit 23)
-	isRemembered	(bit 29)
-	isPinned			(bit 30)
-	UNUSED			(bit 31)
-	isGrey				(bit 54)
-	isMarked			(bit 55)
-	The three bit field { UNUSED, isPinned, isRemembered } is for bits that
-	are never
-	set in young objects (forcing uses of the UNUSED bit to be for oldSPace
-	objects only).
-	This allows the remembered table to be pruned when full by using these
-	bits as a
-	reference count of newSpace objects from the remembered table. Objects
-	with a
-	high count should be tenured to prune the remembered table. */
-
-	/* SpurMemoryManager>>#headerForSlots:format:classIndex: */
 #include "interp/headerForSlotsformatclassIndex.c"
 
 
 
-/*	The header format in LSB is
-	MSB:	| 8: numSlots		| (on a byte boundary)
-	| 2 bits				|	(msb,lsb = {isMarked,isGrey})
-	| 22: identityHash	| (on a word boundary)
-	| 3 bits				|	(msb <-> lsb = {UNUSED,isPinned,isRemembered}
-	| 5: format			| (on a byte boundary)
-	| 2 bits				|	(msb,lsb = {isImmutable,isExtraAligned})
-	| 22: classIndex		| (on a word boundary) : LSB
-	The 7 bit flags are used (or reserved) for
-	isExtraAligned		(bit 22)
-	isImmutable		(bit 23)
-	isRemembered	(bit 29)
-	isPinned			(bit 30)
-	UNUSED			(bit 31)
-	isGrey				(bit 54)
-	isMarked			(bit 55)
-	The three bit field { UNUSED, isPinned, isRemembered } is for bits that
-	are never
-	set in young objects (forcing uses of the UNUSED bit to be for oldSPace
-	objects only).
-	This allows the remembered table to be pruned when full by using these
-	bits as a
-	reference count of newSpace objects from the remembered table. Objects
-	with a
-	high count should be tenured to prune the remembered table. */
-
-	/* SpurMemoryManager>>#headerForSlots:hash:format:classIndex: */
 #include "interp/headerForSlotshashformatclassIndex.c"
 
 
 
-/*	Answer the number of extra root slots in the root of the hidden root
-	object. 
- */
-
-	/* SpurMemoryManager>>#hiddenRootSlots */
 #include "interp/hiddenRootSlots.c"
 
 
-	/* SpurMemoryManager>>#hiddenRootsObject */
 #include "interp/hiddenRootsObject.c"
 
 
 
-/*	a more complex version that tells both the word reversal and the
-	endianness of the machine
-	it came from. Low half of word is e.g. 6521. Top byte is top byte of
-	#doesNotUnderstand: on
-	this machine. ($d on the Mac or $s on the PC) */
-
-	/* SpurMemoryManager>>#imageSegmentVersion */
 #include "interp/imageSegmentVersion.c"
 
 
@@ -6469,1191 +4283,588 @@ primitiveTestShortenIndexableSize(void)
 #if IMMUTABILITY
 #include "interp/immutableBitMask.c"
 
-#endif /* IMMUTABILITY */
-
-	/* SpurMemoryManager>>#indexOf:in: */
-#include "interp/indexOfin.c"
+#endif#include "interp/indexOfin.c"
 
 
 
-/*	Part of reorderReversedTreeList:. Switch treeNode with newNode in
-	the tree, but do nothing to the list linked through freeChunkNextIndex. */
-
-	/* SpurMemoryManager>>#inFreeTreeReplace:with: */
 #include "interp/inFreeTreeReplacewith.c"
 
 
-	/* SpurMemoryManager>>#initialInstanceOf: */
 #include "interp/initialInstanceOf.c"
 
 
-	/* SpurMemoryManager>>#initializeNewSpaceVariables */
 #include "interp/initializeNewSpaceVariables.c"
 
 
 
-/*	Initialize object memory variables at startup time. Assume endOfMemory at
-	al are
-	initialised by the image-reading code via
-	setHeapBase:memoryLimit:endOfMemory:. endOfMemory is assumed to point to
-	the end of the last object in the image.
-	Assume: image reader also initializes the following variables:
-	specialObjectsOop
-	lastHash */
-/*	Catch mis-initializations leading to bad translations to C */
-
-	/* SpurMemoryManager>>#initializeObjectMemory: */
 #include "interp/initializeObjectMemory.c"
 
 
 
-/*	print free chunks in freeTree in order. */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#inOrderPrintFreeTree:printList: */
 #include "interp/inOrderPrintFreeTreeprintList.c"
 
 
 
-/*	in an effort to fix a compiler bug with two-way become post r3427 */
-/*	Do become in place by swapping object contents. */
-
-	/* SpurMemoryManager>>#inPlaceBecome:and:copyHashFlag: */
 #include "interp/inPlaceBecomeandcopyHashFlag.c"
 
 
 
-/*	Answer the number of slots in a class. For example the instanceSizeOf: 
-	ClassPoint is 2, for the x & y slots. The instance size of non-pointer
-	classes is 0. */
-
-	/* SpurMemoryManager>>#instanceSizeOf: */
 #include "interp/instanceSizeOf.c"
 
 
-	/* SpurMemoryManager>>#instantiateClass: */
 #include "interp/instantiateClass.c"
 
 
-	/* SpurMemoryManager>>#instSpecOfClassFormat: */
 #include "interp/instSpecOfClassFormat.c"
 
 
 
-/*	This field in a class's format inst var corresponds to the 5-bit format
-	field stored in every object header
- */
-
-	/* SpurMemoryManager>>#instSpecOfClass: */
 #include "interp/instSpecOfClass.c"
 
 
-	/* SpurMemoryManager>>#invalidCompactClassError: */
 #include "interp/invalidCompactClassError.c"
 
 
 
-/*	Answer true if this is an indexable object with pointer elements, e.g., an
-	array 
- */
-
-	/* SpurMemoryManager>>#isArray: */
 #include "interp/isArray.c"
 
 
 
-/*	Answer if objOop should be included in an allObjects...Do: enumeration.
-	This is for assert-checking only. */
-
-	/* SpurMemoryManager>>#isBridgeOrEnumerableObjectNoAssert: */
 #include "interp/isBridgeOrEnumerableObjectNoAssert.c"
 
 
 
-/*	Answer true if the argument contains indexable bytes. See comment in
-	formatOf: 
- */
-/*	Note: Includes CompiledMethods. */
-
-	/* SpurMemoryManager>>#isBytes: */
 #include "interp/isBytes.c"
 
 
-	/* SpurMemoryManager>>#isCharacterObject: */
 #include "interp/isCharacterObject.c"
 
 
-	/* SpurMemoryManager>>#isCharacterValue: */
 #include "interp/isCharacterValue.c"
 
 
-	/* SpurMemoryManager>>#isCompiledMethodFormat: */
 #include "interp/isCompiledMethodFormat.c"
 
 
 
-/*	Answer whether the argument object is of compiled method format */
-
-	/* SpurMemoryManager>>#isCompiledMethod: */
 #include "interp/isCompiledMethod.c"
 
 
-	/* SpurMemoryManager>>#isContextHeader: */
 #include "interp/isContextHeader.c"
 
 
-	/* SpurMemoryManager>>#isContextNonImm: */
 #include "interp/isContextNonImm.c"
 
 
-	/* SpurMemoryManager>>#isContext: */
 #include "interp/isContext.c"
 
 
 
-/*	This is part of storeImageSegmentInto:outPointers:roots:. */
-
-	/* SpurMemoryManager>>#isCopiedIntoSegment: */
 #include "interp/isCopiedIntoSegment.c"
 
 
-	/* SpurMemoryManager>>#isEmptyObjStack: */
 #include "interp/isEmptyObjStack.c"
 
 
 
-/*	Answer if objOop should be included in an allObjects...Do: enumeration.
-	This is for assert-checking only. */
-
-	/* SpurMemoryManager>>#isEnumerableObjectNoAssert: */
 #include "interp/isEnumerableObjectNoAssert.c"
 
 
-	/* SpurMemoryManager>>#isEphemeronFormat: */
 #include "interp/isEphemeronFormat.c"
 
 
-	/* SpurMemoryManager>>#isEphemeron: */
 #include "interp/isEphemeron.c"
 
 
-	/* SpurMemoryManager>>#isFixedSizePointerFormat: */
 #include "interp/isFixedSizePointerFormat.c"
 
 
-	/* SpurMemoryManager>>#isForwardedClassTag: */
 #include "interp/isForwardedClassTag.c"
 
 
 
-/*	Answer if objOop is that if a forwarder. Take advantage of
-	isForwardedObjectClassIndexPun being a power of two to generate a more
-	efficient test than the straight-forward
-	(self classIndexOf: objOop) = self isForwardedObjectClassIndexPun
-	at the cost of this being ambiguous with free chunks. So either never
-	apply this to free chunks
-	or guard with (self isFreeObject: foo) not. So far the idiom has been to
-	guard with isFreeObject: */
-/*	self assert: (self isFreeObject: objOop) not. */
-
-	/* SpurMemoryManager>>#isForwarded: */
 #include "interp/isForwarded.c"
 
 
-	/* SpurMemoryManager>>#isFreeObject: */
 #include "interp/isFreeObject.c"
 
 
-	/* SpurMemoryManager>>#isFreeOop: */
 #include "interp/isFreeOop.c"
 
 
-	/* SpurMemoryManager>>#isImmediate: */
 #include "interp/isImmediate.c"
 
 
-	/* SpurMemoryManager>>#isInClassTable: */
 #include "interp/isInClassTable.c"
 
 
-	/* SpurMemoryManager>>#isIndexable: */
 #include "interp/isIndexable.c"
 
 
-	/* SpurMemoryManager>>#isInEden: */
 #include "interp/isInEden.c"
 
 
-	/* SpurMemoryManager>>#isInFutureSpace: */
 #include "interp/isInFutureSpace.c"
 
 
 
-/*	Answer if the given address is in ST object memory. */
-
-	/* SpurMemoryManager>>#isInMemory: */
 #include "interp/isInMemory.c"
 
 
-	/* SpurMemoryManager>>#isInNewSpace: */
 #include "interp/isInNewSpace.c"
 
 
-	/* SpurMemoryManager>>#isInOldSpace: */
 #include "interp/isInOldSpace.c"
 
 
-	/* SpurMemoryManager>>#isInPastSpace: */
 #include "interp/isInPastSpace.c"
 
 
-	/* SpurMemoryManager>>#isLargeFreeObject: */
 #include "interp/isLargeFreeObject.c"
 
 
 
-/*	Answer if the argument contains only indexable 64-bit double words (no
-	oops). See comment in formatOf:
- */
-
-	/* SpurMemoryManager>>#isLong64s: */
 #include "interp/isLong64s.c"
 
 
-	/* SpurMemoryManager>>#isMarked: */
 #include "interp/isMarked.c"
 
 
-	/* SpurMemoryManager>>#isMaybeFiredEphemeron: */
 #include "interp/isMaybeFiredEphemeron.c"
 
 
-	/* SpurMemoryManager>>#isNonImmediate: */
 #include "interp/isNonImmediate.c"
 
 
-	/* SpurMemoryManager>>#isObjEphemeron: */
 #include "interp/isObjEphemeron.c"
 
 
-	/* SpurMemoryManager>>#isObjImmutable: */
 #include "interp/isObjImmutable.c"
 
 
 
-/*	Answer if obj is old. Require that obj is non-immediate. */
-
-	/* SpurMemoryManager>>#isOldObject: */
 #include "interp/isOldObject.c"
 
 
 
-/*	Answer whether the oop is an object of compiled method format */
-
-	/* SpurMemoryManager>>#isOopCompiledMethod: */
 #include "interp/isOopCompiledMethod.c"
 
 
-	/* SpurMemoryManager>>#isOopForwarded: */
 #include "interp/isOopForwarded.c"
 
 
-	/* SpurMemoryManager>>#isOopImmutable: */
 #include "interp/isOopImmutable.c"
 
 
-	/* SpurMemoryManager>>#isOopMutable: */
 #include "interp/isOopMutable.c"
 
 
-	/* SpurMemoryManager>>#isPinned: */
 #include "interp/isPinned.c"
 
 
 
-/*	Answer if the argument has only fields that can hold oops. See comment in
-	formatOf: 
- */
-
-	/* SpurMemoryManager>>#isPointers: */
 #include "interp/isPointers.c"
 
 
 
-/*	the inverse of isAnyPointerFormat: */
-
-	/* SpurMemoryManager>>#isPureBitsFormat: */
 #include "interp/isPureBitsFormat.c"
 
 
 
-/*	Answer if the argument contains only indexable words (no oops). See
-	comment in formatOf:
- */
-
-	/* SpurMemoryManager>>#isPureBitsNonImm: */
 #include "interp/isPureBitsNonImm.c"
 
 
 
-/*	Answer if obj is young. This for compatibility with SqueakV3 where
-	the GC makes all objects young during full GC. Spur doesn't do so. */
-
-	/* SpurMemoryManager>>#isReallyYoungObject: */
 #include "interp/isReallyYoungObject.c"
 
 
-	/* SpurMemoryManager>>#isRemembered: */
 #include "interp/isRemembered.c"
 
 
 
-/*	Maybe this should be in SpurSegmentManager only */
-
-	/* SpurMemoryManager>>#isSegmentBridge: */
 #include "interp/isSegmentBridge.c"
 
 
 
-/*	Answer if the argument contains only indexable 16-bit half words (no
-	oops). See comment in formatOf:
- */
-
-	/* SpurMemoryManager>>#isShorts: */
 #include "interp/isShorts.c"
 
 
 
-/*	This version is private to SpurMemoryManager (for asserts, etc). It does
-	not take advantage of the power-of-two optimization in isForwarded:. */
-
-	/* SpurMemoryManager>>#isUnambiguouslyForwarder: */
 #include "interp/isUnambiguouslyForwarder.c"
 
 
 
-/*	For debugging using printOopsSuchThat: */
-
-	/* SpurMemoryManager>>#isUnmarked: */
 #include "interp/isUnmarked.c"
 
 
-	/* SpurMemoryManager>>#isValidClassTag: */
 #include "interp/isValidClassTag.c"
 
 
 
-/*	Answer if the obj stack at objStackRootIndex is valid. */
-
-	/* SpurMemoryManager>>#isValidObjStackAt: */
 #include "interp/isValidObjStackAt.c"
 
 
 
-/*	Just check the page itself. */
-
-	/* SpurMemoryManager>>#isValidObjStackPage:myIndex: */
 #include "interp/isValidObjStackPagemyIndex.c"
 
 
 
-/*	Answer if the obj stack at stackRootIndex is valid. */
-
-	/* SpurMemoryManager>>#isValidObjStackPage:myIndex:firstPage: */
 #include "interp/isValidObjStackPagemyIndexfirstPage.c"
 
 
 
-/*	Answer if the obj stack at objStackRootIndex is valid. */
-
-	/* SpurMemoryManager>>#isValidObjStack: */
 #include "interp/isValidObjStack.c"
 
 
-	/* SpurMemoryManager>>#isWeakNonImm: */
 #include "interp/isWeakNonImm.c"
 
 
 
-/*	Answer if the argument has only weak fields that can hold oops. See
-	comment in formatOf:
- */
-
-	/* SpurMemoryManager>>#isWeak: */
 #include "interp/isWeak.c"
 
 
 
-/*	Answer if the contains only indexable words or bytes (no oops). See
-	comment in formatOf:
- */
-/*	Note: Excludes CompiledMethods. */
-
-	/* SpurMemoryManager>>#isWordsOrBytesNonImm: */
 #include "interp/isWordsOrBytesNonImm.c"
 
 
 
-/*	Answer if the contains only indexable words or bytes (no oops). See
-	comment in formatOf:
- */
-/*	Note: Excludes CompiledMethods. */
-
-	/* SpurMemoryManager>>#isWordsOrBytes: */
 #include "interp/isWordsOrBytes.c"
 
 
 
-/*	Answer if the argument contains only indexable 16-bit half words or 32-bit
-	indexable words (no oops).
-	See comment in formatOf: */
-
-	/* SpurMemoryManager>>#isWordsOrShorts: */
 #include "interp/isWordsOrShorts.c"
 
 
 
-/*	Answer if the argument contains only indexable words (no oops). See
-	comment in formatOf:
- */
-
-	/* SpurMemoryManager>>#isWords: */
 #include "interp/isWords.c"
 
 
 
-/*	Answer if obj is young. Require that obj is non-immediate. */
-
-	/* SpurMemoryManager>>#isYoungObject: */
 #include "interp/isYoungObject.c"
 
 
 
-/*	Answer if oop is young. */
-
-	/* SpurMemoryManager>>#isYoung: */
 #include "interp/isYoung.c"
 
 
 
-/*	Answer if oop is an instance of the given class. If the class has a
-	(non-zero) compactClassIndex use that to speed up the check. N.B. Inlining
-	should result in classOop not being accessed if oop's compact class index
-	and compactClassIndex are non-zero. */
-
-	/* SpurMemoryManager>>#is:instanceOf:compactClassIndex: */
 #include "interp/isinstanceOfcompactClassIndex.c"
 
 
-	/* SpurMemoryManager>>#is:onObjStack: */
 #include "interp/isonObjStack.c"
 
 
 
-/*	Answer the object the ephemeron guards. This is its first element. */
-
-	/* SpurMemoryManager>>#keyOfEphemeron: */
 #include "interp/keyOfEphemeron.c"
 
 
-	/* SpurMemoryManager>>#knownClassAtIndex: */
 #include "interp/knownClassAtIndex.c"
 
 
-	/* SpurMemoryManager>>#lastPointerFormat */
 #include "interp/lastPointerFormat.c"
 
 
 
-/*	Answer the byte offset of the last pointer field of the given object.
-	Works with CompiledMethods, as well as ordinary objects.
-	Does not examine the stack pointer of contexts to be sure to swizzle
-	the nils that fill contexts on snapshot.
-	It is invariant that on image load no object contains a forwarding
-	pointer, and the image contains no forwarders (see class comment). */
-
-	/* SpurMemoryManager>>#lastPointerOfWhileSwizzling: */
 #include "interp/lastPointerOfWhileSwizzling.c"
 
 
 
-/*	Answer the byte offset of the last pointer field of the given object.
-	Works with CompiledMethods, as well as ordinary objects. */
-
-	/* SpurMemoryManager>>#lastPointerOf: */
 #include "interp/lastPointerOf.c"
 
 
-	/* SpurMemoryManager>>#leakCheckFullGC */
 #include "interp/leakCheckFullGC.c"
 
 
-	/* SpurMemoryManager>>#leakCheckNewSpaceGC */
 #include "interp/leakCheckNewSpaceGC.c"
 
 
 
-/*	for the message send breakpoint; selectors can be immediates. */
-
-	/* SpurMemoryManager>>#lengthOfMaybeImmediate: */
 #include "interp/lengthOfMaybeImmediate.c"
 
 
 
-/*	Answer the number of indexable units in the given object.
-	For a CompiledMethod, the size of the method header (in bytes) should
-	be subtracted from the result. */
-
-	/* SpurMemoryManager>>#lengthOf: */
 #include "interp/lengthOf.c"
 
 
-	/* SpurMemoryManager>>#literalCountOfMethodHeader: */
 #include "interp/literalCountOfMethodHeader.c"
 
 
-	/* SpurMemoryManager>>#literalCountOf: */
 #include "interp/literalCountOf.c"
 
 
 
-/*	This primitive is called from Smalltalk as...
-	<imageSegment> loadSegmentFrom: aWordArray outPointers: anArray. */
-/*	This primitive will load a binary image segment created by
-	primitiveStoreImageSegment. It expects the outPointer array to be of the
-	proper size, and the wordArray to be well formed.
-	It will return as its value the original array of roots, and the
-	segmentWordArray will become an
-	array of the loaded objects. If this primitive should fail, the
-	segmentWordArray will, sadly, have
-	been reduced to an unrecognizable and unusable jumble. But what more could
-	you have done
-	with it anyway?
-	
-	The primitive, if it succeeds, also becomes the segmentWordArray into the
-	array of loaded objects.
-	This allows fixing up of loaded objects directly, without nextObject,
-	which Spur doesn't support. */
-
-	/* SpurMemoryManager>>#loadImageSegmentFrom:outPointers: */
 #include "interp/loadImageSegmentFromoutPointers.c"
 
 
 
-/*	Scan the heap printing the oops of any and all objects that are instances
-	of aClassOop
- */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#longPrintInstancesOf: */
 #include "interp/longPrintInstancesOf.c"
 
 
 
-/*	Scan the heap printing any and all objects whose classIndex equals the
-	argument. 
- */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#longPrintInstancesWithClassIndex: */
 #include "interp/longPrintInstancesWithClassIndex.c"
 
 
 
-/*	Scan the heap long printing the oops of any and all objects that refer to
-	anOop 
- */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#longPrintReferencesTo: */
 #include "interp/longPrintReferencesTo.c"
 
 
-	/* SpurMemoryManager>>#mapExtraRoots */
 #include "interp/mapExtraRoots.c"
 
 
-	/* SpurMemoryManager>>#mapMournQueue */
 #include "interp/mapMournQueue.c"
 
 
 
-/*	This is part of storeImageSegmentInto:outPointers:roots:.
-	Now scan, adding out pointers to the outPointersArray; all objects in
-	arrayOfObjects have had their first fields set to point to their copies in
-	segmentWordArray. Answer
-	the outIndex if the scan succeded. Fail if outPointers is too small and
-	answer -1.
-	
-	As established by copyObj:toAddr:startAt:stopAt:savedFirstFields:index:,
-	the marked bit is set for all objects in the segment
-	the remembered bit is set for all classes in the segment.
-	
-	Class indices should be set as follows (see
-	assignClassIndicesAndPinFrom:to:outPointers:filling:) - class indices for
-	classes in the segment */
-
-	/* SpurMemoryManager>>#mapOopsFrom:to:outPointers:outHashes: */
 #include "interp/mapOopsFromtooutPointersoutHashes.c"
 
 
 
-/*	Ensure the class of the argument is marked, pushing it on the markStack if
-	not already marked.
-	And for one-way become, which can create duplicate entries in the class
-	table, make sure
-	objOop's classIndex refers to the classObj's actual classIndex.
-	Note that this is recursive, but the metaclass chain should terminate
-	quickly. 
- */
-
-	/* SpurMemoryManager>>#markAndTraceClassOf: */
 #include "interp/markAndTraceClassOf.c"
 
 
 
-/*	An obj stack is a stack of objects stored in a hidden root slot, such
-	as the markStack or the ephemeronQueue. It is a linked list of
-	segments, with the hot end at the head of the list. It is a word object.
-	The stack pointer is in ObjStackTopx and 0 means empty. */
-
-	/* SpurMemoryManager>>#markAndTraceObjStack:andContents: */
 #include "interp/markAndTraceObjStackandContents.c"
 
 
 
-/*	Mark the argument, and all objects reachable from it, and any remaining
-	objects on the mark stack. Follow forwarding pointers in the scan. */
-/*	if markAndTrace: is to follow and eliminate forwarding pointers
-	in its scan it cannot be handed an r-value which is forwarded.
-	The assert for this is in markAndShouldScan: */
-
-	/* SpurMemoryManager>>#markAndTrace: */
 #include "interp/markAndTrace.c"
 
 
 
-/*	Go through the unscanned ephemerons, marking the inactive ones, and
-	removing them from the unscanned ephemerons. Answer if any inactive
-	ones were found. We cannot fire the ephemerons until all are found to
-	be active since scan-marking an inactive ephemeron later in the set may
-	render a previously-observed active ephemeron as inactive. */
-
-	/* SpurMemoryManager>>#markInactiveEphemerons */
 #include "interp/markInactiveEphemerons.c"
 
 
 
-/*	for profiling */
-/*	Mark all accessible objects.
-	objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged is true if all
-	objects are unmarked and/or if unmarked classes shoud be removed from the
-	class table. */
-/*	If the incremental collector is running mark bits may be set; stop it and
-	clear them if necessary.
- */
-
-	/* SpurMemoryManager>>#markObjects: */
 #include "interp/markObjects.c"
 
 
 
-/*	After the initial scan-mark is complete ephemerons can be processed.
-	Weaklings have accumulated on the weaklingStack, but more may be
-	uncovered during ephemeron processing. So trace the strong slots
-	of the weaklings, and as ephemerons are processed ensure any newly
-	reached weaklings are also traced. */
-
-	/* SpurMemoryManager>>#markWeaklingsAndMarkAndFireEphemerons */
 #include "interp/markWeaklingsAndMarkAndFireEphemerons.c"
 
 
-	/* SpurMemoryManager>>#maxIdentityHash */
 #include "interp/maxIdentityHash.c"
 
 
 
-/*	Almost entirely arbitrary, but we dont want 1Mb bitmaps allocated in eden.
-	But this choice means no check for numSlots > maxSlotsForNewSpaceAlloc
-	for non-variable allocations. */
-
-	/* SpurMemoryManager>>#maxSlotsForNewSpaceAlloc */
 #include "interp/maxSlotsForNewSpaceAlloc.c"
 
 
 
-/*	Answers if the code is installed in a class instantiating objects with the
-	format. Used in primitive 
-	generation to make a quick path based on where the method is installed.
-	This method cannot
-	be used as a guarantee as there can be false positive, it's just a
-	heuristic. Tries to interpret the last literal of the method as a behavior
-	(more than 3 fields, 3rd field a Smi).
-	If it can be interpreted as a behavior, answers if instSpec matches the
-	format, else answers false. */
-
-	/* SpurMemoryManager>>#maybeMethodClassOf:seemsToBeInstantiating: */
 #include "interp/maybeMethodClassOfseemsToBeInstantiating.c"
 
 
 
-/*	Answer the method header of a CompiledMethod object. */
-
-	/* SpurMemoryManager>>#methodHeaderOf: */
 #include "interp/methodHeaderOf.c"
 
 
 
-/*	Answer the minimum number of additional slots to allocate in an object to
-	always be able to shorten it.
-	This is enough slots to allocate a minimum-sized object. */
-
-	/* SpurMemoryManager>>#minSlotsForShortening */
 #include "interp/minSlotsForShortening.c"
 
 
-	/* SpurMemoryManager>>#newSpaceIsEmpty */
 #include "interp/newSpaceIsEmpty.c"
 
 
-	/* SpurMemoryManager>>#nilObject */
 #include "interp/nilObject.c"
 
 
 
-/*	Nil the unmarked slots in the weaklings on the
-	weakling stack, finalizing those that lost references.
-	Finally, empty the weaklingStack. */
-/*	for profiling */
-
-	/* SpurMemoryManager>>#nilUnmarkedWeaklingSlots */
 #include "interp/nilUnmarkedWeaklingSlots.c"
 
 
-	/* SpurMemoryManager>>#noCheckClassAtIndex: */
 #include "interp/noCheckClassAtIndex.c"
 
 
 
-/*	Push an element on an objStack. Split from push:onObjStack: for testing. */
-
-	/* SpurMemoryManager>>#noCheckPush:onObjStack: */
 #include "interp/noCheckPushonObjStack.c"
 
 
 
-/*	Make sure the oop at fieldIndex in anObject is not forwarded (follow the
-	forwarder there-in if so). Answer the (possibly followed) oop at
-	fieldIndex.  */
-
-	/* SpurMemoryManager>>#noFixupFollowField:ofObject: */
 #include "interp/noFixupFollowFieldofObject.c"
 
 
 
-/*	Allocate an object with numSlots space. If there is room beneath
-	scavengeThreshold allocate in newSpace, otherwise alocate in oldSpace. If
-	there is not room in newSpace
-	and a scavenge is not already scheduled, schedule a scavenge. */
-
-	/* SpurMemoryManager>>#noInlineAllocateSlots:format:classIndex: */
 #include "interp/noInlineAllocateSlotsformatclassIndex.c"
 
 
-	/* SpurMemoryManager>>#noUnscannedEphemerons */
 #include "interp/noUnscannedEphemerons.c"
 
 
 
-/*	Answer the number of indexable bytes in the given non-immediate pure bits
-	object with format.
- */
-
-	/* SpurMemoryManager>>#numBytesOfBits:format: */
 #include "interp/numBytesOfBitsformat.c"
 
 
 
-/*	Answer the number of indexable bytes in the given non-immediate
-	byte-indexable object.
- */
-
-	/* SpurMemoryManager>>#numBytesOfBytes: */
 #include "interp/numBytesOfBytes.c"
 
 
 
-/*	Answer the number of indexable bytes in the given non-immediate object.
-	Does not adjust the size of contexts by stackPointer. */
-
-	/* SpurMemoryManager>>#numBytesOf: */
 #include "interp/numBytesOf.c"
 
 
 
-/*	Answer the number of pointer fields in the given object.
-	Works with CompiledMethods, as well as ordinary objects. */
-
-	/* SpurMemoryManager>>#numPointerSlotsOf: */
 #include "interp/numPointerSlotsOf.c"
 
 
-	/* SpurMemoryManager>>#numSlotsForBytes: */
 #include "interp/numSlotsForBytes.c"
 
 
 
-/*	A private internal version of numSlotsOf: that is happy to be applied to
-	free or forwarded objects.
- */
-
-	/* SpurMemoryManager>>#numSlotsOfAny: */
 #include "interp/numSlotsOfAny.c"
 
 
 
-/*	Answer the number of strong pointer fields in the given indexable pointer
-	object. 
- */
-
-	/* SpurMemoryManager>>#numSlotsOfIndexablePointerObj: */
 #include "interp/numSlotsOfIndexablePointerObj.c"
 
 
 
-/*	numSlotsOf: should not be applied to free or forwarded objects. */
-
-	/* SpurMemoryManager>>#numSlotsOf: */
 #include "interp/numSlotsOf.c"
 
 
 
-/*	Answer the number of strong pointer fields in the given object,
-	which is expected not to be an active ephemeron.
-	Works with CompiledMethods as well as ordinary objects. */
-
-	/* SpurMemoryManager>>#numStrongSlotsOfInephemeral: */
 #include "interp/numStrongSlotsOfInephemeral.c"
 
 
 
-/*	Answer the number of strong pointer fields in the given weakling. */
-
-	/* SpurMemoryManager>>#numStrongSlotsOfWeakling: */
 #include "interp/numStrongSlotsOfWeakling.c"
 
 
 
-/*	Answer if objOop looks like a class object. WIth Spur be lenient if the
-	object doesn't
-	yet have a hash (i.e. is not yet in the classTable), and accept forwarding
-	pointers. 
- */
-
-	/* SpurMemoryManager>>#objCouldBeClassObj: */
 #include "interp/objCouldBeClassObj.c"
 
 
 
-/*	Object parsing.
-	1. all objects have at least a word following the header, for a forwarding
-	pointer. 2. objects with an overflow size have a preceeing word with a
-	saturated slotSize. If the word following
-	an object doesn't have a saturated size field it must be a single-header
-	object. If the word following
-	does have a saturated slotSize it must be the overflow size word. */
-
-	/* SpurMemoryManager>>#objectAfter: */
 #include "interp/objectAfter.c"
 
 
 
-/*	useful for debugging */
-
-	/* SpurMemoryManager>>#objectBefore: */
 #include "interp/objectBefore.c"
 
 
 
-/*	For assertions only... This ends the recursion in setting up the bridged
-	enumerations of new space that need objectBefore: for assertion checking. */
-
-	/* SpurMemoryManager>>#objectInPastSpaceBefore: */
 #include "interp/objectInPastSpaceBefore.c"
 
 
 
-/*	For enumerating objects find the header of the first object in a space.
-	If the object starts with an overflow size field it will start at the next
-	allocationUnit. c.f. numSlotsOf: */
-
-	/* SpurMemoryManager>>#objectStartingAt: */
 #include "interp/objectStartingAt.c"
 
 
 
-/*	This primitive is called from Squeak as...
-	arrayOfRoots uniquelyAccessibleObjects
-	
-	This primitive answers an array of the receiver and every object in its
-	proper tree of subParts (ie, that is not refered to from anywhere else
-	outside the tree).
-	
-	The primitive can fail for the following reasons with the specified
-	failure codes:
-	PrimErrNoMemory:			additional allocations failed
- */
-
-	/* SpurMemoryManager>>#objectsAccessibleFromRoots: */
 #include "interp/objectsAccessibleFromRoots.c"
 
 
 
-/*	This is part of storeImageSegmentInto:outPointers:roots:.
-	Answer an Array of all the objects only reachable from the argument, an
-	Array of root objects,
-	starting with arrayOfRoots. If there is no space, answer a SmallInteger
-	whose value is the
-	number of slots required. This is used to collect the objects to include
-	in an image segment
-	on Spur, separate from creating the segment, hence simplifying the
-	implementation. Thanks to Igor Stasenko for this idea. */
-
-	/* SpurMemoryManager>>#objectsReachableFromRoots: */
 #include "interp/objectsReachableFromRoots.c"
 
 
 
-/*	Verify that the given oop is legitimate. Check address, header, and size
-	but not class.
- */
-
-	/* SpurMemoryManager>>#okayOop: */
 #include "interp/okayOop.c"
 
 
 
-/*	useful for debugging */
-/*	Object parsing.
-	1. all objects have at least a word following the header, for a forwarding
-	pointer. 2. objects with an overflow size have a preceeing word with a
-	saturated slotSize. If the word following
-	an object doesn't have a saturated size field it must be a single-header
-	object. If the word following
-	does have a saturated slotSize it must be the overflow size word. */
-
-	/* SpurMemoryManager>>#oldSpaceObjectAfter: */
 #include "interp/oldSpaceObjectAfter.c"
 
 
 
-/*	in an effort to fix a compiler bug with two-way become post r3427 */
-/*	Allocate two new objects, n1 & n2. Copy the contents appropriately.
-	Convert obj1 and obj2
-	into forwarding objects pointing to n2 and n1 respectively. No need to
-	check if cloneObject:
-	succeeds because an earlier pass over objects ensured that there is enough
-	memory. 
- */
-
-	/* SpurMemoryManager>>#outOfPlaceBecome:and:copyHashFlag: */
 #include "interp/outOfPlaceBecomeandcopyHashFlag.c"
 
 
 
-/*	Attempt to pin objOop, which must not be immediate.
-	If the attempt succeeds answer objOop's (possibly moved) oop.
-	If the attempt fails, which can only occur if there is no memory, answer
-	0.  */
-
-	/* SpurMemoryManager>>#pinObject: */
 #include "interp/pinObject.c"
 
 
-	/* SpurMemoryManager>>#popObjStack: */
 #include "interp/popObjStack.c"
 
 
 
-/*	Pop and return the possibly remapped object from the remap buffer.
-	We support this excessence for compatibility with ObjectMemory.
-	Spur doesn't GC during allocation. */
-
-	/* SpurMemoryManager>>#popRemappableOop */
 #include "interp/popRemappableOop.c"
 
 
 
-/*	Scan the class table post-become (iff an active class object was becommed)
-	to ensure no
-	forwarding pointers, and no unhashed classes exist in the class table.
-	
-	Note that one-way become can cause duplications in the class table.
-	So if pointer objects have been becommed, scan all pages in the class
-	table and eliminate ay entries that have a zero hash.
-	doBecome:and:copyHash: has
-	already ensured that any becomed class has been stored at the right index. */
-
-	/* SpurMemoryManager>>#postBecomeScanClassTable: */
 #include "interp/postBecomeScanClassTable.c"
 
 
-	/* SpurMemoryManager>>#primitiveErrorTable */
 #include "interp/primitiveErrorTable.c"
 
 
 
-/*	Scan the heap printing the oops of any and all contexts that refer to
-	anOop 
- */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printActivationsOf: */
 #include "interp/printActivationsOf.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printBogons */
 #include "interp/printBogons.c"
 
 
-	/* SpurMemoryManager>>#printBridge:on: */
 #include "interp/printBridgeon.c"
 
 
-	/* SpurMemoryManager>>#printCantBeObject:on: */
 #include "interp/printCantBeObjecton.c"
 
 
 
-/*	Scan the heap printing the oops of any and all contexts that refer to
-	anOop 
- */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printContextReferencesTo: */
 #include "interp/printContextReferencesTo.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printEntity: */
 #include "interp/printEntity.c"
 
 
 
-/*	Actually print all objects that have ephemeron format. */
-
-	/* SpurMemoryManager>>#printEphemerons */
 #include "interp/printEphemerons.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printForwarders */
 #include "interp/printForwarders.c"
 
 
-	/* SpurMemoryManager>>#printForwarder:on: */
 #include "interp/printForwarderon.c"
 
 
 
-/*	This version goes through memory, printing all free chunks.
-	Other versions go through the free lists. This one will show
-	all free chunks even if the free lists are corrupt. */
-/*	useful for debugging */
-
-	/* SpurMemoryManager>>#printFreeChunks */
 #include "interp/printFreeChunks.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printFreeChunk: */
 #include "interp/printFreeChunk.c"
 
 
-	/* SpurMemoryManager>>#printFreeChunk:printAsTreeNode: */
 #include "interp/printFreeChunkprintAsTreeNode.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printFreeListHeads */
 #include "interp/printFreeListHeads.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printFreeList: */
 #include "interp/printFreeList.c"
 
 
-	/* SpurMemoryManager>>#printFreeObject:on: */
 #include "interp/printFreeObjecton.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printFreeTree */
 #include "interp/printFreeTree.c"
 
 
 
-/*	Slang is blind-sided by the inlining of printFreeTreeChunk: into
-	printFreeTree. 
- */
-
-	/* SpurMemoryManager>>#printFreeTreeChunk: */
 #include "interp/printFreeTreeChunk.c"
 
 
 
-/*	useful for VM debugging */
-/*	N.B. No safety bounds checks!! We need to look e.g. at corpses. */
-
-	/* SpurMemoryManager>>#printHeaderOf: */
 #include "interp/printHeaderOf.c"
 
 
-	/* SpurMemoryManager>>#printImmediateObject:on: */
 #include "interp/printImmediateObjecton.c"
 
 
 
-/*	Scan the heap printing the oops of any and all objects that are instances
-	of aClassOop
- */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printInstancesOf: */
 #include "interp/printInstancesOf.c"
 
 
 
-/*	Scan the heap printing the oops of any and all objects whose classIndex
-	equals the argument.
- */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printInstancesWithClassIndex: */
 #include "interp/printInstancesWithClassIndex.c"
 
 
 
-/*	Print the objects in the classTable that have bad hashes. */
-/*	useful for debugging */
-
-	/* SpurMemoryManager>>#printInvalidClassTableEntries */
 #include "interp/printInvalidClassTableEntries.c"
 
 
@@ -7667,96 +4878,55 @@ printMarkedOops(void)
 {
 	printOopsSuchThat(isMarked);
 }
-#endif /* LLDB */
+#endif
 
-
-/*	Scan the heap printing the oops of any and all methods that implement
-	anOop 
- */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printMethodImplementorsOf: */
 #include "interp/printMethodImplementorsOf.c"
 
 
 
-/*	Scan the heap printing the oops of any and all methods that refer to anOop */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printMethodReferencesTo: */
 #include "interp/printMethodReferencesTo.c"
 
 
-	/* SpurMemoryManager>>#printNonPointerDataOf:on: */
 #include "interp/printNonPointerDataOfon.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printObjectsFrom:to: */
 #include "interp/printObjectsFromto.c"
 
 
 
-/*	Scan the heap printing the oops of any and all objects whose hash equals
-	the argument.
- */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printObjectsWithHash: */
 #include "interp/printObjectsWithHash.c"
 
 
-	/* SpurMemoryManager>>#printObjStackAndContents: */
 #include "interp/printObjStackAndContents.c"
 
 
-	/* SpurMemoryManager>>#printObjStackPage:myIndex:pageType:printContents: */
 #include "interp/printObjStackPagemyIndexpageTypeprintContents.c"
 
 
-	/* SpurMemoryManager>>#printObjStackPage:myIndex:tag: */
 #include "interp/printObjStackPagemyIndextag.c"
 
 
 
-/*	useful for debugging */
-
-	/* SpurMemoryManager>>#printObjStack: */
 #include "interp/printObjStack.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printOopsExcept: */
 #include "interp/printOopsExcept.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printOopsFrom:to: */
 #include "interp/printOopsFromto.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printOopsSuchThat: */
 #include "interp/printOopsSuchThat.c"
 
 
 
-/*	Scan the heap printing the oops of any and all objects that refer to anOop */
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#printReferencesTo: */
 #include "interp/printReferencesTo.c"
 
 
-	/* SpurMemoryManager>>#printStringDataOf:on: */
 #include "interp/printStringDataOfon.c"
 
 
@@ -7770,987 +4940,450 @@ printUnmarkedOops(void)
 {
 	printOopsExcept(isMarked);
 }
-#endif /* LLDB */
-
-
-/*	Print all objects that have weak array format. */
-
-	/* SpurMemoryManager>>#printWeaklings */
-#include "interp/printWeaklings.c"
+#endif#include "interp/printWeaklings.c"
 
 
 
-/*	Attempt to push anEphemeron on the unscanned ephemerons stack and answer
-	if the attempt succeeded. Note that the ephemeron stack overflowing isn't
-	a disaster; it simply means treating the ephemeron as strong in this GC
-	cycle.  */
-
-	/* SpurMemoryManager>>#pushOnUnscannedEphemeronsStack: */
 #include "interp/pushOnUnscannedEphemeronsStack.c"
 
 
 
-/*	Record the given object in a the remap buffer. Objects in this buffer are
-	remapped when a compaction occurs. This facility is used by the
-	interpreter to ensure that
-	objects in temporary variables are properly remapped.
-	We support this excessence for compatibility with ObjectMemory.
-	Spur doesn't GC during allocation. */
-
-	/* SpurMemoryManager>>#pushRemappableOop: */
 #include "interp/pushRemappableOop.c"
 
 
 
-/*	Add the ephemeron or weak array to the queue. */
-
-	/* SpurMemoryManager>>#queueMourner: */
 #include "interp/queueMourner.c"
 
 
-	/* SpurMemoryManager>>#rawHashBitsOf: */
 #include "interp/rawHashBitsOf.c"
 
 
 
-/*	Ephemerons in the mourn queue will have been fired (had their
-	ephemeron-ness turned off),
-	but the ephemeron queue is not saved in the snapshot. So the snapshotted
-	ephemerons need to be unfired so they're still unqueued ephemerons in the
-	loaded image.
-	This must be undone post snapshot. */
-
-	/* SpurMemoryManager>>#refireQueuedEphemeronsPostSnapshot */
 #include "interp/refireQueuedEphemeronsPostSnapshot.c"
 
 
 
-/*	Relocate all objStack pages that comprise objStack, including contents if
-	requested. 
- */
-
-	/* SpurMemoryManager>>#relocateObjStackForPlanningCompactor:andContents: */
 #include "interp/relocateObjStackForPlanningCompactorandContents.c"
 
 
 
-/*	Remove the given variable location to the extra roots table. */
-
-	/* SpurMemoryManager>>#removeGCRoot: */
 #include "interp/removeGCRoot.c"
 
 
 
-/*	This is part of storeImageSegmentInto:outPointers:roots:. */
-
-	/* SpurMemoryManager>>#return:restoringObjectsIn:savedFirstFields:and:savedHashes: */
 #include "interp/returnrestoringObjectsInsavedFirstFieldsandsavedHashes.c"
 
 
 
-/*	This is part of storeImageSegmentInto:outPointers:roots:. */
-
-	/* SpurMemoryManager>>#return:restoringObjectsIn:upTo:savedFirstFields: */
 #include "interp/returnrestoringObjectsInupTosavedFirstFields.c"
 
 
 
-/*	This exists to get around a compiler bug in Apple LLVM version 7.0.0
-	(clang-700.1.76) that was avoiding the second comparison of segVersion
-	after the first byte swap. */
-
-	/* SpurMemoryManager>>#reverseBytesIn32BitWordsIn: */
 #include "interp/reverseBytesIn32BitWordsIn.c"
 
 
 
-/*	Check free space integrity by setting bits in the map corresponding to all
-	free space objects
-	and checking tat no pointer field refers to a free object. anOopOrNil is
-	provided to filter-out
-	the as-yet-to-be initialized object in
-	primitiveShallowCopy/primitiveClone. 
- */
-
-	/* SpurMemoryManager>>#runLeakCheckerForFreeSpace:ignoring: */
 #include "interp/runLeakCheckerForFreeSpaceignoring.c"
 
 
-	/* SpurMemoryManager>>#runLeakCheckerFor: */
 #include "interp/runLeakCheckerFor.c"
 
 
-	/* SpurMemoryManager>>#runLeakCheckerFor:excludeUnmarkedObjs:classIndicesShouldBeValid: */
 #include "interp/runLeakCheckerForexcludeUnmarkedObjsclassIndicesShouldBeValid.c"
 
 
-	/* SpurMemoryManager>>#safePrintStringOf: */
 #include "interp/safePrintStringOf.c"
 
 
 
-/*	Run the scavenger. */
-
-	/* SpurMemoryManager>>#scavengingGCTenuringIf: */
 #include "interp/scavengingGCTenuringIf.c"
 
 
 
-/*	Set the dimensions of the heap, answering the start of oldSpace. edenBytes
-	holds the desired ``size of eden''
-	which is actually the total size of new space minus the reserve. edenBytes
-	is then divided up between eden
-	and the two survivor spaces, where each survivor space is a
-	scavengerDenominator (one seventh) of the total. */
-/*	Transcript
-	cr; nextPutAll: 'heapBase: '; print: baseOfHeap; nextPut: $/; nextPutAll:
-	baseOfHeap hex;
-	nextPutAll: ' memLimit '; print: memLimit; nextPut: $/; nextPutAll:
-	memLimit hex;
-	nextPutAll: ' memEnd '; print: memEnd; nextPut: $/; nextPutAll: memEnd
-	hex; cr; flush. */
-/*	This is more than a little counter-intuitive. Eden must include
-	interpreterAllocationReserveBytes. 
- */
-
-	/* SpurMemoryManager>>#setHeapBase:memoryLimit:endOfMemory: */
 #include "interp/setHeapBasememoryLimitendOfMemory.c"
 
 
-	/* SpurMemoryManager>>#setIsPinnedOf:to: */
 #include "interp/setIsPinnedOfto.c"
 
 
-	/* SpurMemoryManager>>#setIsRememberedOf:to: */
 #include "interp/setIsRememberedOfto.c"
 
 
 
-/*	Reduce the number of indexable fields in objOop, an arrayFormat or
-	longFormat object, to nSlots.
-	Convert the unused residual to a free chunk (if in oldSpace).
-	Answer the number of bytes returned to free memory, which may be zero. */
-
-	/* SpurMemoryManager>>#shorten:toIndexableSize: */
 #include "interp/shortentoIndexableSize.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* SpurMemoryManager>>#shortPrintObjectsFrom:to: */
 #include "interp/shortPrintObjectsFromto.c"
 
 
 
-/*	Answer if the oop should be scavenged.. The method is called
-	shouldRemapOop: for compatibility with ObjectMemory. */
-
-	/* SpurMemoryManager>>#shouldRemapOop: */
 #include "interp/shouldRemapOop.c"
 
 
-	/* SpurMemoryManager>>#sizeOfObjStack: */
 #include "interp/sizeOfObjStack.c"
 
 
-	/* SpurMemoryManager>>#slidingCompactionInProgress */
 #include "interp/slidingCompactionInProgress.c"
 
 
 
-/*	*DO NOT CONFUSE THIS WITH numSlotsOf:.
-	This is an ObjectMemory compatibility method with questionable semantics.
-	Answers the number of slots in the receiver.
-	If the receiver is a byte object, return the number of bytes.
-	If the receiver is a short object, return the number of shorts.
-	If the receiver is a word object, return the number of words.
-	If the receiver is a double word object, return the number of double
-	words. Otherwise return the number of pointers. */
-
-	/* SpurMemoryManager>>#slotSizeOf: */
 #include "interp/slotSizeOf.c"
 
 
 
-/*	Return one of the objects in the specialObjectsArray */
-
-	/* SpurMemoryManager>>#splObj: */
 #include "interp/splObj.c"
 
 
 
-/*	Answer the start of objOop, which is either the address of the overflow
-	size word, or objOop itself, depending on the size of the object. This may
-	be applied to any kind of object, normal, forwarders or free chunks. */
-
-	/* SpurMemoryManager>>#startOfObject: */
 #include "interp/startOfObject.c"
 
 
 
-/*	Part of InterpreterProxy's 1.14 API */
-
-	/* SpurMemoryManager>>#statNumGCs */
 #include "interp/statNumGCs.c"
 
 
 
-/*	A renaming for the Cogit, which can't make sense of GIV(oldSpaceStart) */
-
-	/* SpurMemoryManager>>#storeCheckBoundary */
 #include "interp/storeCheckBoundary.c"
 
 
 
-/*	This primitive is called from Squeak as...
-	<imageSegment> storeSegmentFor: arrayOfRoots into: aWordArray outPointers:
-	anArray. 
-	This primitive will store a binary image segment (in the same format as
-	objects in the heap) of the
-	set of objects in arrayOfObjects. All pointers from within the set to
-	objects outside the set will be
-	copied into the array of outPointers. In their place in the image segment
-	will be an oop equal to the
-	offset in the outPointer array (the first would be 8), but with the high
-	bit set.
-	
-	Since Spur has a class table the load primitive must insert classes that
-	have instances into the
-	class table. This primitive marks such classes using the isRemembered bit,
-	which isn't meaningful
-	as a remembered bit in the segment.
-	
-	The primitive expects the segmentWordArray and outPointerArray to be more
-	than adequately long.
-	In this case it returns normally, and truncates the two arrays to exactly
-	the right size.
-	
-	The primitive can fail for the following reasons with the specified
-	failure codes:
-	PrimErrGenericFailure:		the segmentWordArray is too small for the version
-	stamp PrimErrWritePastObject:		the segmentWordArray is too small to
-	contain the reachable objects
-	PrimErrBadIndex:				the outPointerArray is too small
-	PrimErrNoMemory:			there is insufficient free space to store the array
-	answered by objectsReachableFromRoots:,
-	or the savedFirstFields and savedOutHashes arrays.
-	PrimErrNeedCompaction:		a GC is needed to make room for the array answered
-	by objectsReachableFromRoots:
-	PrimErrLimitExceeded:		there is no room in the hash field to store out
-	pointer indices or class references,
-	or the outPointerArray is larger than the max value of the hash field.
-	PrimErrNoModification:		the segmentWordArrayArg or outPointerArrayArg are
-	immutable PrimErrObjectIsPinned:		the segmentWordArrayArg or
-	outPointerArrayArg are pinned */
-
-	/* SpurMemoryManager>>#storeImageSegmentInto:outPointers:roots: */
 #include "interp/storeImageSegmentIntooutPointersroots.c"
 
 
-	/* SpurMemoryManager>>#storeLong32:ofObject:withValue: */
 #include "interp/storeLong32ofObjectwithValue.c"
 
 
-	/* SpurMemoryManager>>#storePointerUnchecked:ofObject:withValue: */
 #include "interp/storePointerUncheckedofObjectwithValue.c"
 
 
 
-/*	Note must check here for stores of young objects into old ones. */
-/*	See SistaCogit */
-
-	/* SpurMemoryManager>>#storePointer:ofObject:withValue: */
 #include "interp/storePointerofObjectwithValue.c"
 
 
 
-/*	Answer a new String copied from a null-terminated C string,
-	or nil if out of memory. */
-
-	/* SpurMemoryManager>>#stringForCString: */
 #include "interp/stringForCString.c"
 
 
 
-/*	On load, swizzle the pointers in an obj stack. Answer the obj stack's oop. */
-
-	/* SpurMemoryManager>>#swizzleObjStackAt: */
 #include "interp/swizzleObjStackAt.c"
 
 
 
-/*	Do an incremental GC that tenures all surviving young objects to old
-	space. The selector tenuringIncrementalGC refers to the V3 incremental
-	collector, which is the collector for young objects, equivalent in
-	function to the scavenger.
-	The Spur incremental collector is called the global incremental garbage
-	collector or globalIGC for short.
- */
-
-	/* SpurMemoryManager>>#tenuringIncrementalGC */
 #include "interp/tenuringIncrementalGC.c"
 
 
 
-/*	This assert is tricky. push:onObjStack: may call topOfObjStack: just after
-	pushing an
-	empty page on the stack, and will ask if the second page is valid. */
-
-	/* SpurMemoryManager>>#topOfObjStack: */
 #include "interp/topOfObjStack.c"
 
 
 
-/*	Answers the top of the remappable oop stack. Useful when writing loops.
-	We support this excessence for compatibility with ObjectMemory.
-	Spur doesn't GC during allocation. */
-
-	/* SpurMemoryManager>>#topRemappableOop */
 #include "interp/topRemappableOop.c"
 
 
 
-/*	This method both computes the actual number of free bytes by traversing
-	all free objects
-	on the free lists/tree, and checks that the tree is valid. It is used
-	mainly by checkFreeSpace. */
-
-	/* SpurMemoryManager>>#totalFreeListBytes */
 #include "interp/totalFreeListBytes.c"
 
 
-	/* SpurMemoryManager>>#trueObject */
 #include "interp/trueObject.c"
 
 
 
-/*	Ephemerons in the mourn queue will have been fired (had their
-	ephemeron-ness turned off),
-	but the ephemeron queue is not saved in the snapshot. So the snapshotted
-	ephemerons need to be unfired so they're still unqueued ephemerons in the
-	loaded image. */
-
-	/* SpurMemoryManager>>#unfireQueuedEphemeronsForSnapshot */
 #include "interp/unfireQueuedEphemeronsForSnapshot.c"
 
 
 
-/*	Unlink a free object from the free lists. Do not alter totalFreeOldSpace.
-	Used for coalescing.
- */
-
-	/* SpurMemoryManager>>#unlinkFreeChunk:chunkBytes: */
 #include "interp/unlinkFreeChunkchunkBytes.c"
 
 
-	/* SpurMemoryManager>>#unlinkLilliputianChunk:index: */
 #include "interp/unlinkLilliputianChunkindex.c"
 
 
 
-/*	Unlink a freeTreeNode. Assumes the node has no list (null next link). */
-
-	/* SpurMemoryManager>>#unlinkSolitaryFreeTreeNode: */
 #include "interp/unlinkSolitaryFreeTreeNode.c"
 
 
-	/* SpurMemoryManager>>#unpinObject: */
 #include "interp/unpinObject.c"
 
 
-	/* SpurMemoryManager>>#updateListStartingAt: */
 #include "interp/updateListStartingAt.c"
 
 
 
-/*	Check the hashes of classes in the table. The tricky thing here is that
-	classes may be duplicated
-	in the table. So each entry must be in the table at its hash, even if it
-	is elsewhere in the table. */
-
-	/* SpurMemoryManager>>#validClassTableHashes */
 #include "interp/validClassTableHashes.c"
 
 
 
-/*	Answer if hiddenRootsObj is of the right size with the
-	expected contents, and if numClassTablePages is correct. */
-
-	/* SpurMemoryManager>>#validClassTableRootPages */
 #include "interp/validClassTableRootPages.c"
 
 
 
-/*	useful for debugging */
-
-	/* SpurMemoryManager>>#validFreeTree */
 #include "interp/validFreeTree.c"
 
 
-	/* SpurMemoryManager>>#validFreeTreeChunk: */
 #include "interp/validFreeTreeChunk.c"
 
 
-	/* SpurMemoryManager>>#validFreeTreeChunk:parent: */
 #include "interp/validFreeTreeChunkparent.c"
 
 
-	/* SpurMemoryManager>>#validObjStacks */
 #include "interp/validObjStacks.c"
 
 
 
-/*	This is a hook for the CoMemoryManagers to check for valid compiled code.
-	It is a noop here. */
-
-	/* SpurMemoryManager>>#validPostBecomeArrayContents: */
 #include "interp/validPostBecomeArrayContents.c"
 
 
-	/* SpurMemoryManager>>#validStorePointerArgs:_:_: */
 #include "interp/validStorePointerArgs.c"
 
 
-	/* SpurMemoryManager>>#validStorePointerUncheckedArgs:_:_: */
 #include "interp/validStorePointerUncheckedArgs.c"
 
 
 
-/*	1 = big, 0 = little */
-
-	/* SpurMemoryManager>>#vmEndianness */
 #include "interp/vmEndianness.c"
 
 
-	/* SpurMemoryManager>>#whereIsMaybeHeapThing: */
 #include "interp/whereIsMaybeHeapThing.c"
 
 
 
-/*	Sweep all of old space, sliding unpinned marked objects down over free and
-	unmarked objects.
-	Let the segmentManager mark which segments contain pinned objects via
-	notePinned:. 
- */
-
-	/* SpurPlanningCompactor>>#compact */
 #include "interp/compact.c"
 
 
 
-/*	Sweep the mobile portion of the heap, moving objects to their eventual
-	locations, and clearing their marked bits.
-	Remember to update the savedFirstFields of pointer objects, as these have
-	been forwarded.
-	Answer if the end of the heap was reached (savedFirstFieldsSpace has not
-	overflowed). 
-	The enumerations in planCompactSavingForwarders,
-	updatePointersInMobileObjects and copyAndUnmarkMobileObjects
-	match. We could implement them as a single enumeration method taking
-	several block arguments, but arguably that
-	would make understanding an already tricky algorithm more difficult.
-	Instead we tolerate the duplication and encourage
-	the reader to diff the three methods to see where they diverge (e.g. via
-	Cmd-shift-C).  */
-
-	/* SpurPlanningCompactor>>#copyAndUnmarkMobileObjects */
 #include "interp/copyAndUnmarkMobileObjects.c"
 
 
 
-/*	Sweep the heap, unmarking all objects and moving mobile objects to their
-	correct positions,
-	restoring their savedFirstFields. */
-
-	/* SpurPlanningCompactor>>#copyAndUnmark: */
 #include "interp/copyAndUnmark.c"
 
 
-	/* SpurPlanningCompactor>>#endCompaction */
 #include "interp/endCompaction.c"
 
 
 
-/*	Free from toFinger up to limit, dealing with possible intervening pinned
-	objects. 
- */
-
-	/* SpurPlanningCompactor>>#freeFrom:upTo:nextObject: */
 #include "interp/freeFromupTonextObject.c"
 
 
-	/* SpurPlanningCompactor>>#isMobile: */
 #include "interp/isMobile.c"
 
 
 
-/*	For asserts */
-
-	/* SpurPlanningCompactor>>#isPostMobile: */
 #include "interp/isPostMobile.c"
 
 
 
-/*	Sweep the heap from firstFreeObject forwarding marked objects to where
-	they can be moved to, saving their forwarding pointer in
-	savedFirstFieldsSpace. Continue until either the end of the heap is
-	reached or savedFirstFieldsSpace is full.
-	Answer if the end of the heap was reached (savedFirstFieldsSpace has not
-	overflowed). 
-	The enumerations in planCompactSavingForwarders,
-	updatePointersInMobileObjects and copyAndUnmarkMobileObjects
-	match. We could implement them as a single enumeration method taking
-	several block arguments, but arguably that
-	would make understanding an already tricky algorithm more difficult.
-	Instead we tolerate the duplication and encourage
-	the reader to diff the three methods to see where they diverge (e.g. via
-	Cmd-shift-C).  */
-
-	/* SpurPlanningCompactor>>#planCompactSavingForwarders */
 #include "interp/planCompactSavingForwarders.c"
 
 
 
-/*	Search for firstFreeObject and firstMobileObject from initialObject, which
-	is the
-	hiddenRootsObject on the first pass, and the objectAfterLastMobileObject
-	on subsequent passes). */
-
-	/* SpurPlanningCompactor>>#reinitializeScanFrom: */
 #include "interp/reinitializeScanFrom.c"
 
 
 
-/*	Scavenge or simply follow objOop. Answer the new location of objOop.
-	The send should have been guarded by a send of shouldRemapOop:.
-	The method is called remapObj: for compatibility with ObjectMemory. */
-
-	/* SpurPlanningCompactor>>#remapObj: */
 #include "interp/remapObj.c"
 
 
-	/* SpurPlanningCompactor>>#savedFirstFieldsSpaceWasAllocated */
 #include "interp/savedFirstFieldsSpaceWasAllocated.c"
 
 
 
-/*	Scan from initialObject, setting firstMobileObject to the first marked
-	object after the first free object found, or endOfMemory if none is found.
-	Answer the first free object found, or nil if none. */
-
-	/* SpurPlanningCompactor>>#scanForFirstFreeAndFirstMobileObjectFrom: */
 #include "interp/scanForFirstFreeAndFirstMobileObjectFrom.c"
 
 
 
-/*	Answer if the obj should be scavenged, or simply followed. Sent via the
-	compactor from shouldRemapObj:. We test for being already scavenged
-	because mapStackPages
-	via mapInterpreterOops may be applied twice in the context of a global GC
-	where a
-	scavenge, followed by a scan-mark-free, and final compaction passes may
-	result in
-	scavenged fields being visited twice. */
-
-	/* SpurPlanningCompactor>>#shouldRemapObj: */
 #include "interp/shouldRemapObj.c"
 
 
 
-/*	Sweep the final immobile heap, freeing and coalescing unmarked and free
-	objects, and unmarking all marked objects up to the end of memory. */
-
-	/* SpurPlanningCompactor>>#unmarkObjectsFromFirstFreeObject */
 #include "interp/unmarkObjectsFromFirstFreeObject.c"
 
 
 
-/*	Sweep the heap, updating all objects to their eventual locations.
-	Remember to update the savedFirstFields of pointer objects, as these have
-	been forwarded. */
-
-	/* SpurPlanningCompactor>>#updatePointers */
 #include "interp/updatePointers.c"
 
 
 
-/*	Sweep the pointer fields in obj, updating all references to mobile objects
-	to their eventual locations.
-	firstFieldPtr is supplied for mobile objects so that the saved first field
-	can be updated, and so that
-	the first field of a compiled method (which is its header, or reference to
-	a CogMethod holding its header)
-	can be retrieved. */
-
-	/* SpurPlanningCompactor>>#updatePointersIn:savedFirstFieldPointer: */
 #include "interp/updatePointersInsavedFirstFieldPointer.c"
 
 
 
-/*	Attempt to allocate a memory segment large enough to hold the
-	savedFirstFieldsSpace. Invoked when neither eden nor a large free chunk
-	are found to be big enough for the job. */
-
-	/* SpurPlanningCompactor>>#useSegmentForSavedFirstFieldsSpace: */
 #include "interp/useSegmentForSavedFirstFieldsSpace.c"
 
 
 
-/*	Answer 0 if all the mobile objects from firstMobileObject to
-	lastMobileObject have sane forwarding addresses, and that
-	savedFirstFieldsSpace is of
-	matching capacity. Otherwise answer an error code identifying the anomaly. */
-
-	/* SpurPlanningCompactor>>#validRelocationPlanInPass: */
 #include "interp/validRelocationPlanInPass.c"
 
 
-	/* SpurSegmentInfo>>#segLimit */
 #include "interp/segLimit.c"
 
 
-	/* SpurSegmentManager>>#addSegmentOfSize: */
 #include "interp/addSegmentOfSize.c"
 
 
 
-/*	Adjust swizzles by firstSegmentShift. Also computes segStarts as
-	they were in the image when it was written, so that oops' segments
-	can be determined and hence oops correctly swizzled. */
-
-	/* SpurSegmentManager>>#adjustSegmentSwizzlesBy: */
 #include "interp/adjustSegmentSwizzlesBy.c"
 
 
-	/* SpurSegmentManager>>#allBridgesMarked */
 #include "interp/allBridgesMarked.c"
 
 
 
-/*	Increase the number of allocated segInfos by 16. */
-
-	/* SpurSegmentManager>>#allocateOrExtendSegmentInfos */
 #include "interp/allocateOrExtendSegmentInfos.c"
 
 
-	/* SpurSegmentManager>>#bridgeAt: */
 #include "interp/bridgeAt.c"
 
 
-	/* SpurSegmentManager>>#bridgeFor: */
 #include "interp/bridgeFor.c"
 
 
 
-/*	Create a bridge from aSegment to the next segment,
-	or create a terminating bridge if there is no next segment. */
-
-	/* SpurSegmentManager>>#bridgeFrom:to: */
 #include "interp/bridgeFromto.c"
 
 
-	/* SpurSegmentManager>>#checkSegments */
 #include "interp/checkSegments.c"
 
 
 
-/*	The image has been loaded, old segments reconstructed, and the heap
-	swizzled into a single contiguous segment. Collapse the segments into one. */
-
-	/* SpurSegmentManager>>#collapseSegmentsPostSwizzle */
 #include "interp/collapseSegmentsPostSwizzle.c"
 
 
 
-/*	Answer the segment limit of the first segment followed by a gap of at
-	least size bytes.
- */
-
-	/* SpurSegmentManager>>#firstGapOfSizeAtLeast: */
 #include "interp/firstGapOfSizeAtLeast.c"
 
 
-	/* SpurSegmentManager>>#isEmptySegment: */
 #include "interp/isEmptySegment.c"
 
 
-	/* SpurSegmentManager>>#isInSegments: */
 #include "interp/isInSegments.c"
 
 
 
-/*	bridges bridge the gaps between segments. They are the last object in each
-	segment. 
- */
-
-	/* SpurSegmentManager>>#isValidSegmentBridge: */
 #include "interp/isValidSegmentBridge.c"
 
 
 
-/*	Answer the the next non-empty segment or nil. The size of a segment
-	includes that of its bridge. A segment containing just a free object and a
-	bridge will still
-	have a size of manager bridgeSize after shortening it in
-	prepareForSnapshot. 
- */
-
-	/* SpurSegmentManager>>#nextNonEmptySegmentAfter: */
 #include "interp/nextNonEmptySegmentAfter.c"
 
 
 
-/*	shorten all segments by any trailing free space. */
-
-	/* SpurSegmentManager>>#prepareForSnapshot */
 #include "interp/prepareForSnapshot.c"
 
 
 
-/*	Read numBytes of image data from f into memory at memoryBaseForImageRead.
-	Answer the number of bytes written. In addition, read each segment, build
-	up the
-	segment info for swizzling, while eliminating the bridge objects at the
-	end of each
-	segment that specify the distance to and the size of the subsequent
-	segment.  */
-
-	/* SpurSegmentManager>>#readHeapFromImageFile:dataBytes: */
 #include "interp/readHeapFromImageFiledataBytes.c"
 
 
 
-/*	Restore all shortened segments to their proper size, re-freeing the
-	trailing space.
- */
-
-	/* SpurSegmentManager>>#restorePostSnapshot */
 #include "interp/restorePostSnapshot.c"
 
 
 
-/*	Answer the segment containing an object. This is mostly for assert
-	checking, but
-	variations on the incremental GC may use it in anger. Binary search is (of
-	course) marginally slower than linear search for a single segment (e.g. in
-	a 720k object heap,
-	67.1ms vs 61.3ms, or 9.5% slower to derive the segment containing every
-	old space
-	entity), but usefully faster for many segments (e.g. 92.7ms vs 116ms, or
-	20% faster
-	in the same heap extended with enough large arrays to require 11 segments;
-	and this
-	is pessimal; there are fewer objects at high addresses since the large
-	arrays are there). */
-
-	/* SpurSegmentManager>>#segmentContainingObj: */
 #include "interp/segmentContainingObj.c"
 
 
 
-/*	Answers true if a segment overlaps with another one. */
-
-	/* SpurSegmentManager>>#segmentOverlap */
 #include "interp/segmentOverlap.c"
 
 
 
-/*	Answer if any shrinkage was achieved. */
-
-	/* SpurSegmentManager>>#shrinkObjectMemory: */
 #include "interp/shrinkObjectMemory.c"
 
 
-	/* SpurSegmentManager>>#swizzleObj: */
 #include "interp/swizzleObj.c"
 
 
 
-/*	This ``slow'' count is for asserts only. */
-
-	/* SpurSegmentManager>>#totalBytesInSegments */
 #include "interp/totalBytesInSegments.c"
 
 
-	/* SpurSegmentManager>>#writeImageSegmentsToFile: */
 #include "interp/writeImageSegmentsToFile.c"
 
 
 
-/*	Write the segment contents, the size of and the distance to the next
-	segment to aBinaryStream.
- */
-
-	/* SpurSegmentManager>>#writeSegment:nextSegment:toFile: */
 #include "interp/writeSegmentnextSegmenttoFile.c"
 
 
-	/* StackInterpreter>>#accessorDepthForExternalPrimitiveMethod: */
 #include "interp/accessorDepthForExternalPrimitiveMethod.c"
 
 
-	/* StackInterpreter>>#accessorDepthForPrimitiveMethod: */
 #include "interp/accessorDepthForPrimitiveMethod.c"
 
 
 
-/*	Answer the current activeProcess. */
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#activeProcess */
 #include "interp/activeProcess.c"
 
 
 
-/*	The various poll/select calls in the VM should attempt to tally the
-	ammount of time spent at idle here, so as to render the uptime value
-	meaningful. 
- */
-
-	/* StackInterpreter>>#addIdleUsecs: */
 #include "interp/addIdleUsecs.c"
 
 
 
-/*	Add the given process to the end of the given linked list
-	and set the backpointer of process to its new list. */
-
-	/* StackInterpreter>>#addLastLink:toList: */
 #include "interp/addLastLinktoList.c"
 
 
 
-/*	Add the given entry to the method cache.
-	The policy is as follows:
-	Look for an empty entry anywhere in the reprobe chain.
-	If found, install the new entry there.
-	If not found, then install the new entry at the first probe position
-	and delete the entries in the rest of the reprobe chain.
-	This has two useful purposes:
-	If there is active contention over the first slot, the second
-	or third will likely be free for reentry after ejection.
-	Also, flushing is good when reprobe chains are getting full. */
-
-	/* StackInterpreter>>#addNewMethodToCache: */
 #include "interp/addNewMethodToCache.c"
 
 
-	/* StackInterpreter>>#allOnesAsCharStar */
 #include "interp/allOnesAsCharStar.c"
 
 
 
-/*	for Cogit */
-
-	/* StackInterpreter>>#argumentCountOfClosure: */
 #include "interp/argumentCountOfClosure.c"
 
 
-	/* StackInterpreter>>#argumentCountOfMethodHeader: */
 #include "interp/argumentCountOfMethodHeader.c"
 
 
-	/* StackInterpreter>>#argumentCountOf: */
 #include "interp/argumentCountOf.c"
 
 
 
-/*	Return the address of first indexable field of resulting array object, or
-	fail if
-	the instance variable does not contain an indexable bytes or words object. */
-/*	Note: May be called by translated primitive code. */
-
-	/* StackInterpreter>>#arrayValueOf: */
 #include "interp/arrayValueOf.c"
 
 
 
-/*	Returns an integer object */
-
-	/* StackInterpreter>>#asciiOfCharacter: */
 #include "interp/asciiOfCharacter.c"
 
 
-	/* StackInterpreter>>#assertValidExecutionPointe:r:s: */
 #include "interp/assertValidExecutionPointers.c"
 
 
-	/* StackInterpreter>>#assertValidExecutionPointe:r:s:imbar:line: */
 #include "interp/assertValidExecutionPointersimbarline.c"
 
 
 
-/*	Support for primitiveSuspend.
-	Assume suspendedContext is that of a process waiting on a condition
-	variable. Backup the PC of suspendedContext to the send that entered the
-	wait state.
-	primitiveEnterCriticalSection pushes false for blocked waiters. false must
-	be replaced by the condition variable. */
-
-	/* StackInterpreter>>#backupContext:toBlockingSendTo: */
 #include "interp/backupContexttoBlockingSendTo.c"
 
 
 
-/*	convert true and false (Smalltalk) to true or false(C) */
-
-	/* StackInterpreter>>#booleanValueOf: */
 #include "interp/booleanValueOf.c"
 
 
 
-/*	Re-enter the interpreter to execute a (non-Alien) callback. */
-
-	/* StackInterpreter>>#callbackEnter: */
 #include "interp/callbackEnter.c"
 
 
 
-/*	Leave from a previous callback */
-
-	/* StackInterpreter>>#callbackLeave: */
 #include "interp/callbackLeave.c"
 
 
 
-/*	Context switch should not be allowed on every method activation. In
-	particular the
-	implementation of ensure: and ifCurtailed: depends on there being no
-	suspension point
-	on failing primitive 198 (primitiveMarkUnwindMethod,
-	primitiveMarkUnwindMethod). slowPrimitiveResponse used to state
-	``N.B. This means there is no suspension point on primitive failure
-	which methods such as ensure: and ifCurtailed: rely on.''
-	Rather than prevent context switch on all primitives but the ones we
-	really need
-	to be suspension points (primitiveSignal et al) we choose to allow context
-	switch for all but primitiveMarkUnwindMethod and
-	PrimNumberNoContextSwitch.  */
-
-	/* StackInterpreter>>#canContextSwitchIfActivating:header: */
 #include "interp/canContextSwitchIfActivatingheader.c"
 
 
 
-/*	Above ObjectMemory, arg must lie in range 0-255! */
-
-	/* StackInterpreter>>#characterForAscii: */
 #include "interp/characterForAscii.c"
 
 
 
-/*	Ensure that all accessible objects in the heap are okay. */
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#checkAllAccessibleObjectsOkay */
 #include "interp/checkAllAccessibleObjectsOkay.c"
 
 
 
-/*	This is a no-op in the StackVM */
-
-	/* StackInterpreter>>#checkCodeIntegrity: */
 #include "interp/checkCodeIntegrity.c"
 
 
@@ -8782,224 +5415,97 @@ checkDeliveryOfLongRunningPrimitiveSignal(void)
 	   but not yet delivered */
 	return 0;
 }
-#endif /* LRPCheck */
+#endif
 
-
-/*	Note: May be called by translated primitive code. */
-
-	/* StackInterpreter>>#checkedIntegerValueOf: */
 #include "interp/checkedIntegerValueOf.c"
 
 
 
-/*	Check for possible interrupts and handle one if necessary.
-	Answer if a context switch has occurred. */
-
-	/* StackInterpreter>>#checkForEventsMayContextSwitch: */
 #include "interp/checkForEventsMayContextSwitch.c"
 
 
 
-/*	Support for embedded images. Check that the first few bytes of a potential
-	header and answer if it
-	looks like something the VM can load,
-	The method checks the first three fields of the header (magic, header size
-	& data size) & the total size.
-	The magic number should be correct.
-	The header size should be correct.
-	The size of the data should be at least as long as the headerSize plus the
-	data size in the header */
-/*	Need at least headerSize bytes; no point going further if not... */
-
-	/* StackInterpreter>>#checkImageHeaderFromBytes:AndSize: */
 #include "interp/checkImageHeaderFromBytesAndSize.c"
 
 
 
-/*	Read and verify the image file version number and answer it.
-	Assign through rawVersionPtr the unswapped version number. The caller can
-	then infer if the given image file needs to be byte-swapped by seeing if
-	the returned value
-	equals tha assigned through rawVersionPtr.
-	0 is answered if no valid version could be found. */
-
-	/* StackInterpreter>>#checkImageVersionFrom:startingAt:assignRawVersion: */
 #include "interp/checkImageVersionFromstartingAtassignRawVersion.c"
 
 
 
-/*	Perform an integrity/leak check using the heapMap. Assume
-	clearLeakMapAndMapAccessibleObjects has set a bit at each
-	object's header. Check that all oops in the interpreter's state
-	points to a header. Answer 0 if all checks pass. */
-
-	/* StackInterpreter>>#checkInterpreterIntegrity */
 #include "interp/checkInterpreterIntegrity.c"
 
 
 
-/*	Another version of isWidowedContext: for debugging.
-	This will not bereave a widowed context. */
-
-	/* StackInterpreter>>#checkIsStillMarriedContext:currentFP: */
 #include "interp/checkIsStillMarriedContextcurrentFP.c"
 
 
 
-/*	Check the log for leaks. The trace log is a circular buffer of pairs of
-	entries. If there is an entry at traceLogIndex - 3 \\ TraceBufferSize it
-	has entries. If
-	there is something at traceLogIndex it has wrapped. */
-
-	/* StackInterpreter>>#checkLogIntegrity */
 #include "interp/checkLogIntegrity.c"
 
 
 
-/*	Check if the argument is an ok object.
-	If this is a pointers object, check that its fields are all okay oops. */
-
-	/* StackInterpreter>>#checkOkayFields: */
 #include "interp/checkOkayFields.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#checkOkayInterpreterObjects: */
 #include "interp/checkOkayInterpreterObjects.c"
 
 
-	/* StackInterpreter>>#checkOkayStackPage: */
 #include "interp/checkOkayStackPage.c"
 
 
 
-/*	Check that all objects in the stack zone are okay */
-
-	/* StackInterpreter>>#checkOkayStackZone: */
 #include "interp/checkOkayStackZone.c"
 
 
 
-/*	Check if the profile timer has expired during a primitive and if so take a
-	sample. If the primitive has failed sample the profileMethod as nil. */
-/*	If continuing from primitive[Full]ClosureValueNoContextSwitch defer until
-	the next check
- */
-
-	/* StackInterpreter>>#checkProfileTickPostPrimitive: */
 #include "interp/checkProfileTickPostPrimitive.c"
 
 
 
-/*	Perform an integrity/leak check using the heapMap. Assume
-	clearLeakMapAndMapAccesibleObjects has set a bit at each
-	object's header. Scan all objects accessible from the stack
-	checking that every pointer points to a header. Answer if no
-	dangling pointers were detected. */
-
-	/* StackInterpreter>>#checkStackIntegrity */
 #include "interp/checkStackIntegrity.c"
 
 
 
-/*	Version of stackPointerForMaybeMarriedContext: with no side-effects (does
-	not widow).
-	Used for assertion checking. Safe only in external primitives
-	(framePointer valid).
-	Answer the stackPointer of a Context. */
-
-	/* StackInterpreter>>#checkStackPointerForMaybeMarriedContext: */
 #include "interp/checkStackPointerForMaybeMarriedContext.c"
 
 
 
-/*	Version of stackPointerIndexForFrame: that does not depend on writing back
-	head frame pointers.
-	Used for assertion checking. Safe only in external primitives
-	(framePointer valid).
-	Answer the 0-based index rel to the given frame.
-	(This is what stackPointer used to be before conversion to pointer) */
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#checkStackPointerIndexForFrame: */
 #include "interp/checkStackPointerIndexForFrame.c"
 
 
 
-/*	Check if aClass's name is className */
-
-	/* StackInterpreter>>#classNameOf:Is: */
 #include "interp/classNameOfIs.c"
 
 
-	/* StackInterpreter>>#clearTraceLog */
 #include "interp/clearTraceLog.c"
 
 
 
-/*	For asserts. Check that theIP maps back correctly to the context's pc.
-	The CallPrimitive bytecode presents a complication. */
-
-	/* StackInterpreter>>#context:hasValidInversePCMappingOf:in: */
 #include "interp/contexthasValidInversePCMappingOfin.c"
 
 
 
-/*	for Cogit */
-
-	/* StackInterpreter>>#copiedValueCountOfClosure: */
 #include "interp/copiedValueCountOfClosure.c"
 
 
 
-/*	This entry point needs to be implemented for the interpreter proxy.
-	Since BitBlt is now a plugin we need to look up BitBltPlugin:=copyBits
-	and call it. This entire mechanism should eventually go away and be
-	replaced with a dynamic lookup from BitBltPlugin itself but for backward
-	compatibility this stub is provided */
-
-	/* StackInterpreter>>#copyBits */
 #include "interp/copyBits.c"
 
 
 
-/*	This entry point needs to be implemented for the interpreter proxy.
-	Since BitBlt is now a plugin we need to look up
-	BitBltPlugin:=copyBitsFrom:to:at: and call it. This entire mechanism
-	should eventually go away and be
-	replaced with a dynamic lookup from BitBltPlugin itself but for backward
-	compatibility this stub is provided
- */
-
-	/* StackInterpreter>>#copyBitsFrom:to:at: */
 #include "interp/copyBitsFromtoat.c"
 
 
-	/* StackInterpreter>>#couldBeProcess: */
 #include "interp/couldBeProcess.c"
 
 
 
-/*	Bundle up the selector, arguments and lookupClass into a Message object. 
-	In the process it pops the arguments off the stack, and pushes the message
-	object. 
-	This can then be presented as the argument of e.g. #doesNotUnderstand: */
-
-	/* StackInterpreter>>#createActualMessageTo: */
 #include "interp/createActualMessageTo.c"
 
 
 
-/*	Return the default number of stack pages allocate at startup.
-	This V3 default suits Qwaq Forums (specifically general rendering).
-	The Spur default reflects tuning for GC performance ast Cadence.
-	It is probably a bit high for normal use but QF is profligate with
-	processes. The actual value can be set via vmParameterAt: and/or a
-	preference in the ini file. */
-
-	/* StackInterpreter>>#defaultNumStackPages */
 #include "interp/defaultNumStackPages.c"
 
 
@@ -9010,94 +5516,45 @@ disableSendPrinting(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
 	GIV(printSends) = 0;
 }
-#endif /* SEND_PRINTING */
+#endif
 
-
-/*	Release the VM to other threads and answer the current thread's index.
-	Currently valid flags for the non-threaded VM are:
-	DisownVMForThreading	- allow the VM to thread-switch; this is ignored
-	DisownVMForFFICall		- informs the VM that it is entering an FFI call
-	
-	This is the entry-point for plugins and primitives that wish to release
-	the VM while
-	performing some operation that may potentially block, and for callbacks
-	returning back to some blocking operation. While this exists for the
-	threaded FFI VM we use
-	it to reset newMethod and the argumentCount after a callback. */
-
-	/* StackInterpreter>>#disownVM: */
 #include "interp/disownVM.c"
 
 
-	/* StackInterpreter>>#divorceAllFrames */
 #include "interp/divorceAllFrames.c"
 
 
-	/* StackInterpreter>>#divorceFramesIn: */
 #include "interp/divorceFramesIn.c"
 
 
 
-/*	Rounds negative results towards negative infinity, rather than zero. */
-
-	/* StackInterpreter>>#doPrimitiveDiv:by: */
 #include "interp/doPrimitiveDivby.c"
 
 
-	/* StackInterpreter>>#doPrimitiveMod:by: */
 #include "interp/doPrimitiveModby.c"
 
 
 
-/*	Signal the external semaphore with the given index. Answer if a context
-	switch occurs as a result. Do not bounds check. This has been done in the
-	caller.  */
-
-	/* StackInterpreter>>#doSignalSemaphoreWithIndex: */
 #include "interp/doSignalSemaphoreWithIndex.c"
 
 
 
-/*	Presumably this exists to squash C compiler warnings about unused
-	variables... 
- */
-
-	/* StackInterpreter>>#dummyReferToProxy */
 #include "interp/dummyReferToProxy.c"
 
 
 
-/*	The prim trace log is a circular buffer of entries. If there is
-	an entry at primTraceLogIndex \\ PrimTraceLogSize it has entries.
-	If there is something at primTraceLogIndex it has wrapped. */
-
-	/* StackInterpreter>>#dumpPrimTraceLog */
 #include "interp/dumpPrimTraceLog.c"
 
 
 
-/*	Print the prim trace log on a specific output stream. */
-/*	essential for writing crash.dmp; use export: not api, so it will be
-	accessible on win32 and won't be written to cointerp.h
- */
-
-	/* StackInterpreter>>#dumpPrimTraceLogOn: */
 #include "interp/dumpPrimTraceLogOn.c"
 
 
 
-/*	The trace log is a circular buffer of pairs of entries. If there is
-	an entry at traceLogIndex - 3 \\ TraceBufferSize it has entries.
-	If there is something at traceLogIndex it has wrapped. */
-
-	/* StackInterpreter>>#dumpTraceLog */
 #include "interp/dumpTraceLog.c"
 
 
 
-/*	For marking the end of a leak check print message */
-
-	/* StackInterpreter>>#eekcr */
 #include "interp/eekcr.c"
 
 
@@ -9108,2370 +5565,1108 @@ enableSendPrinting(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
 	GIV(printSends) = 1;
 }
-#endif /* SEND_PRINTING */
+#endif
 
-
-/*	Answer the caller context for a frame. If the frame has a caller
-	frame that doesn't have a context, then marry the caller frame. */
-
-	/* StackInterpreter>>#ensureCallerContext: */
 #include "interp/ensureCallerContext.c"
 
 
 
-/*	Ensure the image data has been updated to suit the current VM. */
-
-	/* StackInterpreter>>#ensureImageFormatIsUpToDate: */
 #include "interp/ensureImageFormatIsUpToDate.c"
 
 
 
-/*	Main entry-point into the interpreter at each execution level, where an
-	execution level is either the start of execution or reentry for a
-	callback. This is the actual implementation, separated from
-	enterSmalltalkExecutive so the
-	simulator can wrap it in an exception handler and hence simulate the
-	setjmp/longjmp.  */
-/*	Setjmp for reentry into interpreter from elsewhere, e.g. FFI exception
-	primitive failure.
- */
-
-	/* StackInterpreter>>#enterSmalltalkExecutiveImplementation */
 #include "interp/enterSmalltalkExecutiveImplementation.c"
 
 
 
-/*	Execute newMethod - either primitiveFunctionPointer must be set directly
-	(i.e. from primitiveExecuteMethod et al), or it would have been set
-	probing the method cache (i.e. primitivePerform et al). */
-
-	/* StackInterpreter>>#executeNewMethod */
 #include "interp/executeNewMethod.c"
 
 
 
-/*	Divorce a single frame and its context. If it is not the top frame of a
-	stack this means splitting its stack. */
-/*	stackPage needs to have current head pointers to avoid confusion. */
-
-	/* StackInterpreter>>#externalDivorceFrame:andContext: */
 #include "interp/externalDivorceFrameandContext.c"
 
 
 
-/*	Ensure aFramePtr is a base frame. Then we can assign its sender.
-	Answer the possibly moved location of the frame. */
-
-	/* StackInterpreter>>#externalEnsureIsBaseFrame: */
 #include "interp/externalEnsureIsBaseFrame.c"
 
 
 
-/*	Fetch an instance variable from a maybe married context.
-	If the context is still married compute the value of the
-	relevant inst var from the spouse frame's state. */
-
-	/* StackInterpreter>>#externalInstVar:ofContext: */
 #include "interp/externalInstVarofContext.c"
 
 
-	/* StackInterpreter>>#externalInstVar:ofContext:put: */
 #include "interp/externalInstVarofContextput.c"
 
 
 
-/*	Invoke a quick primitive.
-	Called under the assumption that primFunctionPtr has been preloaded */
-
-	/* StackInterpreter>>#externalQuickPrimitiveResponse */
 #include "interp/externalQuickPrimitiveResponse.c"
 
 
 
-/*	Fetch the instance variable at the given index of the given object. Return
-	the address of first indexable field of resulting array object, or fail if
-	the instance variable does not contain an indexable bytes or words object.
- */
-/*	Note: May be called by translated primitive code. */
-
-	/* StackInterpreter>>#fetchArray:ofObject: */
 #include "interp/fetchArrayofObject.c"
 
 
 
-/*	Fetch the instance variable at the given index of the given object. Return
-	the C double precision floating point value of that instance variable, or
-	fail if it is not a Float.
- */
-/*	Note: May be called by translated primitive code. */
-
-	/* StackInterpreter>>#fetchFloat:ofObject: */
 #include "interp/fetchFloatofObject.c"
 
 
 
-/*	Note: May be called by translated primitive code. */
-
-	/* StackInterpreter>>#fetchInteger:ofObject: */
 #include "interp/fetchIntegerofObject.c"
 
 
 
-/*	Fetch a slot from a married context. Compute the value
-	of the relevant inst var from the spouse frame's state.
-	
-	This method assumes frame pointers have been written back. */
-
-	/* StackInterpreter>>#fetchPointer:ofMarriedContext: */
 #include "interp/fetchPointerofMarriedContext.c"
 
 
 
-/*	Return the stackPointer of a Context or BlockContext.
-	Does not deal with married contexts. Use only for debug
-	printing or object tracing functions. To obtain an accurate
-	stack pointer use stackPointerForMaybeMarriedContext: */
-
-	/* StackInterpreter>>#fetchStackPointerOf: */
 #include "interp/fetchStackPointerOf.c"
 
 
 
-/*	Answer if file times, including those from the FilePlugin and
-	FileAttributesPlugin, should be answered in UTC seconds from the epoch
-	rather than local seconds. */
-
-	/* StackInterpreter>>#fileTimesInUTC */
 #include "interp/fileTimesInUTC.c"
 
 
-	/* StackInterpreter>>#findClassContainingMethod:startingAt: */
 #include "interp/findClassContainingMethodstartingAt.c"
 
 
-	/* StackInterpreter>>#findClassOfMethod:forReceiver: */
 #include "interp/findClassOfMethodforReceiver.c"
 
 
 
-/*	Answer the frame above theFP (adjacent frame nearest head end).
-	If theFP is the head frame answer 0. */
-
-	/* StackInterpreter>>#findFrameAbove:inPage: */
 #include "interp/findFrameAboveinPage.c"
 
 
-	/* StackInterpreter>>#findHomeForContext: */
 #include "interp/findHomeForContext.c"
 
 
 
-/*	See findUnwindThroughContext:. Alas this is mutually recursive with
-	findMethodWithPrimitive:FromFP:SP:ThroughContext: instead of iterative.
-	We're doing the simplest thing that could possibly work. Niceties can
-	wait.  */
-/*	Being mutually-recursive with findMethodWithPrimitive:FromFP:UpToContext:
-	gives the author's type inference algorithm headaches. Wimp out by
-	declaring the return type.
- */
-
-	/* StackInterpreter>>#findMethodWithPrimitive:FromContext:UpToContext: */
 #include "interp/findMethodWithPrimitiveFromContextUpToContext.c"
 
 
 
-/*	Find the compiled method to be run when the current messageSelector is
-	looked up in the
-	class/classIndex classTagArg, setting the values of newMethod and
-	primitiveFunctionPointer. 
- */
-
-	/* StackInterpreter>>#findNewMethodInClassTag: */
 #include "interp/findNewMethodInClassTag.c"
 
 
-	/* StackInterpreter>>#findSelectorOfMethod: */
 #include "interp/findSelectorOfMethod.c"
 
 
 
-/*	Search for the stack pointer for theFP. This points to the hottest item on
-	the frame's stack.
-	DO NOT CALL THIS WITH theFP == localFP OR theFP == framePointer! */
-
-	/* StackInterpreter>>#findSPOf:on: */
 #include "interp/findSPOfon.c"
 
 
-	/* StackInterpreter>>#flush */
 #include "interp/flush.c"
 
 
 
-/*	methodObj is a CompiledMethod. If it contains an external primitive,
-	flush the function address and session ID of the CM. Answer the prim
-	index for the benefit of subclass overrides. */
-
-	/* StackInterpreter>>#flushExternalPrimitiveOf: */
 #include "interp/flushExternalPrimitiveOf.c"
 
 
 
-/*	follow pointers in the current stack frame up to theSP. */
-
-	/* StackInterpreter>>#followForwardedFrameContents:stackPointer: */
 #include "interp/followForwardedFrameContentsstackPointer.c"
 
 
 
-/*	Spur's become: is lazy, turning the becommed object into a forwarding
-	object to the other.
-	The read-barrier is minimised by arranging that forwarding pointers will
-	fail a method cache
-	probe, since notionally objects' internals are accessed only via sending
-	messages to them,
-	the exception is primitives that access the internals of the non-receiver
-	argument(s). 
-	To avoid a read barrier on bytecode, literal and inst var fetch and
-	non-local return, we scan
-	the receivers (including the stacked receiver for non-local return) and
-	method references
-	in the stack zone and follow any forwarded ones. This is of course way
-	cheaper than
-	scanning all of memory as in the old become. */
-
-	/* StackInterpreter>>#followForwardingPointersOfReceiversInStackZone */
 #include "interp/followForwardingPointersOfReceiversInStackZone.c"
 
 
 
-/*	Force an interrupt check ASAP.
-	Must set the stack page's limit before stackLimit to avoid
-	a race condition if this is called from an interrupt handler. */
-
-	/* StackInterpreter>>#forceInterruptCheck */
 #include "interp/forceInterruptCheck.c"
 
 
 
-/*	Force an interrupt check ASAP. This version is the
-	entry-point to forceInterruptCheck for the heartbeat
-	timer to allow for repeatable debugging. */
-
-	/* StackInterpreter>>#forceInterruptCheckFromHeartbeat */
 #include "interp/forceInterruptCheckFromHeartbeat.c"
 
 
-	/* StackInterpreter>>#frameCallerContext: */
 #include "interp/frameCallerContext.c"
 
 
 
-/*	Answer the SP of the caller provided theFP is not a base frame.
-	This points to the hottest item on the caller frame's stack. */
-
-	/* StackInterpreter>>#frameCallerSP: */
 #include "interp/frameCallerSP.c"
 
 
-	/* StackInterpreter>>#frameContext: */
 #include "interp/frameContext.c"
 
 
 
-/*	See encodeFrameFieldHasContext:numArgs: */
-
-	/* StackInterpreter>>#frameHasContext: */
 #include "interp/frameHasContext.c"
 
 
 
-/*	<Integer> */
-
-	/* StackInterpreter>>#frameIsBlockActivation: */
 #include "interp/frameIsBlockActivation.c"
 
 
 
-/*	Homonym of frameMethod: for compatibility with CoInterpreter */
-
-	/* StackInterpreter>>#frameMethodObject: */
 #include "interp/frameMethodObject.c"
 
 
-	/* StackInterpreter>>#frameMethod: */
 #include "interp/frameMethod.c"
 
 
 
-/*	See encodeFrameFieldHasContext:numArgs: */
-
-	/* StackInterpreter>>#frameNumArgs: */
 #include "interp/frameNumArgs.c"
 
 
-	/* StackInterpreter>>#frameOfMarriedContext: */
 #include "interp/frameOfMarriedContext.c"
 
 
-	/* StackInterpreter>>#framePrintDescription: */
 #include "interp/framePrintDescription.c"
 
 
-	/* StackInterpreter>>#frameReceiver: */
 #include "interp/frameReceiver.c"
 
 
 
-/*	Answer the offset in bytes from the the frame pointer to its stacked
-	receiver. The receiver of a message send or the closure of a block
-	activation is
-	always on the stack above any arguments and the frame itself. See the
-	diagram in StackInterpreter class>>initializeFrameIndices. */
-
-	/* StackInterpreter>>#frameStackedReceiverOffset: */
 #include "interp/frameStackedReceiverOffset.c"
 
 
 
-/*	Free any untraced stack pages. */
-
-	/* StackInterpreter>>#freeUntracedStackPages */
 #include "interp/freeUntracedStackPages.c"
 
 
 
-/*	Repaint the entire smalltalk screen, ignoring the affected rectangle. Used
-	in some platform's code when the Smalltalk window is brought to the front
-	or uncovered.
- */
-
-	/* StackInterpreter>>#fullDisplayUpdate */
 #include "interp/fullDisplayUpdate.c"
 
 
 
-/*	This is nil in the StackVM */
-
-	/* StackInterpreter>>#getCodeCompactionCount */
 #include "interp/getCodeCompactionCount.c"
 
 
 
-/*	This is nil in the StackVM */
-
-	/* StackInterpreter>>#getCodeCompactionMSecs */
 #include "interp/getCodeCompactionMSecs.c"
 
 
 
-/*	This is nil in the StackVM */
-
-	/* StackInterpreter>>#getCogCodeSize */
 #include "interp/getCogCodeSize.c"
 
 
 
-/*	Answer an array of flags indicating various optional features of the Cog
-	VM. If the bit is set then...
-	Bit 0: supports two bytecode sets (MULTIPLEBYTECODESETS)
-	Bit 1: supports immutablity (IMMUTABILITY)
-	Bit 2: suffers from a UNIX setitimer signal-based heartbeat
-	Bit 3: the VM provides cross-platform bit-identical floating point
-	Bit 4: the VM can catch exceptions in FFI calls and answer them as
-	primitive failures
-	Bit 5: the VM has suspend primitives 568 & 578 which back up a process to
-	before the wait if it was waiting on a condition variable */
-
-	/* StackInterpreter>>#getCogVMFeatureFlags */
 #include "interp/getCogVMFeatureFlags.c"
 
 
 
-/*	currentBytecode will be private to the main dispatch loop in the generated
-	code. This method allows the currentBytecode to be retrieved from global
-	variables. 
- */
-
-	/* StackInterpreter>>#getCurrentBytecode */
 #include "interp/getCurrentBytecode.c"
 
 
 
-/*	This is nil in the StackVM */
-
-	/* StackInterpreter>>#getDesiredCogCodeSize */
 #include "interp/getDesiredCogCodeSize.c"
 
 
 
-/*	Answer the errorCode object to supply to a failing primitive method that
-	accepts one.
-	If there is a primitive error table and the primFailCode is a valid index
-	there-in answer
-	the corresponding entry in the table, otherwise simply answer the code as
-	an integer.
- */
-
-	/* StackInterpreter>>#getErrorObjectFromPrimFailCode */
 #include "interp/getErrorObjectFromPrimFailCode.c"
 
 
-	/* StackInterpreter>>#getFullScreenFlag */
 #include "interp/getFullScreenFlag.c"
 
 
 
-/*	Answer the flags that are contained in the 7th long of the image header. */
-
-	/* StackInterpreter>>#getImageHeaderFlags */
 #include "interp/getImageHeaderFlags.c"
 
 
-	/* StackInterpreter>>#getInterruptKeycode */
 #include "interp/getInterruptKeycode.c"
 
 
-	/* StackInterpreter>>#getInterruptPending */
 #include "interp/getInterruptPending.c"
 
 
 
-/*	This is nil in the StackVM */
-
-	/* StackInterpreter>>#getMaxLiteralCountForCompile */
 #include "interp/getMaxLiteralCountForCompile.c"
 
 
-	/* StackInterpreter>>#getNextWakeupUsecs */
 #include "interp/getNextWakeupUsecs.c"
 
 
-	/* StackInterpreter>>#getSavedWindowSize */
 #include "interp/getSavedWindowSize.c"
 
 
 
-/*	Answer the screen size to write to the snapshot.
-	If the actual screen size is zero then write the savedWindowSize instead. */
-
-	/* StackInterpreter>>#getSnapshotScreenSize */
 #include "interp/getSnapshotScreenSize.c"
 
 
 
-/*	For Alien FFI */
-
-	/* StackInterpreter>>#getStackPointer */
 #include "interp/getStackPointer.c"
 
 
 
-/*	return the global session ID value */
-
-	/* StackInterpreter>>#getThisSessionID */
 #include "interp/getThisSessionID.c"
 
 
-	/* StackInterpreter>>#getTranscript */
 #include "interp/getTranscript.c"
 
 
 
-/*	Handle a send fault that is due to a send using a forwarded selector.
-	Unforward the selector and follow the current method and special
-	selectors array to unforward the source of the forwarded selector. */
-
-	/* StackInterpreter>>#handleForwardedSelectorFaultFor: */
 #include "interp/handleForwardedSelectorFaultFor.c"
 
 
 
-/*	Handle a send fault that may be due to a send to a forwarded object.
-	Unforward the receiver on the stack and answer its actual class. */
-
-	/* StackInterpreter>>#handleForwardedSendFaultForTag: */
 #include "interp/handleForwardedSendFaultForTag.c"
 
 
 
-/*	Handle a special send fault that may be due to a special selector
-	send accessing a forwarded object. obj is forwarded.
-	Unforward stack contents and and inst vars and answer obj's target. */
-
-	/* StackInterpreter>>#handleSpecialSelectorSendFaultFor:fp:sp: */
 #include "interp/handleSpecialSelectorSendFaultForfpsp.c"
 
 
 
-/*	Check for stack overflow, moving frames to another stack if so.
-	This should *only* be sent from checkForStackOverflow. */
-
-	/* StackInterpreter>>#handleStackOverflow */
 #include "interp/handleStackOverflow.c"
 
 
 
-/*	The stackPointer is below the stackLimit. This is either because of a
-	stack overflow or the setting of stackLimit to indicate a possible
-	interrupt. Check for stackOverflow and interrupts anddeal with each
-	appropriately. Answer if a context switch occurred. */
-
-	/* StackInterpreter>>#handleStackOverflowOrEventAllowContextSwitch: */
 #include "interp/handleStackOverflowOrEventAllowContextSwitch.c"
 
 
 
-/*	This is a C implementation needed by ioSetMaxExtSemTableSize
-	and e.g. stackPageByteSize. */
-
-	/* StackInterpreter>>#highBit: */
 #include "interp/highBit.c"
 
 
 
-/*	With the full block implementation a CompiledBlock's method is found along
-	the chain through the last literal. See CompiledBlock>>#method. Answer
-	the home mehtod, or nilObj if it cannot be found. */
-
-	/* StackInterpreter>>#homeMethodOf: */
 #include "interp/homeMethodOf.c"
 
 
 
-/*	If thePage is the stackPage and the stackPointer and/or the framePointer
-	are pointing within it,
-	answer if thePage's heapSP and headFP are equal to the stackPointer and
-	framePointer respectively.
- */
-
-	/* StackInterpreter>>#ifCurrentStackPageHasValidHeadPointers: */
 #include "interp/ifCurrentStackPageHasValidHeadPointers.c"
 
 
-	/* StackInterpreter>>#iframeMethod: */
 #include "interp/iframeMethod.c"
 
 
 
-/*	This is for low-level error reporting. If either of the C stack pointers
-	are pointing into the stack zone then write them back to framePointer
-	and/or stackPointer so that the stack backtrace will be up to date. Write
-	their original values through savedFPP & savedSPP if non-null.
-	This is a noop in the stack VM since the C stack pointers are always
-	elsewhere (e.g., in some C function running the interpreter). */
-
-	/* StackInterpreter>>#ifValidWriteBackStack:Pointers:Save:To: */
 #include "interp/ifValidWriteBackStackPointersSaveTo.c"
 
 
 
-/*	Return the equivalent of 
-	aClass includesBehavior: aSuperclass.
-	Note: written for efficiency and better inlining (only 1 temp) */
-
-	/* StackInterpreter>>#includesBehavior:ThatOf: */
 #include "interp/includesBehaviorThatOf.c"
 
 
 
-/*	Initialize the stack pages and then invoke continuation. Use alloca'ed
-	memory so that
-	when we have a JIT its stack pointer will be on the native stack since
-	alloca allocates
-	memory on the stack. Certain thread systems use the native stack pointer
-	as the
-	frame ID so putting the stack anywhere else can confuse the thread system.
-	
-	This path is for the threaded VM where we may want to allocate the stack
-	zone on
-	the stack of a thread other than the main VM thread. */
-
-	/* StackInterpreter>>#initStackPagesAndContinueInto:with: */
 #include "interp/initStackPagesAndContinueIntowith.c"
 
 
 
-/*	Answer the bytecode pc object (i.e. SmallInteger) for an active frame. The
-	bytecode pc is derived from the frame's pc. If the frame is the top frame
-	on the current stack
-	the frame pc is whatever the current instruction pointer is. If the frame
-	is the top
-	frame on some other stack the frame pc is the value on top of stack.
-	Otherwise the
-	frame pc is the saved pc of the frame above. Once the frame pc is found it
-	must be
-	mapped to a bytecode pc. */
-
-	/* StackInterpreter>>#instructionPointerForFrame:currentFP:currentIP: */
 #include "interp/instructionPointerForFramecurrentFPcurrentIP.c"
 
 
 
-/*	At a rough approximation we may need to allocate up to a couple
-	of page's worth of contexts when switching stack pages, assigning
-	to senders, etc. But the snapshot primitive voids all stack pages.
-	So a safe margin is the size of a large context times the maximum
-	number of frames per page times the number of pages. */
-
-	/* StackInterpreter>>#interpreterAllocationReserveBytes */
 #include "interp/interpreterAllocationReserveBytes.c"
 
 
 
-/*	the vm has to convert aFilenameString via any canonicalization and
-	char-mapping and put the result in aCharBuffer.
-	Note the resolveAliases flag - this is an awful artefact of OSX and Apples
-	demented alias handling. When opening a file, the flag must be true, when
-	closing or renaming it must be false. Sigh.
- */
-
-	/* StackInterpreter>>#ioFilename:fromString:ofLength:resolveAliases: */
 #include "interp/ioFilenamefromStringofLengthresolveAliases.c"
 
 
 
-/*	A base frame (first frame in a stack page) is so marked by having a null
-	saved fp.
- */
-
-	/* StackInterpreter>>#isBaseFrame: */
 #include "interp/isBaseFrame.c"
 
 
-	/* StackInterpreter>>#isBooleanObject: */
 #include "interp/isBooleanObject.c"
 
 
-	/* StackInterpreter>>#isEmptyList: */
 #include "interp/isEmptyList.c"
 
 
-	/* StackInterpreter>>#isFloatObject: */
 #include "interp/isFloatObject.c"
 
 
-	/* StackInterpreter>>#isFrame:onPage: */
 #include "interp/isFrameonPage.c"
 
 
 
-/*	Answer true if the oop is kind of Integer (Small or Large). */
-
-	/* StackInterpreter>>#isKindOfInteger: */
 #include "interp/isKindOfInteger.c"
 
 
-	/* StackInterpreter>>#isLargeIntegerObject: */
 #include "interp/isLargeIntegerObject.c"
 
 
-	/* StackInterpreter>>#isLargeNegativeIntegerObject: */
 #include "interp/isLargeNegativeIntegerObject.c"
 
 
-	/* StackInterpreter>>#isLargePositiveIntegerObject: */
 #include "interp/isLargePositiveIntegerObject.c"
 
 
-	/* StackInterpreter>>#isLinkedExternalPrimitive: */
 #include "interp/isLinkedExternalPrimitive.c"
 
 
 
-/*	Answer if the argument, which can be any object, is a live context. */
-
-	/* StackInterpreter>>#isLiveContext: */
 #include "interp/isLiveContext.c"
 
 
-	/* StackInterpreter>>#isMarriedOrWidowedContext: */
 #include "interp/isMarriedOrWidowedContext.c"
 
 
 
-/*	This virtual machine provides two primitives that executes arbitrary
-	primitives, one
-	for indexed primitivces and one for named primitives. These meta
-	primitives are used
-	in the debugger to execute primitives while simulating execution. Spur
-	needs to know
-	the accessor depth for a primitive so that failures due to forwarders can
-	be fixed up
-	and retried. This method identifies such meta primitives so that
-	metaAccessorDepth can be substituted when appropriate. */
-
-	/* StackInterpreter>>#isMetaPrimitiveIndex: */
 #include "interp/isMetaPrimitiveIndex.c"
 
 
 
-/*	We save slots in the method cache by using the primitiveFunctionPointer
-	to hold either a function pointer or the index of a quick primitive. Since
-	quick primitive indices are small they can't be confused with function
-	addresses. */
-
-	/* StackInterpreter>>#isPrimitiveFunctionPointerAnIndex */
 #include "interp/isPrimitiveFunctionPointerAnIndex.c"
 
 
-	/* StackInterpreter>>#isQuickPrimitiveIndex: */
 #include "interp/isQuickPrimitiveIndex.c"
 
 
 
-/*	Reading the sender, instructionPointer and stackPointer inst vars of a
-	context must take
-	account of potentially married contexts and fetch the state from the
-	frame. method,
-	closureOrNil and receiver can safely be fetched from the context without
-	checking. 
- */
-
-	/* StackInterpreter>>#isReadMediatedContextInstVarIndex: */
 #include "interp/isReadMediatedContextInstVarIndex.c"
 
 
-	/* StackInterpreter>>#isSingleContext: */
 #include "interp/isSingleContext.c"
 
 
 
-/*	Answer if aClosure is a vanilla BlockClosure as in the first Cog release,
-	BlockClosure laid out as 
-	'outerContext, startpc, numArgs. FullBlockClosure is laid out as
-	outerContext, method, numArgs, receiver.
-	So either answer true if we're not supporting FullBlockClosure, or test
-	the startpc/method field. */
-
-	/* StackInterpreter>>#isVanillaBlockClosure: */
 #include "interp/isVanillaBlockClosure.c"
 
 
 
-/*	See if the argument is married to a live frame or not. i.e. see if there
-	is a matching
-	frame whose frameContext field is aOnceMarriedContext, or a forwarder to
-	it. If aOnceMarriedContext is not married to a live frame, turn it into a
-	bereaved single context.
-	This version is for use during scavenging when stack references may be
-	forwarded. Following what appear to be references to forwarded objects on
-	the stack is dangerous;
-	an instruction ponter may be correctly aligned and may point to bytes that
-	just happen
-	to look like a forwarder. So it is only safe to follow fields that we know
-	are frameContext
-	fields; hence the stack page is walked to check that aOnceMarriedContext
-	is pointing to
-	a live frame. This only has to happen during scavenging because after a
-	become: all
-	frameContext fields have been followed and so there is no need to follow
-	forwarders.  */
-
-	/* StackInterpreter>>#isWidowedContextDuringGC: */
 #include "interp/isWidowedContextDuringGC.c"
 
 
 
-/*	Answer if the argument is married to a live frame or not.
-	This method is safe for use only when no frameContext fields may be
-	forwarded (as maybe the case when scavenging). Post become: all
-	frameContext fields are followed, and hence normally no following of
-	frameContext fields is necessary. */
-/*	i.e. inline into isWidowedContext: */
-
-	/* StackInterpreter>>#isWidowedContextNoConvert: */
 #include "interp/isWidowedContextNoConvert.c"
 
 
 
-/*	Answer if the argument is married to a live frame or not.
-	If it is not, turn it into a bereaved single context. This version is safe
-	for use
-	only when no frameContext fields may be forwarded (as maybe the case
-	when scavenging). Post become: all frameContext fields are followed, and
-	hence normally no following of frameContext fields is necessary. But
-	during a scavenge one must use isWidowedContextDuringGC:. */
-
-	/* StackInterpreter>>#isWidowedContext: */
 #include "interp/isWidowedContext.c"
 
 
 
-/*	Wrining any inst vars of a context must take account of potentially
-	married contexts
-	and set the state in the frame. Inst vars in subclasses don't need
-	mediation; subclasses
-	can't marry. */
-
-	/* StackInterpreter>>#isWriteMediatedContextInstVarIndex: */
 #include "interp/isWriteMediatedContextInstVarIndex.c"
 
 
 
-/*	Support for external primitives. */
-
-	/* StackInterpreter>>#is:KindOfClass: */
 #include "interp/isKindOfClass.c"
 
 
 
-/*	Support for external primitives. */
-
-	/* StackInterpreter>>#is:KindOf: */
 #include "interp/isKindOf.c"
 
 
 
-/*	Support for external primitives */
-
-	/* StackInterpreter>>#is:MemberOf: */
 #include "interp/isMemberOf.c"
 
 
-	/* StackInterpreter>>#lengthOfNameOfClass: */
 #include "interp/lengthOfNameOfClass.c"
 
 
-	/* StackInterpreter>>#literal:ofMethod: */
 #include "interp/literalofMethod.c"
 
 
 
-/*	This entry point needs to be implemented for the interpreter proxy.
-	Since BitBlt is now a plugin we need to look up
-	BitBltPlugin:=loadBitBltFrom and call it. This entire mechanism should
-	eventually go away and be
-	replaced with a dynamic lookup from BitBltPlugin itself but for backward
-	compatibility this stub is provided
- */
-
-	/* StackInterpreter>>#loadBitBltFrom: */
 #include "interp/loadBitBltFrom.c"
 
 
-	/* StackInterpreter>>#loadInitialContext */
 #include "interp/loadInitialContext.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#longPrintOop: */
 #include "interp/longPrintOop.c"
 
 
 
-/*	Answer the relevant long store temp bytecode, which indicates it has a
-	primitive error code.
- */
-/*	234		11101010	i i i i i i i i	Store Temporary Variable #iiiiiiii */
-/*	129 10000001 jjkkkkkk Store (Receiver Variable, Temporary Location,
-	Illegal, Literal Variable) [jj] #kkkkkk */
-
-	/* StackInterpreter>>#longStoreBytecodeForHeader: */
 #include "interp/longStoreBytecodeForHeader.c"
 
 
 
-/*	This method implements a simple method lookup cache. If an entry for the
-	given selector and classTag is found in the cache, set the values of
-	'newMethod' and
-	'primitiveFunctionPointer' and answer true. Otherwise, answer false. */
-
-	/* StackInterpreter>>#lookupInMethodCacheSel:classTag: */
 #include "interp/lookupInMethodCacheSelclassTag.c"
 
 
-	/* StackInterpreter>>#lookupMethodInClass: */
 #include "interp/lookupMethodInClass.c"
 
 
 
-/*	Lookup messageSelector in class. Answer 0 on success. Answer the splObj:
-	index for the error selector to use on failure rather than performing MNU
-	processing etc. */
-
-	/* StackInterpreter>>#lookupOrdinaryNoMNUEtcInClass: */
 #include "interp/lookupOrdinaryNoMNUEtcInClass.c"
 
 
 
-/*	Lookup selector in class. Answer the method or nil. This is a debugging
-	routine. It does /not/ side-effect lookupClass or newMethod. */
-
-	/* StackInterpreter>>#lookupSelector:inClass: */
 #include "interp/lookupSelectorinClass.c"
 
 
 
-/*	<Integer> */
-/*	Marry aContext with the base frame of a new stack page. Build the base
-	frame to reflect the context's state. Answer the new page. */
-
-	/* StackInterpreter>>#makeBaseFrameFor: */
 #include "interp/makeBaseFrameFor.c"
 
 
 
-/*	Convert married contexts to widowed contexts, and in the CoInterpreter,
-	map any machine code pcs to bytecode pcs, and then nil all slots beyond
-	top of stack, so that the context can be resumed on any VM. */
-
-	/* StackInterpreter>>#makeContextSnapshotSafe: */
 #include "interp/makeContextSnapshotSafe.c"
 
 
 
-/*	make a Point xValue@yValue.
-	We know both will be integers so no value nor root checking is needed */
-
-	/* StackInterpreter>>#makePointwithxValue:yValue: */
 #include "interp/makePointwithxValueyValue.c"
 
 
 
-/*	Map all oops in the interpreter's state to their new values 
-	during garbage collection or a become: operation. */
-/*	Assume: All traced variables contain valid oops. */
-
-	/* StackInterpreter>>#mapInterpreterOops */
 #include "interp/mapInterpreterOops.c"
 
 
 
-/*	The prim trace log is a circular buffer of objects. If there is
-	an entry at primTraceLogIndex - 1 \\ PrimTraceBufferSize it has entries.
-	If there is something at primTraceLogIndex it has wrapped. */
-
-	/* StackInterpreter>>#mapPrimTraceLog */
 #include "interp/mapPrimTraceLog.c"
 
 
-	/* StackInterpreter>>#mapStackPages */
 #include "interp/mapStackPages.c"
 
 
 
-/*	The trace log is a circular buffer of pairs of entries. If there is
-	an entry at traceLogIndex - 3 \\ TraceBufferSize it has entries.
-	If there is something at traceLogIndex it has wrapped. */
-
-	/* StackInterpreter>>#mapTraceLog */
 #include "interp/mapTraceLog.c"
 
 
 
-/*	The prim trace log is a circular buffer of objects. If there is
-	an entry at primTraceLogIndex - 1 \\ PrimTraceBufferSize it has entries.
-	If there is something at primTraceLogIndex it has wrapped. */
-
-	/* StackInterpreter>>#markAndTracePrimTraceLog */
 #include "interp/markAndTracePrimTraceLog.c"
 
 
 
-/*	GC of pages. Throwing away all stack pages on full GC is simple but
-	dangerous because it causes us to allocate lots of contexts immediately
-	before a GC.
-	Reclaiming pages whose top context is not referenced is poor because it
-	would take N incrementalGCs to reclaim N unused pages. Only the page whose
-	top context is not referred to by the bottom context of any other page
-	would be
-	reclaimed. Not until the next GC would the page whose top contect is the
-	previously reclaimed page's base frame's bottom context be reclaimed.
-	
-	Better is to not mark stack pages until their contexts are encountered. We
-	can eagerly trace the active page and the page reachable from its bottom
-	context if any, and so on. Other pages can be marked when we encounter a
-	married context. */
-
-	/* StackInterpreter>>#markAndTraceStackPages: */
 #include "interp/markAndTraceStackPages.c"
 
 
-	/* StackInterpreter>>#markAndTraceStackPage: */
 #include "interp/markAndTraceStackPage.c"
 
 
 
-/*	The trace log is a circular buffer of pairs of entries. If there is an
-	entry at
-	traceLogIndex - 3 \\ TraceBufferSize it has entries. If there is something
-	at traceLogIndex it has wrapped. */
-
-	/* StackInterpreter>>#markAndTraceTraceLog */
 #include "interp/markAndTraceTraceLog.c"
 
 
 
-/*	Trace any untraced pages */
-
-	/* StackInterpreter>>#markAndTraceUntracedReachableStackPages */
 #include "interp/markAndTraceUntracedReachableStackPages.c"
 
 
 
-/*	This is a helper for primitiveObjectPointsTo so it *does not* check the
-	frameContext field because that is an implicit self-reference not present
-	in the state .
- */
-
-	/* StackInterpreter>>#marriedContext:pointsTo:stackDeltaForCurrentFrame: */
 #include "interp/marriedContextpointsTostackDeltaForCurrentFrame.c"
 
 
 
-/*	Establish aContext at the base of a new stackPage, make the stackPage the
-	active one and set-up the interreter registers. This is used to boot the
-	system and bring it back after a snapshot. */
-
-	/* StackInterpreter>>#marryContextInNewStackPageAndInitializeInterpreterRegisters: */
 #include "interp/marryContextInNewStackPageAndInitializeInterpreterRegisters.c"
 
 
 
-/*	Marry an unmarried frame. This means creating a spouse context
-	initialized with a subset of the frame's state (state through the last
-	argument) that references the frame. */
-
-	/* StackInterpreter>>#marryFrame:SP: */
 #include "interp/marryFrameSP.c"
 
 
 
-/*	Assert-only check for leaks after external prim calls if checkForLeaks
-	includes the GCCheckPrimCall flag.
-	This is ionly really useful from a low-level C debugger, hence no
-	accessors for checkedPluginName.
- */
-
-	/* StackInterpreter>>#maybeLeakCheckExternalPrimCall: */
 #include "interp/maybeLeakCheckExternalPrimCall.c"
 
 
 
-/*	Answer the selector of a method, assuming its penultimate literal is
-	either a symbol or a pointer object whose first slot references the method
-	and whose second slot is a symbol (i.e. an AdditionalMethodState). If a
-	Symbol can't be found answer nil. This isn't satisfactory, as it puts a
-	lot of information
-	into the VM, but it is needed for adequate crash debugging at Cadence.
-	With full blocks as of 9/2016 the last literal of a CompiledBlock is a
-	back pointer
-	to the enclosing block or compiled method. */
-
-	/* StackInterpreter>>#maybeSelectorOfMethod: */
 #include "interp/maybeSelectorOfMethod.c"
 
 
-	/* StackInterpreter>>#methodArgumentCount */
 #include "interp/methodArgumentCount.c"
 
 
-	/* StackInterpreter>>#methodClassAssociationOf: */
 #include "interp/methodClassAssociationOf.c"
 
 
 
-/*	Answer the method class of a method which is the value of an Association
-	in the last literal,
-	or answer nil if there isn't one.
-	Using a read barrier here simplifies the become implementation and costs
-	very little
-	because the class index and ValueIndex of the association almost certainly
-	share a cache line. */
-
-	/* StackInterpreter>>#methodClassOf: */
 #include "interp/methodClassOf.c"
 
 
-	/* StackInterpreter>>#methodPrimitiveIndex */
 #include "interp/methodPrimitiveIndex.c"
 
 
 
-/*	Sets the return value for a method. In the CoInterpreter we replace the
-	cumbersome primResult machinery. */
-
-	/* StackInterpreter>>#methodReturnBool: */
 #include "interp/methodReturnBool.c"
 
 
 
-/*	Sets the return value for a method. */
-
-	/* StackInterpreter>>#methodReturnFloat: */
 #include "interp/methodReturnFloat.c"
 
 
 
-/*	Sets the return value for a method. In the CoInterpreter we replace the
-	cumbersome primResult machinery. */
-
-	/* StackInterpreter>>#methodReturnInteger: */
 #include "interp/methodReturnInteger.c"
 
 
 
-/*	Sets the return value for a method */
-
-	/* StackInterpreter>>#methodReturnReceiver */
 #include "interp/methodReturnReceiver.c"
 
 
 
-/*	Attempt to answer a ByteString for a given C string as the result of a
-	primitive. 
- */
-
-	/* StackInterpreter>>#methodReturnString: */
 #include "interp/methodReturnString.c"
 
 
 
-/*	Sets the return value for a method. In the CoInterpreter we replace the
-	cumbersome primResult machinery. */
-
-	/* StackInterpreter>>#methodReturnValue: */
 #include "interp/methodReturnValue.c"
 
 
 
-/*	A negative header selects the alternate bytecode set. */
-
-	/* StackInterpreter>>#methodUsesAlternateBytecodeSet: */
 #include "interp/methodUsesAlternateBytecodeSet.c"
 
 
 
-/*	Answer if aMethodObj contains a primitive and uses the primitive error
-	code. 
- */
-
-	/* StackInterpreter>>#methodUsesPrimitiveErrorCode: */
 #include "interp/methodUsesPrimitiveErrorCode.c"
 
 
 
-/*	The module with the given name was just unloaded. 
-	Make sure we have no dangling references. */
-
-	/* StackInterpreter>>#moduleUnloaded: */
 #include "interp/moduleUnloaded.c"
 
 
 
-/*	Move frames from the hot end of oldPage through to theFP to newPage.
-	This has the effect of making theFP a base frame which can be stored into.
-	Answer theFP's new location. */
-
-	/* StackInterpreter>>#moveFramesIn:through:toPage: */
 #include "interp/moveFramesInthroughtoPage.c"
 
 
 
-/*	Brain-damaged nameOfClass: for C VM. Does *not* answer Foo class for
-	metaclasses. Use e.g. classIsMeta: to avoid being fooled. */
-
-	/* StackInterpreter>>#nameOfClass: */
 #include "interp/nameOfClass.c"
 
 
 
-/*	Brain-damaged nameOfClass: for C VM. Does *not* answer Foo class for
-	metaclasses. Use e.g. classIsMeta: to avoid being fooled. */
-
-	/* StackInterpreter>>#nameOfClass:lengthInto: */
 #include "interp/nameOfClasslengthInto.c"
 
 
 
-/*	Answer true if there are no marked contexts on thePage. */
-
-	/* StackInterpreter>>#noMarkedContextsOnPage: */
 #include "interp/noMarkedContextsOnPage.c"
 
 
 
-/*	Answer the number of effective pointer fields in the given context. */
-
-	/* StackInterpreter>>#numSlotsOfMarriedContext: */
 #include "interp/numSlotsOfMarriedContext.c"
 
 
-	/* StackInterpreter>>#numStkPages */
 #include "interp/numStkPages.c"
 
 
-	/* StackInterpreter>>#object:equalsString: */
 #include "interp/objectequalsString.c"
 
 
 
-/*	This is the entry-point for plugins and primitives that wish to reacquire
-	the VM after having
-	released it via disownVM or callbacks that want to acquire it without
-	knowing their ownership
-	status. While this exists for the threaded FFI VM we use it to reset
-	newMethod and the
-	argumentCount after a callback.
-	
-	Answer 0 if the current thread is known to the VM (and on return owns the
-	VM). Answer 1 if the current thread is unknown to the VM and takes
-	ownership. Answer -1 if the current thread is unknown to the VM and fails
-	to take ownership. */
-
-	/* StackInterpreter>>#ownVM: */
 #include "interp/ownVM.c"
 
 
-	/* StackInterpreter>>#pcPreviousTo:inSqueakV3PlusClosuresOrSistaV1Method: */
 #include "interp/pcPreviousToinSqueakV3PlusClosuresOrSistaV1Method.c"
 
 
-	/* StackInterpreter>>#penultimateLiteralOf: */
 #include "interp/penultimateLiteralOf.c"
 
 
 
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#popStack */
 #include "interp/popStack.c"
 
 
 
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#pop: */
 #include "interp/pop.c"
 
 
 
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#pop:thenPush: */
 #include "interp/popthenPush.c"
 
 
 
-/*	integerValue is interpreted as POSITIVE, e.g. as the result of Bitmap>at:.
-	N.B. Returning in each arm separately enables Slang inlining.
-	/Don't/ return the ifTrue:ifFalse: unless Slang inlining of conditionals
-	is fixed. */
-
-	/* StackInterpreter>>#positive32BitIntegerFor: */
 #include "interp/positive32BitIntegerFor.c"
 
 
 
-/*	Answer a Large Positive Integer object for the given integer value. N.B.
-	will *not* cause a GC. */
-
-	/* StackInterpreter>>#positive64BitIntegerFor: */
 #include "interp/positive64BitIntegerFor.c"
 
 
 
-/*	Update the displayBits after a GC may have moved it.
-	Answer if the displayBits appear valid. The wrinkle here is that the
-	displayBits could be a surface handle. */
-
-	/* StackInterpreter>>#postGCUpdateDisplayBits */
 #include "interp/postGCUpdateDisplayBits.c"
 
 
 
-/*	With 0 args answers whether ioProcessEvents is enabled and being called.
-	With 1 arg expects a boolean which will enable ioProcessEvents if true and
-	disable it if false, answering its previous state. */
-
-	/* StackInterpreter>>#primitiveEventProcessingControl */
 #include "interp/primitiveEventProcessingControl.c"
 
 
-	/* StackInterpreter>>#primitiveFloatEqual:toArg: */
 #include "interp/primitiveFloatEqualtoArg.c"
 
 
-	/* StackInterpreter>>#primitiveFloatGreaterOrEqual:toArg: */
 #include "interp/primitiveFloatGreaterOrEqualtoArg.c"
 
 
-	/* StackInterpreter>>#primitiveFloatGreater:thanArg: */
 #include "interp/primitiveFloatGreaterthanArg.c"
 
 
-	/* StackInterpreter>>#primitiveFloatLessOrEqual:toArg: */
 #include "interp/primitiveFloatLessOrEqualtoArg.c"
 
 
-	/* StackInterpreter>>#primitiveFloatLess:thanArg: */
 #include "interp/primitiveFloatLessthanArg.c"
 
 
 
-/*	Note: With the Squeak V3 format we now have 10 bits of primitive index,
-	but they are
-	in two places for temporary backward compatibility. The time to unpack is
-	negligible, since the derived primitive function pointer is stored in the
-	method cache. With the
-	Spur format we assume a 3-byte CallPrimitive with a little-endian 16-bit
-	primitive index. */
-
-	/* StackInterpreter>>#primitiveIndexOfMethod:header: */
 #include "interp/primitiveIndexOfMethodheader.c"
 
 
-	/* StackInterpreter>>#primitiveIndexOf: */
 #include "interp/primitiveIndexOf.c"
 
 
-	/* StackInterpreter>>#printActivationNameForSelector:startClass: */
 #include "interp/printActivationNameForSelectorstartClass.c"
 
 
-	/* StackInterpreter>>#printActivationNameFor:receiver:isBlock:firstTemporary: */
 #include "interp/printActivationNameForreceiverisBlockfirstTemporary.c"
 
 
 
-/*	Print all the stacks of all running processes, including those that are
-	currently suspended.
- */
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printAllStacks */
 #include "interp/printAllStacks.c"
 
 
 
-/*	Print all the stacks of all running processes, including those that are
-	currently suspended.
- */
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printAllStacksOn: */
 #include "interp/printAllStacksOn.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printCallStack */
 #include "interp/printCallStack.c"
 
 
-	/* StackInterpreter>>#printCallStackFP: */
 #include "interp/printCallStackFP.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printCallStackOf: */
 #include "interp/printCallStackOf.c"
 
 
-	/* StackInterpreter>>#printCallStackOf:currentFP: */
 #include "interp/printCallStackOfcurrentFP.c"
 
 
 
-/*	Print the call stack on a specific output stream. */
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printCallStackOn: */
 #include "interp/printCallStackOn.c"
 
 
 
-/*	Print the call stack of aContext until it links to a frame. */
-
-	/* StackInterpreter>>#printContextCallStackOf: */
 #include "interp/printContextCallStackOf.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printContext: */
 #include "interp/printContext.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printExternalHeadFrame */
 #include "interp/printExternalHeadFrame.c"
 
 
-	/* StackInterpreter>>#printFrameAndCallers:SP:short: */
 #include "interp/printFrameAndCallersSPshort.c"
 
 
-	/* StackInterpreter>>#printFrameFlagsForFP: */
 #include "interp/printFrameFlagsForFP.c"
 
 
-	/* StackInterpreter>>#printFrameOop:at: */
 #include "interp/printFrameOopat.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printFramesInPage: */
 #include "interp/printFramesInPage.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printFramesOnStackPageListInUse */
 #include "interp/printFramesOnStackPageListInUse.c"
 
 
-	/* StackInterpreter>>#printFrameThing:andFrame:at: */
 #include "interp/printFrameThingandFrameat.c"
 
 
-	/* StackInterpreter>>#printFrameThing:at:extraString: */
 #include "interp/printFrameThingatextraString.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printFrame: */
 #include "interp/printFrame.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printFrame:WithSP: */
 #include "interp/printFrameWithSP.c"
 
 
 
-/*	Print p in hex, unpadded, in the form 0x1234 (C)/16r1234 (here) */
-
-	/* StackInterpreter>>#printHexPtrnp: */
 #include "interp/printHexPtrnp.c"
 
 
 
-/*	Print n in hex, in the form ' 0x1234', padded to a width of 10 characters
-	in 32-bits ('0x' + 8 nibbles) or 18 characters in 64-bits ('0x' + 16
-	nibbles). In the simulator use 16r as the prefix, padding to 11 characters
-	in 32-bits
-	or 19 characters in 64-bits. */
-
-	/* StackInterpreter>>#printHex: */
 #include "interp/printHex.c"
 
 
 
-/*	Print all methods whose penultimate literal is either selector,
-	or an object whose first inst var is the method and whose
-	second is selector (e.g. an AdditionalMethodState). */
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printLikelyImplementorsOfSelector: */
 #include "interp/printLikelyImplementorsOfSelector.c"
 
 
-	/* StackInterpreter>>#printLogEntryAt: */
 #include "interp/printLogEntryAt.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printMethodCache */
 #include "interp/printMethodCache.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printMethodCacheFor: */
 #include "interp/printMethodCacheFor.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printMethodDictionaryOf: */
 #include "interp/printMethodDictionaryOf.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printMethodDictionary: */
 #include "interp/printMethodDictionary.c"
 
 
 
-/*	Details: The count argument is used to avoid a possible infinite recursion
-	if classOop is a corrupted object.
- */
-
-	/* StackInterpreter>>#printNameOfClass:count: */
 #include "interp/printNameOfClasscount.c"
 
 
-	/* StackInterpreter>>#printNum: */
 #include "interp/printNum.c"
 
 
-	/* StackInterpreter>>#printOopShortInner: */
 #include "interp/printOopShortInner.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printOop: */
 #include "interp/printOop.c"
 
 
 
-/*	print the entry and answer if it takes a parameter (as the following
-	entry) 
- */
-
-	/* StackInterpreter>>#printPrimLogEntryAt:hasParameter: */
 #include "interp/printPrimLogEntryAthasParameter.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printProcessStack: */
 #include "interp/printProcessStack.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printProcsOnList: */
 #include "interp/printProcsOnList.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printStackCallStackOf: */
 #include "interp/printStackCallStackOf.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printStackPageList */
 #include "interp/printStackPageList.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printStackPageListInUse */
 #include "interp/printStackPageListInUse.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printStackPages */
 #include "interp/printStackPages.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printStackPagesInUse */
 #include "interp/printStackPagesInUse.c"
 
 
-	/* StackInterpreter>>#printStackPage:useCount: */
 #include "interp/printStackPageuseCount.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#printStackReferencesTo: */
 #include "interp/printStackReferencesTo.c"
 
 
-	/* StackInterpreter>>#printStringOf: */
 #include "interp/printStringOf.c"
 
 
-	/* StackInterpreter>>#print: */
 #include "interp/print.c"
 
 
-	/* StackInterpreter>>#pushBool: */
 #include "interp/pushBool.c"
 
 
 
-/*	The receiver of a message send or the closure of a block activation is
-	always on the stack above any arguments and the frame itself. See the
-	diagram in StackInterpreter class>>initializeFrameIndices. */
-
-	/* StackInterpreter>>#pushedReceiverOrClosureOfFrame: */
 #include "interp/pushedReceiverOrClosureOfFrame.c"
 
 
-	/* StackInterpreter>>#pushFloat: */
 #include "interp/pushFloat.c"
 
 
-	/* StackInterpreter>>#pushInteger: */
 #include "interp/pushInteger.c"
 
 
 
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#push: */
 #include "interp/push.c"
 
 
 
-/*	Append aLong to aFile in this platform's 'natural' byte order. aLong is
-	either 32 or 64 bits,
-	depending on ObjectMemory. (Bytes will be swapped, if necessary, when the
-	image is read
-	on a different platform.) Set successFlag to false if the write fails. */
-
-	/* StackInterpreter>>#putLong:toFile: */
 #include "interp/putLongtoFile.c"
 
 
 
-/*	Append the 16-bit aShort to aFile in this platform's 'natural' byte order.
-	(Bytes will be swapped, if necessary, when the image is read on a
-	different platform.) Set successFlag to false if the write fails. */
-
-	/* StackInterpreter>>#putShort:toFile: */
 #include "interp/putShorttoFile.c"
 
 
 
-/*	Save the given process on the scheduler process list for its priority,
-	adding to the back if yieldImplicitly or to the front if not
-	yieldImplicitly. 
- */
-
-	/* StackInterpreter>>#putToSleep:yieldingIf: */
 #include "interp/putToSleepyieldingIf.c"
 
 
 
-/*	Append aWord32 to aFile in this platform's 'natural' byte order. aWord32
-	is 32 bits,
-	depending on ObjectMemory. (Bytes will be swapped, if necessary, when the
-	image is read
-	on a different platform.) Set successFlag to false if the write fails. */
-
-	/* StackInterpreter>>#putWord32:toFile: */
 #include "interp/putWord32toFile.c"
 
 
 
-/*	Return the integer value of the field without verifying that it is an
-	integer value! For use in time-critical places where the integer-ness of
-	the field can be guaranteed.
- */
-
-	/* StackInterpreter>>#quickFetchInteger:ofObject: */
 #include "interp/quickFetchIntegerofObject.c"
 
 
 
-/*	Anwer if images of the given format are readable by this interpreter.
-	Allows a virtual machine to accept selected older image formats. */
-
-	/* StackInterpreter>>#readableFormat: */
 #include "interp/readableFormat.c"
 
 
-	/* StackInterpreter>>#readImageFromFile:HeapSize:StartingAt: */
 #include "interp/readImageFromFileHeapSizeStartingAt.c"
 
 
 
-/*	Assuming the primFailCode is non-zero, check if the method consumes the
-	error code
-	and if so, assign it through theSP. Then zero the primFailCode. This is
-	infrequent code,
-	so keep it out of the common path. */
-
-	/* StackInterpreter>>#reapAndResetErrorCodeTo:header: */
 #include "interp/reapAndResetErrorCodeToheader.c"
 
 
 
-/*	callbackContext is an activation of
-	invokeCallback:[stack:registers:jmpbuf:]. Its sender is the VM's state
-	prior to the callback. Reestablish that state,
-	and mark calloutContext as dead. */
-
-	/* StackInterpreter>>#reestablishContextPriorToCallback: */
 #include "interp/reestablishContextPriorToCallback.c"
 
 
 
-/*	Remove the first process from the given linked list. */
-
-	/* StackInterpreter>>#removeFirstLinkOfList: */
 #include "interp/removeFirstLinkOfList.c"
 
 
 
-/*	Attempt to remove a process from a linked list. Answer if the attempt
-	succeeded. 
- */
-
-	/* StackInterpreter>>#removeProcess:fromList: */
 #include "interp/removeProcessfromList.c"
 
 
 
-/*	Make aProcess runnable and if its priority is higher than that of the
-	current process, preempt the current process. Answer if the current
-	process was preempted. If the current process was preempted then if
-	yieldImplicitly add the current process to the back of its run queue,
-	causing an implicit yiled to other processes on the run queue, otherwise
-	add the current process to the front of its run queue, hence not yielding.
-	Blue book behaviour is to yield implicitly but is arguably incorrect. */
-
-	/* StackInterpreter>>#resume:preemptedYieldingIf:from: */
 #include "interp/resumepreemptedYieldingIffrom.c"
 
 
 
-/*	In Spur two cases of primitive failure are handled specially. A primitive
-	may fail due to validation
-	encountering a forwarder. On failure, check the accessorDepth for the
-	primitive and if non-negative
-	scan the args to the depth, following any forwarders. Retry the primitive
-	if any are found. Hence
-	lazily and transparently following forwarders on primitive failure.
-	Additionally a primitive might fail
-	due to an allocation failing. Retry if external primitives have failed
-	with PrimErrNoMemory after running
-	first the scavenger and then on a subsequent failure, the global
-	mark-sweep collector. Hence lazily
-	and transparently GC on memory exhaustion. */
-
-	/* StackInterpreter>>#retryPrimitiveOnFailure */
 #include "interp/retryPrimitiveOnFailure.c"
 
 
 
-/*	callbackMethodContext is an activation of
-	invokeCallback:[stack:registers:jmpbuf:]. Its sender is the VM's state
-	prior to the callback. Reestablish that state (via longjmp),
-	and mark callbackMethodContext as dead. */
-
-	/* StackInterpreter>>#returnAs:ThroughCallback:Context: */
 #include "interp/returnAsThroughCallbackContext.c"
 
 
 
-/*	Reverse the given range of Display pixels, rounded to whole word boundary.
-	Used to give feedback during VM activities such as garbage collection when
-	debugging. It is assumed that the given word range falls entirely within
-	the first line of the Display. */
-
-	/* StackInterpreter>>#reverseDisplayFrom:to: */
 #include "interp/reverseDisplayFromto.c"
 
 
 
-/*	Rewrite an existing entry in the method cache with a new primitive
-	function address.
-	Used by primitiveExternalCall to make direct calls to found external
-	prims, or quickly
-	fail not found external prims. */
-
-	/* StackInterpreter>>#rewriteMethodCacheEntryForExternalPrimitiveToFunction: */
 #include "interp/rewriteMethodCacheEntryForExternalPrimitiveToFunction.c"
 
 
 
-/*	Safe version of methodClassOf: that deals with malformed compiled methods,
-	etc, and does not fixup forwarding pointers.. */
-
-	/* StackInterpreter>>#safeMethodClassOf: */
 #include "interp/safeMethodClassOf.c"
 
 
 
-/*	This is an assert function used to ensure consistency between the
-	primitiveFunctionPointer and the primitive index when a primitive fails in
-	Spur. Since Spur automagically retries
-	failing primitives we want to know that the primitiveFunctionPointer is
-	actually valid. This isn't
-	always possible for the `indirect'' primitives (calling a plugin
-	primitive, calling the ffi, using the
-	receiver:tryPrimitive:withArgs: primitive evaluator in the simulator. We
-	do the best we can. */
-
-	/* StackInterpreter>>#saneFunctionPointerForFailureOfPrimIndex: */
 #include "interp/saneFunctionPointerForFailureOfPrimIndex.c"
 
 
 
-/*	Send the calllback message to Alien class with the supplied arg(s). Use
-	either the 1 arg
-	invokeCallbackContext: or the 4 arg invokeCallback:stack:registers:jmpbuf:
-	message, depending on what selector is installed in the
-	specialObjectsArray. Note that if invoking the
-	legacy invokeCallback:stack:registers:jmpbuf: we pass the
-	vmCallbackContext as the jmpbuf
-	argument (see reestablishContextPriorToCallback:). The arguments are raw C
-	addresses and
-	are converted to integer objects on the way. sendInvokeCallbackContext: &
-	returnAs:ThroughCallback:Context: along with ownVM: and disownVM: conspire
-	to save and
-	restore newMethod, argumentCount and primitiveFunctionPointer around a
-	callback. The VM depends on argumentCount being correct to cut-back the
-	correct number of
-	arguments on primitive return. Since this is an implicit send we need to
-	log it explicitly.
-	The return side is done via a primitive so that gets logged normally. */
-
-	/* StackInterpreter>>#sendInvokeCallbackContext: */
 #include "interp/sendInvokeCallbackContext.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#setBreakMNUSelector: */
 #include "interp/setBreakMNUSelector.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#setBreakSelector: */
 #include "interp/setBreakSelector.c"
 
 
-	/* StackInterpreter>>#setFullScreenFlag: */
 #include "interp/setFullScreenFlag.c"
 
 
-	/* StackInterpreter>>#setInterruptCheckChain: */
 #include "interp/setInterruptCheckChain.c"
 
 
-	/* StackInterpreter>>#setInterruptKeycode: */
 #include "interp/setInterruptKeycode.c"
 
 
 
-/*	This is invoked frrom the platform GUI event subsystem when the user
-	inputs a a char code matching interruptKeycode. Set the value and then
-	forceInterruptCheck so as to call the interruptCheckChain function if set.
-	It's important to set interruptPending *before* calling
-	forceInterruptCheck so that functions on the interruptCheckChain can check
-	interruptPending.  */
-
-	/* StackInterpreter>>#setInterruptPending: */
 #include "interp/setInterruptPending.c"
 
 
-	/* StackInterpreter>>#setNextWakeupUsecs: */
 #include "interp/setNextWakeupUsecs.c"
 
 
-	/* StackInterpreter>>#setSavedWindowSize: */
 #include "interp/setSavedWindowSize.c"
 
 
 
-/*	The low space semaphore is about to be signaled. Set the signalLowSpace
-	flag, and force an interrupt check. Save the currently active process in
-	the special
-	objects array so that the low space handler will be able to determine the
-	process that first triggered a low space condition. The image's low space
-	handler is expected
-	to nil out the special objects array slot when it handles the low space
-	condition.  */
-
-	/* StackInterpreter>>#setSignalLowSpaceFlagAndSaveProcess */
 #include "interp/setSignalLowSpaceFlagAndSaveProcess.c"
 
 
-	/* StackInterpreter>>#setTraceFlagOnContextsFramesPageIfNeeded: */
 #include "interp/setTraceFlagOnContextsFramesPageIfNeeded.c"
 
 
-	/* StackInterpreter>>#shortPrintContext: */
 #include "interp/shortPrintContext.c"
 
 
-	/* StackInterpreter>>#shortPrintFrameAndCallers: */
 #include "interp/shortPrintFrameAndCallers.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#shortPrintFramesInPage: */
 #include "interp/shortPrintFramesInPage.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#shortPrintFramesOnStackPageListInUse */
 #include "interp/shortPrintFramesOnStackPageListInUse.c"
 
 
-	/* StackInterpreter>>#shortPrintFrame: */
 #include "interp/shortPrintFrame.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#shortPrintFrame:AndNCallers: */
 #include "interp/shortPrintFrameAndNCallers.c"
 
 
-	/* StackInterpreter>>#shortPrintOop: */
 #include "interp/shortPrintOop.c"
 
 
-	/* StackInterpreter>>#shortReversePrintFrameAndCallers: */
 #include "interp/shortReversePrintFrameAndCallers.c"
 
 
 
-/*	Repaint the portion of the Smalltalk screen bounded by the affected
-	rectangle. Used to synchronize the screen after a Bitblt to the Smalltalk
-	Display object.
- */
-
-	/* StackInterpreter>>#showDisplayBits:Left:Top:Right:Bottom: */
 #include "interp/showDisplayBitsLeftTopRightBottom.c"
 
 
 
-/*	Signal all requested semaphores. Answer if a context switch has occurred. */
-
-	/* StackInterpreter>>#signalExternalSemaphores */
 #include "interp/signalExternalSemaphores.c"
 
 
 
-/*	Answer a full 32 bit integer object for the given integer value.
-	N.B. Returning in each arm separately enables Slang inlining.
-	/Don't/ return the ifTrue:ifFalse: unless Slang inlining of conditionals
-	is fixed. */
-
-	/* StackInterpreter>>#signed32BitIntegerFor: */
 #include "interp/signed32BitIntegerFor.c"
 
 
 
-/*	Answer a Large Integer object for the given integer value. N.B. will *not*
-	cause a GC. */
-
-	/* StackInterpreter>>#signed64BitIntegerFor: */
 #include "interp/signed64BitIntegerFor.c"
 
 
 
-/*	Answer the size of the CallPrimitive bytecode that may be used to store a
-	method's primitive.
- */
-/*	NewsqueakV4:	249	11111001	iiiiiiii	jjjjjjjj	Call Primitive #iiiiiiii +
-	(jjjjjjjj * 256)
- */
-/*	SistaV1:		248	11111000 iiiiiiii	mssjjjjj	Call Primitive #iiiiiiii + (
-	jjjjj * 256) */
-/*	V3+Closures:	139	11101111	iiiiiiii	jjjjjjjj	Call Primitive #iiiiiiii +
-	(jjjjjjjj * 256)
- */
-
-	/* StackInterpreter>>#sizeOfCallPrimitiveBytecode: */
 #include "interp/sizeOfCallPrimitiveBytecode.c"
 
 
 
-/*	234		11101010	i i i i i i i i	Store Temporary Variable #iiiiiiii */
-/*	129 10000001 jjkkkkkk Store (Receiver Variable, Temporary Location,
-	Illegal, Literal Variable) [jj] #kkkkkk */
-
-	/* StackInterpreter>>#sizeOfLongStoreTempBytecode: */
 #include "interp/sizeOfLongStoreTempBytecode.c"
 
 
 
-/*	Return the number of indexable fields of the given object. This method is
-	to be called from an automatically generated C primitive. The argument is
-	assumed to be a pointer to the first indexable field of a words or bytes
-	object; the object header starts 4 bytes before that.
- */
-/*	Note: Only called by translated primitive code. */
-
-	/* StackInterpreter>>#sizeOfSTArrayFromCPrimitive: */
 #include "interp/sizeOfSTArrayFromCPrimitive.c"
 
 
 
-/*	Invoke a normal (non-quick) primitive.
-	Called under the assumption that primFunctionPointer has been preloaded. */
-
-	/* StackInterpreter>>#slowPrimitiveResponse */
 #include "interp/slowPrimitiveResponse.c"
 
 
 
-/*	update state of active context */
-
-	/* StackInterpreter>>#snapshot: */
 #include "interp/snapshot.c"
 
 
-	/* StackInterpreter>>#specialSelector: */
 #include "interp/specialSelector.c"
 
 
 
-/*	Insulate the stack zone from the effects of a become.
-	All receivers must be unfollowed for two reasons:
-	1. inst var access is direct with no read barrier
-	2. super sends (always to the receiver) have no class check and so don't
-	trap for forwarded receivers. This is an issue for primitives that assume
-	their receiver
-	is valid and don't validate.
-	Super sends require an explicit check to ensure receivers in super sends
-	are unforwarded.
-	e.g. super doSomethingWith: (self become: other) forwards the receiver
-	self pushed on the
-	stack. So we could avoid following non-pointer receivers. But this is too
-	tricky, Instead, we
-	always follow receivers.
-	Methods must be unfollowed since bytecode access is direct with no read
-	barrier. But this only needs to be done if the becomeEffectsFlags indicate
-	that a
-	CompiledMethod was becommed.
-	The scheduler state must be followed, but only if the becomeEffectsFlags
-	indicate that a pointer object was becommed. */
-/*	For VM profiling */
-
-	/* StackInterpreter>>#spurPostBecomeAction: */
 #include "interp/spurPostBecomeAction.c"
 
 
 
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#stackFloatValue: */
 #include "interp/stackFloatValue.c"
 
 
 
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#stackIntegerValue: */
 #include "interp/stackIntegerValue.c"
 
 
 
-/*	Answer the actual stackLimit offset in a page. Since stackPageByteSize may
-	have chosen to shrink a page
-	this may be less than stackPageFrameBytes, but it should be no more than
-	stackPageFrameBytes. 
- */
-
-	/* StackInterpreter>>#stackLimitBytes */
 #include "interp/stackLimitBytes.c"
 
 
 
-/*	Answer the amount of slots needed to fit a new frame at the point the
-	stack limit is checked. A frame looks like this at the point the stack
-	limit is checked:
-	stacked receiver/closure
-	arg0
-	...
-	argN
-	caller's method ip/base frame's sender context
-	fp->	saved fp
-	method
-	method header fields
-	context (uninitialized)
-	receiver
-	first temp
-	...
-	sp->	Nth temp
-	So the amount of headroom is
-	the maximum number of arguments + 1 (for stacked receiver and arguments)
-	+ the frame size
-	+ the max number of temps.
-	Since a method's number of temps includes its arguments the actual offset
-	is:  */
-
-	/* StackInterpreter>>#stackLimitOffset */
 #include "interp/stackLimitOffset.c"
 
 
 
-/*	Ensures that the given object is a real object, not a SmallInteger. */
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#stackObjectValue: */
 #include "interp/stackObjectValue.c"
 
 
 
-/*	Answer a page size that is a power-of-two and contains a useful number of
-	frames. Room for 256 slots for frames gives around 40 frames a page which
-	is a
-	good compromise between overflow rate and latency in divorcing a page. */
-
-	/* StackInterpreter>>#stackPageByteSize */
 #include "interp/stackPageByteSize.c"
 
 
 
-/*	Return a minimum amount of headroom for each stack page (in bytes).
-	In a JIT the stack has to have room for interrupt handlers which will run
-	on the
-	stack. In the interpreter we don't actually need any headroom. */
-
-	/* StackInterpreter>>#stackPageHeadroom */
 #include "interp/stackPageHeadroom.c"
 
 
 
-/*	Return the stackPointer of a Context or BlockContext. */
-
-	/* StackInterpreter>>#stackPointerForMaybeMarriedContext: */
 #include "interp/stackPointerForMaybeMarriedContext.c"
 
 
 
-/*	Return the 0-based index rel to the given frame.
-	(This is what stackPointer used to be before conversion to pointer) */
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#stackPointerIndexForFrame: */
 #include "interp/stackPointerIndexForFrame.c"
 
 
 
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#stackPositiveMachineIntegerValue: */
 #include "interp/stackPositiveMachineIntegerValue.c"
 
 
 
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#stackSignedMachineIntegerValue: */
 #include "interp/stackSignedMachineIntegerValue.c"
 
 
-	/* StackInterpreter>>#stackTop */
 #include "interp/stackTop.c"
 
 
 
-/*	In the StackInterpreter stacks grow down. */
-
-	/* StackInterpreter>>#stackValue: */
 #include "interp/stackValue.c"
 
 
 
-/*	Zero-relative version of CompiledMethod>>startpc. */
-
-	/* StackInterpreter>>#startPCOfMethod: */
 #include "interp/startPCOfMethod.c"
 
 
 
-/*	Return what ST would return for <obj> at: index. */
-
-	/* StackInterpreter>>#stObject:at: */
 #include "interp/stObjectat.c"
 
 
 
-/*	Do what ST would return for <obj> at: index put: value. */
-
-	/* StackInterpreter>>#stObject:at:put: */
 #include "interp/stObjectatput.c"
 
 
 
-/*	Note: May be called by translated primitive code. */
-
-	/* StackInterpreter>>#storeInteger:ofObject:withValue: */
 #include "interp/storeIntegerofObjectwithValue.c"
 
 
 
-/*	Set the sender of a frame. If the frame is a base frame then this is
-	trivial; merely store into the FoxCallerSavedIP/FoxCallerContext field. If
-	not, then
-	split the stack at the frame, moving the frame and those hotter than it to
-	a new stack page. In the new stack page the frame will be the base frame
-	and storing trivial. Answer the possibly changed location of theFP. */
-
-	/* StackInterpreter>>#storeSenderOfFrame:withValue: */
 #include "interp/storeSenderOfFramewithValue.c"
 
 
 
-/*	Answer the number of indexable fields in the given object. (i.e., what
-	Smalltalk would return for <obj> size).
- */
-/*	Note: Assume oop is not an immediate! */
-
-	/* StackInterpreter>>#stSizeOf: */
 #include "interp/stSizeOf.c"
 
 
 
-/*	Using a read barrier here simplifies the become implementation and costs
-	very little because the class index and superclass almost certainly share
-	a cache line. */
-
-	/* StackInterpreter>>#superclassOf: */
 #include "interp/superclassOf.c"
 
 
 
-/*	Signal the given semaphore from within the interpreter.
-	Answer if the current process was preempted. */
-
-	/* StackInterpreter>>#synchronousSignal: */
 #include "interp/synchronousSignal.c"
 
 
-	/* StackInterpreter>>#tempCountOf: */
 #include "interp/tempCountOf.c"
 
 
-	/* StackInterpreter>>#temporaryCountOfMethodHeader: */
 #include "interp/temporaryCountOfMethodHeader.c"
 
 
 
-/*	See StackInterpreter class>>initializeFrameIndices */
-
-	/* StackInterpreter>>#temporary:in: */
 #include "interp/temporaryin.c"
 
 
 
-/*	See StackInterpreter class>>initializeFrameIndices */
-
-	/* StackInterpreter>>#temporary:in:put: */
 #include "interp/temporaryinput.c"
 
 
 
-/*	Record a process to be awoken on the next interpreter cycle.
-	Note: It is currently a fatal VM error if there is no runnable process
-	(indicated by newProcOrNil being nil), but the right thing to do is to
-	enter a wait state until the next event/expired delay/available input,
-	etc.  */
-
-	/* StackInterpreter>>#transferTo:from: */
 #include "interp/transferTofrom.c"
 
 
-	/* StackInterpreter>>#ultimateLiteralOf: */
 #include "interp/ultimateLiteralOf.c"
 
 
 
-/*	Follow the first literal of either a primitiveCallout or
-	primitiveExternalCall primitive method. This
-	will be an ExternalFunction for primitiveCallout or a four element Array
-	for primitiveExternalCall.
-	This is here to avoid following all the literals in a method, which would
-	be slow. Remember
-	forwarders are unlikely, so we only want to follow what is necessary, and
-	for an FFI call or
-	external primitive only the first literal is salient. */
-
-	/* StackInterpreter>>#unfollowFirstLiteralOfMaybeCalloutMethod:primitiveIndex: */
 #include "interp/unfollowFirstLiteralOfMaybeCalloutMethodprimitiveIndex.c"
 
 
 
-/*	Repaint the portion of the Smalltalk screen bounded by the affected
-	rectangle. Used to synchronize the screen after a Bitblt to the Smalltalk
-	Display object. */
-
-	/* StackInterpreter>>#updateDisplayLeft:Top:Right:Bottom: */
 #include "interp/updateDisplayLeftTopRightBottom.c"
 
 
 
-/*	Update the frame's spouse context with the frame's current state except
-	for the
-	sender and instruction pointer, which are used to mark the context as
-	married, and the receiver and method, which are already set. */
-
-	/* StackInterpreter>>#updateStateOfSpouseContextForFrame:WithSP: */
 #include "interp/updateStateOfSpouseContextForFrameWithSP.c"
 
 
 
-/*	Note that we accept anInstrPointer pointing to a callPrimitiveBytecode
-	at the start of a method that contains a primitive. This because methods
-	like Context(Part)>>reset have to be updated to skip the callPrimtiive
-	bytecode otherwise. */
-
-	/* StackInterpreter>>#validInstructionPointer:inFrame: */
 #include "interp/validInstructionPointerinFrame.c"
 
 
 
-/*	Note that we accept anInstrPointer pointing to a callPrimitiveBytecode
-	at the start of a method that contains a primitive. This because methods
-	like Context(Part)>>reset have to be updated to skip the callPrimtiive
-	bytecode otherwise. */
-/*	-1 for pre-increment in fetchNextBytecode */
-
-	/* StackInterpreter>>#validInstructionPointer:inMethod:framePointer: */
 #include "interp/validInstructionPointerinMethodframePointer.c"
 
 
 
-/*	Check that the base frames in all in-use stack pages have a sender and a
-	saved context.
- */
-
-	/* StackInterpreter>>#validStackPageBaseFrames */
 #include "interp/validStackPageBaseFrames.c"
 
 
 
-/*	Check that the base frame in the stack page has a valid sender context. */
-
-	/* StackInterpreter>>#validStackPageBaseFrame: */
 #include "interp/validStackPageBaseFrame.c"
 
 
@@ -11491,113 +6686,57 @@ voidLongRunningPrimitive(char *reason)
 	GIV(longRunningPrimitiveSignalUndelivered) = 1;
 	sqLowLevelMFence();
 }
-#endif /* LRPCheck */
+#endif
 
-
-/*	Make sure that all VM state that affects the heap contents is voided so
-	that the heap is
-	ready to be snapshotted. If flushExtPrims is true, flush references to
-	external primitives in methods. Answer the activeContext that should be
-	stored in the snapshot. */
-
-	/* StackInterpreter>>#voidVMStateForSnapshotFlushingExternalPrimitivesIf: */
 #include "interp/voidVMStateForSnapshotFlushingExternalPrimitivesIf.c"
 
 
 
-/*	Return the highest priority process that is ready to run.
-	To save time looking at many empty lists before finding a
-	runnable process the VM maintains a variable holding the
-	highest priority runnable process. If this variable is 0 then the
-	VM does not know the highest priority and must search all lists.
-	Answer nil if no process can be found. */
-
-	/* StackInterpreter>>#wakeHighestPriority */
 #include "interp/wakeHighestPriority.c"
 
 
 
-/*	useful for VM debugging */
-
-	/* StackInterpreter>>#whereIs: */
 #include "interp/whereIs.c"
 
 
 
-/*	Write the image header and heap contents to imageFile for snapshot. c.f.
-	writeImageFileIOSimulation. The game below is to maintain 64-bit alignment
-	for all putLong:toFile: occurrences. */
-
-	/* StackInterpreter>>#writeImageFileIO */
 #include "interp/writeImageFileIO.c"
 
 
-	/* StackInterpreterPrimitives>>#cloneContext: */
 #include "interp/cloneContext.c"
 
 
 
-/*	Arrange to answer naked frame pointers for unmarried
-	senders to avoid reifying contexts in the search. */
-
-	/* StackInterpreterPrimitives>>#fieldOrSenderFP:ofContext: */
 #include "interp/fieldOrSenderFPofContext.c"
 
 
 
-/*	Arrange to answer naked frame pointers for unmarried
-	senders to avoid reifying contexts in the search. */
-
-	/* StackInterpreterPrimitives>>#field:ofFrame: */
 #include "interp/fieldofFrame.c"
 
 
-	/* StackInterpreterPrimitives>>#isAppropriateForCopyObject: */
 #include "interp/isAppropriateForCopyObject.c"
 
 
 
-/*	The function has not been loaded yet. Fetch module and function name. */
-
-	/* StackInterpreterPrimitives>>#linkExternalCall:errInto: */
 #include "interp/linkExternalCallerrInto.c"
 
 
 
-/*	Return a shallow copy of the receiver.
-	Special-case non-single contexts (because of context-to-stack mapping).
-	Can't fail for contexts cuz of image context instantiation code (sigh). */
-/*	because of cloneContext: below */
-
-	/* StackInterpreterPrimitives>>#primitiveClone */
 #include "interp/primitiveClone.c"
 
 
-	/* StackInterpreterPrimitives>>#primitiveClosureCopyWithCopiedValues */
 #include "interp/primitiveClosureCopyWithCopiedValues.c"
 
 
 
-/*	Special version of primitiveAt for accessing contexts.
-	Written to be varargs for use from mirror primitives. */
-
-	/* StackInterpreterPrimitives>>#primitiveContextAt */
 #include "interp/primitiveContextAt.c"
 
 
 
-/*	Special version of primitiveAtPut for accessing contexts.
-	Written to be varargs for use from mirror primitives. */
-
-	/* StackInterpreterPrimitives>>#primitiveContextAtPut */
 #include "interp/primitiveContextAtPut.c"
 
 
 
-/*	Special version of primitiveSize for accessing contexts.
-	Written to be varargs for use from mirror primitives. */
-
-	/* StackInterpreterPrimitives>>#primitiveContextSize */
 #include "interp/primitiveContextSize.c"
 
 
@@ -11638,177 +6777,62 @@ primitiveContextXray(void)
 	longAtput((sp = GIV(stackPointer)),(((usqInt)flags << 3) | 1));
 	GIV(stackPointer) = sp;
 }
-#endif /* VMInvestigations */
+#endif
 
-
-/*	Set or clear the flag that controls whether modifications of 
-	the Display object are propagated to the underlying 
-	platform's screen. */
-
-	/* StackInterpreterPrimitives>>#primitiveDeferDisplayUpdates */
 #include "interp/primitiveDeferDisplayUpdates.c"
 
 
 
-/*	Simulate an primitiveExternalCall invocation (e.g. for the Debugger). Do
-	not cache anything.
-	e.g. ContextPart>>tryNamedPrimitiveIn: aCompiledMethod for: aReceiver
-	withArgs: arguments */
-
-	/* StackInterpreterPrimitives>>#primitiveDoNamedPrimitiveWithArgs */
 #include "interp/primitiveDoNamedPrimitiveWithArgs.c"
 
 
 
-/*	Implement either ProtoObject>>tryPrimitive: primIndex withArgs: argArray
-	or Context>>receiver: anObject tryPrimitive: primIndex withArgs: argArray.
-	If this primitive fails, arrange that its error code is a negative
-	integer, to
-	distinguish between this failing and the primitive it invokes failing. */
-
-	/* StackInterpreterPrimitives>>#primitiveDoPrimitiveWithArgs */
 #include "interp/primitiveDoPrimitiveWithArgs.c"
 
 
 
-/*	receiver, args, then method are on top of stack. Execute method against
-	receiver and args.
-	Set primitiveFunctionPointer because no cache lookup has been done for the
-	method, and
-	hence primitiveFunctionPointer is stale. */
-
-	/* StackInterpreterPrimitives>>#primitiveExecuteMethod */
 #include "interp/primitiveExecuteMethod.c"
 
 
 
-/*	receiver, argsArray, then method are on top of stack. Execute method
-	against receiver and args. Allow for up to two extra arguments (e.g. for
-	mirror primitives).
-	Set primitiveFunctionPointer because no cache lookup has been done for the
-	method, and hence primitiveFunctionPointer is stale. */
-
-	/* StackInterpreterPrimitives>>#primitiveExecuteMethodArgsArray */
 #include "interp/primitiveExecuteMethodArgsArray.c"
 
 
 
-/*	Call an external primitive. External primitive methods first literals are
-	an array of
-	* The module name (String | Symbol)
-	* The function name (String | Symbol)
-	* The session ID (SmallInteger) [OBSOLETE], or in Spur, the metadata
-	(accessorDepth and flags; Integer))
-	* The function index (Integer) in the externalPrimitiveTable
-	For fast interpreter dispatch in subsequent invocations the
-	primitiveFunctionPointer in the method cache is rewritten, either to the
-	function itself, or to zero if the external
-	function is not found. This allows for fast responses as long as the
-	method stays in
-	the cache. The cache rewrite relies on lastMethodCacheProbeWrite which is
-	set in
-	addNewMethodToCache:.
-	Now that the VM flushes function addresses from its tables, the session ID
-	is obsolete,
-	but it is kept for backward compatibility. Also, a failed lookup is
-	reported specially. If a
-	method has been looked up and not been found, the function address is
-	stored as -1
-	(i.e., the SmallInteger -1 to distinguish from 16rFFFFFFFF which may be
-	returned from
-	lookup), and the primitive fails with PrimErrNotFound.
- */
-/*	because the primitive accesses newMethod's first literal, which is checked
-	for explicitly in checkForAndFollowForwardedPrimitiveState
- */
-/*	since call may invoke a callback */
-/*	since external primitive linkage is in first literal... */
-/*	Check for it being a method for primitiveDoPrimitiveWithArgs.
-	Fetch the first literal of the method; check its an Array of length 4.
-	Look at the function index in case it has been loaded before */
-
-	/* StackInterpreterPrimitives>>#primitiveExternalCall */
 #include "interp/primitiveExternalCall.c"
 
 
 
-/*	Primitive. Search up the context stack for the next method context marked
-	for exception handling starting at the receiver. Return nil if none found */
-
-	/* StackInterpreterPrimitives>>#primitiveFindHandlerContext */
 #include "interp/primitiveFindHandlerContext.c"
 
 
 
-/*	Primitive. Search up the context stack for the next method context marked
-	for unwind
-	handling from the receiver up to but not including the argument. Return
-	nil if none found.
- */
-
-	/* StackInterpreterPrimitives>>#primitiveFindNextUnwindContext */
 #include "interp/primitiveFindNextUnwindContext.c"
 
 
 
-/*	The receiver is a compiledMethod. Clear all entries in the method lookup
-	cache that refer to this method, presumably because it has been redefined,
-	overridden or removed.
- */
-
-	/* StackInterpreterPrimitives>>#primitiveFlushCacheByMethod */
 #include "interp/primitiveFlushCacheByMethod.c"
 
 
 
-/*	The receiver is a message selector. Clear all entries in the method lookup
-	cache with this selector, presumably because an associated method has been
-	redefined.  */
-
-	/* StackInterpreterPrimitives>>#primitiveFlushCacheBySelector */
 #include "interp/primitiveFlushCacheBySelector.c"
 
 
 
-/*	Do a full garbage collection. In SqueakV3ObjectMemory, answer the number
-	of bytes available (including swap space if dynamic memory management is
-	supported). In Spur, answer the size of the largest free chunk. */
-/*	Do a full garbage collection. In SqueakV3ObjectMemory, answer the number
-	of bytes available (including swap space if dynamic memory management is
-	supported). In Spur, answer the size of the largest free chunk. */
-
-	/* StackInterpreterPrimitives>>#primitiveFullGC */
 #include "interp/primitiveFullGC.c"
 
 
-	/* StackInterpreterPrimitives>>#primitiveGetSetFFIExceptionHandling */
 #include "interp/primitiveGetSetFFIExceptionHandling.c"
 
 
 
-/*	Do a quick, incremental garbage collection and return the number of bytes
-	immediately available.
-	(Note: more space may be made available by doing a full garbage
-	collection. 
- */
-/*	Do a quick, incremental garbage collection and return the number of bytes
-	immediately available.
-	(Note: more space may be made available by doing a full garbage
-	collection. 
- */
-
-	/* StackInterpreterPrimitives>>#primitiveIncrementalGC */
 #include "interp/primitiveIncrementalGC.c"
 
 
 
-/*	because of externalInstVar:ofContext: below */
-
-	/* StackInterpreterPrimitives>>#primitiveInstVarAt */
 #include "interp/primitiveInstVarAt.c"
 
 
-	/* StackInterpreterPrimitives>>#primitiveInstVarAtPut */
 #include "interp/primitiveInstVarAtPut.c"
 
 
@@ -11921,297 +6945,77 @@ primitiveLongRunningPrimitiveSemaphore(void)
 	GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
 	return 0;
 }
-#endif /* LRPCheck */
+#endif
 
-
-/*	This primitive is assumed to be fast (see e.g.
-	MethodDictionary>>includesKey:) so make it so.
-	N.B. Works correctly for cogged methods too. */
-
-	/* StackInterpreterPrimitives>>#primitiveObjectPointsTo */
 #include "interp/primitiveObjectPointsTo.c"
 
 
-	/* StackInterpreterPrimitives>>#primitivePerform */
 #include "interp/primitivePerform.c"
 
 
 
-/*	Pin or unpin the receiver, i.e. make it immobile or mobile, based on the
-	argument. Answer whether the object was already pinned. N.B. pinning does
-	*not* prevent
-	an object from being garbage collected. */
-
-	/* StackInterpreterPrimitives>>#primitivePin */
 #include "interp/primitivePin.c"
 
 
 
-/*	Primitive. Indicate the semaphore to be signalled for upon garbage
-	collection 
- */
-
-	/* StackInterpreterPrimitives>>#primitiveSetGCSemaphore */
 #include "interp/primitiveSetGCSemaphore.c"
 
 
 
-/*	Cause the time semaphore, if one has been registered, to be
-	signalled when the microsecond clock is greater than or equal to
-	the given tick value. A tick value of zero turns off timer interrupts. */
-
-	/* StackInterpreterPrimitives>>#primitiveSignalAtMilliseconds */
 #include "interp/primitiveSignalAtMilliseconds.c"
 
 
 
-/*	Cause the time semaphore, if one has been registered, to be
-	signalled when the microsecond clock is greater than or equal to
-	the given tick value. A tick value of zero turns off timer interrupts. */
-
-	/* StackInterpreterPrimitives>>#primitiveSignalAtUTCMicroseconds */
 #include "interp/primitiveSignalAtUTCMicroseconds.c"
 
 
 
-/*	Answer a slot in an object. This numbers all slots from 1, ignoring the
-	distinction between
-	named and indexed inst vars. In objects with both named and indexed inst
-	vars, the named
-	inst vars precede the indexed ones. In non-object indexed objects (objects
-	that contain
-	bits, not object references) this primitive answers the raw integral value
-	at each slot. 
-	e.g. for Strings it answers the character code, not the Character object
-	at each slot. */
-/*	because of externalInstVar:ofContext: below */
-
-	/* StackInterpreterPrimitives>>#primitiveSlotAt */
 #include "interp/primitiveSlotAt.c"
 
 
 
-/*	Assign a slot in an object. This numbers all slots from 1, ignoring the
-	distinction between
-	named and indexed inst vars. In objects with both named and indexed inst
-	vars, the named
-	inst vars precede the indexed ones. In non-object indexed objects (objects
-	that contain
-	bits, not object references) this primitive assigns a raw integral value
-	at each slot. */
-
-	/* StackInterpreterPrimitives>>#primitiveSlotAtPut */
 #include "interp/primitiveSlotAtPut.c"
 
 
 
-/*	Atomic store into context stackPointer. 
-	Also ensures that any newly accessible cells are initialized to nil */
-
-	/* StackInterpreterPrimitives>>#primitiveStoreStackp */
 #include "interp/primitiveStoreStackp.c"
 
 
 
-/*	Primitive #568. Suspend the receiver, aProcess, such that it can be
-	executed again
-	by sending #resume. If the given process is not the active process, take
-	it off
-	its corresponding list. If the list was not its run queue assume it was on
-	some condition variable (Semaphore, Mutex) and back up its pc to the send
-	that invoked the wait state the process entered. Hence when the process
-	resumes it will reenter the wait state. Answer the list the receiver was
-	previously on,
-	unless it was the activeProcess, in which case answer nil.
-	c.f. primitiveSuspend,#88 & primitiveSuspendBackingUpV2,#578 */
-
-	/* StackInterpreterPrimitives>>#primitiveSuspendBackingUpV1 */
 #include "interp/primitiveSuspendBackingUpV1.c"
 
 
 
-/*	Primitive #578. Suspend the receiver, aProcess, such that it can be
-	executed again
-	by sending #resume. If the given process is not the active process, take
-	it off
-	its corresponding list. If the list was not its run queue assume it was on
-	some condition variable (Semaphore, Mutex) and back up its pc to the send
-	that invoked the wait state the process entered. Hence when the process
-	resumes it will reenter the wait state. Answer the list the receiver was
-	previously on iff
-	it was not active and not blocked, otherwise answer nil.
-	c.f. primitiveSuspend,#88 & primitiveSuspendBackingUpV1,#568,
-	which always answer the list the process was on, even if blocked. */
-
-	/* StackInterpreterPrimitives>>#primitiveSuspendBackingUpV2 */
 #include "interp/primitiveSuspendBackingUpV2.c"
 
 
 
-/*	Primitive. Terminate up the context stack from the receiver up to but not
-	including the argument, if previousContext is on my Context stack. Make
-	previousContext my
-	sender. This prim has to shadow the code in ContextPart>terminateTo: to be
-	correct. 
- */
-
-	/* StackInterpreterPrimitives>>#primitiveTerminateTo */
 #include "interp/primitiveTerminateTo.c"
 
 
 
-/*	Primitive. Unload the module with the given name.
-	Reloading of the module will happen *later* automatically, when a 
-	function from it is called. This is forced by invalidating all external
-	primitive methods and activations in flushExternalPrimitives.
-	N.B. since this is most likely a development time activity we don't care
-	about performance. */
-
-	/* StackInterpreterPrimitives>>#primitiveUnloadModule */
 #include "interp/primitiveUnloadModule.c"
 
 
 
-/*	Behaviour depends on argument count:
-	0 args:	return an Array of VM parameter values;
-	1 arg:	return the indicated VM parameter;
-	2 args:	set the VM indicated parameter.
-	VM parameters are numbered as follows:
-	1	end (v3)/size(Spur) of old-space (0-based, read-only)
-	2	end (v3)/size(Spur) of young/new-space (read-only)
-	3	end (v3)/size(Spur) of heap (read-only)
-	4	nil (was allocationCount (read-only))
-	5	nil (was allocations between GCs (read-write)
-	6	survivor count tenuring threshold (read-write)
-	7	full GCs since startup (read-only)
-	8	total milliseconds in full GCs since startup (read-only)
-	9	incremental GCs (SqueakV3) or scavenges (Spur) since startup (read-only)
-	10	total milliseconds in incremental GCs (SqueakV3) or scavenges (Spur)
-	since startup (read-only)
-	11	tenures of surving objects since startup or reset (read-write)
-	12-20 were specific to ikp's JITTER VM, now 12 16 open for use
-	13	if started, the start time in utc microseconds of the high-priority
-	ticker 14	if started, the number of checkHighPriorityTickees calls
-	15	if started, the number of tickee calls from checkHighPriorityTickees
-	16	total microseconds at idle since start-up (if non-zero)
-	17	fraction of the code zone to use (Sista only; used to control code zone
-	use to preserve sendAndBranchData on counter tripped callback)
-	18	total milliseconds in compaction phase of full GC since start-up (Spur
-	only) 19	scavenge threshold, the effective size of eden. When eden fills
-	to the threshold a scavenge is scheduled. Newer Spur VMs only.
-	20	utc microseconds at VM start-up (actually at time initialization, which
-	precedes image load).
-	21	root/remembered table size (occupancy) (read-only)
-	22	root table overflows since startup (read-only)
-	23	bytes of extra memory to reserve for VM buffers, plugins, etc (stored
-	in image file header).
-	24	memory threshold above which shrinking object memory (rw)
-	25	memory headroom when growing object memory (rw)
-	26	interruptChecksEveryNms - force an ioProcessEvents every N milliseconds
-	(rw) 27	number of times mark loop iterated for current IGC/FGC (read-only)
-	includes ALL marking
-	28	number of times sweep loop iterated for current IGC/FGC (read-only)
-	29	number of times make forward loop iterated for current IGC/FGC
-	(read-only) 30	number of times compact move loop iterated for current
-	IGC/FGC (read-only)
-	31	number of grow memory requests (read-only)
-	32	number of shrink memory requests (read-only)
-	33	number of root table entries used for current IGC/FGC (read-only)
-	34	Spur: bytes allocated in total since start-up or reset (read-write)
-	(Used to be number of allocations done before current IGC/FGC (read-only))
-	35	number of survivor objects after current IGC/FGC (read-only)
-	36	millisecond clock when current IGC/FGC completed (read-only)
-	37	number of marked objects for Roots of the world, not including Root
-	Table entries for current IGC/FGC (read-only)
-	38	milliseconds taken by current IGC (read-only)
-	39	Number of finalization signals for Weak Objects pending when current
-	IGC/FGC completed (read-only)
-	40	BytesPerOop for this image
-	41	imageFormatVersion for the VM
-	42	number of stack pages in use
-	43	desired number of stack pages (stored in image file header, max 65535)
-	44	size of eden, in bytes
-	45	desired size of eden, in bytes (stored in image file header)
-	46	machine code zone size, in bytes (Cog only; otherwise nil)
-	47	desired machine code zone size (stored in image file header; Cog only;
-	otherwise nil)
-	48	various header flags. See getImageHeaderFlags.
-	49	max size the image promises to grow the external semaphore table to (0
-	sets to default, which is 256 as of writing)
-	
-		50	max literal count for JIT compile (stored in image file header; Cog
-	only; otherwise nil)
-	51 nil; reserved for VM parameters that persist in the image (such as eden
-	above) 52	root/remembered table capacity
-	53	number of segments (Spur only; otherwise nil)
-	54	total size of free old space (Spur only, otherwise nil)
-	55	ratio of growth and image size at or above which a GC will be performed
-	post scavenge
-	56	number of process switches since startup (read-only)
-	57	number of ioProcessEvents calls since startup (read-only)
-	58	number of ForceInterruptCheck calls since startup (read-only)
-	59	number of check event calls since startup (read-only)
-	60	number of stack page overflows since startup (read-only)
-	61	number of stack page divorces since startup (read-only)
-	62	compiled code compactions since startup (read-only; Cog only; otherwise
-	nil) 63	total milliseconds in compiled code compactions since startup
-	(read-only; Cog only; otherwise nil)
-	64	the number of methods that currently have jitted machine-code
-	65	various VM feature flags; see getCogVMFeatureFlags
-	66	the byte size of a stack page
-	67	the max allowed size of old space (Spur only; nil otherwise; 0 implies
-	no limit except that of the underlying platform)
-	68	the average number of live stack pages when scanned by GC (at
-	scavenge/gc/become et al) (read-write)
-	69	the maximum number of live stack pages when scanned by GC (at
-	scavenge/gc/become et al) (read-write)
-	70	the vmProxyMajorVersion (the interpreterProxy VM_MAJOR_VERSION)
-	71	the vmProxyMinorVersion (the interpreterProxy VM_MINOR_VERSION)
-	72 total milliseconds in full GCs Mark phase since startup (read-only)
-	73 total milliseconds in full GCs Sweep phase since startup (read-only,
-	can be 0 depending on compactors)
-	74 maximum pause time due to segment allocation
-	75 whether the arithmetic primitives perform conversion in case of mixed
-	SmallInteger/Float (true) or fail (false)
-	76 the minimum unused headroom in all stack pages; Cog VMs only
-	
-	Note: Thanks to Ian Piumarta for this primitive. */
-
-	/* StackInterpreterPrimitives>>#primitiveVMParameter */
 #include "interp/primitiveVMParameter.c"
 
 
 
-/*	Potentially crash the VM by voiding the receiver. A subsequent inst var
-	access in the caller's frame should indirect through a null pointer. */
-
-	/* StackInterpreterPrimitives>>#primitiveVoidReceiver */
 #include "interp/primitiveVoidReceiver.c"
 
 
 
-/*	Void all internal VM state in the stack and machine code zones */
-
-	/* StackInterpreterPrimitives>>#primitiveVoidVMState */
 #include "interp/primitiveVoidVMState.c"
 
 
 
-/*	Prune the stack to contain only the path, removing stacked indices
-	and mapping frame pointers to contexts The issue here is that a
-	GC can occur during ensureFrameIsMarried:SP:, but frame pointers
-	are not valid objects. So first prune back to objects and framePointers
-	as integers, and then replace frame pointers as integers by contexts. */
-
-	/* StackInterpreterPrimitives>>#pruneStack:stackp: */
 #include "interp/pruneStackstackp.c"
 
 
-	/* StackInterpreterPrimitives>>#unmarkAfterPathTo */
 #include "interp/unmarkAfterPathTo.c"
 
 
-	/* StackInterpreterPrimitives>>#unmarkAllFrames */
 #include "interp/unmarkAllFrames.c"
 
 

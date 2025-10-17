@@ -1,5 +1,9 @@
 /* Extracted from interp.c:59843 (function printFrame). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#printFrame: */
+
 sqInt
 printFrame(char *theFP)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

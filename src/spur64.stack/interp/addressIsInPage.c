@@ -1,5 +1,9 @@
 /* Extracted from interp.c:10797 (function addressIsInPage). */
 
+/*	For assert-checking */
+
+	/* CogStackPage>>#addressIsInPage: */
+
 static NoDbgRegParms sqInt
 addressIsInPage(StackPage *self_in_CogStackPage, char *address)
 {

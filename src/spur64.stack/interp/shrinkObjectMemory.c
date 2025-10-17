@@ -1,5 +1,9 @@
 /* Extracted from interp.c:49646 (function shrinkObjectMemory). */
 
+/*	Answer if any shrinkage was achieved. */
+
+	/* SpurSegmentManager>>#shrinkObjectMemory: */
+
 static NoDbgRegParms int
 shrinkObjectMemory(usqInt delta)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,14 @@
 /* Extracted from interp.c:25137 (function primitiveTestAndSetOwnershipOfCriticalSection). */
 
+/*	Attempt to test-and-set the ownership of the critical section. If not
+	owned, set the owner to the current process and answer false. If owned by
+	the current process answer true. If owned by some other process answer
+	nil. For simulation if there is an argument it is taken to be the
+	effective activeProcess
+	(see Process>>effectiveProcess). */
+
+	/* InterpreterPrimitives>>#primitiveTestAndSetOwnershipOfCriticalSection */
+
 static void
 primitiveTestAndSetOwnershipOfCriticalSection(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

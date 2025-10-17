@@ -1,5 +1,10 @@
 /* Extracted from interp.c:41552 (function objectInPastSpaceBefore). */
 
+/*	For assertions only... This ends the recursion in setting up the bridged
+	enumerations of new space that need objectBefore: for assertion checking. */
+
+	/* SpurMemoryManager>>#objectInPastSpaceBefore: */
+
 static NoDbgRegParms sqInt
 objectInPastSpaceBefore(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

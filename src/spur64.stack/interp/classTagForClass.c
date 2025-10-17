@@ -1,5 +1,11 @@
 /* Extracted from interp.c:33398 (function classTagForClass). */
 
+/*	Answer the classObj's identityHash to use as a tag in the first-level
+	method lookup cache.
+ */
+
+	/* SpurMemoryManager>>#classTagForClass: */
+
 sqInt
 classTagForClass(sqInt classObj)
 {

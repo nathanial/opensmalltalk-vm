@@ -1,5 +1,10 @@
 /* Extracted from interp.c:12761 (function primitiveBitAnd). */
 
+/*	Note no short-cut for SmallIntegers. Either the inline interpreter
+	bytecode or the JIT primitive will handle this case. */
+
+	/* InterpreterPrimitives>>#primitiveBitAnd */
+
 static void
 primitiveBitAnd(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

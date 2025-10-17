@@ -1,5 +1,7 @@
 /* Extracted from interp.c:38991 (function mapExtraRoots). */
 
+	/* SpurMemoryManager>>#mapExtraRoots */
+
 static void
 mapExtraRoots(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

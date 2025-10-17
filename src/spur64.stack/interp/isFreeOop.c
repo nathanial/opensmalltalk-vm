@@ -1,5 +1,7 @@
 /* Extracted from interp.c:37318 (function isFreeOop). */
 
+	/* SpurMemoryManager>>#isFreeOop: */
+
 static NoDbgRegParms sqInt
 isFreeOop(sqInt oop)
 {

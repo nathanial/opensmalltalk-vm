@@ -1,5 +1,9 @@
 /* Extracted from interp.c:14194 (function primitiveCompareBytes). */
 
+/*	Primitive. Compare two byte-indexed objects for equality */
+
+	/* InterpreterPrimitives>>#primitiveCompareBytes */
+
 EXPORT(sqInt)
 primitiveCompareBytes(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

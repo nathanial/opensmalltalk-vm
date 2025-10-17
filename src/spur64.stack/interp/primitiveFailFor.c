@@ -1,5 +1,10 @@
 /* Extracted from interp.c:15376 (function primitiveFailFor). */
 
+/*	Set specific primitive failure.
+	N.B. primitiveFailFor: PrimNoErr is expected to clear the primFailCode. */
+
+	/* InterpreterPrimitives>>#primitiveFailFor: */
+
 sqInt
 primitiveFailFor(sqInt reasonCode)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

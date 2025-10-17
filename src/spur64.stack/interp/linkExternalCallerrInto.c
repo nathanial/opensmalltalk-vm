@@ -1,5 +1,9 @@
 /* Extracted from interp.c:66182 (function linkExternalCallerrInto). */
 
+/*	The function has not been loaded yet. Fetch module and function name. */
+
+	/* StackInterpreterPrimitives>>#linkExternalCall:errInto: */
+
 static NoDbgRegParms void
 (*linkExternalCallerrInto(sqInt externalCallLiteral, sqInt *failPtr))(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

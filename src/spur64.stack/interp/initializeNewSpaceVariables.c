@@ -1,5 +1,7 @@
 /* Extracted from interp.c:36464 (function initializeNewSpaceVariables). */
 
+	/* SpurMemoryManager>>#initializeNewSpaceVariables */
+
 static NeverInline void
 initializeNewSpaceVariables(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

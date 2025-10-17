@@ -1,5 +1,9 @@
 /* Extracted from interp.c:51056 (function checkOkayInterpreterObjects). */
 
+/*	useful for VM debugging */
+
+	/* StackInterpreter>>#checkOkayInterpreterObjects: */
+
 sqInt
 checkOkayInterpreterObjects(sqInt writeBack)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

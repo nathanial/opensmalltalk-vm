@@ -1,5 +1,7 @@
 /* Extracted from interp.c:61225 (function pushInteger). */
 
+	/* StackInterpreter>>#pushInteger: */
+
 sqInt
 pushInteger(sqInt integerValue)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:58409 (function postGCUpdateDisplayBits). */
 
+/*	Update the displayBits after a GC may have moved it.
+	Answer if the displayBits appear valid. The wrinkle here is that the
+	displayBits could be a surface handle. */
+
+	/* StackInterpreter>>#postGCUpdateDisplayBits */
+
 static sqInt
 postGCUpdateDisplayBits(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,10 @@
 /* Extracted from interp.c:67189 (function primitiveContextSize). */
 
+/*	Special version of primitiveSize for accessing contexts.
+	Written to be varargs for use from mirror primitives. */
+
+	/* StackInterpreterPrimitives>>#primitiveContextSize */
+
 static void
 primitiveContextSize(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

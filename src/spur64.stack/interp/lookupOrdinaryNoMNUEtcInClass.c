@@ -1,5 +1,11 @@
 /* Extracted from interp.c:56281 (function lookupOrdinaryNoMNUEtcInClass). */
 
+/*	Lookup messageSelector in class. Answer 0 on success. Answer the splObj:
+	index for the error selector to use on failure rather than performing MNU
+	processing etc. */
+
+	/* StackInterpreter>>#lookupOrdinaryNoMNUEtcInClass: */
+
 static NoDbgRegParms sqInt
 lookupOrdinaryNoMNUEtcInClass(sqInt class)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

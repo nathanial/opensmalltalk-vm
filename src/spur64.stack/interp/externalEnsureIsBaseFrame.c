@@ -1,5 +1,10 @@
 /* Extracted from interp.c:52703 (function externalEnsureIsBaseFrame). */
 
+/*	Ensure aFramePtr is a base frame. Then we can assign its sender.
+	Answer the possibly moved location of the frame. */
+
+	/* StackInterpreter>>#externalEnsureIsBaseFrame: */
+
 static NoDbgRegParms char *
 externalEnsureIsBaseFrame(char *aFramePtr)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

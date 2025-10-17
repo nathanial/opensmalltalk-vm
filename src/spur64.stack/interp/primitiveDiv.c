@@ -1,5 +1,7 @@
 /* Extracted from interp.c:14770 (function primitiveDiv). */
 
+	/* InterpreterPrimitives>>#primitiveDiv */
+
 static void
 primitiveDiv(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

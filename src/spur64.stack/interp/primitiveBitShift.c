@@ -1,5 +1,10 @@
 /* Extracted from interp.c:12937 (function primitiveBitShift). */
 
+/*	Perform a bitShift. In 32-bits deal only with non-negative 32-bit
+	integers. In 64-bits deal with signed 64-bit quantities (max (2^63)-1). */
+
+	/* InterpreterPrimitives>>#primitiveBitShift */
+
 static void
 primitiveBitShift(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

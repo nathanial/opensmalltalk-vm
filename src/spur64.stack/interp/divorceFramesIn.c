@@ -1,5 +1,7 @@
 /* Extracted from interp.c:51850 (function divorceFramesIn). */
 
+	/* StackInterpreter>>#divorceFramesIn: */
+
 static NoDbgRegParms void
 divorceFramesIn(StackPage *aStackPage)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

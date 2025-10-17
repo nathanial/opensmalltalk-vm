@@ -1,5 +1,15 @@
 /* Extracted from interp.c:43670 (function printMethodImplementorsOf). */
 
+ /* LLDB */
+
+
+/*	Scan the heap printing the oops of any and all methods that implement
+	anOop 
+ */
+/*	useful for VM debugging */
+
+	/* SpurMemoryManager>>#printMethodImplementorsOf: */
+
 void
 printMethodImplementorsOf(sqInt anOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

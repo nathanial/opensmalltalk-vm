@@ -1,5 +1,7 @@
 /* Extracted from interp.c:36031 (function goodContextSize). */
 
+	/* SpurMemoryManager>>#goodContextSize: */
+
 static NoDbgRegParms sqInt
 goodContextSize(sqInt oop)
 {

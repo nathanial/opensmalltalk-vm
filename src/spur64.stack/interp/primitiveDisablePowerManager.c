@@ -1,5 +1,12 @@
 /* Extracted from interp.c:14742 (function primitiveDisablePowerManager). */
 
+/*	Pass in a non-negative value to disable the architectures powermanager if
+	any, zero to enable. This is a named (not numbered) primitive in the null
+	module (ie the VM)
+ */
+
+	/* InterpreterPrimitives>>#primitiveDisablePowerManager */
+
 EXPORT(sqInt)
 primitiveDisablePowerManager(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

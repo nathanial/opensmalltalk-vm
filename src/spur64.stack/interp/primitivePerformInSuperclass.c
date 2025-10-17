@@ -1,5 +1,7 @@
 /* Extracted from interp.c:20436 (function primitivePerformInSuperclass). */
 
+	/* InterpreterPrimitives>>#primitivePerformInSuperclass */
+
 static void
 primitivePerformInSuperclass(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

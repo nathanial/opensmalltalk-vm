@@ -1,5 +1,7 @@
 /* Extracted from interp.c:30593 (function allObjectsUnmarked). */
 
+	/* SpurMemoryManager>>#allObjectsUnmarked */
+
 static sqInt
 allObjectsUnmarked(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

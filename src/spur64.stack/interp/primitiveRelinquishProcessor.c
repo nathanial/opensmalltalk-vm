@@ -1,5 +1,11 @@
 /* Extracted from interp.c:21380 (function primitiveRelinquishProcessor). */
 
+/*	Relinquish the processor for up to the given number of microseconds. The
+	exact behavior of this primitive is platform dependent.
+ */
+
+	/* InterpreterPrimitives>>#primitiveRelinquishProcessor */
+
 static void
 primitiveRelinquishProcessor(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

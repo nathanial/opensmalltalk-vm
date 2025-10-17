@@ -1,5 +1,14 @@
 /* Extracted from interp.c:19899 (function primitiveNotIdentical). */
 
+/*	is the receiver/first argument not the same object as the (last)
+	argument?. pop argumentCount because this can be used as a mirror
+	primitive. 
+ */
+/*	is the receiver/first argument the same object as the (last) argument?.
+	pop argumentCount because this can be used as a mirror primitive. */
+
+	/* InterpreterPrimitives>>#primitiveNotIdentical */
+
 static void
 primitiveNotIdentical(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

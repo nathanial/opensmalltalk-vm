@@ -1,5 +1,14 @@
 /* Extracted from interp.c:70247 (function primitiveTerminateTo). */
 
+/*	Primitive. Terminate up the context stack from the receiver up to but not
+	including the argument, if previousContext is on my Context stack. Make
+	previousContext my
+	sender. This prim has to shadow the code in ContextPart>terminateTo: to be
+	correct. 
+ */
+
+	/* StackInterpreterPrimitives>>#primitiveTerminateTo */
+
 static void
 primitiveTerminateTo(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

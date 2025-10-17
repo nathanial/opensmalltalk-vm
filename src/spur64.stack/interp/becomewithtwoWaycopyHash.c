@@ -1,5 +1,19 @@
 /* Extracted from interp.c:31274 (function becomewithtwoWaycopyHash). */
 
+/*	All references to each object in array1 are swapped with all references to
+	the corresponding object in array2. That is, all pointers to one object
+	are replaced
+	with with pointers to the other. The arguments must be arrays of the same
+	length. 
+	Answers PrimNoErr if the primitive succeeds, otherwise a relevant error
+	code. 
+ */
+/*	Implementation: Uses lazy forwarding to defer updating references until
+	message send.
+ */
+
+	/* SpurMemoryManager>>#become:with:twoWay:copyHash: */
+
 static NoDbgRegParms sqInt
 becomewithtwoWaycopyHash(sqInt array1, sqInt array2, sqInt twoWayFlag, sqInt copyHashFlag)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

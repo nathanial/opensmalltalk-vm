@@ -1,5 +1,11 @@
 /* Extracted from interp.c:17582 (function primitiveHashMultiply). */
 
+/*	Implement 28-bit hashMultiply for SmallInteger and LargePositiveInteger
+	receivers. 
+ */
+
+	/* InterpreterPrimitives>>#primitiveHashMultiply */
+
 static void
 primitiveHashMultiply(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

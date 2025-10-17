@@ -1,5 +1,11 @@
 /* Extracted from interp.c:16484 (function primitiveFormPrint). */
 
+/*	On platforms that support it, this primitive prints the receiver, assumed
+	to be a Form, to the default printer.
+ */
+
+	/* InterpreterPrimitives>>#primitiveFormPrint */
+
 static void
 primitiveFormPrint(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,9 @@
 /* Extracted from interp.c:55472 (function isKindOf). */
 
+/*	Support for external primitives. */
+
+	/* StackInterpreter>>#is:KindOf: */
+
 sqInt
 isKindOf(sqInt oop, char *className)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

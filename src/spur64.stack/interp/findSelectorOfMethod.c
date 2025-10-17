@@ -1,5 +1,7 @@
 /* Extracted from interp.c:53459 (function findSelectorOfMethod). */
 
+	/* StackInterpreter>>#findSelectorOfMethod: */
+
 sqInt
 findSelectorOfMethod(sqInt aMethodOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,14 @@
 /* Extracted from interp.c:22429 (function primitiveShortAtPut). */
 
+/*	Treat the receiver, which can be indexible by either bytes or words, as an
+	array of signed 16-bit values. Set the contents of the given index to the
+	given value.
+	Note that the index specifies the i-th 16-bit entry, not the i-th byte or
+	word. 
+ */
+
+	/* InterpreterPrimitives>>#primitiveShortAtPut */
+
 static void
 primitiveShortAtPut(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

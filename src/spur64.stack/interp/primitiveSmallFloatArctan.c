@@ -1,5 +1,7 @@
 /* Extracted from interp.c:22943 (function primitiveSmallFloatArctan). */
 
+	/* InterpreterPrimitives>>#primitiveSmallFloatArctan */
+
 static void
 primitiveSmallFloatArctan(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

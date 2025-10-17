@@ -1,5 +1,10 @@
 /* Extracted from interp.c:22488 (function primitiveShowDisplayRect). */
 
+/*	Force the given rectangular section of the Display to be 
+	copied to the screen. */
+
+	/* InterpreterPrimitives>>#primitiveShowDisplayRect */
+
 static void
 primitiveShowDisplayRect(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

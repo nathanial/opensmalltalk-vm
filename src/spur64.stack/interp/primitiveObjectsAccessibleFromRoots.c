@@ -1,5 +1,17 @@
 /* Extracted from interp.c:20049 (function primitiveObjectsAccessibleFromRoots). */
 
+/*	This primitive is called from Squeak as...
+	arrayOfRoots uniquelyAccessibleObjects */
+/*	This primitive answers an array of the receiver and every object in its
+	proper tree of subParts (ie, that is not refered to from anywhere else
+	outside the tree).
+ */
+/*	This primitive could be used to implement the primitiveStoreImageSegment
+	segment, thanks to a suggestion from Igor Stassenko. Currently it is
+	used only to debug that primitive. */
+
+	/* InterpreterPrimitives>>#primitiveObjectsAccessibleFromRoots */
+
 static void
 primitiveObjectsAccessibleFromRoots(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

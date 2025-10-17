@@ -1,5 +1,7 @@
 /* Extracted from interp.c:44636 (function printStringDataOfon). */
 
+	/* SpurMemoryManager>>#printStringDataOf:on: */
+
 static NoDbgRegParms void
 printStringDataOfon(sqInt oop, FILE *aStream)
 {

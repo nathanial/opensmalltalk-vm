@@ -1,5 +1,22 @@
 /* Extracted from interp.c:47738 (function planCompactSavingForwarders). */
 
+/*	Sweep the heap from firstFreeObject forwarding marked objects to where
+	they can be moved to, saving their forwarding pointer in
+	savedFirstFieldsSpace. Continue until either the end of the heap is
+	reached or savedFirstFieldsSpace is full.
+	Answer if the end of the heap was reached (savedFirstFieldsSpace has not
+	overflowed). 
+	The enumerations in planCompactSavingForwarders,
+	updatePointersInMobileObjects and copyAndUnmarkMobileObjects
+	match. We could implement them as a single enumeration method taking
+	several block arguments, but arguably that
+	would make understanding an already tricky algorithm more difficult.
+	Instead we tolerate the duplication and encourage
+	the reader to diff the three methods to see where they diverge (e.g. via
+	Cmd-shift-C).  */
+
+	/* SpurPlanningCompactor>>#planCompactSavingForwarders */
+
 static NeverInline sqInt
 planCompactSavingForwarders(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT

@@ -1,5 +1,11 @@
 /* Extracted from interp.c:48003 (function scanForFirstFreeAndFirstMobileObjectFrom). */
 
+/*	Scan from initialObject, setting firstMobileObject to the first marked
+	object after the first free object found, or endOfMemory if none is found.
+	Answer the first free object found, or nil if none. */
+
+	/* SpurPlanningCompactor>>#scanForFirstFreeAndFirstMobileObjectFrom: */
+
 static NoDbgRegParms sqInt
 scanForFirstFreeAndFirstMobileObjectFrom(sqInt initialObject)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
