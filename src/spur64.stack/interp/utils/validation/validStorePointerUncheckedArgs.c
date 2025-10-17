@@ -8,18 +8,15 @@ static sqInt validStorePointerUncheckedArgs(sqInt fieldIndex, sqInt objOop,
 
   return (fieldIndex >= 0) &&
          (((fieldIndex == 0) ||
-           (fieldIndex <
-            ((
-              assert((classIndexOf(objOop)) >
-                     (isForwardedObjectClassIndexPun())),
-              numSlotsOf(objOop))))) &&
+           (fieldIndex < ((assert((classIndexOf(objOop)) >
+                                  (isForwardedObjectClassIndexPun())),
+                           numSlotsOf(objOop))))) &&
           ((((valuePointer & (tagMask())) != 0)) ||
            ((/* isInHeapBounds: */
              (oopisGreaterThanOrEqualTo(valuePointer, newSpaceStart)) &&
              (oopisLessThan(valuePointer, endOfMemory))) ||
             (((fieldIndex == 0) &&
-              ((((
-                  assert((classIndexOf(objOop)) >
+              ((((assert((classIndexOf(objOop)) >
                          (isForwardedObjectClassIndexPun())),
                   numSlotsOf(objOop))) == 0) ||
                (gcPhaseInProgress == SlidingCompactionInProgress))) ||

@@ -39,13 +39,11 @@ static void primitiveUnloadModule(void) {
   fmt = (byteAt((void *)(moduleName + (formatFieldByteOffset())))) &
         (formatMask());
   assert(fmt >= (firstByteFormat()));
-  moduleLength =
-      ((((
-          assert((classIndexOf(moduleName)) >
-                 (isForwardedObjectClassIndexPun())),
-          numSlotsOf(moduleName)))
-        << (shiftForWord()))) -
-      (fmt & 7);
+  moduleLength = ((((assert((classIndexOf(moduleName)) >
+                            (isForwardedObjectClassIndexPun())),
+                     numSlotsOf(moduleName)))
+                   << (shiftForWord()))) -
+                 (fmt & 7);
   if (!(ioUnloadModuleOfLength(oopForPointer(firstIndexableField(moduleName)),
                                moduleLength))) {
     /* begin primitiveFail */

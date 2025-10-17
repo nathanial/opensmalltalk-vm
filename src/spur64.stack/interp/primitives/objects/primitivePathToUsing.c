@@ -240,11 +240,10 @@ l2:
           unmarkAfterPathTo();
 
           /* begin nilFieldsOf: */
-          toDoLimit =
-              ((assert((classIndexOf(stack)) >
-                       (isForwardedObjectClassIndexPun())),
-                numSlotsOf(stack))) -
-              1;
+          toDoLimit = ((assert((classIndexOf(stack)) >
+                               (isForwardedObjectClassIndexPun())),
+                        numSlotsOf(stack))) -
+                      1;
           for (i = 0; i <= toDoLimit; i += 1) {
             /* begin storePointerUnchecked:ofObject:withValue: */
             assert((isNonImmediate(stack)) && (!(isForwarded(stack))));
@@ -312,9 +311,7 @@ l2:
 
             /* contexts end at the stack pointer */
 
-            
-            index =
-                numSlotsOf(next);
+            index = numSlotsOf(next);
             goto l4;
           }
           if (fmt == (forwardedFormat())) {

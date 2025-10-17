@@ -33,8 +33,7 @@ static void primitiveSuspend(void) {
          ((!(myList & (tagMask())))) &&
          (((byteAt((void *)(myList + (formatFieldByteOffset())))) &
            (formatMask())) <= 5 /* lastPointerFormat */)) &&
-        ((((
-            numSlotsOf(myList))) > LastLinkIndex) &&
+        ((((numSlotsOf(myList))) > LastLinkIndex) &&
          ((((longAt((void *)(myContext))) & (classIndexMask())) ==
            ClassMethodContextCompactIndex) &&
           ((/* begin isResumableContext: */

@@ -86,11 +86,9 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
         segIndex = hash;
       } else {
         /* begin newOutPointer:at:in:hashes: */
-        if (outIndex >=
-            ((
-              assert((classIndexOf(outPointerArray)) >
-                     (isForwardedObjectClassIndexPun())),
-              numSlotsOf(outPointerArray)))) {
+        if (outIndex >= ((assert((classIndexOf(outPointerArray)) >
+                                 (isForwardedObjectClassIndexPun())),
+                          numSlotsOf(outPointerArray)))) {
           outIndex = 0;
           goto l2;
         }
@@ -175,11 +173,9 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
             oop = ((hash - TopHashBit) * BytesPerOop) + TopOopBit;
           } else {
             /* begin newOutPointer:at:in:hashes: */
-            if (outIndex >=
-                ((
-                  assert((classIndexOf(outPointerArray)) >
-                         (isForwardedObjectClassIndexPun())),
-                  numSlotsOf(outPointerArray)))) {
+            if (outIndex >= ((assert((classIndexOf(outPointerArray)) >
+                                     (isForwardedObjectClassIndexPun())),
+                              numSlotsOf(outPointerArray)))) {
               outIndex = 0;
               goto l3;
             }

@@ -74,7 +74,6 @@ void printReferencesTo(sqInt anOop) {
 
         /* contexts end at the stack pointer */
 
-        
         i = numSlotsOf(objSqInt);
         goto l3;
       }

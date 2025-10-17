@@ -34,8 +34,7 @@ static sqInt isLinkedExternalPrimitive(sqInt methodObj) {
              /* literalCountOfAlternateHeader: */
              ((header >> 3)) & AlternateHeaderNumLiteralsMask)) > 0) &&
           ((isArray((literal = fetchPointerofObject(1U, methodObj)))) &&
-           ((((
-               assert((classIndexOf(literal)) >
+           ((((assert((classIndexOf(literal)) >
                       (isForwardedObjectClassIndexPun())),
                numSlotsOf(literal))) == 4) &&
             (((targetFunctionIndex = fetchPointerofObject(

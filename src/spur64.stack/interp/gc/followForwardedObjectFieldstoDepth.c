@@ -46,9 +46,7 @@ static sqInt followForwardedObjectFieldstoDepth(sqInt objOop, sqInt depth) {
 
     /* contexts end at the stack pointer */
 
-    
-    numSlots =
-        numSlotsOf(objOop);
+    numSlots = numSlotsOf(objOop);
     goto l2;
   }
   if (fmt == (forwardedFormat())) {

@@ -17,8 +17,7 @@ static sqInt lastPointerOfWhileSwizzling(sqInt objOop) {
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt != (forwardedFormat()));
   if (fmt <= 5 /* lastPointerFormat */) {
-    return ((((
-               assert((classIndexOf(objOop)) >
+    return ((((assert((classIndexOf(objOop)) >
                       (isForwardedObjectClassIndexPun())),
                numSlotsOf(objOop))) -
              1) *

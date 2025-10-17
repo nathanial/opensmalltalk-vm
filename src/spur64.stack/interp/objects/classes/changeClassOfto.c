@@ -57,8 +57,7 @@ static sqInt changeClassOfto(sqInt rcvr, sqInt argClass) {
     if (instFormat > 5 /* lastPointerFormat */) {
       return PrimErrInappropriate;
     }
-    if ((((
-           (((instSlots = numSlotsOf(rcvr)))))) < fixedFields) ||
+    if (((((((instSlots = numSlotsOf(rcvr)))))) < fixedFields) ||
         ((instSlots > fixedFields) &&
          (/* isFixedSizePointerFormat: */
           (classFormat <= (nonIndexablePointerFormat())) ||
@@ -78,8 +77,7 @@ static sqInt changeClassOfto(sqInt rcvr, sqInt argClass) {
 
     /* begin numBytesOf: */
     fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
-    numBytes =
-        numSlotsOf(rcvr);
+    numBytes = numSlotsOf(rcvr);
     numBytes = (numBytes << (shiftForWord()));
     if (fmt >= (firstByteFormat())) {
       instBytes = numBytes - (fmt & 7);

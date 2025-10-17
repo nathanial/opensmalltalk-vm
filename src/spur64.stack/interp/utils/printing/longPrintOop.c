@@ -245,9 +245,7 @@ void longPrintOop(sqInt oop) {
 
     /* contexts end at the stack pointer */
 
-    
-    lastPointer =
-        numSlotsOf(oop);
+    lastPointer = numSlotsOf(oop);
     goto l3;
   }
   if (fmtSqInt == (forwardedFormat())) {

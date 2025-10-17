@@ -10,7 +10,5 @@ static sqInt signalExternalSemaphores(void) {
   sqInt xArray;
 
   xArray = fetchPointerofObject(ExternalObjectsArray, specialObjectsOop);
-  return doSignalExternalSemaphores(
-      (
-       numSlotsOf(xArray)));
+  return doSignalExternalSemaphores((numSlotsOf(xArray)));
 }

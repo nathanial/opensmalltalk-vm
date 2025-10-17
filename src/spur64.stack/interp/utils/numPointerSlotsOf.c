@@ -35,7 +35,6 @@ static usqInt numPointerSlotsOf(sqInt objOop) {
 
     /* contexts end at the stack pointer */
 
-    
     return numSlotsOf(objOop);
   }
   if (fmt == (forwardedFormat())) {

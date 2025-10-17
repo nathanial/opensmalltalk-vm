@@ -54,8 +54,7 @@ static sqIntptr_t signedMachineIntegerValueOfObj(sqInt oop) {
 
   /* begin numBytesOf: */
   fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-  numBytes =
-      numSlotsOf(oop);
+  numBytes = numSlotsOf(oop);
   numBytes = (numBytes << (shiftForWord()));
   if (fmt >= (firstByteFormat())) {
     bs = numBytes - (fmt & 7);

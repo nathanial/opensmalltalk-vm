@@ -16,9 +16,7 @@ sqInt cloneObject(sqInt objOop) {
   sqInt referent;
   sqInt valuePointer;
 
-  
-  numSlots =
-      numSlotsOf(objOop);
+  numSlots = numSlotsOf(objOop);
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
   if (numSlots > ((1U << (fixedFieldsFieldWidth())) - 1)) {
     classIndex = (longAt((void *)(objOop))) & (classIndexMask());

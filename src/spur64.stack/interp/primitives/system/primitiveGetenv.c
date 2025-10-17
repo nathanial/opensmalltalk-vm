@@ -45,8 +45,7 @@ primitiveGetenv(void) {
 
   /* begin numBytesOf: */
   fmt = (byteAt((void *)(obj + (formatFieldByteOffset())))) & (formatMask());
-  numBytes =
-      numSlotsOf(obj);
+  numBytes = numSlotsOf(obj);
   numBytes = (numBytes << (shiftForWord()));
   if (fmt >= (firstByteFormat())) {
     sz = numBytes - (fmt & 7);

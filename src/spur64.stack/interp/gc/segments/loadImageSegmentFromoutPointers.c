@@ -51,9 +51,7 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
   sqInt segVersion;
   sqInt toDoLimit;
 
-  
-  segmentLimit =
-      numSlotsOf(segmentWordArray);
+  segmentLimit = numSlotsOf(segmentWordArray);
   if ((/* objectBytesForSlots: */
        (segmentLimit ? ((segmentLimit << (shiftForWord()))) +
                            ((segmentLimit >= (numSlotsMask())
@@ -105,12 +103,10 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
     /* begin ensureNoNewObjectsIn: */
     hash = 0;
     scanClassTable = 0;
-    toDoLimit =
-        ((
-          assert((classIndexOf(outPointerArray)) >
-                 (isForwardedObjectClassIndexPun())),
-          numSlotsOf(outPointerArray))) -
-        1;
+    toDoLimit = ((assert((classIndexOf(outPointerArray)) >
+                         (isForwardedObjectClassIndexPun())),
+                  numSlotsOf(outPointerArray))) -
+                1;
     for (i = 0; i <= toDoLimit; i += 1) {
       oop = fetchPointerofObject(i, outPointerArray);
       if (/* isYoung: */
@@ -199,9 +195,8 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
      second pass. */
 
   /* begin mapOopsAndValidateClassRefsFrom:to:outPointers: */
-  
-  numOutPointers =
-      numSlotsOf(outPointerArray);
+
+  numOutPointers = numSlotsOf(outPointerArray);
   numSegObjs = 0;
 
   /* begin objectStartingAt: */

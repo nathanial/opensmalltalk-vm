@@ -29,11 +29,7 @@ static void primitiveClipboardText(void) {
       /* begin numBytesOfBytes: */
       fmt = (byteAt((void *)(s + (formatFieldByteOffset())))) & (formatMask());
       assert(fmt >= (firstByteFormat()));
-      sz =
-          ((((
-              numSlotsOf(s)))
-            << (shiftForWord()))) -
-          (fmt & 7);
+      sz = ((((numSlotsOf(s))) << (shiftForWord()))) - (fmt & 7);
       clipboardWriteFromAt(sz, s + BaseHeaderSize, 0);
 
       /* begin pop: */

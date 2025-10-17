@@ -57,9 +57,8 @@ static sqInt lookupMethodInClass(sqInt class) {
        -- raise exception #cannotInterpret:. */
 
     /* begin lookupMethodInDictionary: */
-    
-    length =
-        numSlotsOf(dictionary);
+
+    length = numSlotsOf(dictionary);
     mask = (length - SelectorStart) - 1;
 
     /* Use linear search on small dictionaries; its cheaper.

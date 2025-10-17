@@ -54,9 +54,8 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
     }
 
     /* begin lookupMethodInDictionary: */
-    
-    length =
-        numSlotsOf(dictionary);
+
+    length = numSlotsOf(dictionary);
     mask = (length - SelectorStart) - 1;
 
     /* Use linear search on small dictionaries; its cheaper.

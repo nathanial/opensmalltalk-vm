@@ -14,7 +14,7 @@ static usqInt numSlotsOfIndexablePointerObj(sqInt objOop) {
       ClassMethodContextCompactIndex) {
     return CtxtTempFrameStart + (fetchStackPointerOf(objOop));
   } else {
-    
+
     return numSlotsOf(objOop);
   }
 }

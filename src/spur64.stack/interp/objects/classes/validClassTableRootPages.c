@@ -11,12 +11,12 @@ static sqInt validClassTableRootPages(void) {
   sqInt obj;
   sqInt toDoLimit;
 
-  if (!(((
-          assert((classIndexOf(hiddenRootsObj)) >
+  if (!(((assert((classIndexOf(hiddenRootsObj)) >
                  (isForwardedObjectClassIndexPun())),
-          numSlotsOf(hiddenRootsObj))) == ((1U << (22 /* classIndexFieldWidth */ -
-                                         (classTableMajorIndexShift()))) +
-                                 8 /* hiddenRootSlots */))) {
+          numSlotsOf(hiddenRootsObj))) ==
+        ((1U << (22 /* classIndexFieldWidth */ -
+                 (classTableMajorIndexShift()))) +
+         8 /* hiddenRootSlots */))) {
     return 0;
   }
 
@@ -31,8 +31,7 @@ static sqInt validClassTableRootPages(void) {
   for (i = 0; i < numClassTablePages; i += 1) {
     obj = fetchPointerofObject(i, hiddenRootsObj);
     if (!((addressCouldBeObj(obj)) &&
-          (((
-             numSlotsOf(obj))) == (1U << (classTableMajorIndexShift()))))) {
+          (((numSlotsOf(obj))) == (1U << (classTableMajorIndexShift()))))) {
       return 0;
     }
   }

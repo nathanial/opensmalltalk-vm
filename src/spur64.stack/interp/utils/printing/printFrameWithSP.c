@@ -45,14 +45,11 @@ sqInt printFrameWithSP(char *theFP, char *theSP) {
   printFrameOopat("receiver", theFP + FoxReceiver);
   topThing = longAt(theSP);
   if ((topThing >= theMethod) &&
-      (topThing <=
-       (theMethod +
-        (((((
-             assert((classIndexOf(theMethod)) >
-                    (isForwardedObjectClassIndexPun())),
-             numSlotsOf(theMethod)))
-           << (shiftForWord()))) +
-         BaseHeaderSize)))) {
+      (topThing <= (theMethod + (((((assert((classIndexOf(theMethod)) >
+                                            (isForwardedObjectClassIndexPun())),
+                                     numSlotsOf(theMethod)))
+                                   << (shiftForWord()))) +
+                                 BaseHeaderSize)))) {
     toDoLimit = theSP + BytesPerWord;
     for (addr = ((theFP + FoxReceiver) - BytesPerWord); addr >= toDoLimit;
          addr += (-BytesPerWord)) {

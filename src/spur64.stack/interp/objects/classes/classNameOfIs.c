@@ -12,8 +12,7 @@ static sqInt classNameOfIs(sqInt aClass, char *className) {
   usqInt numSlots;
   char *srcName;
 
-  if (((
-        numSlotsOf(aClass))) <= classNameIndex) {
+  if (((numSlotsOf(aClass))) <= classNameIndex) {
     return 0;
   }
   name = fetchPointerofObject(classNameIndex, aClass);
@@ -27,11 +26,7 @@ static sqInt classNameOfIs(sqInt aClass, char *className) {
   /* begin numBytesOfBytes: */
   fmt = (byteAt((void *)(name + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
-  length =
-      ((((
-          numSlotsOf(name)))
-        << (shiftForWord()))) -
-      (fmt & 7);
+  length = ((((numSlotsOf(name))) << (shiftForWord()))) - (fmt & 7);
   srcName = ((char *)(arrayValueOf(name)));
   for (i = 0; i < length; i += 1) {
     if (!((srcName[i]) == (className[i]))) {

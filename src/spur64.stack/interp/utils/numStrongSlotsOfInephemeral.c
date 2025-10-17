@@ -21,9 +21,8 @@ static sqInt numStrongSlotsOfInephemeral(sqInt objOop) {
          ((isImmediate(keyOfEphemeron(objOop))) ||
           (isMarked(keyOfEphemeron(objOop)))));
   if (fmt <= 5 /* lastPointerFormat */) {
-    
-    numSlots =
-        numSlotsOf(objOop);
+
+    numSlots = numSlotsOf(objOop);
     if (fmt <= (arrayFormat())) {
       return numSlots;
     }

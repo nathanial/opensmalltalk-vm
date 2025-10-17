@@ -12,9 +12,7 @@ sqInt numBytesOf(sqInt objOop) {
 
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
 
-  
-  numBytes =
-      numSlotsOf(objOop);
+  numBytes = numSlotsOf(objOop);
   numBytes = (numBytes << (shiftForWord()));
   if (fmt >= (firstByteFormat())) {
     return numBytes - (fmt & 7);

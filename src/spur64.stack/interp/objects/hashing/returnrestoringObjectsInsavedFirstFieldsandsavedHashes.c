@@ -18,11 +18,10 @@ static sqInt returnrestoringObjectsInsavedFirstFieldsandsavedHashes(
   sqInt valuePointer;
 
   /* begin restoreObjectsIn:upTo:savedFirstFields: */
-  
+
   assert((classIndexOf(reachableObjectsArray)) >
          (isForwardedObjectClassIndexPun()));
-  numSlots =
-      numSlotsOf(reachableObjectsArray);
+  numSlots = numSlotsOf(reachableObjectsArray);
   for (i = 0; i < numSlots; i += 1) {
     oop = fetchPointerofObject(i, reachableObjectsArray);
     valuePointer = fetchPointerofObject(i, savedFirstFields);
@@ -45,11 +44,10 @@ static sqInt returnrestoringObjectsInsavedFirstFieldsandsavedHashes(
   }
 
   /* begin restoreObjectsIn:savedHashes: */
-  toDoLimit =
-      ((assert((classIndexOf(outPointersArray)) >
-               (isForwardedObjectClassIndexPun())),
-        numSlotsOf(outPointersArray))) -
-      1;
+  toDoLimit = ((assert((classIndexOf(outPointersArray)) >
+                       (isForwardedObjectClassIndexPun())),
+                numSlotsOf(outPointersArray))) -
+              1;
   for (i = 0; i <= toDoLimit; i += 1) {
     if (((hash = long32At((void *)((savedHashes + BaseHeaderSize) +
                                    ((((usqInt)(i) << 2))))))) >

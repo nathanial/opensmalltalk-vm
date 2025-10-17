@@ -40,11 +40,7 @@ primitiveCompareBytes(void) {
   /* begin numBytesOfBytes: */
   fmt = (byteAt((void *)(arg1 + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
-  len =
-      ((((
-          numSlotsOf(arg1)))
-        << (shiftForWord()))) -
-      (fmt & 7);
+  len = ((((numSlotsOf(arg1))) << (shiftForWord()))) - (fmt & 7);
   if (!(len == (numBytesOfBytes(arg2)))) {
     /* begin methodReturnBool: */
     assert(!((failed())));

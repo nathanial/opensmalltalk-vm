@@ -2601,8 +2601,7 @@ sqInt interpret(void) {
         VM_LABEL(respondToUnknownBytecode);
         messageSelector = /* maybeSplObj: */
             (SelectorUnknownBytecode <
-                     ((
-                       assert((classIndexOf(specialObjectsOop)) >
+                     ((assert((classIndexOf(specialObjectsOop)) >
                               (isForwardedObjectClassIndexPun())),
                        numSlotsOf(specialObjectsOop)))
                  ? fetchPointerofObject(SelectorUnknownBytecode,

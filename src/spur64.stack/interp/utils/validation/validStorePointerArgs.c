@@ -7,11 +7,9 @@ static sqInt validStorePointerArgs(sqInt fieldIndex, sqInt objOop,
   usqInt numSlots;
 
   return (fieldIndex >= 0) &&
-         ((fieldIndex <
-           ((
-             assert((classIndexOf(objOop)) >
-                    (isForwardedObjectClassIndexPun())),
-             numSlotsOf(objOop)))) &&
+         ((fieldIndex < ((assert((classIndexOf(objOop)) >
+                                 (isForwardedObjectClassIndexPun())),
+                          numSlotsOf(objOop)))) &&
           (!((!((longAt((void *)(objOop))) &
                 ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))));
 }

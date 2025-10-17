@@ -84,13 +84,11 @@ static void ensureImageFormatIsUpToDate(sqInt swapBytes) {
           }
 
           /* compiled method; start after methodHeader and literals */
-          stopAddr =
-              obj + (((((
-                         assert((classIndexOf(obj)) >
-                                (isForwardedObjectClassIndexPun())),
-                         numSlotsOf(obj)))
-                       << (shiftForWord()))) +
-                     BaseHeaderSize);
+          stopAddr = obj + (((((assert((classIndexOf(obj)) >
+                                       (isForwardedObjectClassIndexPun())),
+                                numSlotsOf(obj)))
+                              << (shiftForWord()))) +
+                            BaseHeaderSize);
 
           /* begin reverseBytesFrom:to: */
           addr = wordAddr;

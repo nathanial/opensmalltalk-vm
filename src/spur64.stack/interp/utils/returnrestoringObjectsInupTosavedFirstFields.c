@@ -15,13 +15,10 @@ static sqInt returnrestoringObjectsInupTosavedFirstFields(
   sqInt valuePointer;
 
   /* begin restoreObjectsIn:upTo:savedFirstFields: */
-  numSlots =
-      (limitOrTag == -1
-           ? (
-              assert((classIndexOf(reachableObjectsArray)) >
-                     (isForwardedObjectClassIndexPun())),
-              numSlotsOf(reachableObjectsArray))
-           : limitOrTag);
+  numSlots = (limitOrTag == -1 ? (assert((classIndexOf(reachableObjectsArray)) >
+                                         (isForwardedObjectClassIndexPun())),
+                                  numSlotsOf(reachableObjectsArray))
+                               : limitOrTag);
   for (i = 0; i < numSlots; i += 1) {
     oop = fetchPointerofObject(i, reachableObjectsArray);
     valuePointer = fetchPointerofObject(i, savedFirstFields);

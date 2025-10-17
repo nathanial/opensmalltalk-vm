@@ -38,10 +38,7 @@ static sqInt processWeakSurvivor(sqInt weakObj) {
       hasYoungReferents = 1;
     }
   }
-  toDoLimit =
-      ((
-        numSlotsOf(weakObj))) -
-      1;
+  toDoLimit = ((numSlotsOf(weakObj))) - 1;
   for (i = numStrongSlots; i <= toDoLimit; i += 1) {
     referent = fetchPointerofObject(i, weakObj);
 

@@ -42,11 +42,7 @@ static void primitiveIntegerAt(void) {
     fmtSqInt =
         (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
     assert(fmtSqInt >= (firstByteFormat()));
-    numSlots =
-        ((((
-            numSlotsOf(rcvr)))
-          << (shiftForWord()))) -
-        (fmtSqInt & 7);
+    numSlots = ((((numSlotsOf(rcvr))) << (shiftForWord()))) - (fmtSqInt & 7);
     if ((((usqInt)index)) < numSlots) {
       value = byteAt((void *)((rcvr + BaseHeaderSize) + index));
       if (value > 0x7F) {
@@ -134,9 +130,8 @@ static void primitiveIntegerAt(void) {
        (fmt >= (arrayFormat())) &&
        ((fmt <= (weakArrayFormat())) ||
         (fmt >= (sixtyFourBitIndexableFormat()))))) {
-    
-    numSlots =
-        numSlotsOf(rcvr);
+
+    numSlots = numSlotsOf(rcvr);
     if (fmt == (arrayFormat())) {
       if ((((usqInt)index)) < numSlots) {
         /* begin methodReturnValue: */

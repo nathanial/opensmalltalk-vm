@@ -83,8 +83,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
              ((!(tempLink & (tagMask())))) &&
              (((byteAt((void *)(tempLink + (formatFieldByteOffset())))) &
                (formatMask())) <= 5 /* lastPointerFormat */)) &&
-            (((
-               assert((classIndexOf(tempLink)) >
+            (((assert((classIndexOf(tempLink)) >
                       (isForwardedObjectClassIndexPun())),
                numSlotsOf(tempLink))) > MyListIndex))) {
         return 0;

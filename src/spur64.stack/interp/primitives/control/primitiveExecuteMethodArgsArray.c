@@ -46,11 +46,9 @@ static void primitiveExecuteMethodArgsArray(void) {
   assert(isCompiledMethod(methodArgument));
   header = fetchPointerofObject(HeaderIndex, methodArgument);
   argCnt = (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;
-  if (!(argCnt ==
-        ((
-          assert((classIndexOf(argumentArray)) >
-                 (isForwardedObjectClassIndexPun())),
-          numSlotsOf(argumentArray))))) {
+  if (!(argCnt == ((assert((classIndexOf(argumentArray)) >
+                           (isForwardedObjectClassIndexPun())),
+                    numSlotsOf(argumentArray))))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadNumArgs;
     return;

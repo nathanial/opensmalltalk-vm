@@ -30,8 +30,7 @@ sqInt checkOopHasOkayClass(usqInt obj) {
   }
   if (!((((byteAt((void *)(objClass + (formatFieldByteOffset())))) &
           (formatMask())) <= 5 /* lastPointerFormat */) &&
-        (((
-           assert((classIndexOf(objClass)) >
+        (((assert((classIndexOf(objClass)) >
                   (isForwardedObjectClassIndexPun())),
            numSlotsOf(objClass))) >= 3))) {
     fprintf(

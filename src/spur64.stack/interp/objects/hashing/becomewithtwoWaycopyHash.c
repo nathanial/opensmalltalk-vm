@@ -52,10 +52,7 @@ static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
          ((!(array2 & (tagMask())))) &&
          (((byteAt((void *)(array2 + (formatFieldByteOffset())))) &
            (formatMask())) == (arrayFormat()))) &&
-        (((
-           numSlotsOf(array1))) ==
-         ((
-           numSlotsOf(array2)))))) {
+        (((numSlotsOf(array1))) == ((numSlotsOf(array2)))))) {
     return PrimErrBadArgument;
   }
 
@@ -83,12 +80,7 @@ static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
     }
 
     /* contexts end at the stack pointer */
-    fieldOffset =
-        ((((
-            numSlotsOf(array1))) -
-          1) *
-         BytesPerOop) +
-        BaseHeaderSize;
+    fieldOffset = ((((numSlotsOf(array1))) - 1) * BytesPerOop) + BaseHeaderSize;
     goto l2;
   }
   if (fmt < (firstCompiledMethodFormat())) {
@@ -262,12 +254,10 @@ l6:
 
         /* Refuse to do an in-place become on classes since their being
            forwarded is used in the flush method cache implementations. */
-        if ((((
-               assert((classIndexOf(obj1)) >
+        if ((((assert((classIndexOf(obj1)) >
                       (isForwardedObjectClassIndexPun())),
                numSlotsOf(obj1))) ==
-             ((
-               assert((classIndexOf(obj2)) >
+             ((assert((classIndexOf(obj2)) >
                       (isForwardedObjectClassIndexPun())),
                numSlotsOf(obj2)))) &&
             ((o1ClassIndex + o2ClassIndex) == 0)) {

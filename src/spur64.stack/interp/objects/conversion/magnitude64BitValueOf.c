@@ -51,11 +51,7 @@ static usqLong magnitude64BitValueOf(sqInt oop) {
   /* begin numBytesOfBytes: */
   fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
-  sz =
-      ((((
-          numSlotsOf(oop)))
-        << (shiftForWord()))) -
-      (fmt & 7);
+  sz = ((((numSlotsOf(oop))) << (shiftForWord()))) - (fmt & 7);
   if (sz > (sizeof(sqLong))) {
     /* begin primitiveFail */
     if (!primFailCode) {

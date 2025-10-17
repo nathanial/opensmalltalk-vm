@@ -41,8 +41,7 @@ static sqInt wakeHighestPriority(void) {
   schedLists = fetchPointerofObject(ProcessListsIndex, objOop);
   p = (highestRunnableProcessPriority
            ? highestRunnableProcessPriority
-           : (
-              assert((classIndexOf(schedLists)) >
+           : (assert((classIndexOf(schedLists)) >
                      (isForwardedObjectClassIndexPun())),
               numSlotsOf(schedLists)));
   while (((p -= 1)) >= 0) {

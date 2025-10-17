@@ -327,11 +327,8 @@ l1:
   classArrayObj = fetchPointerofObject(ClassArray, specialObjectsOop);
   classArrayClass = fetchClassOfNonImm(classArrayObj);
 
-  
-
   /* determine actual Metaclass instSize */
-  metaclassNumSlots =
-      numSlotsOf(classArrayClass);
+  metaclassNumSlots = numSlotsOf(classArrayClass);
 
   /* default */
   thisClassIndex = 5;

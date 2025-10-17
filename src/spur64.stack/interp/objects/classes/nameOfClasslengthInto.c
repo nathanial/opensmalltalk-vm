@@ -11,9 +11,7 @@ static char *nameOfClasslengthInto(sqInt classOop, sqInt *lengthPtr) {
   usqInt numSlots;
   usqInt numSlotsUsqInt;
 
-  
-  numSlots =
-      numSlotsOf(classOop);
+  numSlots = numSlotsOf(classOop);
   if (numSlots == metaclassNumSlots) {
     maybeThisClassOop = fetchPointerofObject(thisClassIndex, classOop);
     if (addressCouldBeClassObj(maybeThisClassOop)) {

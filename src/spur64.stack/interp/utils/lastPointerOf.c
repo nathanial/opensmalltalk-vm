@@ -33,8 +33,7 @@ static sqInt lastPointerOf(sqInt objOop) {
     }
 
     /* contexts end at the stack pointer */
-    return ((((
-               assert((classIndexOf(objOop)) >
+    return ((((assert((classIndexOf(objOop)) >
                       (isForwardedObjectClassIndexPun())),
                numSlotsOf(objOop))) -
              1) *

@@ -51,10 +51,7 @@ static NeverInline void inPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2,
   long64Atput((void *)(obj1), header2);
   long64Atput((void *)(obj2), header1);
   o1HasYoung = (o2HasYoung = 0);
-  toDoLimit =
-      ((
-        numSlotsOf(obj1))) -
-      1;
+  toDoLimit = ((numSlotsOf(obj1))) - 1;
   for (i = 0; i <= toDoLimit; i += 1) {
     temp1 = fetchPointerofObject(i, obj1);
     temp2 = fetchPointerofObject(i, obj2);

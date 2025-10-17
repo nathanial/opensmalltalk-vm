@@ -33,10 +33,7 @@ static void primitiveStoreStackp(void) {
   }
   if (!((!primFailCode) &&
         (((newStackp >= 0) &&
-          (newStackp <=
-           (((
-              numSlotsOf(ctxt))) -
-            CtxtTempFrameStart)))))) {
+          (newStackp <= (((numSlotsOf(ctxt))) - CtxtTempFrameStart)))))) {
     /* begin primitiveFail */
     if (!primFailCode) {
       primFailCode = 1;

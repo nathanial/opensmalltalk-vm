@@ -39,9 +39,8 @@ static void primitiveSlotAt(void) {
   fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
   index = ((index >> 3)) - 1;
   if (fmt <= 5 /* lastPointerFormat */) {
-    
-    numSlots =
-        numSlotsOf(rcvr);
+
+    numSlots = numSlotsOf(rcvr);
     if ((((usqInt)index)) < numSlots) {
       if (((longAt((void *)(rcvr))) & (classIndexMask())) ==
           ClassMethodContextCompactIndex) {
@@ -94,11 +93,7 @@ static void primitiveSlotAt(void) {
     fmtSqInt =
         (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
     assert(fmtSqInt >= (firstByteFormat()));
-    numSlots =
-        ((((
-            numSlotsOf(rcvr)))
-          << (shiftForWord()))) -
-        (fmtSqInt & 7);
+    numSlots = ((((numSlotsOf(rcvr))) << (shiftForWord()))) - (fmtSqInt & 7);
     if ((((usqInt)index)) < numSlots) {
       /* begin pop:thenPushInteger: */
       longAtput(

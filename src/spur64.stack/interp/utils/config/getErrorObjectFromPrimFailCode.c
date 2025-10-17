@@ -23,9 +23,7 @@ static sqInt getErrorObjectFromPrimFailCode(void) {
 
   if (primFailCode > 0) {
     table = fetchPointerofObject(PrimitiveErrorTableIndex, specialObjectsOop);
-    if (primFailCode <=
-        ((
-          numSlotsOf(table)))) {
+    if (primFailCode <= ((numSlotsOf(table)))) {
       errObj = followFieldofObject(primFailCode - 1, table);
 
       /* If there's a clonable object in the table at that index,
@@ -34,9 +32,8 @@ static sqInt getErrorObjectFromPrimFailCode(void) {
       if (((byteAt((void *)(errObj + (formatFieldByteOffset())))) &
            (formatMask())) == (nonIndexablePointerFormat())) {
         /* begin cloneErrorObj: */
-        
-        numSlots =
-            numSlotsOf(errObj);
+
+        numSlots = numSlotsOf(errObj);
         classIndex = (longAt((void *)(errObj))) & (classIndexMask());
 
         /* begin eeInstantiateAnySmallClassIndex:format:numSlots: */

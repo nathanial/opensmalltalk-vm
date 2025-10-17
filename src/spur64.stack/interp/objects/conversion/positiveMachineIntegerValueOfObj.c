@@ -40,11 +40,7 @@ static usqIntptr_t positiveMachineIntegerValueOfObj(sqInt oop) {
   /* begin numBytesOfBytes: */
   fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
-  bs =
-      ((((
-          numSlotsOf(oop)))
-        << (shiftForWord()))) -
-      (fmt & 7);
+  bs = ((((numSlotsOf(oop))) << (shiftForWord()))) - (fmt & 7);
   if (bs > (sizeof(usqIntptr_t))) {
     /* begin primitiveFail */
     if (!primFailCode) {

@@ -76,8 +76,7 @@ l1:
       /* begin numBytesOf: */
       fmt = (byteAt((void *)(bitsArray + (formatFieldByteOffset())))) &
             (formatMask());
-      numBytes =
-          numSlotsOf(bitsArray);
+      numBytes = numSlotsOf(bitsArray);
       numBytes = (numBytes << (shiftForWord()));
       if (fmt >= (firstByteFormat())) {
         bitsArraySize = numBytes - (fmt & 7);

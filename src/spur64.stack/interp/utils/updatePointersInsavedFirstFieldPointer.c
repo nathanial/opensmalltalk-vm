@@ -47,9 +47,7 @@ static void updatePointersInsavedFirstFieldPointer(sqInt obj,
 
     /* contexts end at the stack pointer */
 
-    
-    numPointerSlots =
-        numSlotsOf(obj);
+    numPointerSlots = numSlotsOf(obj);
     goto l2;
   }
   assert(!((fmt == (forwardedFormat()))));

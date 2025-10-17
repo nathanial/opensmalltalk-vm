@@ -13,8 +13,7 @@ sqInt byteSizeOf(sqInt oop) {
 
   /* begin numBytesOf: */
   fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-  numBytes =
-      numSlotsOf(oop);
+  numBytes = numSlotsOf(oop);
   numBytes = (numBytes << (shiftForWord()));
   if (fmt >= (firstByteFormat())) {
     return numBytes - (fmt & 7);

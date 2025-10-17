@@ -99,8 +99,7 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
         (1U << (pinnedBitByteShift()))) != 0)) {
     return PrimErrObjectIsPinned;
   }
-  if (((
-        assert((classIndexOf(outPointersArrayArg)) >
+  if (((assert((classIndexOf(outPointersArrayArg)) >
                (isForwardedObjectClassIndexPun())),
         numSlotsOf(outPointersArrayArg))) > (identityHashHalfWordMask())) {
     return PrimErrLimitExceeded;
@@ -160,12 +159,10 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
   /* begin moveClassesForwardsIn: */
   /* if > 0, this is the index of the first non-class past the first element. */
   numClassesInSegment = (there = 0);
-  toDoLimitSqInt =
-      ((
-        assert((classIndexOf(arrayOfObjects)) >
-               (isForwardedObjectClassIndexPun())),
-        numSlotsOf(arrayOfObjects))) -
-      1;
+  toDoLimitSqInt = ((assert((classIndexOf(arrayOfObjects)) >
+                            (isForwardedObjectClassIndexPun())),
+                     numSlotsOf(arrayOfObjects))) -
+                   1;
   for (here = 1; here <= toDoLimitSqInt; here += 1) {
     objOopSqInt = fetchPointerofObject(here, arrayOfObjects);
     hash = (long32At((void *)(objOopSqInt + 4))) & (identityHashHalfWordMask());
@@ -287,12 +284,10 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
   /* Copy all reachable objects to the segment, setting the marked bit for all
      objects (clones) in the segment, and the remembered bit for all classes
      (clones) in the segment. */
-  toDoLimit =
-      ((
-        assert((classIndexOf(arrayOfObjects)) >
-               (isForwardedObjectClassIndexPun())),
-        numSlotsOf(arrayOfObjects))) -
-      1;
+  toDoLimit = ((assert((classIndexOf(arrayOfObjects)) >
+                       (isForwardedObjectClassIndexPun())),
+                numSlotsOf(arrayOfObjects))) -
+              1;
   for (i = 0; i <= toDoLimit; i += 1) {
     if ((i == numClassesInSegment) &&
         ((((segAddr - segStart) / 8 /* allocationUnit */) +

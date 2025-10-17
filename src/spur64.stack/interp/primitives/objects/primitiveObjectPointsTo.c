@@ -70,9 +70,8 @@ static void primitiveObjectPointsTo(void) {
       /* contexts end at the stack pointer */
       numSlots = CtxtTempFrameStart + (fetchStackPointerOf(rcvr));
     } else {
-      
-      numSlots =
-          numSlotsOf(rcvr);
+
+      numSlots = numSlotsOf(rcvr);
     }
   } else {
     if (fmt < (firstCompiledMethodFormat())) {

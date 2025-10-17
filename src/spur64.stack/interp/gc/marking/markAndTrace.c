@@ -111,9 +111,8 @@ NeverInline void markAndTrace(sqInt objOop) {
              ((isImmediate(keyOfEphemeron(objToScan))) ||
               (isMarked(keyOfEphemeron(objToScan)))));
       if (fmt <= 5 /* lastPointerFormat */) {
-        
-        numSlots =
-            numSlotsOf(objToScan);
+
+        numSlots = numSlotsOf(objToScan);
         if (fmt <= (arrayFormat())) {
           numStrongSlots = numSlots;
           goto l4;

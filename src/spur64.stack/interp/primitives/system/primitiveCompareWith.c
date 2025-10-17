@@ -62,21 +62,13 @@ primitiveCompareWith(void) {
   fmt =
       (byteAt((void *)(string1 + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
-  strLength1 =
-      ((((
-          numSlotsOf(string1)))
-        << (shiftForWord()))) -
-      (fmt & 7);
+  strLength1 = ((((numSlotsOf(string1))) << (shiftForWord()))) - (fmt & 7);
 
   /* begin numBytesOfBytes: */
   fmt =
       (byteAt((void *)(string2 + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
-  strLength2 =
-      ((((
-          numSlotsOf(string2)))
-        << (shiftForWord()))) -
-      (fmt & 7);
+  strLength2 = ((((numSlotsOf(string2))) << (shiftForWord()))) - (fmt & 7);
   if (order) {
     /* begin rawCompare:length:with:length:accessBlock: */
     min = ((strLength1 < strLength2) ? strLength1 : strLength2);

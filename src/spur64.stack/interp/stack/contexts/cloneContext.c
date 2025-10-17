@@ -16,7 +16,6 @@ static usqInt cloneContext(sqInt aContext) {
   usqInt sz;
   sqInt valuePointer;
 
-  
   sz = numSlotsOf(aContext);
 
   /* begin eeInstantiateMethodContextSlots: */

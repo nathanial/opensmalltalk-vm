@@ -43,9 +43,8 @@ static void primitiveClosureCopyWithCopiedValues(void) {
   copiedValues = longAt(stackPointer);
 
   /* begin closureIn:numArgs:instructionPointer:copiedValues: */
-  
-  numCopied =
-      numSlotsOf(copiedValues);
+
+  numCopied = numSlotsOf(copiedValues);
   numSlotsSqInt = ClosureFirstCopiedValueIndex + numCopied;
 
   /* begin eeInstantiateSmallClassIndex:format:numSlots: */

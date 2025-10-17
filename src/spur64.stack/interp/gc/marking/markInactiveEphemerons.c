@@ -81,11 +81,10 @@ static sqInt markInactiveEphemerons(void) {
                  ((isImmediate(keyOfEphemeron(objToScan))) ||
                   (isMarked(keyOfEphemeron(objToScan)))));
           if (fmt <= 5 /* lastPointerFormat */) {
-            
+
             assert((classIndexOf(objToScan)) >
                    (isForwardedObjectClassIndexPun()));
-            numSlots =
-                numSlotsOf(objToScan);
+            numSlots = numSlotsOf(objToScan);
             if (fmt <= (arrayFormat())) {
               numStrongSlots = numSlots;
               goto l4;

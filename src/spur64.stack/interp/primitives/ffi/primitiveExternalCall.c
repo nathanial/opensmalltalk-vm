@@ -49,8 +49,7 @@ static void primitiveExternalCall(void) {
             ((!(lit & (tagMask())))) &&
             (((byteAt((void *)(lit + (formatFieldByteOffset())))) &
               (formatMask())) == (arrayFormat()))) &&
-               ((((
-                   assert((classIndexOf(lit)) >
+               ((((assert((classIndexOf(lit)) >
                           (isForwardedObjectClassIndexPun())),
                    numSlotsOf(lit))) == 4) &&
                 (((index = longAt((

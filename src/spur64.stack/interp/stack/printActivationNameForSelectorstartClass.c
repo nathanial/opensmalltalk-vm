@@ -19,9 +19,7 @@ static void printActivationNameForSelectorstartClass(sqInt aSelector,
     do {
       classDict = fetchPointerofObject(MethodDictionaryIndex, currClass);
 
-      
-      classDictSize =
-          numSlotsOf(classDict);
+      classDictSize = numSlotsOf(classDict);
       i = SelectorStart;
       while (i < classDictSize) {
         if (aSelector == (fetchPointerofObject(i, classDict))) {

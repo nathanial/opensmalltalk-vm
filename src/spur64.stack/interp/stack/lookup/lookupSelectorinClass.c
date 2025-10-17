@@ -34,9 +34,8 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
     }
 
     /* begin lookupMethodFor:InDictionary: */
-    
-    length =
-        numSlotsOf(dictionary);
+
+    length = numSlotsOf(dictionary);
     mask = (length - SelectorStart) - 1;
     index = SelectorStart + (mask & ((((selector & (tagMask())) != 0)
                                           ? (selector >> 3)

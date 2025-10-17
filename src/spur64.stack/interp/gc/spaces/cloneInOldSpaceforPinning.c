@@ -14,9 +14,7 @@ static sqInt cloneInOldSpaceforPinning(sqInt objOop, sqInt forPinning) {
   sqInt referent;
   sqInt valuePointer;
 
-  
-  numSlots =
-      numSlotsOf(objOop);
+  numSlots = numSlotsOf(objOop);
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
   if (forPinning) {
     newObj = allocateSlotsForPinningInOldSpacebytesformatclassIndex(

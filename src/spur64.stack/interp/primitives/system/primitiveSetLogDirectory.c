@@ -33,8 +33,7 @@ primitiveSetLogDirectory(void) {
   /* begin numBytesOf: */
   fmt = (byteAt((void *)(stringOop + (formatFieldByteOffset())))) &
         (formatMask());
-  numBytes =
-      numSlotsOf(stringOop);
+  numBytes = numSlotsOf(stringOop);
   numBytes = (numBytes << (shiftForWord()));
   if (fmt >= (firstByteFormat())) {
     sz = numBytes - (fmt & 7);

@@ -108,9 +108,7 @@ static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop,
 
         /* contexts end at the stack pointer */
 
-        
-        numMediatedSlots =
-            numSlotsOf(objOop);
+        numMediatedSlots = numSlotsOf(objOop);
         goto l2;
       }
       if (fmt == (forwardedFormat())) {
@@ -135,10 +133,7 @@ static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop,
     }
 
     /* And make sure to nil the slots beyond the top of stack... */
-    toDoLimit =
-        ((
-          numSlotsOf(objOop))) -
-        1;
+    toDoLimit = ((numSlotsOf(objOop))) - 1;
     for (iSqInt = numMediatedSlots; iSqInt <= toDoLimit; iSqInt += 1) {
       /* begin storePointerUnchecked:ofObject:withValue: */
       assert((isNonImmediate(copy)) && (!(isForwarded(copy))));

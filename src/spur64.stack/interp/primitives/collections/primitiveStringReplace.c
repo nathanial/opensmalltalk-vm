@@ -81,9 +81,7 @@ static void primitiveStringReplace(void) {
       goto l7;
     }
 
-    
-    arrayLength =
-        numSlotsOf(array);
+    arrayLength = numSlotsOf(array);
 
     /* begin fixedFieldsOf:format:length: */
     if ((arrayFmt >= (sixtyFourBitIndexableFormat())) ||
@@ -102,9 +100,7 @@ static void primitiveStringReplace(void) {
     /* end fixedFieldsOf:format:length: */
   l5:
 
-    
-    replLength =
-        numSlotsOf(repl);
+    replLength = numSlotsOf(repl);
 
     /* begin fixedFieldsOf:format:length: */
     if ((replFmt >= (sixtyFourBitIndexableFormat())) ||

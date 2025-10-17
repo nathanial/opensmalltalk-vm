@@ -14,9 +14,8 @@ sqInt indexOfin(sqInt anElement, sqInt anObject) {
   fmt =
       (byteAt((void *)(anObject + (formatFieldByteOffset())))) & (formatMask());
   if (fmt <= 5 /* lastPointerFormat */) {
-    
-    numSlots =
-        numSlotsOf(anObject);
+
+    numSlots = numSlotsOf(anObject);
     for (i = 0; i <= numSlots; i += 1) {
       if (anElement == (fetchPointerofObject(i, anObject))) {
         return i;
@@ -32,13 +31,11 @@ sqInt indexOfin(sqInt anElement, sqInt anObject) {
     fmtSqInt = (byteAt((void *)(anObject + (formatFieldByteOffset())))) &
                (formatMask());
     assert(fmtSqInt >= (firstByteFormat()));
-    numSlots =
-        ((((
-            assert((classIndexOf(anObject)) >
-                   (isForwardedObjectClassIndexPun())),
-            numSlotsOf(anObject)))
-          << (shiftForWord()))) -
-        (fmtSqInt & 7);
+    numSlots = ((((assert((classIndexOf(anObject)) >
+                          (isForwardedObjectClassIndexPun())),
+                   numSlotsOf(anObject)))
+                 << (shiftForWord()))) -
+               (fmtSqInt & 7);
     for (i = 0; i <= numSlots; i += 1) {
       if (anElement == (byteAt((void *)((anObject + BaseHeaderSize) + i)))) {
         return i;

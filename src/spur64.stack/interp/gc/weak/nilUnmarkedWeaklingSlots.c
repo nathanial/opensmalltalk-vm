@@ -56,12 +56,10 @@ static NeverInline void nilUnmarkedWeaklingSlots(void) {
 
       /* N.B. generateToByDoLimitExpression:negative:on: guards against
        * (unsigned)0 - 1 going +ve */
-      toDoLimit =
-          ((
-            assert((classIndexOf(weakling)) >
-                   (isForwardedObjectClassIndexPun())),
-            numSlotsOf(weakling))) -
-          1;
+      toDoLimit = ((assert((classIndexOf(weakling)) >
+                           (isForwardedObjectClassIndexPun())),
+                    numSlotsOf(weakling))) -
+                  1;
       for (iSqInt = (numStrongSlotsOfWeakling(weakling)); iSqInt <= toDoLimit;
            iSqInt += 1) {
         referent = fetchPointerofObject(iSqInt, weakling);

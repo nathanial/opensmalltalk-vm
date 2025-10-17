@@ -45,8 +45,7 @@ static void primitiveCopyObject(void) {
   if (isWordsOrBytesNonImm(rcvr)) {
     /* begin numBytesOf: */
     fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
-    numBytes =
-        numSlotsOf(rcvr);
+    numBytes = numSlotsOf(rcvr);
     numBytes = (numBytes << (shiftForWord()));
     if (fmt >= (firstByteFormat())) {
       length = numBytes - (fmt & 7);
@@ -85,9 +84,7 @@ static void primitiveCopyObject(void) {
       return;
     }
 
-    
-    length =
-        numSlotsOf(rcvr);
+    length = numSlotsOf(rcvr);
     if (!((isAppropriateForCopyObject(arg)) && (length == (lengthOf(arg))))) {
       /* primitiveFailFor: */
       primFailCode = PrimErrBadArgument;

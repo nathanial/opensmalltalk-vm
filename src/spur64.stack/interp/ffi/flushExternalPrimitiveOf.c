@@ -39,8 +39,7 @@ static sqInt flushExternalPrimitiveOf(sqInt methodObj) {
          ((!(lit & (tagMask())))) &&
          (((byteAt((void *)(lit + (formatFieldByteOffset())))) &
            (formatMask())) == (arrayFormat()))) &&
-        (((
-           numSlotsOf(lit))) == 4)) {
+        (((numSlotsOf(lit))) == 4)) {
       /* begin storePointerUnchecked:ofObject:withValue: */
       assert((isNonImmediate(lit)) && (!(isForwarded(lit))));
       assert(validStorePointerUncheckedArgs(2, lit, ConstZero));

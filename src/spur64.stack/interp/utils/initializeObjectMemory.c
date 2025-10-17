@@ -61,9 +61,7 @@ static void initializeObjectMemory(sqInt bytesToShift) {
       oldSpaceObjectAfter(oldSpaceObjectAfter(oldSpaceObjectAfter(firstObj))));
   nilObjPreSwizzle = oldSpaceStart - bytesToShift;
 
-  
-  numClassTablePages =
-      numSlotsOf(classTableRoot);
+  numClassTablePages = numSlotsOf(classTableRoot);
   assert(numClassTablePages == ((classTableRootSlots()) + (hiddenRootSlots())));
   for (i = 2; i < numClassTablePages; i += 1) {
     if ((fetchPointerofObject(i, classTableRoot)) == nilObjPreSwizzle) {
@@ -369,9 +367,7 @@ l2:
   rememberedSet = firstIndexableField(obj);
   rememberedSetSize = 0;
 
-  
-  rememberedSetLimit =
-      numSlotsOf(obj);
+  rememberedSetLimit = numSlotsOf(obj);
 
   /* begin setRememberedSetRedZone */
   fudge = ((((eden.limit)) - ((eden.start))) / BytesPerWord) / 0x400;

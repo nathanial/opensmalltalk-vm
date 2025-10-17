@@ -51,9 +51,7 @@ static void primitiveDoNamedPrimitiveWithArgs(void) {
     return;
   }
 
-  
-  arraySize =
-      numSlotsOf(argumentArray);
+  arraySize = numSlotsOf(argumentArray);
   if (!(arraySize <= (LargeContextSlots - CtxtTempFrameStart))) {
     /* primitiveFailFor: */
     primFailCode = -2;
@@ -89,8 +87,7 @@ static void primitiveDoNamedPrimitiveWithArgs(void) {
   /* end isInstanceOfClassArray: */
 l2:
   if (!(isArray &&
-        ((((
-            numSlotsOf(spec))) == 4) &&
+        ((((numSlotsOf(spec))) == 4) &&
          ((/* primitiveIndexOfMethod:header: */
            (((methodHeader & AlternateHeaderHasPrimFlag) != 0)
                 ? ((firstBytecode =
@@ -133,13 +130,11 @@ l2:
     fmt = (byteAt((void *)(moduleName + (formatFieldByteOffset())))) &
           (formatMask());
     assert(fmt >= (firstByteFormat()));
-    moduleLength =
-        ((((
-            assert((classIndexOf(moduleName)) >
-                   (isForwardedObjectClassIndexPun())),
-            numSlotsOf(moduleName)))
-          << (shiftForWord()))) -
-        (fmt & 7);
+    moduleLength = ((((assert((classIndexOf(moduleName)) >
+                              (isForwardedObjectClassIndexPun())),
+                       numSlotsOf(moduleName)))
+                     << (shiftForWord()))) -
+                   (fmt & 7);
   }
   functionName = fetchPointerofObject(1U, spec);
   successBoolean = /* isBytes: */
@@ -158,13 +153,11 @@ l2:
   fmt = (byteAt((void *)(functionName + (formatFieldByteOffset())))) &
         (formatMask());
   assert(fmt >= (firstByteFormat()));
-  functionLength =
-      ((((
-          assert((classIndexOf(functionName)) >
-                 (isForwardedObjectClassIndexPun())),
-          numSlotsOf(functionName)))
-        << (shiftForWord()))) -
-      (fmt & 7);
+  functionLength = ((((assert((classIndexOf(functionName)) >
+                              (isForwardedObjectClassIndexPun())),
+                       numSlotsOf(functionName)))
+                     << (shiftForWord()))) -
+                   (fmt & 7);
   if (primFailCode) {
     /* primitiveFailFor: */
     primFailCode = -3;

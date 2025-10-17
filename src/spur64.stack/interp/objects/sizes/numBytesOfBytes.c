@@ -12,8 +12,7 @@ static sqInt numBytesOfBytes(sqInt objOop) {
 
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
-  return ((((
-             assert((classIndexOf(objOop)) >
+  return ((((assert((classIndexOf(objOop)) >
                     (isForwardedObjectClassIndexPun())),
              numSlotsOf(objOop)))
            << (shiftForWord()))) -

@@ -64,11 +64,7 @@ static void primitiveIntegerAtPut(void) {
     fmtSqInt =
         (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
     assert(fmtSqInt >= (firstByteFormat()));
-    numSlots =
-        ((((
-            numSlotsOf(rcvr)))
-          << (shiftForWord()))) -
-        (fmtSqInt & 7);
+    numSlots = ((((numSlotsOf(rcvr))) << (shiftForWord()))) - (fmtSqInt & 7);
     if ((((usqInt)index)) < numSlots) {
       /* storeByte:ofObject:withValue: */
       byteAtput((void *)((rcvr + BaseHeaderSize) + index), value);
@@ -166,9 +162,8 @@ static void primitiveIntegerAtPut(void) {
        (fmt >= (arrayFormat())) &&
        ((fmt <= (weakArrayFormat())) ||
         (fmt >= (sixtyFourBitIndexableFormat()))))) {
-    
-    numSlots =
-        numSlotsOf(rcvr);
+
+    numSlots = numSlotsOf(rcvr);
     if (fmt == (arrayFormat())) {
       if ((((usqInt)index)) < numSlots) {
         /* begin storePointer:ofObject:withValue: */

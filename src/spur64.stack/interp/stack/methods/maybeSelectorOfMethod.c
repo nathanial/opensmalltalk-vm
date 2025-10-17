@@ -39,8 +39,7 @@ sqInt maybeSelectorOfMethod(sqInt methodObj) {
        ((!(penultimateLiteral & (tagMask())))) &&
        (((byteAt((void *)(penultimateLiteral + (formatFieldByteOffset())))) &
          (formatMask())) <= 5 /* lastPointerFormat */)) &&
-              ((((
-                  assert((classIndexOf(penultimateLiteral)) >
+              ((((assert((classIndexOf(penultimateLiteral)) >
                          (isForwardedObjectClassIndexPun())),
                   numSlotsOf(penultimateLiteral))) >= 2) &&
                (((fetchPointerofObject(0U, penultimateLiteral)) == methodObj) &&

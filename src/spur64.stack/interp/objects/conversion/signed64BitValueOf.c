@@ -52,11 +52,7 @@ sqLong signed64BitValueOf(sqInt oop) {
   /* begin numBytesOfBytes: */
   fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
-  sz =
-      ((((
-          numSlotsOf(oop)))
-        << (shiftForWord()))) -
-      (fmt & 7);
+  sz = ((((numSlotsOf(oop))) << (shiftForWord()))) - (fmt & 7);
   if (sz > 4) {
     magnitude = SQ_SWAP_8_BYTES_IF_BIGENDIAN(
         (long64At((void *)((oop + BaseHeaderSize)))));

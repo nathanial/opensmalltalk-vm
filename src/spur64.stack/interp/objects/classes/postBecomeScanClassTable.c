@@ -29,10 +29,7 @@ static void postBecomeScanClassTable(sqInt effectsFlags) {
   for (i = 0; i < numClassTablePages; i += 1) {
     page = fetchPointerofObject(i, hiddenRootsObj);
     assert(!(isForwarded(page)));
-    toDoLimit =
-        ((
-          numSlotsOf(page))) -
-        1;
+    toDoLimit = ((numSlotsOf(page))) - 1;
     for (j = 0; j <= toDoLimit; j += 1) {
       classOrNil = fetchPointerofObject(j, page);
       if (classOrNil != nilObj) {

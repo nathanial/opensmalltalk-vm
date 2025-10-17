@@ -128,9 +128,7 @@ static NeverInline void updatePointers(void) {
 
       /* contexts end at the stack pointer */
 
-      
-      numPointerSlots =
-          numSlotsOf(objOopSqInt);
+      numPointerSlots = numSlotsOf(objOopSqInt);
       goto l2;
     }
     if (fmt == (forwardedFormat())) {
@@ -244,11 +242,9 @@ static NeverInline void updatePointers(void) {
 
         /* contexts end at the stack pointer */
 
-        
         assert((classIndexOf(objOopSqInt)) >
                (isForwardedObjectClassIndexPun()));
-        numPointerSlots =
-            numSlotsOf(objOopSqInt);
+        numPointerSlots = numSlotsOf(objOopSqInt);
         goto l6;
       }
       if (fmt == (forwardedFormat())) {
@@ -375,9 +371,7 @@ l7:
 
           /* contexts end at the stack pointer */
 
-          
-          numPointerSlots =
-              numSlotsOf(objOop);
+          numPointerSlots = numSlotsOf(objOop);
           goto l10;
         }
         if (fmt == (forwardedFormat())) {
@@ -545,11 +539,9 @@ l11:
 
             /* contexts end at the stack pointer */
 
-            
             assert((classIndexOf(objOopSqInt)) >
                    (isForwardedObjectClassIndexPun()));
-            numPointerSlots =
-                numSlotsOf(objOopSqInt);
+            numPointerSlots = numSlotsOf(objOopSqInt);
             goto l14;
           }
           if (fmt == (forwardedFormat())) {

@@ -39,9 +39,7 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
       classDict = followForwarded(classDict);
     }
 
-    
-    classDictSize =
-        numSlotsOf(classDict);
+    classDictSize = numSlotsOf(classDict);
     if (classDictSize > MethodArrayIndex) {
       /* begin noFixupFollowField:ofObject: */
       methodArray = fetchPointerofObject(MethodArrayIndex, classDict);

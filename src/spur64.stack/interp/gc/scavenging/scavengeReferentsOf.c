@@ -27,10 +27,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
   case arrayFormat():
     /* begin scavengeReferentsOfPointers: */
     foundNewReferent = 0;
-    toDoLimit =
-        ((
-          numSlotsOf(referrer))) -
-        1;
+    toDoLimit = ((numSlotsOf(referrer))) - 1;
     for (i = 0; i <= toDoLimit; i += 1) {
       referent = fetchPointerofObject(i, referrer);
       if ((!(referent & (tagMask())))) {
@@ -157,10 +154,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
 
     /* begin scavengeReferentsOfPointers: */
     foundNewReferent = 0;
-    toDoLimit =
-        ((
-          numSlotsOf(referrer))) -
-        1;
+    toDoLimit = ((numSlotsOf(referrer))) - 1;
     for (i = 0; i <= toDoLimit; i += 1) {
       referent = fetchPointerofObject(i, referrer);
       if ((!(referent & (tagMask())))) {

@@ -69,12 +69,10 @@ void primitiveClosureValueNoContextSwitch(void) {
   /* begin activateNewClosure:outer:method:numArgs:mayContextSwitch: */
   assert(isContext(outerContext));
   assert(isVanillaBlockClosure(blockClosure));
-  numCopied =
-      ((
-        assert((classIndexOf(blockClosure)) >
-               (isForwardedObjectClassIndexPun())),
-        numSlotsOf(blockClosure))) -
-      ClosureFirstCopiedValueIndex;
+  numCopied = ((assert((classIndexOf(blockClosure)) >
+                       (isForwardedObjectClassIndexPun())),
+                numSlotsOf(blockClosure))) -
+              ClosureFirstCopiedValueIndex;
   assert(closureMethod == (fetchPointerofObject(MethodIndex, outerContext)));
   assert(isOopCompiledMethod(closureMethod));
 

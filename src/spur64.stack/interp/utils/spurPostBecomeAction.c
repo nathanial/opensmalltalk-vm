@@ -77,12 +77,10 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
       }
 
       /* Follow all links in the process list to ensure the lists are valid. */
-      toDoLimit =
-          ((
-            assert((classIndexOf(procLists)) >
-                   (isForwardedObjectClassIndexPun())),
-            numSlotsOf(procLists))) -
-          1;
+      toDoLimit = ((assert((classIndexOf(procLists)) >
+                           (isForwardedObjectClassIndexPun())),
+                    numSlotsOf(procLists))) -
+                  1;
       for (iSqInt = 0; iSqInt <= toDoLimit; iSqInt += 1) {
         /* begin followObjField:ofObject: */
         list = fetchPointerofObject(iSqInt, procLists);
@@ -268,10 +266,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
                      ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))),
             xArray);
       }
-      toDoLimit =
-          ((
-            numSlotsOf(xArray))) -
-          1;
+      toDoLimit = ((numSlotsOf(xArray))) - 1;
       for (ipdelta = 0; ipdelta <= toDoLimit; ipdelta += 1) {
         /* begin followSemaphoreIn:at: */
         obj = fetchPointerofObject(ipdelta, xArray);

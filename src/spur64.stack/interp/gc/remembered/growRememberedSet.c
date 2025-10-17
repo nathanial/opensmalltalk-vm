@@ -17,9 +17,7 @@ static void growRememberedSet(void) {
   /* Don't ruin locality in remember: */
   obj = fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj);
 
-  
-  numSlots =
-      numSlotsOf(obj);
+  numSlots = numSlotsOf(obj);
   assert(numSlots >= 0x400);
   nSlots = numSlots * 2;
 
@@ -136,9 +134,7 @@ static void growRememberedSet(void) {
   freeObject(obj);
   rememberedSet = base;
 
-  
-  rememberedSetLimit =
-      numSlotsOf(newObj);
+  rememberedSetLimit = numSlotsOf(newObj);
 
   /* begin setRememberedSetRedZone */
   fudge = ((((eden.limit)) - ((eden.start))) / BytesPerWord) / 0x400;

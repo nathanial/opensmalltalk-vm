@@ -37,9 +37,7 @@ static void primitivePerformWithArgs(void) {
   /* Check if number of arguments is reasonable; MaxNumArgs isn't available
      so just use LargeContextSize */
 
-  
-  arraySize =
-      numSlotsOf(argumentArray);
+  arraySize = numSlotsOf(argumentArray);
   if (arraySize > (LargeContextSlots - CtxtTempFrameStart)) {
     performWithArgumentsRecursionGuard = null;
 

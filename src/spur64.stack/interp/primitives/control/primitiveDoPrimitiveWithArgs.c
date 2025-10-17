@@ -40,9 +40,7 @@ static void primitiveDoPrimitiveWithArgs(void) {
     return;
   }
 
-  
-  arraySize =
-      numSlotsOf(argumentArray);
+  arraySize = numSlotsOf(argumentArray);
   if (!(arraySize <= (LargeContextSlots - CtxtTempFrameStart))) {
     /* primitiveFailFor: */
     primFailCode = -PrimErrLimitExceeded;

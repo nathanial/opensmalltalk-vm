@@ -35,9 +35,7 @@ static void primitiveClosureValueWithArgs(void) {
 
   /* Check for enough space in thisContext to push all args */
 
-  
-  arraySize =
-      numSlotsOf(argumentArray);
+  arraySize = numSlotsOf(argumentArray);
   if (!(arraySize <= (LargeContextSlots - CtxtTempFrameStart))) {
     /* begin primitiveFail */
     if (!primFailCode) {
@@ -104,12 +102,10 @@ static void primitiveClosureValueWithArgs(void) {
   /* begin activateNewClosure:outer:method:numArgs:mayContextSwitch: */
   assert(isContext(outerContext));
   assert(isVanillaBlockClosure(blockClosure));
-  numCopied =
-      ((
-        assert((classIndexOf(blockClosure)) >
-               (isForwardedObjectClassIndexPun())),
-        numSlotsOf(blockClosure))) -
-      ClosureFirstCopiedValueIndex;
+  numCopied = ((assert((classIndexOf(blockClosure)) >
+                       (isForwardedObjectClassIndexPun())),
+                numSlotsOf(blockClosure))) -
+              ClosureFirstCopiedValueIndex;
   assert(closureMethod == (fetchPointerofObject(MethodIndex, outerContext)));
   assert(isOopCompiledMethod(closureMethod));
 

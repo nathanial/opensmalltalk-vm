@@ -12,9 +12,7 @@ static sqInt numBytesOfBitsformat(sqInt objOop, sqInt format) {
 
   assert((isPureBitsFormat(format)) && ((formatOf(objOop)) == format));
 
-  
-  numBytes =
-      numSlotsOf(objOop);
+  numBytes = numSlotsOf(objOop);
   numBytes = (numBytes << (shiftForWord()));
   if (format < (firstShortFormat())) {
     return (format <= (sixtyFourBitIndexableFormat())

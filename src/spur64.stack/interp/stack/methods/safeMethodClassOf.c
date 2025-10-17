@@ -22,8 +22,7 @@ static sqInt safeMethodClassOf(sqInt methodPointer) {
          ((!(literal & (tagMask())))) &&
          (((byteAt((void *)(literal + (formatFieldByteOffset())))) &
            (formatMask())) <= 5 /* lastPointerFormat */)) &&
-        (((
-           numSlotsOf(literal))) > ValueIndex))) {
+        (((numSlotsOf(literal))) > ValueIndex))) {
     return nilObj;
   }
   maybeClass = fetchPointerofObject(ValueIndex, literal);

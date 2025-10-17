@@ -48,12 +48,10 @@ static void primitiveFullClosureValue(void) {
   assert(closureMethod ==
          (fetchPointerofObject(FullClosureCompiledBlockIndex, blockClosure)));
   assert(!((isVanillaBlockClosure(blockClosure))));
-  numCopied =
-      ((
-        assert((classIndexOf(blockClosure)) >
-               (isForwardedObjectClassIndexPun())),
-        numSlotsOf(blockClosure))) -
-      FullClosureFirstCopiedValueIndex;
+  numCopied = ((assert((classIndexOf(blockClosure)) >
+                       (isForwardedObjectClassIndexPun())),
+                numSlotsOf(blockClosure))) -
+              FullClosureFirstCopiedValueIndex;
 
   /* begin push: */
   longAtput((sp = stackPointer - BytesPerWord), instructionPointer);

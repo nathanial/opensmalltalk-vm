@@ -30,8 +30,7 @@ static void primitiveBeCursor(void) {
          ((!(cursorObj & (tagMask())))) &&
          (((byteAt((void *)(cursorObj + (formatFieldByteOffset())))) &
            (formatMask())) <= 5 /* lastPointerFormat */)) &&
-        (((
-           assert((classIndexOf(cursorObj)) >
+        (((assert((classIndexOf(cursorObj)) >
                   (isForwardedObjectClassIndexPun())),
            numSlotsOf(cursorObj))) >= 5))) {
     /* primitiveFailFor: */
@@ -47,8 +46,7 @@ static void primitiveBeCursor(void) {
             ((!(offsetObj & (tagMask())))) &&
             (((byteAt((void *)(offsetObj + (formatFieldByteOffset())))) &
               (formatMask())) <= 5 /* lastPointerFormat */)) &&
-           ((((
-               assert((classIndexOf(offsetObj)) >
+           ((((assert((classIndexOf(offsetObj)) >
                       (isForwardedObjectClassIndexPun())),
                numSlotsOf(offsetObj))) >= 2) &&
             (((((((offsetX = fetchPointerofObject(0U, offsetObj)))) & 7) ==
@@ -147,8 +145,7 @@ static void primitiveBeCursor(void) {
          ((!(maskObj & (tagMask())))) &&
          (((byteAt((void *)(maskObj + (formatFieldByteOffset())))) &
            (formatMask())) <= 5 /* lastPointerFormat */)) &&
-        ((((
-            assert((classIndexOf(maskObj)) >
+        ((((assert((classIndexOf(maskObj)) >
                    (isForwardedObjectClassIndexPun())),
             numSlotsOf(maskObj))) >= 5) &&
          (((fetchPointerofObject(1U, maskObj)) == ((((usqInt)16 << 3) | 1))) &&

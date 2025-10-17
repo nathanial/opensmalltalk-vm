@@ -9,9 +9,7 @@ static sqInt lengthOfNameOfClass(sqInt classOop) {
   usqInt numSlotsUsqInt;
   sqInt objOop;
 
-  
-  numSlots =
-      numSlotsOf(classOop);
+  numSlots = numSlotsOf(classOop);
   if (numSlots == metaclassNumSlots) {
     return lengthOfNameOfClass(fetchPointerofObject(thisClassIndex, classOop));
   }

@@ -38,13 +38,11 @@ static void (*linkExternalCallerrInto(sqInt externalCallLiteral,
     fmt = (byteAt((void *)(moduleName + (formatFieldByteOffset())))) &
           (formatMask());
     assert(fmt >= (firstByteFormat()));
-    moduleLength =
-        ((((
-            assert((classIndexOf(moduleName)) >
-                   (isForwardedObjectClassIndexPun())),
-            numSlotsOf(moduleName)))
-          << (shiftForWord()))) -
-        (fmt & 7);
+    moduleLength = ((((assert((classIndexOf(moduleName)) >
+                              (isForwardedObjectClassIndexPun())),
+                       numSlotsOf(moduleName)))
+                     << (shiftForWord()))) -
+                   (fmt & 7);
   }
   functionName = fetchPointerofObject(ExternalCallLiteralFunctionNameIndex,
                                       externalCallLiteral);
@@ -62,13 +60,11 @@ static void (*linkExternalCallerrInto(sqInt externalCallLiteral,
   fmt = (byteAt((void *)(functionName + (formatFieldByteOffset())))) &
         (formatMask());
   assert(fmt >= (firstByteFormat()));
-  functionLength =
-      ((((
-          assert((classIndexOf(functionName)) >
-                 (isForwardedObjectClassIndexPun())),
-          numSlotsOf(functionName)))
-        << (shiftForWord()))) -
-      (fmt & 7);
+  functionLength = ((((assert((classIndexOf(functionName)) >
+                              (isForwardedObjectClassIndexPun())),
+                       numSlotsOf(functionName)))
+                     << (shiftForWord()))) -
+                   (fmt & 7);
 
   /* Spur needs metadata for the primitive, which is stored in the third slot of
    * the literal. */
