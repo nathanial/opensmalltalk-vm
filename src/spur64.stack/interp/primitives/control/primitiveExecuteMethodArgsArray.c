@@ -28,10 +28,7 @@ static void primitiveExecuteMethodArgsArray(void) {
 
   methodArgument = longAt(stackPointer);
   argumentArray = longAt(stackPointer + (1 * BytesPerWord));
-  if (!((/* isOopCompiledMethod: */
-         ((!(methodArgument & (tagMask())))) &&
-         (((byteAt((void *)(methodArgument + (formatFieldByteOffset())))) &
-           (formatMask())) >= (firstCompiledMethodFormat()))) &&
+  if (!((isOopCompiledMethod(methodArgument)) &&
         (/* isArray: */
          ((!(argumentArray & (tagMask())))) &&
          (((byteAt((void *)(argumentArray + (formatFieldByteOffset())))) &

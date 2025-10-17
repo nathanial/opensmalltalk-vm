@@ -14,16 +14,10 @@ sqInt homeMethodOf(sqInt aMethodOop) {
   methodChain = aMethodOop;
   while (1) {
     lastLiteral = ultimateLiteralOf(methodChain);
-    if (!(/* isOopCompiledMethod: */
-          ((!(lastLiteral & (tagMask())))) &&
-          (((byteAt((void *)(lastLiteral + (formatFieldByteOffset())))) &
-            (formatMask())) >= (firstCompiledMethodFormat())))) {
+    if (!(isOopCompiledMethod(lastLiteral))) {
       return methodChain;
     }
-    if (!(/* isOopCompiledMethod: */
-          ((!(lastLiteral & (tagMask())))) &&
-          (((byteAt((void *)(lastLiteral + (formatFieldByteOffset())))) &
-            (formatMask())) >= (firstCompiledMethodFormat())))) {
+    if (!(isOopCompiledMethod(lastLiteral))) {
       return nilObj;
     }
     methodChain = lastLiteral;

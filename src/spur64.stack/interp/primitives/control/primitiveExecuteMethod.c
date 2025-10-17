@@ -21,10 +21,7 @@ static void primitiveExecuteMethod(void) {
   sqInt top;
 
   methodArgument = longAt(stackPointer);
-  if (!(/* isOopCompiledMethod: */
-        ((!(methodArgument & (tagMask())))) &&
-        (((byteAt((void *)(methodArgument + (formatFieldByteOffset())))) &
-          (formatMask())) >= (firstCompiledMethodFormat())))) {
+  if (!(isOopCompiledMethod(methodArgument))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadArgument;
     return;

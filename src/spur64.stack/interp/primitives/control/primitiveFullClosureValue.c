@@ -33,10 +33,7 @@ static void primitiveFullClosureValue(void) {
   }
   closureMethod =
       fetchPointerofObject(FullClosureCompiledBlockIndex, blockClosure);
-  if (!(/* isOopCompiledMethod: */
-        ((!(closureMethod & (tagMask())))) &&
-        (((byteAt((void *)(closureMethod + (formatFieldByteOffset())))) &
-          (formatMask())) >= (firstCompiledMethodFormat())))) {
+  if (!(isOopCompiledMethod(closureMethod))) {
     /* begin primitiveFail */
     if (!primFailCode) {
       primFailCode = 1;

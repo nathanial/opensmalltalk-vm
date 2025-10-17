@@ -42,10 +42,7 @@ static void primitiveDoNamedPrimitiveWithArgs(void) {
          ((!(argumentArray & (tagMask())))) &&
          (((byteAt((void *)(argumentArray + (formatFieldByteOffset())))) &
            (formatMask())) == (arrayFormat()))) &&
-        (/* isOopCompiledMethod: */
-         ((!(methodArg & (tagMask())))) &&
-         (((byteAt((void *)(methodArg + (formatFieldByteOffset())))) &
-           (formatMask())) >= (firstCompiledMethodFormat()))))) {
+        (isOopCompiledMethod(methodArg)))) {
     /* primitiveFailFor: */
     primFailCode = -2;
     return;

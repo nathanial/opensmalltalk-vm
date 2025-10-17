@@ -39,10 +39,7 @@ static void primitiveExternalCall(void) {
   usqInt numSlots;
   sqInt reasonCode;
 
-  if (!((/* isOopCompiledMethod: */
-         ((!(newMethod & (tagMask())))) &&
-         (((byteAt((void *)(newMethod + (formatFieldByteOffset())))) &
-           (formatMask())) >= (firstCompiledMethodFormat()))) &&
+  if (!((isOopCompiledMethod(newMethod)) &&
         (((literalCountOf(newMethod)) > 0) &&
          (((lit = fetchPointerofObject(1U, newMethod)),
            (/* isArray: */

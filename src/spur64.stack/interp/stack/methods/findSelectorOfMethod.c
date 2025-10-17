@@ -21,10 +21,7 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
     return findSelectorOfMethod(followForwarded(aMethodOop));
   }
-  if (!(/* isOopCompiledMethod: */
-        ((!(aMethodOop & (tagMask())))) &&
-        (((byteAt((void *)(aMethodOop + (formatFieldByteOffset())))) &
-          (formatMask())) >= (firstCompiledMethodFormat())))) {
+  if (!(isOopCompiledMethod(aMethodOop))) {
     return nilObj;
   }
   homeMethod = homeMethodOf(aMethodOop);

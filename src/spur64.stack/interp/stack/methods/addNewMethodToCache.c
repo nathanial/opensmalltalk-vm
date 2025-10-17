@@ -41,10 +41,7 @@ static void addNewMethodToCache(sqInt classObj) {
 
   /* begin methodCacheHashOf:with: */
   hash = messageSelector ^ ((((usqInt)(classTag) << 2)));
-  if (/* isOopCompiledMethod: */
-      ((!(newMethod & (tagMask())))) &&
-      (((byteAt((void *)(newMethod + (formatFieldByteOffset())))) &
-        (formatMask())) >= (firstCompiledMethodFormat()))) {
+  if (isOopCompiledMethod(newMethod)) {
     /* begin primitiveIndexOf: */
     /* begin methodHeaderOf: */
     assert(isCompiledMethod(newMethod));

@@ -58,10 +58,7 @@ static void primitivePerform(void) {
 
   /* Only test CompiledMethods for argument count - other objects will have to
    * take their chances */
-  if (!((/* isOopCompiledMethod: */
-         ((!(newMethod & (tagMask())))) &&
-         (((byteAt((void *)(newMethod + (formatFieldByteOffset())))) &
-           (formatMask())) >= (firstCompiledMethodFormat()))) &&
+  if (!((isOopCompiledMethod(newMethod)) &&
         ((argumentCountOf(newMethod)) == argumentCount))) {
     /* begin unPop: */
     stackPointer -= 1 * BytesPerWord;

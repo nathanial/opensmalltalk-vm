@@ -18,10 +18,7 @@ sqInt maybeSelectorOfMethod(sqInt methodObj) {
 
   assert(isOopCompiledMethod(methodObj));
   ultimateLiteral = ultimateLiteralOf(methodObj);
-  if (/* isOopCompiledMethod: */
-      ((!(ultimateLiteral & (tagMask())))) &&
-      (((byteAt((void *)(ultimateLiteral + (formatFieldByteOffset())))) &
-        (formatMask())) >= (firstCompiledMethodFormat()))) {
+  if (isOopCompiledMethod(ultimateLiteral)) {
     return maybeSelectorOfMethod(ultimateLiteral);
   }
   penultimateLiteral = penultimateLiteralOf(methodObj);

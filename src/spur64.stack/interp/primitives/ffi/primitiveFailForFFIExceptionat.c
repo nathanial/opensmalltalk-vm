@@ -32,10 +32,7 @@ sqInt primitiveFailForFFIExceptionat(usqLong exceptionCode, usqInt pc) {
   exceptionPC = pc;
   primFailCode = PrimErrFFIException;
   if ((ffiExceptionResponse > 0) ||
-      ((/* isOopCompiledMethod: */
-        ((!(newMethod & (tagMask())))) &&
-        (((byteAt((void *)(newMethod + (formatFieldByteOffset())))) &
-          (formatMask())) >= (firstCompiledMethodFormat()))) &&
+      ((isOopCompiledMethod(newMethod)) &&
        (methodUsesPrimitiveErrorCode(newMethod)))) {
     ownVM(ffiCalloutVMHandle);
 

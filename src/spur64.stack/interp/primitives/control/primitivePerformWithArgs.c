@@ -123,10 +123,7 @@ static void primitivePerformWithArgs(void) {
 
   /* Only test CompiledMethods for argument count - any other objects playacting
    * as CMs will have to take their chances */
-  if ((/* isOopCompiledMethod: */
-       ((!(newMethod & (tagMask())))) &&
-       (((byteAt((void *)(newMethod + (formatFieldByteOffset())))) &
-         (formatMask())) >= (firstCompiledMethodFormat()))) &&
+  if ((isOopCompiledMethod(newMethod)) &&
       ((argumentCountOf(newMethod)) != argumentCount)) {
     assert((stackTop()) ==
            ((arraySize == 0
