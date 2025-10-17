@@ -27,14 +27,7 @@ static sqInt scavengeUnfiredEphemeronsOnEphemeronList(void) {
         newSpaceStart;
     assert(isForwarded(ephemeronCorpse));
 
-    /* begin followForwarded: */
-    assert(isUnambiguouslyForwarder(ephemeronCorpse));
-    ephemeron = longAt((void *)((ephemeronCorpse + BaseHeaderSize) +
-                                (0U << (shiftForWord()))));
-    while (isOopForwarded(ephemeron)) {
-      ephemeron = longAt(
-          (void *)((ephemeron + BaseHeaderSize) + (0U << (shiftForWord()))));
-    }
+    ephemeron = followForwarded(ephemeronCorpse);
     offsetToNextCorpse =
         ((((usqInt)(((long32At((void *)(ephemeronCorpse + 4))) &
                      (identityHashHalfWordMask())))

@@ -27,15 +27,7 @@ static void markAndTraceStackPage(StackPage *thePage) {
     while (theSP <= frameRcvrOffset) {
       oop = longAt(theSP);
       if (isOopForwarded(oop)) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(oop));
-        referent =
-            longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (isOopForwarded(referent)) {
-          referent = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        }
-        oop = referent;
+        oop = followForwarded(oop);
         longAtput(theSP, oop);
       }
       if (!(((oop & (tagMask())) != 0))) {
@@ -59,15 +51,7 @@ static void markAndTraceStackPage(StackPage *thePage) {
   while (theSP <= ((thePage->baseAddress))) {
     oop = longAt(theSP);
     if (isOopForwarded(oop)) {
-      /* begin followForwarded: */
-      assert(isUnambiguouslyForwarder(oop));
-      referent =
-          longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (isOopForwarded(referent)) {
-        referent = longAt(
-            (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-      }
-      oop = referent;
+      oop = followForwarded(oop);
       longAtput(theSP, oop);
     }
     if (!(((oop & (tagMask())) != 0))) {

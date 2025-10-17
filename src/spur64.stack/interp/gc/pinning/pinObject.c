@@ -103,15 +103,7 @@ sqInt pinObject(sqInt objOop) {
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
       validatedIntegerClassFlags = 0;
 
-      /* begin followForwarded: */
-      assert(isUnambiguouslyForwarder(specialObjectsOop));
-      referent = longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                                 (0U << (shiftForWord()))));
-      while (isOopForwarded(referent)) {
-        referent = longAt(
-            (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-      }
-      specialObjectsOop = referent;
+      specialObjectsOop = followForwarded(specialObjectsOop);
     }
     followForwardedObjectFieldstoDepth(specialObjectsOop, 0);
 

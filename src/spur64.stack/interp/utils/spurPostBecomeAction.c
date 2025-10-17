@@ -149,15 +149,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
                    ((((usqInt)(TheLowSpaceSemaphore) << (shiftForWord()))))));
       if ((!((longAt((void *)(obj))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(obj));
-        referent =
-            longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (isOopForwarded(referent)) {
-          referent = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        }
-        obj = referent;
+        obj = followForwarded(obj);
 
         /* begin storePointer:ofObject:withValue: */
         assert(validStorePointerArgs(TheLowSpaceSemaphore, specialObjectsOop,
@@ -188,15 +180,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
                    ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))));
       if ((!((longAt((void *)(obj))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(obj));
-        referent =
-            longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (isOopForwarded(referent)) {
-          referent = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        }
-        obj = referent;
+        obj = followForwarded(obj);
 
         /* begin storePointer:ofObject:withValue: */
         assert(validStorePointerArgs(TheInterruptSemaphore, specialObjectsOop,
@@ -227,15 +211,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
                    ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))));
       if ((!((longAt((void *)(obj))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(obj));
-        referent =
-            longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (isOopForwarded(referent)) {
-          referent = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        }
-        obj = referent;
+        obj = followForwarded(obj);
 
         /* begin storePointer:ofObject:withValue: */
         assert(
@@ -266,15 +242,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
                                << (shiftForWord()))))));
       if ((!((longAt((void *)(obj))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(obj));
-        referent =
-            longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (isOopForwarded(referent)) {
-          referent = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        }
-        obj = referent;
+        obj = followForwarded(obj);
 
         /* begin storePointer:ofObject:withValue: */
         assert(validStorePointerArgs(TheFinalizationSemaphore,
@@ -303,15 +271,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
                    ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))));
       if ((!((longAt((void *)(xArray))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(xArray));
-        referent = longAt(
-            (void *)((xArray + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (isOopForwarded(referent)) {
-          referent = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        }
-        xArray = referent;
+        xArray = followForwarded(xArray);
 
         /* begin splObj:put: */
         /* begin storePointer:ofObject:withValue: */
@@ -355,15 +315,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
                               ((((usqInt)(ipdelta) << (shiftForWord()))))));
         if ((!((longAt((void *)(obj))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(obj));
-          referent = longAt(
-              (void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(referent)) {
-            referent = longAt((void *)((referent + BaseHeaderSize) +
-                                       (0U << (shiftForWord()))));
-          }
-          obj = referent;
+          obj = followForwarded(obj);
 
           /* begin storePointer:ofObject:withValue: */
           assert(validStorePointerArgs(ipdelta, xArray, obj));
@@ -425,15 +377,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
           s = methodCache[i + MethodCacheSelector];
           m = methodCache[i + MethodCacheMethod];
           if ((c != 0) && ((s != 0) && ((m != 0) && (isOopForwarded(m))))) {
-            /* begin followForwarded: */
-            assert(isUnambiguouslyForwarder(m));
-            referent = longAt(
-                (void *)((m + BaseHeaderSize) + (0U << (shiftForWord()))));
-            while (isOopForwarded(referent)) {
-              referent = longAt((void *)((referent + BaseHeaderSize) +
-                                         (0U << (shiftForWord()))));
-            }
-            m = referent;
+            m = followForwarded(m);
             methodCache[i + MethodCacheMethod] = m;
           }
         }
@@ -451,29 +395,13 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
                    ? instructionPointer - method
                    : 0);
 
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(method));
-          referent = longAt(
-              (void *)((method + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(referent)) {
-            referent = longAt((void *)((referent + BaseHeaderSize) +
-                                       (0U << (shiftForWord()))));
-          }
-          method = referent;
+          method = followForwarded(method);
           if (ipdelta) {
             instructionPointer = method + ipdelta;
           }
         }
         if (isOopForwarded(newMethod)) {
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(newMethod));
-          referent = longAt((void *)((newMethod + BaseHeaderSize) +
-                                     (0U << (shiftForWord()))));
-          while (isOopForwarded(referent)) {
-            referent = longAt((void *)((referent + BaseHeaderSize) +
-                                       (0U << (shiftForWord()))));
-          }
-          newMethod = referent;
+          newMethod = followForwarded(newMethod);
         }
       }
     }

@@ -14,14 +14,7 @@ static sqInt isMaybeOldScavengeSurvivor(sqInt oop) {
   }
   if ((!((longAt((void *)(oop))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-    /* begin followForwarded: */
-    assert(isUnambiguouslyForwarder(oop));
-    target =
-        longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (isOopForwarded(target)) {
-      target = longAt(
-          (void *)((target + BaseHeaderSize) + (0U << (shiftForWord()))));
-    }
+    target = followForwarded(oop);
     if (((oop & (tagMask())) != 0)) {
       return 1;
     }

@@ -78,14 +78,7 @@ static void followForwardingPointersOfReceiversInStackZone(void) {
         oop = longAt(theFP + FoxMethod);
         if ((!((longAt((void *)(oop))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(oop));
-          newOop = longAt(
-              (void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(newOop)) {
-            newOop = longAt(
-                (void *)((newOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-          }
+          newOop = followForwarded(oop);
           if (theIPPtr) {
             assert((longAt((void *)(theIPPtr))) > (frameMethod(theFP)));
             delta = newOop - oop;
@@ -114,15 +107,7 @@ static void followForwardingPointersOfReceiversInStackZone(void) {
       oop = longAt(theFP + FoxCallerContext);
       if ((!((longAt((void *)(oop))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(oop));
-        referent =
-            longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (isOopForwarded(referent)) {
-          referent = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        }
-        aValue = referent;
+        aValue = followForwarded(oop);
 
         /* begin frameCallerContext:put: */
         assert(isBaseFrame(theFP));

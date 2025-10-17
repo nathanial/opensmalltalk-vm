@@ -38,15 +38,7 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
         (void *)((classObj + BaseHeaderSize) +
                  ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
     if (isOopForwarded(classDict)) {
-      /* begin followForwarded: */
-      assert(isUnambiguouslyForwarder(classDict));
-      referent = longAt(
-          (void *)((classDict + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (isOopForwarded(referent)) {
-        referent = longAt(
-            (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-      }
-      classDict = referent;
+      classDict = followForwarded(classDict);
     }
 
     /* begin numSlotsOf: */
@@ -66,15 +58,7 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
           (void *)((classDict + BaseHeaderSize) +
                    ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
       if (isOopForwarded(methodArray)) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(methodArray));
-        referent = longAt((void *)((methodArray + BaseHeaderSize) +
-                                   (0U << (shiftForWord()))));
-        while (isOopForwarded(referent)) {
-          referent = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        }
-        methodArray = referent;
+        methodArray = followForwarded(methodArray);
       }
       i = 0;
       while (i < (classDictSize - SelectorStart)) {
@@ -84,15 +68,7 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
               void *)((classDict + BaseHeaderSize) +
                       ((((usqInt)((i + SelectorStart)) << (shiftForWord()))))));
           if (isOopForwarded(objOop)) {
-            /* begin followForwarded: */
-            assert(isUnambiguouslyForwarder(objOop));
-            referent = longAt(
-                (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-            while (isOopForwarded(referent)) {
-              referent = longAt((void *)((referent + BaseHeaderSize) +
-                                         (0U << (shiftForWord()))));
-            }
-            objOop = referent;
+            objOop = followForwarded(objOop);
           }
           return objOop;
         }

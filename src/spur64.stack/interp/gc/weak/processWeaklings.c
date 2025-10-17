@@ -43,14 +43,7 @@ static void processWeaklings(void) {
     while (weakCorpse) {
       assert(isForwarded(weakCorpse));
 
-      /* begin followForwarded: */
-      assert(isUnambiguouslyForwarder(weakCorpse));
-      weakObj = longAt(
-          (void *)((weakCorpse + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (isOopForwarded(weakObj)) {
-        weakObj = longAt(
-            (void *)((weakObj + BaseHeaderSize) + (0U << (shiftForWord()))));
-      }
+      weakObj = followForwarded(weakCorpse);
 
       /* weakObj may have been tenured... */
       if ((processWeakSurvivor(weakObj)) &&

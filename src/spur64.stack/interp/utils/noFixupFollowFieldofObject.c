@@ -13,15 +13,7 @@ static sqInt noFixupFollowFieldofObject(sqInt fieldIndex, sqInt anObject) {
   objOop = longAt((void *)((anObject + BaseHeaderSize) +
                            ((((usqInt)(fieldIndex) << (shiftForWord()))))));
   if (isOopForwarded(objOop)) {
-    /* begin followForwarded: */
-    assert(isUnambiguouslyForwarder(objOop));
-    referent =
-        longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (isOopForwarded(referent)) {
-      referent = longAt(
-          (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-    }
-    objOop = referent;
+    objOop = followForwarded(objOop);
   }
   return objOop;
 }

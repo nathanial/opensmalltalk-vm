@@ -142,15 +142,7 @@ l2:
   while (fieldOffset >= BaseHeaderSize) {
     oop1 = longAt((void *)(array1 + fieldOffset));
     if (isOopForwarded(oop1)) {
-      /* begin followForwarded: */
-      assert(isUnambiguouslyForwarder(oop1));
-      referent =
-          longAt((void *)((oop1 + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (isOopForwarded(referent)) {
-        referent = longAt(
-            (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-      }
-      oop1 = referent;
+      oop1 = followForwarded(oop1);
       longAtput((void *)(array1 + fieldOffset), oop1);
     }
 
@@ -181,15 +173,7 @@ l2:
   l3:
     oop2 = longAt((void *)(array2 + fieldOffset));
     if (isOopForwarded(oop2)) {
-      /* begin followForwarded: */
-      assert(isUnambiguouslyForwarder(oop2));
-      referentSqInt =
-          longAt((void *)((oop2 + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (isOopForwarded(referentSqInt)) {
-        referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
-                                        (0U << (shiftForWord()))));
-      }
-      oop2 = referentSqInt;
+      oop2 = followForwarded(oop2);
       longAtput((void *)(array2 + fieldOffset), oop2);
     }
     if (oop1 != oop2) {
@@ -365,14 +349,7 @@ l6:
             classAtIndexput(o1ClassIndex, obj2);
             classAtIndexput(o2ClassIndex, obj1);
           } else {
-            /* begin followForwarded: */
-            assert(isUnambiguouslyForwarder(obj1));
-            newObj2 = longAt(
-                (void *)((obj1 + BaseHeaderSize) + (0U << (shiftForWord()))));
-            while (isOopForwarded(newObj2)) {
-              newObj2 = longAt((void *)((newObj2 + BaseHeaderSize) +
-                                        (0U << (shiftForWord()))));
-            }
+            newObj2 = followForwarded(obj1);
             assert((rawHashBitsOf(newObj2)) == 0);
 
             /* begin setHashBitsOf:to: */
@@ -384,14 +361,7 @@ l6:
           }
         } else {
           if (o2ClassIndex) {
-            /* begin followForwarded: */
-            assert(isUnambiguouslyForwarder(obj2));
-            newObj1 = longAt(
-                (void *)((obj2 + BaseHeaderSize) + (0U << (shiftForWord()))));
-            while (isOopForwarded(newObj1)) {
-              newObj1 = longAt((void *)((newObj1 + BaseHeaderSize) +
-                                        (0U << (shiftForWord()))));
-            }
+            newObj1 = followForwarded(obj2);
             assert((rawHashBitsOf(newObj1)) == 0);
 
             /* begin setHashBitsOf:to: */
@@ -531,15 +501,7 @@ l6:
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
     validatedIntegerClassFlags = 0;
 
-    /* begin followForwarded: */
-    assert(isUnambiguouslyForwarder(specialObjectsOop));
-    referent = longAt((void *)((specialObjectsOop + BaseHeaderSize) +
-                               (0U << (shiftForWord()))));
-    while (isOopForwarded(referent)) {
-      referent = longAt(
-          (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-    }
-    specialObjectsOop = referent;
+    specialObjectsOop = followForwarded(specialObjectsOop);
   }
   followForwardedObjectFieldstoDepth(specialObjectsOop, 0);
 

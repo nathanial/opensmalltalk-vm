@@ -15,14 +15,7 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth, sqInt classObj) {
   sqInt referentSqInt;
 
   if (isOopForwarded(classObj)) {
-    /* begin followForwarded: */
-    assert(isUnambiguouslyForwarder(classObj));
-    currClass = longAt(
-        (void *)((classObj + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (isOopForwarded(currClass)) {
-      currClass = longAt(
-          (void *)((currClass + BaseHeaderSize) + (0U << (shiftForWord()))));
-    }
+    currClass = followForwarded(classObj);
   } else {
     currClass = classObj;
   }
@@ -37,15 +30,7 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth, sqInt classObj) {
         (void *)((currClass + BaseHeaderSize) +
                  ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
     if (isOopForwarded(classDict)) {
-      /* begin followForwarded: */
-      assert(isUnambiguouslyForwarder(classDict));
-      referent = longAt(
-          (void *)((classDict + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (isOopForwarded(referent)) {
-        referent = longAt(
-            (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-      }
-      classDict = referent;
+      classDict = followForwarded(classDict);
     }
     assert(!(isForwarded(classDict)));
 
@@ -66,15 +51,7 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth, sqInt classObj) {
           (void *)((classDict + BaseHeaderSize) +
                    ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
       if (isOopForwarded(methodArray)) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(methodArray));
-        referentSqInt = longAt((void *)((methodArray + BaseHeaderSize) +
-                                        (0U << (shiftForWord()))));
-        while (isOopForwarded(referentSqInt)) {
-          referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
-                                          (0U << (shiftForWord()))));
-        }
-        methodArray = referentSqInt;
+        methodArray = followForwarded(methodArray);
       }
       assert(!(isForwarded(methodArray)));
       i = 0;
@@ -92,15 +69,7 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth, sqInt classObj) {
         longAt((void *)((currClass + BaseHeaderSize) +
                         ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
     if (isOopForwarded(objOop)) {
-      /* begin followForwarded: */
-      assert(isUnambiguouslyForwarder(objOop));
-      referentSqInt = longAt(
-          (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (isOopForwarded(referentSqInt)) {
-        referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
-                                        (0U << (shiftForWord()))));
-      }
-      objOop = referentSqInt;
+      objOop = followForwarded(objOop);
     }
     currClass = objOop;
   } while (!(currClass == nilObj));

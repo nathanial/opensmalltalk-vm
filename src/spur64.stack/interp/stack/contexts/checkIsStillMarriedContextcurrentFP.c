@@ -62,15 +62,7 @@ static sqInt checkIsStillMarriedContextcurrentFP(sqInt aContext,
       ((isFrameonPage(maybeFP, thePage)) &&
        ((!((longAt((void *)(maybeFrameCtxt))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))) {
-    /* begin followForwarded: */
-    assert(isUnambiguouslyForwarder(maybeFrameCtxt));
-    referent = longAt(
-        (void *)((maybeFrameCtxt + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (isOopForwarded(referent)) {
-      referent = longAt(
-          (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-    }
-    maybeFrameCtxt = referent;
+    maybeFrameCtxt = followForwarded(maybeFrameCtxt);
   }
   return maybeFrameCtxt == aContext;
 }

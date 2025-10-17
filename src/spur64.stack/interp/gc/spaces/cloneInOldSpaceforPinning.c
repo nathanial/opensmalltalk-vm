@@ -56,15 +56,7 @@ static sqInt cloneInOldSpaceforPinning(sqInt objOop, sqInt forPinning) {
       if (((!(oop & (tagMask())))) &&
           ((!((longAt((void *)(oop))) &
               ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(oop));
-        referent =
-            longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (isOopForwarded(referent)) {
-          referent = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        }
-        oop = referent;
+        oop = followForwarded(oop);
       }
       if (((!(oop & (tagMask())))) &&
           ((/* begin isYoungObject: */

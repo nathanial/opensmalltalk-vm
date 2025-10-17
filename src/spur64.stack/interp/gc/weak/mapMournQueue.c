@@ -26,15 +26,7 @@ static NeverInline void mapMournQueue(void) {
       if ((!(mourner & (tagMask())))) {
         if ((!((longAt((void *)(mourner))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(mourner));
-          referent = longAt(
-              (void *)((mourner + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(referent)) {
-            referent = longAt((void *)((referent + BaseHeaderSize) +
-                                       (0U << (shiftForWord()))));
-          }
-          mourner = referent;
+          mourner = followForwarded(mourner);
         }
         if (!(isScavengeSurvivor(mourner))) {
           mourner = copyAndForwardMourner(mourner);

@@ -136,15 +136,7 @@ static sqInt retryPrimitiveOnFailure(void) {
                 assert(index < argumentCount);
                 retry = 1;
 
-                /* begin followForwarded: */
-                assert(isUnambiguouslyForwarder(oop));
-                referent = longAt((void *)((oop + BaseHeaderSize) +
-                                           (0U << (shiftForWord()))));
-                while (isOopForwarded(referent)) {
-                  referent = longAt((void *)((referent + BaseHeaderSize) +
-                                             (0U << (shiftForWord()))));
-                }
-                oop = referent;
+                oop = followForwarded(oop);
 
                 /* stackValue:put: */
                 longAtput((void *)(stackPointer + (index * BytesPerWord)), oop);

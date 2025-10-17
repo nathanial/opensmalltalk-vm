@@ -48,15 +48,7 @@ static void postBecomeScanClassTable(sqInt effectsFlags) {
       if (classOrNil != nilObj) {
         if ((!((longAt((void *)(classOrNil))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(classOrNil));
-          referent = longAt((void *)((classOrNil + BaseHeaderSize) +
-                                     (0U << (shiftForWord()))));
-          while (isOopForwarded(referent)) {
-            referent = longAt((void *)((referent + BaseHeaderSize) +
-                                       (0U << (shiftForWord()))));
-          }
-          classOrNil = referent;
+          classOrNil = followForwarded(classOrNil);
 
           /* begin storePointer:ofObject:withValue: */
           assert(validStorePointerArgs(j, page, classOrNil));

@@ -45,15 +45,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
       if ((!(referent & (tagMask())))) {
         if ((!((longAt((void *)(referent))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(referent));
-          referentSqInt = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(referentSqInt)) {
-            referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
-                                            (0U << (shiftForWord()))));
-          }
-          referent = referentSqInt;
+          referent = followForwarded(referent);
         }
 
         /* begin isReallyYoungObject: */
@@ -96,15 +88,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
       if ((!(referent & (tagMask())))) {
         if ((!((longAt((void *)(referent))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(referent));
-          referentSqInt = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(referentSqInt)) {
-            referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
-                                            (0U << (shiftForWord()))));
-          }
-          referent = referentSqInt;
+          referent = followForwarded(referent);
         }
 
         /* begin isReallyYoungObject: */
@@ -146,15 +130,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
       if ((!(referent & (tagMask())))) {
         if ((!((longAt((void *)(referent))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(referent));
-          referentSqInt = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(referentSqInt)) {
-            referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
-                                            (0U << (shiftForWord()))));
-          }
-          referent = referentSqInt;
+          referent = followForwarded(referent);
         }
 
         /* begin isReallyYoungObject: */
@@ -211,15 +187,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
       if ((!(referent & (tagMask())))) {
         if ((!((longAt((void *)(referent))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(referent));
-          referentSqInt = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(referentSqInt)) {
-            referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
-                                            (0U << (shiftForWord()))));
-          }
-          referent = referentSqInt;
+          referent = followForwarded(referent);
         }
 
         /* begin isReallyYoungObject: */
@@ -260,15 +228,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
     if ((!(referent & (tagMask())))) {
       if ((!((longAt((void *)(referent))) &
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(referent));
-        referentSqInt = longAt(
-            (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (isOopForwarded(referentSqInt)) {
-          referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
-                                          (0U << (shiftForWord()))));
-        }
-        referent = referentSqInt;
+        referent = followForwarded(referent);
       }
 
       /* begin isReallyYoungObject: */
@@ -319,15 +279,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
       if ((!(referent & (tagMask())))) {
         if ((!((longAt((void *)(referent))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(referent));
-          referentSqInt = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(referentSqInt)) {
-            referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
-                                            (0U << (shiftForWord()))));
-          }
-          referent = referentSqInt;
+          referent = followForwarded(referent);
         }
 
         /* begin isReallyYoungObject: */

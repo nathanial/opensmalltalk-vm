@@ -60,15 +60,7 @@ static sqInt isWidowedContextDuringGC(sqInt aOnceMarriedContext) {
       if ((isFrameonPage(maybeFrame, thePage)) &&
           ((!((longAt((void *)(maybeFrameCtxt))) &
               ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(maybeFrameCtxt));
-        referent = longAt((void *)((maybeFrameCtxt + BaseHeaderSize) +
-                                   (0U << (shiftForWord()))));
-        while (isOopForwarded(referent)) {
-          referent = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        }
-        maybeFrameCtxt = referent;
+        maybeFrameCtxt = followForwarded(maybeFrameCtxt);
 
         /* begin setFrameContext:to: */
         longAtput(maybeFrame + FoxThisContext, maybeFrameCtxt);

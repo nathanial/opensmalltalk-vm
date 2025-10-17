@@ -376,15 +376,7 @@ l3:
   }
   if ((!((longAt((void *)(freeChunk))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-    /* begin followForwarded: */
-    assert(isUnambiguouslyForwarder(freeChunk));
-    referent = longAt(
-        (void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (isOopForwarded(referent)) {
-      referent = longAt(
-          (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-    }
-    freeChunk = referent;
+    freeChunk = followForwarded(freeChunk);
   }
 
   /* begin possibleRootStoreInto: */

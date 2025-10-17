@@ -16,15 +16,7 @@ static sqInt handleForwardedSendFaultForTag(sqInt classTag) {
   /* should *not* be a super send, so the receiver should be forwarded. */
   assert(isOopForwarded(rcvr));
 
-  /* begin followForwarded: */
-  assert(isUnambiguouslyForwarder(rcvr));
-  referent =
-      longAt((void *)((rcvr + BaseHeaderSize) + (0U << (shiftForWord()))));
-  while (isOopForwarded(referent)) {
-    referent = longAt(
-        (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-  }
-  rcvr = referent;
+  rcvr = followForwarded(rcvr);
 
   /* stackValue:put: */
   longAtput(stackPointer + (argumentCount * BytesPerWord), rcvr);

@@ -132,14 +132,7 @@ static void processEphemerons(void) {
     while (ephemeronCorpse) {
       assert((isYoung(ephemeronCorpse)) && (isForwarded(ephemeronCorpse)));
 
-      /* begin followForwarded: */
-      assert(isUnambiguouslyForwarder(ephemeronCorpse));
-      ephemeron = longAt((void *)((ephemeronCorpse + BaseHeaderSize) +
-                                  (0U << (shiftForWord()))));
-      while (isOopForwarded(ephemeron)) {
-        ephemeron = longAt(
-            (void *)((ephemeron + BaseHeaderSize) + (0U << (shiftForWord()))));
-      }
+      ephemeron = followForwarded(ephemeronCorpse);
 
       /* begin keyOfMaybeFiredEphemeron: */
       assert((isNonImmediate(ephemeron)) && (isMaybeFiredEphemeron(ephemeron)));

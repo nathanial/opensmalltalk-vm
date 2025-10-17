@@ -13,14 +13,7 @@ sqInt remapObj(sqInt objOop) {
   assert(shouldRemapOop(objOop));
   if ((!((longAt((void *)(objOop))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-    /* begin followForwarded: */
-    assert(isUnambiguouslyForwarder(objOop));
-    resolvedObj =
-        longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (isOopForwarded(resolvedObj)) {
-      resolvedObj = longAt(
-          (void *)((resolvedObj + BaseHeaderSize) + (0U << (shiftForWord()))));
-    }
+    resolvedObj = followForwarded(objOop);
   } else {
     assert(!((isInFutureSpace(objOop))));
     resolvedObj = objOop;

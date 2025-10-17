@@ -4058,15 +4058,7 @@ sqInt interpret(void) {
         if (isOopForwarded(longAt(localSP + (argumentCount * BytesPerOop)))) {
           objOop = longAt(localSP + (argumentCount * BytesPerOop));
 
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(objOop));
-          referent = longAt(
-              (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(referent)) {
-            referent = longAt((void *)((referent + BaseHeaderSize) +
-                                       (0U << (shiftForWord()))));
-          }
-          aValue = referent;
+          aValue = followForwarded(objOop);
 
           /* begin internalStackValue:put: */
           longAtput(localSP + (argumentCount * BytesPerOop), aValue);
@@ -8235,15 +8227,7 @@ sqInt interpret(void) {
         localSP += BytesPerOop;
         if ((!((longAt((void *)(class))) &
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(class));
-          referent = longAt(
-              (void *)((class + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(referent)) {
-            referent = longAt((void *)((referent + BaseHeaderSize) +
-                                       (0U << (shiftForWord()))));
-          }
-          class = referent;
+          class = followForwarded(class);
         }
 
         /* begin superclassOf: */
@@ -8285,15 +8269,7 @@ sqInt interpret(void) {
         if (isOopForwarded(longAt(localSP + (argumentCount * BytesPerOop)))) {
           objOop = longAt(localSP + (argumentCount * BytesPerOop));
 
-          /* begin followForwarded: */
-          assert(isUnambiguouslyForwarder(objOop));
-          referent = longAt(
-              (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (isOopForwarded(referent)) {
-            referent = longAt((void *)((referent + BaseHeaderSize) +
-                                       (0U << (shiftForWord()))));
-          }
-          aValue = referent;
+          aValue = followForwarded(objOop);
 
           /* begin internalStackValue:put: */
           longAtput(localSP + (argumentCount * BytesPerOop), aValue);

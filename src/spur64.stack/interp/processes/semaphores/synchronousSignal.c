@@ -60,15 +60,7 @@ static sqInt synchronousSignal(sqInt aSemaphore) {
                ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))));
   if ((!((longAt((void *)(ctxt))) &
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-    /* begin followForwarded: */
-    assert(isUnambiguouslyForwarder(ctxt));
-    referent =
-        longAt((void *)((ctxt + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (isOopForwarded(referent)) {
-      referent = longAt(
-          (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-    }
-    ctxt = referent;
+    ctxt = followForwarded(ctxt);
 
     /* begin storePointer:ofObject:withValue: */
     assert(validStorePointerArgs(SuspendedContextIndex, proc, ctxt));

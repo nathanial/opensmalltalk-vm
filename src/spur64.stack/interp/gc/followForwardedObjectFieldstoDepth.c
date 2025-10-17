@@ -89,15 +89,7 @@ l2:
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         found = 1;
 
-        /* begin followForwarded: */
-        assert(isUnambiguouslyForwarder(oop));
-        referent =
-            longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (isOopForwarded(referent)) {
-          referent = longAt(
-              (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        }
-        oop = referent;
+        oop = followForwarded(oop);
 
         /* begin storePointer:ofObject:withValue: */
         assert(validStorePointerArgs(i, objOop, oop));

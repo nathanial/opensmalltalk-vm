@@ -54,15 +54,7 @@ static NeverInline void computeRefCountToShrinkRT(void) {
     elephant = rememberedSet[iSqInt];
     if ((!((longAt((void *)(elephant))) &
            ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      /* begin followForwarded: */
-      assert(isUnambiguouslyForwarder(elephant));
-      referentSqInt = longAt(
-          (void *)((elephant + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (isOopForwarded(referentSqInt)) {
-        referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
-                                        (0U << (shiftForWord()))));
-      }
-      elephant = referentSqInt;
+      elephant = followForwarded(elephant);
       if (((elephant & (tagMask())) != 0)) {
         elephant = nilObj;
       }

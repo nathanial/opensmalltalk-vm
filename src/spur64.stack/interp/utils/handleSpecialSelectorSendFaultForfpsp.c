@@ -22,13 +22,5 @@ static sqInt handleSpecialSelectorSendFaultForfpsp(sqInt obj, char *theFP,
     followForwardedObjectFieldstoDepth(rcvr, 0);
   }
 
-  /* begin followForwarded: */
-  assert(isUnambiguouslyForwarder(obj));
-  referent =
-      longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-  while (isOopForwarded(referent)) {
-    referent = longAt(
-        (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-  }
-  return referent;
+  return followForwarded(obj);
 }
