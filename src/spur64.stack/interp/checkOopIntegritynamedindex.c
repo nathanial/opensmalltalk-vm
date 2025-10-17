@@ -5,11 +5,11 @@
 static NoDbgRegParms sqInt
 checkOopIntegritynamedindex(sqInt obj, char *name, sqInt i)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	if ((oopisLessThan(obj, GIV(endOfMemory)))
+	if ((oopisLessThan(obj, endOfMemory))
 	 && ((heapMapAtWord(pointerForOop(obj))) != 0)) {
 		return 1;
 	}
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%s leak @ %d = %p\n",
 			name,
 			((int) i),

@@ -13,7 +13,7 @@ stackPointerIndexForFrame(char *theFP)
     char *theSP;
 
 	/* begin stackPageFor: */
-	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
 	theSP = findSPOfon(theFP, thePage);
 	return (((usqInt)(((theFP + FoxReceiver) - theSP))) >> (shiftForWord())) + (byteAt((theFP + FoxFrameFlags) + 1));
 }

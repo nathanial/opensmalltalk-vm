@@ -13,7 +13,7 @@ signalNoResume(sqInt aSemaphore)
 
 	/* begin isEmptyList: */
 	assert(!(isForwarded(aSemaphore)));
-	empty = (longAt((void *)((aSemaphore + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) == GIV(nilObj);
+	empty = (longAt((void *)((aSemaphore + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) == nilObj;
 	if (!empty) {
 		putToSleepyieldingIf(removeFirstLinkOfList(aSemaphore), 1);
 	}

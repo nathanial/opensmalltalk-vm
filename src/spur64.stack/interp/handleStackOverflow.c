@@ -16,17 +16,17 @@ handleStackOverflow(void)
     char *theFP;
 
 	callerFP = ((char *) 0);
-	assert(GIV(stackPointer) < ((GIV(stackPage)->realStackLimit)));
+	assert(stackPointer < ((stackPage->realStackLimit)));
 
 	/* begin traceStackOverflow */
 	/* begin recordTrace:thing:source: */
 	if (TraceLog) {
-		GIV(traceLog)[GIV(traceLogIndex)] = TraceStackOverflow;
-		GIV(traceLog)[GIV(traceLogIndex) + 1] = TraceStackOverflow;
-		GIV(traceLog)[GIV(traceLogIndex) + 2] = 0;
-		GIV(traceLogIndex) = (GIV(traceLogIndex) + 3) % TraceBufferSize;
+		traceLog[traceLogIndex] = TraceStackOverflow;
+		traceLog[traceLogIndex + 1] = TraceStackOverflow;
+		traceLog[traceLogIndex + 2] = 0;
+		traceLogIndex = (traceLogIndex + 3) % TraceBufferSize;
 	}
-	GIV(statStackOverflow) += 1;
+	statStackOverflow += 1;
 
 	/* The stack has overflowed this page.  If the system is executing some recursive algorithm,
 	   e.g. fibonacci, then the system could thrash overflowing the stack if the call soon returns
@@ -34,10 +34,10 @@ handleStackOverflow(void)
 	   more than one frame.  The idea is to record which page has overflowed, and the first
 	   time it overflows move one frame, the second time two frames, and so on.  We move no
 	   more frames than would leave the page half occupied. */
-	theFP = GIV(framePointer);
-	if (GIV(stackPage) == GIV(overflowedPage)) {
-		overflowLimitAddress = ((GIV(stackPage)->baseAddress)) - GIV(overflowLimit);
-		overflowCount = (GIV(extraFramesToMoveOnOverflow) += 1);
+	theFP = framePointer;
+	if (stackPage == overflowedPage) {
+		overflowLimitAddress = ((stackPage->baseAddress)) - overflowLimit;
+		overflowCount = (extraFramesToMoveOnOverflow += 1);
 		while ((((overflowCount -= 1)) >= 0)
 		 && ((((callerFP = ((char *)(longAt(theFP + FoxSavedFP))))) < overflowLimitAddress)
 		 && (!((longAt(callerFP + FoxSavedFP)) == 0)))) {
@@ -45,8 +45,8 @@ handleStackOverflow(void)
 		}
 	}
 	else {
-		GIV(overflowedPage) = GIV(stackPage);
-		GIV(extraFramesToMoveOnOverflow) = 0;
+		overflowedPage = stackPage;
+		extraFramesToMoveOnOverflow = 0;
 	}
 
 	/* begin ensureCallerContext: */
@@ -75,26 +75,26 @@ handleStackOverflow(void)
 l2:
 
 	/* begin newStackPage */
-	newPage = (GIV(mostRecentlyUsedPage)->nextPage);
+	newPage = (mostRecentlyUsedPage->nextPage);
 	if (!((newPage->baseFP))) {
 		goto l1;
 	}
 	divorceFramesIn(newPage);
 	/* end newStackPage */
 l1:
-	moveFramesInthroughtoPage(GIV(stackPage), theFP, newPage);
+	moveFramesInthroughtoPage(stackPage, theFP, newPage);
 
 	/* begin setStackPageAndLimit: */
 	assert(newPage);
-	GIV(stackPage) = newPage;
-	if (GIV(stackLimit) != (((char *) (((usqInt) -1))))) {
-		GIV(stackLimit) = (GIV(stackPage)->stackLimit);
+	stackPage = newPage;
+	if (stackLimit != (((char *) (((usqInt) -1))))) {
+		stackLimit = (stackPage->stackLimit);
 	}
 	markStackPageMostRecentlyUsed(newPage);
 
 	/* begin setStackPointersFromPage: */
-	GIV(stackPointer) = (newPage->headSP);
-	GIV(framePointer) = (newPage->headFP);
-	assert(!(frameHasContext(GIV(framePointer))));
-	assert(validInstructionPointerinMethodframePointer(GIV(instructionPointer) + 1, GIV(method), GIV(framePointer)));
+	stackPointer = (newPage->headSP);
+	framePointer = (newPage->headFP);
+	assert(!(frameHasContext(framePointer)));
+	assert(validInstructionPointerinMethodframePointer(instructionPointer + 1, method, framePointer));
 }

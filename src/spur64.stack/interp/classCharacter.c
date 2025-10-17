@@ -5,5 +5,5 @@
 sqInt
 classCharacter(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassCharacter) << (shiftForWord()))))));
+	return longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassCharacter) << (shiftForWord()))))));
 }

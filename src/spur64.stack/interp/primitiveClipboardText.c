@@ -15,18 +15,18 @@ primitiveClipboardText(void)
     char *sp;
     sqInt sz;
 
-	if (GIV(argumentCount) == 1) {
-		s = longAt(GIV(stackPointer));
+	if (argumentCount == 1) {
+		s = longAt(stackPointer);
 		if (!(/* isBytes: */
 				((!(s & (tagMask()))))
 			 && (((byteAt((void *)(s + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat())))) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return;
 		}
-		if (!GIV(primFailCode)) {
+		if (!primFailCode) {
 			/* begin numBytesOfBytes: */
 			fmt = (byteAt((void *)(s + (formatFieldByteOffset())))) & (formatMask());
 			assert(fmt >= (firstByteFormat()));
@@ -38,7 +38,7 @@ primitiveClipboardText(void)
 			clipboardWriteFromAt(sz, s + BaseHeaderSize, 0);
 
 			/* begin pop: */
-			GIV(stackPointer) += 1 * BytesPerWord;
+			stackPointer += 1 * BytesPerWord;
 		}
 	}
 	else {
@@ -50,15 +50,15 @@ primitiveClipboardText(void)
 		s = noInlineAllocateSlotsformatclassIndex(((sz + BytesPerOop) - 1) / BytesPerOop, byteFormatForNumBytes(sz), ClassByteStringCompactIndex);
 		if (!s) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return;
 		}
 		clipboardReadIntoAt(sz, s + BaseHeaderSize, 0);
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer)),s);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer),s);
+		stackPointer = sp;
 	}
 }

@@ -10,9 +10,9 @@ unmarkAllFrames(void)
     char *theFP;
     StackPage *thePage;
 
-	for (i = 0; i < GIV(numStackPages); i += 1) {
+	for (i = 0; i < numStackPages; i += 1) {
 		/* begin stackPageAt: */
-		thePage = stackPageAtpages(i, GIV(pages));
+		thePage = stackPageAtpages(i, pages);
 		if (!(isFree(thePage))) {
 			theFP = (thePage->headFP);
 			do {

@@ -14,39 +14,39 @@ marryContextInNewStackPageAndInitializeInterpreterRegisters(sqInt aContext)
     StackPage *newPage;
     sqInt top;
 
-	assert(!GIV(stackPage));
+	assert(!stackPage);
 	newPage = makeBaseFrameFor(aContext);
 
 	/* begin setStackPageAndLimit: */
 	assert(newPage);
-	GIV(stackPage) = newPage;
-	if (GIV(stackLimit) != (((char *) (((usqInt) -1))))) {
-		GIV(stackLimit) = (GIV(stackPage)->stackLimit);
+	stackPage = newPage;
+	if (stackLimit != (((char *) (((usqInt) -1))))) {
+		stackLimit = (stackPage->stackLimit);
 	}
 	markStackPageMostRecentlyUsed(newPage);
 
 	/* begin setStackPointersFromPage: */
-	GIV(stackPointer) = (newPage->headSP);
-	GIV(framePointer) = (newPage->headFP);
-	aMethodObj = longAt(((GIV(stackPage)->headFP)) + FoxMethod);
+	stackPointer = (newPage->headSP);
+	framePointer = (newPage->headFP);
+	aMethodObj = longAt(((stackPage->headFP)) + FoxMethod);
 
 	/* begin setMethod: */
-	GIV(method) = aMethodObj;
-	assert(isOopCompiledMethod(GIV(method)));
+	method = aMethodObj;
+	assert(isOopCompiledMethod(method));
 
 	/* begin methodUsesAlternateBytecodeSet: */
 	/* begin methodHeaderOf: */
-	assert(isCompiledMethod(GIV(method)));
-	methodHeader = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+	assert(isCompiledMethod(method));
+	methodHeader = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 	if ((((sqLong) methodHeader)) < 0) {
-		GIV(bytecodeSetSelector) = 0x100;
+		bytecodeSetSelector = 0x100;
 	}
 	else {
-		GIV(bytecodeSetSelector) = 0;
+		bytecodeSetSelector = 0;
 	}
 
 	/* begin popStack */
-	top = longAt(GIV(stackPointer));
-	GIV(stackPointer) += BytesPerWord;
-	GIV(instructionPointer) = top;
+	top = longAt(stackPointer);
+	stackPointer += BytesPerWord;
+	instructionPointer = top;
 }

@@ -20,46 +20,46 @@ primitiveStoreStackp(void)
     char *theFP;
     StackPage *thePage;
 
-	ctxt = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	ctxt = longAt(stackPointer + (1 * BytesPerWord));
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer));
+	integerPointer = longAt(stackPointer);
 	if ((((integerPointer) & 7) == 1)) {
 		newStackp = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		newStackp = 0;
 	}
-	if (!((!GIV(primFailCode))
+	if (!((!primFailCode)
 		 && (((newStackp >= 0) && (newStackp <= (((/* begin numSlotsOf: */
 	assert((classIndexOf(ctxt)) > (isForwardedObjectClassIndexPun())),
 (((numSlots = byteAt((void *)(ctxt + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
 			? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(ctxt - BaseHeaderSize)))) << 8)))))) >> 8
 			: numSlots))) - CtxtTempFrameStart)))))) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
 	if (/* isStillMarriedContext: */
 		(((((longAt((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
@@ -70,24 +70,24 @@ primitiveStoreStackp(void)
 		theFP = ((char *)(senderOop - (smallIntegerTag())));
 
 		/* begin stackPageFor: */
-		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
-		if (((onCurrentPage = thePage == GIV(stackPage)))
-		 && (theFP == GIV(framePointer))) {
+		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
+		if (((onCurrentPage = thePage == stackPage))
+		 && (theFP == framePointer)) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return;
 		}
 		externalDivorceFrameandContext(theFP, ctxt);
 		if (onCurrentPage) {
 			/* begin setStackPointersFromPage: */
-			GIV(stackPointer) = (GIV(stackPage)->headSP);
-			GIV(framePointer) = (GIV(stackPage)->headFP);
+			stackPointer = (stackPage->headSP);
+			framePointer = (stackPage->headFP);
 		}
 		else {
-			assert(GIV(stackPage) == (stackPageFor(GIV(framePointer))));
-			markStackPageMostRecentlyUsed(GIV(stackPage));
+			assert(stackPage == (stackPageFor(framePointer)));
+			markStackPageMostRecentlyUsed(stackPage);
 		}
 	}
 
@@ -107,8 +107,8 @@ l1:
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(ctxt))
 		 && (!(isForwarded(ctxt))));
-		assert(validStorePointerUncheckedArgs((i + CtxtTempFrameStart) - 1, ctxt, GIV(nilObj)));
-		longAtput((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(((i + CtxtTempFrameStart) - 1)) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs((i + CtxtTempFrameStart) - 1, ctxt, nilObj));
+		longAtput((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(((i + CtxtTempFrameStart) - 1)) << (shiftForWord()))))),nilObj);
 	}
 
 	/* begin storeStackPointerValue:inContext: */
@@ -119,5 +119,5 @@ l1:
 	longAtput((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(StackPointerIndex) << (shiftForWord()))))),(((usqInt)newStackp << 3) | 1));
 
 	/* begin pop: */
-	GIV(stackPointer) += 1 * BytesPerWord;
+	stackPointer += 1 * BytesPerWord;
 }

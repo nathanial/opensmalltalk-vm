@@ -14,7 +14,7 @@ primitiveSquareRoot(void)
     double doubleValue;
     sqInt rcvr;
 
-	rcvr = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer);
 
 	/* begin noFailFloatValueOf: */
 	assert(isFloatInstance(rcvr));
@@ -38,12 +38,12 @@ primitiveSquareRoot(void)
 		aValue = floatObjectOf(sqrt(doubleValue));
 
 		/* begin stackTopPut: */
-		longAtput(GIV(stackPointer),aValue);
+		longAtput(stackPointer,aValue);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 }

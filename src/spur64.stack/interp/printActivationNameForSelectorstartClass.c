@@ -41,7 +41,7 @@ printActivationNameForSelectorstartClass(sqInt aSelector, sqInt startClass)
 				objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex, currClass, objOop);
 			}
 			currClass = objOop;
-		} while(!(currClass == GIV(nilObj)));
+		} while(!(currClass == nilObj));
 		methClass = null;
 		/* end findClassForSelector:lookupClass:do: */
 l1:
@@ -50,7 +50,7 @@ l1:
 			printNameOfClasscount(methClass, 5);
 			printChar('>');
 			if (!methClass) {
-				printStringOf(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord())))))));
+				printStringOf(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord())))))));
 				print(" ");
 			}
 		}
@@ -76,7 +76,7 @@ l1:
 		else {
 			/* begin printOopShort: */
 			printOopShortInner(aSelector);
-			fflush(GIV(transcript));
+			fflush(transcript);
 		}
 	}
 	else {

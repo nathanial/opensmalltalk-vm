@@ -13,44 +13,44 @@ primitiveSetOrHasIdentityHash(void)
     char *sp;
     sqInt thisReceiver;
 
-	if (!GIV(argumentCount)) {
-		hasHash = ((!((longAt(GIV(stackPointer))) & (tagMask()))))
-			 && ((long32At((void *)((longAt(GIV(stackPointer))) + 4))) & (identityHashHalfWordMask()));
+	if (!argumentCount) {
+		hasHash = ((!((longAt(stackPointer)) & (tagMask()))))
+			 && ((long32At((void *)((longAt(stackPointer)) + 4))) & (identityHashHalfWordMask()));
 
 		/* begin methodReturnBool: */
 		assert(!((failed())));
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
 			(hasHash
-				? GIV(trueObj)
-				: GIV(falseObj)));
-		GIV(stackPointer) = sp;
+				? trueObj
+				: falseObj));
+		stackPointer = sp;
 		return;
 	}
 	isReceiverAClass = 0;
-	if (GIV(argumentCount) == 2) {
-		lastArg = longAt(GIV(stackPointer));
+	if (argumentCount == 2) {
+		lastArg = longAt(stackPointer);
 		if ((((lastArg) & 7) == 1)) {
 			hash = lastArg;
-			thisReceiver = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+			thisReceiver = longAt(stackPointer + (1 * BytesPerWord));
 		}
 		else {
-			thisReceiver = longAt(GIV(stackPointer) + (2 * BytesPerWord));
-			hash = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-			if (lastArg == GIV(trueObj)) {
+			thisReceiver = longAt(stackPointer + (2 * BytesPerWord));
+			hash = longAt(stackPointer + (1 * BytesPerWord));
+			if (lastArg == trueObj) {
 				isReceiverAClass = 1;
 			}
 			else {
-				if (!(lastArg == GIV(falseObj))) {
+				if (!(lastArg == falseObj)) {
 					/* primitiveFailFor: */
-					GIV(primFailCode) = PrimErrBadArgument;
+					primFailCode = PrimErrBadArgument;
 					return;
 				}
 			}
 		}
 	}
 	else {
-		thisReceiver = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-		hash = longAt(GIV(stackPointer));
+		thisReceiver = longAt(stackPointer + (1 * BytesPerWord));
+		hash = longAt(stackPointer);
 	}
 
 	/* anObject primitiveSetIdentityHashTo: hash */
@@ -59,12 +59,12 @@ primitiveSetOrHasIdentityHash(void)
 			(hash = (hash >> 3)),
 		(hash & (identityHashHalfWordMask())) == hash)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	if (!((!(thisReceiver & (tagMask()))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = (thisReceiver == (longAt(GIV(stackPointer) + (GIV(argumentCount) * BytesPerWord)))
+		primFailCode = (thisReceiver == (longAt(stackPointer + (argumentCount * BytesPerWord)))
 					? PrimErrBadReceiver
 					: PrimErrBadArgument);
 		return;
@@ -82,6 +82,6 @@ primitiveSetOrHasIdentityHash(void)
 
 	/* begin methodReturnInteger: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)oldHash << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)oldHash << 3) | 1));
+	stackPointer = sp;
 }

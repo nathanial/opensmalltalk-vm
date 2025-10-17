@@ -18,11 +18,11 @@ pageListIsWellFormed(void)
     StackPage *page;
 
 	ok = 1;
-	page = (GIV(mostRecentlyUsedPage)->nextPage);
+	page = (mostRecentlyUsedPage->nextPage);
 	count = 1;
-	limit = GIV(numStackPages) * 2;
+	limit = numStackPages * 2;
 	while ((((page->baseFP)) == 0)
-	 && ((page != GIV(mostRecentlyUsedPage))
+	 && ((page != mostRecentlyUsedPage)
 	 && (count <= limit))) {
 		if (!(asserta(((((page->nextPage))->prevPage)) == page))) {
 			ok = 0;
@@ -30,7 +30,7 @@ pageListIsWellFormed(void)
 		page = (page->nextPage);
 		count += 1;
 	}
-	while ((page != GIV(mostRecentlyUsedPage))
+	while ((page != mostRecentlyUsedPage)
 	 && (count <= limit)) {
 		if (!(asserta(((((page->nextPage))->prevPage)) == page))) {
 			ok = 0;

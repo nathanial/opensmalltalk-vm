@@ -20,15 +20,15 @@ isValidClassTag(sqInt classIndex)
 	fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
 	/* begin fetchPointer:ofObject: */
-	classTablePage = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-	if (classTablePage == GIV(nilObj)) {
-		classOrNil = GIV(nilObj);
+	classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+	if (classTablePage == nilObj) {
+		classOrNil = nilObj;
 		goto l1;
 	}
 	fieldIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);
 	classOrNil = longAt((void *)((classTablePage + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
 	/* end classOrNilAtIndex: */
 l1:
-	return (classOrNil != GIV(nilObj))
+	return (classOrNil != nilObj)
 	 && (((long32At((void *)(classOrNil + 4))) & (identityHashHalfWordMask())) == classIndex);
 }

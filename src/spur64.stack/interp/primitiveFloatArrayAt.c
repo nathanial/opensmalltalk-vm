@@ -25,16 +25,16 @@ primitiveFloatArrayAt(void)
     char *sp;
 
 	/* begin primitiveSpurFloatArrayAt */
-	index = longAt(GIV(stackPointer));
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	index = longAt(stackPointer);
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 	if (!((((index) & 7) == 1))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		goto l3;
 	}
 	if (((rcvr & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		goto l3;
 	}
 	fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
@@ -64,31 +64,31 @@ primitiveFloatArrayAt(void)
 
 			/* begin eeInstantiateSmallClassIndex:format:numSlots: */
 			assert((numSlotsSqInt >= 0)
-			 && ((knownClassAtIndex(ClassFloatCompactIndex)) != GIV(nilObj)));
+			 && ((knownClassAtIndex(ClassFloatCompactIndex)) != nilObj));
 			assert((firstLongFormat()) == (instSpecOfClass(knownClassAtIndex(ClassFloatCompactIndex))));
 
 			/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 			assert(numSlotsSqInt < (numSlotsMask()));
-			newObj = GIV(freeStart);
+			newObj = freeStart;
 			numBytes = BaseHeaderSize + ((numSlotsSqInt < 1
 		? 8 /* allocationUnit */
 		: numSlotsSqInt * BytesPerOop));
 			assert((numBytes % (allocationUnit())) == 0);
 			assert((newObj % (allocationUnit())) == 0);
-			if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-				if (!GIV(needGCFlag)) {
+			if ((freeStart + numBytes) > scavengeThreshold) {
+				if (!needGCFlag) {
 					/* begin scheduleScavenge */
-					GIV(needGCFlag) = 1;
+					needGCFlag = 1;
 					forceInterruptCheck();
 				}
-				if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+				if ((freeStart + numBytes) > (((eden).limit))) {
 					error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 					newFloatObj = 0;
 					goto l1;
 				}
 			}
 			long64Atput((void *)(newObj),((((((usqLong) numSlotsSqInt)) << (numSlotsFullShift()))) + ((((usqInt)((firstLongFormat())) << (formatShift()))))) + ClassFloatCompactIndex);
-			GIV(freeStart) += numBytes;
+			freeStart += numBytes;
 			newFloatObj = newObj;
 			/* end eeInstantiateSmallClassIndex:format:numSlots: */
 l1:
@@ -101,13 +101,13 @@ l2:
 
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),oop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),oop);
+			stackPointer = sp;
 			goto l3;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l3;
 	}
 	if ((fmt >= (firstLongFormat()))
@@ -120,18 +120,18 @@ l2:
 
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),oop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),oop);
+			stackPointer = sp;
 			goto l3;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l3;
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = PrimErrBadReceiver;
+	primFailCode = PrimErrBadReceiver;
 	/* end primitiveSpurFloatArrayAt */
 l3:;
 }

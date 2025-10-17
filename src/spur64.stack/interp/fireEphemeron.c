@@ -13,5 +13,5 @@ fireEphemeron(sqInt ephemeron)
 
 	/* begin signalFinalization: */
 	forceInterruptCheck();
-	GIV(pendingFinalizationSignals) += 1;
+	pendingFinalizationSignals += 1;
 }

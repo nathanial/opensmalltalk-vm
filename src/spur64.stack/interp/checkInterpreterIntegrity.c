@@ -13,7 +13,7 @@ checkInterpreterIntegrity(void)
     sqInt flags;
 
 	flags = 0;
-	if (!(checkOopIntegritynamed(GIV(specialObjectsOop), "specialObjectsOop"))) {
+	if (!(checkOopIntegritynamed(specialObjectsOop, "specialObjectsOop"))) {
 		flags = 1;
 	}
 
@@ -21,35 +21,35 @@ checkInterpreterIntegrity(void)
 	   (objectMemory isNonImmediate: messageSelector) ifTrue:
 	   [(objectMemory checkOopIntegrity: messageSelector named: 'messageSelector') ifFalse:
 	   [flags := flags + N]]. */
-	if (!(checkOopIntegritynamed(GIV(newMethod), "newMethod"))) {
+	if (!(checkOopIntegritynamed(newMethod, "newMethod"))) {
 		flags += 2;
 	}
 
 	/* No longer check lkupClass; it is ephemeral, not living beyond message lookup.
 	   (objectMemory checkOopIntegrity: lkupClass named: 'lkupClass') ifFalse:
 	   [flags := flags + N]. */
-	if (GIV(profileProcess)) {
-		if (!(checkOopIntegritynamed(GIV(profileProcess), "profileProcess"))) {
+	if (profileProcess) {
+		if (!(checkOopIntegritynamed(profileProcess, "profileProcess"))) {
 			flags += 4;
 		}
 	}
-	if (GIV(profileMethod)) {
-		if (!(checkOopIntegritynamed(GIV(profileMethod), "profileMethod"))) {
+	if (profileMethod) {
+		if (!(checkOopIntegritynamed(profileMethod, "profileMethod"))) {
 			flags += 8;
 		}
 	}
-	if (GIV(profileSemaphore)) {
-		if (!(checkOopIntegritynamed(GIV(profileSemaphore), "profileSemaphore"))) {
+	if (profileSemaphore) {
+		if (!(checkOopIntegritynamed(profileSemaphore, "profileSemaphore"))) {
 			flags += 16;
 		}
 	}
-	if (GIV(tempOop)) {
-		if (!(checkOopIntegritynamed(GIV(tempOop), "tempOop"))) {
+	if (tempOop) {
+		if (!(checkOopIntegritynamed(tempOop, "tempOop"))) {
 			flags += 32;
 		}
 	}
-	if (GIV(tempOop2)) {
-		if (!(checkOopIntegritynamed(GIV(tempOop2), "tempOop2"))) {
+	if (tempOop2) {
+		if (!(checkOopIntegritynamed(tempOop2, "tempOop2"))) {
 			flags += 64;
 		}
 	}

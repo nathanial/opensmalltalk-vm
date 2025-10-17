@@ -9,10 +9,10 @@ printStackPageList(void)
 {
     StackPage *page;
 
-	page = GIV(mostRecentlyUsedPage);
+	page = mostRecentlyUsedPage;
 	do {
 		/* begin printStackPage: */
 		printStackPageuseCount(page, -1);
 		cr();
-	} while(((page = (page->prevPage))) != (GIV(mostRecentlyUsedPage)));
+	} while(((page = (page->prevPage))) != (mostRecentlyUsedPage));
 }

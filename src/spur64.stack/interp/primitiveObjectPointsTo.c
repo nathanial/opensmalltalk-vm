@@ -23,12 +23,12 @@ primitiveObjectPointsTo(void)
     sqInt thang;
     sqInt trueOrFalse;
 
-	thang = longAt(GIV(stackPointer));
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	thang = longAt(stackPointer);
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 	if (((rcvr & (tagMask())) != 0)) {
 		/* begin pop:thenPushBool: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),GIV(falseObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),falseObj);
+		stackPointer = sp;
 		return;
 	}
 
@@ -40,18 +40,18 @@ primitiveObjectPointsTo(void)
 		 && ((header & (classIndexMask())) == ClassMethodContextCompactIndex)) {
 			if (((((longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)) {
 				/* begin externalWriteBackHeadFramePointers */
-				assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-				assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-				assert(!((isFree(GIV(stackPage)))));
+				assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+				assert(stackPage == (mostRecentlyUsedPage));
+				assert(!((isFree(stackPage))));
 
 				/* begin setHeadFP:andSP:inPage: */
-				assert(GIV(stackPointer) < GIV(framePointer));
-				assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-				 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-				assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-				 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-				(GIV(stackPage)->headFP = GIV(framePointer));
-				(GIV(stackPage)->headSP = GIV(stackPointer));
+				assert(stackPointer < framePointer);
+				assert((stackPointer < ((stackPage->baseAddress)))
+				 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+				assert((framePointer < ((stackPage->baseAddress)))
+				 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+				(stackPage->headFP = framePointer);
+				(stackPage->headSP = stackPointer);
 				assert(pageListIsWellFormed());
 				if (/* isStillMarriedContext: */
 					(((((longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
@@ -59,11 +59,11 @@ primitiveObjectPointsTo(void)
 					trueOrFalse = marriedContextpointsTostackDeltaForCurrentFrame(rcvr, thang, 2);
 
 					/* begin pop:thenPushBool: */
-					longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),/* booleanObjectOf: */
+					longAtput((sp = stackPointer + (1 * BytesPerWord)),/* booleanObjectOf: */
 						(trueOrFalse
-							? GIV(trueObj)
-							: GIV(falseObj)));
-					GIV(stackPointer) = sp;
+							? trueObj
+							: falseObj));
+					stackPointer = sp;
 					return;
 				}
 			}
@@ -82,8 +82,8 @@ primitiveObjectPointsTo(void)
 	else {
 		if (fmt < (firstCompiledMethodFormat())) {
 			/* begin pop:thenPushBool: */
-			longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),GIV(falseObj));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (1 * BytesPerWord)),falseObj);
+			stackPointer = sp;
 			return;
 		}
 
@@ -95,8 +95,8 @@ primitiveObjectPointsTo(void)
 		methodHeader = longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 		if (methodHeader == thang) {
 			/* begin pop:thenPushBool: */
-			longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),GIV(trueObj));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (1 * BytesPerWord)),trueObj);
+			stackPointer = sp;
 			return;
 		}
 		numSlots = ((/* begin literalCountOfMethodHeader: */
@@ -108,13 +108,13 @@ primitiveObjectPointsTo(void)
 	for (i = BaseHeaderSize; i <= (((numSlots - 1) * BytesPerOop) + BaseHeaderSize); i += BytesPerOop) {
 		if ((longAt((void *)(rcvr + i))) == thang) {
 			/* begin pop:thenPushBool: */
-			longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),GIV(trueObj));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (1 * BytesPerWord)),trueObj);
+			stackPointer = sp;
 			return;
 		}
 	}
 
 	/* begin pop:thenPushBool: */
-	longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),GIV(falseObj));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (1 * BytesPerWord)),falseObj);
+	stackPointer = sp;
 }

@@ -7,7 +7,7 @@
 static float
 scavengerTenuringThreshold(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return (GIV(tenureThreshold) >= ((GIV(pastSpace).start))
-			? (((double) (GIV(tenureThreshold) - ((GIV(pastSpace).start))) )) / (((GIV(pastSpace).limit)) - ((GIV(pastSpace).start)))
+	return (tenureThreshold >= ((pastSpace.start))
+			? (((double) (tenureThreshold - ((pastSpace.start))) )) / (((pastSpace.limit)) - ((pastSpace.start)))
 			: 0);
 }

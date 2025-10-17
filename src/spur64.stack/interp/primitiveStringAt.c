@@ -22,21 +22,21 @@ primitiveStringAt(void)
 
 	/* begin commonAt: */
 	/* begin initPrimCall */
-	GIV(primFailCode) = 0;
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	index = longAt(GIV(stackPointer));
+	primFailCode = 0;
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
+	index = longAt(stackPointer);
 	if (((rcvr & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrInappropriate;
+		primFailCode = PrimErrInappropriate;
 		goto l5;
 	}
 
 	/* No need to test for large positive integers here.  No object has 1g elements */
 	if (((!(index & (smallIntegerTag()))))
-	 || ((GIV(argumentCount) > 1)
+	 || ((argumentCount > 1)
 	 && ((!((longAt((void *)(rcvr))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		goto l5;
 	}
 	index = (index >> 3);
@@ -157,23 +157,23 @@ l3:
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = (fmt <= 1
+	primFailCode = (fmt <= 1
 				? PrimErrBadReceiver
 				: PrimErrBadIndex);
 	result = 0;
 	/* end stObject:at: */
 l4:
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		if (!(((result >= 0) && (result <= (0x3FFFFFFF))))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadReceiver;
+			primFailCode = PrimErrBadReceiver;
 			goto l5;
 		}
 		result = ((((usqInt)(((result >> 3))) << (numTagBits())))) + (characterTag());
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),result);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),result);
+		stackPointer = sp;
 	}
 	/* end commonAt: */
 l5:;

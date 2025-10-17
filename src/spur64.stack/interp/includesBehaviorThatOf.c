@@ -12,7 +12,7 @@ includesBehaviorThatOf(sqInt aClass, sqInt aSuperclass)
     sqInt objOop;
     sqInt theClass;
 
-	if (aSuperclass == GIV(nilObj)) {
+	if (aSuperclass == nilObj) {
 		return 0;
 	}
 	theClass = aClass;
@@ -20,7 +20,7 @@ includesBehaviorThatOf(sqInt aClass, sqInt aSuperclass)
 		if (theClass == aSuperclass) {
 			return 1;
 		}
-		if (!(theClass != GIV(nilObj))) break;
+		if (!(theClass != nilObj)) break;
 		/* begin superclassOf: */
 		/* begin followObjField:ofObject: */
 		objOop = longAt((void *)((theClass + BaseHeaderSize) + ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));

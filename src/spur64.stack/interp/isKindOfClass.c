@@ -13,9 +13,9 @@ isKindOfClass(sqInt oop, sqInt aClass)
 
 	oopClass = /* fetchClassOf: */
 			((tagBits = oop & (tagMask()))
-				? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+				? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 				: fetchClassOfNonImm(oop));
-	while ((oopClass != GIV(nilObj))
+	while ((oopClass != nilObj)
 	 && ((/* isPointers: */
 		((!(oopClass & (tagMask()))))
 	 && (((byteAt((void *)(oopClass + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))

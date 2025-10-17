@@ -26,12 +26,12 @@ allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
 	nodeBytes = 0;
 
 	/* be optimistic (& don't wait for the write) */
-	GIV(totalFreeOldSpace) -= chunkBytes;
+	totalFreeOldSpace -= chunkBytes;
 	initialIndex = chunkBytes / 8 /* allocationUnit */;
 	if ((initialIndex < 64 /* numFreeLists */)
-	 && ((1ULL << initialIndex) <= GIV(freeListsMask))) {
-		if (((GIV(freeListsMask) & (1ULL << initialIndex)) != 0)) {
-			if ((chunk = GIV(freeLists)[initialIndex])) {
+	 && ((1ULL << initialIndex) <= freeListsMask)) {
+		if (((freeListsMask & (1ULL << initialIndex)) != 0)) {
+			if ((chunk = freeLists[initialIndex])) {
 				assert(chunk == (startOfObject(chunk)));
 
 				/* begin assertValidFreeObject: */
@@ -46,7 +46,7 @@ allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
 				 && ((startOfObject(chunk)) == chunk)));
 
 				/* For some reason the assertion is not compiled correctly */
-				GIV(freeLists)[initialIndex] = ((next = longAt((void *)((chunk + BaseHeaderSize) + (0U << (shiftForWord()))))));
+				freeLists[initialIndex] = ((next = longAt((void *)((chunk + BaseHeaderSize) + (0U << (shiftForWord()))))));
 				if ((!lilliputian)
 				 && (next != 0)) {
 					/* begin storePointer:ofFreeChunk:withValue: */
@@ -55,15 +55,15 @@ allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
 				}
 				return chunk;
 			}
-			GIV(freeListsMask) -= 1ULL << initialIndex;
+			freeListsMask -= 1ULL << initialIndex;
 		}
 
 		/* first search for free chunks of a multiple of chunkBytes in size */
 		index = initialIndex;
 		while ((((index += index)) < 64 /* numFreeLists */)
-		 && ((1ULL << index) <= GIV(freeListsMask))) {
-			if (((GIV(freeListsMask) & (1ULL << index)) != 0)) {
-				if ((chunk = GIV(freeLists)[index])) {
+		 && ((1ULL << index) <= freeListsMask)) {
+			if (((freeListsMask & (1ULL << index)) != 0)) {
+				if ((chunk = freeLists[index])) {
 					assert(chunk == (startOfObject(chunk)));
 
 					/* begin assertValidFreeObject: */
@@ -73,7 +73,7 @@ allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
 					 && ((startOfObject(chunk)) == chunk)));
 
 					/* For some reason the assertion is not compiled correctly */
-					GIV(freeLists)[index] = ((next = longAt((void *)((chunk + BaseHeaderSize) + (0U << (shiftForWord()))))));
+					freeLists[index] = ((next = longAt((void *)((chunk + BaseHeaderSize) + (0U << (shiftForWord()))))));
 					if (next) {
 						/* begin storePointer:ofFreeChunk:withValue: */
 						assert(isFreeObject(next));
@@ -86,7 +86,7 @@ allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
 		: chunk)) + chunkBytes);
 					return chunk;
 				}
-				GIV(freeListsMask) -= 1ULL << index;
+				freeListsMask -= 1ULL << index;
 			}
 		}
 
@@ -96,9 +96,9 @@ allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
 		   that are at least 16 bytes larger, hence start at initialIndex + 2. */
 		index = initialIndex + 1;
 		while ((((index += 1)) < 64 /* numFreeLists */)
-		 && ((1ULL << index) <= GIV(freeListsMask))) {
-			if (((GIV(freeListsMask) & (1ULL << index)) != 0)) {
-				if ((chunk = GIV(freeLists)[index])) {
+		 && ((1ULL << index) <= freeListsMask)) {
+			if (((freeListsMask & (1ULL << index)) != 0)) {
+				if ((chunk = freeLists[index])) {
 					assert(chunk == (startOfObject(chunk)));
 
 					/* begin assertValidFreeObject: */
@@ -108,7 +108,7 @@ allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
 					 && ((startOfObject(chunk)) == chunk)));
 
 					/* For some reason the assertion is not compiled correctly */
-					GIV(freeLists)[index] = ((next = longAt((void *)((chunk + BaseHeaderSize) + (0U << (shiftForWord()))))));
+					freeLists[index] = ((next = longAt((void *)((chunk + BaseHeaderSize) + (0U << (shiftForWord()))))));
 					if (next) {
 						/* begin storePointer:ofFreeChunk:withValue: */
 						assert(isFreeObject(next));
@@ -121,7 +121,7 @@ allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
 		: chunk)) + chunkBytes);
 					return chunk;
 				}
-				GIV(freeListsMask) -= 1ULL << index;
+				freeListsMask -= 1ULL << index;
 			}
 		}
 	}
@@ -132,7 +132,7 @@ allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
 	   When the search ends parent should hold the smallest chunk at least as
 	   large as chunkBytes, or 0 if none. */
 	parent = 0;
-	child = GIV(freeLists)[0];
+	child = freeLists[0];
 	while (child != 0) {
 		/* begin assertValidFreeObject: */
 		assert(assertInnerValidFreeObject(child));
@@ -182,7 +182,7 @@ allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
 	}
 	if (!parent) {
 		/* optimism was unfounded */
-		GIV(totalFreeOldSpace) += chunkBytes;
+		totalFreeOldSpace += chunkBytes;
 		return null;
 	}
 

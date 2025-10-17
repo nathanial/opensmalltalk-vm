@@ -27,18 +27,18 @@ primitiveClockLogAddresses(void)
 	msecs = ((void *) 0);
 	uidx = 0;
 	usecs = ((void *) 0);
-	if (GIV(argumentCount) != 1) {
+	if (argumentCount != 1) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return null;
 	}
-	runInNOut = (longAt(GIV(stackPointer))) == GIV(trueObj);
+	runInNOut = (longAt(stackPointer)) == trueObj;
 	ioGetClockLogSizeUsecsIdxMsecsIdx((&runInNOut), (&usecs), (&uidx), (&msecs), (&midx));
-	result = instantiateClassindexableSize(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassArray) << (shiftForWord())))))), 5);
+	result = instantiateClassindexableSize(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassArray) << (shiftForWord())))))), 5);
 	if (!result) {
-		return (GIV(primFailCode) = PrimErrNoMemory);
+		return (primFailCode = PrimErrNoMemory);
 	}
 	
 #if SPURVM
@@ -52,8 +52,8 @@ primitiveClockLogAddresses(void)
 	v1 = popRemappableOop();
 	result = popRemappableOop();
 #endif /* SPURVM */
-	if (GIV(primFailCode)) {
-		return (GIV(primFailCode) = PrimErrNoMemory);
+	if (primFailCode) {
+		return (primFailCode = PrimErrNoMemory);
 	}
 
 	/* begin storePointerUnchecked:ofObject:withValue: */
@@ -65,10 +65,10 @@ primitiveClockLogAddresses(void)
 	/* begin storePointer:ofObject:withValue: */
 	assert(validStorePointerArgs(1, result, v1));
 	assert(isNonImmediate(result));
-	if (oopisGreaterThanOrEqualTo(result, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(result, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(v1 & (tagMask()))))
-		 && (oopisLessThan(v1, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(v1, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(result + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(result);
@@ -88,10 +88,10 @@ primitiveClockLogAddresses(void)
 	/* begin storePointer:ofObject:withValue: */
 	assert(validStorePointerArgs(3, result, v2));
 	assert(isNonImmediate(result));
-	if (oopisGreaterThanOrEqualTo(result, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(result, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(v2 & (tagMask()))))
-		 && (oopisLessThan(v2, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(v2, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(result + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(result);
@@ -110,7 +110,7 @@ primitiveClockLogAddresses(void)
 
 	/* begin methodReturnValue: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),result);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),result);
+	stackPointer = sp;
 	return 0;
 }

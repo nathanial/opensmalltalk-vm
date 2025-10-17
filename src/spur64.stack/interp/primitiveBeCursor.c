@@ -22,12 +22,12 @@ primitiveBeCursor(void)
     sqInt offsetY;
 
 	maskBitsObj = 0;
-	if ((((usqInt)GIV(argumentCount))) > 1) {
+	if ((((usqInt)argumentCount)) > 1) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadNumArgs;
+		primFailCode = PrimErrBadNumArgs;
 		return;
 	}
-	cursorObj = longAt(GIV(stackPointer) + (GIV(argumentCount) * BytesPerWord));
+	cursorObj = longAt(stackPointer + (argumentCount * BytesPerWord));
 	if (!((/* isPointers: */
 			((!(cursorObj & (tagMask()))))
 		 && (((byteAt((void *)(cursorObj + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
@@ -37,7 +37,7 @@ primitiveBeCursor(void)
 					? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(cursorObj - BaseHeaderSize)))) << 8)))))) >> 8
 					: numSlots))) >= 5))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 	cursorBitsObj = longAt((void *)((cursorObj + BaseHeaderSize) + (0U << (shiftForWord()))));
@@ -56,7 +56,7 @@ primitiveBeCursor(void)
 		 && (((((((offsetX = longAt((void *)((offsetObj + BaseHeaderSize) + (0U << (shiftForWord()))))))) & 7) == 1))
 		 && ((((((offsetY = longAt((void *)((offsetObj + BaseHeaderSize) + (1U << (shiftForWord()))))))) & 7) == 1))))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 	offsetX = (offsetX >> 3);
@@ -64,7 +64,7 @@ primitiveBeCursor(void)
 	extentX = (extentX >> 3);
 	extentY = (extentY >> 3);
 	depth = (depth >> 3);
-	if (!GIV(argumentCount)) {
+	if (!argumentCount) {
 		if (depth == 32) {
 			if (!((extentX > 0)
 				 && ((extentY > 0)
@@ -75,7 +75,7 @@ primitiveBeCursor(void)
 				 && (((((byteAt((void *)(cursorBitsObj + (formatFieldByteOffset())))) & (formatMask())) >= (firstLongFormat())) && (((byteAt((void *)(cursorBitsObj + (formatFieldByteOffset())))) & (formatMask())) <= ((firstShortFormat()) - 1)))))
 				 && ((lengthOfformat(cursorBitsObj, firstLongFormat())) == (extentX * extentY)))))))) {
 				/* primitiveFailFor: */
-				GIV(primFailCode) = PrimErrBadReceiver;
+				primFailCode = PrimErrBadReceiver;
 				return;
 			}
 
@@ -84,7 +84,7 @@ primitiveBeCursor(void)
 
 			/* begin methodReturnReceiver */
 			assert(!((failed())));
-			GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+			stackPointer += argumentCount * BytesPerWord;
 			return;
 		}
 
@@ -98,7 +98,7 @@ primitiveBeCursor(void)
 			 && (((((byteAt((void *)(cursorBitsObj + (formatFieldByteOffset())))) & (formatMask())) >= (firstLongFormat())) && (((byteAt((void *)(cursorBitsObj + (formatFieldByteOffset())))) & (formatMask())) <= ((firstShortFormat()) - 1)))))
 			 && ((lengthOfformat(cursorBitsObj, firstLongFormat())) == 16))))))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadReceiver;
+			primFailCode = PrimErrBadReceiver;
 			return;
 		}
 
@@ -107,7 +107,7 @@ primitiveBeCursor(void)
 
 		/* begin methodReturnReceiver */
 		assert(!((failed())));
-		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+		stackPointer += argumentCount * BytesPerWord;
 		return;
 	}
 	if (!((extentX == 16)
@@ -119,10 +119,10 @@ primitiveBeCursor(void)
 		 && (((((byteAt((void *)(cursorBitsObj + (formatFieldByteOffset())))) & (formatMask())) >= (firstLongFormat())) && (((byteAt((void *)(cursorBitsObj + (formatFieldByteOffset())))) & (formatMask())) <= ((firstShortFormat()) - 1)))))
 		 && ((lengthOfformat(cursorBitsObj, firstLongFormat())) == 16))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
-	maskObj = longAt(GIV(stackPointer));
+	maskObj = longAt(stackPointer);
 	if (!((/* isPointers: */
 			((!(maskObj & (tagMask()))))
 		 && (((byteAt((void *)(maskObj + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
@@ -137,7 +137,7 @@ primitiveBeCursor(void)
 		 && ((isWords((maskBitsObj = longAt((void *)((maskObj + BaseHeaderSize) + (0U << (shiftForWord())))))))
 		 && ((lengthOfformat(maskBitsObj, firstLongFormat())) == 16)))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 
@@ -146,5 +146,5 @@ primitiveBeCursor(void)
 
 	/* begin methodReturnReceiver */
 	assert(!((failed())));
-	GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+	stackPointer += argumentCount * BytesPerWord;
 }

@@ -16,7 +16,7 @@ primitiveImmediateAsInteger(void)
     usqInt value;
 
 	value = 0;
-	oop = longAt(GIV(stackPointer));
+	oop = longAt(stackPointer);
 
 	/* begin immediateAsInteger:ifFail: */
 	if ((((oop) & 7) == 1)) {
@@ -37,12 +37,12 @@ primitiveImmediateAsInteger(void)
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = PrimErrBadReceiver;
+	primFailCode = PrimErrBadReceiver;
 	return;
 	/* end immediateAsInteger:ifFail: */
 l1:
 
 	/* begin pop:thenPushInteger: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),((value << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),((value << 3) | 1));
+	stackPointer = sp;
 }

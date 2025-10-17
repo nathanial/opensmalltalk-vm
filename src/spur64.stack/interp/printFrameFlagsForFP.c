@@ -12,18 +12,18 @@ printFrameFlagsForFP(char *theFP)
 	it = longAt(address);
 
 	/* begin printFrameAddress: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%16p:",
 			((void *)address));
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"       flags: %p",
 			((void *)it));
 	if (it) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"=%d",
 				((int) it));
 	}
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"  numArgs: %d %sContext %sBlock\n",
 			((int) (byteAt((theFP + FoxFrameFlags) + 1))),
 			(byteAt((theFP + FoxFrameFlags) + 2)

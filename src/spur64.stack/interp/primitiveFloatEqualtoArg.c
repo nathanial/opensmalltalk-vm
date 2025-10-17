@@ -44,8 +44,8 @@ primitiveFloatEqualtoArg(sqInt rcvrOop, sqInt argOop)
 	}
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	rcvr = 0.0;
 	/* end loadFloatOrIntFrom: */
@@ -83,8 +83,8 @@ l1:
 	}
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	arg = 0.0;
 	/* end loadFloatOrIntFrom: */

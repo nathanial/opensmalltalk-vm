@@ -12,6 +12,6 @@
 void
 setInterruptPending(sqInt value)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	GIV(interruptPending) = value;
+	interruptPending = value;
 	forceInterruptCheck();
 }

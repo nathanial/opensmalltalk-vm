@@ -34,44 +34,44 @@ longPrintOop(sqInt oop)
 
 	length = 0;
 	if (((oop & (tagMask())) != 0)) {
-		printImmediateObjecton(oop, GIV(transcript));
+		printImmediateObjecton(oop, transcript);
 		return;
 	}
 	if (!(addressCouldBeObj(oop))) {
-		printCantBeObjecton(oop, GIV(transcript));
+		printCantBeObjecton(oop, transcript);
 		return;
 	}
 	if (((longAt((void *)(oop))) & (classIndexMask())) == (isFreeObjectClassIndexPun())) {
-		printFreeObjecton(oop, GIV(transcript));
+		printFreeObjecton(oop, transcript);
 		return;
 	}
 	if ((!((longAt((void *)(oop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-		printForwarderon(oop, GIV(transcript));
+		printForwarderon(oop, transcript);
 		return;
 	}
 	if ((cls = fetchClassOfNonImm(oop))) {
 		className = nameOfClasslengthInto(cls, (&length));
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p: a(n) %.*s",
 				((void *)oop),
 				((int) length),
 				className);
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"(%" PRIxSQINT "=>%p)",
 				(longAt((void *)(oop))) & (classIndexMask()),
 				((void *)cls));
 	}
 	else {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p has a nil class!!\n",
 				((void *)oop));
 	}
 	fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			" format %" PRIxSQINT "",
 			fmt);
 	if (fmt > 5 /* lastPointerFormat */) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				" nbytes %" PRIdSQINT "",
 				numBytesOf(oop));
 	}
@@ -113,14 +113,14 @@ longPrintOop(sqInt oop)
 			length = 0;
 			/* end lengthOf: */
 l1:
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					" size %" PRIdSQINT "",
 					length - (fixedFieldsOfformatlength(oop, fmt, length)));
 		}
 	}
 
 	/* begin printHeaderTypeOf:on: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			" hdr%d %c%c%c%c%c",
 			((byteAt((void *)(oop + (numSlotsFieldByteOffset())))) == (numSlotsMask())
 			? 16
@@ -140,7 +140,7 @@ l1:
 			((byteAt((void *)(oop + (markBitsByteOffset())))) & (1U << (greyBitByteShift()))
 			? 'g'
 			: '.'));
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			" hash %" PRIxSQINT "\n",
 			(long32At((void *)(oop + 4))) & (identityHashHalfWordMask()));
 	if (/* isPureBitsFormat: */
@@ -149,15 +149,15 @@ l1:
 		/* begin is:KindOfClass: */
 		oopClass = /* fetchClassOf: */
 				((tagBits = oop & (tagMask()))
-					? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+					? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 					: fetchClassOfNonImm(oop));
-		while ((oopClass != GIV(nilObj))
+		while ((oopClass != nilObj)
 		 && ((/* isPointers: */
 			((!(oopClass & (tagMask()))))
 		 && (((byteAt((void *)(oopClass + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
 		 && ((numSlotsOfAny(oopClass)) > InstanceSpecificationIndex))) {
-			if (oopClass == (longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassAlien) << (shiftForWord())))))))) {
-				fprintf(GIV(transcript),
+			if (oopClass == (longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassAlien) << (shiftForWord())))))))) {
+				fprintf(transcript,
 						" datasize %" PRIdSQINT " %s @ %p\n",
 						longAt((void *)(oop + BaseHeaderSize)),
 						((longAt((void *)(oop + BaseHeaderSize))) < 0
@@ -178,7 +178,7 @@ l1:
 			}
 			oopClass = objOop;
 		}
-		classPointer = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassByteString) << (shiftForWord()))))));
+		classPointer = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassByteString) << (shiftForWord()))))));
 
 		/* begin superclassOf: */
 		/* begin followObjField:ofObject: */
@@ -192,15 +192,15 @@ l1:
 		/* begin is:KindOfClass: */
 		oopClass = /* fetchClassOf: */
 				((tagBits = oop & (tagMask()))
-					? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+					? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 					: fetchClassOfNonImm(oop));
-		while ((oopClass != GIV(nilObj))
+		while ((oopClass != nilObj)
 		 && ((/* isPointers: */
 			((!(oopClass & (tagMask()))))
 		 && (((byteAt((void *)(oopClass + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
 		 && ((numSlotsOfAny(oopClass)) > InstanceSpecificationIndex))) {
 			if (oopClass == aClass) {
-				printStringDataOfon(oop, GIV(transcript));
+				printStringDataOfon(oop, transcript);
 				return;
 			}
 
@@ -213,7 +213,7 @@ l1:
 			}
 			oopClass = objOop;
 		}
-		printNonPointerDataOfon(oop, GIV(transcript));
+		printNonPointerDataOfon(oop, transcript);
 		return;
 	}
 
@@ -273,7 +273,7 @@ l3:
 
 			/* begin space */
 			printChar(' ');
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%" PRIdSQINT "",
 					((sqInt)(i - 1)));
 			printChar(' ');
@@ -286,28 +286,28 @@ l3:
 				/* begin printDecodeMethodHeaderOop: */
 				/* begin printOopShort: */
 				printOopShortInner(fieldOop);
-				fflush(GIV(transcript));
+				fflush(transcript);
 				if (((fieldOop & AlternateHeaderHasPrimFlag) != 0)) {
 					/* begin print: */
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"%s",
 							" hasPrim");
 				}
 				if (fieldOop & LargeContextBit) {
 					/* begin print: */
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"%s",
 							" largeFrame");
 				}
 				if (((fieldOop >> 3)) < 0) {
 					/* begin print: */
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"%s",
 							" altSet");
 				}
 
 				/* begin print: */
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"%s",
 						" nLits ");
 				/* begin literalCountOfMethodHeader: */
@@ -315,19 +315,19 @@ l3:
 				n = ((fieldOop >> 3)) & AlternateHeaderNumLiteralsMask;
 
 				/* begin printNum: */
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"%" PRIdSQINT "",
 						((sqInt)n));
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"%s",
 						" nArgs ");
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"%" PRIdSQINT "",
 						((sqInt)((((usqInt)(fieldOop)) >> MethodHeaderArgCountShift) & 15)));
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"%s",
 						" nTemps ");
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"%" PRIdSQINT "",
 						((sqInt)((((usqInt)(fieldOop)) >> MethodHeaderTempCountShift) & 0x3F)));
 			}
@@ -379,12 +379,12 @@ l4:
 		column = 1;
 		for (index = lastPointer; index <= lastIndex; index += 1) {
 			if (column == 1) {
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"%10p ",
 						((void *)(((oop + BaseHeaderSize) + index) - 1)));
 			}
 			byte = ((int) (byteAt((void *)((oop + BaseHeaderSize) + (index - 1)))));
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%02x/%-+3d%c",
 					byte,
 					byte,
@@ -397,7 +397,7 @@ l4:
 		}
 		if ((lengthOf(oop)) > lastIndex) {
 			/* begin print: */
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%s",
 					"...");
 		}
@@ -408,7 +408,7 @@ l4:
 	else {
 		if (lastPointer > lastIndex) {
 			/* begin print: */
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%s",
 					"...");
 			cr();

@@ -9,10 +9,10 @@ removeGCRoot(sqInt *varLoc)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     int i;
 
-	for (i = 1; i <= GIV(extraRootCount); i++) {
-		if (varLoc == (GIV(extraRoots)[i])) {
-			GIV(extraRoots)[i] = (GIV(extraRoots)[GIV(extraRootCount)]);
-			GIV(extraRootCount) -= 1;
+	for (i = 1; i <= extraRootCount; i++) {
+		if (varLoc == (extraRoots[i])) {
+			extraRoots[i] = (extraRoots[extraRootCount]);
+			extraRootCount -= 1;
 			return 1;
 		}
 	}

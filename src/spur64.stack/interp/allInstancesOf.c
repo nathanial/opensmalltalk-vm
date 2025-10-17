@@ -46,13 +46,13 @@ allInstancesOf(sqInt aClass)
 	classIndex = (long32At((void *)(aClass + 4))) & (identityHashHalfWordMask());
 	if (!classIndex) {
 		/* begin allocateSlots:format:classIndex: */
-		newObj = GIV(freeStart);
+		newObj = freeStart;
 		numBytes = BaseHeaderSize + 8 /* allocationUnit */;
-		if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
+		if ((freeStart + numBytes) > scavengeThreshold) {
 			if (0 <= ((1U << (fixedFieldsFieldWidth())) - 1)) {
-				if (!GIV(needGCFlag)) {
+				if (!needGCFlag) {
 					/* begin scheduleScavenge */
-					GIV(needGCFlag) = 1;
+					needGCFlag = 1;
 					forceInterruptCheck();
 				}
 			}
@@ -64,7 +64,7 @@ allInstancesOf(sqInt aClass)
 		/* for header parsing we put a saturated slot count in the prepended overflow size word */
 		assert((numBytes % (allocationUnit())) == 0);
 		assert((newObj % (allocationUnit())) == 0);
-		GIV(freeStart) += numBytes;
+		freeStart += numBytes;
 		freeChunk = newObj;
 		/* end allocateSlots:format:classIndex: */
 l1:
@@ -78,12 +78,12 @@ l1:
 
 	/* begin isClassAtUniqueIndex: */
 	expectedIndex = (long32At((void *)(aClass + 4))) & (identityHashHalfWordMask());
-	for (iSqInt = 0; iSqInt < GIV(numClassTablePages); iSqInt += 1) {
-		page = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(iSqInt) << (shiftForWord()))))));
+	for (iSqInt = 0; iSqInt < numClassTablePages; iSqInt += 1) {
+		page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(iSqInt) << (shiftForWord()))))));
 		toDoLimit = (1U << (classTableMajorIndexShift())) - 1;
 		for (j = 0; j <= toDoLimit; j += 1) {
 			classOrNil = longAt((void *)((page + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))));
-			if (classOrNil != GIV(nilObj)) {
+			if (classOrNil != nilObj) {
 				index = ((((usqInt)(iSqInt) << (classTableMajorIndexShift())))) + j;
 				if ((classOrNil == aClass)
 				 && ((index != expectedIndex)
@@ -101,12 +101,12 @@ l1:
 	/* begin allHeapEntitiesDo: */
 	/* begin allOldSpaceEntitiesDo: */
 	/* begin allOldSpaceEntitiesFrom:do: */
-	assert(isOldObject(GIV(nilObj)));
+	assert(isOldObject(nilObj));
 	prevPrevObj = (prevObj = null);
-	objOop = GIV(nilObj);
+	objOop = nilObj;
 	while (1) {
 		assert((objOop % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objOop, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objOop, endOfMemory))) break;
 		assert((long64At((void *)(objOop))) != 0);
 		if (((longAt((void *)(objOop))) & (classIndexMask())) > (lastClassIndexPun())) {
 			if (((longAt((void *)(objOop))) & (classIndexMask())) == classIndex) {
@@ -124,8 +124,8 @@ l1:
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objOop = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objOop = endOfMemory;
 			goto l10;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
@@ -141,27 +141,27 @@ l10:;
 
 	/* After a scavenge eden is empty, futureSpace is empty, and all newSpace objects are
 	   in pastSpace.  Objects are allocated in eden.  So enumerate only pastSpace and eden. */
-	assert((((GIV(pastSpace)).start)) < (((GIV(eden)).start)));
+	assert((((pastSpace).start)) < (((eden).start)));
 	startUsqInt = /* startAddressForBridgedHeapEnumeration */
-			(GIV(pastSpaceStart) > (((GIV(pastSpace)).start))
-				? ((GIV(pastSpace)).start)
-				: (GIV(freeStart) > (((GIV(eden)).start))
-						? ((GIV(eden)).start)
-						: GIV(oldSpaceStart)));
-	if (startUsqInt > GIV(freeStart)) {
+			(pastSpaceStart > (((pastSpace).start))
+				? ((pastSpace).start)
+				: (freeStart > (((eden).start))
+						? ((eden).start)
+						: oldSpaceStart));
+	if (startUsqInt > freeStart) {
 		goto l9;
 	}
 
 	/* begin bridgePastSpaceAndEden */
-	if (GIV(pastSpaceStart) < (((GIV(eden)).start))) {
-		if ((GIV(pastSpaceStart) + BaseHeaderSize) == (((GIV(eden)).start))) {
-			hackSlimBridgeToat(objectStartingAt(((GIV(eden)).start)), GIV(pastSpaceStart));
+	if (pastSpaceStart < (((eden).start))) {
+		if ((pastSpaceStart + BaseHeaderSize) == (((eden).start))) {
+			hackSlimBridgeToat(objectStartingAt(((eden).start)), pastSpaceStart);
 
 			/* And carefully check the assumption */
-			assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(GIV(pastSpaceStart)), GIV(nilObj))) == (objectStartingAt(((GIV(eden)).start))));
+			assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(pastSpaceStart), nilObj)) == (objectStartingAt(((eden).start))));
 		}
 		else {
-			initSegmentBridgeWithBytesat((((GIV(eden)).start)) - GIV(pastSpaceStart), GIV(pastSpaceStart));
+			initSegmentBridgeWithBytesat((((eden).start)) - pastSpaceStart, pastSpaceStart);
 		}
 	}
 
@@ -170,7 +170,7 @@ l10:;
 	objOop = (numSlots == (numSlotsMask())
 				? startUsqInt + BaseHeaderSize
 				: startUsqInt);
-	while (oopisLessThan(objOop, GIV(freeStart))) {
+	while (oopisLessThan(objOop, freeStart)) {
 		if (((longAt((void *)(objOop))) & (classIndexMask())) > (lastClassIndexPun())) {
 			if (((longAt((void *)(objOop))) & (classIndexMask())) == classIndex) {
 				countSqInt += 1;
@@ -187,13 +187,13 @@ l10:;
 
 		/* begin objectAfterMaybeSlimBridge:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(freeStart))) {
-			objOop = GIV(freeStart);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, freeStart)) {
+			objOop = freeStart;
 			goto l8;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
 		objOop = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-					? ((oopisLessThan(objOop, GIV(oldSpaceStart)))
+					? ((oopisLessThan(objOop, oldSpaceStart))
 					 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 							? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 							: followingWordAddress + BaseHeaderSize)
@@ -218,12 +218,12 @@ l4:
 	/* begin allHeapEntitiesDo: */
 	/* begin allOldSpaceEntitiesDo: */
 	/* begin allOldSpaceEntitiesFrom:do: */
-	assert(isOldObject(GIV(nilObj)));
+	assert(isOldObject(nilObj));
 	prevPrevObj = (prevObj = null);
-	objOop = GIV(nilObj);
+	objOop = nilObj;
 	while (1) {
 		assert((objOop % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objOop, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objOop, endOfMemory))) break;
 		assert((long64At((void *)(objOop))) != 0);
 		if (((longAt((void *)(objOop))) & (classIndexMask())) > (lastClassIndexPun())) {
 			actualIndex = (longAt((void *)(objOop))) & (classIndexMask());
@@ -247,8 +247,8 @@ l4:
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objOop = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objOop = endOfMemory;
 			goto l7;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
@@ -264,27 +264,27 @@ l7:;
 
 	/* After a scavenge eden is empty, futureSpace is empty, and all newSpace objects are
 	   in pastSpace.  Objects are allocated in eden.  So enumerate only pastSpace and eden. */
-	assert((((GIV(pastSpace)).start)) < (((GIV(eden)).start)));
+	assert((((pastSpace).start)) < (((eden).start)));
 	startUsqInt = /* startAddressForBridgedHeapEnumeration */
-			(GIV(pastSpaceStart) > (((GIV(pastSpace)).start))
-				? ((GIV(pastSpace)).start)
-				: (GIV(freeStart) > (((GIV(eden)).start))
-						? ((GIV(eden)).start)
-						: GIV(oldSpaceStart)));
-	if (startUsqInt > GIV(freeStart)) {
+			(pastSpaceStart > (((pastSpace).start))
+				? ((pastSpace).start)
+				: (freeStart > (((eden).start))
+						? ((eden).start)
+						: oldSpaceStart));
+	if (startUsqInt > freeStart) {
 		goto l6;
 	}
 
 	/* begin bridgePastSpaceAndEden */
-	if (GIV(pastSpaceStart) < (((GIV(eden)).start))) {
-		if ((GIV(pastSpaceStart) + BaseHeaderSize) == (((GIV(eden)).start))) {
-			hackSlimBridgeToat(objectStartingAt(((GIV(eden)).start)), GIV(pastSpaceStart));
+	if (pastSpaceStart < (((eden).start))) {
+		if ((pastSpaceStart + BaseHeaderSize) == (((eden).start))) {
+			hackSlimBridgeToat(objectStartingAt(((eden).start)), pastSpaceStart);
 
 			/* And carefully check the assumption */
-			assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(GIV(pastSpaceStart)), GIV(nilObj))) == (objectStartingAt(((GIV(eden)).start))));
+			assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(pastSpaceStart), nilObj)) == (objectStartingAt(((eden).start))));
 		}
 		else {
-			initSegmentBridgeWithBytesat((((GIV(eden)).start)) - GIV(pastSpaceStart), GIV(pastSpaceStart));
+			initSegmentBridgeWithBytesat((((eden).start)) - pastSpaceStart, pastSpaceStart);
 		}
 	}
 
@@ -293,7 +293,7 @@ l7:;
 	objOop = (numSlots == (numSlotsMask())
 				? startUsqInt + BaseHeaderSize
 				: startUsqInt);
-	while (oopisLessThan(objOop, GIV(freeStart))) {
+	while (oopisLessThan(objOop, freeStart)) {
 		if (((longAt((void *)(objOop))) & (classIndexMask())) > (lastClassIndexPun())) {
 			actualIndex = (longAt((void *)(objOop))) & (classIndexMask());
 			if ((classOrNilAtIndex(actualIndex)) == aClass) {
@@ -316,13 +316,13 @@ l7:;
 
 		/* begin objectAfterMaybeSlimBridge:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(freeStart))) {
-			objOop = GIV(freeStart);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, freeStart)) {
+			objOop = freeStart;
 			goto l5;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
 		objOop = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-					? ((oopisLessThan(objOop, GIV(oldSpaceStart)))
+					? ((oopisLessThan(objOop, oldSpaceStart))
 					 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 							? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 							: followingWordAddress + BaseHeaderSize)
@@ -337,19 +337,19 @@ l6:
 
 	/* begin purgeDuplicateClassTableEntriesFor: */
 	expectedIndexSqInt = (long32At((void *)(aClass + 4))) & (identityHashHalfWordMask());
-	for (iSqInt = 0; iSqInt < GIV(numClassTablePages); iSqInt += 1) {
-		page = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(iSqInt) << (shiftForWord()))))));
+	for (iSqInt = 0; iSqInt < numClassTablePages; iSqInt += 1) {
+		page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(iSqInt) << (shiftForWord()))))));
 		toDoLimit = (1U << (classTableMajorIndexShift())) - 1;
 		for (j = 0; j <= toDoLimit; j += 1) {
 			classOrNil = longAt((void *)((page + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))));
-			if (classOrNil != GIV(nilObj)) {
+			if (classOrNil != nilObj) {
 				index = ((((usqInt)(iSqInt) << (classTableMajorIndexShift())))) + j;
 				if ((classOrNil == aClass)
 				 && ((index != expectedIndexSqInt)
 				 && (index > (lastClassIndexPun())))) {
-					classAtIndexput(index, GIV(nilObj));
-					if (index < GIV(classTableIndex)) {
-						GIV(classTableIndex) = index;
+					classAtIndexput(index, nilObj);
+					if (index < classTableIndex) {
+						classTableIndex = index;
 					}
 				}
 			}
@@ -357,12 +357,12 @@ l6:
 	}
 
 	/* classTableIndex must never index the first page, which is reserved for classes known to the VM. */
-	assert(GIV(classTableIndex) >= (1U << (classTableMajorIndexShift())));
+	assert(classTableIndex >= (1U << (classTableMajorIndexShift())));
 	count = countSqInt;
 	ptr = ptrSqInt;
 l3:
-	assert(isEmptyObjStack(GIV(markStack)));
-	assert(isEmptyObjStack(GIV(weaklingStack)));
+	assert(isEmptyObjStack(markStack));
+	assert(isEmptyObjStack(weaklingStack));
 	if ((count > ((ptr - start) / BytesPerOop))
 	 || ((limit != ptr)
 	 && ((limit - ptr) <= 8 /* allocationUnit */))) {
@@ -373,7 +373,7 @@ l3:
 
 		/* begin checkFreeSpace: */
 		assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-		assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+		assert(totalFreeOldSpace == (totalFreeListBytes()));
 		if (((checkForLeaks & (GCCheckFreeSpace | GCModeFull)) == (GCCheckFreeSpace | GCModeFull))) {
 			runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 		}
@@ -389,20 +389,20 @@ l3:
 				smallObj = null;
 				goto l2;
 			}
-			newObj = GIV(freeStart) + BaseHeaderSize;
+			newObj = freeStart + BaseHeaderSize;
 			numBytes = (BaseHeaderSize + BaseHeaderSize) + (count * BytesPerOop);
 		}
 		else {
-			newObj = GIV(freeStart);
+			newObj = freeStart;
 			numBytes = BaseHeaderSize + ((count < 1
 		? 8 /* allocationUnit */
 		: count * BytesPerOop));
 		}
-		if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
+		if ((freeStart + numBytes) > scavengeThreshold) {
 			if (count <= ((1U << (fixedFieldsFieldWidth())) - 1)) {
-				if (!GIV(needGCFlag)) {
+				if (!needGCFlag) {
 					/* begin scheduleScavenge */
-					GIV(needGCFlag) = 1;
+					needGCFlag = 1;
 					forceInterruptCheck();
 				}
 			}
@@ -410,7 +410,7 @@ l3:
 			goto l2;
 		}
 		if (count >= (numSlotsMask())) {
-			longAtput((void *)(GIV(freeStart)),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + count);
+			longAtput((void *)(freeStart),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + count);
 			longAtput((void *)(newObj),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)((arrayFormat())) << (formatShift()))))) + ClassArrayCompactIndex);
 		}
 		else {
@@ -420,7 +420,7 @@ l3:
 		/* for header parsing we put a saturated slot count in the prepended overflow size word */
 		assert((numBytes % (allocationUnit())) == 0);
 		assert((newObj % (allocationUnit())) == 0);
-		GIV(freeStart) += numBytes;
+		freeStart += numBytes;
 		smallObj = newObj;
 		/* end allocateSlots:format:classIndex: */
 l2:
@@ -441,7 +441,7 @@ l2:
 
 		/* begin checkFreeSpace: */
 		assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-		assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+		assert(totalFreeOldSpace == (totalFreeListBytes()));
 		if (((checkForLeaks & (GCCheckFreeSpace | GCModeFull)) == (GCCheckFreeSpace | GCModeFull))) {
 			runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 		}
@@ -453,7 +453,7 @@ l2:
 				? freeChunk - BaseHeaderSize
 				: freeChunk);
 	freeChunkWithBytesat((limit - start) - bytes, start + bytes);
-	GIV(totalFreeOldSpace) -= bytes;
+	totalFreeOldSpace -= bytes;
 
 	/* begin rawOverflowSlotsOf:put: */
 	longAtput((void *)(freeChunk - BaseHeaderSize),((((usqInt)((numSlotsMask())) << 56))) + count);
@@ -470,7 +470,7 @@ l2:
 
 	/* begin checkFreeSpace: */
 	assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-	assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+	assert(totalFreeOldSpace == (totalFreeListBytes()));
 	if (((checkForLeaks & (GCCheckFreeSpace | GCModeFull)) == (GCCheckFreeSpace | GCModeFull))) {
 		runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 	}

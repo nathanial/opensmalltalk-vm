@@ -10,16 +10,16 @@ printFrameThingatextraString(char *name, char *address, char *extraStringOrNil)
 	it = longAt(address);
 
 	/* begin printFrameAddress: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%16p:",
 			((void *)address));
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%12s: %16p" /* pst: */,
 			name,
 			((void *)it));
 	framePrintDescription(it);
 	if (extraStringOrNil) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%s",
 				extraStringOrNil);
 	}

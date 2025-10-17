@@ -49,10 +49,10 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs, sqInt cla
 	ok = 1;
 	numRememberedObjectsInHeap = 0;
 	for (i = 0; i <= 0x3F /* (numFreeLists - 1) */; i += 1) {
-		if ((freeListOop = GIV(freeLists)[i])) {
-			if (oopisGreaterThanOrEqualToandLessThan(freeListOop, GIV(oldSpaceStart), GIV(endOfMemory))) {
+		if ((freeListOop = freeLists[i])) {
+			if (oopisGreaterThanOrEqualToandLessThan(freeListOop, oldSpaceStart, endOfMemory)) {
 				if (heapMapAtWord(pointerForOop(freeListOop))) {
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"leak in free list %d to non-free %p\n",
 							((int) i),
 							((void *)freeListOop));
@@ -60,7 +60,7 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs, sqInt cla
 				}
 			}
 			else {
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"leak in free list %d to out-of-bounds %p\n",
 						((int) i),
 						((void *)freeListOop));
@@ -77,27 +77,27 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs, sqInt cla
 
 	/* After a scavenge eden is empty, futureSpace is empty, and all newSpace objects are
 	   in pastSpace.  Objects are allocated in eden.  So enumerate only pastSpace and eden. */
-	assert((((GIV(pastSpace)).start)) < (((GIV(eden)).start)));
+	assert((((pastSpace).start)) < (((eden).start)));
 	start = /* startAddressForBridgedHeapEnumeration */
-			(GIV(pastSpaceStart) > (((GIV(pastSpace)).start))
-				? ((GIV(pastSpace)).start)
-				: (GIV(freeStart) > (((GIV(eden)).start))
-						? ((GIV(eden)).start)
-						: GIV(oldSpaceStart)));
-	if (start > GIV(freeStart)) {
+			(pastSpaceStart > (((pastSpace).start))
+				? ((pastSpace).start)
+				: (freeStart > (((eden).start))
+						? ((eden).start)
+						: oldSpaceStart));
+	if (start > freeStart) {
 		goto l6;
 	}
 
 	/* begin bridgePastSpaceAndEden */
-	if (GIV(pastSpaceStart) < (((GIV(eden)).start))) {
-		if ((GIV(pastSpaceStart) + BaseHeaderSize) == (((GIV(eden)).start))) {
-			hackSlimBridgeToat(objectStartingAt(((GIV(eden)).start)), GIV(pastSpaceStart));
+	if (pastSpaceStart < (((eden).start))) {
+		if ((pastSpaceStart + BaseHeaderSize) == (((eden).start))) {
+			hackSlimBridgeToat(objectStartingAt(((eden).start)), pastSpaceStart);
 
 			/* And carefully check the assumption */
-			assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(GIV(pastSpaceStart)), GIV(nilObj))) == (objectStartingAt(((GIV(eden)).start))));
+			assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(pastSpaceStart), nilObj)) == (objectStartingAt(((eden).start))));
 		}
 		else {
-			initSegmentBridgeWithBytesat((((GIV(eden)).start)) - GIV(pastSpaceStart), GIV(pastSpaceStart));
+			initSegmentBridgeWithBytesat((((eden).start)) - pastSpaceStart, pastSpaceStart);
 		}
 	}
 
@@ -106,9 +106,9 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs, sqInt cla
 	objOop = (numSlots == (numSlotsMask())
 				? start + BaseHeaderSize
 				: start);
-	while (oopisLessThan(objOop, GIV(freeStart))) {
+	while (oopisLessThan(objOop, freeStart)) {
 		if (((longAt((void *)(objOop))) & (classIndexMask())) == (isFreeObjectClassIndexPun())) {
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"young object %p is free\n",
 					((void *)objOop));
 			ok = 0;
@@ -117,7 +117,7 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs, sqInt cla
 			if (!((!(((byteAt((void *)(objOop + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) != 0))
 				 && (excludeUnmarkedObjs))) {
 				if ((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift()))) {
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"young object %p is remembered\n",
 							((void *)objOop));
 					ok = 0;
@@ -126,10 +126,10 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs, sqInt cla
 			if ((!((longAt((void *)(objOop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 				fieldOop = longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
 				if (/* isInHeapBounds: */
-					(oopisGreaterThanOrEqualTo(fieldOop, GIV(newSpaceStart)))
-				 && (oopisLessThan(fieldOop, GIV(endOfMemory)))) {
+					(oopisGreaterThanOrEqualTo(fieldOop, newSpaceStart))
+				 && (oopisLessThan(fieldOop, endOfMemory))) {
 					if (!(heapMapAtWord(pointerForOop(fieldOop)))) {
-						fprintf(GIV(transcript),
+						fprintf(transcript,
 								"object leak in forwarder %p to unmapped %p\n",
 								((void *)objOop),
 								((void *)fieldOop));
@@ -137,7 +137,7 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs, sqInt cla
 					}
 				}
 				else {
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"object leak in forwarder %p to out-of-bounds %p\n",
 							((void *)objOop),
 							((void *)fieldOop));
@@ -153,9 +153,9 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs, sqInt cla
 				fieldIndex = ((usqInt)(classIndexSqInt)) >> (classTableMajorIndexShift());
 
 				/* begin fetchPointer:ofObject: */
-				classTablePage = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-				if (classTablePage == GIV(nilObj)) {
-					classOop = GIV(nilObj);
+				classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+				if (classTablePage == nilObj) {
+					classOop = nilObj;
 					goto l1;
 				}
 				fieldIndex = classIndexSqInt & ((1U << (classTableMajorIndexShift())) - 1);
@@ -163,9 +163,9 @@ checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs, sqInt cla
 				/* end classOrNilAtIndex: */
 l1:
 				if (classIndicesShouldBeValid
-				 && ((classOop == GIV(nilObj))
+				 && ((classOop == nilObj)
 				 && (!(((longAt((void *)(objOop))) & (classIndexMask())) <= (lastClassIndexPun()))))) {
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"object leak in %p invalid class index %p -> nilObj\n",
 							((void *)objOop),
 							((void *)classIndex));
@@ -176,10 +176,10 @@ l1:
 					fieldOop = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(fi) << (shiftForWord()))))));
 					if ((!(fieldOop & (tagMask())))) {
 						if (/* isInHeapBounds: */
-							(oopisGreaterThanOrEqualTo(fieldOop, GIV(newSpaceStart)))
-						 && (oopisLessThan(fieldOop, GIV(endOfMemory)))) {
+							(oopisGreaterThanOrEqualTo(fieldOop, newSpaceStart))
+						 && (oopisLessThan(fieldOop, endOfMemory))) {
 							if (!(heapMapAtWord(pointerForOop(fieldOop)))) {
-								fprintf(GIV(transcript),
+								fprintf(transcript,
 										"object leak in %p @ %d = %p\n",
 										((void *)objOop),
 										((int) fi),
@@ -188,7 +188,7 @@ l1:
 							}
 						}
 						else {
-							fprintf(GIV(transcript),
+							fprintf(transcript,
 									"object leak in %p to out-of-bounds %p\n",
 									((void *)objOop),
 									((void *)fieldOop));
@@ -203,13 +203,13 @@ l1:
 
 		/* begin objectAfterMaybeSlimBridge:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(freeStart))) {
-			objOop = GIV(freeStart);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, freeStart)) {
+			objOop = freeStart;
 			goto l5;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
 		objOop = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-					? ((oopisLessThan(objOop, GIV(oldSpaceStart)))
+					? ((oopisLessThan(objOop, oldSpaceStart))
 					 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 							? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 							: followingWordAddress + BaseHeaderSize)
@@ -222,16 +222,16 @@ l6:
 
 	/* begin allOldSpaceEntitiesDo: */
 	/* begin allOldSpaceEntitiesFrom:do: */
-	assert(isOldObject(GIV(nilObj)));
+	assert(isOldObject(nilObj));
 	prevPrevObj = (prevObj = null);
-	objOop = GIV(nilObj);
+	objOop = nilObj;
 	while (1) {
 		assert((objOop % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objOop, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objOop, endOfMemory))) break;
 		assert((long64At((void *)(objOop))) != 0);
 		if (((longAt((void *)(objOop))) & (classIndexMask())) == (isFreeObjectClassIndexPun())) {
 			if (heapMapAtWord(pointerForOop(objOop))) {
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"leak in free chunk %p is mapped?! \n",
 						((void *)objOop));
 				ok = 0;
@@ -239,7 +239,7 @@ l6:
 			fieldOop = longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
 			if ((fieldOop != 0)
 			 && ((heapMapAtWord(pointerForOop(fieldOop))) != 0)) {
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"leak in free chunk %p @ 0 = %p is mapped\n",
 						((void *)objOop),
 						((void *)fieldOop));
@@ -253,7 +253,7 @@ l6:
 				fieldOop = longAt((void *)((objOop + BaseHeaderSize) + (1U << (shiftForWord()))));
 				if ((fieldOop != 0)
 				 && ((heapMapAtWord(pointerForOop(fieldOop))) != 0)) {
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"leak in free chunk %p @ 1 = %p is mapped\n",
 							((void *)objOop),
 							((void *)fieldOop));
@@ -265,7 +265,7 @@ l6:
 					fieldOop = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(fi) << (shiftForWord()))))));
 					if ((fieldOop != 0)
 					 && ((heapMapAtWord(pointerForOop(fieldOop))) != 0)) {
-						fprintf(GIV(transcript),
+						fprintf(transcript,
 								"leak in free chunk %p @ %d = %p is mapped\n",
 								((void *)objOop),
 								((int) fi),
@@ -283,12 +283,12 @@ l6:
 					numRememberedObjectsInHeap += 1;
 
 					/* begin isInRememberedSet: */
-					for (iSqInt = 0; iSqInt < GIV(rememberedSetSize); iSqInt += 1) {
-						if ((GIV(rememberedSet)[iSqInt]) == objOop) {
+					for (iSqInt = 0; iSqInt < rememberedSetSize; iSqInt += 1) {
+						if ((rememberedSet[iSqInt]) == objOop) {
 							goto l2;
 						}
 					}
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"remembered object %p is not in remembered table\n",
 							((void *)objOop));
 					ok = 0;
@@ -297,10 +297,10 @@ l2:;
 				if ((!((longAt((void *)(objOop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 					fieldOop = longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
 					if (/* isInHeapBounds: */
-						(oopisGreaterThanOrEqualTo(fieldOop, GIV(newSpaceStart)))
-					 && (oopisLessThan(fieldOop, GIV(endOfMemory)))) {
+						(oopisGreaterThanOrEqualTo(fieldOop, newSpaceStart))
+					 && (oopisLessThan(fieldOop, endOfMemory))) {
 						if (!(heapMapAtWord(pointerForOop(fieldOop)))) {
-							fprintf(GIV(transcript),
+							fprintf(transcript,
 									"object leak in forwarder %p to unmapped %p\n",
 									((void *)objOop),
 									((void *)fieldOop));
@@ -308,7 +308,7 @@ l2:;
 						}
 					}
 					else {
-						fprintf(GIV(transcript),
+						fprintf(transcript,
 								"object leak in forwarder %p to out-of-bounds %p\n",
 								((void *)objOop),
 								((void *)fieldOop));
@@ -318,7 +318,7 @@ l2:;
 						((!(fieldOop & (tagMask()))))
 					 && ((/* begin isReallyYoungObject: *//* begin isYoungObject: */
 						assert(isNonImmediate(fieldOop)),
-					oopisLessThan(fieldOop, GIV(oldSpaceStart))))) {
+					oopisLessThan(fieldOop, oldSpaceStart)))) {
 						containsYoung = 1;
 					}
 				}
@@ -331,9 +331,9 @@ l2:;
 					fieldIndex = ((usqInt)(classIndexSqInt)) >> (classTableMajorIndexShift());
 
 					/* begin fetchPointer:ofObject: */
-					classTablePage = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-					if (classTablePage == GIV(nilObj)) {
-						classOop = GIV(nilObj);
+					classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+					if (classTablePage == nilObj) {
+						classOop = nilObj;
 						goto l3;
 					}
 					fieldIndex = classIndexSqInt & ((1U << (classTableMajorIndexShift())) - 1);
@@ -341,9 +341,9 @@ l2:;
 					/* end classOrNilAtIndex: */
 l3:
 					if (classIndicesShouldBeValid
-					 && ((classOop == GIV(nilObj))
+					 && ((classOop == nilObj)
 					 && (classIndex > (lastClassIndexPun())))) {
-						fprintf(GIV(transcript),
+						fprintf(transcript,
 								"object leak in %p invalid class index %p -> nilObj\n",
 								((void *)objOop),
 								((void *)classIndex));
@@ -354,10 +354,10 @@ l3:
 						fieldOop = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(fi) << (shiftForWord()))))));
 						if ((!(fieldOop & (tagMask())))) {
 							if (/* isInHeapBounds: */
-								(oopisGreaterThanOrEqualTo(fieldOop, GIV(newSpaceStart)))
-							 && (oopisLessThan(fieldOop, GIV(endOfMemory)))) {
+								(oopisGreaterThanOrEqualTo(fieldOop, newSpaceStart))
+							 && (oopisLessThan(fieldOop, endOfMemory))) {
 								if (!(heapMapAtWord(pointerForOop(fieldOop)))) {
-									fprintf(GIV(transcript),
+									fprintf(transcript,
 											"object leak in %p @ %d = %p\n",
 											((void *)objOop),
 											((int) fi),
@@ -366,7 +366,7 @@ l3:
 								}
 							}
 							else {
-								fprintf(GIV(transcript),
+								fprintf(transcript,
 										"object leak in %p to out-of-bounds %p\n",
 										((void *)objOop),
 										((void *)fieldOop));
@@ -378,7 +378,7 @@ l3:
 								((!(fieldOop & (tagMask()))))
 							 && ((/* begin isReallyYoungObject: *//* begin isYoungObject: */
 								assert(isNonImmediate(fieldOop)),
-							oopisLessThan(fieldOop, GIV(oldSpaceStart))))) {
+							oopisLessThan(fieldOop, oldSpaceStart)))) {
 								containsYoung = 1;
 							}
 						}
@@ -386,7 +386,7 @@ l3:
 				}
 				if (containsYoung) {
 					if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-						fprintf(GIV(transcript),
+						fprintf(transcript,
 								"unremembered object %p contains young oop(s)\n",
 								((void *)objOop));
 						ok = 0;
@@ -399,8 +399,8 @@ l3:
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objOop = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objOop = endOfMemory;
 			goto l7;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
@@ -410,20 +410,20 @@ l3:
 		/* end objectAfter:limit: */
 l7:;
 	}
-	if (numRememberedObjectsInHeap != GIV(rememberedSetSize)) {
-		fprintf(GIV(transcript),
+	if (numRememberedObjectsInHeap != rememberedSetSize) {
+		fprintf(transcript,
 				"root count mismatch. #heap roots %d; #roots %d\n",
 				((int) numRememberedObjectsInHeap),
-				((int) GIV(rememberedSetSize)));
+				((int) rememberedSetSize));
 
 		/* But the system copes with overflow... */
 	}
 
 	/* begin rememberedSetWithIndexDo: */
-	for (iSqInt = 0; iSqInt < GIV(rememberedSetSize); iSqInt += 1) {
-		obj = GIV(rememberedSet)[iSqInt];
+	for (iSqInt = 0; iSqInt < rememberedSetSize; iSqInt += 1) {
+		obj = rememberedSet[iSqInt];
 		if (obj & (BytesPerWord - 1)) {
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"misaligned oop in remembered set @ %d = %p\n",
 					((int) iSqInt),
 					((void *)obj));
@@ -433,8 +433,8 @@ l7:;
 			if (heapMapAtWord(pointerForOop(obj))) {
 				if (/* isYoung: */
 					((!(obj & (tagMask()))))
-				 && (oopisLessThan(obj, GIV(oldSpaceStart)))) {
-					fprintf(GIV(transcript),
+				 && (oopisLessThan(obj, oldSpaceStart))) {
+					fprintf(transcript,
 							"non-root in remembered set @ %d = %p\n",
 							((int) iSqInt),
 							((void *)obj));
@@ -442,7 +442,7 @@ l7:;
 				}
 			}
 			else {
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"object leak in remembered set @ %d = %p\n",
 						((int) iSqInt),
 						((void *)obj));
@@ -452,17 +452,17 @@ l7:;
 	}
 
 	/* begin objStack:do: */
-	if (GIV(mournQueue) == GIV(nilObj)) {
+	if (mournQueue == nilObj) {
 		goto l4;
 	}
-	eassert(isValidObjStack(GIV(mournQueue)));
-	objStackPage = GIV(mournQueue);
+	eassert(isValidObjStack(mournQueue));
+	objStackPage = mournQueue;
 	while (objStackPage != 0) {
 		numOnThisPage = longAt((void *)((objStackPage + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
 		for (iSqInt = ((numOnThisPage + ObjStackFixedSlots) - 1); iSqInt >= ObjStackFixedSlots; iSqInt += -1) {
 			obj = longAt((void *)((objStackPage + BaseHeaderSize) + ((((usqInt)(iSqInt) << (shiftForWord()))))));
 			if (obj & (BytesPerWord - 1)) {
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"misaligned oop in mournQueue @ %d in %p = %p\n",
 						((int) iSqInt),
 						((void *)objStackPage),
@@ -473,7 +473,7 @@ l7:;
 				if (!(excludeUnmarkedObjs
 					 && (!(((byteAt((void *)(obj + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) != 0)))) {
 					if (!(heapMapAtWord(pointerForOop(obj)))) {
-						fprintf(GIV(transcript),
+						fprintf(transcript,
 								"object leak in mournQueue @ %d in %p = %p\n",
 								((int) iSqInt),
 								((void *)objStackPage),
@@ -487,10 +487,10 @@ l7:;
 	}
 	/* end objStack:do: */
 l4:
-	for (ri = 1; ri <= GIV(remapBufferCount); ri += 1) {
-		obj = GIV(remapBuffer)[ri];
+	for (ri = 1; ri <= remapBufferCount; ri += 1) {
+		obj = remapBuffer[ri];
 		if (obj & (BytesPerWord - 1)) {
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"misaligned remapRoot @ %d = %p\n",
 					((int) ri),
 					((void *)obj));
@@ -498,7 +498,7 @@ l4:
 		}
 		else {
 			if (!(heapMapAtWord(pointerForOop(obj)))) {
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"object leak in remapRoots @ %d = %p\n",
 						((int) ri),
 						((void *)obj));
@@ -506,10 +506,10 @@ l4:
 			}
 		}
 	}
-	for (ri = 1; ri <= GIV(extraRootCount); ri += 1) {
-		obj = (GIV(extraRoots)[ri])[0];
+	for (ri = 1; ri <= extraRootCount; ri += 1) {
+		obj = (extraRoots[ri])[0];
 		if (obj & (BytesPerWord - 1)) {
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"misaligned extraRoot @ %d => %p\n",
 					((int) ri),
 					((void *)obj));
@@ -517,7 +517,7 @@ l4:
 		}
 		else {
 			if (!(heapMapAtWord(pointerForOop(obj)))) {
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"object leak in extraRoots @ %d => %p\n",
 						((int) ri),
 						((void *)obj));

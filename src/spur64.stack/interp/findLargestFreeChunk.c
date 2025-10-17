@@ -11,7 +11,7 @@ findLargestFreeChunk(void)
     sqInt treeNode;
 
 	childNode = 0;
-	treeNode = GIV(freeLists)[0];
+	treeNode = freeLists[0];
 	if (!treeNode) {
 		return null;
 	}

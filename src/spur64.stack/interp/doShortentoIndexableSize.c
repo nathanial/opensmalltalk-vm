@@ -32,7 +32,7 @@ doShortentoIndexableSize(sqInt objOop, sqInt indexableSize)
 
 	/* for assert checking */
 	followingAddress = addressAfter(objOop);
-	assert(oopisLessThanOrEqualTo(followingAddress, GIV(endOfMemory)));
+	assert(oopisLessThanOrEqualTo(followingAddress, endOfMemory));
 
 	/* numSlotsForShortening:toIndexableSize: */
 	switch ((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask())) {
@@ -84,7 +84,7 @@ doShortentoIndexableSize(sqInt objOop, sqInt indexableSize)
 	if ((delta <= 8 /* allocationUnit */)
 	 && ((/* begin isOldObject: */
 		assert(isNonImmediate(objOop)),
-	oopisGreaterThanOrEqualTo(objOop, GIV(oldSpaceStart))))) {
+	oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)))) {
 		/* begin normalisedFormatFor:indexableSize: */
 		instFormat = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
 		if (instFormat >= (firstByteFormat())) {
@@ -116,20 +116,20 @@ l1:
 				copy = null;
 				goto l2;
 			}
-			newObj = GIV(freeStart) + BaseHeaderSize;
+			newObj = freeStart + BaseHeaderSize;
 			numBytes = (BaseHeaderSize + BaseHeaderSize) + (numSlots * BytesPerOop);
 		}
 		else {
-			newObj = GIV(freeStart);
+			newObj = freeStart;
 			numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 		}
-		if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
+		if ((freeStart + numBytes) > scavengeThreshold) {
 			if (numSlots <= ((1U << (fixedFieldsFieldWidth())) - 1)) {
-				if (!GIV(needGCFlag)) {
+				if (!needGCFlag) {
 					/* begin scheduleScavenge */
-					GIV(needGCFlag) = 1;
+					needGCFlag = 1;
 					forceInterruptCheck();
 				}
 			}
@@ -137,7 +137,7 @@ l1:
 			goto l2;
 		}
 		if (numSlots >= (numSlotsMask())) {
-			longAtput((void *)(GIV(freeStart)),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
+			longAtput((void *)(freeStart),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
 			longAtput((void *)(newObj),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)(format) << (formatShift()))))) + classIndex);
 		}
 		else {
@@ -147,7 +147,7 @@ l1:
 		/* for header parsing we put a saturated slot count in the prepended overflow size word */
 		assert((numBytes % (allocationUnit())) == 0);
 		assert((newObj % (allocationUnit())) == 0);
-		GIV(freeStart) += numBytes;
+		freeStart += numBytes;
 		copy = newObj;
 		/* end allocateSlots:format:classIndex: */
 l2:
@@ -189,10 +189,10 @@ l2:
 
 		/* begin isOldObject: */
 		assert(isNonImmediate(objOop));
-		if (oopisGreaterThanOrEqualTo(objOop, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(copy & (tagMask()))))
-			 && (oopisLessThan(copy, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(copy, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(objOop);
@@ -218,7 +218,7 @@ l2:
 		   So we must also change the normal slot count so that the object no
 		   longer has the overflow header word, which has become the slimbridge. */
 		if (numSlots <= 1) {
-			if (oopisLessThan(objOop, GIV(oldSpaceStart))) {
+			if (oopisLessThan(objOop, oldSpaceStart)) {
 				/* rawNumSlotsOf:put: */
 				byteAtput((void *)(objOop + (numSlotsFieldByteOffset())),numSlots);
 				hackSlimBridgeToat(objOop, objOop - 8 /* allocationUnit */);
@@ -239,8 +239,8 @@ l2:
 	if (delta == 8 /* allocationUnit */) {
 		assert(!((isOldObject(objOop))));
 		delta = 0;
-		if (followingAddress == GIV(freeStart)) {
-			GIV(freeStart) = addressAfter(objOop);
+		if (followingAddress == freeStart) {
+			freeStart = addressAfter(objOop);
 		}
 		else {
 			hackSlimBridgeToat(followingAddress, addressAfter(objOop));
@@ -250,8 +250,8 @@ l2:
 		freeChunk = initFreeChunkWithBytesat(delta, addressAfter(objOop));
 		assert((objectAfter(objOop)) == freeChunk);
 		assert((addressAfter(freeChunk)) == followingAddress);
-		if (oopisGreaterThanOrEqualToandLessThan(objOop, GIV(oldSpaceStart), GIV(endOfMemory))) {
-			GIV(totalFreeOldSpace) += delta;
+		if (oopisGreaterThanOrEqualToandLessThan(objOop, oldSpaceStart, endOfMemory)) {
+			totalFreeOldSpace += delta;
 			addToFreeListbytes(freeChunk, delta);
 		}
 		else {

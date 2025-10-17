@@ -10,12 +10,12 @@ primitiveInputSemaphore(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt arg;
 
-	arg = longAt(GIV(stackPointer));
+	arg = longAt(stackPointer);
 	if ((((arg) & 7) == 1)) {
 		ioSetInputSemaphore((arg >> 3));
-		if (!GIV(primFailCode)) {
+		if (!primFailCode) {
 			/* begin pop: */
-			GIV(stackPointer) += 1 * BytesPerWord;
+			stackPointer += 1 * BytesPerWord;
 		}
 		return;
 	}
@@ -26,8 +26,8 @@ primitiveInputSemaphore(void)
 	   old code for compatibility */
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	return;
 }

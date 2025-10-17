@@ -27,7 +27,7 @@ makeBaseFrameFor(sqInt aContext)
 	assert(goodContextSize(aContext));
 
 	/* begin newStackPage */
-	page = (GIV(mostRecentlyUsedPage)->nextPage);
+	page = (mostRecentlyUsedPage->nextPage);
 	if (!((page->baseFP))) {
 		goto l1;
 	}
@@ -60,7 +60,7 @@ l1:
 	   the pushed receiver position (closures receive the value[:value:] messages).
 	   Otherwise it should be the receiver proper. */
 	maybeClosure = longAt((void *)((aContext + BaseHeaderSize) + ((((usqInt)(ClosureIndex) << (shiftForWord()))))));
-	if (maybeClosure != GIV(nilObj)) {
+	if (maybeClosure != nilObj) {
 		if ((!((longAt((void *)(maybeClosure))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 			maybeClosure = fixFollowedFieldofObjectwithInitialValue(ClosureIndex, aContext, maybeClosure);
 		}
@@ -99,8 +99,8 @@ l1:
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(aContext))
 		 && (!(isForwarded(aContext))));
-		assert(validStorePointerUncheckedArgs(ReceiverIndex + i, aContext, GIV(nilObj)));
-		longAtput((void *)((aContext + BaseHeaderSize) + ((((usqInt)((ReceiverIndex + i)) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(ReceiverIndex + i, aContext, nilObj));
+		longAtput((void *)((aContext + BaseHeaderSize) + ((((usqInt)((ReceiverIndex + i)) << (shiftForWord()))))),nilObj);
 	}
 
 	/* saved caller ip is sender context in base frame */
@@ -113,10 +113,10 @@ l1:
 	longAtput((pointer -= BytesPerWord),theMethod);
 	longAtput((pointer -= BytesPerWord),/* encodeFrameFieldHasContext:isBlock:numArgs: */
 		(VMBIGENDIAN
-			? ((1 + ((numArgs << ((BytesPerWord * 8) - 8)))) + (1ULL << ((BytesPerWord * 8) - 16))) + ((maybeClosure != GIV(nilObj)
+			? ((1 + ((numArgs << ((BytesPerWord * 8) - 8)))) + (1ULL << ((BytesPerWord * 8) - 16))) + ((maybeClosure != nilObj
 		? 1ULL << ((BytesPerWord * 8) - 24)
 		: 0))
-			: ((1 + ((numArgs << 8))) + (0x10000)) + ((maybeClosure != GIV(nilObj)
+			: ((1 + ((numArgs << 8))) + (0x10000)) + ((maybeClosure != nilObj
 		? 0x1000000
 		: 0))));
 	assert(frameHasContext((page->baseFP)));

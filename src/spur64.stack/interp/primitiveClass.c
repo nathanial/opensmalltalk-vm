@@ -10,24 +10,24 @@ primitiveClass(void)
     char *sp;
     sqInt tagBits;
 
-	instance = longAt(GIV(stackPointer));
-	if ((GIV(argumentCount) > 0)
+	instance = longAt(stackPointer);
+	if ((argumentCount > 0)
 	 && (/* isOopForwarded: */
 		((!(instance & (tagMask()))))
 	 && ((!((longAt((void *)(instance))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 	else {
 		oop = /* fetchClassOf: */
 				((tagBits = instance & (tagMask()))
-					? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+					? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 					: fetchClassOfNonImm(instance));
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),oop);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),oop);
+		stackPointer = sp;
 	}
 }

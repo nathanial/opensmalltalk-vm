@@ -26,16 +26,16 @@ primitiveNewMethod(void)
     sqInt theMethod;
     usqInt toDoLimit;
 
-	header = longAt(GIV(stackPointer));
-	bytecodeCount = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	header = longAt(stackPointer);
+	bytecodeCount = longAt(stackPointer + (1 * BytesPerWord));
 	if (!(((((header) & 7) == 1))
 		 && (((((bytecodeCount) & 7) == 1))
 		 && (((bytecodeCount = (bytecodeCount >> 3))) >= 0)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
-	class = longAt(GIV(stackPointer) + (2 * BytesPerWord));
+	class = longAt(stackPointer + (2 * BytesPerWord));
 
 	/* begin literalCountOfMethodHeader: */
 	assert((((header) & 7) == 1));
@@ -65,7 +65,7 @@ primitiveNewMethod(void)
 						: -PrimErrBadReceiver));
 	if (classIndex < 0) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -classIndex;
+		primFailCode = -classIndex;
 		theMethod = null;
 		goto l2;
 	}
@@ -88,20 +88,20 @@ primitiveNewMethod(void)
 				newObj = null;
 				goto l1;
 			}
-			newObjUsqInt = GIV(freeStart) + BaseHeaderSize;
+			newObjUsqInt = freeStart + BaseHeaderSize;
 			numBytes = (BaseHeaderSize + BaseHeaderSize) + (numSlots * BytesPerOop);
 		}
 		else {
-			newObjUsqInt = GIV(freeStart);
+			newObjUsqInt = freeStart;
 			numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 		}
-		if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
+		if ((freeStart + numBytes) > scavengeThreshold) {
 			if (numSlots <= ((1U << (fixedFieldsFieldWidth())) - 1)) {
-				if (!GIV(needGCFlag)) {
+				if (!needGCFlag) {
 					/* begin scheduleScavenge */
-					GIV(needGCFlag) = 1;
+					needGCFlag = 1;
 					forceInterruptCheck();
 				}
 			}
@@ -109,7 +109,7 @@ primitiveNewMethod(void)
 			goto l1;
 		}
 		if (numSlots >= (numSlotsMask())) {
-			longAtput((void *)(GIV(freeStart)),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
+			longAtput((void *)(freeStart),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
 			longAtput((void *)(newObjUsqInt),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)(instSpec) << (formatShift()))))) + classIndex);
 		}
 		else {
@@ -119,7 +119,7 @@ primitiveNewMethod(void)
 		/* for header parsing we put a saturated slot count in the prepended overflow size word */
 		assert((numBytes % (allocationUnit())) == 0);
 		assert((newObjUsqInt % (allocationUnit())) == 0);
-		GIV(freeStart) += numBytes;
+		freeStart += numBytes;
 		newObj = newObjUsqInt;
 		/* end allocateSlots:format:classIndex: */
 l1:;
@@ -141,7 +141,7 @@ l2:
 					: PrimErrBadReceiver);
 
 		/* begin primitiveFailFor: */
-		GIV(primFailCode) = reasonCode;
+		primFailCode = reasonCode;
 		return;
 	}
 
@@ -154,11 +154,11 @@ l2:
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(theMethod))
 		 && (!(isForwarded(theMethod))));
-		assert(validStorePointerUncheckedArgs(i, theMethod, GIV(nilObj)));
-		longAtput((void *)((theMethod + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(i, theMethod, nilObj));
+		longAtput((void *)((theMethod + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),nilObj);
 	}
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (2 * BytesPerWord)),theMethod);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (2 * BytesPerWord)),theMethod);
+	stackPointer = sp;
 }

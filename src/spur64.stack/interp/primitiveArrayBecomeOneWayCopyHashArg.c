@@ -17,29 +17,29 @@ primitiveArrayBecomeOneWayCopyHashArg(void)
     sqInt ec;
 
 	copyHashFlag = 0;
-	if ((longAt(GIV(stackPointer))) == GIV(trueObj)) {
+	if ((longAt(stackPointer)) == trueObj) {
 		copyHashFlag = 1;
 	}
 	else {
-		if ((longAt(GIV(stackPointer))) == GIV(falseObj)) {
+		if ((longAt(stackPointer)) == falseObj) {
 			copyHashFlag = 0;
 		}
 		else {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			return;
 		}
 	}
-	ec = becomewithtwoWaycopyHash(longAt(GIV(stackPointer) + (2 * BytesPerWord)), longAt(GIV(stackPointer) + (1 * BytesPerWord)), 0, copyHashFlag);
+	ec = becomewithtwoWaycopyHash(longAt(stackPointer + (2 * BytesPerWord)), longAt(stackPointer + (1 * BytesPerWord)), 0, copyHashFlag);
 
 	/* begin primitiveBecomeReturn: */
 	if (ec) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = ec;
+		primFailCode = ec;
 	}
 	else {
 		/* begin methodReturnReceiver */
 		assert(!((failed())));
-		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+		stackPointer += argumentCount * BytesPerWord;
 	}
 }

@@ -20,8 +20,8 @@ positiveMachineIntegerValueOfObj(sqInt oop)
 	assert(!(((((oop) & 7) == 1))));
 	if (((oop & (tagMask())) != 0)) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return 0;
 	}
@@ -32,8 +32,8 @@ positiveMachineIntegerValueOfObj(sqInt oop)
 	isClassOfNonImmequalTocompactClassIndexRV = ClassLargePositiveIntegerCompactIndex == ccIndex;
 	if (!isClassOfNonImmequalTocompactClassIndexRV) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return 0;
 	}
@@ -48,8 +48,8 @@ positiveMachineIntegerValueOfObj(sqInt oop)
 			: numSlots))) << (shiftForWord()))) - (fmt & 7);
 	if (bs > (sizeof(usqIntptr_t))) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return 0;
 	}

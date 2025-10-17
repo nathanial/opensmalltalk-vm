@@ -25,7 +25,7 @@ okayOop(sqInt signedOop)
 		error("oop is not a valid address");
 		return 0;
 	}
-	if (!(oopisLessThanOrEqualTo(addressAfter(oop), GIV(endOfMemory)))) {
+	if (!(oopisLessThanOrEqualTo(addressAfter(oop), endOfMemory))) {
 		error("oop size would make it extend beyond the end of memory");
 		return 0;
 	}

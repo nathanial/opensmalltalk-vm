@@ -5,7 +5,7 @@
 static void
 primitiveQuit(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	ioExitWithErrorCode((GIV(argumentCount) == 1
-			? ((longAt(GIV(stackPointer))) >> 3)
+	ioExitWithErrorCode((argumentCount == 1
+			? ((longAt(stackPointer)) >> 3)
 			: 0));
 }

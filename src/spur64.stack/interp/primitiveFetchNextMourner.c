@@ -9,19 +9,19 @@ primitiveFetchNextMourner(void)
     char *sp;
 
 	mourner = /* dequeueMourner */
-			(GIV(mournQueue) != GIV(nilObj)
-				? (assert(isValidObjStack(GIV(mournQueue))),
-				popObjStack(GIV(mournQueue)))
+			(mournQueue != nilObj
+				? (assert(isValidObjStack(mournQueue)),
+				popObjStack(mournQueue))
 				: 0);
 	if (mourner) {
-		assert(isValidObjStack(GIV(mournQueue)));
+		assert(isValidObjStack(mournQueue));
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer)),mourner);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer),mourner);
+		stackPointer = sp;
 	}
 	else {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNotFound;
+		primFailCode = PrimErrNotFound;
 	}
 }

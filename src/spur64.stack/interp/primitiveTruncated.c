@@ -12,7 +12,7 @@ primitiveTruncated(void)
     sqInt rcvr;
     double trunc;
 
-	rcvr = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer);
 
 	/* begin noFailFloatValueOf: */
 	assert(isFloatInstance(rcvr));
@@ -35,7 +35,7 @@ primitiveTruncated(void)
 	modf(doubleValue, (&trunc));
 	if (((trunc >= (((double) (MinSmallInteger) ))) && (trunc <= (((double) (MaxSmallInteger) ))))) {
 		/* stackTopPut: */
-		longAtput(GIV(stackPointer),(((usqInt)(((sqInt)trunc)) << 3) | 1));
+		longAtput(stackPointer,(((usqInt)(((sqInt)trunc)) << 3) | 1));
 		return;
 	}
 
@@ -44,7 +44,7 @@ primitiveTruncated(void)
 	/* a.k.a. trunc abs <= Float maxExactInteger asFloat */
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 }

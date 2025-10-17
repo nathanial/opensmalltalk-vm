@@ -56,14 +56,14 @@ unlinkFreeChunkchunkBytes(sqInt freeChunk, sqInt chunkBytes)
 	/* Is the beginning of a list
 	   Small chunk */
 	if ((index < 64 /* numFreeLists */)
-	 && ((1ULL << index) <= GIV(freeListsMask))) {
+	 && ((1ULL << index) <= freeListsMask)) {
 		/* begin unlinkFreeChunk:atIndex:isLilliputianSize: */
 		assert(((bytesInBody(freeChunk)) == (index * (allocationUnit())))
 		 && ((index > 1)
 		 && ((startOfObject(freeChunk)) == freeChunk)));
 
 		/* For some reason the assertion is not compiled correctly */
-		GIV(freeLists)[index] = ((nextSqInt = longAt((void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))))));
+		freeLists[index] = ((nextSqInt = longAt((void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))))));
 		if (nextSqInt) {
 			/* begin storePointer:ofFreeChunk:withValue: */
 			assert(isFreeObject(nextSqInt));

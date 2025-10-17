@@ -39,33 +39,33 @@ markObjects(sqInt objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged)
 
 	/* begin initializeUnscannedEphemerons */
 	largestFree = findLargestFreeChunk();
-	sizeOfUnusedEden = (((GIV(eden)).limit)) - GIV(freeStart);
-	sizeOfFutureSpace = (((GIV(futureSpace)).limit)) - (((GIV(futureSpace)).start));
+	sizeOfUnusedEden = (((eden).limit)) - freeStart;
+	sizeOfFutureSpace = (((futureSpace).limit)) - (((futureSpace).start));
 	sizeOfAvailableNewSpace = ((sizeOfUnusedEden < sizeOfFutureSpace) ? sizeOfFutureSpace : sizeOfUnusedEden);
 	if ((largestFree)
 	 && ((numSlotsOfAny(largestFree)) > (sizeOfAvailableNewSpace / BytesPerWord))) {
-		(GIV(unscannedEphemerons).start = (largestFree + BaseHeaderSize) + (5 /* (freeChunkLargerIndex + 1) */ * BytesPerWord));
-		(GIV(unscannedEphemerons).limit = addressAfter(largestFree));
+		(unscannedEphemerons.start = (largestFree + BaseHeaderSize) + (5 /* (freeChunkLargerIndex + 1) */ * BytesPerWord));
+		(unscannedEphemerons.limit = addressAfter(largestFree));
 	}
 	else {
 		if (sizeOfUnusedEden > sizeOfFutureSpace) {
-			(GIV(unscannedEphemerons).start = GIV(freeStart));
-			(GIV(unscannedEphemerons).limit = ((GIV(eden)).limit));
+			(unscannedEphemerons.start = freeStart);
+			(unscannedEphemerons.limit = ((eden).limit));
 		}
 		else {
-			(GIV(unscannedEphemerons).start = ((GIV(futureSpace)).start));
-			(GIV(unscannedEphemerons).limit = ((GIV(futureSpace)).limit));
+			(unscannedEphemerons.start = ((futureSpace).start));
+			(unscannedEphemerons.limit = ((futureSpace).limit));
 		}
 	}
-	(GIV(unscannedEphemerons).top = ((GIV(unscannedEphemerons).start)) - BytesPerOop);
+	(unscannedEphemerons.top = ((unscannedEphemerons.start)) - BytesPerOop);
 
 	/* begin initializeMarkStack */
 	ensureRoomOnObjStackAt(MarkStackRootIndex);
 	ensureRoomOnObjStackAt(WeaklingStackRootIndex);
-	GIV(marking) = 1;
+	marking = 1;
 
 	/* begin markAccessibleObjectsAndFireEphemerons */
-	assert(GIV(marking));
+	assert(marking);
 	assert(validClassTableRootPages());
 	assert(allBridgesMarked());
 
@@ -75,58 +75,58 @@ markObjects(sqInt objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged)
 	   Otherwise it will clear the trace flags of reached pages. */
 
 	/* begin initStackPageGC */
-	if (GIV(stackPage)) {
+	if (stackPage) {
 		/* begin externalWriteBackHeadFramePointers */
-		assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-		assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-		assert(!((isFree(GIV(stackPage)))));
+		assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+		assert(stackPage == (mostRecentlyUsedPage));
+		assert(!((isFree(stackPage))));
 
 		/* begin setHeadFP:andSP:inPage: */
-		assert(GIV(stackPointer) < GIV(framePointer));
-		assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-		 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-		assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-		 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-		(GIV(stackPage)->headFP = GIV(framePointer));
-		(GIV(stackPage)->headSP = GIV(stackPointer));
+		assert(stackPointer < framePointer);
+		assert((stackPointer < ((stackPage->baseAddress)))
+		 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+		assert((framePointer < ((stackPage->baseAddress)))
+		 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+		(stackPage->headFP = framePointer);
+		(stackPage->headSP = stackPointer);
 		assert(pageListIsWellFormed());
 	}
-	for (i = 0; i < GIV(numStackPages); i += 1) {
+	for (i = 0; i < numStackPages; i += 1) {
 		/* begin stackPageAt: */
-		thePage = stackPageAtpages(i, GIV(pages));
+		thePage = stackPageAtpages(i, pages);
 		(thePage->trace = StackPageUnreached);
 	}
 
 	/* begin markAndTraceHiddenRoots */
-	markAndTraceObjStackandContents(GIV(markStack), 0);
-	markAndTraceObjStackandContents(GIV(weaklingStack), 0);
-	markAndTraceObjStackandContents(GIV(mournQueue), 1);
-	objOop = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
+	markAndTraceObjStackandContents(markStack, 0);
+	markAndTraceObjStackandContents(weaklingStack, 0);
+	markAndTraceObjStackandContents(mournQueue, 1);
+	objOop = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
 
 	/* begin setIsMarkedOf:to: */
 	assert(!(isFreeObject(objOop)));
 	byteAtput((void *)(objOop + (markBitsByteOffset())),(byteAt((void *)(objOop + (markBitsByteOffset())))) | (1U << (markedBitByteShift())));
 	/* begin freeListsObj */
-	assert((firstIndexableField(oldSpaceObjectAfter(GIV(trueObj)))) == GIV(freeLists));
-	objOop = oldSpaceObjectAfter(GIV(trueObj));
+	assert((firstIndexableField(oldSpaceObjectAfter(trueObj))) == freeLists);
+	objOop = oldSpaceObjectAfter(trueObj);
 
 	/* begin setIsMarkedOf:to: */
 	assert(!(isFreeObject(objOop)));
 	byteAtput((void *)(objOop + (markBitsByteOffset())),(byteAt((void *)(objOop + (markBitsByteOffset())))) | (1U << (markedBitByteShift())));
 
 	/* begin isWeakNonImm: */
-	format = (byteAt((void *)(GIV(classTableFirstPage) + (formatFieldByteOffset())))) & (formatMask());
+	format = (byteAt((void *)(classTableFirstPage + (formatFieldByteOffset())))) & (formatMask());
 	if (format == (weakArrayFormat())) {
-		markAndTrace(GIV(hiddenRootsObj));
+		markAndTrace(hiddenRootsObj);
 		goto l1;
 	}
 
 	/* begin setIsMarkedOf:to: */
-	assert(!(isFreeObject(GIV(hiddenRootsObj))));
-	byteAtput((void *)(GIV(hiddenRootsObj) + (markBitsByteOffset())),(byteAt((void *)(GIV(hiddenRootsObj) + (markBitsByteOffset())))) | (1U << (markedBitByteShift())));
-	markAndTrace(GIV(classTableFirstPage));
-	for (i = 1; i < GIV(numClassTablePages); i += 1) {
-		objOop = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
+	assert(!(isFreeObject(hiddenRootsObj)));
+	byteAtput((void *)(hiddenRootsObj + (markBitsByteOffset())),(byteAt((void *)(hiddenRootsObj + (markBitsByteOffset())))) | (1U << (markedBitByteShift())));
+	markAndTrace(classTableFirstPage);
+	for (i = 1; i < numClassTablePages; i += 1) {
+		objOop = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 
 		/* begin setIsMarkedOf:to: */
 		assert(!(isFreeObject(objOop)));
@@ -136,15 +136,15 @@ markObjects(sqInt objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged)
 l1:
 
 	/* begin markAndTraceExtraRoots */
-	assert(GIV(remapBufferCount) == 0);
+	assert(remapBufferCount == 0);
 
 	/* 1 to: remapBufferCount do:
 	   [:i|
 	   oop := remapBuffer at: i.
 	   ((self isImmediate: oop) or: [self isFreeObject: oop]) ifFalse:
 	   [self markAndTrace: oop]]. */
-	for (i = 1; i <= GIV(extraRootCount); i += 1) {
-		oop = (GIV(extraRoots)[i])[0];
+	for (i = 1; i <= extraRootCount; i += 1) {
+		oop = (extraRoots[i])[0];
 		if (!((((oop & (tagMask())) != 0))
 			 || (((longAt((void *)(oop))) & (classIndexMask())) == (isFreeObjectClassIndexPun())))) {
 			markAndTrace(oop);
@@ -156,73 +156,73 @@ l1:
 	markAndTraceStackPages(1);
 	markAndTraceTraceLog();
 	markAndTracePrimTraceLog();
-	markAndTrace(GIV(specialObjectsOop));
-	if (!(((GIV(newMethod) & (tagMask())) != 0))) {
-		markAndTrace(GIV(newMethod));
+	markAndTrace(specialObjectsOop);
+	if (!(((newMethod & (tagMask())) != 0))) {
+		markAndTrace(newMethod);
 	}
 
 	/* begin traceProfileState */
 	/* begin followForwardingPointersInProfileState */
 	/* begin profileStateDoUpdating: */
-	if (GIV(profileProcess)) {
-		if ((result = ((!((longAt((void *)(GIV(profileProcess)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
-					? followForwarded(GIV(profileProcess))
+	if (profileProcess) {
+		if ((result = ((!((longAt((void *)(profileProcess))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
+					? followForwarded(profileProcess)
 					: 0))) {
-			GIV(profileProcess) = result;
+			profileProcess = result;
 		}
 	}
-	if (GIV(profileMethod)) {
-		if ((result = ((!((longAt((void *)(GIV(profileMethod)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
-					? followForwarded(GIV(profileMethod))
+	if (profileMethod) {
+		if ((result = ((!((longAt((void *)(profileMethod))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
+					? followForwarded(profileMethod)
 					: 0))) {
-			GIV(profileMethod) = result;
+			profileMethod = result;
 		}
 	}
-	if (GIV(profileSemaphore)) {
-		if ((result = ((!((longAt((void *)(GIV(profileSemaphore)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
-					? followForwarded(GIV(profileSemaphore))
+	if (profileSemaphore) {
+		if ((result = ((!((longAt((void *)(profileSemaphore))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
+					? followForwarded(profileSemaphore)
 					: 0))) {
-			GIV(profileSemaphore) = result;
+			profileSemaphore = result;
 		}
 	}
 
 	/* begin profileStateDo: */
-	if (GIV(profileProcess)) {
-		markAndTrace(GIV(profileProcess));
+	if (profileProcess) {
+		markAndTrace(profileProcess);
 	}
-	if (GIV(profileMethod)) {
-		markAndTrace(GIV(profileMethod));
+	if (profileMethod) {
+		markAndTrace(profileMethod);
 	}
-	if (GIV(profileSemaphore)) {
-		markAndTrace(GIV(profileSemaphore));
+	if (profileSemaphore) {
+		markAndTrace(profileSemaphore);
 	}
 #  if LRPCheck
 	sqLowLevelMFence();
-	if ((GIV(longRunningPrimitiveCheckMethod) != null)
-	 && (GIV(longRunningPrimitiveCheckSequenceNumber) != GIV(statCheckForEvents))) {
-		if ((!((longAt((void *)(GIV(longRunningPrimitiveCheckMethod)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-			GIV(longRunningPrimitiveCheckMethod) = followForwarded(GIV(longRunningPrimitiveCheckMethod));
+	if ((longRunningPrimitiveCheckMethod != null)
+	 && (longRunningPrimitiveCheckSequenceNumber != statCheckForEvents)) {
+		if ((!((longAt((void *)(longRunningPrimitiveCheckMethod))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
+			longRunningPrimitiveCheckMethod = followForwarded(longRunningPrimitiveCheckMethod);
 		}
-		markAndTrace(GIV(longRunningPrimitiveCheckMethod));
+		markAndTrace(longRunningPrimitiveCheckMethod);
 	}
-	if (GIV(longRunningPrimitiveCheckSemaphore)) {
-		if ((!((longAt((void *)(GIV(longRunningPrimitiveCheckSemaphore)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-			GIV(longRunningPrimitiveCheckSemaphore) = followForwarded(GIV(longRunningPrimitiveCheckSemaphore));
+	if (longRunningPrimitiveCheckSemaphore) {
+		if ((!((longAt((void *)(longRunningPrimitiveCheckSemaphore))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
+			longRunningPrimitiveCheckSemaphore = followForwarded(longRunningPrimitiveCheckSemaphore);
 		}
-		markAndTrace(GIV(longRunningPrimitiveCheckSemaphore));
+		markAndTrace(longRunningPrimitiveCheckSemaphore);
 	}
 #  endif // LRPCheck
 
-	if (GIV(tempOop)) {
-		markAndTrace(GIV(tempOop));
+	if (tempOop) {
+		markAndTrace(tempOop);
 	}
-	if (GIV(tempOop2)) {
-		markAndTrace(GIV(tempOop2));
+	if (tempOop2) {
+		markAndTrace(tempOop2);
 	}
 
 	/* V3 memory manager support */
-	for (i = 1; i <= GIV(remapBufferCount); i += 1) {
-		oop = GIV(remapBuffer)[i];
+	for (i = 1; i <= remapBufferCount; i += 1) {
+		oop = remapBuffer[i];
 		if (!(((oop & (tagMask())) != 0))) {
 			markAndTrace(oop);
 		}
@@ -232,19 +232,19 @@ l1:
 	assert(validObjStacks());
 
 	/* begin expungeDuplicateAndUnmarkedClasses: */
-	for (i = 1; i < GIV(numClassTablePages); i += 1) {
-		classTablePage = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
+	for (i = 1; i < numClassTablePages; i += 1) {
+		classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 		toDoLimit = (1U << (classTableMajorIndexShift())) - 1;
 		for (j = 0; j <= toDoLimit; j += 1) {
 			classOrNil = longAt((void *)((classTablePage + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))));
 			classIndex = ((((usqInt)(i) << (classTableMajorIndexShift())))) + j;
-			assert((classOrNil == GIV(nilObj))
+			assert((classOrNil == nilObj)
 			 || (addressCouldBeClassObj(classOrNil)));
 
 			/* only remove a class if it is at a duplicate entry or it is unmarked and we're expunging unmarked classes. */
-			if (classOrNil == GIV(nilObj)) {
-				if (classIndex < GIV(classTableIndex)) {
-					GIV(classTableIndex) = classIndex;
+			if (classOrNil == nilObj) {
+				if (classIndex < classTableIndex) {
+					classTableIndex = classIndex;
 				}
 			}
 			else {
@@ -254,8 +254,8 @@ l1:
 					/* begin storePointerUnchecked:ofObject:withValue: */
 					assert((isNonImmediate(classTablePage))
 					 && (!(isForwarded(classTablePage))));
-					assert(validStorePointerUncheckedArgs(j, classTablePage, GIV(nilObj)));
-					longAtput((void *)((classTablePage + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))),GIV(nilObj));
+					assert(validStorePointerUncheckedArgs(j, classTablePage, nilObj));
+					longAtput((void *)((classTablePage + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))),nilObj);
 
 					/* but if it is marked, it should still be in the table at its correct index. */
 					assert((objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged
@@ -264,8 +264,8 @@ l1:
 
 					/* If the removed class is before the classTableIndex, set the
 					   classTableIndex to point to the empty slot so as to reuse it asap. */
-					if (classIndex < GIV(classTableIndex)) {
-						GIV(classTableIndex) = classIndex;
+					if (classIndex < classTableIndex) {
+						classTableIndex = classIndex;
 					}
 				}
 			}
@@ -274,7 +274,7 @@ l1:
 
 	/* Avoid expunging the puns by not scanning the 0th page.
 	   classTableIndex must never index the first page, which is reserved for classes known to the VM. */
-	assert(GIV(classTableIndex) >= (1U << (classTableMajorIndexShift())));
+	assert(classTableIndex >= (1U << (classTableMajorIndexShift())));
 	nilUnmarkedWeaklingSlots();
-	GIV(marking) = 0;
+	marking = 0;
 }

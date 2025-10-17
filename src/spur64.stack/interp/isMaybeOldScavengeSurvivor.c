@@ -30,8 +30,8 @@ isMaybeOldScavengeSurvivor(sqInt oop)
 	else {
 		target = oop;
 	}
-	return (oopisGreaterThanOrEqualTo(target, GIV(oldSpaceStart))
-			? (GIV(tenureCriterion) != MarkOnTenure)
+	return (oopisGreaterThanOrEqualTo(target, oldSpaceStart)
+			? (tenureCriterion != MarkOnTenure)
 			 || (((byteAt((void *)(target + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) != 0)
-			: oopisGreaterThanOrEqualToandLessThan(target, ((GIV(futureSpace)).start), GIV(futureSurvivorStart)));
+			: oopisGreaterThanOrEqualToandLessThan(target, ((futureSpace).start), futureSurvivorStart));
 }

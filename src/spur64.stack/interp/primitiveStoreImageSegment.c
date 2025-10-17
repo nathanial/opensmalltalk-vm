@@ -43,9 +43,9 @@ primitiveStoreImageSegment(void)
     sqInt outPointerArray;
     sqInt segmentWordArray;
 
-	outPointerArray = longAt(GIV(stackPointer));
-	segmentWordArray = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	arrayOfRoots = longAt(GIV(stackPointer) + (2 * BytesPerWord));
+	outPointerArray = longAt(stackPointer);
+	segmentWordArray = longAt(stackPointer + (1 * BytesPerWord));
+	arrayOfRoots = longAt(stackPointer + (2 * BytesPerWord));
 
 	/* Essential type checks */
 	if (!((/* isArray: */
@@ -58,7 +58,7 @@ primitiveStoreImageSegment(void)
 			((!(segmentWordArray & (tagMask()))))
 		 && (((((byteAt((void *)(segmentWordArray + (formatFieldByteOffset())))) & (formatMask())) >= (firstLongFormat())) && (((byteAt((void *)(segmentWordArray + (formatFieldByteOffset())))) & (formatMask())) <= ((firstShortFormat()) - 1)))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 
@@ -67,17 +67,17 @@ primitiveStoreImageSegment(void)
 	ecode = storeImageSegmentIntooutPointersroots(segmentWordArray, outPointerArray, arrayOfRoots);
 	if (ecode == PrimErrNeedCompaction) {
 		fullGC();
-		outPointerArray = longAt(GIV(stackPointer));
-		segmentWordArray = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-		arrayOfRoots = longAt(GIV(stackPointer) + (2 * BytesPerWord));
+		outPointerArray = longAt(stackPointer);
+		segmentWordArray = longAt(stackPointer + (1 * BytesPerWord));
+		arrayOfRoots = longAt(stackPointer + (2 * BytesPerWord));
 		ecode = storeImageSegmentIntooutPointersroots(segmentWordArray, outPointerArray, arrayOfRoots);
 	}
 	if (ecode) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = ecode;
+		primFailCode = ecode;
 	}
 	else {
 		/* begin pop: */
-		GIV(stackPointer) += 3 * BytesPerWord;
+		stackPointer += 3 * BytesPerWord;
 	}
 }

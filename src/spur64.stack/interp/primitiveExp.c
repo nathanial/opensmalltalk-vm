@@ -13,7 +13,7 @@ primitiveExp(void)
     double doubleValue;
     sqInt rcvr;
 
-	rcvr = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer);
 
 	/* begin noFailFloatValueOf: */
 	assert(isFloatInstance(rcvr));
@@ -36,5 +36,5 @@ primitiveExp(void)
 	aValue = floatObjectOf(exp(doubleValue));
 
 	/* begin stackTopPut: */
-	longAtput(GIV(stackPointer),aValue);
+	longAtput(stackPointer,aValue);
 }

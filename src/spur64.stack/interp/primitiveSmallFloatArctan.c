@@ -10,7 +10,7 @@ primitiveSmallFloatArctan(void)
     sqInt oop;
     double rcvr;
 
-	oop = longAt(GIV(stackPointer));
+	oop = longAt(stackPointer);
 
 	/* begin smallFloatValueOf: */
 	/* begin smallFloatBitsOf: */
@@ -26,5 +26,5 @@ primitiveSmallFloatArctan(void)
 	aValue = floatObjectOf(atan(rcvr));
 
 	/* begin stackTopPut: */
-	longAtput(GIV(stackPointer),aValue);
+	longAtput(stackPointer,aValue);
 }

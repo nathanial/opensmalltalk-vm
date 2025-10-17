@@ -13,10 +13,10 @@ primitiveGetAttribute(void)
     const char *attributeString;
     char *sp;
 
-	attr = longAt(GIV(stackPointer));
+	attr = longAt(stackPointer);
 	if (!((((attr) & 7) == 1))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	if ((attributeString = getAttributeString((attr >> 3)))) {
@@ -25,7 +25,7 @@ primitiveGetAttribute(void)
 	else {
 		/* begin methodReturnValue: */
 		assert(!((failed())));
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),GIV(nilObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),nilObj);
+		stackPointer = sp;
 	}
 }

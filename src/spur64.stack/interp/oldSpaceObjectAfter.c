@@ -19,8 +19,8 @@ oldSpaceObjectAfter(sqInt objOop)
 
 	/* begin objectAfter:limit: */
 	followingWordAddress = addressAfter(objOop);
-	if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-		return GIV(endOfMemory);
+	if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+		return endOfMemory;
 	}
 	followingWord = longAt((void *)(followingWordAddress));
 	return ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())

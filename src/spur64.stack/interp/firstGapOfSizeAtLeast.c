@@ -14,17 +14,17 @@ firstGapOfSizeAtLeast(sqInt size)
     sqInt i;
     usqInt numSlots;
 
-	for (i = 0; i <= (GIV(numSegments) - 2); i += 1) {
+	for (i = 0; i <= (numSegments - 2); i += 1) {
 		/* begin bridgeAt: */
 		/* begin bridgeFor: */
-		address = (((((&(GIV(segments)[i])))->segSize)) + ((((&(GIV(segments)[i])))->segStart))) - (2 * BaseHeaderSize);
+		address = (((((&(segments[i])))->segSize)) + ((((&(segments[i])))->segStart))) - (2 * BaseHeaderSize);
 		numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
 		bridge = (numSlots == (numSlotsMask())
 					? address + BaseHeaderSize
 					: address);
 		if (((bytesInBody(bridge)) - (2 * BaseHeaderSize)) >= size) {
-			return ((void *)((((GIV(segments)[i]).segSize)) + (((GIV(segments)[i]).segStart))));
+			return ((void *)((((segments[i]).segSize)) + (((segments[i]).segStart))));
 		}
 	}
-	return ((void *)((((GIV(segments)[GIV(numSegments) - 1]).segSize)) + (((GIV(segments)[GIV(numSegments) - 1]).segStart))));
+	return ((void *)((((segments[numSegments - 1]).segSize)) + (((segments[numSegments - 1]).segStart))));
 }

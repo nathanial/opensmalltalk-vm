@@ -13,24 +13,24 @@ checkOkayStackZone(sqInt writeBack)
 
 	if (writeBack) {
 		/* begin externalWriteBackHeadFramePointers */
-		assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-		assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-		assert(!((isFree(GIV(stackPage)))));
+		assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+		assert(stackPage == (mostRecentlyUsedPage));
+		assert(!((isFree(stackPage))));
 
 		/* begin setHeadFP:andSP:inPage: */
-		assert(GIV(stackPointer) < GIV(framePointer));
-		assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-		 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-		assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-		 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-		(GIV(stackPage)->headFP = GIV(framePointer));
-		(GIV(stackPage)->headSP = GIV(stackPointer));
+		assert(stackPointer < framePointer);
+		assert((stackPointer < ((stackPage->baseAddress)))
+		 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+		assert((framePointer < ((stackPage->baseAddress)))
+		 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+		(stackPage->headFP = framePointer);
+		(stackPage->headSP = stackPointer);
 		assert(pageListIsWellFormed());
 	}
 	ok = 1;
-	for (i = 0; i < GIV(numStackPages); i += 1) {
+	for (i = 0; i < numStackPages; i += 1) {
 		/* begin stackPageAt: */
-		thePage = stackPageAtpages(i, GIV(pages));
+		thePage = stackPageAtpages(i, pages);
 		if (!(isFree(thePage))) {
 			ok = ok && (checkOkayStackPage(thePage));
 		}

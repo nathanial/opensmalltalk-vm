@@ -49,42 +49,42 @@ initializeObjectMemory(sqInt bytesToShift)
 
 	assert(BaseHeaderSize == BaseHeaderSize);
 	assert((((sqInt)((maxSlotsForAlloc()) * BytesPerWord))) > 0);
-	initSegmentBridgeWithBytesat(2 * BaseHeaderSize, GIV(endOfMemory) - (2 * BaseHeaderSize));
+	initSegmentBridgeWithBytesat(2 * BaseHeaderSize, endOfMemory - (2 * BaseHeaderSize));
 	adjustSegmentSwizzlesBy(bytesToShift);
 
 	/* image may be at a different address; adjust oops for new location */
 
 	/* begin adjustAllOopsBy: */
 	assert(newSpaceIsEmpty());
-	numSlots = byteAt((void *)(GIV(oldSpaceStart) + (numSlotsFieldByteOffset())));
+	numSlots = byteAt((void *)(oldSpaceStart + (numSlotsFieldByteOffset())));
 	firstObj = (numSlots == (numSlotsMask())
-				? GIV(oldSpaceStart) + BaseHeaderSize
-				: GIV(oldSpaceStart));
+				? oldSpaceStart + BaseHeaderSize
+				: oldSpaceStart);
 	classTableRoot = oldSpaceObjectAfter(oldSpaceObjectAfter(oldSpaceObjectAfter(oldSpaceObjectAfter(firstObj))));
-	nilObjPreSwizzle = GIV(oldSpaceStart) - bytesToShift;
+	nilObjPreSwizzle = oldSpaceStart - bytesToShift;
 
 	/* begin numSlotsOf: */
 	assert((classIndexOf(classTableRoot)) > (isForwardedObjectClassIndexPun()));
-	GIV(numClassTablePages) = (((numSlots = byteAt((void *)(classTableRoot + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
+	numClassTablePages = (((numSlots = byteAt((void *)(classTableRoot + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
 				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(classTableRoot - BaseHeaderSize)))) << 8)))))) >> 8
 				: numSlots);
-	assert(GIV(numClassTablePages) == ((classTableRootSlots()) + (hiddenRootSlots())));
-	for (i = 2; i < GIV(numClassTablePages); i += 1) {
+	assert(numClassTablePages == ((classTableRootSlots()) + (hiddenRootSlots())));
+	for (i = 2; i < numClassTablePages; i += 1) {
 		if ((longAt((void *)((classTableRoot + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))))) == nilObjPreSwizzle) {
-			GIV(numClassTablePages) = i;
+			numClassTablePages = i;
 			goto l4;
 		}
 	}
 	/* end countNumClassPagesPreSwizzle: */
 l4:
 	if ((bytesToShift != 0)
-	 || (GIV(numSegments) > 1)) {
+	 || (numSegments > 1)) {
 		/* begin objectStartingAt: */
-		numSlots = byteAt((void *)(GIV(oldSpaceStart) + (numSlotsFieldByteOffset())));
+		numSlots = byteAt((void *)(oldSpaceStart + (numSlotsFieldByteOffset())));
 		obj = (numSlots == (numSlotsMask())
-					? GIV(oldSpaceStart) + BaseHeaderSize
-					: GIV(oldSpaceStart));
-		while (oopisLessThan(obj, GIV(freeOldSpaceStart))) {
+					? oldSpaceStart + BaseHeaderSize
+					: oldSpaceStart);
+		while (oopisLessThan(obj, freeOldSpaceStart)) {
 			classIndex = (longAt((void *)(obj))) & (classIndexMask());
 			if (classIndex >= (isForwardedObjectClassIndexPun())) {
 				/* begin swizzleFieldsOfObject: */
@@ -126,8 +126,8 @@ l4:
 				}
 			}
 			followingWordAddress = addressAfter(obj);
-			if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-				obj = GIV(endOfMemory);
+			if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+				obj = endOfMemory;
 				goto l3;
 			}
 			followingWord = longAt((void *)(followingWordAddress));
@@ -138,58 +138,58 @@ l4:
 l3:;
 		}
 	}
-	GIV(specialObjectsOop) = swizzleObj(GIV(specialObjectsOop));
+	specialObjectsOop = swizzleObj(specialObjectsOop);
 
 	/* heavily used special objects */
-	GIV(nilObj) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(NilObject) << (shiftForWord()))))));
-	GIV(falseObj) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(FalseObject) << (shiftForWord()))))));
-	GIV(trueObj) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TrueObject) << (shiftForWord()))))));
+	nilObj = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(NilObject) << (shiftForWord()))))));
+	falseObj = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(FalseObject) << (shiftForWord()))))));
+	trueObj = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TrueObject) << (shiftForWord()))))));
 
 	/* In Cog we insist that nil, true & false are next to each other (Cogit generates tighter
 	   conditional branch code as a result).  In addition, Spur places the free lists and
 	   class table root page immediately following them. */
-	assert(GIV(nilObj) == GIV(oldSpaceStart));
-	assert(GIV(falseObj) == (oldSpaceObjectAfter(GIV(nilObj))));
-	assert(GIV(trueObj) == (oldSpaceObjectAfter(GIV(falseObj))));
-	freeListObj = oldSpaceObjectAfter(GIV(trueObj));
+	assert(nilObj == oldSpaceStart);
+	assert(falseObj == (oldSpaceObjectAfter(nilObj)));
+	assert(trueObj == (oldSpaceObjectAfter(falseObj)));
+	freeListObj = oldSpaceObjectAfter(trueObj);
 	anOop = oldSpaceObjectAfter(freeListObj);
 
 	/* begin setHiddenRootsObj: */
-	GIV(hiddenRootsObj) = anOop;
+	hiddenRootsObj = anOop;
 	assert(validClassTableRootPages());
-	GIV(classTableFirstPage) = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + (0U << (shiftForWord()))));
-	assert(((numSlotsOf(GIV(classTableFirstPage))) - 1) == (classTableMinorIndexMask()));
+	classTableFirstPage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + (0U << (shiftForWord()))));
+	assert(((numSlotsOf(classTableFirstPage)) - 1) == (classTableMinorIndexMask()));
 
 	/* Hack fix.  A bug in markAndTraceClassOf: caused the class of the first class table page
 	   to be changed from its pun.  This can be restored manually, but we do it here too. */
-	if (((longAt((void *)(GIV(classTableFirstPage)))) & (classIndexMask())) != (arrayClassIndexPun())) {
+	if (((longAt((void *)(classTableFirstPage))) & (classIndexMask())) != (arrayClassIndexPun())) {
 		/* begin setClassIndexOf:to: */
 		assert((((arrayClassIndexPun()) >= 0) && ((arrayClassIndexPun()) <= (classIndexMask()))));
-		longAtput((void *)(GIV(classTableFirstPage)),((longAt((void *)(GIV(classTableFirstPage)))) & (~(usqIntptr_t)(classIndexMask()))) + (arrayClassIndexPun()));
+		longAtput((void *)(classTableFirstPage),((longAt((void *)(classTableFirstPage))) & (~(usqIntptr_t)(classIndexMask()))) + (arrayClassIndexPun()));
 	}
-	GIV(numClassTablePages) = 1U << (22 /* classIndexFieldWidth */ - (classTableMajorIndexShift()));
+	numClassTablePages = 1U << (22 /* classIndexFieldWidth */ - (classTableMajorIndexShift()));
 
 	/* Set classTableIndex to the start of the last used page (excepting first page).
 	   Set numClassTablePages to the number of used pages.
 	   If loading an image, set the classTableIndex to the first unused slot in the class table after the first page.
 	   Set numClassTablePages to the number of used pages.
 	   Set classTableIndex to point at the first unused entry. First set it to the max as a sentinel. */
-	GIV(classTableIndex) = ((sqInt)((usqInt)(GIV(numClassTablePages)) << (classTableMajorIndexShift())));
-	for (i = 1; i < GIV(numClassTablePages); i += 1) {
-		if (((page = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord())))))))) == GIV(nilObj)) {
-			if ((((usqInt)(GIV(classTableIndex))) >> (classTableMajorIndexShift())) > i) {
-				GIV(classTableIndex) = ((sqInt)((usqInt)(((((i - 1) < 1) ? 1 : (i - 1)))) << (classTableMajorIndexShift())));
+	classTableIndex = ((sqInt)((usqInt)(numClassTablePages) << (classTableMajorIndexShift())));
+	for (i = 1; i < numClassTablePages; i += 1) {
+		if (((page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord())))))))) == nilObj) {
+			if ((((usqInt)(classTableIndex)) >> (classTableMajorIndexShift())) > i) {
+				classTableIndex = ((sqInt)((usqInt)(((((i - 1) < 1) ? 1 : (i - 1)))) << (classTableMajorIndexShift())));
 			}
-			GIV(numClassTablePages) = i;
-			assert((classOrNilAtIndex(GIV(classTableIndex))) == GIV(nilObj));
+			numClassTablePages = i;
+			assert((classOrNilAtIndex(classTableIndex)) == nilObj);
 			goto l1;
 		}
 		else {
-			if ((((usqInt)(GIV(classTableIndex))) >> (classTableMajorIndexShift())) > i) {
+			if ((((usqInt)(classTableIndex)) >> (classTableMajorIndexShift())) > i) {
 				j = 0;
 				while (j < (1U << (classTableMajorIndexShift()))) {
-					if ((longAt((void *)((page + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))))) == GIV(nilObj)) {
-						GIV(classTableIndex) = ((((usqInt)(i) << (classTableMajorIndexShift())))) + j;
+					if ((longAt((void *)((page + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))))) == nilObj) {
+						classTableIndex = ((((usqInt)(i) << (classTableMajorIndexShift())))) + j;
 						j = 1U << (classTableMajorIndexShift());
 					}
 					j += 1;
@@ -199,28 +199,28 @@ l3:;
 	}
 
 	/* no unused slots; set it to the start of the second page. */
-	if ((((usqInt)(GIV(classTableIndex))) >> (classTableMajorIndexShift())) >= GIV(numClassTablePages)) {
-		GIV(classTableIndex) = 1U << (classTableMajorIndexShift());
+	if ((((usqInt)(classTableIndex)) >> (classTableMajorIndexShift())) >= numClassTablePages) {
+		classTableIndex = 1U << (classTableMajorIndexShift());
 	}
-	assert((classOrNilAtIndex(GIV(classTableIndex))) == GIV(nilObj));
+	assert((classOrNilAtIndex(classTableIndex)) == nilObj);
 	/* end setHiddenRootsObj: */
 l1:
-	GIV(markStack) = swizzleObjStackAt(MarkStackRootIndex);
-	GIV(weaklingStack) = swizzleObjStackAt(WeaklingStackRootIndex);
-	GIV(mournQueue) = swizzleObjStackAt(MournQueueRootIndex);
+	markStack = swizzleObjStackAt(MarkStackRootIndex);
+	weaklingStack = swizzleObjStackAt(WeaklingStackRootIndex);
+	mournQueue = swizzleObjStackAt(MournQueueRootIndex);
 	assert(validObjStacks());
-	assert(isEmptyObjStack(GIV(markStack)));
-	assert(isEmptyObjStack(GIV(weaklingStack)));
+	assert(isEmptyObjStack(markStack));
+	assert(isEmptyObjStack(weaklingStack));
 
 	/* begin initializeFreeSpacePostLoad: */
 	assert((numSlotsOf(freeListObj)) == (numFreeLists()));
 	assert((formatOf(freeListObj)) == (wordIndexableFormat()));
-	GIV(freeLists) = firstIndexableField(freeListObj);
-	GIV(freeListsMask) = 0;
+	freeLists = firstIndexableField(freeListObj);
+	freeListsMask = 0;
 	for (i = 0; i <= 0x3F /* (numFreeLists - 1) */; i += 1) {
-		if (GIV(freeLists)[i]) {
-			GIV(freeListsMask) = GIV(freeListsMask) | (1ULL << i);
-			GIV(freeLists)[i] = (swizzleObj(GIV(freeLists)[i]));
+		if (freeLists[i]) {
+			freeListsMask = freeListsMask | (1ULL << i);
+			freeLists[i] = (swizzleObj(freeLists[i]));
 		}
 	}
 	collapseSegmentsPostSwizzle();
@@ -228,13 +228,13 @@ l1:
 	/* begin updateFreeLists */
 	min = 3;
 	for (i = min; i <= 0x3F /* (numFreeLists - 1) */; i += 1) {
-		updateListStartingAt(GIV(freeLists)[i]);
+		updateListStartingAt(freeLists[i]);
 	}
 
 	/* Large chunks */
 
 	/* begin freeTreeNodesDo: */
-	treeNode = GIV(freeLists)[0];
+	treeNode = freeLists[0];
 	if (!treeNode) {
 		goto l2;
 	}
@@ -277,15 +277,15 @@ l1:
 l2:
 
 	/* begin computeFreeSpacePostSwizzle */
-	GIV(totalFreeOldSpace) = totalFreeListBytes();
+	totalFreeOldSpace = totalFreeListBytes();
 	assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-	assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
-	startOfFreeOldSpace = GIV(freeOldSpaceStart);
+	assert(totalFreeOldSpace == (totalFreeListBytes()));
+	startOfFreeOldSpace = freeOldSpaceStart;
 
 	/* begin initializeOldSpaceFirstFree: */
-	limit = GIV(endOfMemory) - (2 * BaseHeaderSize);
+	limit = endOfMemory - (2 * BaseHeaderSize);
 	if (limit > startOfFreeOldSpace) {
-		GIV(totalFreeOldSpace) += limit - startOfFreeOldSpace;
+		totalFreeOldSpace += limit - startOfFreeOldSpace;
 		freeOldStart = startOfFreeOldSpace;
 		while ((limit - freeOldStart) >= (0x100000000LL)) {
 			freeChunk = freeChunkWithBytesat(0x100000000LL, freeOldStart);
@@ -297,20 +297,20 @@ l2:
 			assert((addressAfter(freeChunk)) == limit);
 		}
 	}
-	GIV(endOfMemory) -= 2 * BaseHeaderSize;
-	GIV(freeOldSpaceStart) = GIV(endOfMemory);
+	endOfMemory -= 2 * BaseHeaderSize;
+	freeOldSpaceStart = endOfMemory;
 
 	/* begin checkFreeSpace: */
 	assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-	assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+	assert(totalFreeOldSpace == (totalFreeListBytes()));
 	if (((checkForLeaks & (GCCheckFreeSpace | GCCheckFreeSpace)) == (GCCheckFreeSpace | GCCheckFreeSpace))) {
 		runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 	}
 	initializeNewSpaceVariables();
 
 	/* begin initializeRememberedSet */
-	obj = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
-	if (obj == GIV(nilObj)) {
+	obj = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
+	if (obj == nilObj) {
 		/* begin allocatePinnedSlots: */
 		obj = allocateSlotsForPinningInOldSpacebytesformatclassIndex(0x400, (1024U << (shiftForWord())) + (BaseHeaderSize + BaseHeaderSize), sixtyFourBitIndexableFormat(), sixtyFourBitLongsClassIndexPun());
 		if (obj) {
@@ -326,10 +326,10 @@ l2:
 
 		/* begin rememberedSetObj: */
 		assert(isOldObject(obj));
-		assert((isNonImmediate(GIV(hiddenRootsObj)))
-		 && (!(isForwarded(GIV(hiddenRootsObj)))));
-		assert(validStorePointerUncheckedArgs(RememberedSetRootIndex, GIV(hiddenRootsObj), obj));
-		longAtput((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))),obj);
+		assert((isNonImmediate(hiddenRootsObj))
+		 && (!(isForwarded(hiddenRootsObj))));
+		assert(validStorePointerUncheckedArgs(RememberedSetRootIndex, hiddenRootsObj, obj));
+		longAtput((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))),obj);
 	}
 	else {
 		/* begin setFormatOf:to: */
@@ -342,37 +342,37 @@ l2:
 	   firstIndexableField: below answer a suitable type the format must be wordIndexableFormat. */
 	assert((formatOf(obj)) == (wordIndexableFormat()));
 	assert(isPinned(obj));
-	GIV(rememberedSet) = firstIndexableField(obj);
-	GIV(rememberedSetSize) = 0;
+	rememberedSet = firstIndexableField(obj);
+	rememberedSetSize = 0;
 
 	/* begin numSlotsOf: */
 	assert((classIndexOf(obj)) > (isForwardedObjectClassIndexPun()));
-	GIV(rememberedSetLimit) = (((numSlots = byteAt((void *)(obj + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
+	rememberedSetLimit = (((numSlots = byteAt((void *)(obj + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
 				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(obj - BaseHeaderSize)))) << 8)))))) >> 8
 				: numSlots);
 
 	/* begin setRememberedSetRedZone */
-	fudge = ((((GIV(eden).limit)) - ((GIV(eden).start))) / BytesPerWord) / 0x400;
-	GIV(rememberedSetRedZone) = ((((GIV(rememberedSetLimit) * 3) / 4) < fudge) ? fudge : ((GIV(rememberedSetLimit) * 3) / 4));
+	fudge = ((((eden.limit)) - ((eden.start))) / BytesPerWord) / 0x400;
+	rememberedSetRedZone = ((((rememberedSetLimit * 3) / 4) < fudge) ? fudge : ((rememberedSetLimit * 3) / 4));
 	checkSegments();
 
 	/* begin biasForGC */
-	GIV(biasForGC) = 1;
+	biasForGC = 1;
 
 	/* These defaults should depend on machine size; e.g. too small on a powerful laptop, too big on a Pi. */
 
 	/* headroom when growing */
-	GIV(growHeadroom) = 0x1000000;
+	growHeadroom = 0x1000000;
 
 	/* free space before shrinking */
-	GIV(shrinkThreshold) = 0x2000000;
-	GIV(heapSizeAtPreviousGC) = ((assert((totalBytesInSegments()) == GIV(totalHeapSizeIncludingBridges)),
-GIV(totalHeapSizeIncludingBridges) - (GIV(numSegments) * (2 * BaseHeaderSize)))) - GIV(totalFreeOldSpace);
+	shrinkThreshold = 0x2000000;
+	heapSizeAtPreviousGC = ((assert((totalBytesInSegments()) == totalHeapSizeIncludingBridges),
+totalHeapSizeIncludingBridges - (numSegments * (2 * BaseHeaderSize)))) - totalFreeOldSpace;
 
 	/* begin resetAllocationAccountingAfterGC */
-	GIV(oldSpaceUsePriorToScavenge) = ((assert((totalBytesInSegments()) == GIV(totalHeapSizeIncludingBridges)),
-GIV(totalHeapSizeIncludingBridges) - (GIV(numSegments) * (2 * BaseHeaderSize)))) - GIV(totalFreeOldSpace);
+	oldSpaceUsePriorToScavenge = ((assert((totalBytesInSegments()) == totalHeapSizeIncludingBridges),
+totalHeapSizeIncludingBridges - (numSegments * (2 * BaseHeaderSize)))) - totalFreeOldSpace;
 
 	/* By default GC after scavenge if heap has grown by a third since the last GC */
-	GIV(heapGrowthToSizeGCRatio) = 0.333333;
+	heapGrowthToSizeGCRatio = 0.333333;
 }

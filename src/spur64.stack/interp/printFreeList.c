@@ -11,7 +11,7 @@ printFreeList(sqInt chunkOrIndex)
 
 	if ((chunkOrIndex >= 0)
 	 && (chunkOrIndex < 64 /* numFreeLists */)) {
-		return printFreeList(GIV(freeLists)[chunkOrIndex]);
+		return printFreeList(freeLists[chunkOrIndex]);
 	}
 	freeChunk = chunkOrIndex;
 	while (freeChunk != 0) {

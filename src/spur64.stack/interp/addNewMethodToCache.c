@@ -40,16 +40,16 @@ addNewMethodToCache(sqInt classObj)
 						: -PrimErrBadReceiver));
 
 	/* begin methodCacheHashOf:with: */
-	hash = GIV(messageSelector) ^ ((((usqInt)(classTag) << 2)));
+	hash = messageSelector ^ ((((usqInt)(classTag) << 2)));
 	if (/* isOopCompiledMethod: */
-		((!(GIV(newMethod) & (tagMask()))))
-	 && (((byteAt((void *)(GIV(newMethod) + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat()))) {
+		((!(newMethod & (tagMask()))))
+	 && (((byteAt((void *)(newMethod + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat()))) {
 		/* begin primitiveIndexOf: */
 		/* begin methodHeaderOf: */
-		assert(isCompiledMethod(GIV(newMethod)));
-		methodHeader = longAt((void *)((GIV(newMethod) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+		assert(isCompiledMethod(newMethod));
+		methodHeader = longAt((void *)((newMethod + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 		if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
-			firstBytecode = (GIV(newMethod) + ((LiteralStart + (((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask)) * BytesPerOop)) + BaseHeaderSize;
+			firstBytecode = (newMethod + ((LiteralStart + (((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask)) * BytesPerOop)) + BaseHeaderSize;
 			primitiveIndex = (byteAt((void *)(firstBytecode + 1))) + ((((usqInt)((byteAt((void *)(firstBytecode + 2)))) << 8)));
 		}
 		else {
@@ -62,20 +62,20 @@ addNewMethodToCache(sqInt classObj)
 		: primitiveTable[primitiveIndex])));
 	}
 	else {
-		assert(!((isNonImmediate(GIV(newMethod)))
-		 && (isForwarded(GIV(newMethod)))));
+		assert(!((isNonImmediate(newMethod))
+		 && (isForwarded(newMethod))));
 		primitiveFunctionPointer = primitiveInvokeObjectAsMethod;
 	}
 	for (p = 0; p < CacheProbeMax; p += 1) {
 		probe = (((usqInt)(hash)) >> p) & MethodCacheMask;
-		if (!(GIV(methodCache)[probe + MethodCacheSelector])) {
-			GIV(methodCache)[probe + MethodCacheSelector] = GIV(messageSelector);
-			GIV(methodCache)[probe + MethodCacheClass] = (classTagForClass(classObj));
-			GIV(methodCache)[probe + MethodCacheMethod] = GIV(newMethod);
-			GIV(methodCache)[probe + MethodCachePrimFunction] = (((sqIntptr_t) primitiveFunctionPointer));
+		if (!(methodCache[probe + MethodCacheSelector])) {
+			methodCache[probe + MethodCacheSelector] = messageSelector;
+			methodCache[probe + MethodCacheClass] = (classTagForClass(classObj));
+			methodCache[probe + MethodCacheMethod] = newMethod;
+			methodCache[probe + MethodCachePrimFunction] = (((sqIntptr_t) primitiveFunctionPointer));
 
 			/* this for primitiveExternalMethod */
-			GIV(lastMethodCacheProbeWrite) = probe;
+			lastMethodCacheProbeWrite = probe;
 			return;
 		}
 	}
@@ -84,16 +84,16 @@ addNewMethodToCache(sqInt classObj)
 
 	/* first probe */
 	probe = hash & MethodCacheMask;
-	GIV(methodCache)[probe + MethodCacheSelector] = GIV(messageSelector);
-	GIV(methodCache)[probe + MethodCacheClass] = (classTagForClass(classObj));
-	GIV(methodCache)[probe + MethodCacheMethod] = GIV(newMethod);
-	GIV(methodCache)[probe + MethodCachePrimFunction] = (((sqIntptr_t) primitiveFunctionPointer));
+	methodCache[probe + MethodCacheSelector] = messageSelector;
+	methodCache[probe + MethodCacheClass] = (classTagForClass(classObj));
+	methodCache[probe + MethodCacheMethod] = newMethod;
+	methodCache[probe + MethodCachePrimFunction] = (((sqIntptr_t) primitiveFunctionPointer));
 
 	/* this for primitiveExternalMethod */
 	/* ...and zap the following entries */
-	GIV(lastMethodCacheProbeWrite) = probe;
+	lastMethodCacheProbeWrite = probe;
 	for (p = 1; p < CacheProbeMax; p += 1) {
 		probe = (((usqInt)(hash)) >> p) & MethodCacheMask;
-		GIV(methodCache)[probe + MethodCacheSelector] = 0;
+		methodCache[probe + MethodCacheSelector] = 0;
 	}
 }

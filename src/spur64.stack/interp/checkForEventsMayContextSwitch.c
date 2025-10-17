@@ -16,48 +16,48 @@ checkForEventsMayContextSwitch(sqInt mayContextSwitch)
     sqInt sufficientSpaceAfterGCRV;
     sqInt switched;
 
-	GIV(statCheckForEvents) += 1;
+	statCheckForEvents += 1;
 
 	/* restore the stackLimit if it has been smashed. */
 
 	/* begin restoreStackLimit */
-	(GIV(stackPage)->stackLimit = (GIV(stackPage)->realStackLimit));
-	GIV(stackLimit) = (GIV(stackPage)->stackLimit);
+	(stackPage->stackLimit = (stackPage->realStackLimit));
+	stackLimit = (stackPage->stackLimit);
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
+	assert(stackPage == (mostRecentlyUsedPage));
 
 	/* Allow the platform to do anything it needs to do synchronously. */
 	ioSynchronousCheckForEvents();
-	if (GIV(needGCFlag)) {
+	if (needGCFlag) {
 		/* begin sufficientSpaceAfterGC: */
 		scavengingGCTenuringIf(TenureByAge);
 		heapSizePostGC = ((/* begin totalOldSpaceCapacity */
-	assert((totalBytesInSegments()) == GIV(totalHeapSizeIncludingBridges)),
-GIV(totalHeapSizeIncludingBridges) - (GIV(numSegments) * (2 * BaseHeaderSize)))) - GIV(totalFreeOldSpace);
-		if (((((double) (heapSizePostGC - GIV(heapSizeAtPreviousGC)) )) / GIV(heapSizeAtPreviousGC)) >= GIV(heapGrowthToSizeGCRatio)) {
+	assert((totalBytesInSegments()) == totalHeapSizeIncludingBridges),
+totalHeapSizeIncludingBridges - (numSegments * (2 * BaseHeaderSize)))) - totalFreeOldSpace;
+		if (((((double) (heapSizePostGC - heapSizeAtPreviousGC) )) / heapSizeAtPreviousGC) >= heapGrowthToSizeGCRatio) {
 			fullGC();
 		}
 		else {
-			if (GIV(totalFreeOldSpace) > (GIV(shrinkThreshold) * 2)) {
+			if (totalFreeOldSpace > (shrinkThreshold * 2)) {
 				/* begin attemptToShrink */
-				if ((GIV(totalFreeOldSpace) > GIV(shrinkThreshold))
-				 && ((GIV(totalFreeOldSpace) > GIV(growHeadroom))
-				 && (shrinkObjectMemory((((GIV(totalFreeOldSpace) - GIV(growHeadroom)) < GIV(growHeadroom)) ? GIV(growHeadroom) : (GIV(totalFreeOldSpace) - GIV(growHeadroom))))))) {
-					GIV(statShrinkMemory) += 1;
+				if ((totalFreeOldSpace > shrinkThreshold)
+				 && ((totalFreeOldSpace > growHeadroom)
+				 && (shrinkObjectMemory((((totalFreeOldSpace - growHeadroom) < growHeadroom) ? growHeadroom : (totalFreeOldSpace - growHeadroom)))))) {
+					statShrinkMemory += 1;
 				}
 				sufficientSpaceAfterGCRV = 1;
 				goto l1;
@@ -65,16 +65,16 @@ GIV(totalHeapSizeIncludingBridges) - (GIV(numSegments) * (2 * BaseHeaderSize))))
 		}
 
 		/* Also attempt to shrink if there is plenty of free space and no need to GC */
-		while ((GIV(totalFreeOldSpace) < GIV(growHeadroom))
+		while ((totalFreeOldSpace < growHeadroom)
 		 && ((growOldSpaceByAtLeast(0)))) {
-			if (GIV(totalFreeOldSpace) >= GIV(growHeadroom)) {
+			if (totalFreeOldSpace >= growHeadroom) {
 				sufficientSpaceAfterGCRV = 1;
 				goto l1;
 			}
 		}
 
 		/* Answer false if space is low */
-		sufficientSpaceAfterGCRV = GIV(lowSpaceThreshold) <= GIV(totalFreeOldSpace);
+		sufficientSpaceAfterGCRV = lowSpaceThreshold <= totalFreeOldSpace;
 		/* end sufficientSpaceAfterGC: */
 l1:
 		if (!sufficientSpaceAfterGCRV) {
@@ -89,25 +89,25 @@ l1:
 	}
 
 	/* begin checkProfileTickIfSwitched */
-	if ((GIV(nextProfileTick) <= 0)
-	 || ((ioHighResClock()) < GIV(nextProfileTick))) {
+	if ((nextProfileTick <= 0)
+	 || ((ioHighResClock()) < nextProfileTick)) {
 		switched = 0;
 		goto l2;
 	}
 
 	/* Take a sample (if not already done so) for the profiler. */
-	if (!GIV(profileProcess)) {
+	if (!profileProcess) {
 		/* begin activeProcess */
-		objOop = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
-		GIV(profileProcess) = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
-		GIV(profileMethod) = null;
+		objOop = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+		profileProcess = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
+		profileMethod = null;
 	}
 
 	/* Zero nextProfileTick because signalling the semaphore is when the VM effectively delivers the sample. */
 
 	/* begin zeroNextProfileTick */
-	GIV(nextProfileTick) = 0;
-	switched = synchronousSignal(GIV(profileSemaphore));
+	nextProfileTick = 0;
+	switched = synchronousSignal(profileSemaphore);
 	/* end checkProfileTickIfSwitched */
 l2:
 #  if LRPCheck
@@ -116,11 +116,11 @@ l2:
 	}
 #  endif
 
-	if (GIV(signalLowSpace)) {
+	if (signalLowSpace) {
 		/* signalLowSpace: */
-		GIV(signalLowSpace) = 0;
-		sema = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheLowSpaceSemaphore) << (shiftForWord()))))));
-		if ((sema != GIV(nilObj))
+		signalLowSpace = 0;
+		sema = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheLowSpaceSemaphore) << (shiftForWord()))))));
+		if ((sema != nilObj)
 		 && (synchronousSignal(sema))) {
 			switched = 1;
 		}
@@ -128,32 +128,32 @@ l2:
 	nowSqInt = (now = ioUTCMicroseconds());
 
 	/* begin checkInvokeIOProcessEvents: */
-	if (nowSqInt >= GIV(nextPollUsecs)) {
-		GIV(statIOProcessEvents) += 1;
+	if (nowSqInt >= nextPollUsecs) {
+		statIOProcessEvents += 1;
 		ioProcessEvents();
 
 		/* msecs to wait before next call to ioProcessEvents.  Note that strictly
 		   speaking we might need to update 'now' at this point since
 		   ioProcessEvents could take a very long time on some platforms */
-		GIV(nextPollUsecs) = nowSqInt + 20000;
+		nextPollUsecs = nowSqInt + 20000;
 	}
-	if (GIV(interruptPending)) {
-		GIV(interruptPending) = 0;
+	if (interruptPending) {
+		interruptPending = 0;
 
 		/* reset interrupt flag */
-		sema = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))));
-		if ((sema != GIV(nilObj))
+		sema = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))));
+		if ((sema != nilObj)
 		 && (synchronousSignal(sema))) {
 			switched = 1;
 		}
 	}
-	if (GIV(nextWakeupUsecs)) {
-		if (now >= GIV(nextWakeupUsecs)) {
-			GIV(nextWakeupUsecs) = 0;
+	if (nextWakeupUsecs) {
+		if (now >= nextWakeupUsecs) {
+			nextWakeupUsecs = 0;
 
 			/* set timer interrupt to 0 for 'no timer' */
-			sema = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))));
-			if ((sema != GIV(nilObj))
+			sema = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))));
+			if ((sema != nilObj)
 			 && (synchronousSignal(sema))) {
 				switched = 1;
 			}
@@ -161,10 +161,10 @@ l2:
 	}
 
 	/* signal any pending finalizations */
-	if (GIV(pendingFinalizationSignals) > 0) {
-		GIV(pendingFinalizationSignals) = 0;
-		sema = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheFinalizationSemaphore) << (shiftForWord()))))));
-		if ((sema != GIV(nilObj))
+	if (pendingFinalizationSignals > 0) {
+		pendingFinalizationSignals = 0;
+		sema = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheFinalizationSemaphore) << (shiftForWord()))))));
+		if ((sema != nilObj)
 		 && (synchronousSignal(sema))) {
 			switched = 1;
 		}

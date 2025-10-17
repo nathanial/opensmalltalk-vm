@@ -60,22 +60,22 @@ markAndTrace(sqInt objOop)
 	/* avoid pushing non-pointer objects on the markStack.
 	   Avoid tracing classes of non-objects on the heap, e.g. IRC caches, Sista counters. */
 	if (format == (weakArrayFormat())) {
-		objStack = GIV(weaklingStack);
+		objStack = weaklingStack;
 
 		/* begin push:onObjStack: */
 		assert(addressCouldBeOop(objOop));
 		if (((objOop & (tagMask())) != 0)) {
-			assert(objStack == GIV(markStack));
+			assert(objStack == markStack);
 			assert(addressCouldBeObj(topOfObjStack((0 == (fetchPointerofObject(ObjStackTopx, objStack))
 					? fetchPointerofObject(ObjStackNextx, objStack)
 					: objStack))));
 		}
 		else {
-			assert(!((objStack == GIV(markStack))
+			assert(!((objStack == markStack)
 			 && (isWeakNonImm(objOop))));
 
 			/* There should only be weaklings on the weaklingStack */
-			assert((objStack != GIV(weaklingStack))
+			assert((objStack != weaklingStack)
 			 || (isWeakNonImm(objOop)));
 		}
 
@@ -172,7 +172,7 @@ l4:
 		if (scanLargeObject) {
 			if (((objToScan & (tagMask())) != 0)) {
 				index = (objToScan >> 3);
-				objToScan = topOfObjStack(GIV(markStack));
+				objToScan = topOfObjStack(markStack);
 			}
 			else {
 				index = numStrongSlots;
@@ -216,22 +216,22 @@ l4:
 					/* avoid pushing non-pointer objects on the markStack.
 					   Avoid tracing classes of non-objects on the heap, e.g. IRC caches, Sista counters. */
 					if (format == (weakArrayFormat())) {
-						objStack1 = GIV(weaklingStack);
+						objStack1 = weaklingStack;
 
 						/* begin push:onObjStack: */
 						assert(addressCouldBeOop(field));
 						if (((field & (tagMask())) != 0)) {
-							assert(objStack1 == GIV(markStack));
+							assert(objStack1 == markStack);
 							assert(addressCouldBeObj(topOfObjStack((0 == (fetchPointerofObject(ObjStackTopx, objStack1))
 									? fetchPointerofObject(ObjStackNextx, objStack1)
 									: objStack1))));
 						}
 						else {
-							assert(!((objStack1 == GIV(markStack))
+							assert(!((objStack1 == markStack)
 							 && (isWeakNonImm(field))));
 
 							/* There should only be weaklings on the weaklingStack */
-							assert((objStack1 != GIV(weaklingStack))
+							assert((objStack1 != weaklingStack)
 							 || (isWeakNonImm(field)));
 						}
 
@@ -246,23 +246,23 @@ l4:
 						goto l1;
 					}
 					if (index > 0) {
-						if ((topOfObjStack(GIV(markStack))) != objToScan) {
-							objStack = GIV(markStack);
+						if ((topOfObjStack(markStack)) != objToScan) {
+							objStack = markStack;
 
 							/* begin push:onObjStack: */
 							assert(addressCouldBeOop(objToScan));
 							if (((objToScan & (tagMask())) != 0)) {
-								assert(objStack == GIV(markStack));
+								assert(objStack == markStack);
 								assert(addressCouldBeObj(topOfObjStack((0 == (fetchPointerofObject(ObjStackTopx, objStack))
 										? fetchPointerofObject(ObjStackNextx, objStack)
 										: objStack))));
 							}
 							else {
-								assert(!((objStack == GIV(markStack))
+								assert(!((objStack == markStack)
 								 && (isWeakNonImm(objToScan))));
 
 								/* There should only be weaklings on the weaklingStack */
-								assert((objStack != GIV(weaklingStack))
+								assert((objStack != weaklingStack)
 								 || (isWeakNonImm(objToScan)));
 							}
 
@@ -270,22 +270,22 @@ l4:
 							noCheckPushonObjStack(objToScan, objStack);
 						}
 						objOopSqInt = (((usqInt)index << 3) | 1);
-						objStackSqInt = GIV(markStack);
+						objStackSqInt = markStack;
 
 						/* begin push:onObjStack: */
 						assert(addressCouldBeOop(objOopSqInt));
 						if (((objOopSqInt & (tagMask())) != 0)) {
-							assert(objStackSqInt == GIV(markStack));
+							assert(objStackSqInt == markStack);
 							assert(addressCouldBeObj(topOfObjStack((0 == (fetchPointerofObject(ObjStackTopx, objStackSqInt))
 									? fetchPointerofObject(ObjStackNextx, objStackSqInt)
 									: objStackSqInt))));
 						}
 						else {
-							assert(!((objStackSqInt == GIV(markStack))
+							assert(!((objStackSqInt == markStack)
 							 && (isWeakNonImm(objOopSqInt))));
 
 							/* There should only be weaklings on the weaklingStack */
-							assert((objStackSqInt != GIV(weaklingStack))
+							assert((objStackSqInt != weaklingStack)
 							 || (isWeakNonImm(objOopSqInt)));
 						}
 
@@ -298,9 +298,9 @@ l1:;
 				}
 			}
 			if (index >= 0) {
-				objToScan = popObjStack(GIV(markStack));
+				objToScan = popObjStack(markStack);
 				if (objToScan == objOop) {
-					objToScan = popObjStack(GIV(markStack));
+					objToScan = popObjStack(markStack);
 				}
 			}
 		}
@@ -345,22 +345,22 @@ l1:;
 					/* avoid pushing non-pointer objects on the markStack.
 					   Avoid tracing classes of non-objects on the heap, e.g. IRC caches, Sista counters. */
 					if (formatSqInt == (weakArrayFormat())) {
-						objStack1 = GIV(weaklingStack);
+						objStack1 = weaklingStack;
 
 						/* begin push:onObjStack: */
 						assert(addressCouldBeOop(field));
 						if (((field & (tagMask())) != 0)) {
-							assert(objStack1 == GIV(markStack));
+							assert(objStack1 == markStack);
 							assert(addressCouldBeObj(topOfObjStack((0 == (fetchPointerofObject(ObjStackTopx, objStack1))
 									? fetchPointerofObject(ObjStackNextx, objStack1)
 									: objStack1))));
 						}
 						else {
-							assert(!((objStack1 == GIV(markStack))
+							assert(!((objStack1 == markStack)
 							 && (isWeakNonImm(field))));
 
 							/* There should only be weaklings on the weaklingStack */
-							assert((objStack1 != GIV(weaklingStack))
+							assert((objStack1 != weaklingStack)
 							 || (isWeakNonImm(field)));
 						}
 
@@ -374,22 +374,22 @@ l1:;
 					 && (activeAndDeferredScan(field))) {
 						goto l2;
 					}
-					objStack1 = GIV(markStack);
+					objStack1 = markStack;
 
 					/* begin push:onObjStack: */
 					assert(addressCouldBeOop(field));
 					if (((field & (tagMask())) != 0)) {
-						assert(objStack1 == GIV(markStack));
+						assert(objStack1 == markStack);
 						assert(addressCouldBeObj(topOfObjStack((0 == (fetchPointerofObject(ObjStackTopx, objStack1))
 								? fetchPointerofObject(ObjStackNextx, objStack1)
 								: objStack1))));
 					}
 					else {
-						assert(!((objStack1 == GIV(markStack))
+						assert(!((objStack1 == markStack)
 						 && (isWeakNonImm(field))));
 
 						/* There should only be weaklings on the weaklingStack */
-						assert((objStack1 != GIV(weaklingStack))
+						assert((objStack1 != weaklingStack)
 						 || (isWeakNonImm(field)));
 					}
 
@@ -398,22 +398,22 @@ l1:;
 					if (((byteAt((void *)(field + (numSlotsFieldByteOffset())))) > 64 /* traceImmediatelySlotLimit */)
 					 && (((numStrongSlots = numStrongSlotsOfInephemeral(field))) > 64 /* traceImmediatelySlotLimit */)) {
 						objOop1 = (((usqInt)numStrongSlots << 3) | 1);
-						objStack1 = GIV(markStack);
+						objStack1 = markStack;
 
 						/* begin push:onObjStack: */
 						assert(addressCouldBeOop(objOop1));
 						if (((objOop1 & (tagMask())) != 0)) {
-							assert(objStack1 == GIV(markStack));
+							assert(objStack1 == markStack);
 							assert(addressCouldBeObj(topOfObjStack((0 == (fetchPointerofObject(ObjStackTopx, objStack1))
 									? fetchPointerofObject(ObjStackNextx, objStack1)
 									: objStack1))));
 						}
 						else {
-							assert(!((objStack1 == GIV(markStack))
+							assert(!((objStack1 == markStack)
 							 && (isWeakNonImm(objOop1))));
 
 							/* There should only be weaklings on the weaklingStack */
-							assert((objStack1 != GIV(weaklingStack))
+							assert((objStack1 != weaklingStack)
 							 || (isWeakNonImm(objOop1)));
 						}
 
@@ -423,7 +423,7 @@ l1:;
 l2:;
 				}
 			}
-			objToScan = popObjStack(GIV(markStack));
+			objToScan = popObjStack(markStack);
 		}
 
 		/* scanning a large object. scan until hitting an unmarked object, then switch to it, if any.

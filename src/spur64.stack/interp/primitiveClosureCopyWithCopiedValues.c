@@ -22,27 +22,27 @@ primitiveClosureCopyWithCopiedValues(void)
     sqInt valuePointer;
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	integerPointer = longAt(stackPointer + (1 * BytesPerWord));
 	if ((((integerPointer) & 7) == 1)) {
 		numArgs = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		numArgs = 0;
 	}
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
-	context = longAt(GIV(stackPointer) + (2 * BytesPerWord));
-	initialIP = (GIV(instructionPointer) + 2) - (GIV(method) + BaseHeaderSize);
-	copiedValues = longAt(GIV(stackPointer));
+	context = longAt(stackPointer + (2 * BytesPerWord));
+	initialIP = (instructionPointer + 2) - (method + BaseHeaderSize);
+	copiedValues = longAt(stackPointer);
 
 	/* begin closureIn:numArgs:instructionPointer:copiedValues: */
 	/* begin numSlotsOf: */
@@ -54,31 +54,31 @@ primitiveClosureCopyWithCopiedValues(void)
 
 	/* begin eeInstantiateSmallClassIndex:format:numSlots: */
 	assert((numSlotsSqInt >= 0)
-	 && ((knownClassAtIndex(ClassBlockClosureCompactIndex)) != GIV(nilObj)));
+	 && ((knownClassAtIndex(ClassBlockClosureCompactIndex)) != nilObj));
 	assert((indexablePointersFormat()) == (instSpecOfClass(knownClassAtIndex(ClassBlockClosureCompactIndex))));
 
 	/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 	assert(numSlotsSqInt < (numSlotsMask()));
-	newObj = GIV(freeStart);
+	newObj = freeStart;
 	numBytes = BaseHeaderSize + ((numSlotsSqInt < 1
 		? 8 /* allocationUnit */
 		: numSlotsSqInt * BytesPerOop));
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 			newClosure = 0;
 			goto l1;
 		}
 	}
 	long64Atput((void *)(newObj),((((((usqLong) numSlotsSqInt)) << (numSlotsFullShift()))) + ((((usqInt)((indexablePointersFormat())) << (formatShift()))))) + ClassBlockClosureCompactIndex);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	newClosure = newObj;
 	/* end eeInstantiateSmallClassIndex:format:numSlots: */
 l1:
@@ -116,6 +116,6 @@ l1:
 	/* greater by 1 due to preIncrement of localIP */
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (2 * BytesPerWord)),newClosure);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (2 * BytesPerWord)),newClosure);
+	stackPointer = sp;
 }

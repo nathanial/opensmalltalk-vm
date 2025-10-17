@@ -10,15 +10,15 @@ classDoubleByteArray(void)
 
 	/* begin accessIntegerClass:withValidationFlag: */
 	hash = 0;
-	classOop = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassDoubleByteArray) << (shiftForWord()))))));
-	if (((GIV(validatedIntegerClassFlags) & ValidatedClassDoubleByteArrayFlag) != 0)) {
+	classOop = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassDoubleByteArray) << (shiftForWord()))))));
+	if (((validatedIntegerClassFlags & ValidatedClassDoubleByteArrayFlag) != 0)) {
 		return classOop;
 	}
 	if ((((classOop & (tagMask())) != 0))
 	 || ((((hash = (long32At((void *)(classOop + 4))) & (identityHashHalfWordMask()))) == 0)
 	 || ((classAtIndex(hash)) != classOop))) {
-		return GIV(nilObj);
+		return nilObj;
 	}
-	GIV(validatedIntegerClassFlags) = GIV(validatedIntegerClassFlags) | ValidatedClassDoubleByteArrayFlag;
+	validatedIntegerClassFlags = validatedIntegerClassFlags | ValidatedClassDoubleByteArrayFlag;
 	return classOop;
 }

@@ -31,30 +31,30 @@ cloneContext(sqInt aContext)
 			cloned = null;
 			goto l1;
 		}
-		newObj = GIV(freeStart) + BaseHeaderSize;
+		newObj = freeStart + BaseHeaderSize;
 		numBytes = (BaseHeaderSize + BaseHeaderSize) + (sz * BytesPerOop);
 	}
 	else {
-		newObj = GIV(freeStart);
+		newObj = freeStart;
 		numBytes = BaseHeaderSize + ((sz < 1
 		? 8 /* allocationUnit */
 		: sz * BytesPerOop));
 	}
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateNewSpaceSlots:format:classIndex:");
 			cloned = 0;
 			goto l1;
 		}
 	}
 	if (sz >= (numSlotsMask())) {
-		longAtput((void *)(GIV(freeStart)),sz);
-		longAtput((void *)(GIV(freeStart) + 4),((sqInt)((usqInt)((numSlotsMask())) << (numSlotsHalfShift()))));
+		longAtput((void *)(freeStart),sz);
+		longAtput((void *)(freeStart + 4),((sqInt)((usqInt)((numSlotsMask())) << (numSlotsHalfShift()))));
 		long64Atput((void *)(newObj),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)((indexablePointersFormat())) << (formatShift()))))) + ClassMethodContextCompactIndex);
 	}
 	else {
@@ -64,7 +64,7 @@ cloneContext(sqInt aContext)
 	/* for header parsing we put a saturated slot count in the prepended overflow size word */
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	cloned = newObj;
 	/* end eeInstantiateMethodContextSlots: */
 l1:

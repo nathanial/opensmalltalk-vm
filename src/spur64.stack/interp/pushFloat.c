@@ -11,6 +11,6 @@ pushFloat(double f)
 	object = floatObjectOf(f);
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),object);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),object);
+	stackPointer = sp;
 }

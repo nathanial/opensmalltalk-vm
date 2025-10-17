@@ -10,14 +10,14 @@ collapseSegmentsPostSwizzle(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     SpurSegmentInfo *cascade0;
 
-	GIV(canSwizzle) = 0;
-	GIV(numSegments) = 1;
+	canSwizzle = 0;
+	numSegments = 1;
 
 	/* begin computeTotalHeapSizeIncludingBridges */
-	GIV(totalHeapSizeIncludingBridges) = GIV(endOfMemory) - GIV(oldSpaceStart);
-	cascade0 = (&(GIV(segments)[0]));
-	(cascade0->segStart = GIV(oldSpaceStart));
-	(cascade0->segSize = GIV(totalHeapSizeIncludingBridges));
+	totalHeapSizeIncludingBridges = endOfMemory - oldSpaceStart;
+	cascade0 = (&(segments[0]));
+	(cascade0->segStart = oldSpaceStart);
+	(cascade0->segSize = totalHeapSizeIncludingBridges);
 
 	/* finally plant a bridge at the end of the coalesced segment and cut back the
 	   manager's notion of the end of memory to immediately before the bridge. */

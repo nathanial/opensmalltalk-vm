@@ -9,19 +9,19 @@ primitiveGrowMemoryByAtLeast(void)
     usqInt segSize;
     char *sp;
 
-	ammount = longAt(GIV(stackPointer));
+	ammount = longAt(stackPointer);
 	if (!((((ammount) & 7) == 1))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	if ((segSize = growOldSpaceByAtLeast((ammount >> 3)))) {
 		/* begin pop:thenPushInteger: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),((segSize << 3) | 1));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),((segSize << 3) | 1));
+		stackPointer = sp;
 	}
 	else {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNoMemory;
+		primFailCode = PrimErrNoMemory;
 	}
 }

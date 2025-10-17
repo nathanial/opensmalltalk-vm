@@ -13,11 +13,11 @@ adjustSegmentSwizzlesBy(sqInt firstSegmentShift)
     sqInt oldBaseAddr;
     SpurSegmentInfo *segInfo;
 
-	oldBaseAddr = GIV(oldSpaceStart) - firstSegmentShift;
-	for (i = 0; i < GIV(numSegments); i += 1) {
-		segInfo = (&(GIV(segments)[i]));
+	oldBaseAddr = oldSpaceStart - firstSegmentShift;
+	for (i = 0; i < numSegments; i += 1) {
+		segInfo = (&(segments[i]));
 		(segInfo->segStart = ((segInfo->segStart)) + oldBaseAddr);
 		(segInfo->swizzle = ((segInfo->swizzle)) - oldBaseAddr);
 	}
-	GIV(canSwizzle) = 1;
+	canSwizzle = 1;
 }

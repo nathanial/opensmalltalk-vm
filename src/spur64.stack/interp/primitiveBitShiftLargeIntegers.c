@@ -17,21 +17,21 @@ primitiveBitShiftLargeIntegers(void)
     char *sp;
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer));
+	integerPointer = longAt(stackPointer);
 	if ((((integerPointer) & 7) == 1)) {
 		shift = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		shift = 0;
 	}
-	oopRcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	oopRcvr = longAt(stackPointer + (1 * BytesPerWord));
 	aIsNegative = isNegativeIntegerValueOf(oopRcvr);
 	a = magnitude64BitValueOf(oopRcvr);
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		return;
 	}
 	if (shift >= 0) {
@@ -40,8 +40,8 @@ primitiveBitShiftLargeIntegers(void)
 		if ((shift >= 64)
 		 || (a > ((result) >> shift))) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return;
 		}
@@ -65,9 +65,9 @@ primitiveBitShiftLargeIntegers(void)
 
 	/* Protect against overflow */
 	oopResult = magnitude64BitIntegerForneg(result, aIsNegative);
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),oopResult);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),oopResult);
+		stackPointer = sp;
 	}
 }

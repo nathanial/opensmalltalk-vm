@@ -11,8 +11,8 @@ noUnfiredEphemeronsAtEndOfRememberedSet(void)
     sqInt i;
     sqInt referrer;
 
-	for (i = GIV(numRememberedEphemerons); i < GIV(rememberedSetSize); i += 1) {
-		referrer = GIV(rememberedSet)[i];
+	for (i = numRememberedEphemerons; i < rememberedSetSize; i += 1) {
+		referrer = rememberedSet[i];
 
 		/* begin isEphemeron: */
 		assert(isNonImmediate(referrer));

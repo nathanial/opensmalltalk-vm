@@ -13,21 +13,21 @@ primitiveSetGCSemaphore(void)
     sqInt integerPointer;
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer));
+	integerPointer = longAt(stackPointer);
 	if ((((integerPointer) & 7) == 1)) {
 		index = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		index = 0;
 	}
-	if (!GIV(primFailCode)) {
-		GIV(gcSemaphoreIndex) = index;
+	if (!primFailCode) {
+		gcSemaphoreIndex = index;
 
 		/* begin pop: */
-		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+		stackPointer += argumentCount * BytesPerWord;
 	}
 }

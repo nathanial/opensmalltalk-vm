@@ -16,27 +16,27 @@ mapTraceLog(void)
     sqInt selectorOrMethod;
 
 	limit = /* safe:mod: */
-			(((remainder = (GIV(traceLogIndex) - 3) % TraceBufferSize)) < 0
+			(((remainder = (traceLogIndex - 3) % TraceBufferSize)) < 0
 				? remainder + TraceBufferSize
 				: remainder);
-	if (!(GIV(traceLog)[limit])) {
+	if (!(traceLog[limit])) {
 		return;
 	}
-	if (GIV(traceLog)[GIV(traceLogIndex)]) {
+	if (traceLog[traceLogIndex]) {
 		limit = TraceBufferSize - 3;
 	}
 	for (i = 0; i <= limit; i += 3) {
-		intOrClass = GIV(traceLog)[i];
+		intOrClass = traceLog[i];
 		if (/* shouldRemapOop: */
 			((!(intOrClass & (tagMask()))))
 		 && (shouldRemapObj(intOrClass))) {
-			GIV(traceLog)[i] = (remapObj(intOrClass));
+			traceLog[i] = (remapObj(intOrClass));
 		}
-		selectorOrMethod = GIV(traceLog)[i + 1];
+		selectorOrMethod = traceLog[i + 1];
 		if (/* shouldRemapOop: */
 			((!(selectorOrMethod & (tagMask()))))
 		 && (shouldRemapObj(selectorOrMethod))) {
-			GIV(traceLog)[i + 1] = (remapObj(selectorOrMethod));
+			traceLog[i + 1] = (remapObj(selectorOrMethod));
 		}
 	}
 }

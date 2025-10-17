@@ -19,16 +19,16 @@ primitiveIntegerAt(void)
     sqInt value;
 
 	/* begin primitiveSpurIntegerAt */
-	index = longAt(GIV(stackPointer));
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	index = longAt(stackPointer);
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 	if (!((((index) & 7) == 1))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		goto l1;
 	}
 	if (((rcvr & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		goto l1;
 	}
 	fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
@@ -36,7 +36,7 @@ primitiveIntegerAt(void)
 	if (fmt >= (firstByteFormat())) {
 		if (fmt >= (firstCompiledMethodFormat())) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrUnsupported;
+			primFailCode = PrimErrUnsupported;
 			goto l1;
 		}
 
@@ -56,13 +56,13 @@ primitiveIntegerAt(void)
 
 			/* begin methodReturnInteger: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)value << 3) | 1));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)value << 3) | 1));
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 	if (fmt >= (firstShortFormat())) {
@@ -75,13 +75,13 @@ primitiveIntegerAt(void)
 
 			/* begin methodReturnInteger: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)value << 3) | 1));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)value << 3) | 1));
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 	if (fmt == (sixtyFourBitIndexableFormat())) {
@@ -91,13 +91,13 @@ primitiveIntegerAt(void)
 
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),oop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),oop);
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 	if (fmt >= (firstLongFormat())) {
@@ -110,13 +110,13 @@ primitiveIntegerAt(void)
 
 			/* begin methodReturnInteger: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)value << 3) | 1));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)value << 3) | 1));
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 	if ((fmt <= 5 /* lastPointerFormat */)
@@ -133,8 +133,8 @@ primitiveIntegerAt(void)
 			if ((((usqInt)index)) < numSlots) {
 				/* begin methodReturnValue: */
 				assert(!((failed())));
-				longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << (shiftForWord())))))));
-				GIV(stackPointer) = sp;
+				longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << (shiftForWord())))))));
+				stackPointer = sp;
 				goto l1;
 			}
 		}
@@ -146,18 +146,18 @@ primitiveIntegerAt(void)
 		if ((((index + 1) >= numFixed) && ((index + 1) <= numSlots))) {
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)((index + numFixed)) << (shiftForWord())))))));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)((index + numFixed)) << (shiftForWord())))))));
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = PrimErrBadReceiver;
+	primFailCode = PrimErrBadReceiver;
 	/* end primitiveSpurIntegerAt */
 l1:;
 }

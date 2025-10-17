@@ -22,14 +22,14 @@ lookupSelectorinClass(sqInt selector, sqInt class)
     sqInt wrapAround;
 
 	currentClass = class;
-	while (currentClass != GIV(nilObj)) {
+	while (currentClass != nilObj) {
 		/* begin followObjField:ofObject: */
 		dictionary = longAt((void *)((currentClass + BaseHeaderSize) + ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
 		assert(isNonImmediate(dictionary));
 		if ((!((longAt((void *)(dictionary))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 			dictionary = fixFollowedFieldofObjectwithInitialValue(MethodDictionaryIndex, currentClass, dictionary);
 		}
-		if (dictionary == GIV(nilObj)) {
+		if (dictionary == nilObj) {
 			return null;
 		}
 
@@ -50,7 +50,7 @@ lookupSelectorinClass(sqInt selector, sqInt class)
 		wrapAround = 0;
 		while (1) {
 			nextSelector = longAt((void *)((dictionary + BaseHeaderSize) + ((index << (shiftForWord())))));
-			if (nextSelector == GIV(nilObj)) {
+			if (nextSelector == nilObj) {
 				meth = null;
 				goto l1;
 			}

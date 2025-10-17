@@ -13,35 +13,35 @@ primitiveCrashVM(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt crashInThisThread;
 
-	if (((((longAt(GIV(stackPointer)))) & 7) == 1)) {
-		crashInThisThread = ((longAt(GIV(stackPointer))) >> 3);
+	if (((((longAt(stackPointer))) & 7) == 1)) {
+		crashInThisThread = ((longAt(stackPointer)) >> 3);
 	}
 	else {
 		/* begin booleanValueOf: */
-		if ((longAt(GIV(stackPointer))) == GIV(trueObj)) {
+		if ((longAt(stackPointer)) == trueObj) {
 			crashInThisThread = 1;
 			goto l1;
 		}
-		if ((longAt(GIV(stackPointer))) == GIV(falseObj)) {
+		if ((longAt(stackPointer)) == falseObj) {
 			crashInThisThread = 0;
 			goto l1;
 		}
 
 		/* begin success: */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		crashInThisThread = null;
 		/* end booleanValueOf: */
 l1:;
 	}
-	if (GIV(primFailCode)
-	 || (GIV(argumentCount) != 1)) {
-		return (GIV(primFailCode) = PrimErrBadNumArgs);
+	if (primFailCode
+	 || (argumentCount != 1)) {
+		return (primFailCode = PrimErrBadNumArgs);
 	}
 	crashInThisOrAnotherThread(crashInThisThread);
 
 	/* begin pop: */
-	GIV(stackPointer) += 1 * BytesPerWord;
+	stackPointer += 1 * BytesPerWord;
 	return 0;
 }

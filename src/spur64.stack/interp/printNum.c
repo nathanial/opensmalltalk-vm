@@ -5,7 +5,7 @@
 static NoDbgRegParms void
 printNum(sqInt n)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%" PRIdSQINT "",
 			((sqInt)n));
 }

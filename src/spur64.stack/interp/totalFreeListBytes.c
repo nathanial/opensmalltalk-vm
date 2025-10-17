@@ -23,7 +23,7 @@ totalFreeListBytes(void)
 	totalFreeBytes = 0;
 	for (i = 1; i <= 0x3F /* (numFreeLists - 1) */; i += 1) {
 		bytesInChunk = i * 8 /* allocationUnit */;
-		listNode = GIV(freeLists)[i];
+		listNode = freeLists[i];
 		while (listNode != 0) {
 			totalFreeBytes += bytesInChunk;
 
@@ -37,7 +37,7 @@ totalFreeListBytes(void)
 	}
 
 	/* begin freeTreeNodesDo: */
-	treeNodeSqInt = GIV(freeLists)[0];
+	treeNodeSqInt = freeLists[0];
 	if (!treeNodeSqInt) {
 		goto l1;
 	}

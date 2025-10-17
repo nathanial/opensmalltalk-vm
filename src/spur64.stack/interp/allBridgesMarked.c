@@ -10,10 +10,10 @@ allBridgesMarked(void)
     sqInt i;
     usqInt numSlots;
 
-	for (i = 0; i < GIV(numSegments); i += 1) {
+	for (i = 0; i < numSegments; i += 1) {
 		/* begin bridgeAt: */
 		/* begin bridgeFor: */
-		address = (((((&(GIV(segments)[i])))->segSize)) + ((((&(GIV(segments)[i])))->segStart))) - (2 * BaseHeaderSize);
+		address = (((((&(segments[i])))->segSize)) + ((((&(segments[i])))->segStart))) - (2 * BaseHeaderSize);
 		numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
 		bridgeObj = (numSlots == (numSlotsMask())
 					? address + BaseHeaderSize

@@ -14,16 +14,16 @@ primitiveScreenDepth(void)
     char *sp;
 
 	depth = ioScreenDepth();
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return null;
 	}
 
 	/* begin pop:thenPushInteger: */
-	longAtput((sp = GIV(stackPointer)),(((usqInt)depth << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),(((usqInt)depth << 3) | 1));
+	stackPointer = sp;
 	return 0;
 }

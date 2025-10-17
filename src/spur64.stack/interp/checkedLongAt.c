@@ -11,8 +11,8 @@ checkedLongAt(sqInt byteAddress)
 		warning("checkedLongAt bad address");
 
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 	return longAt((void *)(byteAddress));

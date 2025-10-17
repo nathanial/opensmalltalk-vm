@@ -9,44 +9,44 @@ divorceAllFrames(void)
     StackPage *aPage;
     sqInt i;
 
-	if (GIV(stackPage)) {
+	if (stackPage) {
 		/* begin externalWriteBackHeadFramePointers */
-		assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-		assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-		assert(!((isFree(GIV(stackPage)))));
+		assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+		assert(stackPage == (mostRecentlyUsedPage));
+		assert(!((isFree(stackPage))));
 
 		/* begin setHeadFP:andSP:inPage: */
-		assert(GIV(stackPointer) < GIV(framePointer));
-		assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-		 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-		assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-		 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-		(GIV(stackPage)->headFP = GIV(framePointer));
-		(GIV(stackPage)->headSP = GIV(stackPointer));
+		assert(stackPointer < framePointer);
+		assert((stackPointer < ((stackPage->baseAddress)))
+		 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+		assert((framePointer < ((stackPage->baseAddress)))
+		 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+		(stackPage->headFP = framePointer);
+		(stackPage->headSP = stackPointer);
 		assert(pageListIsWellFormed());
 	}
 
 	/* begin ensureFrameIsMarried:SP: */
-	if (byteAt((GIV(framePointer) + FoxFrameFlags) + 2)) {
-		assert(isContext(frameContext(GIV(framePointer))));
-		activeContext = longAt(GIV(framePointer) + FoxThisContext);
+	if (byteAt((framePointer + FoxFrameFlags) + 2)) {
+		assert(isContext(frameContext(framePointer)));
+		activeContext = longAt(framePointer + FoxThisContext);
 		goto l1;
 	}
-	activeContext = marryFrameSP(GIV(framePointer), GIV(stackPointer) + BytesPerWord);
+	activeContext = marryFrameSP(framePointer, stackPointer + BytesPerWord);
 	/* end ensureFrameIsMarried:SP: */
 l1:
-	for (i = 0; i < GIV(numStackPages); i += 1) {
+	for (i = 0; i < numStackPages; i += 1) {
 		/* begin stackPageAt: */
-		aPage = stackPageAtpages(i, GIV(pages));
+		aPage = stackPageAtpages(i, pages);
 		if (!(isFree(aPage))) {
 			divorceFramesIn(aPage);
 		}
 	}
 
 	/* begin nilStackPage */
-	assert((!GIV(stackPage))
-	 || ((((GIV(stackPage)->headFP)) == GIV(framePointer))
-	 && (((GIV(stackPage)->headSP)) == GIV(stackPointer))));
-	GIV(stackPage) = null;
+	assert((!stackPage)
+	 || ((((stackPage->headFP)) == framePointer)
+	 && (((stackPage->headSP)) == stackPointer)));
+	stackPage = null;
 	return activeContext;
 }

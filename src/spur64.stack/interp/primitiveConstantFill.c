@@ -16,16 +16,16 @@ primitiveConstantFill(void)
     sqInt rcvr;
 
 	/* begin primitiveConstantFillSpur */
-	if (GIV(argumentCount) != 1) {
+	if (argumentCount != 1) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadNumArgs;
+		primFailCode = PrimErrBadNumArgs;
 		goto l1;
 	}
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 	if (!(((!(rcvr & (tagMask()))))
 		 && (((format = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask()))) >= (sixtyFourBitIndexableFormat())))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		goto l1;
 	}
 	if (
@@ -36,13 +36,13 @@ primitiveConstantFill(void)
 #  endif
 		) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNoModification;
+		primFailCode = PrimErrNoModification;
 		goto l1;
 	}
-	fillValue = positive64BitValueOf(longAt(GIV(stackPointer)));
-	if (GIV(primFailCode)) {
+	fillValue = positive64BitValueOf(longAt(stackPointer));
+	if (primFailCode) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		goto l1;
 	}
 	if (format >= (firstShortFormat())) {
@@ -50,7 +50,7 @@ primitiveConstantFill(void)
 			if ((fillValue > 0xFF)
 			 || (format >= (firstCompiledMethodFormat()))) {
 				/* primitiveFailFor: */
-				GIV(primFailCode) = (fillValue > 0xFF
+				primFailCode = (fillValue > 0xFF
 							? PrimErrBadArgument
 							: PrimErrBadReceiver);
 				goto l1;
@@ -61,7 +61,7 @@ primitiveConstantFill(void)
 		else {
 			if (fillValue > 0xFFFF) {
 				/* primitiveFailFor: */
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l1;
 			}
 			fillValue += (fillValue << 16);
@@ -76,7 +76,7 @@ primitiveConstantFill(void)
 		else {
 			if (fillValue > 0xFFFFFFFFU) {
 				/* primitiveFailFor: */
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l1;
 			}
 			fillValue += (fillValue << 32);
@@ -97,7 +97,7 @@ primitiveConstantFill(void)
 	}
 
 	/* begin pop: */
-	GIV(stackPointer) += 1 * BytesPerWord;
+	stackPointer += 1 * BytesPerWord;
 	/* end primitiveConstantFillSpur */
 l1:;
 }

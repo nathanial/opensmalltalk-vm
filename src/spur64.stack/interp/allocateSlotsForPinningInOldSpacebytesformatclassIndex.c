@@ -30,12 +30,12 @@ allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt to
 	prev = 0;
 
 	/* be optimistic (& don't wait for the write) */
-	GIV(totalFreeOldSpace) -= totalBytes;
+	totalFreeOldSpace -= totalBytes;
 	initialIndex = totalBytes / 8 /* allocationUnit */;
 	if ((initialIndex < 64 /* numFreeLists */)
-	 && ((1ULL << initialIndex) <= GIV(freeListsMask))) {
-		if (((GIV(freeListsMask) & (1ULL << initialIndex)) != 0)) {
-			if ((node = GIV(freeLists)[initialIndex])) {
+	 && ((1ULL << initialIndex) <= freeListsMask)) {
+		if (((freeListsMask & (1ULL << initialIndex)) != 0)) {
+			if ((node = freeLists[initialIndex])) {
 				prev = 0;
 				while (node != 0) {
 					assert(node == (startOfObject(node)));
@@ -77,7 +77,7 @@ allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt to
 							 && ((startOfObject(node)) == node)));
 
 							/* For some reason the assertion is not compiled correctly */
-							GIV(freeLists)[initialIndex] = ((nextSqInt = longAt((void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))))));
+							freeLists[initialIndex] = ((nextSqInt = longAt((void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))))));
 							if ((!lilliputian)
 							 && (nextSqInt != 0)) {
 								/* begin storePointer:ofFreeChunk:withValue: */
@@ -93,16 +93,16 @@ allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt to
 				}
 			}
 			else {
-				GIV(freeListsMask) -= 1ULL << initialIndex;
+				freeListsMask -= 1ULL << initialIndex;
 			}
 		}
 
 		/* first search for free chunks of a multiple of chunkBytes in size */
 		index = initialIndex;
 		while ((((index += initialIndex)) < 64 /* numFreeLists */)
-		 && ((1ULL << index) <= GIV(freeListsMask))) {
-			if (((GIV(freeListsMask) & (1ULL << index)) != 0)) {
-				if ((node = GIV(freeLists)[index])) {
+		 && ((1ULL << index) <= freeListsMask)) {
+			if (((freeListsMask & (1ULL << index)) != 0)) {
+				if ((node = freeLists[index])) {
 					prev = 0;
 					while (node != 0) {
 						assert(node == (startOfObject(node)));
@@ -133,7 +133,7 @@ allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt to
 								 && ((startOfObject(node)) == node)));
 
 								/* For some reason the assertion is not compiled correctly */
-								GIV(freeLists)[index] = ((nextSqInt = longAt((void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))))));
+								freeLists[index] = ((nextSqInt = longAt((void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))))));
 								if (nextSqInt) {
 									/* begin storePointer:ofFreeChunk:withValue: */
 									assert(isFreeObject(nextSqInt));
@@ -152,7 +152,7 @@ allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt to
 					}
 				}
 				else {
-					GIV(freeListsMask) -= 1ULL << index;
+					freeListsMask -= 1ULL << index;
 				}
 			}
 		}
@@ -163,9 +163,9 @@ allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt to
 		   that are at least 16 bytes larger, hence start at initialIndex + 2. */
 		index = initialIndex + 1;
 		while ((((index += 1)) < 64 /* numFreeLists */)
-		 && ((1ULL << index) <= GIV(freeListsMask))) {
-			if (((GIV(freeListsMask) & (1ULL << index)) != 0)) {
-				if ((node = GIV(freeLists)[index])) {
+		 && ((1ULL << index) <= freeListsMask)) {
+			if (((freeListsMask & (1ULL << index)) != 0)) {
+				if ((node = freeLists[index])) {
 					prev = 0;
 					while (node != 0) {
 						assert(node == (startOfObject(node)));
@@ -196,7 +196,7 @@ allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt to
 								 && ((startOfObject(node)) == node)));
 
 								/* For some reason the assertion is not compiled correctly */
-								GIV(freeLists)[index] = ((nextSqInt = longAt((void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))))));
+								freeLists[index] = ((nextSqInt = longAt((void *)((node + BaseHeaderSize) + (0U << (shiftForWord()))))));
 								if (nextSqInt) {
 									/* begin storePointer:ofFreeChunk:withValue: */
 									assert(isFreeObject(nextSqInt));
@@ -215,7 +215,7 @@ allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt to
 					}
 				}
 				else {
-					GIV(freeListsMask) -= 1ULL << index;
+					freeListsMask -= 1ULL << index;
 				}
 			}
 		}
@@ -228,7 +228,7 @@ allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt to
 	   large as chunkBytes, or 0 if none.  acceptedChunk and acceptedNode save
 	   us from having to back-up when the acceptanceBlock filters-out all nodes
 	   of the right size, but there are nodes of the wrong size it does accept. */
-	child = GIV(freeLists)[0];
+	child = freeLists[0];
 	node = (acceptedChunk = (acceptedNode = 0));
 	while (child != 0) {
 		/* begin assertValidFreeObject: */
@@ -375,7 +375,7 @@ allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt to
 	}
 
 	/* optimism was unfounded */
-	GIV(totalFreeOldSpace) += totalBytes;
+	totalFreeOldSpace += totalBytes;
 	chunk = null;
 	/* end allocateOldSpaceChunkOfBytes:suchThat: */
 l1:
@@ -392,7 +392,7 @@ l1:
 
 		/* begin checkFreeSpace: */
 		assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-		assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+		assert(totalFreeOldSpace == (totalFreeListBytes()));
 		if (((checkForLeaks & (GCCheckFreeSpace | GCModeNewSpace)) == (GCCheckFreeSpace | GCModeNewSpace))) {
 			runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 		}
@@ -404,7 +404,7 @@ l1:
 
 	/* begin checkFreeSpace: */
 	assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-	assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+	assert(totalFreeOldSpace == (totalFreeListBytes()));
 	if (((checkForLeaks & (GCCheckFreeSpace | GCModeNewSpace)) == (GCCheckFreeSpace | GCModeNewSpace))) {
 		runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 	}

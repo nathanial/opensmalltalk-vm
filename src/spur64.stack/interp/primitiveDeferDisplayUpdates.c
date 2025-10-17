@@ -16,28 +16,28 @@ primitiveDeferDisplayUpdates(void)
 
 	if (cannotDeferDisplayUpdates) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
-	flag = longAt(GIV(stackPointer));
-	if (flag == GIV(trueObj)) {
+	flag = longAt(stackPointer);
+	if (flag == trueObj) {
 		deferDisplayUpdates = 1;
 	}
 	else {
-		if (flag == GIV(falseObj)) {
+		if (flag == falseObj) {
 			deferDisplayUpdates = 0;
 		}
 		else {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return;
 		}
 	}
 
 	/* begin pop: */
-	GIV(stackPointer) += 1 * BytesPerWord;
+	stackPointer += 1 * BytesPerWord;
 }

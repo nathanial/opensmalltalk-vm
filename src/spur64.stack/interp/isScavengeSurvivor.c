@@ -37,6 +37,6 @@ isScavengeSurvivor(sqInt oop)
 		((!(target & (tagMask()))))
 	 && ((/* begin isReallyYoungObject: *//* begin isYoungObject: */
 		assert(isNonImmediate(target)),
-	oopisLessThan(target, GIV(oldSpaceStart))))))
-	 || (oopisGreaterThanOrEqualToandLessThan(target, ((GIV(futureSpace)).start), GIV(futureSurvivorStart)));
+	oopisLessThan(target, oldSpaceStart)))))
+	 || (oopisGreaterThanOrEqualToandLessThan(target, ((futureSpace).start), futureSurvivorStart));
 }

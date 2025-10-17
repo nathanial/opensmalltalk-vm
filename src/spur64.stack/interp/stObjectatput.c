@@ -119,10 +119,10 @@ l3:
 			/* begin storePointer:ofObject:withValue: */
 			assert(validStorePointerArgs(fieldIndex, array, value));
 			assert(isNonImmediate(array));
-			if (oopisGreaterThanOrEqualTo(array, GIV(oldSpaceStart))) {
+			if (oopisGreaterThanOrEqualTo(array, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(value & (tagMask()))))
-				 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(value, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
 					if (!((byteAt((void *)(array + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 						remember(array);
@@ -136,13 +136,13 @@ l3:
 		}
 		if (fmt >= (firstByteFormat())) {
 			if (!((((value) & 7) == 1))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l4;
 			}
 			signedValueToStore = (value >> 3);
 			if (!((signedValueToStore >= 0)
 				 && (signedValueToStore <= 0xFF))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l4;
 			}
 
@@ -152,13 +152,13 @@ l3:
 		}
 		if (fmt >= (firstShortFormat())) {
 			if (!((((value) & 7) == 1))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l4;
 			}
 			signedValueToStore = (value >> 3);
 			if (!((signedValueToStore >= 0)
 				 && (signedValueToStore <= 0xFFFF))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l4;
 			}
 
@@ -168,7 +168,7 @@ l3:
 		}
 		if (fmt == (sixtyFourBitIndexableFormat())) {
 			unsigned64BitValueToStore = positive64BitValueOf(value);
-			if (!GIV(primFailCode)) {
+			if (!primFailCode) {
 				/* storeLong64:ofObject:withValue: */
 				long64Atput((void *)((array + BaseHeaderSize) + ((((usqInt)(((index + fixedFields) - 1)) << 3)))),unsigned64BitValueToStore);
 			}
@@ -177,7 +177,7 @@ l3:
 
 		/* 32bit-word type objects */
 		unsignedValueToStore = positive32BitValueOf(value);
-		if (!GIV(primFailCode)) {
+		if (!primFailCode) {
 			/* storeLong32:ofObject:withValue: */
 			long32Atput((void *)((array + BaseHeaderSize) + ((((usqInt)(((index + fixedFields) - 1)) << 2)))),unsignedValueToStore);
 		}
@@ -186,7 +186,7 @@ l4:;
 	}
 	else {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = (fmt <= 1
+		primFailCode = (fmt <= 1
 					? PrimErrBadReceiver
 					: PrimErrBadIndex);
 	}

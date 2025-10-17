@@ -29,9 +29,9 @@ markAndTraceClassOf(sqInt objOop)
 	fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
 	/* begin fetchPointer:ofObject: */
-	classTablePage = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-	if (classTablePage == GIV(nilObj)) {
-		classObj = GIV(nilObj);
+	classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+	if (classTablePage == nilObj) {
+		classObj = nilObj;
 		goto l1;
 	}
 	fieldIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);
@@ -51,22 +51,22 @@ l1:
 		assert(!(isFreeObject(classObj)));
 		byteAtput((void *)(classObj + (markBitsByteOffset())),(byteAt((void *)(classObj + (markBitsByteOffset())))) | (1U << (markedBitByteShift())));
 		markAndTraceClassOf(classObj);
-		objStack = GIV(markStack);
+		objStack = markStack;
 
 		/* begin push:onObjStack: */
 		assert(addressCouldBeOop(classObj));
 		if (((classObj & (tagMask())) != 0)) {
-			assert(objStack == GIV(markStack));
+			assert(objStack == markStack);
 			assert(addressCouldBeObj(topOfObjStack((0 == (fetchPointerofObject(ObjStackTopx, objStack))
 					? fetchPointerofObject(ObjStackNextx, objStack)
 					: objStack))));
 		}
 		else {
-			assert(!((objStack == GIV(markStack))
+			assert(!((objStack == markStack)
 			 && (isWeakNonImm(classObj))));
 
 			/* There should only be weaklings on the weaklingStack */
-			assert((objStack != GIV(weaklingStack))
+			assert((objStack != weaklingStack)
 			 || (isWeakNonImm(classObj)));
 		}
 

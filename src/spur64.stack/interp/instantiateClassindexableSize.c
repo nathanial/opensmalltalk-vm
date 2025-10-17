@@ -27,12 +27,12 @@ instantiateClassindexableSize(sqInt classObj, usqInt nElements)
 	switch (instSpec) {
 	case arrayFormat():
 		numSlots = nElements;
-		fillValue = GIV(nilObj);
+		fillValue = nilObj;
 		break;
 	case indexablePointersFormat():
 	case weakArrayFormat():
 		numSlots = (classFormat & ((1U << (fixedFieldsFieldWidth())) - 1)) + nElements;
-		fillValue = GIV(nilObj);
+		fillValue = nilObj;
 		break;
 	case sixtyFourBitIndexableFormat():
 		numSlots = nElements;
@@ -41,7 +41,7 @@ instantiateClassindexableSize(sqInt classObj, usqInt nElements)
 		if ((classIndex == ClassFloatCompactIndex)
 		 && (nElements != 2)) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadReceiver;
+			primFailCode = PrimErrBadReceiver;
 			return null;
 		}
 		numSlots = (nElements + 1) / 2;
@@ -61,7 +61,7 @@ instantiateClassindexableSize(sqInt classObj, usqInt nElements)
 			return null;
 		}
 		numSlots = classFormat & ((1U << (fixedFieldsFieldWidth())) - 1);
-		fillValue = GIV(nilObj);
+		fillValue = nilObj;
 	}
 
 	/* non-indexable
@@ -84,14 +84,14 @@ instantiateClassindexableSize(sqInt classObj, usqInt nElements)
 							: -PrimErrBadReceiver));
 		if (classIndex < 0) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = -classIndex;
+			primFailCode = -classIndex;
 			return null;
 		}
 	}
 	if (numSlots > ((1U << (fixedFieldsFieldWidth())) - 1)) {
 		if (numSlots > (0x10000000000LL)) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrUnsupported;
+			primFailCode = PrimErrUnsupported;
 			return null;
 		}
 		newObj = allocateSlotsInOldSpacebytesformatclassIndex(numSlots, /* objectBytesForSlots: */
@@ -108,20 +108,20 @@ instantiateClassindexableSize(sqInt classObj, usqInt nElements)
 				newObj = null;
 				goto l1;
 			}
-			newObjUsqInt = GIV(freeStart) + BaseHeaderSize;
+			newObjUsqInt = freeStart + BaseHeaderSize;
 			numBytes = (BaseHeaderSize + BaseHeaderSize) + (numSlots * BytesPerOop);
 		}
 		else {
-			newObjUsqInt = GIV(freeStart);
+			newObjUsqInt = freeStart;
 			numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 		}
-		if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
+		if ((freeStart + numBytes) > scavengeThreshold) {
 			if (numSlots <= ((1U << (fixedFieldsFieldWidth())) - 1)) {
-				if (!GIV(needGCFlag)) {
+				if (!needGCFlag) {
 					/* begin scheduleScavenge */
-					GIV(needGCFlag) = 1;
+					needGCFlag = 1;
 					forceInterruptCheck();
 				}
 			}
@@ -129,7 +129,7 @@ instantiateClassindexableSize(sqInt classObj, usqInt nElements)
 			goto l1;
 		}
 		if (numSlots >= (numSlotsMask())) {
-			longAtput((void *)(GIV(freeStart)),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
+			longAtput((void *)(freeStart),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
 			longAtput((void *)(newObjUsqInt),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)(instSpec) << (formatShift()))))) + classIndex);
 		}
 		else {
@@ -139,7 +139,7 @@ instantiateClassindexableSize(sqInt classObj, usqInt nElements)
 		/* for header parsing we put a saturated slot count in the prepended overflow size word */
 		assert((numBytes % (allocationUnit())) == 0);
 		assert((newObjUsqInt % (allocationUnit())) == 0);
-		GIV(freeStart) += numBytes;
+		freeStart += numBytes;
 		newObj = newObjUsqInt;
 		/* end allocateSlots:format:classIndex: */
 l1:;

@@ -77,8 +77,8 @@ objectsReachableFromRoots(sqInt arrayOfRoots)
 
 	/* After the mark phase all unreachable weak slots will have been nilled
 	   and all active ephemerons fired. */
-	assert(isEmptyObjStack(GIV(markStack)));
-	assert(isEmptyObjStack(GIV(weaklingStack)));
+	assert(isEmptyObjStack(markStack));
+	assert(isEmptyObjStack(weaklingStack));
 	assert(noUnscannedEphemerons());
 
 	/* Now unmark the roots before collecting the transitive closure of unmarked objects accessible from the roots. */
@@ -109,17 +109,17 @@ objectsReachableFromRoots(sqInt arrayOfRoots)
 	freeChunk = allocateLargestFreeChunk();
 
 	/* but must update so that growth in the markStack does not cause assert fails. */
-	GIV(totalFreeOldSpace) -= bytesInBody(freeChunk);
+	totalFreeOldSpace -= bytesInBody(freeChunk);
 	ptr = (start = freeChunk + BaseHeaderSize);
 	limit = addressAfter(freeChunk);
 	count = 0;
 
 	/* First put the arrayOfRoots; order is important. */
-	noCheckPushonObjStack(arrayOfRoots, GIV(markStack));
+	noCheckPushonObjStack(arrayOfRoots, markStack);
 
 	/* Now collect the roots and the transitive closure of unmarked objects from them. */
-	while (!(isEmptyObjStack(GIV(markStack)))) {
-		objOop = popObjStack(GIV(markStack));
+	while (!(isEmptyObjStack(markStack))) {
+		objOop = popObjStack(markStack);
 		assert(isMarked(objOop));
 		count += 1;
 		if (ptr < limit) {
@@ -131,7 +131,7 @@ objectsReachableFromRoots(sqInt arrayOfRoots)
 			/* begin setIsMarkedOf:to: */
 			assert(!(isFreeObject(oop)));
 			byteAtput((void *)(oop + (markBitsByteOffset())),(byteAt((void *)(oop + (markBitsByteOffset())))) | (1U << (markedBitByteShift())));
-			noCheckPushonObjStack(oop, GIV(markStack));
+			noCheckPushonObjStack(oop, markStack);
 		}
 		if ((((longAt((void *)(objOop))) & (classIndexMask())) == ClassMethodContextCompactIndex)
 		 && (/* isStillMarriedContext: */
@@ -145,7 +145,7 @@ objectsReachableFromRoots(sqInt arrayOfRoots)
 					/* begin setIsMarkedOf:to: */
 					assert(!(isFreeObject(oop)));
 					byteAtput((void *)(oop + (markBitsByteOffset())),(byteAt((void *)(oop + (markBitsByteOffset())))) | (1U << (markedBitByteShift())));
-					noCheckPushonObjStack(oop, GIV(markStack));
+					noCheckPushonObjStack(oop, markStack);
 				}
 			}
 		}
@@ -158,7 +158,7 @@ objectsReachableFromRoots(sqInt arrayOfRoots)
 					/* begin setIsMarkedOf:to: */
 					assert(!(isFreeObject(oop)));
 					byteAtput((void *)(oop + (markBitsByteOffset())),(byteAt((void *)(oop + (markBitsByteOffset())))) | (1U << (markedBitByteShift())));
-					noCheckPushonObjStack(oop, GIV(markStack));
+					noCheckPushonObjStack(oop, markStack);
 				}
 			}
 		}
@@ -168,12 +168,12 @@ objectsReachableFromRoots(sqInt arrayOfRoots)
 	/* begin allHeapEntitiesDo: */
 	/* begin allOldSpaceEntitiesDo: */
 	/* begin allOldSpaceEntitiesFrom:do: */
-	assert(isOldObject(GIV(nilObj)));
+	assert(isOldObject(nilObj));
 	prevPrevObj = (prevObj = null);
-	objOopSqInt = GIV(nilObj);
+	objOopSqInt = nilObj;
 	while (1) {
 		assert((objOopSqInt % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objOopSqInt, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objOopSqInt, endOfMemory))) break;
 		assert((long64At((void *)(objOopSqInt))) != 0);
 		if ((byteAt((void *)(objOopSqInt + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) {
 			if (((longAt((void *)(objOopSqInt))) & (classIndexMask())) > (lastClassIndexPun())) {
@@ -194,8 +194,8 @@ objectsReachableFromRoots(sqInt arrayOfRoots)
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objOopSqInt);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objOopSqInt = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objOopSqInt = endOfMemory;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
@@ -211,27 +211,27 @@ l1:;
 
 	/* After a scavenge eden is empty, futureSpace is empty, and all newSpace objects are
 	   in pastSpace.  Objects are allocated in eden.  So enumerate only pastSpace and eden. */
-	assert((((GIV(pastSpace)).start)) < (((GIV(eden)).start)));
+	assert((((pastSpace).start)) < (((eden).start)));
 	startUsqInt = /* startAddressForBridgedHeapEnumeration */
-			(GIV(pastSpaceStart) > (((GIV(pastSpace)).start))
-				? ((GIV(pastSpace)).start)
-				: (GIV(freeStart) > (((GIV(eden)).start))
-						? ((GIV(eden)).start)
-						: GIV(oldSpaceStart)));
-	if (startUsqInt > GIV(freeStart)) {
+			(pastSpaceStart > (((pastSpace).start))
+				? ((pastSpace).start)
+				: (freeStart > (((eden).start))
+						? ((eden).start)
+						: oldSpaceStart));
+	if (startUsqInt > freeStart) {
 		goto l3;
 	}
 
 	/* begin bridgePastSpaceAndEden */
-	if (GIV(pastSpaceStart) < (((GIV(eden)).start))) {
-		if ((GIV(pastSpaceStart) + BaseHeaderSize) == (((GIV(eden)).start))) {
-			hackSlimBridgeToat(objectStartingAt(((GIV(eden)).start)), GIV(pastSpaceStart));
+	if (pastSpaceStart < (((eden).start))) {
+		if ((pastSpaceStart + BaseHeaderSize) == (((eden).start))) {
+			hackSlimBridgeToat(objectStartingAt(((eden).start)), pastSpaceStart);
 
 			/* And carefully check the assumption */
-			assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(GIV(pastSpaceStart)), GIV(nilObj))) == (objectStartingAt(((GIV(eden)).start))));
+			assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(pastSpaceStart), nilObj)) == (objectStartingAt(((eden).start))));
 		}
 		else {
-			initSegmentBridgeWithBytesat((((GIV(eden)).start)) - GIV(pastSpaceStart), GIV(pastSpaceStart));
+			initSegmentBridgeWithBytesat((((eden).start)) - pastSpaceStart, pastSpaceStart);
 		}
 	}
 
@@ -240,7 +240,7 @@ l1:;
 	objOopSqInt = (numSlots == (numSlotsMask())
 				? startUsqInt + BaseHeaderSize
 				: startUsqInt);
-	while (oopisLessThan(objOopSqInt, GIV(freeStart))) {
+	while (oopisLessThan(objOopSqInt, freeStart)) {
 		if ((byteAt((void *)(objOopSqInt + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) {
 			if (((longAt((void *)(objOopSqInt))) & (classIndexMask())) > (lastClassIndexPun())) {
 				/* begin setIsMarkedOf:to: */
@@ -260,13 +260,13 @@ l1:;
 
 		/* begin objectAfterMaybeSlimBridge:limit: */
 		followingWordAddress = addressAfter(objOopSqInt);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(freeStart))) {
-			objOopSqInt = GIV(freeStart);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, freeStart)) {
+			objOopSqInt = freeStart;
 			goto l2;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
 		objOopSqInt = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-					? ((oopisLessThan(objOopSqInt, GIV(oldSpaceStart)))
+					? ((oopisLessThan(objOopSqInt, oldSpaceStart))
 					 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 							? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 							: followingWordAddress + BaseHeaderSize)
@@ -285,7 +285,7 @@ l3:
 
 		/* begin checkFreeSpace: */
 		assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-		assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+		assert(totalFreeOldSpace == (totalFreeListBytes()));
 		if (((checkForLeaks & (GCCheckFreeSpace | GCModeImageSegment)) == (GCCheckFreeSpace | GCModeImageSegment))) {
 			runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 		}
@@ -336,7 +336,7 @@ l3:
 
 	/* begin checkFreeSpace: */
 	assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-	assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+	assert(totalFreeOldSpace == (totalFreeListBytes()));
 	if (((checkForLeaks & (GCCheckFreeSpace | GCModeImageSegment)) == (GCCheckFreeSpace | GCModeImageSegment))) {
 		runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 	}

@@ -13,6 +13,6 @@ primitiveSecondsClock(void)
 	oop = ((((((usqInt)(ioSecondsNow()))) & 0xFFFFFFFFU) << 3) | 1);
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer)),oop);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),oop);
+	stackPointer = sp;
 }

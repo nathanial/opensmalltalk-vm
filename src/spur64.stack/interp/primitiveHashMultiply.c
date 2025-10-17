@@ -14,7 +14,7 @@ primitiveHashMultiply(void)
     char *sp;
     sqInt value;
 
-	value = longAt(GIV(stackPointer));
+	value = longAt(stackPointer);
 	if ((((value) & 7) == 1)) {
 		value = (value >> 3);
 	}
@@ -33,13 +33,13 @@ primitiveHashMultiply(void)
 l1:
 		if (!ok) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadReceiver;
+			primFailCode = PrimErrBadReceiver;
 			return;
 		}
 		value = SQ_SWAP_4_BYTES_IF_BIGENDIAN((long32At((void *)((value + BaseHeaderSize)))));
 	}
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer)),(((((((usqInt) value)) * HashMultiplyConstant) & 0xFFFFFFF) << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),(((((((usqInt) value)) * HashMultiplyConstant) & 0xFFFFFFF) << 3) | 1));
+	stackPointer = sp;
 }

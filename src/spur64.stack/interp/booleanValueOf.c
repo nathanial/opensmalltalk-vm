@@ -7,16 +7,16 @@
 sqInt
 booleanValueOf(sqInt obj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	if (obj == GIV(trueObj)) {
+	if (obj == trueObj) {
 		return 1;
 	}
-	if (obj == GIV(falseObj)) {
+	if (obj == falseObj) {
 		return 0;
 	}
 
 	/* begin success: */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	return null;
 }

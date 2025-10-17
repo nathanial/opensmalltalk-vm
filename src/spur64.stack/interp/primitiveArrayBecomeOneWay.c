@@ -13,18 +13,18 @@ primitiveArrayBecomeOneWay(void)
     sqInt ec;
     sqInt rcvr;
 
-	arg = longAt(GIV(stackPointer));
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	arg = longAt(stackPointer);
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 	ec = becomewithtwoWaycopyHash(rcvr, arg, 0, 1);
 
 	/* begin primitiveBecomeReturn: */
 	if (ec) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = ec;
+		primFailCode = ec;
 	}
 	else {
 		/* begin methodReturnReceiver */
 		assert(!((failed())));
-		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+		stackPointer += argumentCount * BytesPerWord;
 	}
 }

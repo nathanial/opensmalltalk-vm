@@ -11,8 +11,8 @@ totalBytesInSegments(void)
     usqInt total;
 
 	total = 0;
-	for (i = 0; i < GIV(numSegments); i += 1) {
-		total += ((GIV(segments)[i]).segSize);
+	for (i = 0; i < numSegments; i += 1) {
+		total += ((segments[i]).segSize);
 	}
 	return total;
 }

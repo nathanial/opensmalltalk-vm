@@ -19,7 +19,7 @@ eeInstantiateClassIndexformatnumSlots(sqInt knownClassIndex, sqInt objFormat, sq
 
 	assert((numSlots >= 0)
 	 && ((knownClassIndex != 0)
-	 && ((knownClassAtIndex(knownClassIndex)) != GIV(nilObj))));
+	 && ((knownClassAtIndex(knownClassIndex)) != nilObj)));
 	assert(((objFormat < (firstByteFormat())
 			? objFormat
 			: objFormat & (byteFormatMask()))) == (instSpecOfClass(knownClassAtIndex(knownClassIndex))));
@@ -29,29 +29,29 @@ eeInstantiateClassIndexformatnumSlots(sqInt knownClassIndex, sqInt objFormat, sq
 		if (numSlots > 0xFFFFFFFFU) {
 			return null;
 		}
-		newObj = GIV(freeStart) + BaseHeaderSize;
+		newObj = freeStart + BaseHeaderSize;
 		numBytes = (BaseHeaderSize + BaseHeaderSize) + (numSlots * BytesPerOop);
 	}
 	else {
-		newObj = GIV(freeStart);
+		newObj = freeStart;
 		numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 	}
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateNewSpaceSlots:format:classIndex:");
 			return 0;
 		}
 	}
 	if (numSlots >= (numSlotsMask())) {
-		longAtput((void *)(GIV(freeStart)),numSlots);
-		longAtput((void *)(GIV(freeStart) + 4),((sqInt)((usqInt)((numSlotsMask())) << (numSlotsHalfShift()))));
+		longAtput((void *)(freeStart),numSlots);
+		longAtput((void *)(freeStart + 4),((sqInt)((usqInt)((numSlotsMask())) << (numSlotsHalfShift()))));
 		long64Atput((void *)(newObj),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)(objFormat) << (formatShift()))))) + knownClassIndex);
 	}
 	else {
@@ -61,6 +61,6 @@ eeInstantiateClassIndexformatnumSlots(sqInt knownClassIndex, sqInt objFormat, sq
 	/* for header parsing we put a saturated slot count in the prepended overflow size word */
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	return newObj;
 }

@@ -26,25 +26,25 @@ copyAndForwardMourner(sqInt mourner)
 	format = (byteAt((void *)(mourner + (formatFieldByteOffset())))) & (formatMask());
 
 	/* Allow Slang to inline. */
-	tenure = !((GIV(tenureCriterion) == TenureByAge)
-		 && (GIV(tenureThreshold) == 0));
+	tenure = !((tenureCriterion == TenureByAge)
+		 && (tenureThreshold == 0));
 	if (tenure
-	 || ((GIV(futureSurvivorStart) + bytesInObj) > ((GIV(futureSpace).limit)))) {
+	 || ((futureSurvivorStart + bytesInObj) > ((futureSpace.limit)))) {
 		newLocation = copyToOldSpacebytesformat(mourner, bytesInObj, format);
 	}
 	else {
 		/* begin copyToFutureSpace:bytes: */
 		/* we hope writes are cheap... */
-		GIV(statSurvivorCount) += 1;
-		assert((GIV(futureSurvivorStart) + bytesInObj) <= ((GIV(futureSpace).limit)));
+		statSurvivorCount += 1;
+		assert((futureSurvivorStart + bytesInObj) <= ((futureSpace.limit)));
 		startOfSurvivor = /* startOfObject: */
 				((byteAt((void *)(mourner + (numSlotsFieldByteOffset())))) == (numSlotsMask())
 					? mourner - BaseHeaderSize
 					: mourner);
-		newStart = GIV(futureSurvivorStart);
-		GIV(futureSurvivorStart) += bytesInObj;
+		newStart = futureSurvivorStart;
+		futureSurvivorStart += bytesInObj;
 		memcpy(((void *)newStart), ((void *)startOfSurvivor), bytesInObj);
-		if (GIV(tenureCriterion) == TenureToShrinkRT) {
+		if (tenureCriterion == TenureToShrinkRT) {
 			objOop = newStart + (mourner - startOfSurvivor);
 
 			/* begin rtRefCountOf:put: */

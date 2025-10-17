@@ -41,7 +41,7 @@ isWidowedContextDuringGC(sqInt aOnceMarriedContext)
 	maybeFrame = ((char *)(senderOop - (smallIntegerTag())));
 
 	/* begin stackPageFor: */
-	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(maybeFrame, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(maybeFrame, stackMemory, bytesPerPage), pages);
 	if (!((isFree(thePage))
 		 || (maybeFrame < ((thePage->headFP))))) {
 		anInteger = longAt((void *)((aOnceMarriedContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))));
@@ -86,13 +86,13 @@ isWidowedContextDuringGC(sqInt aOnceMarriedContext)
 	assert(isContext(aOnceMarriedContext));
 	assert((isNonImmediate(aOnceMarriedContext))
 	 && (!(isForwarded(aOnceMarriedContext))));
-	assert(validStorePointerUncheckedArgs(SenderIndex, aOnceMarriedContext, GIV(nilObj)));
-	longAtput((void *)((aOnceMarriedContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),GIV(nilObj));
+	assert(validStorePointerUncheckedArgs(SenderIndex, aOnceMarriedContext, nilObj));
+	longAtput((void *)((aOnceMarriedContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),nilObj);
 
 	/* begin storePointerUnchecked:ofObject:withValue: */
 	assert((isNonImmediate(aOnceMarriedContext))
 	 && (!(isForwarded(aOnceMarriedContext))));
-	assert(validStorePointerUncheckedArgs(InstructionPointerIndex, aOnceMarriedContext, GIV(nilObj)));
-	longAtput((void *)((aOnceMarriedContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),GIV(nilObj));
+	assert(validStorePointerUncheckedArgs(InstructionPointerIndex, aOnceMarriedContext, nilObj));
+	longAtput((void *)((aOnceMarriedContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),nilObj);
 	return 1;
 }

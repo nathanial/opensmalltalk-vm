@@ -11,7 +11,7 @@ printCallStackOfcurrentFP(sqInt aContext, char *currFP)
     StackPage *thePage;
 
 	ctxt = aContext;
-	while (!(ctxt == GIV(nilObj))) {
+	while (!(ctxt == nilObj)) {
 		if (((((longAt((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)) {
 			/* begin frameOfMarriedContext: */
 			senderOop = longAt((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));
@@ -19,9 +19,9 @@ printCallStackOfcurrentFP(sqInt aContext, char *currFP)
 			theFP = ((char *)(senderOop - (smallIntegerTag())));
 			if (checkIsStillMarriedContextcurrentFP(ctxt, currFP)) {
 				/* begin stackPageFor: */
-				thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+				thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
 				if (isFree(thePage)) {
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"%p is on a free page?!\n",
 							theFP);
 					return null;
@@ -37,7 +37,7 @@ printCallStackOfcurrentFP(sqInt aContext, char *currFP)
 				}
 			}
 			else {
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"widowed caller frame %p\n",
 						theFP);
 				return null;

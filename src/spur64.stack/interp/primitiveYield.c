@@ -16,7 +16,7 @@ primitiveYield(void)
     sqInt processLists;
     sqInt scheduler;
 
-	scheduler = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+	scheduler = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
 	activeProc = longAt((void *)((scheduler + BaseHeaderSize) + ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
 
 	/* begin quickFetchInteger:ofObject: */
@@ -28,7 +28,7 @@ primitiveYield(void)
 
 	/* begin isEmptyList: */
 	assert(!(isForwarded(processList)));
-	if (!((longAt((void *)((processList + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) == GIV(nilObj))) {
+	if (!((longAt((void *)((processList + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) == nilObj)) {
 		addLastLinktoList(activeProc, processList);
 
 		/* transferToHighestPriorityProcessFrom: */

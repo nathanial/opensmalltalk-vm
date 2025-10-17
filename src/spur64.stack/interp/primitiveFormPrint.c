@@ -31,35 +31,35 @@ primitiveFormPrint(void)
 	w = 0;
 
 	/* begin booleanValueOf: */
-	if ((longAt(GIV(stackPointer))) == GIV(trueObj)) {
+	if ((longAt(stackPointer)) == trueObj) {
 		landscapeFlag = 1;
 		goto l1;
 	}
-	if ((longAt(GIV(stackPointer))) == GIV(falseObj)) {
+	if ((longAt(stackPointer)) == falseObj) {
 		landscapeFlag = 0;
 		goto l1;
 	}
 
 	/* begin success: */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	landscapeFlag = null;
 	/* end booleanValueOf: */
 l1:
-	vScale = floatValueOf(longAt(GIV(stackPointer) + (1 * BytesPerWord)));
-	hScale = floatValueOf(longAt(GIV(stackPointer) + (2 * BytesPerWord)));
-	rcvr = longAt(GIV(stackPointer) + (3 * BytesPerWord));
+	vScale = floatValueOf(longAt(stackPointer + (1 * BytesPerWord)));
+	hScale = floatValueOf(longAt(stackPointer + (2 * BytesPerWord)));
+	rcvr = longAt(stackPointer + (3 * BytesPerWord));
 	if (!((/* isPointers: */
 			((!(rcvr & (tagMask()))))
 		 && (((byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
 		 && ((lengthOf(rcvr)) >= 4))) {
 		/* begin success: */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		bitsArray = longAt((void *)((rcvr + BaseHeaderSize) + (0U << (shiftForWord()))));
 		w = fetchIntegerofObject(1, rcvr);
 		h = fetchIntegerofObject(2, rcvr);
@@ -67,8 +67,8 @@ l1:
 		if (!((w > 0)
 			 && (h > 0))) {
 			/* begin success: */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
 		pixelsPerWord = 32 / depth;
@@ -105,31 +105,31 @@ l2:
 
 			/* begin success: */
 			if (!(bitsArraySize == ((wordsPerLine * h) * 4))) {
-				if (!GIV(primFailCode)) {
-					GIV(primFailCode) = 1;
+				if (!primFailCode) {
+					primFailCode = 1;
 				}
 			}
 		}
 		else {
 			/* begin success: */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
 	}
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		successBoolean = ioFormPrint(bitsArray + BaseHeaderSize, w, h, depth, hScale, vScale, landscapeFlag);
 
 		/* begin success: */
 		if (!successBoolean) {
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
-		if (!GIV(primFailCode)) {
+		if (!primFailCode) {
 			/* begin methodReturnReceiver */
 			assert(!((failed())));
-			GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+			stackPointer += argumentCount * BytesPerWord;
 		}
 	}
 }

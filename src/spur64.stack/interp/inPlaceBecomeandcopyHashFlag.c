@@ -73,19 +73,19 @@ inPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag)
 		longAtput((void *)((obj2 + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),temp1);
 		if (/* isYoung: */
 			((!(temp2 & (tagMask()))))
-		 && (oopisLessThan(temp2, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(temp2, oldSpaceStart))) {
 			o1HasYoung = 1;
 		}
 		if (/* isYoung: */
 			((!(temp1 & (tagMask()))))
-		 && (oopisLessThan(temp1, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(temp1, oldSpaceStart))) {
 			o2HasYoung = 1;
 		}
 	}
 	if (o1HasYoung
 	 && ((/* begin isOldObject: */
 		assert(isNonImmediate(obj1)),
-	oopisGreaterThanOrEqualTo(obj1, GIV(oldSpaceStart))))) {
+	oopisGreaterThanOrEqualTo(obj1, oldSpaceStart)))) {
 		fmt = (byteAt((void *)(obj1 + (formatFieldByteOffset())))) & (formatMask());
 		if (!(/* isPureBitsFormat: */
 				(fmt >= (sixtyFourBitIndexableFormat()))
@@ -99,7 +99,7 @@ inPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag)
 	if (o2HasYoung
 	 && ((/* begin isOldObject: */
 		assert(isNonImmediate(obj2)),
-	oopisGreaterThanOrEqualTo(obj2, GIV(oldSpaceStart))))) {
+	oopisGreaterThanOrEqualTo(obj2, oldSpaceStart)))) {
 		fmt = (byteAt((void *)(obj2 + (formatFieldByteOffset())))) & (formatMask());
 		if (!(/* isPureBitsFormat: */
 				(fmt >= (sixtyFourBitIndexableFormat()))

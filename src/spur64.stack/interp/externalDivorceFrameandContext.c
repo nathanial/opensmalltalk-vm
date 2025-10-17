@@ -21,12 +21,12 @@ externalDivorceFrameandContext(char *theFP, sqInt ctxt)
     StackPage *thePage;
     char *theSP;
 
-	assert((!GIV(stackPage))
-	 || (GIV(stackPage) == (GIV(mostRecentlyUsedPage))));
+	assert((!stackPage)
+	 || (stackPage == (mostRecentlyUsedPage)));
 
 	/* begin stackPageFor: */
-	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
-	if (!((onCurrent = thePage == GIV(stackPage)))) {
+	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
+	if (!((onCurrent = thePage == stackPage))) {
 		markStackPageNextMostRecentlyUsed(thePage);
 	}
 	theSP = findSPOfon(theFP, thePage);
@@ -58,7 +58,7 @@ externalDivorceFrameandContext(char *theFP, sqInt ctxt)
 l2:
 	if ((frameAbove = findFrameAboveinPage(theFP, thePage))) {
 		/* begin newStackPage */
-		newPage = (GIV(mostRecentlyUsedPage)->nextPage);
+		newPage = (mostRecentlyUsedPage->nextPage);
 		if (!((newPage->baseFP))) {
 			goto l1;
 		}
@@ -70,15 +70,15 @@ l1:
 		if (onCurrent) {
 			/* begin setStackPageAndLimit: */
 			assert(newPage);
-			GIV(stackPage) = newPage;
-			if (GIV(stackLimit) != (((char *) (((usqInt) -1))))) {
-				GIV(stackLimit) = (GIV(stackPage)->stackLimit);
+			stackPage = newPage;
+			if (stackLimit != (((char *) (((usqInt) -1))))) {
+				stackLimit = (stackPage->stackLimit);
 			}
 			markStackPageMostRecentlyUsed(newPage);
 
 			/* begin setStackPointersFromPage: */
-			GIV(stackPointer) = (newPage->headSP);
-			GIV(framePointer) = (newPage->headFP);
+			stackPointer = (newPage->headSP);
+			framePointer = (newPage->headFP);
 		}
 		else {
 			markStackPageMostRecentlyUsed(newPage);
@@ -108,10 +108,10 @@ l1:
 	/* begin storePointer:ofObject:withValue: */
 	assert(validStorePointerArgs(SenderIndex, ctxt, callerCtx));
 	assert(isNonImmediate(ctxt));
-	if (oopisGreaterThanOrEqualTo(ctxt, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(ctxt, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(callerCtx & (tagMask()))))
-		 && (oopisLessThan(callerCtx, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(callerCtx, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(ctxt + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(ctxt);

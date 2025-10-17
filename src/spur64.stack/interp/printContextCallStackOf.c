@@ -10,7 +10,7 @@ printContextCallStackOf(sqInt aContext)
     sqInt ctxt;
 
 	ctxt = aContext;
-	while (!((ctxt == GIV(nilObj))
+	while (!((ctxt == nilObj)
 	 || (((((longAt((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)))) {
 		shortPrintContext(ctxt);
 		ctxt = longAt((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));

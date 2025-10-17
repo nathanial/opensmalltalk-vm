@@ -22,9 +22,9 @@ initStackPagesAndContinueIntowith(void (*continuation)(void *), void *argument)
     void *theStackMemory;
 
 	/* begin ensureInitializeStackZone */
-	if (!GIV(pages)) {
+	if (!pages) {
 		stackPageBytes = stackPageByteSize();
-		stackZoneBytes = (GIV(numStackPages) * ((sizeof(CogStackPage)) + (stackPageByteSize()))) + BytesPerWord;
+		stackZoneBytes = (numStackPages * ((sizeof(CogStackPage)) + (stackPageByteSize()))) + BytesPerWord;
 		theStackMemory = alloca(stackZoneBytes);
 		memset(theStackMemory, 0, stackZoneBytes);
 		initializeStacknumSlotspageSize(theStackMemory, stackZoneBytes / BytesPerWord, stackPageBytes / BytesPerWord);

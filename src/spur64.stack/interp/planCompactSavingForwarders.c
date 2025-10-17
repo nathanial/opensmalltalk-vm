@@ -36,27 +36,27 @@ planCompactSavingForwarders(void)
 
 	availableSpace = 0;
 	previousPin = 0;
-	assert(!((isMarked(GIV(firstFreeObject)))));
+	assert(!((isMarked(firstFreeObject))));
 	toFinger = /* startOfObject: */
-			((byteAt((void *)(GIV(firstFreeObject) + (numSlotsFieldByteOffset())))) == (numSlotsMask())
-				? GIV(firstFreeObject) - BaseHeaderSize
-				: GIV(firstFreeObject));
-	top = (GIV(savedFirstFieldsSpace).start);
+			((byteAt((void *)(firstFreeObject + (numSlotsFieldByteOffset())))) == (numSlotsMask())
+				? firstFreeObject - BaseHeaderSize
+				: firstFreeObject);
+	top = (savedFirstFieldsSpace.start);
 	startOfPreviousPin = 0;
 
 	/* begin allOldSpaceEntitiesFrom:do: */
-	assert(isOldObject(GIV(firstFreeObject)));
+	assert(isOldObject(firstFreeObject));
 	prevPrevObj = (prevObj = null);
-	objOop = GIV(firstFreeObject);
+	objOop = firstFreeObject;
 	while (1) {
 		assert((objOop % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objOop, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objOop, endOfMemory))) break;
 		assert((long64At((void *)(objOop))) != 0);
 		assert((previousPin == null
 				? toFinger <= (startOfObject(objOop))
 				: (isMarked(previousPin))
 				 && (toFinger <= startOfPreviousPin)));
-		assert(GIV(savedFirstFieldsSpaceNotInOldSpace)
+		assert(savedFirstFieldsSpaceNotInOldSpace
 		 || (toFinger < top));
 		if ((byteAt((void *)(objOop + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) {
 			if ((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) {
@@ -112,7 +112,7 @@ planCompactSavingForwarders(void)
 				   Any unfillable gaps between adjacent pinned objects will be freed. */
 
 				/* begin forwardMobileObject:to:savedFirstFieldPtr: */
-				GIV(lastMobileObject) = objOop;
+				lastMobileObject = objOop;
 				eventualLocation = ((byteAt((void *)(objOop + (numSlotsFieldByteOffset())))) == (numSlotsMask())
 							? toFinger + BaseHeaderSize
 							: toFinger);
@@ -124,9 +124,9 @@ planCompactSavingForwarders(void)
 				assert(validStorePointerUncheckedArgs(0, objOop, eventualLocation));
 				longAtput((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))),eventualLocation);
 				toFinger += bytes;
-				if (((top += BytesPerOop)) >= ((GIV(savedFirstFieldsSpace).limit))) {
-					(GIV(savedFirstFieldsSpace).top = top - BytesPerOop);
-					GIV(objectAfterLastMobileObject) = oldSpaceObjectAfter(GIV(lastMobileObject));
+				if (((top += BytesPerOop)) >= ((savedFirstFieldsSpace.limit))) {
+					(savedFirstFieldsSpace.top = top - BytesPerOop);
+					objectAfterLastMobileObject = oldSpaceObjectAfter(lastMobileObject);
 					return 0;
 				}
 			}
@@ -136,8 +136,8 @@ planCompactSavingForwarders(void)
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objOop = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objOop = endOfMemory;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
@@ -149,9 +149,9 @@ l1:;
 	}
 
 	/* If the heap is already fully compacted there will be no lastMobileObject... */
-	if (GIV(lastMobileObject)) {
-		(GIV(savedFirstFieldsSpace).top = top - BytesPerOop);
-		GIV(objectAfterLastMobileObject) = oldSpaceObjectAfter(GIV(lastMobileObject));
+	if (lastMobileObject) {
+		(savedFirstFieldsSpace.top = top - BytesPerOop);
+		objectAfterLastMobileObject = oldSpaceObjectAfter(lastMobileObject);
 	}
 	return 1;
 }

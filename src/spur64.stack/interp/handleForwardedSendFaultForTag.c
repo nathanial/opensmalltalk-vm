@@ -13,7 +13,7 @@ handleForwardedSendFaultForTag(sqInt classTag)
     sqInt tagBits;
 
 	assert(isForwardedClassTag(classTag));
-	rcvr = longAt(GIV(stackPointer) + (GIV(argumentCount) * BytesPerWord));
+	rcvr = longAt(stackPointer + (argumentCount * BytesPerWord));
 
 	/* should *not* be a super send, so the receiver should be forwarded. */
 	assert(isOopForwarded(rcvr));
@@ -29,12 +29,12 @@ handleForwardedSendFaultForTag(sqInt classTag)
 	rcvr = referent;
 
 	/* stackValue:put: */
-	longAtput(GIV(stackPointer) + (GIV(argumentCount) * BytesPerWord),rcvr);
-	followForwardedFrameContentsstackPointer(GIV(framePointer), GIV(stackPointer) + ((GIV(argumentCount) + 1) * BytesPerWord));
+	longAtput(stackPointer + (argumentCount * BytesPerWord),rcvr);
+	followForwardedFrameContentsstackPointer(framePointer, stackPointer + ((argumentCount + 1) * BytesPerWord));
 	if (/* isPointers: */
-		((!((longAt(GIV(framePointer) + FoxReceiver)) & (tagMask()))))
-	 && (((byteAt((void *)((longAt(GIV(framePointer) + FoxReceiver)) + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */)) {
-		followForwardedObjectFieldstoDepth(longAt(GIV(framePointer) + FoxReceiver), 0);
+		((!((longAt(framePointer + FoxReceiver)) & (tagMask()))))
+	 && (((byteAt((void *)((longAt(framePointer + FoxReceiver)) + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */)) {
+		followForwardedObjectFieldstoDepth(longAt(framePointer + FoxReceiver), 0);
 	}
 	return /* fetchClassTagOf: */
 		((tagBits = rcvr & (tagMask()))

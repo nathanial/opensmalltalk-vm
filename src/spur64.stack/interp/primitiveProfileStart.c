@@ -21,19 +21,19 @@ primitiveProfileStart(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt deltaTicks;
 
-	deltaTicks = longAt(GIV(stackPointer));
+	deltaTicks = longAt(stackPointer);
 	if ((((deltaTicks) & 7) == 1)) {
-		GIV(deferProfileCheckForVNCS) = 0;
-		GIV(profileProcess) = (GIV(profileMethod) = null);
+		deferProfileCheckForVNCS = 0;
+		profileProcess = (profileMethod = null);
 		deltaTicks = (deltaTicks >> 3);
-		GIV(nextProfileTick) = (deltaTicks > 0
+		nextProfileTick = (deltaTicks > 0
 					? (ioHighResClock()) + deltaTicks
 					: 0);
 
 		/* begin methodReturnReceiver */
 		assert(!((failed())));
-		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+		stackPointer += argumentCount * BytesPerWord;
 		return 0;
 	}
-	return (GIV(primFailCode) = PrimErrBadArgument);
+	return (primFailCode = PrimErrBadArgument);
 }

@@ -12,23 +12,23 @@
 static NoDbgRegParms sqInt
 markStackPageMostRecentlyUsed(StackPage *page)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	if (page == GIV(mostRecentlyUsedPage)) {
+	if (page == mostRecentlyUsedPage) {
 		return null;
 	}
 
 	/* Common case; making new page most recently used. */
-	if (((page->prevPage)) == GIV(mostRecentlyUsedPage)) {
-		GIV(mostRecentlyUsedPage) = page;
+	if (((page->prevPage)) == mostRecentlyUsedPage) {
+		mostRecentlyUsedPage = page;
 		assert(pageListIsWellFormed());
 		return null;
 	}
 	(((page->prevPage))->nextPage = (page->nextPage));
 	(((page->nextPage))->prevPage = (page->prevPage));
-	(((GIV(mostRecentlyUsedPage)->nextPage))->prevPage = page);
-	(page->prevPage = GIV(mostRecentlyUsedPage));
-	(page->nextPage = (GIV(mostRecentlyUsedPage)->nextPage));
-	(GIV(mostRecentlyUsedPage)->nextPage = page);
-	GIV(mostRecentlyUsedPage) = page;
+	(((mostRecentlyUsedPage->nextPage))->prevPage = page);
+	(page->prevPage = mostRecentlyUsedPage);
+	(page->nextPage = (mostRecentlyUsedPage->nextPage));
+	(mostRecentlyUsedPage->nextPage = page);
+	mostRecentlyUsedPage = page;
 	assert(pageListIsWellFormed());
 	return 0;
 }

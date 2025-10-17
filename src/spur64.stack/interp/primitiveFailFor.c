@@ -8,5 +8,5 @@
 sqInt
 primitiveFailFor(sqInt reasonCode)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return (GIV(primFailCode) = reasonCode);
+	return (primFailCode = reasonCode);
 }

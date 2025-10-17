@@ -9,9 +9,9 @@ printLogEntryAt(sqInt i)
     sqInt selectorMethodOrProcess;
     sqInt source;
 
-	intOrClass = GIV(traceLog)[i];
-	selectorMethodOrProcess = GIV(traceLog)[i + 1];
-	source = GIV(traceLog)[i + 2];
+	intOrClass = traceLog[i];
+	selectorMethodOrProcess = traceLog[i + 1];
+	source = traceLog[i + 2];
 	print(traceSources[source]);
 
 	/* begin space */

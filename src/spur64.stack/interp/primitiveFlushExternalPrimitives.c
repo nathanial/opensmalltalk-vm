@@ -22,11 +22,11 @@ primitiveFlushExternalPrimitives(void)
 	/* begin flushExternalPrimitives */
 	/* begin allObjectsDo: */
 	address = /* startAddressForBridgedHeapEnumeration */
-			(GIV(pastSpaceStart) > (((GIV(pastSpace)).start))
-				? ((GIV(pastSpace)).start)
-				: (GIV(freeStart) > (((GIV(eden)).start))
-						? ((GIV(eden)).start)
-						: GIV(oldSpaceStart)));
+			(pastSpaceStart > (((pastSpace).start))
+				? ((pastSpace).start)
+				: (freeStart > (((eden).start))
+						? ((eden).start)
+						: oldSpaceStart));
 
 	/* begin objectStartingAt: */
 	numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
@@ -40,7 +40,7 @@ primitiveFlushExternalPrimitives(void)
 	enableObjectEnumerationFrom(startObject);
 	while (1) {
 		assert((obj % (allocationUnit())) == 0);
-		if (!(oopisLessThan(obj, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(obj, endOfMemory))) break;
 		assert((long64At((void *)(obj))) != 0);
 
 		/* begin isEnumerableObject: */
@@ -48,7 +48,7 @@ primitiveFlushExternalPrimitives(void)
 		assert((classIndex == (segmentBridgePun()))
 		 || ((classIndex == (isForwardedObjectClassIndexPun()))
 		 || (((long64At((void *)(obj))) != 0)
-		 && (classIndex < (GIV(numClassTablePages) * (classTablePageSize()))))));
+		 && (classIndex < (numClassTablePages * (classTablePageSize()))))));
 		if (classIndex >= (isForwardedObjectClassIndexPun())) {
 			if (((byteAt((void *)(obj + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat())) {
 				flushExternalPrimitiveOf(obj);
@@ -59,13 +59,13 @@ primitiveFlushExternalPrimitives(void)
 
 		/* begin objectAfterMaybeSlimBridge:limit: */
 		followingWordAddress = addressAfter(obj);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			obj = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			obj = endOfMemory;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
 		obj = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-					? ((oopisLessThan(obj, GIV(oldSpaceStart)))
+					? ((oopisLessThan(obj, oldSpaceStart))
 					 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 							? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 							: followingWordAddress + BaseHeaderSize)
@@ -76,13 +76,13 @@ l1:
 	}
 
 	/* begin flushMethodCache */
-	memset(GIV(methodCache), 0, MethodCacheSize * (sizeof(GIV(methodCache)[0])));
+	memset(methodCache, 0, MethodCacheSize * (sizeof(methodCache[0])));
 
 	/* this for primitiveExternalMethod */
-	GIV(lastMethodCacheProbeWrite) = 0;
+	lastMethodCacheProbeWrite = 0;
 
 	/* begin flushAtCache */
-	memset(GIV(atCache), 0, AtCacheTotalSize * (sizeof(GIV(atCache)[0])));
+	memset(atCache, 0, AtCacheTotalSize * (sizeof(atCache[0])));
 	memset(externalPrimitiveTable, 0, MaxExternalPrimitiveTableSize * (sizeof(externalPrimitiveTable[0])));
-	GIV(externalPrimitiveTableFirstFreeIndex) = 0;
+	externalPrimitiveTableFirstFreeIndex = 0;
 }

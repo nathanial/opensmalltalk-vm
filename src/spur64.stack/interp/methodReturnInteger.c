@@ -13,7 +13,7 @@ methodReturnInteger(sqInt integer)
 	assert(!((failed())));
 
 	/* begin pop:thenPushInteger: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)integer << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)integer << 3) | 1));
+	stackPointer = sp;
 	return 0;
 }

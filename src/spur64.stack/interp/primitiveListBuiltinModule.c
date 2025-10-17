@@ -12,31 +12,31 @@ primitiveListBuiltinModule(void)
     char *moduleName;
     char *sp;
 
-	if (!(GIV(argumentCount) == 1)) {
+	if (!(argumentCount == 1)) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer));
+	integerPointer = longAt(stackPointer);
 	if ((((integerPointer) & 7) == 1)) {
 		index = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		index = 0;
 	}
-	if (GIV(primFailCode)
+	if (primFailCode
 	 || (index <= 0)) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
@@ -46,7 +46,7 @@ primitiveListBuiltinModule(void)
 	else {
 		/* begin methodReturnValue: */
 		assert(!((failed())));
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),GIV(nilObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),nilObj);
+		stackPointer = sp;
 	}
 }

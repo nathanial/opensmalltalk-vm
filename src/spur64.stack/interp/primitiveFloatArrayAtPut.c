@@ -22,21 +22,21 @@ primitiveFloatArrayAtPut(void)
     sqInt valueOop;
 
 	/* begin primitiveSpurFloatArrayAtPut */
-	valueOop = longAt(GIV(stackPointer));
-	index = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	rcvr = longAt(GIV(stackPointer) + (2 * BytesPerWord));
+	valueOop = longAt(stackPointer);
+	index = longAt(stackPointer + (1 * BytesPerWord));
+	rcvr = longAt(stackPointer + (2 * BytesPerWord));
 	if (!((/* isFloatInstance: */
 			((tagBits = valueOop & (tagMask()))
 				? tagBits == (smallFloatTag())
 				: ((longAt((void *)(valueOop))) & (classIndexMask())) == ClassFloatCompactIndex))
 		 && ((((index) & 7) == 1)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		goto l1;
 	}
 	if (((rcvr & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		goto l1;
 	}
 	if (
@@ -47,7 +47,7 @@ primitiveFloatArrayAtPut(void)
 #  endif
 		) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNoModification;
+		primFailCode = PrimErrNoModification;
 		goto l1;
 	}
 	fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
@@ -60,13 +60,13 @@ primitiveFloatArrayAtPut(void)
 			/* begin storeLong64:ofObject:withValue: */
 			long64Atput((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 3)))),value);
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),valueOop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),valueOop);
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 
@@ -99,18 +99,18 @@ primitiveFloatArrayAtPut(void)
 			/* begin storeFloat32:ofObject:withValue: */
 			singleFloatAtput((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 2)))),aFloat);
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),valueOop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),valueOop);
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = PrimErrBadReceiver;
+	primFailCode = PrimErrBadReceiver;
 	/* end primitiveSpurFloatArrayAtPut */
 l1:;
 }

@@ -15,7 +15,7 @@ primitiveSmallFloatDivide(void)
     sqInt tagBits;
     double value;
 
-	oop = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	oop = longAt(stackPointer + (1 * BytesPerWord));
 
 	/* begin smallFloatValueOf: */
 	/* begin smallFloatBitsOf: */
@@ -28,7 +28,7 @@ primitiveSmallFloatDivide(void)
 	/* a.k.a. ~= +/-0.0 */
 	bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
 	memcpy((&rcvr), (&bits), sizeof(rcvr));
-	floatOrIntOop = longAt(GIV(stackPointer));
+	floatOrIntOop = longAt(stackPointer);
 
 	/* begin loadFloatOrIntFrom: */
 	if ((tagBits = floatOrIntOop & (tagMask()))) {
@@ -62,21 +62,21 @@ primitiveSmallFloatDivide(void)
 	}
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	arg = 0.0;
 	/* end loadFloatOrIntFrom: */
 l1:
 	if (arg == 0.0) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		/* begin pop:thenPushFloat: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),floatObjectOf(rcvr / arg));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),floatObjectOf(rcvr / arg));
+		stackPointer = sp;
 	}
 }

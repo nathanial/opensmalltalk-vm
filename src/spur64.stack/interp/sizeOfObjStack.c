@@ -8,7 +8,7 @@ sizeOfObjStack(sqInt objStack)
     sqInt objStackPage;
     sqInt total;
 
-	if (objStack == GIV(nilObj)) {
+	if (objStack == nilObj) {
 		return 0;
 	}
 	total = longAt((void *)((objStack + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));

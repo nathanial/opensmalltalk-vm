@@ -14,17 +14,17 @@ primitiveInterruptChecksPerMSec(void)
     sqInt oop;
     char *sp;
 
-	if (GIV(argumentCount)) {
+	if (argumentCount) {
 		/* begin success: */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return null;
 	}
 	oop = (((usqInt)(ioHeartbeatMilliseconds()) << 3) | 1);
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer)),oop);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),oop);
+	stackPointer = sp;
 	return 0;
 }

@@ -5,7 +5,7 @@
 static NoDbgRegParms void
 printObjStackPagemyIndextag(sqInt objStackPage, sqInt myx, char *pageType)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%s %p cx %d (%d) fmt %d (%d) sz %d (%d) myx: %d (%d%s\n",
 			pageType,
 			((void *)objStackPage),

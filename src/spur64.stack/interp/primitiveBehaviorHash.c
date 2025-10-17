@@ -16,13 +16,13 @@ primitiveBehaviorHash(void)
     sqInt shouldBeClassObj;
     char *sp;
 
-	shouldBeClassObj = longAt(GIV(stackPointer));
-	if (GIV(argumentCount) > 0) {
+	shouldBeClassObj = longAt(stackPointer);
+	if (argumentCount > 0) {
 		if ((((shouldBeClassObj & (tagMask())) != 0))
 		 || (((!((longAt((void *)(shouldBeClassObj))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))
 		 || (!(objCouldBeClassObj(shouldBeClassObj))))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			return;
 		}
 	}
@@ -42,12 +42,12 @@ primitiveBehaviorHash(void)
 						: -PrimErrBadReceiver));
 	if (hashOrError < 0) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -hashOrError;
+		primFailCode = -hashOrError;
 		return;
 	}
 
 	/* begin methodReturnInteger: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)hashOrError << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)hashOrError << 3) | 1));
+	stackPointer = sp;
 }

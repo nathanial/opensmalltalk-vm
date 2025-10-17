@@ -15,37 +15,37 @@ primitiveControlVMProfiling(void)
     sqInt onOffBar;
     char *sp;
 
-	if (GIV(argumentCount) != 2) {
+	if (argumentCount != 2) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
-	if (((onOffBar = longAt(GIV(stackPointer) + (1 * BytesPerWord)))) == GIV(trueObj)) {
+	if (((onOffBar = longAt(stackPointer + (1 * BytesPerWord)))) == trueObj) {
 		onOffBar = 1;
 	}
 	else {
-		if (onOffBar == GIV(falseObj)) {
+		if (onOffBar == falseObj) {
 			onOffBar = 0;
 		}
 		else {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return;
 		}
 	}
-	if (((bufferSize = longAt(GIV(stackPointer)))) == GIV(nilObj)) {
+	if (((bufferSize = longAt(stackPointer))) == nilObj) {
 		bufferSize = 0;
 	}
 	else {
 		if (!(((((bufferSize) & 7) == 1))
 			 && (((bufferSize = (bufferSize >> 3))) > 0))) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return;
 		}
@@ -53,6 +53,6 @@ primitiveControlVMProfiling(void)
 	numSamples = ioControlNewProfile(onOffBar,bufferSize);
 
 	/* begin pop:thenPushInteger: */
-	longAtput((sp = GIV(stackPointer) + (2 * BytesPerWord)),(((usqInt)numSamples << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (2 * BytesPerWord)),(((usqInt)numSamples << 3) | 1));
+	stackPointer = sp;
 }

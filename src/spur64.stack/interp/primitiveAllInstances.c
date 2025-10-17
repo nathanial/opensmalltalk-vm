@@ -15,20 +15,20 @@ primitiveAllInstances(void)
 
 
 	/* For the mirror prims check that the class obj is actually a valid class. */
-	result = allInstancesOf(longAt(GIV(stackPointer)));
+	result = allInstancesOf(longAt(stackPointer));
 	if ((((result) & 7) == 1)) {
 		/* begin growToAccomodateContainerWithNumSlots: */
 		delta = (BaseHeaderSize * 2) + (((result >> 3)) * BytesPerOop);
-		growOldSpaceByAtLeast(((GIV(growHeadroom) < delta) ? delta : GIV(growHeadroom)));
-		result = allInstancesOf(longAt(GIV(stackPointer)));
+		growOldSpaceByAtLeast(((growHeadroom < delta) ? delta : growHeadroom));
+		result = allInstancesOf(longAt(stackPointer));
 		if ((((result) & 7) == 1)) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrNoMemory;
+			primFailCode = PrimErrNoMemory;
 			return;
 		}
 	}
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),result);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),result);
+	stackPointer = sp;
 }

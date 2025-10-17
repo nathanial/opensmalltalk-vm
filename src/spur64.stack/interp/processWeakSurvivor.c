@@ -34,7 +34,7 @@ processWeakSurvivor(sqInt weakObj)
 		if (((!(referent & (tagMask()))))
 		 && ((/* begin isYoungObject: */
 			assert(isNonImmediate(referent)),
-		oopisLessThan(referent, GIV(oldSpaceStart))))) {
+		oopisLessThan(referent, oldSpaceStart)))) {
 			hasYoungReferents = 1;
 		}
 	}
@@ -72,7 +72,7 @@ processWeakSurvivor(sqInt weakObj)
 			if (isMaybeOldScavengeSurvivor(referent)) {
 				/* begin isYoungObject: */
 				assert(isNonImmediate(referent));
-				if (oopisLessThan(referent, GIV(oldSpaceStart))) {
+				if (oopisLessThan(referent, oldSpaceStart)) {
 					hasYoungReferents = 1;
 				}
 			}
@@ -82,20 +82,20 @@ processWeakSurvivor(sqInt weakObj)
 				/* begin storePointerUnchecked:ofObject:withValue: */
 				assert((isNonImmediate(weakObj))
 				 && (!(isForwarded(weakObj))));
-				assert(validStorePointerUncheckedArgs(i, weakObj, GIV(nilObj)));
-				longAtput((void *)((weakObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),GIV(nilObj));
+				assert(validStorePointerUncheckedArgs(i, weakObj, nilObj));
+				longAtput((void *)((weakObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),nilObj);
 			}
 		}
 	}
 	if (weakObjShouldMourn) {
 		/* begin fireFinalization: */
-		if (GIV(newFinalization)) {
+		if (newFinalization) {
 			queueMourner(weakObj);
 		}
 
 		/* begin signalFinalization: */
 		forceInterruptCheck();
-		GIV(pendingFinalizationSignals) += 1;
+		pendingFinalizationSignals += 1;
 	}
 	return hasYoungReferents;
 }

@@ -34,11 +34,11 @@ primitiveDoNamedPrimitiveWithArgs(void)
     sqInt top;
     sqInt valuePointer;
 
-	GIV(metaAccessorDepth) = -2;
+	metaAccessorDepth = -2;
 
 	/* See checkForAndFollowForwardedPrimitiveState */
-	argumentArray = longAt(GIV(stackPointer));
-	methodArg = longAt(GIV(stackPointer) + (2 * BytesPerWord));
+	argumentArray = longAt(stackPointer);
+	methodArg = longAt(stackPointer + (2 * BytesPerWord));
 	if (!((/* isArray: */
 			((!(argumentArray & (tagMask()))))
 		 && (((byteAt((void *)(argumentArray + (formatFieldByteOffset())))) & (formatMask())) == (arrayFormat())))
@@ -46,7 +46,7 @@ primitiveDoNamedPrimitiveWithArgs(void)
 			((!(methodArg & (tagMask()))))
 		 && (((byteAt((void *)(methodArg + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat()))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -2;
+		primFailCode = -2;
 		return;
 	}
 
@@ -57,7 +57,7 @@ primitiveDoNamedPrimitiveWithArgs(void)
 				: numSlots);
 	if (!(arraySize <= (LargeContextSlots - CtxtTempFrameStart))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -2;
+		primFailCode = -2;
 		return;
 	}
 
@@ -69,7 +69,7 @@ primitiveDoNamedPrimitiveWithArgs(void)
 		/* literalCountOfAlternateHeader: */
 			((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask)) > 2)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -3;
+		primFailCode = -3;
 		return;
 	}
 	spec = longAt((void *)((methodArg + BaseHeaderSize) + (1U << (shiftForWord()))));
@@ -101,16 +101,16 @@ l2:
 				(byteAt((void *)(firstBytecode + 1))) + ((((usqInt)((byteAt((void *)(firstBytecode + 2)))) << 8))))
 				: 0)) == PrimNumberExternalCall)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -3;
+		primFailCode = -3;
 		return;
 	}
 	if (!(((((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15) == arraySize)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -2;
+		primFailCode = -2;
 		return;
 	}
 	moduleName = longAt((void *)((spec + BaseHeaderSize) + (0U << (shiftForWord()))));
-	if (moduleName == GIV(nilObj)) {
+	if (moduleName == nilObj) {
 		moduleLength = 0;
 	}
 	else {
@@ -120,8 +120,8 @@ l2:
 
 		/* begin success: */
 		if (!successBoolean) {
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
 
@@ -141,8 +141,8 @@ l2:
 
 	/* begin success: */
 	if (!successBoolean) {
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 
@@ -154,38 +154,38 @@ l2:
 (((numSlots = byteAt((void *)(functionName + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
 			? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(functionName - BaseHeaderSize)))) << 8)))))) >> 8
 			: numSlots))) << (shiftForWord()))) - (fmt & 7);
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -3;
+		primFailCode = -3;
 		return;
 	}
-	addr = ioLoadExternalFunctionOfLengthFromModuleOfLengthMetadataInto(functionName + BaseHeaderSize, functionLength, moduleName + BaseHeaderSize, moduleLength, (&GIV(metaAccessorDepth)));
+	addr = ioLoadExternalFunctionOfLengthFromModuleOfLengthMetadataInto(functionName + BaseHeaderSize, functionLength, moduleName + BaseHeaderSize, moduleLength, (&metaAccessorDepth));
 
 	/* N.B. the accessor depth is the second byte of the primitive's metadata;
 	   the first byte is various flags (currently l.s.b. = use fast C linkage). */
-	GIV(metaAccessorDepth) = (addr
-				? (((usqInt)(GIV(metaAccessorDepth))) >> 8)
+	metaAccessorDepth = (addr
+				? (((usqInt)(metaAccessorDepth)) >> 8)
 				: -2);
 	if (!addr) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -1;
+		primFailCode = -1;
 		return;
 	}
 
 	/* begin eeInstantiateClassIndex:format:numSlots: */
-	assert((knownClassAtIndex(ClassArrayCompactIndex)) != GIV(nilObj));
+	assert((knownClassAtIndex(ClassArrayCompactIndex)) != nilObj);
 	assert((arrayFormat()) == (instSpecOfClass(knownClassAtIndex(ClassArrayCompactIndex))));
-	newObj = GIV(freeStart);
+	newObj = freeStart;
 	numBytes = BaseHeaderSize + (4 * BytesPerOop);
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateNewSpaceSlots:format:classIndex:");
-			GIV(tempOop) = 0;
+			tempOop = 0;
 			goto l1;
 		}
 	}
@@ -194,88 +194,88 @@ l2:
 	/* for header parsing we put a saturated slot count in the prepended overflow size word */
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	GIV(freeStart) += numBytes;
-	GIV(tempOop) = newObj;
+	freeStart += numBytes;
+	tempOop = newObj;
 	/* end eeInstantiateClassIndex:format:numSlots: */
 l1:
 
 	/* begin popStack */
-	valuePointer = (argumentArray = longAt(GIV(stackPointer)));
-	GIV(stackPointer) += BytesPerWord;
+	valuePointer = (argumentArray = longAt(stackPointer));
+	stackPointer += BytesPerWord;
 	valuePointer = (argumentArray);
 
 	/* begin storePointerUnchecked:ofObject:withValue: */
-	assert((isNonImmediate(GIV(tempOop)))
-	 && (!(isForwarded(GIV(tempOop)))));
-	assert(validStorePointerUncheckedArgs(0, GIV(tempOop), valuePointer));
-	longAtput((void *)((GIV(tempOop) + BaseHeaderSize) + (0U << (shiftForWord()))),valuePointer);
+	assert((isNonImmediate(tempOop))
+	 && (!(isForwarded(tempOop))));
+	assert(validStorePointerUncheckedArgs(0, tempOop, valuePointer));
+	longAtput((void *)((tempOop + BaseHeaderSize) + (0U << (shiftForWord()))),valuePointer);
 
 	/* begin popStack */
-	valuePointer = (primRcvr = longAt(GIV(stackPointer)));
-	GIV(stackPointer) += BytesPerWord;
+	valuePointer = (primRcvr = longAt(stackPointer));
+	stackPointer += BytesPerWord;
 	valuePointer = (primRcvr);
 
 	/* begin storePointerUnchecked:ofObject:withValue: */
-	assert((isNonImmediate(GIV(tempOop)))
-	 && (!(isForwarded(GIV(tempOop)))));
-	assert(validStorePointerUncheckedArgs(1, GIV(tempOop), valuePointer));
-	longAtput((void *)((GIV(tempOop) + BaseHeaderSize) + (1U << (shiftForWord()))),valuePointer);
+	assert((isNonImmediate(tempOop))
+	 && (!(isForwarded(tempOop))));
+	assert(validStorePointerUncheckedArgs(1, tempOop, valuePointer));
+	longAtput((void *)((tempOop + BaseHeaderSize) + (1U << (shiftForWord()))),valuePointer);
 
 	/* begin popStack */
-	top = longAt(GIV(stackPointer));
-	GIV(stackPointer) += BytesPerWord;
+	top = longAt(stackPointer);
+	stackPointer += BytesPerWord;
 	valuePointer = top;
 
 	/* begin storePointerUnchecked:ofObject:withValue: */
-	assert((isNonImmediate(GIV(tempOop)))
-	 && (!(isForwarded(GIV(tempOop)))));
-	assert(validStorePointerUncheckedArgs(2, GIV(tempOop), valuePointer));
-	longAtput((void *)((GIV(tempOop) + BaseHeaderSize) + (2U << (shiftForWord()))),valuePointer);
+	assert((isNonImmediate(tempOop))
+	 && (!(isForwarded(tempOop))));
+	assert(validStorePointerUncheckedArgs(2, tempOop, valuePointer));
+	longAtput((void *)((tempOop + BaseHeaderSize) + (2U << (shiftForWord()))),valuePointer);
 
 	/* begin popStack */
-	top = longAt(GIV(stackPointer));
-	GIV(stackPointer) += BytesPerWord;
+	top = longAt(stackPointer);
+	stackPointer += BytesPerWord;
 	valuePointer = top;
 
 	/* begin storePointerUnchecked:ofObject:withValue: */
-	assert((isNonImmediate(GIV(tempOop)))
-	 && (!(isForwarded(GIV(tempOop)))));
-	assert(validStorePointerUncheckedArgs(3, GIV(tempOop), valuePointer));
-	longAtput((void *)((GIV(tempOop) + BaseHeaderSize) + (3U << (shiftForWord()))),valuePointer);
+	assert((isNonImmediate(tempOop))
+	 && (!(isForwarded(tempOop))));
+	assert(validStorePointerUncheckedArgs(3, tempOop, valuePointer));
+	longAtput((void *)((tempOop + BaseHeaderSize) + (3U << (shiftForWord()))),valuePointer);
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),primRcvr);
-	GIV(stackPointer) = sp;
-	GIV(argumentCount) = arraySize;
+	longAtput((sp = stackPointer - BytesPerWord),primRcvr);
+	stackPointer = sp;
+	argumentCount = arraySize;
 	for (index = 1; index <= arraySize; index += 1) {
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),longAt((void *)((argumentArray + BaseHeaderSize) + ((((usqInt)((index - 1)) << (shiftForWord())))))));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),longAt((void *)((argumentArray + BaseHeaderSize) + ((((usqInt)((index - 1)) << (shiftForWord())))))));
+		stackPointer = sp;
 	}
 
 	/* begin callExternalPrimitive: */
 	primitiveFunctionPointer = addr;
 	dispatchFunctionPointer(addr);
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		/* begin pop: */
-		GIV(stackPointer) += (arraySize + 1) * BytesPerWord;
+		stackPointer += (arraySize + 1) * BytesPerWord;
 
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),longAt((void *)((GIV(tempOop) + BaseHeaderSize) + (3U << (shiftForWord())))));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),longAt((void *)((tempOop + BaseHeaderSize) + (3U << (shiftForWord())))));
+		stackPointer = sp;
 
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),longAt((void *)((GIV(tempOop) + BaseHeaderSize) + (2U << (shiftForWord())))));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),longAt((void *)((tempOop + BaseHeaderSize) + (2U << (shiftForWord())))));
+		stackPointer = sp;
 
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),longAt((void *)((GIV(tempOop) + BaseHeaderSize) + (1U << (shiftForWord())))));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),longAt((void *)((tempOop + BaseHeaderSize) + (1U << (shiftForWord())))));
+		stackPointer = sp;
 
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),longAt((void *)((GIV(tempOop) + BaseHeaderSize) + (0U << (shiftForWord())))));
-		GIV(stackPointer) = sp;
-		GIV(argumentCount) = 3;
+		longAtput((sp = stackPointer - BytesPerWord),longAt((void *)((tempOop + BaseHeaderSize) + (0U << (shiftForWord())))));
+		stackPointer = sp;
+		argumentCount = 3;
 
 		/* Must reset primitiveFunctionPointer for checkForAndFollowForwardedPrimitiveState */
 		primitiveFunctionPointer = primitiveDoNamedPrimitiveWithArgs;
@@ -283,8 +283,8 @@ l1:
 		/* Hack.  A nil prim error code (primErrorCode = 1) is interpreted by the image
 		   as meaning this primitive is not implemented.  So to pass back nil as an error
 		   code we use -1 to indicate generic failure. */
-		if (GIV(primFailCode) == 1) {
-			GIV(primFailCode) = -1;
+		if (primFailCode == 1) {
+			primFailCode = -1;
 		}
 	}
 }

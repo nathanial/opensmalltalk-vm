@@ -11,9 +11,9 @@ static NoDbgRegParms sqInt
 pushOnUnscannedEphemeronsStack(sqInt anEphemeron)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
 	assert(isEphemeron(anEphemeron));
-	if (((GIV(unscannedEphemerons).top)) > ((GIV(unscannedEphemerons).limit))) {
+	if (((unscannedEphemerons.top)) > ((unscannedEphemerons.limit))) {
 		return 0;
 	}
-	longAtput((void *)((GIV(unscannedEphemerons).top = ((GIV(unscannedEphemerons).top)) + BytesPerOop)),anEphemeron);
+	longAtput((void *)((unscannedEphemerons.top = ((unscannedEphemerons.top)) + BytesPerOop)),anEphemeron);
 	return 1;
 }

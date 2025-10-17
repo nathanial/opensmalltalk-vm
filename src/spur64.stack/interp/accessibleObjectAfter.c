@@ -24,15 +24,15 @@ accessibleObjectAfter(sqInt objOop)
     sqInt objAfter;
 
 	objAfter = objOop;
-	if (oopisLessThan(objAfter, GIV(nilObj))) {
+	if (oopisLessThan(objAfter, nilObj)) {
 		assert((isInEden(objOop))
 		 || (isInPastSpace(objOop)));
-		if (oopisGreaterThan(objAfter, GIV(pastSpaceStart))) {
+		if (oopisGreaterThan(objAfter, pastSpaceStart)) {
 			while (1) {
 				/* begin objectAfter:limit: */
 				followingWordAddress = addressAfter(objAfter);
-				if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(freeStart))) {
-					objAfter = GIV(freeStart);
+				if (oopisGreaterThanOrEqualTo(followingWordAddress, freeStart)) {
+					objAfter = freeStart;
 					goto l1;
 				}
 				followingWord = longAt((void *)(followingWordAddress));
@@ -41,19 +41,19 @@ accessibleObjectAfter(sqInt objOop)
 							: followingWordAddress);
 				/* end objectAfter:limit: */
 l1:;
-				if (!(oopisLessThan(objAfter, GIV(freeStart)))) break;
+				if (!(oopisLessThan(objAfter, freeStart))) break;
 				if (((longAt((void *)(objAfter))) & (classIndexMask())) > (lastClassIndexPun())) {
 					return objAfter;
 				}
 			}
 
 			/* There wasn't a next object in eden. If past space is empty answer nilObj. */
-			if (GIV(pastSpaceStart) <= (((GIV(pastSpace)).start))) {
-				return GIV(nilObj);
+			if (pastSpaceStart <= (((pastSpace).start))) {
+				return nilObj;
 			}
 
 			/* If the first object in pastSpace is OK, answer it, otherwise fall through to enumerate past space. */
-			address = ((GIV(pastSpace)).start);
+			address = ((pastSpace).start);
 
 			/* begin objectStartingAt: */
 			numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
@@ -70,8 +70,8 @@ l1:;
 		while (1) {
 			/* begin objectAfter:limit: */
 			followingWordAddress = addressAfter(objAfter);
-			if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(pastSpaceStart))) {
-				objAfter = GIV(pastSpaceStart);
+			if (oopisGreaterThanOrEqualTo(followingWordAddress, pastSpaceStart)) {
+				objAfter = pastSpaceStart;
 				goto l2;
 			}
 			followingWord = longAt((void *)(followingWordAddress));
@@ -80,20 +80,20 @@ l1:;
 						: followingWordAddress);
 			/* end objectAfter:limit: */
 l2:;
-			if (!(oopisLessThan(objAfter, GIV(pastSpaceStart)))) break;
+			if (!(oopisLessThan(objAfter, pastSpaceStart))) break;
 			if (((longAt((void *)(objAfter))) & (classIndexMask())) > (lastClassIndexPun())) {
 				return objAfter;
 			}
 		}
-		return GIV(nilObj);
+		return nilObj;
 	}
 
 	/* object in new space */
 	while (1) {
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objAfter);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objAfter = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objAfter = endOfMemory;
 			goto l3;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
@@ -102,7 +102,7 @@ l2:;
 					: followingWordAddress);
 		/* end objectAfter:limit: */
 l3:
-		if (objAfter == GIV(endOfMemory)) {
+		if (objAfter == endOfMemory) {
 			return null;
 		}
 		if (((longAt((void *)(objAfter))) & (classIndexMask())) > (lastClassIndexPun())) {

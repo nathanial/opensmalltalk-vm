@@ -77,7 +77,7 @@ unlinkSolitaryFreeTreeNode(sqInt freeTreeNode)
 			/* begin storePointer:ofFreeChunk:withValue: */
 			assert(isFreeObject(smaller));
 			longAtput((void *)((smaller + BaseHeaderSize) + (2U << (shiftForWord()))),0);
-			GIV(freeLists)[0] = smaller;
+			freeLists[0] = smaller;
 			if (larger) {
 				addFreeSubTree(larger);
 			}
@@ -88,7 +88,7 @@ unlinkSolitaryFreeTreeNode(sqInt freeTreeNode)
 				assert(isFreeObject(larger));
 				longAtput((void *)((larger + BaseHeaderSize) + (2U << (shiftForWord()))),0);
 			}
-			GIV(freeLists)[0] = larger;
+			freeLists[0] = larger;
 		}
 	}
 }

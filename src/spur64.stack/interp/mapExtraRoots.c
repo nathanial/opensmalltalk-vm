@@ -8,11 +8,11 @@ mapExtraRoots(void)
     sqInt i;
     sqInt oop;
 
-	if (shouldRemapObj(GIV(specialObjectsOop))) {
-		GIV(validatedIntegerClassFlags) = 0;
-		GIV(specialObjectsOop) = remapObj(GIV(specialObjectsOop));
+	if (shouldRemapObj(specialObjectsOop)) {
+		validatedIntegerClassFlags = 0;
+		specialObjectsOop = remapObj(specialObjectsOop);
 	}
-	assert(GIV(remapBufferCount) == 0);
+	assert(remapBufferCount == 0);
 
 	/* 1 to: remapBufferCount do:
 	   [:i | | oop |
@@ -20,12 +20,12 @@ mapExtraRoots(void)
 	   ((self isImmediate: oop) or: [self isFreeObject: oop]) ifFalse:
 	   [(self shouldRemapObj: oop) ifTrue:
 	   [remapBuffer at: i put: (self remapObj: oop)]]]. */
-	for (i = 1; i <= GIV(extraRootCount); i += 1) {
-		oop = (GIV(extraRoots)[i])[0];
+	for (i = 1; i <= extraRootCount; i += 1) {
+		oop = (extraRoots[i])[0];
 		if (!((((oop & (tagMask())) != 0))
 			 || (((longAt((void *)(oop))) & (classIndexMask())) == (isFreeObjectClassIndexPun())))) {
 			if (shouldRemapObj(oop)) {
-				(GIV(extraRoots)[i])[0] = (remapObj(oop));
+				(extraRoots[i])[0] = (remapObj(oop));
 			}
 		}
 	}

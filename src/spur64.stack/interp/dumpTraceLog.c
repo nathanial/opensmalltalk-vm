@@ -12,18 +12,18 @@ dumpTraceLog(void)
     sqInt i;
     sqInt remainder;
 
-	if (!(GIV(traceLog)[/* safe:mod: */
-				(((remainder = (GIV(traceLogIndex) - 3) % TraceBufferSize)) < 0
+	if (!(traceLog[/* safe:mod: */
+				(((remainder = (traceLogIndex - 3) % TraceBufferSize)) < 0
 					? remainder + TraceBufferSize
 					: remainder)])) {
 		return;
 	}
-	if (GIV(traceLog)[GIV(traceLogIndex)]) {
-		for (i = GIV(traceLogIndex); i <= (TraceBufferSize - 3); i += 3) {
+	if (traceLog[traceLogIndex]) {
+		for (i = traceLogIndex; i <= (TraceBufferSize - 3); i += 3) {
 			printLogEntryAt(i);
 		}
 	}
-	for (i = 0; i <= (GIV(traceLogIndex) - 3); i += 3) {
+	for (i = 0; i <= (traceLogIndex - 3); i += 3) {
 		printLogEntryAt(i);
 	}
 }

@@ -16,15 +16,15 @@ methodReturnString(const char *aCString)
 	if (aCString) {
 		if ((result = stringForCString(aCString))) {
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),result);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),result);
+			stackPointer = sp;
 		}
 		else {
-			GIV(primFailCode) = PrimErrNoMemory;
+			primFailCode = PrimErrNoMemory;
 		}
 	}
 	else {
-		GIV(primFailCode) = PrimErrOperationFailed;
+		primFailCode = PrimErrOperationFailed;
 	}
 	return 0;
 }

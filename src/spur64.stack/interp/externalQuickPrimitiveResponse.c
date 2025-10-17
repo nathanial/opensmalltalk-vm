@@ -19,11 +19,11 @@ externalQuickPrimitiveResponse(void)
 
 	/* Quick return inst vars */
 	if (localPrimIndex >= 264) {
-		oop = longAt((void *)(((longAt(GIV(stackPointer))) + BaseHeaderSize) + ((((usqInt)((localPrimIndex - 264)) << (shiftForWord()))))));
+		oop = longAt((void *)(((longAt(stackPointer)) + BaseHeaderSize) + ((((usqInt)((localPrimIndex - 264)) << (shiftForWord()))))));
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer)),oop);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer),oop);
+		stackPointer = sp;
 		return 1;
 	}
 
@@ -33,25 +33,25 @@ externalQuickPrimitiveResponse(void)
 	}
 	if (localPrimIndex == 0x101) {
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer)),GIV(trueObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer),trueObj);
+		stackPointer = sp;
 		return 1;
 	}
 	if (localPrimIndex == 258) {
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer)),GIV(falseObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer),falseObj);
+		stackPointer = sp;
 		return 1;
 	}
 	if (localPrimIndex == 259) {
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer)),GIV(nilObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer),nilObj);
+		stackPointer = sp;
 		return 1;
 	}
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer)),(((usqInt)(localPrimIndex - 261) << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),(((usqInt)(localPrimIndex - 261) << 3) | 1));
+	stackPointer = sp;
 	return 1;
 }

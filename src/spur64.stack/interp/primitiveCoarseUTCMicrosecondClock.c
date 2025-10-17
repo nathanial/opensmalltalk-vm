@@ -21,6 +21,6 @@ primitiveCoarseUTCMicrosecondClock(void)
 	oop = positive64BitIntegerFor(ioUTCMicroseconds());
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer)),oop);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),oop);
+	stackPointer = sp;
 }

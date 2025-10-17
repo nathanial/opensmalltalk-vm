@@ -7,5 +7,5 @@ classLargeNegativeInteger(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
 	/* begin knownClassAtIndex: */
 	assert(((ClassLargeNegativeIntegerCompactIndex >= 1) && (ClassLargeNegativeIntegerCompactIndex <= (classTablePageSize()))));
-	return longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(ClassLargeNegativeIntegerCompactIndex) << (shiftForWord()))))));
+	return longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(ClassLargeNegativeIntegerCompactIndex) << (shiftForWord()))))));
 }

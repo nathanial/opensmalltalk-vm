@@ -17,7 +17,7 @@ primitiveBeDisplay(void)
     sqInt rcvr;
     sqInt widthOop;
 
-	rcvr = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer);
 	if (!((/* isPointers: */
 			((!(rcvr & (tagMask()))))
 		 && (((byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
@@ -31,27 +31,27 @@ primitiveBeDisplay(void)
 			 && (((((((heightOop = longAt((void *)((rcvr + BaseHeaderSize) + (2U << (shiftForWord()))))))) & 7) == 1))
 			 && ((((((depthOop = longAt((void *)((rcvr + BaseHeaderSize) + (3U << (shiftForWord()))))))) & 7) == 1))))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 
 	/* begin splObj:put: */
 	/* begin storePointer:ofObject:withValue: */
-	assert(validStorePointerArgs(TheDisplay, GIV(specialObjectsOop), rcvr));
-	assert(isNonImmediate(GIV(specialObjectsOop)));
-	if (oopisGreaterThanOrEqualTo(GIV(specialObjectsOop), GIV(oldSpaceStart))) {
+	assert(validStorePointerArgs(TheDisplay, specialObjectsOop, rcvr));
+	assert(isNonImmediate(specialObjectsOop));
+	if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(rcvr & (tagMask()))))
-		 && (oopisLessThan(rcvr, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(rcvr, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
-			if (!((byteAt((void *)(GIV(specialObjectsOop) + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-				remember(GIV(specialObjectsOop));
+			if (!((byteAt((void *)(specialObjectsOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+				remember(specialObjectsOop);
 			}
 		}
 	}
 
 	/* most stores into young objects */
-	longAtput((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheDisplay) << (shiftForWord()))))),rcvr);
+	longAtput((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheDisplay) << (shiftForWord()))))),rcvr);
 	if (((!(bitsOop & (tagMask()))))
 	 && (!(((byteAt((void *)(bitsOop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0))) {
 		/* Answers 0 if memory required to pin but not enough memory available. */

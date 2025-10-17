@@ -5,5 +5,5 @@
 sqInt
 classExternalAddress(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassExternalAddress) << (shiftForWord()))))));
+	return longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassExternalAddress) << (shiftForWord()))))));
 }

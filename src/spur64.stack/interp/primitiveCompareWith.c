@@ -23,26 +23,26 @@ primitiveCompareWith(void)
     sqInt strLength2;
 
 	order = 0;
-	if (!(GIV(argumentCount) == 1)) {
-		if (GIV(argumentCount) != 2) {
+	if (!(argumentCount == 1)) {
+		if (argumentCount != 2) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadNumArgs;
+			primFailCode = PrimErrBadNumArgs;
 			return;
 		}
-		order = longAt(GIV(stackPointer));
+		order = longAt(stackPointer);
 		if (!((/* isBytes: */
 				((!(order & (tagMask()))))
 			 && (((byteAt((void *)(order + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat())))
 			 && ((numBytesOfBytes(order)) == 0x100))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			return;
 		}
 	}
-	string1 = longAt(GIV(stackPointer) + (GIV(argumentCount) * BytesPerWord));
+	string1 = longAt(stackPointer + (argumentCount * BytesPerWord));
 
 	/* 2 - check their types - all parameters are ByteObject */
-	string2 = longAt(GIV(stackPointer) + ((GIV(argumentCount) - 1) * BytesPerWord));
+	string2 = longAt(stackPointer + ((argumentCount - 1) * BytesPerWord));
 	if (!((/* isBytes: */
 			((!(string1 & (tagMask()))))
 		 && (((byteAt((void *)(string1 + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat())))
@@ -50,7 +50,7 @@ primitiveCompareWith(void)
 			((!(string2 & (tagMask()))))
 		 && (((byteAt((void *)(string2 + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat()))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 
@@ -106,6 +106,6 @@ l1:;
 
 	/* begin methodReturnInteger: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)result << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)result << 3) | 1));
+	stackPointer = sp;
 }

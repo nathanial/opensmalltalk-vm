@@ -14,8 +14,8 @@ handleForwardedSelectorFaultFor(sqInt selectorOop)
 	assert(isOopForwarded(selectorOop));
 
 	/* begin followForwardedFieldsInCurrentMethod */
-	followForwardedObjectFieldstoDepth(GIV(method), 0);
-	followForwardedObjectFieldstoDepth(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord())))))), 0);
+	followForwardedObjectFieldstoDepth(method, 0);
+	followForwardedObjectFieldstoDepth(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord())))))), 0);
 
 	/* begin followForwarded: */
 	assert(isUnambiguouslyForwarder(selectorOop));

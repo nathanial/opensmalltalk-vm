@@ -10,8 +10,8 @@ primitiveSmallFloatExp(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt aValue;
 
-	aValue = floatObjectOf(exp(smallFloatValueOf(longAt(GIV(stackPointer)))));
+	aValue = floatObjectOf(exp(smallFloatValueOf(longAt(stackPointer))));
 
 	/* begin stackTopPut: */
-	longAtput(GIV(stackPointer),aValue);
+	longAtput(stackPointer,aValue);
 }

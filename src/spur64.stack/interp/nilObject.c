@@ -5,5 +5,5 @@
 sqInt
 nilObject(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return GIV(nilObj);
+	return nilObj;
 }

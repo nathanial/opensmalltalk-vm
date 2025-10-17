@@ -12,7 +12,7 @@ primitiveWait(void)
     sqInt sema;
 
 	/* rcvr */
-	sema = longAt(GIV(stackPointer));
+	sema = longAt(stackPointer);
 	excessSignals = fetchIntegerofObject(ExcessSignalsIndex, sema);
 	if (excessSignals > 0) {
 		integerValue = excessSignals - 1;
@@ -27,14 +27,14 @@ primitiveWait(void)
 		}
 		else {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
 	}
 	else {
 		/* begin activeProcess */
-		objOop = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+		objOop = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
 		activeProc = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
 		addLastLinktoList(activeProc, sema);
 

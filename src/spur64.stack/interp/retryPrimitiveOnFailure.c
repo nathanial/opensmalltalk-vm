@@ -36,10 +36,10 @@ retryPrimitiveOnFailure(void)
 
 	/* begin primitiveIndexOf: */
 	/* begin methodHeaderOf: */
-	assert(isCompiledMethod(GIV(newMethod)));
-	methodHeader = longAt((void *)((GIV(newMethod) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+	assert(isCompiledMethod(newMethod));
+	methodHeader = longAt((void *)((newMethod + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 	if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
-		firstBytecode = (GIV(newMethod) + ((LiteralStart + (((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask)) * BytesPerOop)) + BaseHeaderSize;
+		firstBytecode = (newMethod + ((LiteralStart + (((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask)) * BytesPerOop)) + BaseHeaderSize;
 		primitiveIndex = (byteAt((void *)(firstBytecode + 1))) + ((((usqInt)((byteAt((void *)(firstBytecode + 2)))) << 8)));
 	}
 	else {
@@ -50,7 +50,7 @@ retryPrimitiveOnFailure(void)
 	followDone = (canRetry = (retried = 0));
 	while (1) {
 		retry = 0;
-		if (GIV(primFailCode) == PrimErrNoMemory) {
+		if (primFailCode == PrimErrNoMemory) {
 			if (((gcDone += 1)) == 1) {
 				canRetry = primitiveIndex == PrimNumberExternalCall;
 			}
@@ -75,16 +75,16 @@ retryPrimitiveOnFailure(void)
 
 				/* begin primitiveIndexOf: */
 				/* begin methodHeaderOf: */
-				assert(isCompiledMethod(GIV(newMethod)));
-				methodHeader = longAt((void *)((GIV(newMethod) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+				assert(isCompiledMethod(newMethod));
+				methodHeader = longAt((void *)((newMethod + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 				if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
-					firstBytecode = (GIV(newMethod) + ((LiteralStart + (((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask)) * BytesPerOop)) + BaseHeaderSize;
+					firstBytecode = (newMethod + ((LiteralStart + (((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask)) * BytesPerOop)) + BaseHeaderSize;
 					primIndex = (byteAt((void *)(firstBytecode + 1))) + ((((usqInt)((byteAt((void *)(firstBytecode + 2)))) << 8)));
 				}
 				else {
 					primIndex = 0;
 				}
-				assert((GIV(argumentCount) == (argumentCountOf(GIV(newMethod))))
+				assert((argumentCount == (argumentCountOf(newMethod)))
 				 || (isMetaPrimitiveIndex(primIndex)));
 
 				/* First things first; make sure the metadata has been followed before it is accessed to derive accessorDepth... */
@@ -92,7 +92,7 @@ retryPrimitiveOnFailure(void)
 					(primIndex == PrimNumberExternalCall)
 				 || (primIndex == PrimNumberFFICall))
 				 || (primIndex == PrimNumberDoExternalCall))
-				 && (unfollowFirstLiteralOfMaybeCalloutMethodprimitiveIndex(GIV(newMethod), primIndex))) {
+				 && (unfollowFirstLiteralOfMaybeCalloutMethodprimitiveIndex(newMethod, primIndex))) {
 					retry = 1;
 				}
 
@@ -106,17 +106,17 @@ retryPrimitiveOnFailure(void)
 				accessorDepth = ((/* isMetaPrimitiveIndex: */
 						(primIndex == PrimNumberDoPrimitive)
 					 || (primIndex == PrimNumberDoExternalCall))
-					 && (GIV(metaAccessorDepth) > -2)
-							? GIV(metaAccessorDepth)
-							: accessorDepthForPrimitiveMethod(GIV(newMethod)));
+					 && (metaAccessorDepth > -2)
+							? metaAccessorDepth
+							: accessorDepthForPrimitiveMethod(newMethod));
 				assert(((accessorDepth >= -1) && (accessorDepth <= 5)));
 				if (accessorDepth >= 0) {
 					scannedStackFrame = 0;
-					for (index = 0; index <= GIV(argumentCount); index += 1) {
-						oop = longAt((void *)(GIV(stackPointer) + (index * BytesPerWord)));
+					for (index = 0; index <= argumentCount; index += 1) {
+						oop = longAt((void *)(stackPointer + (index * BytesPerWord)));
 						if ((!(oop & (tagMask())))) {
 							if ((!((longAt((void *)(oop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-								assert(index < GIV(argumentCount));
+								assert(index < argumentCount);
 								retry = 1;
 
 								/* begin followForwarded: */
@@ -130,12 +130,12 @@ retryPrimitiveOnFailure(void)
 								oop = referent;
 
 								/* stackValue:put: */
-								longAtput((void *)(GIV(stackPointer) + (index * BytesPerWord)),oop);
+								longAtput((void *)(stackPointer + (index * BytesPerWord)),oop);
 								if (!scannedStackFrame) {
 									scannedStackFrame = 1;
 
 									/* Avoid repeated primitive failures by following all state in the current stack frame. */
-									followForwardedFrameContentsstackPointer(GIV(framePointer), GIV(stackPointer) + ((GIV(argumentCount) + 1) * BytesPerWord));
+									followForwardedFrameContentsstackPointer(framePointer, stackPointer + ((argumentCount + 1) * BytesPerWord));
 								}
 							}
 							if ((accessorDepth > 0)
@@ -151,11 +151,11 @@ retryPrimitiveOnFailure(void)
 			}
 		}
 		if (!(retry)) break;
-		assert(GIV(primFailCode) != 0);
+		assert(primFailCode != 0);
 		retried = 1;
 
 		/* begin initPrimCall */
-		GIV(primFailCode) = 0;
+		primFailCode = 0;
 		dispatchFunctionPointer(primitiveFunctionPointer);
 	}
 	return retried;

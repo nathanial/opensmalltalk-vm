@@ -31,14 +31,14 @@ lookupOrdinaryNoMNUEtcInClass(sqInt class)
 		warning("lookup class send break (heartbeat suppressed)");
 	}
 	currentClass = class;
-	while (currentClass != GIV(nilObj)) {
+	while (currentClass != nilObj) {
 		/* begin followObjField:ofObject: */
 		dictionary = longAt((void *)((currentClass + BaseHeaderSize) + ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
 		assert(isNonImmediate(dictionary));
 		if ((!((longAt((void *)(dictionary))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 			dictionary = fixFollowedFieldofObjectwithInitialValue(MethodDictionaryIndex, currentClass, dictionary);
 		}
-		if (dictionary == GIV(nilObj)) {
+		if (dictionary == nilObj) {
 			/* begin superclassOf: */
 			/* begin followObjField:ofObject: */
 			objOop = longAt((void *)((currentClass + BaseHeaderSize) + ((((usqInt)(SuperclassIndex) << (shiftForWord()))))));
@@ -46,7 +46,7 @@ lookupOrdinaryNoMNUEtcInClass(sqInt class)
 			if ((!((longAt((void *)(objOop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 				objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex, currentClass, objOop);
 			}
-			GIV(lkupClass) = objOop;
+			lkupClass = objOop;
 			return SelectorCannotInterpret;
 		}
 
@@ -62,7 +62,7 @@ lookupOrdinaryNoMNUEtcInClass(sqInt class)
 		   Also the limit can be set to force linear search of all dictionaries, which supports the
 		   booting of images that need rehashing (e.g. because a tracer has generated an image
 		   with different hashes but hasn't rehashed it yet.) */
-		if (mask <= GIV(methodDictLinearSearchLimit)) {
+		if (mask <= methodDictLinearSearchLimit) {
 			index = 0;
 			while (index <= mask) {
 				nextSelector = longAt((void *)((dictionary + BaseHeaderSize) + ((((usqInt)((index + SelectorStart)) << (shiftForWord()))))));
@@ -71,7 +71,7 @@ lookupOrdinaryNoMNUEtcInClass(sqInt class)
 				 && ((!((longAt((void *)(nextSelector))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 					nextSelector = fixFollowedFieldofObjectwithInitialValue(index + SelectorStart, dictionary, nextSelector);
 				}
-				if (nextSelector == GIV(messageSelector)) {
+				if (nextSelector == messageSelector) {
 					/* begin followObjField:ofObject: */
 					methodArray = longAt((void *)((dictionary + BaseHeaderSize) + ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
 					assert(isNonImmediate(methodArray));
@@ -86,7 +86,7 @@ lookupOrdinaryNoMNUEtcInClass(sqInt class)
 					 && ((!((longAt((void *)(objOopSqInt))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 						objOopSqInt = fixFollowedFieldofObjectwithInitialValue(index, methodArray, objOopSqInt);
 					}
-					GIV(newMethod) = objOopSqInt;
+					newMethod = objOopSqInt;
 					found = 1;
 					goto l1;
 				}
@@ -95,9 +95,9 @@ lookupOrdinaryNoMNUEtcInClass(sqInt class)
 			found = 0;
 			goto l1;
 		}
-		index = SelectorStart + (mask & ((((GIV(messageSelector) & (tagMask())) != 0)
-		? (GIV(messageSelector) >> 3)
-		: (long32At((void *)(GIV(messageSelector) + 4))) & (identityHashHalfWordMask()))));
+		index = SelectorStart + (mask & ((((messageSelector & (tagMask())) != 0)
+		? (messageSelector >> 3)
+		: (long32At((void *)(messageSelector + 4))) & (identityHashHalfWordMask()))));
 
 		/* It is assumed that there are some nils in this dictionary, and search will
 		   stop when one is encountered. However, if there are no nils, then wrapAround
@@ -105,7 +105,7 @@ lookupOrdinaryNoMNUEtcInClass(sqInt class)
 		wrapAround = 0;
 		while (1) {
 			nextSelector = longAt((void *)((dictionary + BaseHeaderSize) + ((((usqInt)(index) << (shiftForWord()))))));
-			if (nextSelector == GIV(nilObj)) {
+			if (nextSelector == nilObj) {
 				found = 0;
 				goto l1;
 			}
@@ -114,7 +114,7 @@ lookupOrdinaryNoMNUEtcInClass(sqInt class)
 			 && ((!((longAt((void *)(nextSelector))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 				nextSelector = fixFollowedFieldofObjectwithInitialValue(index + SelectorStart, dictionary, nextSelector);
 			}
-			if (nextSelector == GIV(messageSelector)) {
+			if (nextSelector == messageSelector) {
 				/* begin followObjField:ofObject: */
 				methodArray = longAt((void *)((dictionary + BaseHeaderSize) + ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
 				assert(isNonImmediate(methodArray));
@@ -129,7 +129,7 @@ lookupOrdinaryNoMNUEtcInClass(sqInt class)
 				 && ((!((longAt((void *)(objOopSqInt))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 					objOopSqInt = fixFollowedFieldofObjectwithInitialValue(index - SelectorStart, methodArray, objOopSqInt);
 				}
-				GIV(newMethod) = objOopSqInt;
+				newMethod = objOopSqInt;
 				found = 1;
 				goto l1;
 			}
@@ -160,6 +160,6 @@ l1:
 		}
 		currentClass = objOopSqInt;
 	}
-	GIV(lkupClass) = class;
+	lkupClass = class;
 	return SelectorDoesNotUnderstand;
 }

@@ -28,8 +28,8 @@ checkIsStillMarriedContextcurrentFP(sqInt aContext, char *currentFP)
 	maybeFP = ((char *)(senderOop - (smallIntegerTag())));
 
 	/* begin stackPageFor: */
-	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(maybeFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
-	limitFP = ((thePage == GIV(stackPage))
+	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(maybeFP, stackMemory, bytesPerPage), pages);
+	limitFP = ((thePage == stackPage)
 		 && (currentFP)
 				? currentFP
 				: (thePage->headFP));

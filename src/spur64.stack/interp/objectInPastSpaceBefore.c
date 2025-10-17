@@ -15,18 +15,18 @@ objectInPastSpaceBefore(sqInt objOop)
     sqInt obj;
     sqInt prev;
 
-	if (GIV(pastSpaceStart) <= (((GIV(pastSpace)).start))) {
+	if (pastSpaceStart <= (((pastSpace).start))) {
 		return null;
 	}
 	prev = null;
-	address = ((GIV(pastSpace)).start);
+	address = ((pastSpace).start);
 
 	/* begin objectStartingAt: */
 	numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
 	obj = (numSlots == (numSlotsMask())
 				? address + BaseHeaderSize
 				: address);
-	while (oopisLessThan(obj, GIV(pastSpaceStart))) {
+	while (oopisLessThan(obj, pastSpaceStart)) {
 		if (oopisGreaterThanOrEqualTo(obj, objOop)) {
 			return prev;
 		}
@@ -34,8 +34,8 @@ objectInPastSpaceBefore(sqInt objOop)
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(obj);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(pastSpaceStart))) {
-			obj = GIV(pastSpaceStart);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, pastSpaceStart)) {
+			obj = pastSpaceStart;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));

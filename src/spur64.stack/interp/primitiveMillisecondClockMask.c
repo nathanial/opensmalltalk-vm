@@ -11,7 +11,7 @@ primitiveMillisecondClockMask(void)
     char *sp;
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer)),(((usqInt)MillisecondClockMask << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),(((usqInt)MillisecondClockMask << 3) | 1));
+	stackPointer = sp;
 	return 0;
 }

@@ -32,9 +32,9 @@ cStringOrNullFor(sqInt oop)
 	/* end isInstanceOfClassByteString: */
 l2:
 	if (!isString) {
-		if (oop != GIV(nilObj)) {
+		if (oop != nilObj) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 		}
 		return 0;
 	}
@@ -78,7 +78,7 @@ l1:
 	cString = malloc(len + 1);
 	if (!cString) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNoCMemory;
+		primFailCode = PrimErrNoCMemory;
 		return 0;
 	}
 	memcpy(cString, firstIndexableField(oop), len);

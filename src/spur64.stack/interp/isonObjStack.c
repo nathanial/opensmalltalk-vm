@@ -8,7 +8,7 @@ isonObjStack(sqInt oop, sqInt objStack)
     sqInt index;
     sqInt nextPage;
 
-	if (objStack == GIV(nilObj)) {
+	if (objStack == nilObj) {
 		return 0;
 	}
 	assert((numSlotsOfAny(objStack)) == ObjStackPageSlots);

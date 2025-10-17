@@ -23,20 +23,20 @@ primitivePerformInSuperclass(void)
     sqInt tagBits;
     sqInt top;
 
-	rcvr = longAt(GIV(stackPointer) + (3 * BytesPerWord));
-	lookupClass = longAt(GIV(stackPointer));
-	if (GIV(argumentCount) != 3) {
-		if (GIV(argumentCount) != 4) {
+	rcvr = longAt(stackPointer + (3 * BytesPerWord));
+	lookupClass = longAt(stackPointer);
+	if (argumentCount != 3) {
+		if (argumentCount != 4) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadNumArgs;
+			primFailCode = PrimErrBadNumArgs;
 			return;
 		}
 		if (/* isOopForwarded: */
 			((!(rcvr & (tagMask()))))
 		 && ((!((longAt((void *)(rcvr))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return;
 		}
@@ -45,7 +45,7 @@ primitivePerformInSuperclass(void)
 	/* e.g. object:perform:withArguments:inClass: */
 	currentClass = /* fetchClassOf: */
 			((tagBits = rcvr & (tagMask()))
-				? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+				? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 				: fetchClassOfNonImm(rcvr));
 	while (currentClass != lookupClass) {
 		/* begin superclassOf: */
@@ -56,23 +56,23 @@ primitivePerformInSuperclass(void)
 			objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex, currentClass, objOop);
 		}
 		currentClass = objOop;
-		if (currentClass == GIV(nilObj)) {
+		if (currentClass == nilObj) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			return;
 		}
 	}
-	selector = longAt(GIV(stackPointer) + (2 * BytesPerWord));
-	argumentArray = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	selector = longAt(stackPointer + (2 * BytesPerWord));
+	argumentArray = longAt(stackPointer + (1 * BytesPerWord));
 
 	/* begin primitiveObject:perform:withArguments:lookedUpIn: */
 	if (!(/* isArray: */
 			((!(argumentArray & (tagMask()))))
 		 && (((byteAt((void *)(argumentArray + (formatFieldByteOffset())))) & (formatMask())) == (arrayFormat())))) {
-		GIV(performWithArgumentsRecursionGuard) = null;
+		performWithArgumentsRecursionGuard = null;
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		goto l1;
 	}
 
@@ -85,13 +85,13 @@ primitivePerformInSuperclass(void)
 				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(argumentArray - BaseHeaderSize)))) << 8)))))) >> 8
 				: numSlots);
 	if (arraySize > (LargeContextSlots - CtxtTempFrameStart)) {
-		GIV(performWithArgumentsRecursionGuard) = null;
+		performWithArgumentsRecursionGuard = null;
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadNumArgs;
+		primFailCode = PrimErrBadNumArgs;
 		goto l1;
 	}
-	performArgCount = GIV(argumentCount);
+	performArgCount = argumentCount;
 
 	/* Recursion check:
 	   | a |
@@ -102,63 +102,63 @@ primitivePerformInSuperclass(void)
 	   a := Array with: #perform:withArguments: with: (Array with: #perform:withArguments: with: nil).
 	   a last at: 2 put: a.
 	   a perform: a first withArguments: a */
-	if (!GIV(performWithArgumentsRecursionGuard)) {
-		GIV(performWithArgumentsRecursionGuard) = (lookupClass
-					? longAt(GIV(stackPointer) + (1 * BytesPerWord))
-					: longAt(GIV(stackPointer)));
+	if (!performWithArgumentsRecursionGuard) {
+		performWithArgumentsRecursionGuard = (lookupClass
+					? longAt(stackPointer + (1 * BytesPerWord))
+					: longAt(stackPointer));
 	}
 
 	/* Push newMethod to save it in case of failure,
 	   then push the actual receiver and the args in the array. */
-	savedNewMethod = GIV(newMethod);
+	savedNewMethod = newMethod;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(newMethod));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),newMethod);
+	stackPointer = sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),rcvr);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),rcvr);
+	stackPointer = sp;
 
 	/* Copy the arguments to the stack, in case of MNU, and lookup */
 	for (index = 1; index <= arraySize; index += 1) {
 		arg = longAt((void *)((argumentArray + BaseHeaderSize) + ((((usqInt)((index - 1)) << (shiftForWord()))))));
-		if (arg == GIV(performWithArgumentsRecursionGuard)) {
-			GIV(performWithArgumentsRecursionGuard) = null;
+		if (arg == performWithArgumentsRecursionGuard) {
+			performWithArgumentsRecursionGuard = null;
 		}
 
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),arg);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),arg);
+		stackPointer = sp;
 	}
-	if (!GIV(performWithArgumentsRecursionGuard)) {
+	if (!performWithArgumentsRecursionGuard) {
 		/* begin pop: */
-		GIV(stackPointer) += (2 + arraySize) * BytesPerWord;
+		stackPointer += (2 + arraySize) * BytesPerWord;
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrInappropriate;
+		primFailCode = PrimErrInappropriate;
 		goto l1;
 	}
-	GIV(argumentCount) = arraySize;
-	GIV(messageSelector) = selector;
+	argumentCount = arraySize;
+	messageSelector = selector;
 
 	/* begin sendBreakpoint:receiver: */
-	sendBreakpointclassTag(firstFixedFieldOfMaybeImmediate(GIV(messageSelector)), lengthOfMaybeImmediate(GIV(messageSelector)), /* fetchClassTagOf: */
+	sendBreakpointclassTag(firstFixedFieldOfMaybeImmediate(messageSelector), lengthOfMaybeImmediate(messageSelector), /* fetchClassTagOf: */
 		((tagBits = rcvr & (tagMask()))
 			? tagBits
 			: (longAt((void *)(rcvr))) & (classIndexMask())));
 	if (
 #  if SEND_PRINTING
-		GIV(printSends)
+		printSends
 #  else
 		0
 #  endif
 		) {
-		printActivationNameForSelectorstartClass(GIV(messageSelector), (lookupClass
+		printActivationNameForSelectorstartClass(messageSelector, (lookupClass
 				? lookupClass
 				: /* fetchClassOf: */
 					((tagBits = rcvr & (tagMask()))
-						? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+						? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 						: fetchClassOfNonImm(rcvr))));
 		cr();
 	}
@@ -171,31 +171,31 @@ primitivePerformInSuperclass(void)
 
 	/* Only test CompiledMethods for argument count - any other objects playacting as CMs will have to take their chances */
 	if ((/* isOopCompiledMethod: */
-		((!(GIV(newMethod) & (tagMask()))))
-	 && (((byteAt((void *)(GIV(newMethod) + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat())))
-	 && ((argumentCountOf(GIV(newMethod))) != GIV(argumentCount))) {
+		((!(newMethod & (tagMask()))))
+	 && (((byteAt((void *)(newMethod + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat())))
+	 && ((argumentCountOf(newMethod)) != argumentCount)) {
 		assert((stackTop()) == ((arraySize == 0
 				? rcvr
 				: fetchPointerofObject(arraySize - 1, argumentArray))));
-		assert(GIV(argumentCount) == arraySize);
+		assert(argumentCount == arraySize);
 
 		/* begin pop: */
-		GIV(stackPointer) += (arraySize + 1) * BytesPerWord;
+		stackPointer += (arraySize + 1) * BytesPerWord;
 
 		/* begin popStack */
-		top = longAt(GIV(stackPointer));
-		GIV(stackPointer) += BytesPerWord;
-		GIV(newMethod) = top;
+		top = longAt(stackPointer);
+		stackPointer += BytesPerWord;
+		newMethod = top;
 
 		/* Must reset primitiveFunctionPointer for checkForAndFollowForwardedPrimitiveState */
-		GIV(argumentCount) = performArgCount;
+		argumentCount = performArgCount;
 		primitiveFunctionPointer = (lookupClass
 					? primitivePerformInSuperclass
 					: primitivePerformWithArgs);
-		GIV(performWithArgumentsRecursionGuard) = null;
+		performWithArgumentsRecursionGuard = null;
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadNumArgs;
+		primFailCode = PrimErrBadNumArgs;
 		goto l1;
 	}
 
@@ -209,39 +209,39 @@ primitivePerformInSuperclass(void)
 
 	/* +2 = receiver + saved newMethod */
 	delta = BytesPerWord * (performArgCount + 2);
-	for (offset = (GIV(argumentCount) * BytesPerWord); offset >= 0; offset += (-BytesPerWord)) {
-		longAtput((GIV(stackPointer) + offset) + delta,longAt(GIV(stackPointer) + offset));
+	for (offset = (argumentCount * BytesPerWord); offset >= 0; offset += (-BytesPerWord)) {
+		longAtput((stackPointer + offset) + delta,longAt(stackPointer + offset));
 	}
 
 	/* Part of the recursion guard above. To ensure we fail in the original method, restore
 	   newMethod, and don't do the activateNewMethod implicit in executeNewMethod. */
 	if ((primitiveFunctionPointer == primitivePerformWithArgs)
 	 || (primitiveFunctionPointer == primitivePerformInSuperclass)) {
-		GIV(newMethod) = savedNewMethod;
-		GIV(argumentCount) = performArgCount;
+		newMethod = savedNewMethod;
+		argumentCount = performArgCount;
 
 		/* begin pop: */
-		GIV(stackPointer) += (performArgCount + 2) * BytesPerWord;
+		stackPointer += (performArgCount + 2) * BytesPerWord;
 
 		/* prevent inlining... */
 		slowPrimitiveResponse();
-		GIV(performWithArgumentsRecursionGuard) = null;
+		performWithArgumentsRecursionGuard = null;
 		goto l1;
 	}
 
 	/* This should of course be a tail call, which could be done via setjmp/longjmp.
 	   But this is vanity code. After all how often is a recursive invocation of
 	   primitivePerformWithArgs et al made? */
-	GIV(performWithArgumentsRecursionGuard) = null;
+	performWithArgumentsRecursionGuard = null;
 
 	/* begin pop: */
-	GIV(stackPointer) += (performArgCount + 2) * BytesPerWord;
+	stackPointer += (performArgCount + 2) * BytesPerWord;
 
 	/* prevent inlining... */
 	executeNewMethod();
 
 	/* begin initPrimCall */
-	GIV(primFailCode) = 0;
+	primFailCode = 0;
 	/* end primitiveObject:perform:withArguments:lookedUpIn: */
 l1:;
 }

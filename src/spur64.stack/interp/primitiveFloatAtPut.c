@@ -15,18 +15,18 @@ primitiveFloatAtPut(void)
     char *sp;
     usqInt valueToStore;
 
-	oopToStore = longAt(GIV(stackPointer));
+	oopToStore = longAt(stackPointer);
 	valueToStore = positive32BitValueOf(oopToStore);
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
-	rcvr = longAt(GIV(stackPointer) + (2 * BytesPerWord));
-	index = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	rcvr = longAt(stackPointer + (2 * BytesPerWord));
+	index = longAt(stackPointer + (1 * BytesPerWord));
 	if (((rcvr & (smallFloatTag())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 	if (
@@ -37,7 +37,7 @@ primitiveFloatAtPut(void)
 #  endif
 		) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNoModification;
+		primFailCode = PrimErrNoModification;
 		return;
 	}
 	if (index == ConstOne) {
@@ -47,8 +47,8 @@ primitiveFloatAtPut(void)
 		: 1))) << 2)))),valueToStore);
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (2 * BytesPerWord)),oopToStore);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (2 * BytesPerWord)),oopToStore);
+		stackPointer = sp;
 		return;
 	}
 	if (index == ConstTwo) {
@@ -58,13 +58,13 @@ primitiveFloatAtPut(void)
 		: 0))) << 2)))),valueToStore);
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (2 * BytesPerWord)),oopToStore);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (2 * BytesPerWord)),oopToStore);
+		stackPointer = sp;
 		return;
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = ((((index) & 7) == 1)
+	primFailCode = ((((index) & 7) == 1)
 				? PrimErrBadIndex
 				: PrimErrBadArgument);
 }

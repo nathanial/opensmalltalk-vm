@@ -12,5 +12,5 @@ isEnumerableObjectNoAssert(sqInt objOop)
 
 	classIndex = (longAt((void *)(objOop))) & (classIndexMask());
 	return (classIndex >= (isForwardedObjectClassIndexPun()))
-	 && (classIndex < (GIV(numClassTablePages) * (1U << (classTableMajorIndexShift()))));
+	 && (classIndex < (numClassTablePages * (1U << (classTableMajorIndexShift()))));
 }

@@ -17,13 +17,13 @@ scavengeUnfiredEphemeronsOnEphemeronList(void)
     sqInt unfiredEphemeronsScavenged;
 
 	previousCorpse = 0;
-	if (!GIV(ephemeronList)) {
+	if (!ephemeronList) {
 		return 0;
 	}
 	unfiredEphemeronsScavenged = 0;
-	corpseOffset = GIV(ephemeronList);
+	corpseOffset = ephemeronList;
 	while (corpseOffset != 0) {
-		ephemeronCorpse = ((((usqInt)((corpseOffset - 1)) << 3 /* shiftForAllocationUnit */))) + GIV(newSpaceStart);
+		ephemeronCorpse = ((((usqInt)((corpseOffset - 1)) << 3 /* shiftForAllocationUnit */))) + newSpaceStart;
 		assert(isForwarded(ephemeronCorpse));
 
 		/* begin followForwarded: */
@@ -41,8 +41,8 @@ scavengeUnfiredEphemeronsOnEphemeronList(void)
 				 && (isObjEphemeron(ephemeron))),
 			/* fetchPointer:ofObject: */
 				longAt((void *)((ephemeron + BaseHeaderSize) + (0U << (shiftForWord()))))))) {
-			if (corpseOffset == GIV(ephemeronList)) {
-				GIV(ephemeronList) = (offsetToNextCorpse
+			if (corpseOffset == ephemeronList) {
+				ephemeronList = (offsetToNextCorpse
 							? offsetToNextCorpse
 							: 0);
 			}

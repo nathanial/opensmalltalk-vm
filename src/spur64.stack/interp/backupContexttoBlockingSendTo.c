@@ -50,10 +50,10 @@ backupContexttoBlockingSendTo(sqInt suspendedContext, sqInt conditionVariable)
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(sp, suspendedContext, conditionVariable));
 		assert(isNonImmediate(suspendedContext));
-		if (oopisGreaterThanOrEqualTo(suspendedContext, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(suspendedContext, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(conditionVariable & (tagMask()))))
-			 && (oopisLessThan(conditionVariable, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(conditionVariable, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(suspendedContext + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(suspendedContext);
@@ -74,8 +74,8 @@ backupContexttoBlockingSendTo(sqInt suspendedContext, sqInt conditionVariable)
 	theFP = ((char *)(senderOop - (smallIntegerTag())));
 
 	/* begin stackPageFor: */
-	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
-	assert(!((thePage == GIV(stackPage))));
+	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
+	assert(!((thePage == stackPage)));
 	assert(theFP == ((thePage->headFP)));
 	theIP = (longAt((thePage->headSP))) + 1;
 

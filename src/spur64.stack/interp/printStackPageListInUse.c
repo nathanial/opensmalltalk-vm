@@ -10,12 +10,12 @@ printStackPageListInUse(void)
     sqInt n;
     StackPage *page;
 
-	page = GIV(mostRecentlyUsedPage);
+	page = mostRecentlyUsedPage;
 	n = 0;
 	do {
 		if (!(isFree(page))) {
 			printStackPageuseCount(page, (n += 1));
 			cr();
 		}
-	} while(((page = (page->prevPage))) != (GIV(mostRecentlyUsedPage)));
+	} while(((page = (page->prevPage))) != (mostRecentlyUsedPage));
 }

@@ -12,24 +12,24 @@ primitiveIdentical(void)
     char *sp;
     sqInt thisObject;
 
-	thisObject = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	otherObject = longAt(GIV(stackPointer));
+	thisObject = longAt(stackPointer + (1 * BytesPerWord));
+	otherObject = longAt(stackPointer);
 	if ((/* isOopForwarded: */
 		((!(otherObject & (tagMask()))))
 	 && ((!((longAt((void *)(otherObject))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))
-	 || ((GIV(argumentCount) > 1)
+	 || ((argumentCount > 1)
 	 && (/* isOopForwarded: */
 		((!(thisObject & (tagMask()))))
 	 && ((!((longAt((void *)(thisObject))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 	}
 	else {
 		/* begin pop:thenPushBool: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
 			(thisObject == otherObject
-				? GIV(trueObj)
-				: GIV(falseObj)));
-		GIV(stackPointer) = sp;
+				? trueObj
+				: falseObj));
+		stackPointer = sp;
 	}
 }

@@ -31,14 +31,14 @@ primitiveContextAt(void)
     sqInt totalLengthSqInt;
     sqInt value;
 
-	index = longAt(GIV(stackPointer));
+	index = longAt(stackPointer);
 	if (!((((index) & 7) == 1))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	index = (index >> 3);
-	aContext = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	aContext = longAt(stackPointer + (1 * BytesPerWord));
 
 	/* Duplicating much of stObject:at:put: here allows stObject:at:put: to omit tests for contexts. */
 	hdr = long64At((void *)(aContext));
@@ -159,16 +159,16 @@ l5:
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = (fmtUsqLong <= 1
+		primFailCode = (fmtUsqLong <= 1
 					? PrimErrBadReceiver
 					: PrimErrBadIndex);
 		value = 0;
 		/* end stObject:at: */
 l8:
-		if (!GIV(primFailCode)) {
+		if (!primFailCode) {
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),value);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),value);
+			stackPointer = sp;
 		}
 		return;
 	}
@@ -176,18 +176,18 @@ l8:
 	/* might be an instance of a subclass */
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
 	if (!(/* isStillMarriedContext: */
 			(((((longAt((void *)((aContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
@@ -256,7 +256,7 @@ l3:
 l1:
 		if (!(((index >= 1) && (index <= stSize)))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadIndex;
+			primFailCode = PrimErrBadIndex;
 			return;
 		}
 
@@ -284,8 +284,8 @@ l1:
 l2:
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),value);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),value);
+		stackPointer = sp;
 		return;
 	}
 
@@ -295,7 +295,7 @@ l2:
 	spouseFP = ((char *)(senderOop - (smallIntegerTag())));
 	if (!(((index >= 1) && (index <= (stackPointerIndexForFrame(spouseFP)))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 	value = /* temporary:in: */
@@ -304,6 +304,6 @@ l2:
 				: longAt(((spouseFP + FoxReceiver) - BytesPerWord) + ((frameNumArgs - (index - 1)) * BytesPerWord)));
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),value);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),value);
+	stackPointer = sp;
 }

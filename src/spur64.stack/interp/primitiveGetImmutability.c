@@ -7,14 +7,14 @@ primitiveGetImmutability(void)
     sqInt rcvr;
     char *sp;
 
-	rcvr = longAt(GIV(stackPointer));
-	if ((GIV(argumentCount) > 0)
+	rcvr = longAt(stackPointer);
+	if ((argumentCount > 0)
 	 && (/* isOopForwarded: */
 		((!(rcvr & (tagMask()))))
 	 && ((!((longAt((void *)(rcvr))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
@@ -24,9 +24,9 @@ primitiveGetImmutability(void)
 
 	/* begin methodReturnBool: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
 		(boolean
-			? GIV(trueObj)
-			: GIV(falseObj)));
-	GIV(stackPointer) = sp;
+			? trueObj
+			: falseObj));
+	stackPointer = sp;
 }

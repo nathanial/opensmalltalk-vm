@@ -27,7 +27,7 @@ instructionPointerForFramecurrentFPcurrentIP(char *spouseFP, char *currentFP, sq
 	}
 	else {
 		/* begin stackPageFor: */
-		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(spouseFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(spouseFP, stackMemory, bytesPerPage), pages);
 		callerFP = ((char *) 0);
 		fp = (thePage->headFP);
 		if (fp == spouseFP) {

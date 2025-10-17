@@ -19,20 +19,20 @@ primitiveInstVarAt(void)
     sqInt totalLength;
     sqInt value;
 
-	index = longAt(GIV(stackPointer));
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	index = longAt(stackPointer);
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 	if (((!(index & (smallIntegerTag()))))
-	 || ((GIV(argumentCount) > 1)
+	 || ((argumentCount > 1)
 	 && (/* isOopForwarded: */
 		((!(rcvr & (tagMask()))))
 	 && ((!((longAt((void *)(rcvr))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	if (((rcvr & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrInappropriate;
+		primFailCode = PrimErrInappropriate;
 		return;
 	}
 	index = (index >> 3);
@@ -91,7 +91,7 @@ l2:
 	if (!((index >= 1)
 		 && (index <= fixedFields))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 	if ((fmt == (indexablePointersFormat()))
@@ -124,6 +124,6 @@ l1:;
 	}
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),value);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),value);
+	stackPointer = sp;
 }

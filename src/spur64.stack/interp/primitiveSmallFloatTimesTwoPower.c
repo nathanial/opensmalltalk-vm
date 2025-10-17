@@ -13,13 +13,13 @@ primitiveSmallFloatTimesTwoPower(void)
     char *sp;
     sqInt twiceMaxExponent;
 
-	arg = longAt(GIV(stackPointer));
+	arg = longAt(stackPointer);
 	if (!((((arg) & 7) == 1))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 
 	/* N.B. SmallFloats are finite.  NaN and Infinity overflow into boxed floats.
 	   This is doing range checking work that is done in ldexp, but we include
@@ -47,6 +47,6 @@ primitiveSmallFloatTimesTwoPower(void)
 	}
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),result);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (1 * BytesPerWord)),result);
+	stackPointer = sp;
 }

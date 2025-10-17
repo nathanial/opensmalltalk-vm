@@ -27,21 +27,21 @@ remapObj(sqInt objOop)
 		assert(!((isInFutureSpace(objOop))));
 		resolvedObj = objOop;
 	}
-	if (GIV(gcPhaseInProgress) > 0) {
-		if (GIV(gcPhaseInProgress) == ScavengeInProgress) {
+	if (gcPhaseInProgress > 0) {
+		if (gcPhaseInProgress == ScavengeInProgress) {
 			if ((/* isReallyYoung: */
 				((!(resolvedObj & (tagMask()))))
 			 && ((/* begin isReallyYoungObject: *//* begin isYoungObject: */
 				assert(isNonImmediate(resolvedObj)),
-			oopisLessThan(resolvedObj, GIV(oldSpaceStart)))))
-			 && (!(oopisGreaterThanOrEqualToandLessThan(resolvedObj, ((GIV(futureSpace)).start), GIV(futureSurvivorStart))))) {
+			oopisLessThan(resolvedObj, oldSpaceStart))))
+			 && (!(oopisGreaterThanOrEqualToandLessThan(resolvedObj, ((futureSpace).start), futureSurvivorStart)))) {
 				return copyAndForward(resolvedObj);
 			}
 		}
 		else {
 			assert(slidingCompactionInProgress());
 			if (/* isMobile: */
-				(oopisGreaterThanOrEqualToandLessThanOrEqualTo(objOop, GIV(mobileStart), GIV(lastMobileObject)))
+				(oopisGreaterThanOrEqualToandLessThanOrEqualTo(objOop, mobileStart, lastMobileObject))
 			 && (!(((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0))) {
 				return longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
 			}

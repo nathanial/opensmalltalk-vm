@@ -21,17 +21,17 @@ unmarkObjectsFromFirstFreeObject(void)
 	freeBytes = 0;
 
 	/* begin allOldSpaceEntitiesFrom:do: */
-	assert(isOldObject(GIV(firstFreeObject)));
+	assert(isOldObject(firstFreeObject));
 	prevPrevObj = (prevObj = null);
-	objOop = GIV(firstFreeObject);
+	objOop = firstFreeObject;
 	while (1) {
 		assert((objOop % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objOop, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objOop, endOfMemory))) break;
 		assert((long64At((void *)(objOop))) != 0);
 		if ((byteAt((void *)(objOop + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) {
 			if (startOfFree) {
 				/* begin addFreeChunkWithBytes:at: */
-				GIV(totalFreeOldSpace) += freeBytes;
+				totalFreeOldSpace += freeBytes;
 				freeChunkWithBytesat(freeBytes, startOfFree);
 				startOfFree = null;
 				freeBytes = 0;
@@ -73,8 +73,8 @@ unmarkObjectsFromFirstFreeObject(void)
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objOop = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objOop = endOfMemory;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
@@ -86,7 +86,7 @@ l1:;
 	}
 	if (startOfFree) {
 		/* begin addFreeChunkWithBytes:at: */
-		GIV(totalFreeOldSpace) += freeBytes;
+		totalFreeOldSpace += freeBytes;
 		freeChunkWithBytesat(freeBytes, startOfFree);
 	}
 }

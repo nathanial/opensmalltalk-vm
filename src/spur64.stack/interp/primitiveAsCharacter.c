@@ -9,13 +9,13 @@ primitiveAsCharacter(void)
     sqInt characterObject;
     char *sp;
 
-	characterCode = longAt(GIV(stackPointer));
+	characterCode = longAt(stackPointer);
 	if (!(((((characterCode) & 7) == 1))
 		 && (((characterCode = (characterCode >> 3)),
 		/* isInRangeCharacterCode: */
 			((characterCode >= 0) && (characterCode <= (0x3FFFFFFF))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = (GIV(argumentCount)
+		primFailCode = (argumentCount
 					? PrimErrBadArgument
 					: PrimErrBadReceiver);
 		return;
@@ -23,6 +23,6 @@ primitiveAsCharacter(void)
 	characterObject = ((((usqInt)(characterCode) << (numTagBits())))) + (characterTag());
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),characterObject);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),characterObject);
+	stackPointer = sp;
 }

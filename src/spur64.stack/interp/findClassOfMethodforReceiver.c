@@ -16,15 +16,15 @@ findClassOfMethodforReceiver(sqInt meth, sqInt rcvr)
 	 && ((!((longAt((void *)(rcvr))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))))) {
 		rclass = findClassContainingMethodstartingAt(meth, /* fetchClassOf: */
 				((tagBits = rcvr & (tagMask()))
-					? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+					? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 					: fetchClassOfNonImm(rcvr)));
-		if (rclass != GIV(nilObj)) {
+		if (rclass != nilObj) {
 			return rclass;
 		}
 	}
 	if (!((addressCouldBeObj(meth))
 		 && (((byteAt((void *)(meth + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat())))) {
-		return GIV(nilObj);
+		return nilObj;
 	}
 	return findClassContainingMethodstartingAt(meth, safeMethodClassOf(meth));
 }

@@ -18,27 +18,27 @@ printOopShortInner(sqInt oop)
 
 	if (((oop & (tagMask())) != 0)) {
 		if (((oop & (characterTag())) != 0)) {
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"$%c(%" PRIxSQINT ")",
 					((int) (((((usqInt)oop))) >> (numTagBits()))),
 					((((usqInt)oop))) >> (numTagBits()));
 			return;
 		}
 		if ((((oop) & 7) == 1)) {
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%" PRIdSQINT "(0x%" PRIxSQINT ")",
 					(oop >> 3),
 					(oop >> 3));
 			return;
 		}
 		if (((oop & (smallFloatTag())) != 0)) {
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%g(0x%" PRIxSQINT ")",
 					noFailFloatValueOf(oop),
 					oop);
 			return;
 		}
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"unknown immediate %p",
 				((void *)oop));
 		return;
@@ -55,7 +55,7 @@ printOopShortInner(sqInt oop)
 	}
 	if ((!((longAt((void *)(oop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 		target = followForwarded(oop);
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				" is a forwarder to %p",
 				((void *)target));
 		return;
@@ -85,7 +85,7 @@ printOopShortInner(sqInt oop)
 		f = result;
 
 		/* begin printFloat: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%g",
 				f);
 		return;
@@ -95,19 +95,19 @@ printOopShortInner(sqInt oop)
 		print("a ??");
 		return;
 	}
-	if ((numSlotsOf(classOop)) == GIV(metaclassNumSlots)) {
+	if ((numSlotsOf(classOop)) == metaclassNumSlots) {
 		printNameOfClasscount(oop, 5);
 		return;
 	}
-	if (oop == GIV(nilObj)) {
+	if (oop == nilObj) {
 		print("nil");
 		return;
 	}
-	if (oop == GIV(trueObj)) {
+	if (oop == trueObj) {
 		print("true");
 		return;
 	}
-	if (oop == GIV(falseObj)) {
+	if (oop == falseObj) {
 		print("false");
 		return;
 	}
@@ -141,7 +141,7 @@ printOopShortInner(sqInt oop)
 		printChar(((longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))))) >> 3));
 		return;
 	}
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"a(n) %.*s",
 			((int) nameLen),
 			name);
@@ -152,7 +152,7 @@ printOopShortInner(sqInt oop)
 	 && (isBytes(longAt((void *)((oop + BaseHeaderSize) + ((((usqInt)(KeyIndex) << (shiftForWord())))))))))) {
 		classLookupKey = fetchClassOfNonImm(splObj(SchedulerAssociation));
 		while (1) {
-			if (classLookupKey == GIV(nilObj)) {
+			if (classLookupKey == nilObj) {
 				return;
 			}
 			if ((instanceSizeOf(classLookupKey)) == (KeyIndex + 1)) break;
@@ -170,7 +170,7 @@ printOopShortInner(sqInt oop)
 			printChar(' ');
 			printOopShortInner(longAt((void *)((oop + BaseHeaderSize) + ((((usqInt)(KeyIndex) << (shiftForWord())))))));
 			print(" -> ");
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%p",
 					((void *)(longAt((void *)((oop + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord())))))))));
 		}

@@ -13,26 +13,26 @@ checkProfileTickPostPrimitive(sqInt aPrimitiveMethod)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt objOop;
 
-	if (GIV(deferProfileCheckForVNCS)) {
-		GIV(deferProfileCheckForVNCS) = 0;
+	if (deferProfileCheckForVNCS) {
+		deferProfileCheckForVNCS = 0;
 	}
 	else {
-		if ((GIV(nextProfileTick) > 0)
-		 && ((ioHighResClock()) >= GIV(nextProfileTick))) {
-			if (!GIV(profileProcess)) {
+		if ((nextProfileTick > 0)
+		 && ((ioHighResClock()) >= nextProfileTick)) {
+			if (!profileProcess) {
 				/* begin activeProcess */
-				objOop = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
-				GIV(profileProcess) = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
-				if (GIV(primFailCode)) {
-					GIV(profileMethod) = null;
+				objOop = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+				profileProcess = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
+				if (primFailCode) {
+					profileMethod = null;
 					forceInterruptCheck();
 				}
 				else {
-					GIV(profileMethod) = aPrimitiveMethod;
+					profileMethod = aPrimitiveMethod;
 
 					/* begin zeroNextProfileTick */
-					GIV(nextProfileTick) = 0;
-					synchronousSignal(GIV(profileSemaphore));
+					nextProfileTick = 0;
+					synchronousSignal(profileSemaphore);
 				}
 			}
 		}

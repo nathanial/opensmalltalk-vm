@@ -18,7 +18,7 @@ addFreeSubTree(sqInt freeTree)
 	assert(isFreeObject(freeTree));
 	bytesInArg = bytesInBody(freeTree);
 	assert(bytesInArg >= ((numFreeLists()) * (allocationUnit())));
-	treeNode = GIV(freeLists)[0];
+	treeNode = freeLists[0];
 	assert(treeNode != 0);
 	while (1) {
 		bytesInNode = bytesInBody(treeNode);

@@ -14,7 +14,7 @@ divorceFramesIn(StackPage *aStackPage)
     sqInt valuePointer;
 
 	calleeFP = ((char *) 0);
-	GIV(statStackPageDivorce) += 1;
+	statStackPageDivorce += 1;
 	theFP = (aStackPage->headFP);
 	theSP = (aStackPage->headSP);
 	theIP = longAt(theSP);
@@ -51,10 +51,10 @@ l1:
 			/* begin storePointer:ofObject:withValue: */
 			assert(validStorePointerArgs(SenderIndex, calleeContext, theContext));
 			assert(isNonImmediate(calleeContext));
-			if (oopisGreaterThanOrEqualTo(calleeContext, GIV(oldSpaceStart))) {
+			if (oopisGreaterThanOrEqualTo(calleeContext, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(theContext & (tagMask()))))
-				 && (oopisLessThan(theContext, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(theContext, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
 					if (!((byteAt((void *)(calleeContext + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 						remember(calleeContext);
@@ -83,10 +83,10 @@ l1:
 	/* begin storePointer:ofObject:withValue: */
 	assert(validStorePointerArgs(SenderIndex, theContext, valuePointer));
 	assert(isNonImmediate(theContext));
-	if (oopisGreaterThanOrEqualTo(theContext, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(theContext, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(valuePointer & (tagMask()))))
-		 && (oopisLessThan(valuePointer, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(valuePointer, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(theContext + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(theContext);

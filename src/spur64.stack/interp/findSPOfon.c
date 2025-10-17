@@ -27,7 +27,7 @@ findSPOfon(char *theFP, StackPage *thePage)
 
 		/* If the SP is invalid return the pointer to the receiver field.
 		   Skip the instruction pointer on top of stack of inactive pages. */
-		theSP = (thePage == GIV(stackPage)
+		theSP = (thePage == stackPage
 					? (thePage->headSP)
 					: ((thePage->headSP)) + BytesPerWord);
 		goto l1;

@@ -10,7 +10,7 @@ primitiveIsBigEnder(void)
     char *sp;
 
 	/* begin pop:thenPushBool: */
-	longAtput((sp = GIV(stackPointer)),GIV(falseObj));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),falseObj);
+	stackPointer = sp;
 	return 0;
 }

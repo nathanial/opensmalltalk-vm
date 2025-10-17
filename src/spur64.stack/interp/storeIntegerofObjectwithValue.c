@@ -16,8 +16,8 @@ storeIntegerofObjectwithValue(sqInt fieldIndex, sqInt objectPointer, sqInt integ
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 	return null;

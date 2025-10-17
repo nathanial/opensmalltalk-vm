@@ -5,5 +5,5 @@
 FILE *
 getTranscript(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return GIV(transcript);
+	return transcript;
 }

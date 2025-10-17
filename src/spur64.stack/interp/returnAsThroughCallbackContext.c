@@ -18,7 +18,7 @@ returnAsThroughCallbackContext(sqInt returnTypeOop, VMCallbackContext *vmCallbac
     StackPage *thePage;
     sqInt top;
 
-	assert(GIV(primFailCode) == 0);
+	assert(primFailCode == 0);
 	assert((((returnTypeOop) & 7) == 1));
 	assert(!(isImmediate(((sqInt)vmCallbackContext))));
 	assert((addressCouldBeObj(callbackMethodContext))
@@ -38,31 +38,31 @@ returnAsThroughCallbackContext(sqInt returnTypeOop, VMCallbackContext *vmCallbac
 
 	/* begin recordTrace:thing:source: */
 	if (TraceLog) {
-		GIV(traceLog)[GIV(traceLogIndex)] = TraceVMCallbackReturn;
-		GIV(traceLog)[GIV(traceLogIndex) + 1] = returnTypeOop;
-		GIV(traceLog)[GIV(traceLogIndex) + 2] = 0;
-		GIV(traceLogIndex) = (GIV(traceLogIndex) + 3) % TraceBufferSize;
+		traceLog[traceLogIndex] = TraceVMCallbackReturn;
+		traceLog[traceLogIndex + 1] = returnTypeOop;
+		traceLog[traceLogIndex + 2] = 0;
+		traceLogIndex = (traceLogIndex + 3) % TraceBufferSize;
 	}
 
 	/* We're about to leave this stack page; must save the current frame's instructionPointer. */
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(instructionPointer));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),instructionPointer);
+	stackPointer = sp;
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
 
 	/* Mark callbackMethodContext as dead; the common case is that it is the current frame.
@@ -74,14 +74,14 @@ returnAsThroughCallbackContext(sqInt returnTypeOop, VMCallbackContext *vmCallbac
 		assert(isContext(callbackMethodContext));
 		assert((isNonImmediate(callbackMethodContext))
 		 && (!(isForwarded(callbackMethodContext))));
-		assert(validStorePointerUncheckedArgs(SenderIndex, callbackMethodContext, GIV(nilObj)));
-		longAtput((void *)((callbackMethodContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(SenderIndex, callbackMethodContext, nilObj));
+		longAtput((void *)((callbackMethodContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),nilObj);
 
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(callbackMethodContext))
 		 && (!(isForwarded(callbackMethodContext))));
-		assert(validStorePointerUncheckedArgs(InstructionPointerIndex, callbackMethodContext, GIV(nilObj)));
-		longAtput((void *)((callbackMethodContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(InstructionPointerIndex, callbackMethodContext, nilObj));
+		longAtput((void *)((callbackMethodContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),nilObj);
 	}
 	else {
 		assert(((debugCallbackPath = debugCallbackPath | 8)) > 0);
@@ -91,32 +91,32 @@ returnAsThroughCallbackContext(sqInt returnTypeOop, VMCallbackContext *vmCallbac
 		assert((((senderOop) & 7) == 1));
 		theFP = ((char *)(senderOop - (smallIntegerTag())));
 		assert((frameReceiver(theFP)) == (splObj(ClassAlien)));
-		if (GIV(framePointer) == theFP) {
+		if (framePointer == theFP) {
 			assert(((debugCallbackPath = debugCallbackPath | 16)) > 0);
 			if (longAt(theFP + FoxSavedFP)) {
 				assert(((debugCallbackPath = debugCallbackPath | 32)) > 0);
-				GIV(instructionPointer) = longAt(theFP + FoxCallerSavedIP);
-				GIV(stackPointer) = (theFP + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1))) << (shiftForWord())))))) + BytesPerWord;
-				GIV(framePointer) = ((char *)(longAt(theFP + FoxSavedFP)));
+				instructionPointer = longAt(theFP + FoxCallerSavedIP);
+				stackPointer = (theFP + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1))) << (shiftForWord())))))) + BytesPerWord;
+				framePointer = ((char *)(longAt(theFP + FoxSavedFP)));
 
 				/* begin setMethod: */
-				GIV(method) = longAt(GIV(framePointer) + FoxMethod);
-				assert(isOopCompiledMethod(GIV(method)));
+				method = longAt(framePointer + FoxMethod);
+				assert(isOopCompiledMethod(method));
 
 				/* begin methodUsesAlternateBytecodeSet: */
 				/* begin methodHeaderOf: */
-				assert(isCompiledMethod(GIV(method)));
-				methodHeader = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+				assert(isCompiledMethod(method));
+				methodHeader = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 				if ((((sqLong) methodHeader)) < 0) {
-					GIV(bytecodeSetSelector) = 0x100;
+					bytecodeSetSelector = 0x100;
 				}
 				else {
-					GIV(bytecodeSetSelector) = 0;
+					bytecodeSetSelector = 0;
 				}
 
 				/* begin restoreCStackStateForCallbackContext: */
-				memcpy(GIV(reenterInterpreter), ((void *)((vmCallbackContext->savedReenterInterpreter))), sizeof(jmp_buf));
-				assertValidExecutionPointersimbarline(GIV(instructionPointer), GIV(framePointer), GIV(stackPointer), 1 /* (isMachineCodeFrame: not) */, __LINE__);
+				memcpy(reenterInterpreter, ((void *)((vmCallbackContext->savedReenterInterpreter))), sizeof(jmp_buf));
+				assertValidExecutionPointersimbarline(instructionPointer, framePointer, stackPointer, 1 /* (isMachineCodeFrame: not) */, __LINE__);
 
 				/* N.B. siglongjmp is defines as _longjmp on non-win32 platforms.
 				   This matches the use of _setjmp in ia32abicc.c. */
@@ -125,7 +125,7 @@ returnAsThroughCallbackContext(sqInt returnTypeOop, VMCallbackContext *vmCallbac
 			}
 
 			/* calloutMethodContext is immediately below on the same page.  Make it current. */
-			freeStackPage(GIV(stackPage));
+			freeStackPage(stackPage);
 		}
 		else {
 			assert(((debugCallbackPath = debugCallbackPath | 64)) > 0);
@@ -135,14 +135,14 @@ returnAsThroughCallbackContext(sqInt returnTypeOop, VMCallbackContext *vmCallbac
 			assert(isContext(callbackMethodContext));
 			assert((isNonImmediate(callbackMethodContext))
 			 && (!(isForwarded(callbackMethodContext))));
-			assert(validStorePointerUncheckedArgs(SenderIndex, callbackMethodContext, GIV(nilObj)));
-			longAtput((void *)((callbackMethodContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),GIV(nilObj));
+			assert(validStorePointerUncheckedArgs(SenderIndex, callbackMethodContext, nilObj));
+			longAtput((void *)((callbackMethodContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),nilObj);
 
 			/* begin storePointerUnchecked:ofObject:withValue: */
 			assert((isNonImmediate(callbackMethodContext))
 			 && (!(isForwarded(callbackMethodContext))));
-			assert(validStorePointerUncheckedArgs(InstructionPointerIndex, callbackMethodContext, GIV(nilObj)));
-			longAtput((void *)((callbackMethodContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),GIV(nilObj));
+			assert(validStorePointerUncheckedArgs(InstructionPointerIndex, callbackMethodContext, nilObj));
+			longAtput((void *)((callbackMethodContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),nilObj);
 		}
 	}
 
@@ -159,56 +159,56 @@ returnAsThroughCallbackContext(sqInt returnTypeOop, VMCallbackContext *vmCallbac
 		theFP = ((char *)(senderOop - (smallIntegerTag())));
 
 		/* begin stackPageFor: */
-		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
 
 		/* findSPOf:on: points to the word beneath the instructionPointer, but
 		   there is no instructionPointer on the top frame of the current page. */
-		assert(thePage != GIV(stackPage));
-		GIV(stackPointer) = (((thePage->headFP)) == theFP
+		assert(thePage != stackPage);
+		stackPointer = (((thePage->headFP)) == theFP
 					? (thePage->headSP)
 					: (findSPOfon(theFP, thePage)) - BytesPerWord);
-		GIV(framePointer) = theFP;
-		assert(GIV(stackPointer) < GIV(framePointer));
+		framePointer = theFP;
+		assert(stackPointer < framePointer);
 	}
 	else {
 		assert(((debugCallbackPath = debugCallbackPath | 0x100)) > 0);
 		thePage = makeBaseFrameFor(calloutMethodContext);
 
 		/* begin setStackPointersFromPage: */
-		GIV(stackPointer) = (thePage->headSP);
-		GIV(framePointer) = (thePage->headFP);
+		stackPointer = (thePage->headSP);
+		framePointer = (thePage->headFP);
 	}
 
 	/* begin popStack */
-	top = longAt(GIV(stackPointer));
-	GIV(stackPointer) += BytesPerWord;
-	GIV(instructionPointer) = top;
+	top = longAt(stackPointer);
+	stackPointer += BytesPerWord;
+	instructionPointer = top;
 
 	/* begin setMethod: */
-	GIV(method) = longAt((void *)((calloutMethodContext + BaseHeaderSize) + ((((usqInt)(MethodIndex) << (shiftForWord()))))));
-	assert(isOopCompiledMethod(GIV(method)));
+	method = longAt((void *)((calloutMethodContext + BaseHeaderSize) + ((((usqInt)(MethodIndex) << (shiftForWord()))))));
+	assert(isOopCompiledMethod(method));
 
 	/* begin methodUsesAlternateBytecodeSet: */
 	/* begin methodHeaderOf: */
-	assert(isCompiledMethod(GIV(method)));
-	methodHeader = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+	assert(isCompiledMethod(method));
+	methodHeader = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 	if ((((sqLong) methodHeader)) < 0) {
-		GIV(bytecodeSetSelector) = 0x100;
+		bytecodeSetSelector = 0x100;
 	}
 	else {
-		GIV(bytecodeSetSelector) = 0;
+		bytecodeSetSelector = 0;
 	}
 
 	/* begin setStackPageAndLimit: */
 	assert(thePage);
-	GIV(stackPage) = thePage;
-	if (GIV(stackLimit) != (((char *) (((usqInt) -1))))) {
-		GIV(stackLimit) = (GIV(stackPage)->stackLimit);
+	stackPage = thePage;
+	if (stackLimit != (((char *) (((usqInt) -1))))) {
+		stackLimit = (stackPage->stackLimit);
 	}
 	markStackPageMostRecentlyUsed(thePage);
 
 	/* begin restoreCStackStateForCallbackContext: */
-	memcpy(GIV(reenterInterpreter), ((void *)((vmCallbackContext->savedReenterInterpreter))), sizeof(jmp_buf));
+	memcpy(reenterInterpreter, ((void *)((vmCallbackContext->savedReenterInterpreter))), sizeof(jmp_buf));
 
 	/* N.B. siglongjmp is defined as _longjmp on non-win32 platforms.
 	   This matches the use of _setjmp in ia32abicc.c. */

@@ -18,15 +18,15 @@ nameOfClass(sqInt classOop)
 	numSlots = (((numSlotsUsqInt = byteAt((void *)(classOop + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
 				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(classOop - BaseHeaderSize)))) << 8)))))) >> 8
 				: numSlotsUsqInt);
-	if (numSlots == GIV(metaclassNumSlots)) {
-		maybeThisClassOop = longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(GIV(thisClassIndex)) << (shiftForWord()))))));
+	if (numSlots == metaclassNumSlots) {
+		maybeThisClassOop = longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(thisClassIndex) << (shiftForWord()))))));
 		if (addressCouldBeClassObj(maybeThisClassOop)) {
-			return nameOfClass(longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(GIV(thisClassIndex)) << (shiftForWord())))))));
+			return nameOfClass(longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(thisClassIndex) << (shiftForWord())))))));
 		}
 		return "bad class";
 	}
-	if (!((numSlots > GIV(classNameIndex))
-		 && (((maybeNameOop = longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(GIV(classNameIndex)) << (shiftForWord()))))))),
+	if (!((numSlots > classNameIndex)
+		 && (((maybeNameOop = longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(classNameIndex) << (shiftForWord()))))))),
 		/* isBytes: */
 			((!(maybeNameOop & (tagMask()))))
 			 && (((byteAt((void *)(maybeNameOop + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat())))))) {

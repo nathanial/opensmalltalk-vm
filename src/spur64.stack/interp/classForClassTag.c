@@ -19,8 +19,8 @@ classForClassTag(sqInt classIndex)
 	fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
 	/* begin fetchPointer:ofObject: */
-	classTablePage = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-	if (classTablePage == GIV(nilObj)) {
+	classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+	if (classTablePage == nilObj) {
 		return null;
 	}
 	fieldIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);

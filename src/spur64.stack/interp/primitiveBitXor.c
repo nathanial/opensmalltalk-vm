@@ -13,15 +13,15 @@ primitiveBitXor(void)
     char *sp;
     sqInt value;
 
-	integerArgument = longAt(GIV(stackPointer));
-	integerReceiver = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	integerArgument = longAt(stackPointer);
+	integerReceiver = longAt(stackPointer + (1 * BytesPerWord));
 	if (((((integerArgument) & 7) == 1))
 	 && ((((integerReceiver) & 7) == 1))) {
 		oop = (integerArgument ^ integerReceiver) + (smallIntegerTag());
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),oop);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),oop);
+		stackPointer = sp;
 	}
 	else {
 		/* begin positiveMachineIntegerValueOf: */
@@ -29,8 +29,8 @@ primitiveBitXor(void)
 			value = (integerArgument >> 3);
 			if (value < 0) {
 				/* begin primitiveFail */
-				if (!GIV(primFailCode)) {
-					GIV(primFailCode) = 1;
+				if (!primFailCode) {
+					primFailCode = 1;
 				}
 				integerArgumentValue = ((usqIntptr_t) null);
 				goto l1;
@@ -49,8 +49,8 @@ l1:
 			value = (integerReceiver >> 3);
 			if (value < 0) {
 				/* begin primitiveFail */
-				if (!GIV(primFailCode)) {
-					GIV(primFailCode) = 1;
+				if (!primFailCode) {
+					primFailCode = 1;
 				}
 				integerReceiverValue = ((usqIntptr_t) null);
 				goto l2;
@@ -63,12 +63,12 @@ l1:
 		integerReceiverValue = positiveMachineIntegerValueOfObj(integerReceiver);
 		/* end positiveMachineIntegerValueOf: */
 l2:
-		if (!GIV(primFailCode)) {
+		if (!primFailCode) {
 			oop = positive64BitIntegerFor(integerArgumentValue ^ integerReceiverValue);
 
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),oop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (1 * BytesPerWord)),oop);
+			stackPointer = sp;
 		}
 	}
 }

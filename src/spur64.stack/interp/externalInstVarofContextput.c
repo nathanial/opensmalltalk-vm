@@ -13,18 +13,18 @@ externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext, sqInt anOop)
 	assert(isContext(maybeMarriedContext));
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
 
 	/* Assign the field of a married context. */
@@ -35,10 +35,10 @@ externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext, sqInt anOop)
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(index, maybeMarriedContext, anOop));
 		assert(isNonImmediate(maybeMarriedContext));
-		if (oopisGreaterThanOrEqualTo(maybeMarriedContext, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(maybeMarriedContext, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(anOop & (tagMask()))))
-			 && (oopisLessThan(anOop, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(anOop, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(maybeMarriedContext + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(maybeMarriedContext);
@@ -57,19 +57,19 @@ externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext, sqInt anOop)
 	theFP = ((char *)(senderOop - (smallIntegerTag())));
 
 	/* begin stackPageFor: */
-	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	onCurrentPage = thePage == GIV(stackPage);
+	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
+	assert(stackPage == (mostRecentlyUsedPage));
+	onCurrentPage = thePage == stackPage;
 	if (index) {
 		externalDivorceFrameandContext(theFP, maybeMarriedContext);
 
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(index, maybeMarriedContext, anOop));
 		assert(isNonImmediate(maybeMarriedContext));
-		if (oopisGreaterThanOrEqualTo(maybeMarriedContext, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(maybeMarriedContext, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(anOop & (tagMask()))))
-			 && (oopisLessThan(anOop, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(anOop, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(maybeMarriedContext + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(maybeMarriedContext);
@@ -85,13 +85,13 @@ externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext, sqInt anOop)
 	}
 	if (onCurrentPage) {
 		/* begin setStackPointersFromPage: */
-		GIV(stackPointer) = (GIV(stackPage)->headSP);
-		GIV(framePointer) = (GIV(stackPage)->headFP);
+		stackPointer = (stackPage->headSP);
+		framePointer = (stackPage->headFP);
 	}
 	else {
-		markStackPageMostRecentlyUsed(GIV(stackPage));
+		markStackPageMostRecentlyUsed(stackPage);
 	}
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
+	assert(stackPage == (mostRecentlyUsedPage));
 	assert(pageListIsWellFormed());
 	assert(validStackPageBaseFrames());
 	return 0;

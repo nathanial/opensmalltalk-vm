@@ -20,37 +20,37 @@ primitiveEnterCriticalSection(void)
     sqInt owningProcessIndex;
     char *sp;
 
-	if (GIV(argumentCount) > 0) {
+	if (argumentCount > 0) {
 		/* rcvr */
-		criticalSection = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-		activeProc = longAt(GIV(stackPointer));
+		criticalSection = longAt(stackPointer + (1 * BytesPerWord));
+		activeProc = longAt(stackPointer);
 		if (/* isOopForwarded: */
 			((!(activeProc & (tagMask()))))
 		 && ((!((longAt((void *)(activeProc))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 		}
 	}
 	else {
 		/* rcvr */
-		criticalSection = longAt(GIV(stackPointer));
+		criticalSection = longAt(stackPointer);
 
 		/* begin activeProcess */
-		objOop = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+		objOop = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
 		activeProc = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
 	}
 
 	/* CriticalSections are laid out like Semaphores */
 	owningProcessIndex = ExcessSignalsIndex;
 	owningProcess = longAt((void *)((criticalSection + BaseHeaderSize) + ((((usqInt)(owningProcessIndex) << (shiftForWord()))))));
-	if (owningProcess == GIV(nilObj)) {
+	if (owningProcess == nilObj) {
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(owningProcessIndex, criticalSection, activeProc));
 		assert(isNonImmediate(criticalSection));
-		if (oopisGreaterThanOrEqualTo(criticalSection, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(criticalSection, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(activeProc & (tagMask()))))
-			 && (oopisLessThan(activeProc, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(activeProc, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(criticalSection + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(criticalSection);
@@ -63,23 +63,23 @@ primitiveEnterCriticalSection(void)
 
 		/* begin methodReturnValue: */
 		assert(!((failed())));
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),GIV(falseObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),falseObj);
+		stackPointer = sp;
 		return;
 	}
 	if (owningProcess == activeProc) {
 		/* begin methodReturnValue: */
 		assert(!((failed())));
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),GIV(trueObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),trueObj);
+		stackPointer = sp;
 		return;
 	}
 
 	/* Arrange to answer false (unowned) when the process is resumed. */
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),GIV(falseObj));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),falseObj);
+	stackPointer = sp;
 	addLastLinktoList(activeProc, criticalSection);
 
 	/* transferToHighestPriorityProcessFrom: */

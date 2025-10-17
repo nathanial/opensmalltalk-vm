@@ -20,28 +20,28 @@ growOldSpaceByAtLeast(sqInt minAmmount)
 
 	/* statGrowMemory counts attempts, not successes. */
 	/* we need to include overhead for a new object header plus the segment bridge. */
-	GIV(statGrowMemory) += 1;
+	statGrowMemory += 1;
 	ammount = minAmmount + ((BaseHeaderSize * 2) + (2 * BaseHeaderSize));
 
 	/* round up to the nearest power of two. */
 	ammount = 1ULL << (highBit(ammount - 1));
 
 	/* and grow by at least growHeadroom. */
-	ammount = ((ammount < GIV(growHeadroom)) ? GIV(growHeadroom) : ammount);
+	ammount = ((ammount < growHeadroom) ? growHeadroom : ammount);
 
 	/* Now apply the maxOldSpaceSize limit, if one is in effect. */
 	if (maxOldSpaceSize > 0) {
 		/* begin totalOldSpaceSize */
-		assert((totalBytesInSegments()) == GIV(totalHeapSizeIncludingBridges));
-		total = GIV(totalHeapSizeIncludingBridges);
+		assert((totalBytesInSegments()) == totalHeapSizeIncludingBridges);
+		total = totalHeapSizeIncludingBridges;
 		if (total >= maxOldSpaceSize) {
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			return null;
 		}
 		headroom = maxOldSpaceSize - total;
 		if (headroom < ammount) {
 			if (headroom < (minAmmount + ((BaseHeaderSize * 2) + (2 * BaseHeaderSize)))) {
-				GIV(needGCFlag) = 1;
+				needGCFlag = 1;
 				return null;
 			}
 			ammount = headroom;
@@ -50,8 +50,8 @@ growOldSpaceByAtLeast(sqInt minAmmount)
 	start = ioUTCMicrosecondsNow();
 	if ((segInfo = addSegmentOfSize(ammount))) {
 		/* begin assimilateNewSegment: */
-		if ((((segInfo->segSize)) + ((segInfo->segStart))) >= GIV(endOfMemory)) {
-			GIV(freeOldSpaceStart) = (GIV(endOfMemory) = (((segInfo->segSize)) + ((segInfo->segStart))) - (2 * BaseHeaderSize));
+		if ((((segInfo->segSize)) + ((segInfo->segStart))) >= endOfMemory) {
+			freeOldSpaceStart = (endOfMemory = (((segInfo->segSize)) + ((segInfo->segStart))) - (2 * BaseHeaderSize));
 		}
 
 		/* and add the new free chunk to the free list; done here
@@ -60,25 +60,25 @@ growOldSpaceByAtLeast(sqInt minAmmount)
 		address = (segInfo->segStart);
 
 		/* begin addFreeChunkWithBytes:at: */
-		GIV(totalFreeOldSpace) += bytes;
+		totalFreeOldSpace += bytes;
 		freeChunkWithBytesat(bytes, address);
 		assert((addressAfter(objectStartingAt((segInfo->segStart)))) == ((segLimit(segInfo)) - (bridgeSize())));
 
 		/* begin checkFreeSpace: */
 		assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-		assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+		assert(totalFreeOldSpace == (totalFreeListBytes()));
 		if (((checkForLeaks & (GCCheckFreeSpace | GCCheckFreeSpace)) == (GCCheckFreeSpace | GCCheckFreeSpace))) {
 			runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 		}
 		checkSegments();
 		interval = (ioUTCMicrosecondsNow()) - start;
-		if (interval > GIV(statMaxAllocSegmentTime)) {
-			GIV(statMaxAllocSegmentTime) = interval;
+		if (interval > statMaxAllocSegmentTime) {
+			statMaxAllocSegmentTime = interval;
 		}
 		return (segInfo->segSize);
 	}
 	else {
-		GIV(needGCFlag) = 1;
+		needGCFlag = 1;
 		return null;
 	}
 }

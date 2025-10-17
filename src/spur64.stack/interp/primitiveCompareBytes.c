@@ -15,15 +15,15 @@ primitiveCompareBytes(void)
     usqInt numSlots;
     char *sp;
 
-	arg1 = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	arg2 = longAt(GIV(stackPointer));
+	arg1 = longAt(stackPointer + (1 * BytesPerWord));
+	arg2 = longAt(stackPointer);
 
 	/* Quick identity test */
 	if (arg1 == arg2) {
 		/* begin methodReturnBool: */
 		assert(!((failed())));
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),GIV(trueObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),trueObj);
+		stackPointer = sp;
 		return 0;
 	}
 	if (!((/* isBytes: */
@@ -32,7 +32,7 @@ primitiveCompareBytes(void)
 		 && (/* isBytes: */
 			((!(arg2 & (tagMask()))))
 		 && (((byteAt((void *)(arg2 + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat()))))) {
-		return (GIV(primFailCode) = PrimErrBadArgument);
+		return (primFailCode = PrimErrBadArgument);
 	}
 
 	/* begin numBytesOfBytes: */
@@ -46,23 +46,23 @@ primitiveCompareBytes(void)
 	if (!(len == (numBytesOfBytes(arg2)))) {
 		/* begin methodReturnBool: */
 		assert(!((failed())));
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),GIV(falseObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),falseObj);
+		stackPointer = sp;
 		return 0;
 	}
 	for (i = 0; i < len; i += 1) {
 		if (!((byteAt((void *)((arg1 + BaseHeaderSize) + i))) == (byteAt((void *)((arg2 + BaseHeaderSize) + i))))) {
 			/* begin methodReturnBool: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),GIV(falseObj));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),falseObj);
+			stackPointer = sp;
 			return 0;
 		}
 	}
 
 	/* begin methodReturnBool: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),GIV(trueObj));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),trueObj);
+	stackPointer = sp;
 	return 0;
 }

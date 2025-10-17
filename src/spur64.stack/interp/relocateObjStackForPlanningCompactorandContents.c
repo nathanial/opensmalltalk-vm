@@ -20,7 +20,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack, sqInt relocateCo
     sqInt stackOrNil;
 
 	next = 0;
-	if (objStack == GIV(nilObj)) {
+	if (objStack == nilObj) {
 		return objStack;
 	}
 	assert((relocateContents
@@ -45,7 +45,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack, sqInt relocateCo
 			oop = longAt((void *)((stackOrNil + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 			if (((!(oop & (tagMask()))))
 			 && (/* isMobile: */
-				(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, GIV(mobileStart), GIV(lastMobileObject)))
+				(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart, lastMobileObject))
 			 && (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)))) {
 				assert(isMarked(oop));
 				fwd = longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
@@ -59,7 +59,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack, sqInt relocateCo
 			}
 		}
 		relocated = (/* isMobile: */
-				(oopisGreaterThanOrEqualToandLessThanOrEqualTo(stackOrNil, GIV(mobileStart), GIV(lastMobileObject)))
+				(oopisGreaterThanOrEqualToandLessThanOrEqualTo(stackOrNil, mobileStart, lastMobileObject))
 			 && (!(((byteAt((void *)(stackOrNil + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0))
 					? longAt((void *)((stackOrNil + BaseHeaderSize) + (0U << (shiftForWord()))))
 					: stackOrNil);
@@ -78,7 +78,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack, sqInt relocateCo
 			oop = longAt((void *)((freeList + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 			if (((!(oop & (tagMask()))))
 			 && (/* isMobile: */
-				(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, GIV(mobileStart), GIV(lastMobileObject)))
+				(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart, lastMobileObject))
 			 && (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)))) {
 				assert(isMarked(oop));
 				fwd = longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
@@ -92,7 +92,7 @@ relocateObjStackForPlanningCompactorandContents(sqInt objStack, sqInt relocateCo
 			}
 		}
 		if (/* isMobile: */
-			(oopisGreaterThanOrEqualToandLessThanOrEqualTo(freeList, GIV(mobileStart), GIV(lastMobileObject)))
+			(oopisGreaterThanOrEqualToandLessThanOrEqualTo(freeList, mobileStart, lastMobileObject))
 		 && (!(((byteAt((void *)(freeList + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0))) {
 			/* fetchPointer:ofObject: */
 			longAt((void *)((freeList + BaseHeaderSize) + (0U << (shiftForWord()))));

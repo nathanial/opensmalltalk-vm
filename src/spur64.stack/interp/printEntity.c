@@ -38,14 +38,14 @@ printEntity(sqInt oop)
 	n = byteAt((void *)(oop + (numSlotsFieldByteOffset())));
 
 	/* begin printHexnpnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%" PRIxSQINT "",
 			n);
 	print("/");
 	n = bytesInBody(oop);
 
 	/* begin printHexnpnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%" PRIxSQINT "",
 			n);
 	print("/");
@@ -59,7 +59,7 @@ printEntity(sqInt oop)
 		n = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
 
 		/* begin printHexnpnp: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%" PRIxSQINT "",
 				n);
 		print(((byteAt((void *)(oop + (markBitsByteOffset())))) & (1U << (greyBitByteShift()))

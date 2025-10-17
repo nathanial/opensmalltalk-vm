@@ -11,7 +11,7 @@ printProcsOnList(sqInt procList)
     sqInt proc;
 
 	proc = (firstProc = followFieldofObject(FirstLinkIndex, procList));
-	while (!(proc == GIV(nilObj))) {
+	while (!(proc == nilObj)) {
 		printProcessStack(proc);
 		proc = followFieldofObject(NextLinkIndex, proc);
 		if (proc == firstProc) {

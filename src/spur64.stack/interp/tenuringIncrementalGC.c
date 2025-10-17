@@ -16,13 +16,13 @@ tenuringIncrementalGC(void)
     sqInt savedTenuringThreshold;
 
 	/* begin flushNewSpace */
-	savedTenuringThreshold = GIV(tenureThreshold);
-	GIV(tenureThreshold) = GIV(oldSpaceStart);
+	savedTenuringThreshold = tenureThreshold;
+	tenureThreshold = oldSpaceStart;
 	scavengingGCTenuringIf(TenureByAge);
 
 	/* begin setRawTenuringThreshold: */
-	GIV(tenureThreshold) = savedTenuringThreshold;
-	assert((GIV(rememberedSetSize)) == 0);
-	assert(GIV(pastSpaceStart) == (((GIV(pastSpace)).start)));
-	assert(GIV(freeStart) == (((GIV(eden)).start)));
+	tenureThreshold = savedTenuringThreshold;
+	assert((rememberedSetSize) == 0);
+	assert(pastSpaceStart == (((pastSpace).start)));
+	assert(freeStart == (((eden).start)));
 }

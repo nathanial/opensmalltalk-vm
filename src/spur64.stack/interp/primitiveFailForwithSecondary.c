@@ -7,6 +7,6 @@
 sqInt
 primitiveFailForwithSecondary(sqInt reasonCode, sqLong extraErrorCode)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	GIV(secondaryErrorCode) = extraErrorCode;
-	return (GIV(primFailCode) = reasonCode);
+	secondaryErrorCode = extraErrorCode;
+	return (primFailCode = reasonCode);
 }

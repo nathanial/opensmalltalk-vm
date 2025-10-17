@@ -48,24 +48,24 @@ spurPostBecomeAction(sqInt theBecomeEffectsFlags)
     sqInt xArray;
 
 	/* begin flushAtCache */
-	memset(GIV(atCache), 0, AtCacheTotalSize * (sizeof(GIV(atCache)[0])));
+	memset(atCache, 0, AtCacheTotalSize * (sizeof(atCache[0])));
 	if (theBecomeEffectsFlags) {
 		if (((theBecomeEffectsFlags & BecameActiveClassFlag) != 0)) {
 			/* begin flushBecommedClassesInMethodCache */
 			for (i = 0; i < MethodCacheSize; i += MethodCacheEntrySize) {
-				c = GIV(methodCache)[i + MethodCacheClass];
-				s = GIV(methodCache)[i + MethodCacheSelector];
+				c = methodCache[i + MethodCacheClass];
+				s = methodCache[i + MethodCacheSelector];
 				if ((c != 0)
 				 && ((s != 0)
 				 && (isForwarded(classOrNilAtIndex(c))))) {
-					GIV(methodCache)[i + MethodCacheClass] = 0;
-					GIV(methodCache)[i + MethodCacheSelector] = 0;
+					methodCache[i + MethodCacheClass] = 0;
+					methodCache[i + MethodCacheSelector] = 0;
 				}
 			}
 		}
 		if (((theBecomeEffectsFlags & BecamePointerObjectFlag) != 0)) {
 			/* begin followForwardingPointersInScheduler */
-			schedAssoc = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))));
+			schedAssoc = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))));
 
 			/* the GC follows pointers in the special objects array for us. */
 			assert(!(isForwarded(schedAssoc)));
@@ -121,7 +121,7 @@ spurPostBecomeAction(sqInt theBecomeEffectsFlags)
 
 			/* begin followForwardingPointersInSpecialObjectsArray */
 			/* begin followSemaphoreIn:at: */
-			obj = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheLowSpaceSemaphore) << (shiftForWord()))))));
+			obj = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheLowSpaceSemaphore) << (shiftForWord()))))));
 			if ((!((longAt((void *)(obj))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 				/* begin followForwarded: */
 				assert(isUnambiguouslyForwarder(obj));
@@ -134,25 +134,25 @@ spurPostBecomeAction(sqInt theBecomeEffectsFlags)
 				obj = referent;
 
 				/* begin storePointer:ofObject:withValue: */
-				assert(validStorePointerArgs(TheLowSpaceSemaphore, GIV(specialObjectsOop), obj));
-				assert(isNonImmediate(GIV(specialObjectsOop)));
-				if (oopisGreaterThanOrEqualTo(GIV(specialObjectsOop), GIV(oldSpaceStart))) {
+				assert(validStorePointerArgs(TheLowSpaceSemaphore, specialObjectsOop, obj));
+				assert(isNonImmediate(specialObjectsOop));
+				if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(obj & (tagMask()))))
-					 && (oopisLessThan(obj, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(obj, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
-						if (!((byteAt((void *)(GIV(specialObjectsOop) + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-							remember(GIV(specialObjectsOop));
+						if (!((byteAt((void *)(specialObjectsOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+							remember(specialObjectsOop);
 						}
 					}
 				}
 
 				/* most stores into young objects */
-				longAtput((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheLowSpaceSemaphore) << (shiftForWord()))))),obj);
+				longAtput((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheLowSpaceSemaphore) << (shiftForWord()))))),obj);
 			}
 
 			/* begin followSemaphoreIn:at: */
-			obj = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))));
+			obj = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))));
 			if ((!((longAt((void *)(obj))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 				/* begin followForwarded: */
 				assert(isUnambiguouslyForwarder(obj));
@@ -165,25 +165,25 @@ spurPostBecomeAction(sqInt theBecomeEffectsFlags)
 				obj = referent;
 
 				/* begin storePointer:ofObject:withValue: */
-				assert(validStorePointerArgs(TheInterruptSemaphore, GIV(specialObjectsOop), obj));
-				assert(isNonImmediate(GIV(specialObjectsOop)));
-				if (oopisGreaterThanOrEqualTo(GIV(specialObjectsOop), GIV(oldSpaceStart))) {
+				assert(validStorePointerArgs(TheInterruptSemaphore, specialObjectsOop, obj));
+				assert(isNonImmediate(specialObjectsOop));
+				if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(obj & (tagMask()))))
-					 && (oopisLessThan(obj, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(obj, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
-						if (!((byteAt((void *)(GIV(specialObjectsOop) + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-							remember(GIV(specialObjectsOop));
+						if (!((byteAt((void *)(specialObjectsOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+							remember(specialObjectsOop);
 						}
 					}
 				}
 
 				/* most stores into young objects */
-				longAtput((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))),obj);
+				longAtput((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))),obj);
 			}
 
 			/* begin followSemaphoreIn:at: */
-			obj = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))));
+			obj = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))));
 			if ((!((longAt((void *)(obj))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 				/* begin followForwarded: */
 				assert(isUnambiguouslyForwarder(obj));
@@ -196,25 +196,25 @@ spurPostBecomeAction(sqInt theBecomeEffectsFlags)
 				obj = referent;
 
 				/* begin storePointer:ofObject:withValue: */
-				assert(validStorePointerArgs(TheTimerSemaphore, GIV(specialObjectsOop), obj));
-				assert(isNonImmediate(GIV(specialObjectsOop)));
-				if (oopisGreaterThanOrEqualTo(GIV(specialObjectsOop), GIV(oldSpaceStart))) {
+				assert(validStorePointerArgs(TheTimerSemaphore, specialObjectsOop, obj));
+				assert(isNonImmediate(specialObjectsOop));
+				if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(obj & (tagMask()))))
-					 && (oopisLessThan(obj, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(obj, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
-						if (!((byteAt((void *)(GIV(specialObjectsOop) + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-							remember(GIV(specialObjectsOop));
+						if (!((byteAt((void *)(specialObjectsOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+							remember(specialObjectsOop);
 						}
 					}
 				}
 
 				/* most stores into young objects */
-				longAtput((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))),obj);
+				longAtput((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))),obj);
 			}
 
 			/* begin followSemaphoreIn:at: */
-			obj = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheFinalizationSemaphore) << (shiftForWord()))))));
+			obj = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheFinalizationSemaphore) << (shiftForWord()))))));
 			if ((!((longAt((void *)(obj))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 				/* begin followForwarded: */
 				assert(isUnambiguouslyForwarder(obj));
@@ -227,23 +227,23 @@ spurPostBecomeAction(sqInt theBecomeEffectsFlags)
 				obj = referent;
 
 				/* begin storePointer:ofObject:withValue: */
-				assert(validStorePointerArgs(TheFinalizationSemaphore, GIV(specialObjectsOop), obj));
-				assert(isNonImmediate(GIV(specialObjectsOop)));
-				if (oopisGreaterThanOrEqualTo(GIV(specialObjectsOop), GIV(oldSpaceStart))) {
+				assert(validStorePointerArgs(TheFinalizationSemaphore, specialObjectsOop, obj));
+				assert(isNonImmediate(specialObjectsOop));
+				if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(obj & (tagMask()))))
-					 && (oopisLessThan(obj, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(obj, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
-						if (!((byteAt((void *)(GIV(specialObjectsOop) + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-							remember(GIV(specialObjectsOop));
+						if (!((byteAt((void *)(specialObjectsOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+							remember(specialObjectsOop);
 						}
 					}
 				}
 
 				/* most stores into young objects */
-				longAtput((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheFinalizationSemaphore) << (shiftForWord()))))),obj);
+				longAtput((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheFinalizationSemaphore) << (shiftForWord()))))),obj);
 			}
-			xArray = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))));
+			xArray = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))));
 			if ((!((longAt((void *)(xArray))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 				/* begin followForwarded: */
 				assert(isUnambiguouslyForwarder(xArray));
@@ -257,21 +257,21 @@ spurPostBecomeAction(sqInt theBecomeEffectsFlags)
 
 				/* begin splObj:put: */
 				/* begin storePointer:ofObject:withValue: */
-				assert(validStorePointerArgs(ExternalObjectsArray, GIV(specialObjectsOop), xArray));
-				assert(isNonImmediate(GIV(specialObjectsOop)));
-				if (oopisGreaterThanOrEqualTo(GIV(specialObjectsOop), GIV(oldSpaceStart))) {
+				assert(validStorePointerArgs(ExternalObjectsArray, specialObjectsOop, xArray));
+				assert(isNonImmediate(specialObjectsOop));
+				if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(xArray & (tagMask()))))
-					 && (oopisLessThan(xArray, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(xArray, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
-						if (!((byteAt((void *)(GIV(specialObjectsOop) + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-							remember(GIV(specialObjectsOop));
+						if (!((byteAt((void *)(specialObjectsOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+							remember(specialObjectsOop);
 						}
 					}
 				}
 
 				/* most stores into young objects */
-				longAtput((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))),xArray);
+				longAtput((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))),xArray);
 			}
 			toDoLimit = ((/* begin numSlotsOf: */
 	assert((classIndexOf(xArray)) > (isForwardedObjectClassIndexPun())),
@@ -295,10 +295,10 @@ spurPostBecomeAction(sqInt theBecomeEffectsFlags)
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(ipdelta, xArray, obj));
 					assert(isNonImmediate(xArray));
-					if (oopisGreaterThanOrEqualTo(xArray, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(xArray, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(obj & (tagMask()))))
-						 && (oopisLessThan(obj, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(obj, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(xArray + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(xArray);
@@ -314,33 +314,33 @@ spurPostBecomeAction(sqInt theBecomeEffectsFlags)
 		if (((theBecomeEffectsFlags & (BecamePointerObjectFlag + BecameCompiledMethodFlag)) != 0)) {
 			/* begin followForwardingPointersInProfileState */
 			/* begin profileStateDoUpdating: */
-			if (GIV(profileProcess)) {
-				if ((result = ((!((longAt((void *)(GIV(profileProcess)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
-							? followForwarded(GIV(profileProcess))
+			if (profileProcess) {
+				if ((result = ((!((longAt((void *)(profileProcess))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
+							? followForwarded(profileProcess)
 							: 0))) {
-					GIV(profileProcess) = result;
+					profileProcess = result;
 				}
 			}
-			if (GIV(profileMethod)) {
-				if ((result = ((!((longAt((void *)(GIV(profileMethod)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
-							? followForwarded(GIV(profileMethod))
+			if (profileMethod) {
+				if ((result = ((!((longAt((void *)(profileMethod))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
+							? followForwarded(profileMethod)
 							: 0))) {
-					GIV(profileMethod) = result;
+					profileMethod = result;
 				}
 			}
-			if (GIV(profileSemaphore)) {
-				if ((result = ((!((longAt((void *)(GIV(profileSemaphore)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
-							? followForwarded(GIV(profileSemaphore))
+			if (profileSemaphore) {
+				if ((result = ((!((longAt((void *)(profileSemaphore))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))
+							? followForwarded(profileSemaphore)
 							: 0))) {
-					GIV(profileSemaphore) = result;
+					profileSemaphore = result;
 				}
 			}
 			if (((theBecomeEffectsFlags & BecameCompiledMethodFlag) != 0)) {
 				/* begin followForwardedMethodsInMethodCache */
 				for (i = 0; i < MethodCacheSize; i += MethodCacheEntrySize) {
-					c = GIV(methodCache)[i + MethodCacheClass];
-					s = GIV(methodCache)[i + MethodCacheSelector];
-					m = GIV(methodCache)[i + MethodCacheMethod];
+					c = methodCache[i + MethodCacheClass];
+					s = methodCache[i + MethodCacheSelector];
+					m = methodCache[i + MethodCacheMethod];
 					if ((c != 0)
 					 && ((s != 0)
 					 && ((m != 0)
@@ -356,43 +356,43 @@ spurPostBecomeAction(sqInt theBecomeEffectsFlags)
 							referent = longAt((void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
 						}
 						m = referent;
-						GIV(methodCache)[i + MethodCacheMethod] = m;
+						methodCache[i + MethodCacheMethod] = m;
 					}
 				}
 
 				/* begin followMethodNewMethodAndInstructionPointer */
-				if ((!((longAt((void *)(GIV(method)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
+				if ((!((longAt((void *)(method))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 					ipdelta = (/* method:includesAddress: */
-							(GIV(instructionPointer) > GIV(method))
-						 && (GIV(instructionPointer) < (GIV(method) + ((((numSlotsOfAny(GIV(method))) << (shiftForWord()))) + BaseHeaderSize)))
-								? GIV(instructionPointer) - GIV(method)
+							(instructionPointer > method)
+						 && (instructionPointer < (method + ((((numSlotsOfAny(method)) << (shiftForWord()))) + BaseHeaderSize)))
+								? instructionPointer - method
 								: 0);
 
 					/* begin followForwarded: */
-					assert(isUnambiguouslyForwarder(GIV(method)));
-					referent = longAt((void *)((GIV(method) + BaseHeaderSize) + (0U << (shiftForWord()))));
+					assert(isUnambiguouslyForwarder(method));
+					referent = longAt((void *)((method + BaseHeaderSize) + (0U << (shiftForWord()))));
 					while (/* isOopForwarded: */
 						((!(referent & (tagMask()))))
 					 && ((!((longAt((void *)(referent))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 						referent = longAt((void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
 					}
-					GIV(method) = referent;
+					method = referent;
 					if (ipdelta) {
-						GIV(instructionPointer) = GIV(method) + ipdelta;
+						instructionPointer = method + ipdelta;
 					}
 				}
 				if (/* isOopForwarded: */
-					((!(GIV(newMethod) & (tagMask()))))
-				 && ((!((longAt((void *)(GIV(newMethod)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+					((!(newMethod & (tagMask()))))
+				 && ((!((longAt((void *)(newMethod))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 					/* begin followForwarded: */
-					assert(isUnambiguouslyForwarder(GIV(newMethod)));
-					referent = longAt((void *)((GIV(newMethod) + BaseHeaderSize) + (0U << (shiftForWord()))));
+					assert(isUnambiguouslyForwarder(newMethod));
+					referent = longAt((void *)((newMethod + BaseHeaderSize) + (0U << (shiftForWord()))));
 					while (/* isOopForwarded: */
 						((!(referent & (tagMask()))))
 					 && ((!((longAt((void *)(referent))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 						referent = longAt((void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
 					}
-					GIV(newMethod) = referent;
+					newMethod = referent;
 				}
 			}
 		}

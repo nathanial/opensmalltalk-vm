@@ -29,13 +29,13 @@ maybeMethodClassOfseemsToBeInstantiating(sqInt methodObj, sqInt format)
 	 && ((!((longAt((void *)(literal))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 		literal = fixFollowedFieldofObjectwithInitialValue(offset + LiteralStart, methodObj, literal);
 	}
-	maybeClassObj = ((literal != GIV(nilObj))
+	maybeClassObj = ((literal != nilObj)
 		 && (/* isPointers: */
 			((!(literal & (tagMask()))))
 		 && (((byteAt((void *)(literal + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
 				? (assert((numSlotsOf(literal)) > ValueIndex),
 				followFieldofObject(ValueIndex, literal))
-				: GIV(nilObj));
+				: nilObj);
 	if (!(((byteAt((void *)(maybeClassObj + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */)) {
 		return 0;
 	}

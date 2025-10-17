@@ -9,7 +9,7 @@ stackSignedMachineIntegerValue(sqInt offset)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt integerPointer;
 
-	integerPointer = longAt(GIV(stackPointer) + (offset * BytesPerWord));
+	integerPointer = longAt(stackPointer + (offset * BytesPerWord));
 
 	/* begin signedMachineIntegerValueOf: */
 	if ((((integerPointer) & 7) == 1)) {

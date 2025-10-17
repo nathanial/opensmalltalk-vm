@@ -13,10 +13,10 @@ methodReturnBool(sqInt boolean)
 	assert(!((failed())));
 
 	/* begin pop:thenPushBool: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
 		(boolean
-			? GIV(trueObj)
-			: GIV(falseObj)));
-	GIV(stackPointer) = sp;
+			? trueObj
+			: falseObj));
+	stackPointer = sp;
 	return 0;
 }

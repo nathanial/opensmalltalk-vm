@@ -10,9 +10,9 @@ shortPrintFrame(char *theFP)
 
 	if (!(/* couldBeFramePointer: */
 			(((((usqInt)theFP)) & (BytesPerWord - 1)) == 0)
-		 && ((((((usqInt)theFP)) >= (((usqInt)GIV(stackMemory)))) && ((((usqInt)theFP)) <= (((usqInt)GIV(pages)))))))) {
+		 && ((((((usqInt)theFP)) >= (((usqInt)stackMemory))) && ((((usqInt)theFP)) <= (((usqInt)pages))))))) {
 		/* begin print: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%s",
 				"invalid frame pointer");
 		cr();

@@ -46,10 +46,10 @@ primitiveExternalCall(void)
     sqInt reasonCode;
 
 	if (!((/* isOopCompiledMethod: */
-			((!(GIV(newMethod) & (tagMask()))))
-		 && (((byteAt((void *)(GIV(newMethod) + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat())))
-		 && (((literalCountOf(GIV(newMethod))) > 0)
-		 && (((lit = longAt((void *)((GIV(newMethod) + BaseHeaderSize) + (1U << (shiftForWord()))))),
+			((!(newMethod & (tagMask()))))
+		 && (((byteAt((void *)(newMethod + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat())))
+		 && (((literalCountOf(newMethod)) > 0)
+		 && (((lit = longAt((void *)((newMethod + BaseHeaderSize) + (1U << (shiftForWord()))))),
 		(/* isArray: */
 				((!(lit & (tagMask()))))
 			 && (((byteAt((void *)(lit + (formatFieldByteOffset())))) & (formatMask())) == (arrayFormat())))
@@ -61,7 +61,7 @@ primitiveExternalCall(void)
 			 && (((index = longAt((void *)((lit + BaseHeaderSize) + ((((usqInt)(ExternalCallLiteralTargetFunctionIndex) << (shiftForWord()))))))),
 			(((index) & 7) == 1))))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadMethod;
+		primFailCode = PrimErrBadMethod;
 		return;
 	}
 	index = (index >> 3);
@@ -71,7 +71,7 @@ primitiveExternalCall(void)
 		rewriteMethodCacheEntryForExternalPrimitiveToFunction(0);
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNotFound;
+		primFailCode = PrimErrNotFound;
 		return;
 	}
 
@@ -89,7 +89,7 @@ primitiveExternalCall(void)
 			dispatchFunctionPointer(addr);
 
 			/* begin maybeRetryPrimitiveOnFailure */
-			if (GIV(primFailCode)) {
+			if (primFailCode) {
 				retryPrimitiveOnFailure();
 			}
 			return;
@@ -100,7 +100,7 @@ primitiveExternalCall(void)
 		   table was already flushed */
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNamedInternal;
+		primFailCode = PrimErrNamedInternal;
 		return;
 	}
 
@@ -119,13 +119,13 @@ primitiveExternalCall(void)
 	longAtput((void *)((lit + BaseHeaderSize) + ((((usqInt)(ExternalCallLiteralTargetFunctionIndex) << (shiftForWord()))))),ConstZero);
 
 	/* The function has not been loaded yet. Attempt to link it, cache it, and call it. */
-	addr = linkExternalCallerrInto(lit, (&GIV(primFailCode)));
+	addr = linkExternalCallerrInto(lit, (&primFailCode));
 	if (!addr) {
 		assert((fetchPointerofObject(ExternalCallLiteralFlagsIndex, lit)) == ConstZero);
-		reasonCode = (GIV(primFailCode)
-					? GIV(primFailCode)
+		reasonCode = (primFailCode
+					? primFailCode
 					: PrimErrNotFound);
-		GIV(primFailCode) = reasonCode;
+		primFailCode = reasonCode;
 		return;
 	}
 
@@ -134,7 +134,7 @@ primitiveExternalCall(void)
 	dispatchFunctionPointer(addr);
 
 	/* begin maybeRetryPrimitiveOnFailure */
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		retryPrimitiveOnFailure();
 	}
 }

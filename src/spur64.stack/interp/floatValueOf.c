@@ -38,8 +38,8 @@ floatValueOf(sqInt oop)
 	}
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	return 0.0;
 }

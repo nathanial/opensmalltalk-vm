@@ -9,5 +9,5 @@
 sqInt
 classByteArray(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassByteArray) << (shiftForWord()))))));
+	return longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassByteArray) << (shiftForWord()))))));
 }

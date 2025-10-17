@@ -13,13 +13,13 @@ primitiveHeartbeatFrequency(void)
     sqInt reset;
     char *sp;
 
-	reset = (GIV(argumentCount) == 1)
-		 && ((longAt(GIV(stackPointer))) == GIV(trueObj));
+	reset = (argumentCount == 1)
+		 && ((longAt(stackPointer)) == trueObj);
 	integerValue = ((unsigned int) (ioHeartbeatFrequency(reset)));
 
 	/* begin positive32BitIntegerFor: */
 	oop = ((((((usqInt)integerValue)) & 0xFFFFFFFFU) << 3) | 1);
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),oop);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),oop);
+	stackPointer = sp;
 	return 0;
 }

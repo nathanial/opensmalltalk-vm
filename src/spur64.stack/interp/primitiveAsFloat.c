@@ -12,10 +12,10 @@ primitiveAsFloat(void)
     sqInt rcvr;
     char *sp;
 
-	rcvr = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer);
 	assert((((rcvr) & 7) == 1));
 
 	/* begin pop:thenPushFloat: */
-	longAtput((sp = GIV(stackPointer)),floatObjectOf(((double) ((rcvr >> 3)) )));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),floatObjectOf(((double) ((rcvr >> 3)) )));
+	stackPointer = sp;
 }

@@ -10,6 +10,6 @@ methodReturnReceiver(void)
 	assert(!((failed())));
 
 	/* begin pop: */
-	GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+	stackPointer += argumentCount * BytesPerWord;
 	return 0;
 }

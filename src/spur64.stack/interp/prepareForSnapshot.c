@@ -24,9 +24,9 @@ prepareForSnapshot(void)
     sqInt treeNode;
 
 	checkSegments();
-	for (i = 0; i < GIV(numSegments); i += 1) {
-		cascade0 = (&(GIV(segments)[i]));
-		(cascade0->savedSegSize = ((GIV(segments)[i]).segSize));
+	for (i = 0; i < numSegments; i += 1) {
+		cascade0 = (&(segments[i]));
+		(cascade0->savedSegSize = ((segments[i]).segSize));
 		(cascade0->lastFreeObject = null);
 	}
 
@@ -34,7 +34,7 @@ prepareForSnapshot(void)
 	   done in some linear pass through the heap.  But for now KISS. */
 
 	/* begin freeTreeNodesDo: */
-	treeNode = GIV(freeLists)[0];
+	treeNode = freeLists[0];
 	if (!treeNode) {
 		goto l2;
 	}
@@ -59,8 +59,8 @@ prepareForSnapshot(void)
 			while (node != 0) {
 				/* begin objectAfter:limit: */
 				followingWordAddress = addressAfter(node);
-				if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-					next = GIV(endOfMemory);
+				if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+					next = endOfMemory;
 					goto l1;
 				}
 				followingWord = longAt((void *)(followingWordAddress));
@@ -97,30 +97,30 @@ l1:
 	} while(treeNode != 0);
 	/* end freeTreeNodesDo: */
 l2:
-	for (i = 0; i < GIV(numSegments); i += 1) {
-		if ((freeChunk = ((GIV(segments)[i]).lastFreeObject))) {
+	for (i = 0; i < numSegments; i += 1) {
+		if ((freeChunk = ((segments[i]).lastFreeObject))) {
 			/* begin detachFreeObject: */
 			chunkBytes = bytesInBody(freeChunk);
-			GIV(totalFreeOldSpace) -= chunkBytes;
+			totalFreeOldSpace -= chunkBytes;
 			unlinkFreeChunkchunkBytes(freeChunk, chunkBytes);
-			selfOfSegSize = (&(GIV(segments)[i]));
+			selfOfSegSize = (&(segments[i]));
 			(selfOfSegSize->segSize = ((/* startOfObject: */
 	((byteAt((void *)(freeChunk + (numSlotsFieldByteOffset())))) == (numSlotsMask())
 		? freeChunk - BaseHeaderSize
-		: freeChunk)) + (2 * BaseHeaderSize)) - (((GIV(segments)[i]).segStart)));
-			bridgeFromto((&(GIV(segments)[i])), (i < (GIV(numSegments) - 1)
-					? (&(GIV(segments)[i + 1]))
+		: freeChunk)) + (2 * BaseHeaderSize)) - (((segments[i]).segStart)));
+			bridgeFromto((&(segments[i])), (i < (numSegments - 1)
+					? (&(segments[i + 1]))
 					: 0));
 		}
 	}
 
 	/* perhaps this should read
 	   manager setEndOfMemory: 0; assimilateNewSegment: (segments at: numSegments - 1) */
-	newEndOfMemory = ((((GIV(segments)[GIV(numSegments) - 1]).segSize)) + (((GIV(segments)[GIV(numSegments) - 1]).segStart))) - (2 * BaseHeaderSize);
+	newEndOfMemory = ((((segments[numSegments - 1]).segSize)) + (((segments[numSegments - 1]).segStart))) - (2 * BaseHeaderSize);
 
 	/* begin setEndOfMemory: */
-	GIV(endOfMemory) = newEndOfMemory;
-	if (GIV(freeOldSpaceStart) > newEndOfMemory) {
-		GIV(freeOldSpaceStart) = newEndOfMemory;
+	endOfMemory = newEndOfMemory;
+	if (freeOldSpaceStart > newEndOfMemory) {
+		freeOldSpaceStart = newEndOfMemory;
 	}
 }

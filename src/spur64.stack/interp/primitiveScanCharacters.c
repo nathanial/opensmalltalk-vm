@@ -58,26 +58,26 @@ primitiveScanCharacters(void)
     sqInt stopReason;
     sqInt stops;
 
-	if (GIV(argumentCount) != 6) {
+	if (argumentCount != 6) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadNumArgs;
+		primFailCode = PrimErrBadNumArgs;
 		return;
 	}
 
 	/* Load the receiver and arguments */
-	kernDelta = longAt(GIV(stackPointer));
-	stops = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	scanRightX = longAt(GIV(stackPointer) + (2 * BytesPerWord));
-	sourceString = longAt(GIV(stackPointer) + (3 * BytesPerWord));
-	scanStopIndex = longAt(GIV(stackPointer) + (4 * BytesPerWord));
-	scanStartIndex = longAt(GIV(stackPointer) + (5 * BytesPerWord));
-	rcvr = longAt(GIV(stackPointer) + (6 * BytesPerWord));
+	kernDelta = longAt(stackPointer);
+	stops = longAt(stackPointer + (1 * BytesPerWord));
+	scanRightX = longAt(stackPointer + (2 * BytesPerWord));
+	sourceString = longAt(stackPointer + (3 * BytesPerWord));
+	scanStopIndex = longAt(stackPointer + (4 * BytesPerWord));
+	scanStartIndex = longAt(stackPointer + (5 * BytesPerWord));
+	rcvr = longAt(stackPointer + (6 * BytesPerWord));
 	if (!(((((kernDelta) & 7) == 1))
 		 && (((((scanRightX) & 7) == 1))
 		 && (((((scanStopIndex) & 7) == 1))
 		 && ((((scanStartIndex) & 7) == 1)))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	kernDelta = (kernDelta >> 3);
@@ -97,7 +97,7 @@ primitiveScanCharacters(void)
 		 && ((scanStopIndex > 0)
 		 && (scanStopIndex <= (byteSizeOf(sourceString))))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	if (!((/* isPointers: */
@@ -105,7 +105,7 @@ primitiveScanCharacters(void)
 		 && (((byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
 		 && ((slotSizeOf(rcvr)) >= 4))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 
@@ -124,12 +124,12 @@ primitiveScanCharacters(void)
 		 && (((((scanDestX) & 7) == 1))
 		 && ((((scanLastIndex) & 7) == 1))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 	if (((scanDestX = (scanDestX >> 3))) < 0) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 	scanLastIndex = (scanLastIndex >> 3);
@@ -142,10 +142,10 @@ primitiveScanCharacters(void)
 		ascii = byteAt((void *)((sourceString + BaseHeaderSize) + (scanLastIndex - 1)));
 
 		/* Known to be okay since stops size >= 258 */
-		if (!(((stopReason = longAt((void *)((stops + BaseHeaderSize) + ((((usqInt)(ascii) << (shiftForWord())))))))) == GIV(nilObj))) {
+		if (!(((stopReason = longAt((void *)((stops + BaseHeaderSize) + ((((usqInt)(ascii) << (shiftForWord())))))))) == nilObj)) {
 			if (!(scanDestX >= 0)) {
 				/* primitiveFailFor: */
-				GIV(primFailCode) = PrimErrLimitExceeded;
+				primFailCode = PrimErrLimitExceeded;
 				return;
 			}
 
@@ -159,8 +159,8 @@ primitiveScanCharacters(void)
 			}
 			else {
 				/* begin primitiveFail */
-				if (!GIV(primFailCode)) {
-					GIV(primFailCode) = 1;
+				if (!primFailCode) {
+					primFailCode = 1;
 				}
 			}
 
@@ -174,15 +174,15 @@ primitiveScanCharacters(void)
 			}
 			else {
 				/* begin primitiveFail */
-				if (!GIV(primFailCode)) {
-					GIV(primFailCode) = 1;
+				if (!primFailCode) {
+					primFailCode = 1;
 				}
 			}
 
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),stopReason);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),stopReason);
+			stackPointer = sp;
 			return;
 		}
 
@@ -195,7 +195,7 @@ primitiveScanCharacters(void)
 			 && ((((glyphIndex = (glyphIndex >> 3))) >= 0)
 			 && (glyphIndex <= maxGlyph)))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadIndex;
+			primFailCode = PrimErrBadIndex;
 			return;
 		}
 		sourceX = longAt((void *)((scanXTable + BaseHeaderSize) + ((((usqInt)(glyphIndex) << (shiftForWord()))))));
@@ -205,7 +205,7 @@ primitiveScanCharacters(void)
 		if (!(((((sourceX) & 7) == 1))
 			 && ((((sourceX2) & 7) == 1)))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadIndex;
+			primFailCode = PrimErrBadIndex;
 			return;
 		}
 		nextDestX = (scanDestX + ((sourceX2 >> 3))) - ((sourceX >> 3));
@@ -220,8 +220,8 @@ primitiveScanCharacters(void)
 			}
 			else {
 				/* begin primitiveFail */
-				if (!GIV(primFailCode)) {
-					GIV(primFailCode) = 1;
+				if (!primFailCode) {
+					primFailCode = 1;
 				}
 			}
 
@@ -235,15 +235,15 @@ primitiveScanCharacters(void)
 			}
 			else {
 				/* begin primitiveFail */
-				if (!GIV(primFailCode)) {
-					GIV(primFailCode) = 1;
+				if (!primFailCode) {
+					primFailCode = 1;
 				}
 			}
 
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp1 = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),longAt((void *)((stops + BaseHeaderSize) + ((((usqInt)((CrossedX - 1)) << (shiftForWord())))))));
-			GIV(stackPointer) = sp1;
+			longAtput((sp1 = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),longAt((void *)((stops + BaseHeaderSize) + ((((usqInt)((CrossedX - 1)) << (shiftForWord())))))));
+			stackPointer = sp1;
 			return;
 		}
 
@@ -251,7 +251,7 @@ primitiveScanCharacters(void)
 		if (!((nextDestX >= 0)
 			 && (((scanDestX = nextDestX + kernDelta)) >= 0))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrLimitExceeded;
+			primFailCode = PrimErrLimitExceeded;
 			return;
 		}
 		scanLastIndex += 1;
@@ -269,8 +269,8 @@ primitiveScanCharacters(void)
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 
@@ -284,13 +284,13 @@ primitiveScanCharacters(void)
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 
 	/* begin methodReturnValue: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),longAt((void *)((stops + BaseHeaderSize) + ((((usqInt)((EndOfRun - 1)) << (shiftForWord())))))));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),longAt((void *)((stops + BaseHeaderSize) + ((((usqInt)((EndOfRun - 1)) << (shiftForWord())))))));
+	stackPointer = sp;
 }

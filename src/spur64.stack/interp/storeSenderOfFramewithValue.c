@@ -53,9 +53,9 @@ storeSenderOfFramewithValue(char *theFP, sqInt anOop)
 l2:
 
 	/* begin stackPageFor: */
-	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	onCurrentPage = thePage == GIV(stackPage);
+	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
+	assert(stackPage == (mostRecentlyUsedPage));
+	onCurrentPage = thePage == stackPage;
 	if (!onCurrentPage) {
 		markStackPageNextMostRecentlyUsed(thePage);
 	}
@@ -63,7 +63,7 @@ l2:
 	/* Make sure the frame's page isn't divorced when a new page is allocated. */
 
 	/* begin newStackPage */
-	newPage = (GIV(mostRecentlyUsedPage)->nextPage);
+	newPage = (mostRecentlyUsedPage->nextPage);
 	if (!((newPage->baseFP))) {
 		goto l1;
 	}
@@ -74,9 +74,9 @@ l1:
 	if (onCurrentPage) {
 		/* begin setStackPageAndLimit: */
 		assert(newPage);
-		GIV(stackPage) = newPage;
-		if (GIV(stackLimit) != (((char *) (((usqInt) -1))))) {
-			GIV(stackLimit) = (GIV(stackPage)->stackLimit);
+		stackPage = newPage;
+		if (stackLimit != (((char *) (((usqInt) -1))))) {
+			stackLimit = (stackPage->stackLimit);
 		}
 		markStackPageMostRecentlyUsed(newPage);
 	}

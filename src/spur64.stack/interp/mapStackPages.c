@@ -18,9 +18,9 @@ mapStackPages(void)
 	callerFP = ((char *) 0);
 	theIP = 0;
 	numLivePages = 0;
-	for (i = 0; i < GIV(numStackPages); i += 1) {
+	for (i = 0; i < numStackPages; i += 1) {
 		/* begin stackPageAt: */
-		thePage = stackPageAtpages(i, GIV(pages));
+		thePage = stackPageAtpages(i, pages);
 		if ((thePage->baseFP)) {
 			assert(ifCurrentStackPageHasValidHeadPointers(thePage));
 			numLivePages += 1;
@@ -28,7 +28,7 @@ mapStackPages(void)
 			theFP = (thePage->headFP);
 
 			/* Skip the instruction pointer on top of stack of inactive pages. */
-			if (thePage == GIV(stackPage)) {
+			if (thePage == stackPage) {
 				theIPPtr = 0;
 			}
 			else {
@@ -55,7 +55,7 @@ mapStackPages(void)
 					}
 
 					/* With SqueakV3 objectMemory or SpurPlanningCompactor can't assert since object body is yet to move. */
-					if (!(GIV(gcPhaseInProgress) == SlidingCompactionInProgress)) {
+					if (!(gcPhaseInProgress == SlidingCompactionInProgress)) {
 						assert((isMarriedOrWidowedContext(frameContext(theFP)))
 						 && ((frameOfMarriedContext(frameContext(theFP))) == theFP));
 					}
@@ -90,7 +90,7 @@ mapStackPages(void)
 	}
 
 	/* begin recordLivePagesOnMapping: */
-	GIV(statNumMaps) += 1;
-	GIV(statPageCountWhenMappingSum) += numLivePages;
-	GIV(statMaxPageCountWhenMapping) = ((GIV(statMaxPageCountWhenMapping) < numLivePages) ? numLivePages : GIV(statMaxPageCountWhenMapping));
+	statNumMaps += 1;
+	statPageCountWhenMappingSum += numLivePages;
+	statMaxPageCountWhenMapping = ((statMaxPageCountWhenMapping < numLivePages) ? numLivePages : statMaxPageCountWhenMapping);
 }

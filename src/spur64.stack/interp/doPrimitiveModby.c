@@ -17,18 +17,18 @@ doPrimitiveModby(sqInt rcvr, sqInt arg)
 
 		/* begin success: */
 		if (!integerArg) {
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		return 1;
 	}
 	integerResult = integerRcvr % integerArg;
@@ -47,8 +47,8 @@ doPrimitiveModby(sqInt rcvr, sqInt arg)
 
 	/* begin success: */
 	if (!((((((usqInt)(integerResult)) >> 60) + 1) & 15) <= 1)) {
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 	return integerResult;

@@ -24,7 +24,7 @@ pinObject(sqInt objOop)
 
 	/* begin isOldObject: */
 	assert(isNonImmediate(objOop));
-	if (oopisGreaterThanOrEqualTo(objOop, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
 		if ((numBytesOf(objOop)) > (0x100000)) {
 			setIsPinnedOfto(objOop, 1);
 			return objOop;
@@ -36,8 +36,8 @@ pinObject(sqInt objOop)
 		}
 
 		/* begin someSegmentContainsPinned */
-		for (i = 0; i < GIV(numSegments); i += 1) {
-			if (((GIV(segments)[i]).containsPinned)) {
+		for (i = 0; i < numSegments; i += 1) {
+			if (((segments[i]).containsPinned)) {
 				goto l1;
 			}
 		}
@@ -48,7 +48,7 @@ l1:;
 	}
 	oldClone = cloneInOldSpaceforPinning(objOop, 1);
 	if (oldClone) {
-		GIV(becomeEffectsFlags) = becomeEffectFlagsFor(objOop);
+		becomeEffectsFlags = becomeEffectFlagsFor(objOop);
 		setIsPinnedOfto(oldClone, 1);
 
 		/* begin forward:to: */
@@ -66,10 +66,10 @@ l1:;
 
 		/* begin isOldObject: */
 		assert(isNonImmediate(objOop));
-		if (oopisGreaterThanOrEqualTo(objOop, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(oldClone & (tagMask()))))
-			 && (oopisLessThan(oldClone, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(oldClone, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(objOop);
@@ -87,25 +87,25 @@ l1:;
 		}
 
 		/* begin followSpecialObjectsOop */
-		if ((!((longAt((void *)(GIV(specialObjectsOop)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-			GIV(validatedIntegerClassFlags) = 0;
+		if ((!((longAt((void *)(specialObjectsOop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
+			validatedIntegerClassFlags = 0;
 
 			/* begin followForwarded: */
-			assert(isUnambiguouslyForwarder(GIV(specialObjectsOop)));
-			referent = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + (0U << (shiftForWord()))));
+			assert(isUnambiguouslyForwarder(specialObjectsOop));
+			referent = longAt((void *)((specialObjectsOop + BaseHeaderSize) + (0U << (shiftForWord()))));
 			while (/* isOopForwarded: */
 				((!(referent & (tagMask()))))
 			 && ((!((longAt((void *)(referent))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 				referent = longAt((void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
 			}
-			GIV(specialObjectsOop) = referent;
+			specialObjectsOop = referent;
 		}
-		followForwardedObjectFieldstoDepth(GIV(specialObjectsOop), 0);
+		followForwardedObjectFieldstoDepth(specialObjectsOop, 0);
 
 		/* begin postBecomeAction: */
-		spurPostBecomeAction(GIV(becomeEffectsFlags));
-		postBecomeScanClassTable(GIV(becomeEffectsFlags));
-		GIV(becomeEffectsFlags) = 0;
+		spurPostBecomeAction(becomeEffectsFlags);
+		postBecomeScanClassTable(becomeEffectsFlags);
+		becomeEffectsFlags = 0;
 	}
 	return oldClone;
 }

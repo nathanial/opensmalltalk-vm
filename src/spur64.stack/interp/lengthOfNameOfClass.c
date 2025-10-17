@@ -16,13 +16,13 @@ lengthOfNameOfClass(sqInt classOop)
 	numSlots = (((numSlotsUsqInt = byteAt((void *)(classOop + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
 				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(classOop - BaseHeaderSize)))) << 8)))))) >> 8
 				: numSlotsUsqInt);
-	if (numSlots == GIV(metaclassNumSlots)) {
-		return lengthOfNameOfClass(longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(GIV(thisClassIndex)) << (shiftForWord())))))));
+	if (numSlots == metaclassNumSlots) {
+		return lengthOfNameOfClass(longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(thisClassIndex) << (shiftForWord())))))));
 	}
-	if (numSlots <= GIV(classNameIndex)) {
+	if (numSlots <= classNameIndex) {
 		return 0;
 	}
-	objOop = longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(GIV(classNameIndex)) << (shiftForWord()))))));
+	objOop = longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(classNameIndex) << (shiftForWord()))))));
 
 	/* begin lengthOf: */
 	fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());

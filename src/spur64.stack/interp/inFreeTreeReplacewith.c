@@ -32,8 +32,8 @@ inFreeTreeReplacewith(sqInt treeNode, sqInt newNode)
 				longAtput((void *)((relative + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))),newNode);
 			}
 			else {
-				assert((GIV(freeLists)[0]) == treeNode);
-				GIV(freeLists)[0] = newNode;
+				assert((freeLists[0]) == treeNode);
+				freeLists[0] = newNode;
 			}
 		}
 		else {

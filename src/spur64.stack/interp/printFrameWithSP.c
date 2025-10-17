@@ -17,8 +17,8 @@ printFrameWithSP(char *theFP, char *theSP)
 
 	if (!(/* couldBeFramePointer: */
 			(((((usqInt)theFP)) & (BytesPerWord - 1)) == 0)
-		 && ((((((usqInt)theFP)) >= (((usqInt)GIV(stackMemory)))) && ((((usqInt)theFP)) <= (((usqInt)GIV(pages)))))))) {
-		fprintf(GIV(transcript),
+		 && ((((((usqInt)theFP)) >= (((usqInt)stackMemory))) && ((((usqInt)theFP)) <= (((usqInt)pages))))))) {
+		fprintf(transcript,
 				"%p is not in the stack zone?!\n",
 				theFP);
 		return null;

@@ -44,20 +44,20 @@ cloneObject(sqInt objOop)
 				newObj = null;
 				goto l1;
 			}
-			newObjUsqInt = GIV(freeStart) + BaseHeaderSize;
+			newObjUsqInt = freeStart + BaseHeaderSize;
 			numBytes = (BaseHeaderSize + BaseHeaderSize) + (numSlots * BytesPerOop);
 		}
 		else {
-			newObjUsqInt = GIV(freeStart);
+			newObjUsqInt = freeStart;
 			numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 		}
-		if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
+		if ((freeStart + numBytes) > scavengeThreshold) {
 			if (numSlots <= ((1U << (fixedFieldsFieldWidth())) - 1)) {
-				if (!GIV(needGCFlag)) {
+				if (!needGCFlag) {
 					/* begin scheduleScavenge */
-					GIV(needGCFlag) = 1;
+					needGCFlag = 1;
 					forceInterruptCheck();
 				}
 			}
@@ -65,7 +65,7 @@ cloneObject(sqInt objOop)
 			goto l1;
 		}
 		if (numSlots >= (numSlotsMask())) {
-			longAtput((void *)(GIV(freeStart)),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
+			longAtput((void *)(freeStart),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
 			longAtput((void *)(newObjUsqInt),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)(fmt) << (formatShift()))))) + classIndex);
 		}
 		else {
@@ -75,7 +75,7 @@ cloneObject(sqInt objOop)
 		/* for header parsing we put a saturated slot count in the prepended overflow size word */
 		assert((numBytes % (allocationUnit())) == 0);
 		assert((newObjUsqInt % (allocationUnit())) == 0);
-		GIV(freeStart) += numBytes;
+		freeStart += numBytes;
 		newObj = newObjUsqInt;
 		/* end allocateSlots:format:classIndex: */
 l1:;
@@ -100,7 +100,7 @@ l1:;
 					if (((!(oop & (tagMask()))))
 					 && ((/* begin isYoungObject: */
 						assert(isNonImmediate(oop)),
-					oopisLessThan(oop, GIV(oldSpaceStart))))) {
+					oopisLessThan(oop, oldSpaceStart)))) {
 						hasYoung = 1;
 					}
 				}
@@ -114,7 +114,7 @@ l1:;
 			if (hasYoung
 			 && (!((/* begin isYoungObject: */
 				assert(isNonImmediate(newObj)),
-			oopisLessThan(newObj, GIV(oldSpaceStart)))))) {
+			oopisLessThan(newObj, oldSpaceStart))))) {
 				remember(newObj);
 			}
 		}
@@ -131,10 +131,10 @@ l1:;
 			if (fmt >= (firstCompiledMethodFormat())) {
 				if (((/* begin isOldObject: */
 					assert(isNonImmediate(newObj)),
-				oopisGreaterThanOrEqualTo(newObj, GIV(oldSpaceStart))))
+				oopisGreaterThanOrEqualTo(newObj, oldSpaceStart)))
 				 && (((/* begin isYoungObject: */
 					assert(isNonImmediate(objOop)),
-				oopisLessThan(objOop, GIV(oldSpaceStart))))
+				oopisLessThan(objOop, oldSpaceStart)))
 				 || (((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift()))) != 0))) {
 					remember(newObj);
 				}

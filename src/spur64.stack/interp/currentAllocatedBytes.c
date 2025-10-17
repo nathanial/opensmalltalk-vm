@@ -14,7 +14,7 @@ currentAllocatedBytes(void)
     usqInt use;
 
 	use = ((/* begin totalOldSpaceCapacity */
-	assert((totalBytesInSegments()) == GIV(totalHeapSizeIncludingBridges)),
-GIV(totalHeapSizeIncludingBridges) - (GIV(numSegments) * (2 * BaseHeaderSize)))) - GIV(totalFreeOldSpace);
-	return (GIV(statAllocatedBytes) + (GIV(freeStart) - (((GIV(eden)).start)))) + (use - GIV(oldSpaceUsePriorToScavenge));
+	assert((totalBytesInSegments()) == totalHeapSizeIncludingBridges),
+totalHeapSizeIncludingBridges - (numSegments * (2 * BaseHeaderSize)))) - totalFreeOldSpace;
+	return (statAllocatedBytes + (freeStart - (((eden).start)))) + (use - oldSpaceUsePriorToScavenge);
 }

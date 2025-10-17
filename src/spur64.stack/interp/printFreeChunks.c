@@ -26,27 +26,27 @@ printFreeChunks(void)
 
 	/* After a scavenge eden is empty, futureSpace is empty, and all newSpace objects are
 	   in pastSpace.  Objects are allocated in eden.  So enumerate only pastSpace and eden. */
-	assert((((GIV(pastSpace)).start)) < (((GIV(eden)).start)));
+	assert((((pastSpace).start)) < (((eden).start)));
 	start = /* startAddressForBridgedHeapEnumeration */
-			(GIV(pastSpaceStart) > (((GIV(pastSpace)).start))
-				? ((GIV(pastSpace)).start)
-				: (GIV(freeStart) > (((GIV(eden)).start))
-						? ((GIV(eden)).start)
-						: GIV(oldSpaceStart)));
-	if (start > GIV(freeStart)) {
+			(pastSpaceStart > (((pastSpace).start))
+				? ((pastSpace).start)
+				: (freeStart > (((eden).start))
+						? ((eden).start)
+						: oldSpaceStart));
+	if (start > freeStart) {
 		goto l2;
 	}
 
 	/* begin bridgePastSpaceAndEden */
-	if (GIV(pastSpaceStart) < (((GIV(eden)).start))) {
-		if ((GIV(pastSpaceStart) + BaseHeaderSize) == (((GIV(eden)).start))) {
-			hackSlimBridgeToat(objectStartingAt(((GIV(eden)).start)), GIV(pastSpaceStart));
+	if (pastSpaceStart < (((eden).start))) {
+		if ((pastSpaceStart + BaseHeaderSize) == (((eden).start))) {
+			hackSlimBridgeToat(objectStartingAt(((eden).start)), pastSpaceStart);
 
 			/* And carefully check the assumption */
-			assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(GIV(pastSpaceStart)), GIV(nilObj))) == (objectStartingAt(((GIV(eden)).start))));
+			assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(pastSpaceStart), nilObj)) == (objectStartingAt(((eden).start))));
 		}
 		else {
-			initSegmentBridgeWithBytesat((((GIV(eden)).start)) - GIV(pastSpaceStart), GIV(pastSpaceStart));
+			initSegmentBridgeWithBytesat((((eden).start)) - pastSpaceStart, pastSpaceStart);
 		}
 	}
 
@@ -55,7 +55,7 @@ printFreeChunks(void)
 	objOop = (numSlots == (numSlotsMask())
 				? start + BaseHeaderSize
 				: start);
-	while (oopisLessThan(objOop, GIV(freeStart))) {
+	while (oopisLessThan(objOop, freeStart)) {
 		if (((longAt((void *)(objOop))) & (classIndexMask())) == (isFreeObjectClassIndexPun())) {
 			if (!seenNewFreeChunk) {
 				print("NewSpace CONTAINS FREE OBJECT(S)!!");
@@ -69,13 +69,13 @@ printFreeChunks(void)
 
 		/* begin objectAfterMaybeSlimBridge:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(freeStart))) {
-			objOop = GIV(freeStart);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, freeStart)) {
+			objOop = freeStart;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
 		objOop = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-					? ((oopisLessThan(objOop, GIV(oldSpaceStart)))
+					? ((oopisLessThan(objOop, oldSpaceStart))
 					 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 							? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 							: followingWordAddress + BaseHeaderSize)
@@ -88,12 +88,12 @@ l2:
 
 	/* begin allOldSpaceEntitiesDo: */
 	/* begin allOldSpaceEntitiesFrom:do: */
-	assert(isOldObject(GIV(nilObj)));
+	assert(isOldObject(nilObj));
 	prevPrevObj = (prevObj = null);
-	objOop = GIV(nilObj);
+	objOop = nilObj;
 	while (1) {
 		assert((objOop % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objOop, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objOop, endOfMemory))) break;
 		assert((long64At((void *)(objOop))) != 0);
 		if (((longAt((void *)(objOop))) & (classIndexMask())) == (isFreeObjectClassIndexPun())) {
 			printFreeChunk(objOop);
@@ -103,8 +103,8 @@ l2:
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objOop = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objOop = endOfMemory;
 			goto l3;
 		}
 		followingWord = longAt((void *)(followingWordAddress));

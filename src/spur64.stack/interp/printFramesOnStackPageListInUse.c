@@ -9,7 +9,7 @@ printFramesOnStackPageListInUse(void)
 {
     StackPage *page;
 
-	page = GIV(mostRecentlyUsedPage);
+	page = mostRecentlyUsedPage;
 	do {
 		if (!(isFree(page))) {
 			print("page ");
@@ -18,5 +18,5 @@ printFramesOnStackPageListInUse(void)
 			printFramesInPage(page);
 			cr();
 		}
-	} while(((page = (page->prevPage))) != (GIV(mostRecentlyUsedPage)));
+	} while(((page = (page->prevPage))) != (mostRecentlyUsedPage));
 }

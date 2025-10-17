@@ -20,31 +20,31 @@ primitiveVMProfileSamplesInto(void)
 	bufferSize = 0;
 	running = 0;
 	ioNewProfileStatus((&running), (&bufferSize));
-	if (!GIV(argumentCount)) {
+	if (!argumentCount) {
 		/* begin pop:thenPushBool: */
-		longAtput((sp = GIV(stackPointer)),/* booleanObjectOf: */
+		longAtput((sp = stackPointer),/* booleanObjectOf: */
 			(running
-				? GIV(trueObj)
-				: GIV(falseObj)));
-		GIV(stackPointer) = sp;
+				? trueObj
+				: falseObj));
+		stackPointer = sp;
 		return;
 	}
-	if (!(GIV(argumentCount) == 1)) {
+	if (!(argumentCount == 1)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadNumArgs;
+		primFailCode = PrimErrBadNumArgs;
 		return;
 	}
-	sampleBuffer = longAt(GIV(stackPointer));
+	sampleBuffer = longAt(stackPointer);
 	if (!(((!(sampleBuffer & (tagMask()))))
 		 && ((isPureBitsNonImm(sampleBuffer))
 		 && ((numBytesOf(sampleBuffer)) >= (bufferSize * BytesPerWord))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	numSamples = ioNewProfileSamplesInto(pointerForOop(sampleBuffer + BaseHeaderSize));
 
 	/* begin pop:thenPushInteger: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)numSamples << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)numSamples << 3) | 1));
+	stackPointer = sp;
 }

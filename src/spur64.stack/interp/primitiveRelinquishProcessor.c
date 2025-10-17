@@ -13,19 +13,19 @@ primitiveRelinquishProcessor(void)
     sqInt microSecs;
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer));
+	integerPointer = longAt(stackPointer);
 	if ((((integerPointer) & 7) == 1)) {
 		microSecs = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		microSecs = 0;
 	}
-	if (!GIV(primFailCode)) {
-		if (!GIV(nextProfileTick)) {
+	if (!primFailCode) {
+		if (!nextProfileTick) {
 			ioRelinquishProcessorForMicroseconds(microSecs);
 
 			/* In simulation we allow ioRelinquishProcessorForMicroseconds: to fail so that
@@ -34,6 +34,6 @@ primitiveRelinquishProcessor(void)
 		}
 
 		/* begin pop: */
-		GIV(stackPointer) += 1 * BytesPerWord;
+		stackPointer += 1 * BytesPerWord;
 	}
 }

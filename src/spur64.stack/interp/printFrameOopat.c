@@ -10,10 +10,10 @@ printFrameOopat(char *name, char *address)
 	it = longAt(address);
 
 	/* begin printFrameAddress: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%16p:",
 			((void *)address));
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%12s: %16p\t=" /* pst: */,
 			name,
 			((void *)it));

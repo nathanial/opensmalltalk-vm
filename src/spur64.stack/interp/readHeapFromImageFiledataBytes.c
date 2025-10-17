@@ -26,15 +26,15 @@ readHeapFromImageFiledataBytes(sqImageFile f, sqInt numBytes)
 	allocateOrExtendSegmentInfos();
 
 	/* segment sizes include the two-header-word bridge at the end of each segment. */
-	GIV(numSegments) = (totalBytesRead = 0);
+	numSegments = (totalBytesRead = 0);
 
 	/* N.B. still must be adjusted by oldBaseAddr. */
 	oldBase = 0;
-	newBase = GIV(oldSpaceStart);
-	nextSegmentSize = GIV(firstSegmentSize);
-	bridgehead = (GIV(firstSegmentSize) + GIV(oldSpaceStart)) - (2 * BaseHeaderSize);
+	newBase = oldSpaceStart;
+	nextSegmentSize = firstSegmentSize;
+	bridgehead = (firstSegmentSize + oldSpaceStart) - (2 * BaseHeaderSize);
 	while (1) {
-		segInfo = (&(GIV(segments)[GIV(numSegments)]));
+		segInfo = (&(segments[numSegments]));
 		(segInfo->segStart = oldBase);
 		(segInfo->segSize = nextSegmentSize);
 		(segInfo->swizzle = newBase - oldBase);
@@ -45,7 +45,7 @@ readHeapFromImageFiledataBytes(sqImageFile f, sqInt numBytes)
 		if (bytesRead != nextSegmentSize) {
 			return totalBytesRead;
 		}
-		if (((GIV(numSegments) += 1)) >= GIV(numSegInfos)) {
+		if (((numSegments += 1)) >= numSegInfos) {
 			allocateOrExtendSegmentInfos();
 		}
 		bridge = bridgehead + BaseHeaderSize;
@@ -60,14 +60,14 @@ readHeapFromImageFiledataBytes(sqImageFile f, sqInt numBytes)
 	}
 
 	/* newBase should point just past the last bridge. all others should have been eliminated. */
-	assert((newBase - (GIV(oldSpaceStart))) == (totalBytesRead - (GIV(numSegments) * (bridgeSize()))));
+	assert((newBase - (oldSpaceStart)) == (totalBytesRead - (numSegments * (bridgeSize()))));
 
 	/* set freeOldSpaceStart now for adjustAllOopsBy: */
 
 	/* begin setFreeOldSpaceStart: */
-	GIV(freeOldSpaceStart) = newBase;
+	freeOldSpaceStart = newBase;
 
 	/* we're done. nil firstSegmentSize for a subsequent snapshot. */
-	GIV(firstSegmentSize) = null;
+	firstSegmentSize = null;
 	return totalBytesRead;
 }

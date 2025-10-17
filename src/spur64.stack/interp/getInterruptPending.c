@@ -5,5 +5,5 @@
 sqInt
 getInterruptPending(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return GIV(interruptPending);
+	return interruptPending;
 }

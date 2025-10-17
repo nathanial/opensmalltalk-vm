@@ -45,10 +45,10 @@ removeProcessfromList(sqInt aProcess, sqInt aList)
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(FirstLinkIndex, aList, nextLink));
 		assert(isNonImmediate(aList));
-		if (oopisGreaterThanOrEqualTo(aList, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(aList, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(nextLink & (tagMask()))))
-			 && (oopisLessThan(nextLink, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(nextLink, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(aList + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(aList);
@@ -62,8 +62,8 @@ removeProcessfromList(sqInt aProcess, sqInt aList)
 			/* begin storePointerUnchecked:ofObject:withValue: */
 			assert((isNonImmediate(aList))
 			 && (!(isForwarded(aList))));
-			assert(validStorePointerUncheckedArgs(LastLinkIndex, aList, GIV(nilObj)));
-			longAtput((void *)((aList + BaseHeaderSize) + ((((usqInt)(LastLinkIndex) << (shiftForWord()))))),GIV(nilObj));
+			assert(validStorePointerUncheckedArgs(LastLinkIndex, aList, nilObj));
+			longAtput((void *)((aList + BaseHeaderSize) + ((((usqInt)(LastLinkIndex) << (shiftForWord()))))),nilObj);
 		}
 	}
 	else {
@@ -96,10 +96,10 @@ removeProcessfromList(sqInt aProcess, sqInt aList)
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(NextLinkIndex, tempLink, nextLink));
 		assert(isNonImmediate(tempLink));
-		if (oopisGreaterThanOrEqualTo(tempLink, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(tempLink, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(nextLink & (tagMask()))))
-			 && (oopisLessThan(nextLink, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(nextLink, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(tempLink + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(tempLink);
@@ -113,10 +113,10 @@ removeProcessfromList(sqInt aProcess, sqInt aList)
 			/* begin storePointer:ofObject:withValue: */
 			assert(validStorePointerArgs(LastLinkIndex, aList, tempLink));
 			assert(isNonImmediate(aList));
-			if (oopisGreaterThanOrEqualTo(aList, GIV(oldSpaceStart))) {
+			if (oopisGreaterThanOrEqualTo(aList, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(tempLink & (tagMask()))))
-				 && (oopisLessThan(tempLink, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(tempLink, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
 					if (!((byteAt((void *)(aList + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 						remember(aList);
@@ -132,13 +132,13 @@ removeProcessfromList(sqInt aProcess, sqInt aList)
 	/* begin storePointerUnchecked:ofObject:withValue: */
 	assert((isNonImmediate(aProcess))
 	 && (!(isForwarded(aProcess))));
-	assert(validStorePointerUncheckedArgs(NextLinkIndex, aProcess, GIV(nilObj)));
-	longAtput((void *)((aProcess + BaseHeaderSize) + ((((usqInt)(NextLinkIndex) << (shiftForWord()))))),GIV(nilObj));
+	assert(validStorePointerUncheckedArgs(NextLinkIndex, aProcess, nilObj));
+	longAtput((void *)((aProcess + BaseHeaderSize) + ((((usqInt)(NextLinkIndex) << (shiftForWord()))))),nilObj);
 
 	/* begin storePointerUnchecked:ofObject:withValue: */
 	assert((isNonImmediate(aProcess))
 	 && (!(isForwarded(aProcess))));
-	assert(validStorePointerUncheckedArgs(MyListIndex, aProcess, GIV(nilObj)));
-	longAtput((void *)((aProcess + BaseHeaderSize) + ((((usqInt)(MyListIndex) << (shiftForWord()))))),GIV(nilObj));
+	assert(validStorePointerUncheckedArgs(MyListIndex, aProcess, nilObj));
+	longAtput((void *)((aProcess + BaseHeaderSize) + ((((usqInt)(MyListIndex) << (shiftForWord()))))),nilObj);
 	return 1;
 }

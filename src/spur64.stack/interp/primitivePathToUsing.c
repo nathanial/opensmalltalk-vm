@@ -34,27 +34,27 @@ primitivePathToUsing(void)
 	err = 0;
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
-	if (!(GIV(argumentCount) >= 2)) {
-		return (GIV(primFailCode) = PrimErrBadNumArgs);
+	if (!(argumentCount >= 2)) {
+		return (primFailCode = PrimErrBadNumArgs);
 	}
-	if (!(((longAt(GIV(stackPointer))) == GIV(trueObj))
-		 || ((longAt(GIV(stackPointer))) == GIV(falseObj)))) {
-		return (GIV(primFailCode) = PrimErrBadArgument);
+	if (!(((longAt(stackPointer)) == trueObj)
+		 || ((longAt(stackPointer)) == falseObj))) {
+		return (primFailCode = PrimErrBadArgument);
 	}
-	stack = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	stack = longAt(stackPointer + (1 * BytesPerWord));
 
 	/* begin pathTo:using:followWeak: */
 	if (!(/* isArray: */
@@ -66,7 +66,7 @@ primitivePathToUsing(void)
 	assert(allObjectsUnmarked());
 
 	/* check no allocations during search */
-	freeStartAtStart = GIV(freeStart);
+	freeStartAtStart = freeStart;
 	beRootIfOld(stack);
 
 	/* begin lengthOf: */
@@ -110,7 +110,7 @@ l1:
 
 	/* no need. the current context is not reachable from the active process (suspendedContext is nil)
 	   objectMemory mark: self activeProcess. */
-	current = GIV(specialObjectsOop);
+	current = specialObjectsOop;
 
 	/* begin mark: */
 	/* begin setIsMarkedOf:to: */
@@ -155,10 +155,10 @@ l2:
 		while (((index -= 1)) >= -1) {
 			if (/* couldBeFramePointer: */
 				(((((usqInt)current)) & (BytesPerWord - 1)) == 0)
-			 && ((((((usqInt)current)) >= (((usqInt)GIV(stackMemory)))) && ((((usqInt)current)) <= (((usqInt)GIV(pages))))))) {
+			 && ((((((usqInt)current)) >= (((usqInt)stackMemory))) && ((((usqInt)current)) <= (((usqInt)pages)))))) {
 				next = (index >= 0
 							? fieldofFrame(index, ((char *) current))
-							: GIV(nilObj));
+							: nilObj);
 			}
 			else {
 				if (index >= 0) {
@@ -172,23 +172,23 @@ l2:
 			}
 			if (/* couldBeFramePointer: */
 				(((((usqInt)next)) & (BytesPerWord - 1)) == 0)
-			 && ((((((usqInt)next)) >= (((usqInt)GIV(stackMemory)))) && ((((usqInt)next)) <= (((usqInt)GIV(pages))))))) {
+			 && ((((((usqInt)next)) >= (((usqInt)stackMemory))) && ((((usqInt)next)) <= (((usqInt)pages)))))) {
 				assert(isFrameonPage(((char *) next), stackPageFor(((char *) next))));
 			}
 			else {
 				assert(checkOkayOop(next));
 			}
-			if (next == (longAt(GIV(stackPointer) + (2 * BytesPerWord)))) {
-				assert(freeStartAtStart == (GIV(freeStart)));
+			if (next == (longAt(stackPointer + (2 * BytesPerWord)))) {
+				assert(freeStartAtStart == (freeStart));
 				unmarkAfterPathTo();
 
 				/* begin storePointer:ofObject:withValue: */
 				assert(validStorePointerArgs(stackp, stack, current));
 				assert(isNonImmediate(stack));
-				if (oopisGreaterThanOrEqualTo(stack, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(stack, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(current & (tagMask()))))
-					 && (oopisLessThan(current, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(current, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(stack + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(stack);
@@ -205,17 +205,17 @@ l2:
 			if (((!(next & (smallIntegerTag()))))
 			 && ((/* couldBeFramePointer: */
 				(((((usqInt)next)) & (BytesPerWord - 1)) == 0)
-			 && ((((((usqInt)next)) >= (((usqInt)GIV(stackMemory)))) && ((((usqInt)next)) <= (((usqInt)GIV(pages))))))
+			 && ((((((usqInt)next)) >= (((usqInt)stackMemory))) && ((((usqInt)next)) <= (((usqInt)pages)))))
 					? !(((longAt((void *)(next + FoxFrameFlags))) & 2) != 0)
 					: (!(((byteAt((void *)(next + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) != 0))
 					 && (((/* isPointers: */
 						((!(next & (tagMask()))))
 					 && (((byteAt((void *)(next + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
 					 || (((byteAt((void *)(next + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat())))
-					 && (((longAt(GIV(stackPointer))) == GIV(trueObj))
+					 && (((longAt(stackPointer)) == trueObj)
 					 || (!(isWeakNonImm(next)))))))) {
 				if ((stackp + 2) > stackSize) {
-					assert(freeStartAtStart == (GIV(freeStart)));
+					assert(freeStartAtStart == (freeStart));
 					unmarkAfterPathTo();
 
 					/* begin nilFieldsOf: */
@@ -227,8 +227,8 @@ l2:
 						/* begin storePointerUnchecked:ofObject:withValue: */
 						assert((isNonImmediate(stack))
 						 && (!(isForwarded(stack))));
-						assert(validStorePointerUncheckedArgs(i, stack, GIV(nilObj)));
-						longAtput((void *)((stack + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),GIV(nilObj));
+						assert(validStorePointerUncheckedArgs(i, stack, nilObj));
+						longAtput((void *)((stack + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),nilObj);
 					}
 					err = PrimErrBadIndex;
 					goto l5;
@@ -248,7 +248,7 @@ l2:
 				stackp += 2;
 				if (/* couldBeFramePointer: */
 					(((((usqInt)(((char *) next)))) & (BytesPerWord - 1)) == 0)
-				 && ((((((usqInt)(((char *) next)))) >= (((usqInt)GIV(stackMemory)))) && ((((usqInt)(((char *) next)))) <= (((usqInt)GIV(pages))))))) {
+				 && ((((((usqInt)(((char *) next)))) >= (((usqInt)stackMemory))) && ((((usqInt)(((char *) next)))) <= (((usqInt)pages)))))) {
 					/* begin markFrame: */
 					longAtput((void *)(next + FoxFrameFlags),(longAt((void *)(next + FoxFrameFlags))) | 2);
 					index = CtxtTempFrameStart + (stackPointerIndexForFrame(((char *) next)));
@@ -310,8 +310,8 @@ l4:;
 				current = next;
 			}
 		}
-		if (current == GIV(specialObjectsOop)) {
-			assert(freeStartAtStart == (GIV(freeStart)));
+		if (current == specialObjectsOop) {
+			assert(freeStartAtStart == (freeStart));
 			unmarkAfterPathTo();
 
 			/* begin nilFieldsOf: */
@@ -323,8 +323,8 @@ l4:;
 				/* begin storePointerUnchecked:ofObject:withValue: */
 				assert((isNonImmediate(stack))
 				 && (!(isForwarded(stack))));
-				assert(validStorePointerUncheckedArgs(iSqInt, stack, GIV(nilObj)));
-				longAtput((void *)((stack + BaseHeaderSize) + ((((usqInt)(iSqInt) << (shiftForWord()))))),GIV(nilObj));
+				assert(validStorePointerUncheckedArgs(iSqInt, stack, nilObj));
+				longAtput((void *)((stack + BaseHeaderSize) + ((((usqInt)(iSqInt) << (shiftForWord()))))),nilObj);
 			}
 			err = PrimErrNotFound;
 			goto l5;
@@ -336,12 +336,12 @@ l4:;
 	/* end pathTo:using:followWeak: */
 l5:
 	if (err) {
-		return (GIV(primFailCode) = err);
+		return (primFailCode = err);
 	}
-	path = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	path = longAt(stackPointer + (1 * BytesPerWord));
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),path);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),path);
+	stackPointer = sp;
 	return 0;
 }

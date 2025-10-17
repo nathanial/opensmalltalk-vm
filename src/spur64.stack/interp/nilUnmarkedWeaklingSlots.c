@@ -27,21 +27,21 @@ nilUnmarkedWeaklingSlots(void)
     sqInt weakling;
 
 	eassert(allOldMarkedWeakObjectsOnWeaklingStack());
-	if (GIV(weaklingStack) == GIV(nilObj)) {
+	if (weaklingStack == nilObj) {
 		return;
 	}
 
 	/* begin objStack:from:do: */
-	eassert(isValidObjStack(GIV(weaklingStack)));
-	size = longAt((void *)((GIV(weaklingStack) + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
-	objStackPage = longAt((void *)((GIV(weaklingStack) + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+	eassert(isValidObjStack(weaklingStack));
+	size = longAt((void *)((weaklingStack + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+	objStackPage = longAt((void *)((weaklingStack + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
 	while (objStackPage != 0) {
 		size += ObjStackLimit;
 		assert((fetchPointerofObject(ObjStackTopx, objStackPage)) == ObjStackLimit);
 		objStackPage = longAt((void *)((objStackPage + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
 	}
 	numToEnumerate = size;
-	objStackPage = GIV(weaklingStack);
+	objStackPage = weaklingStack;
 	while (numToEnumerate > 0) {
 		numOnThisPage = longAt((void *)((objStackPage + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
 		numToEnumerateOnThisPage = ((numToEnumerate < numOnThisPage) ? numToEnumerate : numOnThisPage);
@@ -71,23 +71,23 @@ nilUnmarkedWeaklingSlots(void)
 						/* begin storePointerUnchecked:ofObject:withValue: */
 						assert((isNonImmediate(weakling))
 						 && (!(isForwarded(weakling))));
-						assert(validStorePointerUncheckedArgs(iSqInt, weakling, GIV(nilObj)));
-						longAtput((void *)((weakling + BaseHeaderSize) + ((((usqInt)(iSqInt) << (shiftForWord()))))),GIV(nilObj));
+						assert(validStorePointerUncheckedArgs(iSqInt, weakling, nilObj));
+						longAtput((void *)((weakling + BaseHeaderSize) + ((((usqInt)(iSqInt) << (shiftForWord()))))),nilObj);
 						anyUnmarked = 1;
 					}
 				}
 			}
 			if (anyUnmarked) {
-				assert(GIV(marking));
+				assert(marking);
 
 				/* begin fireFinalization: */
-				if (GIV(newFinalization)) {
+				if (newFinalization) {
 					queueMourner(weakling);
 				}
 
 				/* begin signalFinalization: */
 				forceInterruptCheck();
-				GIV(pendingFinalizationSignals) += 1;
+				pendingFinalizationSignals += 1;
 			}
 		}
 		numToEnumerate -= numToEnumerateOnThisPage;
@@ -95,36 +95,36 @@ nilUnmarkedWeaklingSlots(void)
 	}
 
 	/* begin emptyObjStack: */
-	if (GIV(weaklingStack) == GIV(nilObj)) {
+	if (weaklingStack == nilObj) {
 		goto l1;
 	}
-	eassert(isValidObjStack(GIV(weaklingStack)));
+	eassert(isValidObjStack(weaklingStack));
 
 	/* begin storePointer:ofObjStack:withValue: */
-	assert((formatOf(GIV(weaklingStack))) == (wordIndexableFormat()));
-	longAtput((void *)((GIV(weaklingStack) + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))),0);
-	nextPage = longAt((void *)((GIV(weaklingStack) + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+	assert((formatOf(weaklingStack)) == (wordIndexableFormat()));
+	longAtput((void *)((weaklingStack + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))),0);
+	nextPage = longAt((void *)((weaklingStack + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
 	while (nextPage != 0) {
 		nextNextPage = longAt((void *)((nextPage + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
 
 		/* begin storePointer:ofObjStack:withValue: */
 		assert((formatOf(nextPage)) == (wordIndexableFormat()));
-		longAtput((void *)((nextPage + BaseHeaderSize) + ((((usqInt)(ObjStackFreex) << (shiftForWord()))))),longAt((void *)((GIV(weaklingStack) + BaseHeaderSize) + ((((usqInt)(ObjStackFreex) << (shiftForWord())))))));
+		longAtput((void *)((nextPage + BaseHeaderSize) + ((((usqInt)(ObjStackFreex) << (shiftForWord()))))),longAt((void *)((weaklingStack + BaseHeaderSize) + ((((usqInt)(ObjStackFreex) << (shiftForWord())))))));
 
 		/* begin storePointer:ofObjStack:withValue: */
 		assert((formatOf(nextPage)) == (wordIndexableFormat()));
 		longAtput((void *)((nextPage + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))),0);
 
 		/* begin storePointer:ofObjStack:withValue: */
-		assert((formatOf(GIV(weaklingStack))) == (wordIndexableFormat()));
-		longAtput((void *)((GIV(weaklingStack) + BaseHeaderSize) + ((((usqInt)(ObjStackFreex) << (shiftForWord()))))),nextPage);
+		assert((formatOf(weaklingStack)) == (wordIndexableFormat()));
+		longAtput((void *)((weaklingStack + BaseHeaderSize) + ((((usqInt)(ObjStackFreex) << (shiftForWord()))))),nextPage);
 		nextPage = nextNextPage;
 	}
 
 	/* begin storePointer:ofObjStack:withValue: */
-	assert((formatOf(GIV(weaklingStack))) == (wordIndexableFormat()));
-	longAtput((void *)((GIV(weaklingStack) + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))),0);
-	eassert(isValidObjStack(GIV(weaklingStack)));
+	assert((formatOf(weaklingStack)) == (wordIndexableFormat()));
+	longAtput((void *)((weaklingStack + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))),0);
+	eassert(isValidObjStack(weaklingStack));
 	/* end emptyObjStack: */
 l1:;
 }

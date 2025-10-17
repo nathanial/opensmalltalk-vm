@@ -11,7 +11,7 @@ shortReversePrintFrameAndCallers(char *aFramePointer)
 
 	callerFP = ((char *) 0);
 	if (!aFramePointer) {
-		return GIV(nilObj);
+		return nilObj;
 	}
 	theFP = aFramePointer;
 	while (1) {

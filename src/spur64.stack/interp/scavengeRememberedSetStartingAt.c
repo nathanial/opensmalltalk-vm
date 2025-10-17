@@ -18,8 +18,8 @@ scavengeRememberedSetStartingAt(sqInt n)
     sqInt sourceIndex;
 
 	sourceIndex = (destIndex = n);
-	while (sourceIndex < GIV(rememberedSetSize)) {
-		referrer = GIV(rememberedSet)[sourceIndex];
+	while (sourceIndex < rememberedSetSize) {
+		referrer = rememberedSet[sourceIndex];
 
 		/* Any potential firing ephemerons should not be scanned yet.
 		   Move any to the front of the set to save time in later scanning. */
@@ -30,15 +30,15 @@ scavengeRememberedSetStartingAt(sqInt n)
 				 && (isObjEphemeron(referrer))),
 			/* fetchPointer:ofObject: */
 				longAt((void *)((referrer + BaseHeaderSize) + (0U << (shiftForWord()))))))))) {
-			assert(destIndex >= GIV(numRememberedEphemerons));
-			GIV(rememberedSet)[destIndex] = (GIV(rememberedSet)[GIV(numRememberedEphemerons)]);
-			GIV(rememberedSet)[GIV(numRememberedEphemerons)] = referrer;
-			GIV(numRememberedEphemerons) += 1;
+			assert(destIndex >= numRememberedEphemerons);
+			rememberedSet[destIndex] = (rememberedSet[numRememberedEphemerons]);
+			rememberedSet[numRememberedEphemerons] = referrer;
+			numRememberedEphemerons += 1;
 			destIndex += 1;
 		}
 		else {
 			if (scavengeReferentsOf(referrer)) {
-				GIV(rememberedSet)[destIndex] = referrer;
+				rememberedSet[destIndex] = referrer;
 				destIndex += 1;
 			}
 			else {
@@ -47,6 +47,6 @@ scavengeRememberedSetStartingAt(sqInt n)
 		}
 		sourceIndex += 1;
 	}
-	GIV(rememberedSetSize) = destIndex;
+	rememberedSetSize = destIndex;
 	assert(noUnfiredEphemeronsAtEndOfRememberedSet());
 }

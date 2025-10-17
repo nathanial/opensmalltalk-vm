@@ -8,28 +8,28 @@
 static int
 slowPrimitiveResponse(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	assert(!(isOopForwarded(stackValue(GIV(argumentCount)))));
-	assert((GIV(remapBufferCount)) == 0);
+	assert(!(isOopForwarded(stackValue(argumentCount))));
+	assert((remapBufferCount) == 0);
 
 	/* begin initPrimCall */
-	GIV(primFailCode) = 0;
+	primFailCode = 0;
 	if (LOGPRIMITIVES) {
 		/* begin fastLogPrim: */
-		GIV(primTraceLog)[GIV(primTraceLogIndex)] = GIV(newMethod);
-		primTraceLogIndex(GIV(primTraceLogIndex) + 1);
+		primTraceLog[primTraceLogIndex] = newMethod;
+		primTraceLogIndex(primTraceLogIndex + 1);
 	}
 	dispatchFunctionPointer(primitiveFunctionPointer);
-	assert(maybeLeakCheckExternalPrimCall(GIV(newMethod)));
+	assert(maybeLeakCheckExternalPrimCall(newMethod));
 
 	/* begin maybeRetryPrimitiveOnFailure */
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		retryPrimitiveOnFailure();
 	}
 
 	/* Don't fail if primitive has done something radical, e.g. perform:
 	   If we are profiling, take accurate primitive measures */
-	if (GIV(nextProfileTick) > 0) {
-		checkProfileTickPostPrimitive(GIV(newMethod));
+	if (nextProfileTick > 0) {
+		checkProfileTickPostPrimitive(newMethod);
 	}
-	return !GIV(primFailCode);
+	return !primFailCode;
 }

@@ -35,12 +35,12 @@ primitiveContextAtPut(void)
     unsigned int unsignedValueToStore;
     sqInt value;
 
-	value = longAt(GIV(stackPointer));
-	index = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	aContext = longAt(GIV(stackPointer) + (2 * BytesPerWord));
+	value = longAt(stackPointer);
+	index = longAt(stackPointer + (1 * BytesPerWord));
+	aContext = longAt(stackPointer + (2 * BytesPerWord));
 	if (!((((index) & 7) == 1))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 
@@ -147,10 +147,10 @@ l5:
 				/* begin storePointer:ofObject:withValue: */
 				assert(validStorePointerArgs(fieldIndex, aContext, value));
 				assert(isNonImmediate(aContext));
-				if (oopisGreaterThanOrEqualTo(aContext, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(aContext, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(value & (tagMask()))))
-					 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(value, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(aContext + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(aContext);
@@ -164,13 +164,13 @@ l5:
 			}
 			if (fmtUsqLong >= (firstByteFormat())) {
 				if (!((((value) & 7) == 1))) {
-					GIV(primFailCode) = PrimErrBadArgument;
+					primFailCode = PrimErrBadArgument;
 					goto l7;
 				}
 				signedValueToStore = (value >> 3);
 				if (!((signedValueToStore >= 0)
 					 && (signedValueToStore <= 0xFF))) {
-					GIV(primFailCode) = PrimErrBadArgument;
+					primFailCode = PrimErrBadArgument;
 					goto l7;
 				}
 
@@ -180,13 +180,13 @@ l5:
 			}
 			if (fmtUsqLong >= (firstShortFormat())) {
 				if (!((((value) & 7) == 1))) {
-					GIV(primFailCode) = PrimErrBadArgument;
+					primFailCode = PrimErrBadArgument;
 					goto l7;
 				}
 				signedValueToStore = (value >> 3);
 				if (!((signedValueToStore >= 0)
 					 && (signedValueToStore <= 0xFFFF))) {
-					GIV(primFailCode) = PrimErrBadArgument;
+					primFailCode = PrimErrBadArgument;
 					goto l7;
 				}
 
@@ -196,7 +196,7 @@ l5:
 			}
 			if (fmtUsqLong == (sixtyFourBitIndexableFormat())) {
 				unsigned64BitValueToStore = positive64BitValueOf(value);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* storeLong64:ofObject:withValue: */
 					long64Atput((void *)((aContext + BaseHeaderSize) + ((((usqInt)(((index + fixedFieldsSqInt) - 1)) << 3)))),unsigned64BitValueToStore);
 				}
@@ -205,7 +205,7 @@ l5:
 
 			/* 32bit-word type objects */
 			unsignedValueToStore = positive32BitValueOf(value);
-			if (!GIV(primFailCode)) {
+			if (!primFailCode) {
 				/* storeLong32:ofObject:withValue: */
 				long32Atput((void *)((aContext + BaseHeaderSize) + ((((usqInt)(((index + fixedFieldsSqInt) - 1)) << 2)))),unsignedValueToStore);
 			}
@@ -214,16 +214,16 @@ l7:;
 		}
 		else {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = (fmtUsqLong <= 1
+			primFailCode = (fmtUsqLong <= 1
 						? PrimErrBadReceiver
 						: PrimErrBadIndex);
 		}
 		/* end stObject:at:put: */
 l9:
-		if (!GIV(primFailCode)) {
+		if (!primFailCode) {
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),value);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),value);
+			stackPointer = sp;
 		}
 		return;
 	}
@@ -231,18 +231,18 @@ l9:
 	/* might be an instance of a subclass */
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
 	if (!(/* isStillMarriedContext: */
 			(((((longAt((void *)((aContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
@@ -311,7 +311,7 @@ l2:
 l1:
 		if (!(((index >= 1) && (index <= stSize)))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadIndex;
+			primFailCode = PrimErrBadIndex;
 			return;
 		}
 
@@ -322,10 +322,10 @@ l1:
 			/* begin storePointer:ofObject:withValue: */
 			assert(validStorePointerArgs(fieldIndex, aContext, value));
 			assert(isNonImmediate(aContext));
-			if (oopisGreaterThanOrEqualTo(aContext, GIV(oldSpaceStart))) {
+			if (oopisGreaterThanOrEqualTo(aContext, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(value & (tagMask()))))
-				 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(value, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
 					if (!((byteAt((void *)(aContext + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 						remember(aContext);
@@ -339,13 +339,13 @@ l1:
 		}
 		if (fmt >= (firstByteFormat())) {
 			if (!((((value) & 7) == 1))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l4;
 			}
 			signedValueToStore = (value >> 3);
 			if (!((signedValueToStore >= 0)
 				 && (signedValueToStore <= 0xFF))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l4;
 			}
 
@@ -355,13 +355,13 @@ l1:
 		}
 		if (fmt >= (firstShortFormat())) {
 			if (!((((value) & 7) == 1))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l4;
 			}
 			signedValueToStore = (value >> 3);
 			if (!((signedValueToStore >= 0)
 				 && (signedValueToStore <= 0xFFFF))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l4;
 			}
 
@@ -371,7 +371,7 @@ l1:
 		}
 		if (fmt == (sixtyFourBitIndexableFormat())) {
 			unsigned64BitValueToStore = positive64BitValueOf(value);
-			if (!GIV(primFailCode)) {
+			if (!primFailCode) {
 				/* storeLong64:ofObject:withValue: */
 				long64Atput((void *)((aContext + BaseHeaderSize) + ((((usqInt)(((index + fixedFields) - 1)) << 3)))),unsigned64BitValueToStore);
 			}
@@ -380,7 +380,7 @@ l1:
 
 		/* 32bit-word type objects */
 		unsignedValueToStore = positive32BitValueOf(value);
-		if (!GIV(primFailCode)) {
+		if (!primFailCode) {
 			/* storeLong32:ofObject:withValue: */
 			long32Atput((void *)((aContext + BaseHeaderSize) + ((((usqInt)(((index + fixedFields) - 1)) << 2)))),unsignedValueToStore);
 		}
@@ -388,8 +388,8 @@ l1:
 l4:
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),value);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),value);
+		stackPointer = sp;
 		return;
 	}
 
@@ -399,7 +399,7 @@ l4:
 	spouseFP = ((char *)(senderOop - (smallIntegerTag())));
 	if (!(((index >= 1) && (index <= (stackPointerIndexForFrame(spouseFP)))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 
@@ -412,6 +412,6 @@ l4:
 	}
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),value);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),value);
+	stackPointer = sp;
 }

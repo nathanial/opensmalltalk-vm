@@ -7,11 +7,11 @@ swizzleObj(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt i;
 
-	assert(GIV(canSwizzle));
-	for (i = (GIV(numSegments) - 1); i >= 1; i += -1) {
-		if (objOop >= (((GIV(segments)[i]).segStart))) {
-			return objOop + (((GIV(segments)[i]).swizzle));
+	assert(canSwizzle);
+	for (i = (numSegments - 1); i >= 1; i += -1) {
+		if (objOop >= (((segments[i]).segStart))) {
+			return objOop + (((segments[i]).swizzle));
 		}
 	}
-	return objOop + (((GIV(segments)[0]).swizzle));
+	return objOop + (((segments[0]).swizzle));
 }

@@ -24,12 +24,12 @@ printInvalidClassTableEntries(void)
 	}
 
 	/* begin classTableEntriesDo: */
-	for (i = 0; i < GIV(numClassTablePages); i += 1) {
-		page = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
+	for (i = 0; i < numClassTablePages; i += 1) {
+		page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 		toDoLimit = (1U << (classTableMajorIndexShift())) - 1;
 		for (j = 0; j <= toDoLimit; j += 1) {
 			classOrNilSqInt = longAt((void *)((page + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))));
-			if (classOrNilSqInt != GIV(nilObj)) {
+			if (classOrNilSqInt != nilObj) {
 				index = ((((usqInt)(i) << (classTableMajorIndexShift())))) + j;
 				if (((!((longAt((void *)(classOrNilSqInt))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))
 				 || ((((hash = (long32At((void *)(classOrNilSqInt + 4))) & (identityHashHalfWordMask()))) == 0)

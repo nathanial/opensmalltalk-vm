@@ -37,32 +37,32 @@ updatePointers(void)
     usqInt toFinger;
     usqInt top;
 
-	if (!(GIV(lastMobileObject))) {
+	if (!(lastMobileObject)) {
 		return;
 	}
-	assert((startOfObject(GIV(firstFreeObject))) == GIV(mobileStart));
+	assert((startOfObject(firstFreeObject)) == mobileStart);
 	mapInterpreterOops();
 	mapExtraRoots();
 
 	/* begin updatePointersInManagerHeapEntities */
 	/* begin relocateObjStacksForPlanningCompactor */
-	GIV(markStack) = relocateObjStackForPlanningCompactorandContents(GIV(markStack), 0);
-	GIV(weaklingStack) = relocateObjStackForPlanningCompactorandContents(GIV(weaklingStack), 0);
-	GIV(mournQueue) = relocateObjStackForPlanningCompactorandContents(GIV(mournQueue), 1);
-	if ((GIV(rememberedSetSize) > 0)
+	markStack = relocateObjStackForPlanningCompactorandContents(markStack, 0);
+	weaklingStack = relocateObjStackForPlanningCompactorandContents(weaklingStack, 0);
+	mournQueue = relocateObjStackForPlanningCompactorandContents(mournQueue, 1);
+	if ((rememberedSetSize > 0)
 	 && (/* isMobile: */
-		(oopisGreaterThanOrEqualToandLessThanOrEqualTo(GIV(firstFieldOfRememberedSet), GIV(mobileStart), GIV(lastMobileObject)))
-	 && (!(((byteAt((void *)(GIV(firstFieldOfRememberedSet) + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)))) {
-		GIV(firstFieldOfRememberedSet) = longAt((void *)((GIV(firstFieldOfRememberedSet) + BaseHeaderSize) + (0U << (shiftForWord()))));
+		(oopisGreaterThanOrEqualToandLessThanOrEqualTo(firstFieldOfRememberedSet, mobileStart, lastMobileObject))
+	 && (!(((byteAt((void *)(firstFieldOfRememberedSet + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)))) {
+		firstFieldOfRememberedSet = longAt((void *)((firstFieldOfRememberedSet + BaseHeaderSize) + (0U << (shiftForWord()))));
 	}
-	heapEntity = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
+	heapEntity = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
 
 	/* begin relocateObjectsInHeapEntity:from:to: */
-	for (i = 1; i < GIV(rememberedSetSize); i += 1) {
+	for (i = 1; i < rememberedSetSize; i += 1) {
 		oop = longAt((void *)((heapEntity + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 		if (((!(oop & (tagMask()))))
 		 && (/* isMobile: */
-			(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, GIV(mobileStart), GIV(lastMobileObject)))
+			(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart, lastMobileObject))
 		 && (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)))) {
 			assert(isMarked(oop));
 			fwd = longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
@@ -76,7 +76,7 @@ updatePointers(void)
 		}
 	}
 	if (/* isMobile: */
-		(oopisGreaterThanOrEqualToandLessThanOrEqualTo(heapEntity, GIV(mobileStart), GIV(lastMobileObject)))
+		(oopisGreaterThanOrEqualToandLessThanOrEqualTo(heapEntity, mobileStart, lastMobileObject))
 	 && (!(((byteAt((void *)(heapEntity + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0))) {
 		/* fetchPointer:ofObject: */
 		longAt((void *)((heapEntity + BaseHeaderSize) + (0U << (shiftForWord()))));
@@ -88,14 +88,14 @@ updatePointers(void)
 	/* begin allPastSpaceObjectsDo: */
 	/* begin allPastSpaceEntitiesDo: */
 	prevPrevObj = (prevObj = null);
-	address = ((GIV(pastSpace)).start);
+	address = ((pastSpace).start);
 
 	/* begin objectStartingAt: */
 	numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
 	objOopSqInt = (numSlots == (numSlotsMask())
 				? address + BaseHeaderSize
 				: address);
-	while (oopisLessThan(objOopSqInt, GIV(pastSpaceStart))) {
+	while (oopisLessThan(objOopSqInt, pastSpaceStart)) {
 		assert(isEnumerableObjectNoAssert(objOopSqInt));
 
 		/* begin updatePointersIn: */
@@ -150,7 +150,7 @@ l2:
 			oop = longAt((void *)((objOopSqInt + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 			if (((!(oop & (tagMask()))))
 			 && (/* isMobile: */
-				(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, GIV(mobileStart), GIV(lastMobileObject)))
+				(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart, lastMobileObject))
 			 && (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)))) {
 				assert((isMarked(oop))
 				 || (objOopSqInt == (hiddenRootsObject())));
@@ -169,13 +169,13 @@ l2:
 
 		/* begin objectAfterMaybeSlimBridge:limit: */
 		followingWordAddress = addressAfter(objOopSqInt);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(pastSpaceStart))) {
-			objOopSqInt = GIV(pastSpaceStart);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, pastSpaceStart)) {
+			objOopSqInt = pastSpaceStart;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
 		objOopSqInt = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-					? ((oopisLessThan(objOopSqInt, GIV(oldSpaceStart)))
+					? ((oopisLessThan(objOopSqInt, oldSpaceStart))
 					 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 							? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 							: followingWordAddress + BaseHeaderSize)
@@ -187,12 +187,12 @@ l1:;
 	/* begin updatePointersInInitialImmobileObjects */
 	/* begin allOldSpaceObjectsFrom:do: */
 	/* begin allOldSpaceEntitiesFrom:do: */
-	assert(isOldObject(GIV(nilObj)));
+	assert(isOldObject(nilObj));
 	prevPrevObj = (prevObj = null);
-	objOopSqInt = GIV(nilObj);
+	objOopSqInt = nilObj;
 	while (1) {
 		assert((objOopSqInt % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objOopSqInt, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objOopSqInt, endOfMemory))) break;
 		assert((long64At((void *)(objOopSqInt))) != 0);
 
 		/* begin isEnumerableObject: */
@@ -200,9 +200,9 @@ l1:;
 		assert((classIndex == (segmentBridgePun()))
 		 || ((classIndex == (isForwardedObjectClassIndexPun()))
 		 || (((long64At((void *)(objOopSqInt))) != 0)
-		 && (classIndex < (GIV(numClassTablePages) * (classTablePageSize()))))));
+		 && (classIndex < (numClassTablePages * (classTablePageSize()))))));
 		if (classIndex >= (isForwardedObjectClassIndexPun())) {
-			if (oopisGreaterThanOrEqualTo(objOopSqInt, GIV(firstFreeObject))) {
+			if (oopisGreaterThanOrEqualTo(objOopSqInt, firstFreeObject)) {
 				goto l7;
 			}
 
@@ -260,7 +260,7 @@ l6:
 				oop = longAt((void *)((objOopSqInt + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 				if (((!(oop & (tagMask()))))
 				 && (/* isMobile: */
-					(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, GIV(mobileStart), GIV(lastMobileObject)))
+					(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart, lastMobileObject))
 				 && (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)))) {
 					assert((isMarked(oop))
 					 || (objOopSqInt == (hiddenRootsObject())));
@@ -280,8 +280,8 @@ l6:
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objOopSqInt);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objOopSqInt = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objOopSqInt = endOfMemory;
 			goto l5;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
@@ -297,21 +297,21 @@ l7:
 	/* begin updatePointersInMobileObjects */
 	availableSpace = 0;
 	previousPin = 0;
-	assert(!((isMarked(GIV(firstFreeObject)))));
+	assert(!((isMarked(firstFreeObject))));
 	toFinger = /* startOfObject: */
-			((byteAt((void *)(GIV(firstFreeObject) + (numSlotsFieldByteOffset())))) == (numSlotsMask())
-				? GIV(firstFreeObject) - BaseHeaderSize
-				: GIV(firstFreeObject));
-	top = (GIV(savedFirstFieldsSpace).start);
+			((byteAt((void *)(firstFreeObject + (numSlotsFieldByteOffset())))) == (numSlotsMask())
+				? firstFreeObject - BaseHeaderSize
+				: firstFreeObject);
+	top = (savedFirstFieldsSpace.start);
 	startOfPreviousPin = 0;
 
 	/* begin allOldSpaceEntitiesFrom:do: */
-	assert(isOldObject(GIV(firstFreeObject)));
+	assert(isOldObject(firstFreeObject));
 	prevPrevObj = (prevObj = null);
-	objOop = GIV(firstFreeObject);
+	objOop = firstFreeObject;
 	while (1) {
 		assert((objOop % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objOop, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objOop, endOfMemory))) break;
 		assert((long64At((void *)(objOop))) != 0);
 		assert((previousPin == null
 				? toFinger <= (startOfObject(objOop))
@@ -379,7 +379,7 @@ l10:
 					oop = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 					if (((!(oop & (tagMask()))))
 					 && (/* isMobile: */
-						(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, GIV(mobileStart), GIV(lastMobileObject)))
+						(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart, lastMobileObject))
 					 && (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)))) {
 						assert((isMarked(oop))
 						 || (objOop == (hiddenRootsObject())));
@@ -438,8 +438,8 @@ l10:
 				   Any unfillable gaps between adjacent pinned objects will be freed. */
 				updatePointersInsavedFirstFieldPointer(objOop, top);
 				toFinger += bytes;
-				if (((top += BytesPerOop)) >= ((GIV(savedFirstFieldsSpace).limit))) {
-					assert(((GIV(savedFirstFieldsSpace).top)) == (top - BytesPerOop));
+				if (((top += BytesPerOop)) >= ((savedFirstFieldsSpace.limit))) {
+					assert(((savedFirstFieldsSpace.top)) == (top - BytesPerOop));
 					onePass = 0;
 					goto l11;
 				}
@@ -450,8 +450,8 @@ l10:
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objOop = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objOop = endOfMemory;
 			goto l9;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
@@ -461,7 +461,7 @@ l10:
 		/* end objectAfter:limit: */
 l9:;
 	}
-	assert(((GIV(savedFirstFieldsSpace).top)) == (top - BytesPerOop));
+	assert(((savedFirstFieldsSpace.top)) == (top - BytesPerOop));
 	onePass = 1;
 	/* end updatePointersInMobileObjects */
 l11:
@@ -469,12 +469,12 @@ l11:
 		/* begin updatePointersInObjectsOverflowingSavedFirstFieldsSpace */
 		/* begin allOldSpaceObjectsFrom:do: */
 		/* begin allOldSpaceEntitiesFrom:do: */
-		assert(isOldObject(GIV(objectAfterLastMobileObject)));
+		assert(isOldObject(objectAfterLastMobileObject));
 		prevPrevObj = (prevObj = null);
-		objOopSqInt = GIV(objectAfterLastMobileObject);
+		objOopSqInt = objectAfterLastMobileObject;
 		while (1) {
 			assert((objOopSqInt % (allocationUnit())) == 0);
-			if (!(oopisLessThan(objOopSqInt, GIV(endOfMemory)))) break;
+			if (!(oopisLessThan(objOopSqInt, endOfMemory))) break;
 			assert((long64At((void *)(objOopSqInt))) != 0);
 
 			/* begin isEnumerableObject: */
@@ -482,7 +482,7 @@ l11:
 			assert((classIndex == (segmentBridgePun()))
 			 || ((classIndex == (isForwardedObjectClassIndexPun()))
 			 || (((long64At((void *)(objOopSqInt))) != 0)
-			 && (classIndex < (GIV(numClassTablePages) * (classTablePageSize()))))));
+			 && (classIndex < (numClassTablePages * (classTablePageSize()))))));
 			if (classIndex >= (isForwardedObjectClassIndexPun())) {
 				if ((byteAt((void *)(objOopSqInt + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) {
 					/* begin updatePointersIn: */
@@ -537,7 +537,7 @@ l14:
 						oop = longAt((void *)((objOopSqInt + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 						if (((!(oop & (tagMask()))))
 						 && (/* isMobile: */
-							(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, GIV(mobileStart), GIV(lastMobileObject)))
+							(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart, lastMobileObject))
 						 && (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)))) {
 							assert((isMarked(oop))
 							 || (objOopSqInt == (hiddenRootsObject())));
@@ -558,8 +558,8 @@ l14:
 
 			/* begin objectAfter:limit: */
 			followingWordAddress = addressAfter(objOopSqInt);
-			if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-				objOopSqInt = GIV(endOfMemory);
+			if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+				objOopSqInt = endOfMemory;
 				goto l13;
 			}
 			followingWord = longAt((void *)(followingWordAddress));

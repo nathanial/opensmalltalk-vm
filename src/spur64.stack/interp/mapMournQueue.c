@@ -12,11 +12,11 @@ mapMournQueue(void)
     sqInt referent;
 
 	/* begin objStack:do: */
-	if (GIV(mournQueue) == GIV(nilObj)) {
+	if (mournQueue == nilObj) {
 		goto l1;
 	}
-	eassert(isValidObjStack(GIV(mournQueue)));
-	objStackPage = GIV(mournQueue);
+	eassert(isValidObjStack(mournQueue));
+	objStackPage = mournQueue;
 	while (objStackPage != 0) {
 		numOnThisPage = longAt((void *)((objStackPage + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
 		for (iSqInt = ((numOnThisPage + ObjStackFixedSlots) - 1); iSqInt >= ObjStackFixedSlots; iSqInt += -1) {

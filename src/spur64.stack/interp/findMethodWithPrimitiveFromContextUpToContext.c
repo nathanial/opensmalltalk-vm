@@ -31,7 +31,7 @@ findMethodWithPrimitiveFromContextUpToContext(sqInt primitive, sqInt senderConte
 	 || (isContext(homeContext)));
 	theContext = senderContext;
 	while (1) {
-		if (theContext == GIV(nilObj)) {
+		if (theContext == nilObj) {
 			return theContext;
 		}
 		if (((((longAt((void *)((theContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)) break;
@@ -39,7 +39,7 @@ findMethodWithPrimitiveFromContextUpToContext(sqInt primitive, sqInt senderConte
 			return 0;
 		}
 		if (!((primitive == 0)
-			 || ((longAt((void *)((theContext + BaseHeaderSize) + ((((usqInt)(ClosureIndex) << (shiftForWord()))))))) != GIV(nilObj)))) {
+			 || ((longAt((void *)((theContext + BaseHeaderSize) + ((((usqInt)(ClosureIndex) << (shiftForWord()))))))) != nilObj))) {
 			/* begin followObjField:ofObject: */
 			theMethod = longAt((void *)((theContext + BaseHeaderSize) + ((((usqInt)(MethodIndex) << (shiftForWord()))))));
 			assert(isNonImmediate(theMethod));
@@ -60,7 +60,7 @@ findMethodWithPrimitiveFromContextUpToContext(sqInt primitive, sqInt senderConte
 		theContext = objOop;
 	}
 	if (isWidowedContext(theContext)) {
-		return GIV(nilObj);
+		return nilObj;
 	}
 
 	/* begin frameOfMarriedContext: */
@@ -107,7 +107,7 @@ findMethodWithPrimitiveFromContextUpToContext(sqInt primitive, sqInt senderConte
 	if (!(/* isContext: */
 			((!(senderContextSqInt & (tagMask()))))
 		 && (((longAt((void *)(senderContextSqInt))) & (classIndexMask())) == ClassMethodContextCompactIndex))) {
-		return GIV(nilObj);
+		return nilObj;
 	}
 	return findMethodWithPrimitiveFromContextUpToContext(primitive, senderContextSqInt, homeContext);
 }

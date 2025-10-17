@@ -16,17 +16,17 @@ ensureRoomOnObjStackAt(sqInt objStackRootIndex)
     sqInt freeOrNewPage;
     sqInt stackOrNil;
 
-	stackOrNil = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord()))))));
-	if ((stackOrNil == GIV(nilObj))
+	stackOrNil = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord()))))));
+	if ((stackOrNil == nilObj)
 	 || ((longAt((void *)((stackOrNil + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))))) >= ObjStackLimit)) {
-		freeOrNewPage = (stackOrNil == GIV(nilObj)
+		freeOrNewPage = (stackOrNil == nilObj
 					? 0
 					: longAt((void *)((stackOrNil + BaseHeaderSize) + ((((usqInt)(ObjStackFreex) << (shiftForWord())))))));
 		if (freeOrNewPage) {
 			/* begin storePointer:ofObjStack:withValue: */
 			assert((formatOf(stackOrNil)) == (wordIndexableFormat()));
 			longAtput((void *)((stackOrNil + BaseHeaderSize) + ((((usqInt)(ObjStackFreex) << (shiftForWord()))))),0);
-			assert((!GIV(marking))
+			assert((!marking)
 			 || (isMarked(freeOrNewPage)));
 		}
 		else {
@@ -44,7 +44,7 @@ ensureRoomOnObjStackAt(sqInt objStackRootIndex)
 			/* begin storePointer:ofObjStack:withValue: */
 			assert((formatOf(freeOrNewPage)) == (wordIndexableFormat()));
 			longAtput((void *)((freeOrNewPage + BaseHeaderSize) + ((((usqInt)(ObjStackFreex) << (shiftForWord()))))),0);
-			if (GIV(marking)) {
+			if (marking) {
 				/* begin setIsMarkedOf:to: */
 				assert(!(isFreeObject(freeOrNewPage)));
 				byteAtput((void *)(freeOrNewPage + (markBitsByteOffset())),(byteAt((void *)(freeOrNewPage + (markBitsByteOffset())))) | (1U << (markedBitByteShift())));
@@ -59,7 +59,7 @@ ensureRoomOnObjStackAt(sqInt objStackRootIndex)
 
 		/* begin storePointer:ofObjStack:withValue: */
 		assert((formatOf(freeOrNewPage)) == (wordIndexableFormat()));
-		longAtput((void *)((freeOrNewPage + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))),(stackOrNil == GIV(nilObj)
+		longAtput((void *)((freeOrNewPage + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))),(stackOrNil == nilObj
 				? 0
 				: stackOrNil));
 
@@ -68,51 +68,51 @@ ensureRoomOnObjStackAt(sqInt objStackRootIndex)
 		longAtput((void *)((freeOrNewPage + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))),0);
 
 		/* begin storePointer:ofObject:withValue: */
-		assert(validStorePointerArgs(objStackRootIndex, GIV(hiddenRootsObj), freeOrNewPage));
-		assert(isNonImmediate(GIV(hiddenRootsObj)));
-		if (oopisGreaterThanOrEqualTo(GIV(hiddenRootsObj), GIV(oldSpaceStart))) {
+		assert(validStorePointerArgs(objStackRootIndex, hiddenRootsObj, freeOrNewPage));
+		assert(isNonImmediate(hiddenRootsObj));
+		if (oopisGreaterThanOrEqualTo(hiddenRootsObj, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(freeOrNewPage & (tagMask()))))
-			 && (oopisLessThan(freeOrNewPage, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(freeOrNewPage, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
-				if (!((byteAt((void *)(GIV(hiddenRootsObj) + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-					remember(GIV(hiddenRootsObj));
+				if (!((byteAt((void *)(hiddenRootsObj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+					remember(hiddenRootsObj);
 				}
 			}
 		}
 
 		/* most stores into young objects */
-		longAtput((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord()))))),freeOrNewPage);
+		longAtput((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord()))))),freeOrNewPage);
 		assert(isValidObjStackAt(objStackRootIndex));
 
 		/* Added a new page; now update and answer the relevant cached first page. */
 
 		/* begin updateRootOfObjStackAt:with: */
 		/* begin storePointer:ofObject:withValue: */
-		assert(validStorePointerArgs(objStackRootIndex, GIV(hiddenRootsObj), freeOrNewPage));
-		assert(isNonImmediate(GIV(hiddenRootsObj)));
-		if (oopisGreaterThanOrEqualTo(GIV(hiddenRootsObj), GIV(oldSpaceStart))) {
+		assert(validStorePointerArgs(objStackRootIndex, hiddenRootsObj, freeOrNewPage));
+		assert(isNonImmediate(hiddenRootsObj));
+		if (oopisGreaterThanOrEqualTo(hiddenRootsObj, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(freeOrNewPage & (tagMask()))))
-			 && (oopisLessThan(freeOrNewPage, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(freeOrNewPage, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
-				if (!((byteAt((void *)(GIV(hiddenRootsObj) + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-					remember(GIV(hiddenRootsObj));
+				if (!((byteAt((void *)(hiddenRootsObj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+					remember(hiddenRootsObj);
 				}
 			}
 		}
 
 		/* most stores into young objects */
-		longAtput((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord()))))),freeOrNewPage);
+		longAtput((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord()))))),freeOrNewPage);
 		switch (objStackRootIndex) {
 		case MarkStackRootIndex:
-			GIV(markStack) = freeOrNewPage;
+			markStack = freeOrNewPage;
 			break;
 		case WeaklingStackRootIndex:
-			GIV(weaklingStack) = freeOrNewPage;
+			weaklingStack = freeOrNewPage;
 			break;
 		case MournQueueRootIndex:
-			GIV(mournQueue) = freeOrNewPage;
+			mournQueue = freeOrNewPage;
 			break;
 		default:
 			error("Case not found and no otherwise clause");

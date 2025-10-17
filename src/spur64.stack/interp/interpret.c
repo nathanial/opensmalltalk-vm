@@ -32,12 +32,12 @@ interpret(void)
     usqIntptr_t stackZoneBytes;
     void *theStackMemory;
 
-	if (!GIV(stackLimit)) {
+	if (!stackLimit) {
 		/* begin initStackPagesAndInterpret */
 		/* begin ensureInitializeStackZone */
-		if (!GIV(pages)) {
+		if (!pages) {
 			stackPageBytes = stackPageByteSize();
-			stackZoneBytes = (GIV(numStackPages) * ((sizeof(CogStackPage)) + (stackPageByteSize()))) + BytesPerWord;
+			stackZoneBytes = (numStackPages * ((sizeof(CogStackPage)) + (stackPageByteSize()))) + BytesPerWord;
 			theStackMemory = alloca(stackZoneBytes);
 			memset(theStackMemory, 0, stackZoneBytes);
 			initializeStacknumSlotspageSize(theStackMemory, stackZoneBytes / BytesPerWord, stackPageBytes / BytesPerWord);
@@ -56,29 +56,29 @@ interpret(void)
 	browserPluginInitialiseIfNeeded();
 
 	/* begin setMethod: */
-	GIV(method) = longAt(GIV(framePointer) + FoxMethod);
-	assert(isOopCompiledMethod(GIV(method)));
+	method = longAt(framePointer + FoxMethod);
+	assert(isOopCompiledMethod(method));
 
 	/* begin methodUsesAlternateBytecodeSet: */
 	/* begin methodHeaderOf: */
-	assert(isCompiledMethod(GIV(method)));
-	methodHeader = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+	assert(isCompiledMethod(method));
+	methodHeader = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 	if ((((sqLong) methodHeader)) < 0) {
-		GIV(bytecodeSetSelector) = 0x100;
+		bytecodeSetSelector = 0x100;
 	}
 	else {
-		GIV(bytecodeSetSelector) = 0;
+		bytecodeSetSelector = 0;
 	}
-	assertValidExecutionPointersimbarline(GIV(instructionPointer), GIV(framePointer), GIV(stackPointer), 1, __LINE__);
+	assertValidExecutionPointersimbarline(instructionPointer, framePointer, stackPointer, 1, __LINE__);
 
 	/* begin internalizeIPandSP */
-	localIP = ((char *)GIV(instructionPointer));
-	localSP = GIV(stackPointer);
-	localFP = GIV(framePointer);
+	localIP = ((char *)instructionPointer);
+	localSP = stackPointer;
+	localFP = framePointer;
 
 	/* begin initExtensions */
 	extA = (numExtB = (extB = 0));
-	currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+	currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 	while (1) {
 		/* begin dispatchBytecode */
 		bytecodeDispatchDebugHook();
@@ -90,7 +90,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)((longAt(localFP + FoxReceiver)) + BaseHeaderSize)));
 			}
 			break;
@@ -99,7 +99,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode1);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 8 /* (1 << shiftForWord) */)));
 			}
 			break;
@@ -108,7 +108,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode2);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 16 /* (2 << shiftForWord) */)));
 			}
 			break;
@@ -117,7 +117,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode3);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 24 /* (3 << shiftForWord) */)));
 			}
 			break;
@@ -126,7 +126,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode4);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 32 /* (4 << shiftForWord) */)));
 			}
 			break;
@@ -135,7 +135,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode5);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 40 /* (5 << shiftForWord) */)));
 			}
 			break;
@@ -144,7 +144,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode6);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 48 /* (6 << shiftForWord) */)));
 			}
 			break;
@@ -153,7 +153,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode7);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 56 /* (7 << shiftForWord) */)));
 			}
 			break;
@@ -162,7 +162,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode8);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 64 /* (8 << shiftForWord) */)));
 			}
 			break;
@@ -171,7 +171,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode9);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 72 /* (9 << shiftForWord) */)));
 			}
 			break;
@@ -180,7 +180,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode10);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 80 /* (10 << shiftForWord) */)));
 			}
 			break;
@@ -189,7 +189,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode11);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 88 /* (11 << shiftForWord) */)));
 			}
 			break;
@@ -198,7 +198,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode12);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 96 /* (12 << shiftForWord) */)));
 			}
 			break;
@@ -207,7 +207,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode13);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 104 /* (13 << shiftForWord) */)));
 			}
 			break;
@@ -216,7 +216,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode14);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 112 /* (14 << shiftForWord) */)));
 			}
 			break;
@@ -225,7 +225,7 @@ interpret(void)
 			{
 				VM_LABEL(pushReceiverVariableBytecode15);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt((void *)(((longAt(localFP + FoxReceiver)) + BaseHeaderSize) + 120 /* (15 << shiftForWord) */)));
 			}
 			break;
@@ -237,7 +237,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(0 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + (frameNumArgs * BytesPerWord))
@@ -253,7 +253,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode1);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(1 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 1) * BytesPerWord))
@@ -269,7 +269,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode2);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(2 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 2) * BytesPerWord))
@@ -285,7 +285,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode3);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(3 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 3) * BytesPerWord))
@@ -301,7 +301,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode4);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(4 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 4) * BytesPerWord))
@@ -317,7 +317,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode5);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(5 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 5) * BytesPerWord))
@@ -333,7 +333,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode6);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(6 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 6) * BytesPerWord))
@@ -349,7 +349,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode7);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(7 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 7) * BytesPerWord))
@@ -365,7 +365,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode8);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(8 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 8) * BytesPerWord))
@@ -381,7 +381,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode9);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(9 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 9) * BytesPerWord))
@@ -397,7 +397,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode10);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(10 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 10) * BytesPerWord))
@@ -413,7 +413,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode11);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(11 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 11) * BytesPerWord))
@@ -428,7 +428,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode12);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(12 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 12) * BytesPerWord))
@@ -443,7 +443,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode13);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(13 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 13) * BytesPerWord))
@@ -458,7 +458,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode14);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(14 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 14) * BytesPerWord))
@@ -473,7 +473,7 @@ interpret(void)
 
 				VM_LABEL(pushTemporaryVariableBytecode15);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = /* temporary:in: */
 						(15 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - 15) * BytesPerWord))
@@ -488,9 +488,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 8 /* ((0 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 8 /* ((0 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -503,9 +503,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode1);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 16 /* ((1 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 16 /* ((1 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -518,9 +518,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode2);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 24 /* ((2 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 24 /* ((2 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -533,9 +533,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode3);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 32 /* ((3 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 32 /* ((3 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -548,9 +548,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode4);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 40 /* ((4 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 40 /* ((4 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -563,9 +563,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode5);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 48 /* ((5 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 48 /* ((5 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -578,9 +578,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode6);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 56 /* ((6 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 56 /* ((6 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -593,9 +593,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode7);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 64 /* ((7 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 64 /* ((7 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -608,9 +608,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode8);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 72 /* ((8 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 72 /* ((8 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -623,9 +623,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode9);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 80 /* ((9 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 80 /* ((9 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -638,9 +638,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode10);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 88 /* ((10 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 88 /* ((10 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -653,9 +653,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode11);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 96 /* ((11 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 96 /* ((11 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -668,9 +668,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode12);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 104 /* ((12 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 104 /* ((12 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -683,9 +683,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode13);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 112 /* ((13 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 112 /* ((13 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -698,9 +698,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode14);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 120 /* ((14 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 120 /* ((14 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -713,9 +713,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode15);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 128 /* ((15 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 128 /* ((15 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -728,9 +728,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode16);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 136 /* ((16 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 136 /* ((16 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -743,9 +743,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode17);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 144 /* ((17 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 144 /* ((17 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -758,9 +758,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode18);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 152 /* ((18 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 152 /* ((18 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -773,9 +773,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode19);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 160 /* ((19 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 160 /* ((19 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -788,9 +788,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode20);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 168 /* ((20 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 168 /* ((20 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -803,9 +803,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode21);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 176 /* ((21 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 176 /* ((21 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -818,9 +818,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode22);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 184 /* ((22 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 184 /* ((22 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -833,9 +833,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode23);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 192 /* ((23 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 192 /* ((23 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -848,9 +848,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode24);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 200 /* ((24 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 200 /* ((24 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -863,9 +863,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode25);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 208 /* ((25 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 208 /* ((25 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -878,9 +878,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode26);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 216 /* ((26 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 216 /* ((26 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -893,9 +893,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode27);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 224 /* ((27 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 224 /* ((27 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -908,9 +908,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode28);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 232 /* ((28 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 232 /* ((28 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -923,9 +923,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode29);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 240 /* ((29 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 240 /* ((29 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -938,9 +938,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode30);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 0xF8 /* ((30 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 0xF8 /* ((30 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -953,9 +953,9 @@ interpret(void)
 
 				VM_LABEL(pushLiteralConstantBytecode31);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + 0x100 /* ((31 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + 0x100 /* ((31 + LiteralStart) << shiftForWord) */));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -968,11 +968,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 8 /* ((0 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 8 /* ((0 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(1 /* (0 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(1 /* (0 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -986,11 +986,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode1);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 16 /* ((1 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 16 /* ((1 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(2 /* (1 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(2 /* (1 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1004,11 +1004,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode2);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 24 /* ((2 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 24 /* ((2 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(3 /* (2 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(3 /* (2 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1022,11 +1022,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode3);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 32 /* ((3 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 32 /* ((3 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(4 /* (3 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(4 /* (3 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1040,11 +1040,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode4);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 40 /* ((4 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 40 /* ((4 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(5 /* (4 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(5 /* (4 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1058,11 +1058,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode5);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 48 /* ((5 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 48 /* ((5 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(6 /* (5 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(6 /* (5 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1076,11 +1076,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode6);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 56 /* ((6 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 56 /* ((6 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(7 /* (6 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(7 /* (6 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1094,11 +1094,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode7);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 64 /* ((7 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 64 /* ((7 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(8 /* (7 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(8 /* (7 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1112,11 +1112,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode8);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 72 /* ((8 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 72 /* ((8 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(9 /* (8 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(9 /* (8 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1130,11 +1130,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode9);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 80 /* ((9 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 80 /* ((9 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(10 /* (9 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(10 /* (9 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1148,11 +1148,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode10);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 88 /* ((10 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 88 /* ((10 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(11 /* (10 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(11 /* (10 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1166,11 +1166,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode11);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 96 /* ((11 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 96 /* ((11 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(12 /* (11 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(12 /* (11 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1184,11 +1184,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode12);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 104 /* ((12 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 104 /* ((12 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(13 /* (12 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(13 /* (12 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1202,11 +1202,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode13);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 112 /* ((13 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 112 /* ((13 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(14 /* (13 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(14 /* (13 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1220,11 +1220,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode14);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 120 /* ((14 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 120 /* ((14 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(15 /* (14 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(15 /* (14 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1238,11 +1238,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode15);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 128 /* ((15 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 128 /* ((15 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(16 /* (15 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(16 /* (15 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1255,11 +1255,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode16);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 136 /* ((16 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 136 /* ((16 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(17 /* (16 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(17 /* (16 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1272,11 +1272,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode17);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 144 /* ((17 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 144 /* ((17 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(18 /* (17 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(18 /* (17 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1289,11 +1289,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode18);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 152 /* ((18 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 152 /* ((18 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(19 /* (18 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(19 /* (18 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1306,11 +1306,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode19);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 160 /* ((19 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 160 /* ((19 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(20 /* (19 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(20 /* (19 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1323,11 +1323,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode20);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 168 /* ((20 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 168 /* ((20 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(21 /* (20 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(21 /* (20 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1340,11 +1340,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode21);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 176 /* ((21 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 176 /* ((21 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(22 /* (21 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(22 /* (21 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1357,11 +1357,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode22);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 184 /* ((22 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 184 /* ((22 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(23 /* (22 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(23 /* (22 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1374,11 +1374,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode23);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 192 /* ((23 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 192 /* ((23 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(24 /* (23 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(24 /* (23 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1391,11 +1391,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode24);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 200 /* ((24 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 200 /* ((24 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(25 /* (24 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(25 /* (24 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1408,11 +1408,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode25);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 208 /* ((25 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 208 /* ((25 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(26 /* (25 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(26 /* (25 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1425,11 +1425,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode26);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 216 /* ((26 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 216 /* ((26 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(27 /* (26 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(27 /* (26 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1442,11 +1442,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode27);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 224 /* ((27 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 224 /* ((27 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(28 /* (27 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(28 /* (27 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1459,11 +1459,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode28);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 232 /* ((28 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 232 /* ((28 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(29 /* (28 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(29 /* (28 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1476,11 +1476,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode29);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 240 /* ((29 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 240 /* ((29 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(30 /* (29 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(30 /* (29 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1493,11 +1493,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode30);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 0xF8 /* ((30 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 0xF8 /* ((30 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(0x1F /* (30 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(0x1F /* (30 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1510,11 +1510,11 @@ interpret(void)
 
 				VM_LABEL(pushLiteralVariableBytecode31);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + 0x100 /* ((31 + LiteralStart) << shiftForWord) */));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				litVar = longAt((void *)((method + BaseHeaderSize) + 0x100 /* ((31 + LiteralStart) << shiftForWord) */));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(32 /* (31 + LiteralStart) */, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(32 /* (31 + LiteralStart) */, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -1557,8 +1557,8 @@ interpret(void)
 					longAtput((localSP -= BytesPerOop),rcvr);
 					longAtput((localSP -= BytesPerOop),top);
 					longAtput((localSP -= BytesPerOop),(((instVarIndex + 1) << 3) | 1));
-					GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
-					GIV(argumentCount) = 2;
+					messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
+					argumentCount = 2;
 					goto normalSend;
 					goto l1;
 				}
@@ -1568,10 +1568,10 @@ interpret(void)
 				/* begin storePointer:ofObject:withValue: */
 				assert(validStorePointerArgs(instVarIndex, rcvr, top));
 				assert(isNonImmediate(rcvr));
-				if (oopisGreaterThanOrEqualTo(rcvr, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(top & (tagMask()))))
-					 && (oopisLessThan(top, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(top, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(rcvr);
@@ -1585,7 +1585,7 @@ interpret(void)
 l1:
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 104: // storeAndPopTemporaryVariableBytecode
@@ -1595,7 +1595,7 @@ l1:
 
 				VM_LABEL(storeAndPopTemporaryVariableBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* temporary:in:put: */
 				if (0 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
@@ -1616,7 +1616,7 @@ l1:
 
 				VM_LABEL(storeAndPopTemporaryVariableBytecode1);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* temporary:in:put: */
 				if (1 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
@@ -1637,7 +1637,7 @@ l1:
 
 				VM_LABEL(storeAndPopTemporaryVariableBytecode2);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* temporary:in:put: */
 				if (2 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
@@ -1658,7 +1658,7 @@ l1:
 
 				VM_LABEL(storeAndPopTemporaryVariableBytecode3);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* temporary:in:put: */
 				if (3 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
@@ -1679,7 +1679,7 @@ l1:
 
 				VM_LABEL(storeAndPopTemporaryVariableBytecode4);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* temporary:in:put: */
 				if (4 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
@@ -1700,7 +1700,7 @@ l1:
 
 				VM_LABEL(storeAndPopTemporaryVariableBytecode5);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* temporary:in:put: */
 				if (5 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
@@ -1721,7 +1721,7 @@ l1:
 
 				VM_LABEL(storeAndPopTemporaryVariableBytecode6);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* temporary:in:put: */
 				if (6 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
@@ -1742,7 +1742,7 @@ l1:
 
 				VM_LABEL(storeAndPopTemporaryVariableBytecode7);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* temporary:in:put: */
 				if (7 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
@@ -1761,7 +1761,7 @@ l1:
 			{
 				VM_LABEL(pushReceiverBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),longAt(localFP + FoxReceiver));
 			}
 			break;
@@ -1770,8 +1770,8 @@ l1:
 			{
 				VM_LABEL(pushConstantTrueBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				longAtput((localSP -= BytesPerOop),GIV(trueObj));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				longAtput((localSP -= BytesPerOop),trueObj);
 			}
 			break;
 		case 114: // pushConstantFalseBytecode
@@ -1779,8 +1779,8 @@ l1:
 			{
 				VM_LABEL(pushConstantFalseBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				longAtput((localSP -= BytesPerOop),GIV(falseObj));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				longAtput((localSP -= BytesPerOop),falseObj);
 			}
 			break;
 		case 115: // pushConstantNilBytecode
@@ -1788,15 +1788,15 @@ l1:
 			{
 				VM_LABEL(pushConstantNilBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				longAtput((localSP -= BytesPerOop),GIV(nilObj));
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				longAtput((localSP -= BytesPerOop),nilObj);
 			}
 			break;
 		case 116: // pushConstantMinusOneBytecode
 			{
 				VM_LABEL(pushConstantMinusOneBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),ConstMinusOne);
 			}
 			break;
@@ -1805,7 +1805,7 @@ l1:
 			{
 				VM_LABEL(pushConstantZeroBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),ConstZero);
 			}
 			break;
@@ -1814,7 +1814,7 @@ l1:
 			{
 				VM_LABEL(pushConstantOneBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),ConstOne);
 			}
 			break;
@@ -1822,7 +1822,7 @@ l1:
 			{
 				VM_LABEL(pushConstantTwoBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),ConstTwo);
 			}
 			break;
@@ -1875,20 +1875,20 @@ l1:
 				   to identify widowed contexts correctly. */
 
 				/* begin writeBackHeadFramePointers */
-				assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
+				assert(stackPage == (mostRecentlyUsedPage));
 				assert(localSP < localFP);
-				assert((localSP < ((GIV(stackPage)->baseAddress)))
-				 && (localSP > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-				assert((localFP < ((GIV(stackPage)->baseAddress)))
-				 && (localFP > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-				(GIV(stackPage)->headFP = localFP);
-				(GIV(stackPage)->headSP = localSP);
+				assert((localSP < ((stackPage->baseAddress)))
+				 && (localSP > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+				assert((localFP < ((stackPage->baseAddress)))
+				 && (localFP > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+				(stackPage->headFP = localFP);
+				(stackPage->headSP = localSP);
 				assert(pageListIsWellFormed());
 
 				/* begin externalizeIPandSP */
-				GIV(instructionPointer) = ((usqInt)localIP);
-				GIV(stackPointer) = localSP;
-				GIV(framePointer) = localFP;
+				instructionPointer = ((usqInt)localIP);
+				stackPointer = localSP;
+				framePointer = localFP;
 
 				/* Since this is a block activation the closure is on the stack above any args and the frame. */
 				closure = longAt(localFP + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((localFP + FoxFrameFlags) + 1))) << (shiftForWord()))))));
@@ -1897,7 +1897,7 @@ l1:
 				/* Walk the closure's lexical chain to find the context or frame to return from (home).
 				   If home is missing (Sista closures) then throw cannotReturn rather than crash. */
 				home = null;
-				while (closure != GIV(nilObj)) {
+				while (closure != nilObj) {
 					/* begin followObjField:ofObject: */
 					home = longAt((void *)((closure + BaseHeaderSize) + ((((usqInt)(ClosureOuterContextIndex) << (shiftForWord()))))));
 					assert(isNonImmediate(home));
@@ -1921,8 +1921,8 @@ l158:
 						/* begin internalPush: */
 						longAtput((localSP -= BytesPerOop),ourContext);
 						longAtput((localSP -= BytesPerOop),localReturnValue);
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorCannotReturn) << (shiftForWord()))))));
-						GIV(argumentCount) = 1;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorCannotReturn) << (shiftForWord()))))));
+						argumentCount = 1;
 						goto normalSend;
 						goto l154;
 					}
@@ -1944,13 +1944,13 @@ l158:
 				onSamePage = (/* isStillMarriedContext: */
 						(((((longAt((void *)((home + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
 					 && (!(isWidowedContext(home))))
-					 && ((pageIndexForstackMemorybytesPerPage(GIV(framePointer), GIV(stackMemory), GIV(bytesPerPage))) == (pageIndexFor(frameOfMarriedContext(home))));
+					 && ((pageIndexForstackMemorybytesPerPage(framePointer, stackMemory, bytesPerPage)) == (pageIndexFor(frameOfMarriedContext(home))));
 
 				/* Since nothing changes we don't need to internalize. */
 
 				/* begin findMethodWithPrimitive:FromFP:UpToContext: */
-				theFP1 = GIV(framePointer);
-				theFPAbove = GIV(framePointer);
+				theFP1 = framePointer;
+				theFPAbove = framePointer;
 				do {
 					if (((byteAt((theFP1 + FoxFrameFlags) + 2)) != 0)
 					 && (home == (longAt(theFP1 + FoxThisContext)))) {
@@ -1989,7 +1989,7 @@ l158:
 				if (!(/* isContext: */
 						((!(senderContext & (tagMask()))))
 					 && (((longAt((void *)(senderContext))) & (classIndexMask())) == ClassMethodContextCompactIndex))) {
-					ctxtOrNilOrZero = GIV(nilObj);
+					ctxtOrNilOrZero = nilObj;
 					goto l159;
 				}
 				ctxtOrNilOrZero = findMethodWithPrimitiveFromContextUpToContext(PrimNumberUnwindMarker, senderContext, home);
@@ -2010,16 +2010,16 @@ l159:
 				/* If an unwind was found, can the home context be found also?  No need to look if on the same page.
 				   No need to look if cannot return (ctxtOrNilOrZero = objectMemory nilObject) */
 				if (!(onSamePage
-					 || (ctxtOrNilOrZero == GIV(nilObj)))) {
-					if ((findMethodWithPrimitiveFromContextUpToContext(0, ctxtOrNilOrZero, home)) == GIV(nilObj)) {
-						unwindContextOrNilOrZero = GIV(nilObj);
+					 || (ctxtOrNilOrZero == nilObj))) {
+					if ((findMethodWithPrimitiveFromContextUpToContext(0, ctxtOrNilOrZero, home)) == nilObj) {
+						unwindContextOrNilOrZero = nilObj;
 						goto l155;
 					}
 				}
 				unwindContextOrNilOrZero = ctxtOrNilOrZero;
 				/* end findUnwindThroughContext: */
 l155:
-				if (unwindContextOrNilOrZero == GIV(nilObj)) {
+				if (unwindContextOrNilOrZero == nilObj) {
 					/* begin internalCannotReturn: */
 					/* begin ensureFrameIsMarried:SP: */
 					if (byteAt((localFP + FoxFrameFlags) + 2)) {
@@ -2034,8 +2034,8 @@ l161:
 					/* begin internalPush: */
 					longAtput((localSP -= BytesPerOop),ourContext);
 					longAtput((localSP -= BytesPerOop),localReturnValue);
-					GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorCannotReturn) << (shiftForWord()))))));
-					GIV(argumentCount) = 1;
+					messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorCannotReturn) << (shiftForWord()))))));
+					argumentCount = 1;
 					goto normalSend;
 					goto l154;
 				}
@@ -2057,8 +2057,8 @@ l157:
 					longAtput((localSP -= BytesPerOop),ourContext);
 					longAtput((localSP -= BytesPerOop),localReturnValue);
 					longAtput((localSP -= BytesPerOop),unwindContextOrNilOrZero);
-					GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAboutToReturn) << (shiftForWord()))))));
-					GIV(argumentCount) = 2;
+					messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAboutToReturn) << (shiftForWord()))))));
+					argumentCount = 2;
 					goto normalSend;
 					goto l154;
 				}
@@ -2145,8 +2145,8 @@ l160:
 						/* begin internalPush: */
 						longAtput((localSP -= BytesPerOop),ourContext);
 						longAtput((localSP -= BytesPerOop),localReturnValue);
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorCannotReturn) << (shiftForWord()))))));
-						GIV(argumentCount) = 1;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorCannotReturn) << (shiftForWord()))))));
+						argumentCount = 1;
 						goto normalSend;
 						goto l154;
 					}
@@ -2160,19 +2160,19 @@ l160:
 				assert(pageListIsWellFormed());
 
 				/* begin stackPageFor: */
-				newPage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(frameToReturnTo, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
-				if (newPage != GIV(stackPage)) {
+				newPage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(frameToReturnTo, stackMemory, bytesPerPage), pages);
+				if (newPage != stackPage) {
 					/* begin frameCallerContext: */
-					assert(isBaseFrame((GIV(stackPage)->baseFP)));
-					currentCtx = longAt(((GIV(stackPage)->baseFP)) + FoxCallerContext);
-					freeStackPage(GIV(stackPage));
+					assert(isBaseFrame((stackPage->baseFP)));
+					currentCtx = longAt(((stackPage->baseFP)) + FoxCallerContext);
+					freeStackPage(stackPage);
 					while (1) {
 						assert(isContext(currentCtx));
 						if ((((((longAt((void *)((currentCtx + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
 						 && ((stackPageFor((theFP = frameOfMarriedContext(currentCtx)))) == newPage)) break;
 						if (((((longAt((void *)((currentCtx + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)) {
 							/* begin stackPageFor: */
-							thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+							thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
 							if (theFP != ((thePage->headFP))) {
 								moveFramesInthroughtoPage(thePage, findFrameAboveinPage(theFP, thePage), newStackPage());
 							}
@@ -2191,27 +2191,27 @@ l160:
 							assert(isContext(currentCtx));
 							assert((isNonImmediate(currentCtx))
 							 && (!(isForwarded(currentCtx))));
-							assert(validStorePointerUncheckedArgs(SenderIndex, currentCtx, GIV(nilObj)));
-							longAtput((void *)((currentCtx + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),GIV(nilObj));
+							assert(validStorePointerUncheckedArgs(SenderIndex, currentCtx, nilObj));
+							longAtput((void *)((currentCtx + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),nilObj);
 
 							/* begin storePointerUnchecked:ofObject:withValue: */
 							assert((isNonImmediate(currentCtx))
 							 && (!(isForwarded(currentCtx))));
-							assert(validStorePointerUncheckedArgs(InstructionPointerIndex, currentCtx, GIV(nilObj)));
-							longAtput((void *)((currentCtx + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),GIV(nilObj));
+							assert(validStorePointerUncheckedArgs(InstructionPointerIndex, currentCtx, nilObj));
+							longAtput((void *)((currentCtx + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),nilObj);
 							currentCtx = nextCntx;
 						}
 					}
 
 					/* begin setStackPageAndLimit: */
 					assert(newPage);
-					GIV(stackPage) = newPage;
-					if (GIV(stackLimit) != (((char *) (((usqInt) -1))))) {
-						GIV(stackLimit) = (GIV(stackPage)->stackLimit);
+					stackPage = newPage;
+					if (stackLimit != (((char *) (((usqInt) -1))))) {
+						stackLimit = (stackPage->stackLimit);
 					}
 					markStackPageMostRecentlyUsed(newPage);
-					localSP = (GIV(stackPage)->headSP);
-					localFP = (GIV(stackPage)->headFP);
+					localSP = (stackPage->headSP);
+					localFP = (stackPage->headFP);
 				}
 
 				/* Two cases.  Returning to the top frame on a new page or an interior frame on the current page.
@@ -2234,22 +2234,22 @@ l160:
 				/* pop the saved IP, push the return value and continue. */
 
 				/* begin setMethod: */
-				GIV(method) = longAt(localFP + FoxMethod);
-				assert(isOopCompiledMethod(GIV(method)));
+				method = longAt(localFP + FoxMethod);
+				assert(isOopCompiledMethod(method));
 
 				/* begin methodUsesAlternateBytecodeSet: */
 				/* begin methodHeaderOf: */
-				assert(isCompiledMethod(GIV(method)));
-				methodHeader = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+				assert(isCompiledMethod(method));
+				methodHeader = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 				if ((((sqLong) methodHeader)) < 0) {
-					GIV(bytecodeSetSelector) = 0x100;
+					bytecodeSetSelector = 0x100;
 				}
 				else {
-					GIV(bytecodeSetSelector) = 0;
+					bytecodeSetSelector = 0;
 				}
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* internalStackTopPut: */
 				longAtput(localSP,localReturnValue);
@@ -2261,7 +2261,7 @@ l154:;
 		case 345: // 89	returnTrue
 			{
 				VM_LABEL(returnTrue);
-				localReturnValue = GIV(trueObj);
+				localReturnValue = trueObj;
 				goto commonReturn;
 			}
 			break;
@@ -2269,7 +2269,7 @@ l154:;
 		case 346: // 90	returnFalse
 			{
 				VM_LABEL(returnFalse);
-				localReturnValue = GIV(falseObj);
+				localReturnValue = falseObj;
 				goto commonReturn;
 			}
 			break;
@@ -2277,7 +2277,7 @@ l154:;
 		case 347: // 91	returnNil
 			{
 				VM_LABEL(returnNil);
-				localReturnValue = GIV(nilObj);
+				localReturnValue = nilObj;
 				goto commonReturn;
 			}
 			break;
@@ -2318,7 +2318,7 @@ l154:;
 				/* TODO: Store/restore the nativeSP more properly, when it exists */
 				callersFPOrNull = ((char *)(longAt(localFP + FoxSavedFP)));
 				if (!callersFPOrNull) {
-					assert(localFP == ((GIV(stackPage)->baseFP)));
+					assert(localFP == ((stackPage->baseFP)));
 
 					/* begin baseFrameReturn */
 					/* begin frameCallerContext: */
@@ -2337,10 +2337,10 @@ l154:;
 						theFP = ((char *)(senderOop - (smallIntegerTag())));
 
 						/* begin stackPageFor: */
-						thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+						thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
 						if (theFP == ((thePage->headFP))) {
 							theSP = (thePage->headSP);
-							freeStackPageNoAssert(GIV(stackPage));
+							freeStackPageNoAssert(stackPage);
 						}
 						else {
 							/* begin findFrameAbove:inPage: */
@@ -2365,7 +2365,7 @@ l163:
 							/* Reuse the page we're exiting, which avoids allocating a new page and
 							   manipulating the page list to mark the page we're entering as least recently
 							   used (to avoid it being deallocated when allocating a new page). */
-							moveFramesInthroughtoPage(thePage, frameAbove, GIV(stackPage));
+							moveFramesInthroughtoPage(thePage, frameAbove, stackPage);
 							theFP = (thePage->headFP);
 							theSP = (thePage->headSP);
 						}
@@ -2387,41 +2387,41 @@ l164:
 							/* begin internalPush: */
 							longAtput((localSP -= BytesPerOop),ourContext);
 							longAtput((localSP -= BytesPerOop),localReturnValue);
-							GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorCannotReturn) << (shiftForWord()))))));
-							GIV(argumentCount) = 1;
+							messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorCannotReturn) << (shiftForWord()))))));
+							argumentCount = 1;
 							goto normalSend;
 							goto l162;
 						}
 						thePage = makeBaseFrameFor(contextToReturnTo);
 						theFP = (thePage->headFP);
 						theSP = (thePage->headSP);
-						freeStackPageNoAssert(GIV(stackPage));
+						freeStackPageNoAssert(stackPage);
 					}
 
 					/* begin setStackPageAndLimit: */
 					assert(thePage);
-					GIV(stackPage) = thePage;
-					if (GIV(stackLimit) != (((char *) (((usqInt) -1))))) {
-						GIV(stackLimit) = (GIV(stackPage)->stackLimit);
+					stackPage = thePage;
+					if (stackLimit != (((char *) (((usqInt) -1))))) {
+						stackLimit = (stackPage->stackLimit);
 					}
 					markStackPageMostRecentlyUsed(thePage);
-					assert((stackPageFor(theFP)) == GIV(stackPage));
+					assert((stackPageFor(theFP)) == stackPage);
 					localSP = theSP;
 					localFP = theFP;
 
 					/* begin setMethod: */
-					GIV(method) = longAt(localFP + FoxMethod);
-					assert(isOopCompiledMethod(GIV(method)));
+					method = longAt(localFP + FoxMethod);
+					assert(isOopCompiledMethod(method));
 
 					/* begin methodUsesAlternateBytecodeSet: */
 					/* begin methodHeaderOf: */
-					assert(isCompiledMethod(GIV(method)));
-					methodHeader = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+					assert(isCompiledMethod(method));
+					methodHeader = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 					if ((((sqLong) methodHeader)) < 0) {
-						GIV(bytecodeSetSelector) = 0x100;
+						bytecodeSetSelector = 0x100;
 					}
 					else {
-						GIV(bytecodeSetSelector) = 0;
+						bytecodeSetSelector = 0;
 					}
 					localIP = ((char *)(longAt(localSP)));
 
@@ -2430,7 +2430,7 @@ l164:
 					assert(checkIsStillMarriedContextcurrentFP(contextToReturnTo, localFP));
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l162;
 				}
 
@@ -2440,22 +2440,22 @@ l164:
 				localFP = callersFPOrNull;
 
 				/* begin setMethod: */
-				GIV(method) = longAt(localFP + FoxMethod);
-				assert(isOopCompiledMethod(GIV(method)));
+				method = longAt(localFP + FoxMethod);
+				assert(isOopCompiledMethod(method));
 
 				/* begin methodUsesAlternateBytecodeSet: */
 				/* begin methodHeaderOf: */
-				assert(isCompiledMethod(GIV(method)));
-				methodHeader = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+				assert(isCompiledMethod(method));
+				methodHeader = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 				if ((((sqLong) methodHeader)) < 0) {
-					GIV(bytecodeSetSelector) = 0x100;
+					bytecodeSetSelector = 0x100;
 				}
 				else {
-					GIV(bytecodeSetSelector) = 0;
+					bytecodeSetSelector = 0;
 				}
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* internalStackTopPut: */
 				longAtput(localSP,localReturnValue);
@@ -2473,16 +2473,16 @@ l162:;
 				sqInt ourContext;
 
 				VM_LABEL(respondToUnknownBytecode);
-				GIV(messageSelector) = /* maybeSplObj: */
+				messageSelector = /* maybeSplObj: */
 						(SelectorUnknownBytecode < ((/* begin numSlotsOf: */
-						assert((classIndexOf(GIV(specialObjectsOop))) > (isForwardedObjectClassIndexPun())),
-					(((numSlots = byteAt((void *)(GIV(specialObjectsOop) + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
-								? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(GIV(specialObjectsOop) - BaseHeaderSize)))) << 8)))))) >> 8
+						assert((classIndexOf(specialObjectsOop)) > (isForwardedObjectClassIndexPun())),
+					(((numSlots = byteAt((void *)(specialObjectsOop + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
+								? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(specialObjectsOop - BaseHeaderSize)))) << 8)))))) >> 8
 								: numSlots)))
-							? longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorUnknownBytecode) << (shiftForWord()))))))
+							? longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorUnknownBytecode) << (shiftForWord()))))))
 							: 0);
-				if ((!GIV(messageSelector))
-				 || (GIV(messageSelector) == GIV(nilObj))) {
+				if ((!messageSelector)
+				 || (messageSelector == nilObj)) {
 					error("Unknown bytecode");
 				}
 
@@ -2501,7 +2501,7 @@ l165:
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),ourContext);
-				GIV(argumentCount) = 0;
+				argumentCount = 0;
 				goto normalSend;
 			}
 			break;
@@ -2518,7 +2518,7 @@ l165:
 				descriptor = byteAt(++localIP);
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				variableType = (((usqInt)(descriptor)) >> 6) & 3;
 				variableIndex = descriptor & 0x3F;
 				if (!variableType) {
@@ -2539,8 +2539,8 @@ l165:
 				if (variableType == 2) {
 					/* begin pushLiteralConstant: */
 					/* begin literal: */
-					assert(GIV(method) == (iframeMethod(localFP)));
-					object = longAt((void *)((GIV(method) + BaseHeaderSize) + (((variableIndex + LiteralStart) << (shiftForWord())))));
+					assert(method == (iframeMethod(localFP)));
+					object = longAt((void *)((method + BaseHeaderSize) + (((variableIndex + LiteralStart) << (shiftForWord())))));
 
 					/* begin internalPush: */
 					longAtput((localSP -= BytesPerOop),object);
@@ -2550,10 +2550,10 @@ l165:
 					/* begin pushLiteralVariable: */
 					/* begin followObjLiteral:ofMethod: */
 					/* begin followObjField:ofObject: */
-					litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + (((variableIndex + LiteralStart) << (shiftForWord())))));
+					litVar = longAt((void *)((method + BaseHeaderSize) + (((variableIndex + LiteralStart) << (shiftForWord())))));
 					assert(isNonImmediate(litVar));
 					if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-						litVar = fixFollowedFieldofObjectwithInitialValue(variableIndex + LiteralStart, GIV(method), litVar);
+						litVar = fixFollowedFieldofObjectwithInitialValue(variableIndex + LiteralStart, method, litVar);
 					}
 
 					/* begin internalPush: */
@@ -2591,8 +2591,8 @@ l2:;
 						longAtput((localSP -= BytesPerOop),objOop);
 						longAtput((localSP -= BytesPerOop),value);
 						longAtput((localSP -= BytesPerOop),(((variableIndex + 1) << 3) | 1));
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
-						GIV(argumentCount) = 2;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
+						argumentCount = 2;
 						goto normalSend;
 						goto l3;
 					}
@@ -2602,10 +2602,10 @@ l2:;
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(variableIndex, objOop, value));
 					assert(isNonImmediate(objOop));
-					if (oopisGreaterThanOrEqualTo(objOop, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(value & (tagMask()))))
-						 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(value, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(objOop);
@@ -2634,10 +2634,10 @@ l3:;
 					/* begin storeLiteralVariable:withValue: */
 					/* begin followObjLiteral:ofMethod: */
 					/* begin followObjField:ofObject: */
-					litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + (((variableIndex + LiteralStart) << (shiftForWord())))));
+					litVar = longAt((void *)((method + BaseHeaderSize) + (((variableIndex + LiteralStart) << (shiftForWord())))));
 					assert(isNonImmediate(litVar));
 					if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-						litVar = fixFollowedFieldofObjectwithInitialValue(variableIndex + LiteralStart, GIV(method), litVar);
+						litVar = fixFollowedFieldofObjectwithInitialValue(variableIndex + LiteralStart, method, litVar);
 					}
 
 					/* begin storePointerImmutabilityCheck:ofObject:withValue: */
@@ -2649,8 +2649,8 @@ l3:;
 						longAtput((localSP -= BytesPerOop),litVar);
 						longAtput((localSP -= BytesPerOop),value);
 						longAtput((localSP -= BytesPerOop),(((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
-						GIV(argumentCount) = 2;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
+						argumentCount = 2;
 						goto normalSend;
 						goto l4;
 					}
@@ -2660,10 +2660,10 @@ l3:;
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(ValueIndex, litVar, value));
 					assert(isNonImmediate(litVar));
-					if (oopisGreaterThanOrEqualTo(litVar, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(litVar, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(value & (tagMask()))))
-						 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(value, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(litVar + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(litVar);
@@ -2681,7 +2681,7 @@ l4:;
 				}
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 130: // extendedStoreAndPopBytecode
@@ -2714,8 +2714,8 @@ l4:;
 						longAtput((localSP -= BytesPerOop),objOop);
 						longAtput((localSP -= BytesPerOop),value);
 						longAtput((localSP -= BytesPerOop),(((variableIndex + 1) << 3) | 1));
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
-						GIV(argumentCount) = 2;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
+						argumentCount = 2;
 						goto normalSend;
 						goto l5;
 					}
@@ -2725,10 +2725,10 @@ l4:;
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(variableIndex, objOop, value));
 					assert(isNonImmediate(objOop));
-					if (oopisGreaterThanOrEqualTo(objOop, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(value & (tagMask()))))
-						 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(value, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(objOop);
@@ -2757,10 +2757,10 @@ l5:;
 					/* begin storeLiteralVariable:withValue: */
 					/* begin followObjLiteral:ofMethod: */
 					/* begin followObjField:ofObject: */
-					litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + (((variableIndex + LiteralStart) << (shiftForWord())))));
+					litVar = longAt((void *)((method + BaseHeaderSize) + (((variableIndex + LiteralStart) << (shiftForWord())))));
 					assert(isNonImmediate(litVar));
 					if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-						litVar = fixFollowedFieldofObjectwithInitialValue(variableIndex + LiteralStart, GIV(method), litVar);
+						litVar = fixFollowedFieldofObjectwithInitialValue(variableIndex + LiteralStart, method, litVar);
 					}
 
 					/* begin storePointerImmutabilityCheck:ofObject:withValue: */
@@ -2772,8 +2772,8 @@ l5:;
 						longAtput((localSP -= BytesPerOop),litVar);
 						longAtput((localSP -= BytesPerOop),value);
 						longAtput((localSP -= BytesPerOop),(((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
-						GIV(argumentCount) = 2;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
+						argumentCount = 2;
 						goto normalSend;
 						goto l6;
 					}
@@ -2783,10 +2783,10 @@ l5:;
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(ValueIndex, litVar, value));
 					assert(isNonImmediate(litVar));
-					if (oopisGreaterThanOrEqualTo(litVar, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(litVar, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(value & (tagMask()))))
-						 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(value, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(litVar + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(litVar);
@@ -2804,7 +2804,7 @@ l6:;
 				}
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 131: // singleExtendedSendBytecode
@@ -2815,9 +2815,9 @@ l6:;
 				descriptor = byteAt(++localIP);
 
 				/* begin literal: */
-				assert(GIV(method) == (iframeMethod(localFP)));
-				GIV(messageSelector) = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((descriptor & 0x1F) + LiteralStart) << (shiftForWord())))));
-				GIV(argumentCount) = ((usqInt)(descriptor)) >> 5;
+				assert(method == (iframeMethod(localFP)));
+				messageSelector = longAt((void *)((method + BaseHeaderSize) + ((((descriptor & 0x1F) + LiteralStart) << (shiftForWord())))));
+				argumentCount = ((usqInt)(descriptor)) >> 5;
 
 				/* goto normalSend */
 			}
@@ -2829,7 +2829,7 @@ l6:;
 				sqInt tagBits;
 
 				VM_LABEL(normalSend);
-				rcvr = longAt(localSP + (GIV(argumentCount) * BytesPerOop));
+				rcvr = longAt(localSP + (argumentCount * BytesPerOop));
 				lkupClassTag = /* fetchClassTagOf: */
 						((tagBits = rcvr & (tagMask()))
 							? tagBits
@@ -2853,71 +2853,71 @@ l6:;
 					sqInt tagBits;
 
 					VM_LABEL(commonSendOrdinary);
-					rcvr = longAt(localSP + (GIV(argumentCount) * BytesPerOop));
+					rcvr = longAt(localSP + (argumentCount * BytesPerOop));
 
 					/* begin sendBreakpoint:receiver: */
-					sendBreakpointclassTag(firstFixedFieldOfMaybeImmediate(GIV(messageSelector)), lengthOfMaybeImmediate(GIV(messageSelector)), /* fetchClassTagOf: */
+					sendBreakpointclassTag(firstFixedFieldOfMaybeImmediate(messageSelector), lengthOfMaybeImmediate(messageSelector), /* fetchClassTagOf: */
 						((tagBits = rcvr & (tagMask()))
 							? tagBits
 							: (longAt((void *)(rcvr))) & (classIndexMask())));
 					if (
 #          if SEND_PRINTING
-						GIV(printSends)
+						printSends
 #          else
 						0
 #          endif
 						) {
-						printActivationNameForSelectorstartClass(GIV(messageSelector), classForClassTag(lkupClassTag));
+						printActivationNameForSelectorstartClass(messageSelector, classForClassTag(lkupClassTag));
 						cr();
 					}
 
 					/* begin internalFindNewMethodOrdinary */
 					/* begin inlineLookupInMethodCacheSel:classTag: */
 					/* shift drops two low-order zeros from addresses */
-					hash = GIV(messageSelector) ^ ((((usqInt)(lkupClassTag) << 2)));
+					hash = messageSelector ^ ((((usqInt)(lkupClassTag) << 2)));
 
 					/* first probe */
 					probe = hash & MethodCacheMask;
-					if (((GIV(methodCache)[probe + MethodCacheSelector]) == GIV(messageSelector))
-					 && ((GIV(methodCache)[probe + MethodCacheClass]) == lkupClassTag)) {
-						GIV(newMethod) = GIV(methodCache)[probe + MethodCacheMethod];
-						primitiveFunctionPointer = ((void (*)()) (GIV(methodCache)[probe + MethodCachePrimFunction]));
+					if (((methodCache[probe + MethodCacheSelector]) == messageSelector)
+					 && ((methodCache[probe + MethodCacheClass]) == lkupClassTag)) {
+						newMethod = methodCache[probe + MethodCacheMethod];
+						primitiveFunctionPointer = ((void (*)()) (methodCache[probe + MethodCachePrimFunction]));
 						goto l167;
 					}
 
 					/* second probe */
 					probe = (((usqInt)(hash)) >> 1) & MethodCacheMask;
-					if (((GIV(methodCache)[probe + MethodCacheSelector]) == GIV(messageSelector))
-					 && ((GIV(methodCache)[probe + MethodCacheClass]) == lkupClassTag)) {
-						GIV(newMethod) = GIV(methodCache)[probe + MethodCacheMethod];
-						primitiveFunctionPointer = ((void (*)()) (GIV(methodCache)[probe + MethodCachePrimFunction]));
+					if (((methodCache[probe + MethodCacheSelector]) == messageSelector)
+					 && ((methodCache[probe + MethodCacheClass]) == lkupClassTag)) {
+						newMethod = methodCache[probe + MethodCacheMethod];
+						primitiveFunctionPointer = ((void (*)()) (methodCache[probe + MethodCachePrimFunction]));
 						goto l167;
 					}
 					probe = (((usqInt)(hash)) >> 2) & MethodCacheMask;
-					if (((GIV(methodCache)[probe + MethodCacheSelector]) == GIV(messageSelector))
-					 && ((GIV(methodCache)[probe + MethodCacheClass]) == lkupClassTag)) {
-						GIV(newMethod) = GIV(methodCache)[probe + MethodCacheMethod];
-						primitiveFunctionPointer = ((void (*)()) (GIV(methodCache)[probe + MethodCachePrimFunction]));
+					if (((methodCache[probe + MethodCacheSelector]) == messageSelector)
+					 && ((methodCache[probe + MethodCacheClass]) == lkupClassTag)) {
+						newMethod = methodCache[probe + MethodCacheMethod];
+						primitiveFunctionPointer = ((void (*)()) (methodCache[probe + MethodCachePrimFunction]));
 						goto l167;
 					}
 
 					/* begin externalizeIPandSP */
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 					if ((/* isOopForwarded: */
-						((!(GIV(messageSelector) & (tagMask()))))
-					 && ((!((longAt((void *)(GIV(messageSelector)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))
+						((!(messageSelector & (tagMask()))))
+					 && ((!((longAt((void *)(messageSelector))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))
 					 || (lkupClassTag == (isForwardedObjectClassIndexPun()))) {
 						if (/* isOopForwarded: */
-							((!(GIV(messageSelector) & (tagMask()))))
-						 && ((!((longAt((void *)(GIV(messageSelector)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
-							GIV(messageSelector) = handleForwardedSelectorFaultFor(GIV(messageSelector));
+							((!(messageSelector & (tagMask()))))
+						 && ((!((longAt((void *)(messageSelector))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+							messageSelector = handleForwardedSelectorFaultFor(messageSelector);
 						}
 						if (lkupClassTag == (isForwardedObjectClassIndexPun())) {
 							lkupClassTag = handleForwardedSendFaultForTag(lkupClassTag);
 						}
-						if (lookupInMethodCacheSelclassTag(GIV(messageSelector), lkupClassTag)) {
+						if (lookupInMethodCacheSelclassTag(messageSelector, lkupClassTag)) {
 							goto l166;
 						}
 					}
@@ -2931,22 +2931,22 @@ l6:;
 					fieldIndex = ((usqInt)(lkupClassTag)) >> (classTableMajorIndexShift());
 
 					/* begin fetchPointer:ofObject: */
-					classTablePage = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-					if (classTablePage == GIV(nilObj)) {
-						GIV(lkupClass) = null;
+					classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+					if (classTablePage == nilObj) {
+						lkupClass = null;
 						goto l169;
 					}
 					fieldIndex = lkupClassTag & ((1U << (classTableMajorIndexShift())) - 1);
-					GIV(lkupClass) = longAt((void *)((classTablePage + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+					lkupClass = longAt((void *)((classTablePage + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
 					/* end classForClassTag: */
 l169:
-					lookupMethodInClass(GIV(lkupClass));
+					lookupMethodInClass(lkupClass);
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
-					addNewMethodToCache(GIV(lkupClass));
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
+					addNewMethodToCache(lkupClass);
 l167:
 					/* end internalFindNewMethodOrdinary */
 l166:
@@ -2972,17 +2972,17 @@ l166:
 							}
 							if (localPrimIndex == 0x101) {
 								/* internalStackTopPut: */
-								longAtput(localSP,GIV(trueObj));
+								longAtput(localSP,trueObj);
 								goto l168;
 							}
 							if (localPrimIndex == 258) {
 								/* internalStackTopPut: */
-								longAtput(localSP,GIV(falseObj));
+								longAtput(localSP,falseObj);
 								goto l168;
 							}
 							if (localPrimIndex == 259) {
 								/* internalStackTopPut: */
-								longAtput(localSP,GIV(nilObj));
+								longAtput(localSP,nilObj);
 								goto l168;
 							}
 
@@ -2992,40 +2992,40 @@ l166:
 						}
 
 						/* begin externalizeIPandSP */
-						GIV(instructionPointer) = ((usqInt)localIP);
-						GIV(stackPointer) = localSP;
-						GIV(framePointer) = localFP;
+						instructionPointer = ((usqInt)localIP);
+						stackPointer = localSP;
+						framePointer = localFP;
 
 						/* begin slowPrimitiveResponse */
-						assert(!(isOopForwarded(stackValue(GIV(argumentCount)))));
-						assert((GIV(remapBufferCount)) == 0);
+						assert(!(isOopForwarded(stackValue(argumentCount))));
+						assert((remapBufferCount) == 0);
 
 						/* begin initPrimCall */
-						GIV(primFailCode) = 0;
+						primFailCode = 0;
 						if (LOGPRIMITIVES) {
 							/* begin fastLogPrim: */
-							GIV(primTraceLog)[GIV(primTraceLogIndex)] = GIV(newMethod);
-							primTraceLogIndex(GIV(primTraceLogIndex) + 1);
+							primTraceLog[primTraceLogIndex] = newMethod;
+							primTraceLogIndex(primTraceLogIndex + 1);
 						}
 						dispatchFunctionPointer(primitiveFunctionPointer);
-						assert(maybeLeakCheckExternalPrimCall(GIV(newMethod)));
+						assert(maybeLeakCheckExternalPrimCall(newMethod));
 
 						/* begin maybeRetryPrimitiveOnFailure */
-						if (GIV(primFailCode)) {
+						if (primFailCode) {
 							retryPrimitiveOnFailure();
 						}
 
 						/* Don't fail if primitive has done something radical, e.g. perform:
 						   If we are profiling, take accurate primitive measures */
-						if (GIV(nextProfileTick) > 0) {
-							checkProfileTickPostPrimitive(GIV(newMethod));
+						if (nextProfileTick > 0) {
+							checkProfileTickPostPrimitive(newMethod);
 						}
-						succeeded = !GIV(primFailCode);
+						succeeded = !primFailCode;
 
 						/* begin internalizeIPandSP */
-						localIP = ((char *)GIV(instructionPointer));
-						localSP = GIV(stackPointer);
-						localFP = GIV(framePointer);
+						localIP = ((char *)instructionPointer);
+						localSP = stackPointer;
+						localFP = framePointer;
 						if (succeeded) {
 							browserPluginReturnIfNeeded();
 							goto l168;
@@ -3036,13 +3036,13 @@ l166:
 
 					/* begin internalActivateNewMethod */
 					/* begin methodHeaderOf: */
-					assert(isCompiledMethod(GIV(newMethod)));
-					methodHeader = longAt((void *)((GIV(newMethod) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+					assert(isCompiledMethod(newMethod));
+					methodHeader = longAt((void *)((newMethod + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 					numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
-					assert(GIV(argumentCount) == (argumentCountOfMethodHeader(methodHeader)));
+					assert(argumentCount == (argumentCountOfMethodHeader(methodHeader)));
 
 					/* could new rcvr be set at point of send? */
-					rcvr = longAt(localSP + (GIV(argumentCount) * BytesPerOop));
+					rcvr = longAt(localSP + (argumentCount * BytesPerOop));
 					assert(!(isOopForwarded(rcvr)));
 
 					/* begin internalPush: */
@@ -3051,11 +3051,11 @@ l166:
 					localFP = localSP;
 
 					/* begin internalPush: */
-					longAtput((localSP -= BytesPerOop),GIV(newMethod));
-					GIV(method) = GIV(newMethod);
-					assert(isOopCompiledMethod(GIV(method)));
-					assert((methodHeaderOf(GIV(method))) == methodHeader);
-					GIV(bytecodeSetSelector) = ((((sqLong) methodHeader)) < 0
+					longAtput((localSP -= BytesPerOop),newMethod);
+					method = newMethod;
+					assert(isOopCompiledMethod(method));
+					assert((methodHeaderOf(method)) == methodHeader);
+					bytecodeSetSelector = ((((sqLong) methodHeader)) < 0
 								? 0x100
 								: 0);
 					object = /* encodeFrameFieldHasContext:isBlock:numArgs: */
@@ -3065,51 +3065,51 @@ l166:
 
 					/* begin internalPush: */
 					longAtput((localSP -= BytesPerOop),object);
-					longAtput((localSP -= BytesPerOop),GIV(nilObj));
+					longAtput((localSP -= BytesPerOop),nilObj);
 					longAtput((localSP -= BytesPerOop),rcvr);
 
 					/* Initialize temps... */
-					for (i = (GIV(argumentCount) + 1); i <= numTemps; i += 1) {
+					for (i = (argumentCount + 1); i <= numTemps; i += 1) {
 						/* begin internalPush: */
-						longAtput((localSP -= BytesPerOop),GIV(nilObj));
+						longAtput((localSP -= BytesPerOop),nilObj);
 					}
 
 					/* -1 to account for pre-increment in fetchNextBytecode */
-					localIP = (((char *)(((((usqInt)(pointerForOop(GIV(newMethod))))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
+					localIP = (((char *)(((((usqInt)(pointerForOop(newMethod)))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
 	assert((((methodHeader) & 7) == 1)),
 /* literalCountOfAlternateHeader: */
 	((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask))) * BytesPerOop)) + BaseHeaderSize))) - 1;
 					if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
 						localIP += 3 /* sizeOfCallPrimitiveBytecode: */;
-						if (GIV(primFailCode)) {
+						if (primFailCode) {
 							reapAndResetErrorCodeToheader(localSP, methodHeader);
 						}
 					}
 
 					/* Skip the CallPrimitive bytecode, if it's there, and store the error code if the method starts
 					   with a long store temp.  Strictly no need to skip the store because it's effectively a noop. */
-					assert((frameNumArgs(localFP)) == GIV(argumentCount));
+					assert((frameNumArgs(localFP)) == argumentCount);
 					assert(!(frameIsBlockActivation(localFP)));
 					assert(!(frameHasContext(localFP)));
 
 					/* Now check for stack overflow or an event (interrupt, must scavenge, etc). */
-					if (localSP < GIV(stackLimit)) {
+					if (localSP < stackLimit) {
 						/* begin externalizeIPandSP */
-						GIV(instructionPointer) = ((usqInt)localIP);
-						GIV(stackPointer) = localSP;
-						GIV(framePointer) = localFP;
-						handleStackOverflowOrEventAllowContextSwitch(canContextSwitchIfActivatingheader(GIV(newMethod), methodHeader));
+						instructionPointer = ((usqInt)localIP);
+						stackPointer = localSP;
+						framePointer = localFP;
+						handleStackOverflowOrEventAllowContextSwitch(canContextSwitchIfActivatingheader(newMethod, methodHeader));
 
 						/* begin internalizeIPandSP */
-						localIP = ((char *)GIV(instructionPointer));
-						localSP = GIV(stackPointer);
-						localFP = GIV(framePointer);
+						localIP = ((char *)instructionPointer);
+						localSP = stackPointer;
+						localFP = framePointer;
 					}
 					/* end internalExecuteNewMethod */
 l168:
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				}
 			}
 			break;
@@ -3135,23 +3135,23 @@ l168:
 				opType = ((usqInt)(byte2)) >> 5;
 				if (!opType) {
 					/* begin literal: */
-					assert(GIV(method) == (iframeMethod(localFP)));
-					GIV(messageSelector) = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((byte3 + LiteralStart)) << (shiftForWord()))))));
-					GIV(argumentCount) = byte2 & 0x1F;
+					assert(method == (iframeMethod(localFP)));
+					messageSelector = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((byte3 + LiteralStart)) << (shiftForWord()))))));
+					argumentCount = byte2 & 0x1F;
 					goto normalSend;
 					goto l7;
 				}
 				if (opType == 1) {
 					/* begin literal: */
-					assert(GIV(method) == (iframeMethod(localFP)));
-					GIV(messageSelector) = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((byte3 + LiteralStart)) << (shiftForWord()))))));
-					GIV(argumentCount) = byte2 & 0x1F;
+					assert(method == (iframeMethod(localFP)));
+					messageSelector = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((byte3 + LiteralStart)) << (shiftForWord()))))));
+					argumentCount = byte2 & 0x1F;
 					goto superclassSend;
 					goto l7;
 				}
 				if (opType == 2) {
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					obj = longAt(localFP + FoxReceiver);
 					if ((byte3 <= StackPointerIndex)
 					 && (((longAt((void *)(obj))) & (classIndexMask())) == ClassMethodContextCompactIndex)) {
@@ -3164,14 +3164,14 @@ l168:
 						}
 
 						/* begin writeBackHeadFramePointers */
-						assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
+						assert(stackPage == (mostRecentlyUsedPage));
 						assert(localSP < localFP);
-						assert((localSP < ((GIV(stackPage)->baseAddress)))
-						 && (localSP > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-						assert((localFP < ((GIV(stackPage)->baseAddress)))
-						 && (localFP > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-						(GIV(stackPage)->headFP = localFP);
-						(GIV(stackPage)->headSP = localSP);
+						assert((localSP < ((stackPage->baseAddress)))
+						 && (localSP > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+						assert((localFP < ((stackPage->baseAddress)))
+						 && (localFP > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+						(stackPage->headFP = localFP);
+						(stackPage->headSP = localSP);
 						assert(pageListIsWellFormed());
 						if (isWidowedContext(obj)) {
 							object = longAt((void *)((obj + BaseHeaderSize) + ((((usqInt)(byte3) << (shiftForWord()))))));
@@ -3232,9 +3232,9 @@ l10:
 				}
 				if (opType == 3) {
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-					assert(GIV(method) == (iframeMethod(localFP)));
-					object = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((byte3 + LiteralStart)) << (shiftForWord()))))));
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+					assert(method == (iframeMethod(localFP)));
+					object = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((byte3 + LiteralStart)) << (shiftForWord()))))));
 
 					/* begin internalPush: */
 					longAtput((localSP -= BytesPerOop),object);
@@ -3242,11 +3242,11 @@ l10:
 				}
 				if (opType == 4) {
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-					litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((byte3 + LiteralStart)) << (shiftForWord()))))));
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+					litVar = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((byte3 + LiteralStart)) << (shiftForWord()))))));
 					assert(isNonImmediate(litVar));
 					if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-						litVar = fixFollowedFieldofObjectwithInitialValue(byte3 + LiteralStart, GIV(method), litVar);
+						litVar = fixFollowedFieldofObjectwithInitialValue(byte3 + LiteralStart, method, litVar);
 					}
 
 					/* begin internalPush: */
@@ -3258,10 +3258,10 @@ l10:
 					/* begin storeLiteralVariable:withValue: */
 					/* begin followObjLiteral:ofMethod: */
 					/* begin followObjField:ofObject: */
-					litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((byte3 + LiteralStart)) << (shiftForWord()))))));
+					litVar = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((byte3 + LiteralStart)) << (shiftForWord()))))));
 					assert(isNonImmediate(litVar));
 					if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-						litVar = fixFollowedFieldofObjectwithInitialValue(byte3 + LiteralStart, GIV(method), litVar);
+						litVar = fixFollowedFieldofObjectwithInitialValue(byte3 + LiteralStart, method, litVar);
 					}
 
 					/* begin storePointerImmutabilityCheck:ofObject:withValue: */
@@ -3273,8 +3273,8 @@ l10:
 						longAtput((localSP -= BytesPerOop),litVar);
 						longAtput((localSP -= BytesPerOop),top);
 						longAtput((localSP -= BytesPerOop),(((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
-						GIV(argumentCount) = 2;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
+						argumentCount = 2;
 						goto normalSend;
 						goto l9;
 					}
@@ -3284,10 +3284,10 @@ l10:
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(ValueIndex, litVar, top));
 					assert(isNonImmediate(litVar));
-					if (oopisGreaterThanOrEqualTo(litVar, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(litVar, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(top & (tagMask()))))
-						 && (oopisLessThan(top, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(top, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(litVar + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(litVar);
@@ -3301,7 +3301,7 @@ l10:
 l9:
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l7;
 				}
 
@@ -3319,14 +3319,14 @@ l9:
 					assert(!((isObjImmutable(obj))));
 
 					/* begin writeBackHeadFramePointers */
-					assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
+					assert(stackPage == (mostRecentlyUsedPage));
 					assert(localSP < localFP);
-					assert((localSP < ((GIV(stackPage)->baseAddress)))
-					 && (localSP > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-					assert((localFP < ((GIV(stackPage)->baseAddress)))
-					 && (localFP > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-					(GIV(stackPage)->headFP = localFP);
-					(GIV(stackPage)->headSP = localSP);
+					assert((localSP < ((stackPage->baseAddress)))
+					 && (localSP > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+					assert((localFP < ((stackPage->baseAddress)))
+					 && (localFP > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+					(stackPage->headFP = localFP);
+					(stackPage->headSP = localSP);
 					assert(pageListIsWellFormed());
 					if (!(/* isStillMarriedContext: */
 							(((((longAt((void *)((obj + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
@@ -3334,10 +3334,10 @@ l9:
 						/* begin storePointer:ofObject:withValue: */
 						assert(validStorePointerArgs(byte3, obj, top));
 						assert(isNonImmediate(obj));
-						if (oopisGreaterThanOrEqualTo(obj, GIV(oldSpaceStart))) {
+						if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
 							if (/* isYoung: */
 								((!(top & (tagMask()))))
-							 && (oopisLessThan(top, GIV(oldSpaceStart)))) {
+							 && (oopisLessThan(top, oldSpaceStart))) {
 								/* begin possibleRootStoreInto: */
 								if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 									remember(obj);
@@ -3356,33 +3356,33 @@ l9:
 					theFP = ((char *)(senderOop - (smallIntegerTag())));
 					if (!byte3) {
 						/* begin stackPageFor: */
-						thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
-						assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-						onCurrentPage = thePage == GIV(stackPage);
+						thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
+						assert(stackPage == (mostRecentlyUsedPage));
+						onCurrentPage = thePage == stackPage;
 						storeSenderOfFramewithValue(theFP, top);
 						if (onCurrentPage) {
-							localFP = (GIV(stackPage)->headFP);
-							localSP = (GIV(stackPage)->headSP);
+							localFP = (stackPage->headFP);
+							localSP = (stackPage->headSP);
 						}
 						else {
-							markStackPageMostRecentlyUsed(GIV(stackPage));
+							markStackPageMostRecentlyUsed(stackPage);
 						}
 						goto l8;
 					}
 
 					/* begin externalizeIPandSP */
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 					externalDivorceFrameandContext(theFP, obj);
 
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(byte3, obj, top));
 					assert(isNonImmediate(obj));
-					if (oopisGreaterThanOrEqualTo(obj, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(top & (tagMask()))))
-						 && (oopisLessThan(top, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(top, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(obj);
@@ -3394,12 +3394,12 @@ l9:
 					longAtput((void *)((obj + BaseHeaderSize) + ((((usqInt)(byte3) << (shiftForWord()))))),top);
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
 
 					/* Assigning various fields can force a divorce which can change the stackPage. */
-					markStackPageMostRecentlyUsed(GIV(stackPage));
+					markStackPageMostRecentlyUsed(stackPage);
 					assertValidExecutionPointersimbarline(((usqInt)localIP), localFP, localSP, 1, __LINE__);
 					/* end instVar:ofContext:put: */
 l8:;
@@ -3414,8 +3414,8 @@ l8:;
 						longAtput((localSP -= BytesPerOop),obj);
 						longAtput((localSP -= BytesPerOop),top);
 						longAtput((localSP -= BytesPerOop),(((usqInt)(byte3 + 1) << 3) | 1));
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
-						GIV(argumentCount) = 2;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
+						argumentCount = 2;
 						goto normalSend;
 						goto l11;
 					}
@@ -3425,10 +3425,10 @@ l8:;
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(byte3, obj, top));
 					assert(isNonImmediate(obj));
-					if (oopisGreaterThanOrEqualTo(obj, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(top & (tagMask()))))
-						 && (oopisLessThan(top, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(top, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(obj);
@@ -3443,7 +3443,7 @@ l11:;
 				}
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			/* end case */
 l7:;
@@ -3456,9 +3456,9 @@ l7:;
 				descriptor = byteAt(++localIP);
 
 				/* begin literal: */
-				assert(GIV(method) == (iframeMethod(localFP)));
-				GIV(messageSelector) = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((descriptor & 0x1F) + LiteralStart) << (shiftForWord())))));
-				GIV(argumentCount) = ((usqInt)(descriptor)) >> 5;
+				assert(method == (iframeMethod(localFP)));
+				messageSelector = longAt((void *)((method + BaseHeaderSize) + ((((descriptor & 0x1F) + LiteralStart) << (shiftForWord())))));
+				argumentCount = ((usqInt)(descriptor)) >> 5;
 
 				/* goto superclassSend */
 			}
@@ -3478,20 +3478,20 @@ l7:;
 
 				VM_LABEL(superclassSend);
 				/* begin methodClassOf: */
-				offset = (literalCountOf(GIV(method))) - 1;
-				literal = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((offset + LiteralStart)) << (shiftForWord()))))));
+				offset = (literalCountOf(method)) - 1;
+				literal = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((offset + LiteralStart)) << (shiftForWord()))))));
 				if (/* isOopForwarded: */
 					((!(literal & (tagMask()))))
 				 && ((!((longAt((void *)(literal))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
-					literal = fixFollowedFieldofObjectwithInitialValue(offset + LiteralStart, GIV(method), literal);
+					literal = fixFollowedFieldofObjectwithInitialValue(offset + LiteralStart, method, literal);
 				}
-				classPointer = ((literal != GIV(nilObj))
+				classPointer = ((literal != nilObj)
 					 && (/* isPointers: */
 						((!(literal & (tagMask()))))
 					 && (((byteAt((void *)(literal + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
 							? (assert((numSlotsOf(literal)) > ValueIndex),
 							followFieldofObject(ValueIndex, literal))
-							: GIV(nilObj));
+							: nilObj);
 
 				/* begin superclassOf: */
 				/* begin followObjField:ofObject: */
@@ -3523,9 +3523,9 @@ l7:;
 
 				/* begin ensureReceiverUnforwarded */
 				if (/* isOopForwarded: */
-					((!((longAt(localSP + (GIV(argumentCount) * BytesPerOop))) & (tagMask()))))
-				 && ((!((longAt((void *)(longAt(localSP + (GIV(argumentCount) * BytesPerOop))))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
-					objOop = longAt(localSP + (GIV(argumentCount) * BytesPerOop));
+					((!((longAt(localSP + (argumentCount * BytesPerOop))) & (tagMask()))))
+				 && ((!((longAt((void *)(longAt(localSP + (argumentCount * BytesPerOop))))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+					objOop = longAt(localSP + (argumentCount * BytesPerOop));
 
 					/* begin followForwarded: */
 					assert(isUnambiguouslyForwarder(objOop));
@@ -3538,7 +3538,7 @@ l7:;
 					aValue = referent;
 
 					/* begin internalStackValue:put: */
-					longAtput(localSP + (GIV(argumentCount) * BytesPerOop),aValue);
+					longAtput(localSP + (argumentCount * BytesPerOop),aValue);
 				}
 				assert(lkupClassTag != (nilObject()));
 				goto commonSendOrdinary;
@@ -3552,9 +3552,9 @@ l7:;
 				descriptor = byteAt(++localIP);
 
 				/* begin literal: */
-				assert(GIV(method) == (iframeMethod(localFP)));
-				GIV(messageSelector) = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((descriptor & 0x3F) + LiteralStart) << (shiftForWord())))));
-				GIV(argumentCount) = ((usqInt)(descriptor)) >> 6;
+				assert(method == (iframeMethod(localFP)));
+				messageSelector = longAt((void *)((method + BaseHeaderSize) + ((((descriptor & 0x3F) + LiteralStart) << (shiftForWord())))));
+				argumentCount = ((usqInt)(descriptor)) >> 6;
 				goto normalSend;
 			}
 			break;
@@ -3563,7 +3563,7 @@ l7:;
 			{
 				VM_LABEL(popStackBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				localSP += 1 * BytesPerOop;
 			}
 			break;
@@ -3574,7 +3574,7 @@ l7:;
 
 				VM_LABEL(duplicateTopBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = longAt(localSP);
 
 				/* begin internalPush: */
@@ -3597,7 +3597,7 @@ l7:;
 l12:
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),ourContext);
 			}
 			break;
@@ -3618,38 +3618,38 @@ l12:
 				}
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
-				GIV(instructionPointer) = ((usqInt)localIP);
-				GIV(stackPointer) = localSP;
-				GIV(framePointer) = localFP;
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
+				instructionPointer = ((usqInt)localIP);
+				stackPointer = localSP;
+				framePointer = localFP;
 
 				/* begin eeInstantiateSmallClassIndex:format:numSlots: */
 				assert((size >= 0)
-				 && ((knownClassAtIndex(ClassArrayCompactIndex)) != GIV(nilObj)));
+				 && ((knownClassAtIndex(ClassArrayCompactIndex)) != nilObj));
 				assert((arrayFormat()) == (instSpecOfClass(knownClassAtIndex(ClassArrayCompactIndex))));
 
 				/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 				assert(size < (numSlotsMask()));
-				newObj = GIV(freeStart);
+				newObj = freeStart;
 				numBytes = BaseHeaderSize + ((size < 1
 		? 8 /* allocationUnit */
 		: size * BytesPerOop));
 				assert((numBytes % (allocationUnit())) == 0);
 				assert((newObj % (allocationUnit())) == 0);
-				if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-					if (!GIV(needGCFlag)) {
+				if ((freeStart + numBytes) > scavengeThreshold) {
+					if (!needGCFlag) {
 						/* begin scheduleScavenge */
-						GIV(needGCFlag) = 1;
+						needGCFlag = 1;
 						forceInterruptCheck();
 					}
-					if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+					if ((freeStart + numBytes) > (((eden).limit))) {
 						error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 						array = 0;
 						goto l13;
 					}
 				}
 				long64Atput((void *)(newObj),((((((usqLong) size)) << (numSlotsFullShift()))) + ((((usqInt)((arrayFormat())) << (formatShift()))))) + ClassArrayCompactIndex);
-				GIV(freeStart) += numBytes;
+				freeStart += numBytes;
 				array = newObj;
 				/* end eeInstantiateSmallClassIndex:format:numSlots: */
 l13:
@@ -3675,8 +3675,8 @@ l13:
 						/* begin storePointerUnchecked:ofObject:withValue: */
 						assert((isNonImmediate(array))
 						 && (!(isForwarded(array))));
-						assert(validStorePointerUncheckedArgs(i, array, GIV(nilObj)));
-						longAtput((void *)((array + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),GIV(nilObj));
+						assert(validStorePointerUncheckedArgs(i, array, nilObj));
+						longAtput((void *)((array + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),nilObj);
 					}
 				}
 
@@ -3691,17 +3691,17 @@ l13:
 
 				VM_LABEL(callPrimitiveBytecode);
 				/* begin methodHeaderOf: */
-				assert(isCompiledMethod(GIV(method)));
-				header = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+				assert(isCompiledMethod(method));
+				header = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 				if ((((header & AlternateHeaderHasPrimFlag) != 0))
-				 && ((((sqInt)localIP)) == (((((usqInt)(pointerForOop(GIV(method))))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
+				 && ((((sqInt)localIP)) == (((((usqInt)(pointerForOop(method)))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
 	assert((((header) & 7) == 1)),
 /* literalCountOfAlternateHeader: */
 	((header >> 3)) & AlternateHeaderNumLiteralsMask))) * BytesPerOop)) + BaseHeaderSize))) {
 					localIP = (localIP + 3 /* sizeOfCallPrimitiveBytecode: */) - 1;
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l14;
 				}
 				goto respondToUnknownBytecode;
@@ -3722,7 +3722,7 @@ l14:;
 				tempVectorIndex = byteAt(++localIP);
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				tempVector = /* temporary:in: */
 						(tempVectorIndex < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - tempVectorIndex) * BytesPerWord))
@@ -3746,7 +3746,7 @@ l14:;
 				tempVectorIndex = byteAt(++localIP);
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				tempVector = /* temporary:in: */
 						(tempVectorIndex < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - tempVectorIndex) * BytesPerWord))
@@ -3756,10 +3756,10 @@ l14:;
 				/* begin storePointer:ofObject:withValue: */
 				assert(validStorePointerArgs(remoteTempIndex, tempVector, valuePointer));
 				assert(isNonImmediate(tempVector));
-				if (oopisGreaterThanOrEqualTo(tempVector, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(tempVector, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(valuePointer & (tagMask()))))
-					 && (oopisLessThan(valuePointer, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(valuePointer, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(tempVector + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(tempVector);
@@ -3786,7 +3786,7 @@ l14:;
 				tempVectorIndex = byteAt(++localIP);
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				tempVector = /* temporary:in: */
 						(tempVectorIndex < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 							? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - tempVectorIndex) * BytesPerWord))
@@ -3796,10 +3796,10 @@ l14:;
 				/* begin storePointer:ofObject:withValue: */
 				assert(validStorePointerArgs(remoteTempIndex, tempVector, valuePointer));
 				assert(isNonImmediate(tempVector));
-				if (oopisGreaterThanOrEqualTo(tempVector, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(tempVector, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(valuePointer & (tagMask()))))
-					 && (oopisLessThan(valuePointer, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(valuePointer, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(tempVector + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(tempVector);
@@ -3847,36 +3847,36 @@ l14:;
 				context = marryFrameSP(localFP, localSP + (numCopied * BytesPerOop));
 				/* end ensureFrameIsMarried:SP: */
 l15:
-				initialIP = ((((usqInt)localIP)) + 2) - (GIV(method) + BaseHeaderSize);
+				initialIP = ((((usqInt)localIP)) + 2) - (method + BaseHeaderSize);
 
 				/* begin closureIn:numArgs:instructionPointer:numCopiedValues: */
 				numSlots = ClosureFirstCopiedValueIndex + numCopied;
 				assert((numSlots >= 0)
-				 && ((knownClassAtIndex(ClassBlockClosureCompactIndex)) != GIV(nilObj)));
+				 && ((knownClassAtIndex(ClassBlockClosureCompactIndex)) != nilObj));
 				assert((indexablePointersFormat()) == (instSpecOfClass(knownClassAtIndex(ClassBlockClosureCompactIndex))));
 
 				/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 				assert(numSlots < (numSlotsMask()));
-				newObj = GIV(freeStart);
+				newObj = freeStart;
 				numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 				assert((numBytes % (allocationUnit())) == 0);
 				assert((newObj % (allocationUnit())) == 0);
-				if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-					if (!GIV(needGCFlag)) {
+				if ((freeStart + numBytes) > scavengeThreshold) {
+					if (!needGCFlag) {
 						/* begin scheduleScavenge */
-						GIV(needGCFlag) = 1;
+						needGCFlag = 1;
 						forceInterruptCheck();
 					}
-					if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+					if ((freeStart + numBytes) > (((eden).limit))) {
 						error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 						newClosure = 0;
 						goto l16;
 					}
 				}
 				long64Atput((void *)(newObj),((((((usqLong) numSlots)) << (numSlotsFullShift()))) + ((((usqInt)((indexablePointersFormat())) << (formatShift()))))) + ClassBlockClosureCompactIndex);
-				GIV(freeStart) += numBytes;
+				freeStart += numBytes;
 				newClosure = newObj;
 				/* end eeInstantiateSmallClassIndex:format:numSlots: */
 l16:
@@ -3918,7 +3918,7 @@ l16:
 				localIP += blockSize;
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),newClosure);
 			}
 			break;
@@ -3932,7 +3932,7 @@ l16:
 
 				/* begin jump: */
 				localIP = (localIP + offset) + 1;
-				currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 145: // shortUnconditionalJump
@@ -3945,7 +3945,7 @@ l16:
 
 				/* begin jump: */
 				localIP = (localIP + offset) + 1;
-				currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 146: // shortUnconditionalJump
@@ -3958,7 +3958,7 @@ l16:
 
 				/* begin jump: */
 				localIP = (localIP + offset) + 1;
-				currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 147: // shortUnconditionalJump
@@ -3971,7 +3971,7 @@ l16:
 
 				/* begin jump: */
 				localIP = (localIP + offset) + 1;
-				currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 148: // shortUnconditionalJump
@@ -3984,7 +3984,7 @@ l16:
 
 				/* begin jump: */
 				localIP = (localIP + offset) + 1;
-				currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 149: // shortUnconditionalJump
@@ -3997,7 +3997,7 @@ l16:
 
 				/* begin jump: */
 				localIP = (localIP + offset) + 1;
-				currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 150: // shortUnconditionalJump
@@ -4010,7 +4010,7 @@ l16:
 
 				/* begin jump: */
 				localIP = (localIP + offset) + 1;
-				currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 151: // shortUnconditionalJump
@@ -4023,7 +4023,7 @@ l16:
 
 				/* begin jump: */
 				localIP = (localIP + offset) + 1;
-				currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 152: // shortConditionalJumpFalse
@@ -4051,22 +4051,22 @@ l16:
 
 				/* begin jumplfFalseBy: */
 				boolean = longAt(localSP);
-				if (boolean == GIV(falseObj)) {
+				if (boolean == falseObj) {
 					/* begin jump: */
 					localIP = (localIP + offset) + 1;
-					currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 				}
 				else {
-					if (!(boolean == GIV(trueObj))) {
+					if (!(boolean == trueObj)) {
 						/* begin internalMustBeBoolean */
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
-						GIV(argumentCount) = 0;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
+						argumentCount = 0;
 						goto normalSend;
 						goto l17;
 					}
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				}
 				localSP += 1 * BytesPerOop;
 				/* end jumplfFalseBy: */
@@ -4090,22 +4090,22 @@ l17:;
 
 				/* begin ifBackwardsCheckForEvents: */
 				if ((offset < 0)
-				 && (localSP < GIV(stackLimit))) {
+				 && (localSP < stackLimit)) {
 					/* begin externalizeIPandSP */
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 					checkForEventsMayContextSwitch(1);
 					browserPluginReturnIfNeeded();
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
 				}
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 168: // longJumpIfTrue
@@ -4121,22 +4121,22 @@ l17:;
 
 				/* begin jumplfTrueBy: */
 				boolean = longAt(localSP);
-				if (boolean == GIV(trueObj)) {
+				if (boolean == trueObj) {
 					/* begin jump: */
 					localIP = (localIP + offset) + 1;
-					currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 				}
 				else {
-					if (!(boolean == GIV(falseObj))) {
+					if (!(boolean == falseObj)) {
 						/* begin internalMustBeBoolean */
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
-						GIV(argumentCount) = 0;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
+						argumentCount = 0;
 						goto normalSend;
 						goto l18;
 					}
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				}
 				localSP += 1 * BytesPerOop;
 				/* end jumplfTrueBy: */
@@ -4156,22 +4156,22 @@ l18:;
 
 				/* begin jumplfFalseBy: */
 				boolean = longAt(localSP);
-				if (boolean == GIV(falseObj)) {
+				if (boolean == falseObj) {
 					/* begin jump: */
 					localIP = (localIP + offset) + 1;
-					currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 				}
 				else {
-					if (!(boolean == GIV(trueObj))) {
+					if (!(boolean == trueObj)) {
 						/* begin internalMustBeBoolean */
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
-						GIV(argumentCount) = 0;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
+						argumentCount = 0;
 						goto normalSend;
 						goto l19;
 					}
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				}
 				localSP += 1 * BytesPerOop;
 				/* end jumplfFalseBy: */
@@ -4200,16 +4200,16 @@ l19:;
 					if ((((((usqInt)(result)) >> 60) + 1) & 15) <= 1) {
 						/* begin internalPop:thenPush: */
 						longAtput((localSP += 1 * BytesPerOop),(((usqInt)result << 3) | 1));
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l20;
 					}
 				}
 				else {
 					/* begin initPrimCall */
-					GIV(primFailCode) = 0;
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					primFailCode = 0;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 
 					/* begin primitiveFloatAdd:toArg: */
 					/* begin loadFloatOrIntFrom: */
@@ -4244,8 +4244,8 @@ l19:;
 					}
 
 					/* begin primitiveFail */
-					if (!GIV(primFailCode)) {
-						GIV(primFailCode) = 1;
+					if (!primFailCode) {
+						primFailCode = 1;
 					}
 					rcvrDouble = 0.0;
 					/* end loadFloatOrIntFrom: */
@@ -4283,30 +4283,30 @@ l21:
 					}
 
 					/* begin primitiveFail */
-					if (!GIV(primFailCode)) {
-						GIV(primFailCode) = 1;
+					if (!primFailCode) {
+						primFailCode = 1;
 					}
 					argDouble = 0.0;
 					/* end loadFloatOrIntFrom: */
 l22:
-					if (!GIV(primFailCode)) {
+					if (!primFailCode) {
 						/* begin pop:thenPushFloat: */
-						longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),floatObjectOf(rcvrDouble + argDouble));
-						GIV(stackPointer) = sp;
+						longAtput((sp = stackPointer + (1 * BytesPerWord)),floatObjectOf(rcvrDouble + argDouble));
+						stackPointer = sp;
 					}
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
-					if (!GIV(primFailCode)) {
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
+					if (!primFailCode) {
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l20;
 					}
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (0U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (0U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -4334,16 +4334,16 @@ l20:;
 					if ((((((usqInt)(result)) >> 60) + 1) & 15) <= 1) {
 						/* begin internalPop:thenPush: */
 						longAtput((localSP += 1 * BytesPerOop),(((usqInt)result << 3) | 1));
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l23;
 					}
 				}
 				else {
 					/* begin initPrimCall */
-					GIV(primFailCode) = 0;
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					primFailCode = 0;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 
 					/* begin primitiveFloatSubtract:fromArg: */
 					/* begin loadFloatOrIntFrom: */
@@ -4378,8 +4378,8 @@ l20:;
 					}
 
 					/* begin primitiveFail */
-					if (!GIV(primFailCode)) {
-						GIV(primFailCode) = 1;
+					if (!primFailCode) {
+						primFailCode = 1;
 					}
 					rcvrDouble = 0.0;
 					/* end loadFloatOrIntFrom: */
@@ -4417,30 +4417,30 @@ l24:
 					}
 
 					/* begin primitiveFail */
-					if (!GIV(primFailCode)) {
-						GIV(primFailCode) = 1;
+					if (!primFailCode) {
+						primFailCode = 1;
 					}
 					argDouble = 0.0;
 					/* end loadFloatOrIntFrom: */
 l25:
-					if (!GIV(primFailCode)) {
+					if (!primFailCode) {
 						/* begin pop:thenPushFloat: */
-						longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),floatObjectOf(rcvrDouble - argDouble));
-						GIV(stackPointer) = sp;
+						longAtput((sp = stackPointer + (1 * BytesPerWord)),floatObjectOf(rcvrDouble - argDouble));
+						stackPointer = sp;
 					}
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
-					if (!GIV(primFailCode)) {
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
+					if (!primFailCode) {
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l23;
 					}
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (2U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (2U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -4470,9 +4470,9 @@ l23:;
 				   But this means the simulator must override to do detagging. */
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatLessthanArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheat: */
 					if (aBool) {
 						goto booleanCheatTrue;
@@ -4482,8 +4482,8 @@ l23:;
 					}
 					goto l26;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (4U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (4U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -4505,7 +4505,7 @@ l26:
 				 && (bytecode > 151)) {
 					if (bytecode < 160) {
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l170;
 					}
 
@@ -4515,7 +4515,7 @@ l26:
 						byteAt(++localIP);
 
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l170;
 					}
 
@@ -4525,16 +4525,16 @@ l26:
 
 						/* begin jump: */
 						localIP = (localIP + offset) + 1;
-						currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 						goto l170;
 					}
 				}
 
 				/* not followed by a jumpIfFalse; (un)do instruction fetch and push boolean result */
-				currentBytecode = bytecode + GIV(bytecodeSetSelector);
+				currentBytecode = bytecode + bytecodeSetSelector;
 
 				/* begin internalPush: */
-				longAtput((localSP -= BytesPerOop),GIV(trueObj));
+				longAtput((localSP -= BytesPerOop),trueObj);
 			}
 			/* end case */
 l170:;
@@ -4563,9 +4563,9 @@ l170:;
 				   But this means the simulator must override to do detagging. */
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatGreaterthanArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheat: */
 					if (aBool) {
 						goto booleanCheatTrue;
@@ -4575,8 +4575,8 @@ l170:;
 					}
 					goto l27;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (6U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (6U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -4598,7 +4598,7 @@ l27:
 				 && (bytecode > 151)) {
 					/* begin jump: */
 					localIP = (localIP + (bytecode - 151)) + 1;
-					currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 					goto l171;
 				}
 
@@ -4608,16 +4608,16 @@ l27:
 
 					/* begin jump: */
 					localIP = (localIP + offset) + 1;
-					currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 					goto l171;
 				}
 
 				/* long jumpIfFalse
 				   not followed by a jumpIfFalse; (un)do instruction fetch and push boolean result */
-				currentBytecode = bytecode + GIV(bytecodeSetSelector);
+				currentBytecode = bytecode + bytecodeSetSelector;
 
 				/* begin internalPush: */
-				longAtput((localSP -= BytesPerOop),GIV(falseObj));
+				longAtput((localSP -= BytesPerOop),falseObj);
 			}
 			/* end case */
 l171:;
@@ -4646,9 +4646,9 @@ l171:;
 				   But this means the simulator must override to do detagging. */
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatLessOrEqualtoArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheat: */
 					if (aBool) {
 						goto booleanCheatTrue;
@@ -4658,8 +4658,8 @@ l171:;
 					}
 					goto l28;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (8U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (8U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -4689,9 +4689,9 @@ l28:;
 				   But this means the simulator must override to do detagging. */
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatGreaterOrEqualtoArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheat: */
 					if (aBool) {
 						goto booleanCheatTrue;
@@ -4701,8 +4701,8 @@ l28:;
 					}
 					goto l29;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (10U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (10U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -4729,9 +4729,9 @@ l29:;
 				}
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatEqualtoArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheat: */
 					if (aBool) {
 						goto booleanCheatTrue;
@@ -4741,8 +4741,8 @@ l29:;
 					}
 					goto l30;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (12U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (12U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -4769,9 +4769,9 @@ l30:;
 				}
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatEqualtoArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheat: */
 					if (aBool) {
 						goto booleanCheatFalse;
@@ -4781,8 +4781,8 @@ l30:;
 					}
 					goto l31;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (14U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (14U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -4824,16 +4824,16 @@ l31:;
 
 						/* begin internalPop:thenPush: */
 						longAtput((localSP += 1 * BytesPerOop),oop);
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l32;
 					}
 				}
 				else {
 					/* begin initPrimCall */
-					GIV(primFailCode) = 0;
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					primFailCode = 0;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 
 					/* begin primitiveFloatMultiply:byArg: */
 					/* begin loadFloatOrIntFrom: */
@@ -4868,8 +4868,8 @@ l31:;
 					}
 
 					/* begin primitiveFail */
-					if (!GIV(primFailCode)) {
-						GIV(primFailCode) = 1;
+					if (!primFailCode) {
+						primFailCode = 1;
 					}
 					rcvrDouble = 0.0;
 					/* end loadFloatOrIntFrom: */
@@ -4907,30 +4907,30 @@ l33:
 					}
 
 					/* begin primitiveFail */
-					if (!GIV(primFailCode)) {
-						GIV(primFailCode) = 1;
+					if (!primFailCode) {
+						primFailCode = 1;
 					}
 					argDouble = 0.0;
 					/* end loadFloatOrIntFrom: */
 l34:
-					if (!GIV(primFailCode)) {
+					if (!primFailCode) {
 						/* begin pop:thenPushFloat: */
-						longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),floatObjectOf(rcvrDouble * argDouble));
-						GIV(stackPointer) = sp;
+						longAtput((sp = stackPointer + (1 * BytesPerWord)),floatObjectOf(rcvrDouble * argDouble));
+						stackPointer = sp;
 					}
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
-					if (!GIV(primFailCode)) {
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
+					if (!primFailCode) {
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l32;
 					}
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (16U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (16U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -4964,17 +4964,17 @@ l32:;
 						if ((((((usqInt)(result)) >> 60) + 1) & 15) <= 1) {
 							/* begin internalPop:thenPush: */
 							longAtput((localSP += 1 * BytesPerOop),(((usqInt)result << 3) | 1));
-							currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+							currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 							goto l35;
 						}
 					}
 				}
 				else {
 					/* begin initPrimCall */
-					GIV(primFailCode) = 0;
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					primFailCode = 0;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 
 					/* begin primitiveFloatDivide:byArg: */
 					/* begin loadFloatOrIntFrom: */
@@ -5009,8 +5009,8 @@ l32:;
 					}
 
 					/* begin primitiveFail */
-					if (!GIV(primFailCode)) {
-						GIV(primFailCode) = 1;
+					if (!primFailCode) {
+						primFailCode = 1;
 					}
 					rcvrDouble = 0.0;
 					/* end loadFloatOrIntFrom: */
@@ -5048,8 +5048,8 @@ l36:
 					}
 
 					/* begin primitiveFail */
-					if (!GIV(primFailCode)) {
-						GIV(primFailCode) = 1;
+					if (!primFailCode) {
+						primFailCode = 1;
 					}
 					argDouble = 0.0;
 					/* end loadFloatOrIntFrom: */
@@ -5057,28 +5057,28 @@ l37:
 
 					/* begin success: */
 					if (!(argDouble != 0.0)) {
-						if (!GIV(primFailCode)) {
-							GIV(primFailCode) = 1;
+						if (!primFailCode) {
+							primFailCode = 1;
 						}
 					}
-					if (!GIV(primFailCode)) {
+					if (!primFailCode) {
 						/* begin pop:thenPushFloat: */
-						longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),floatObjectOf(rcvrDouble / argDouble));
-						GIV(stackPointer) = sp;
+						longAtput((sp = stackPointer + (1 * BytesPerWord)),floatObjectOf(rcvrDouble / argDouble));
+						stackPointer = sp;
 					}
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
-					if (!GIV(primFailCode)) {
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
+					if (!primFailCode) {
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l35;
 					}
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (18U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (18U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -5091,16 +5091,16 @@ l35:;
 
 				VM_LABEL(bytecodePrimMod);
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				mod = doPrimitiveModby(longAt(localSP + (1 * BytesPerOop)), longAt(localSP));
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin internalPop:thenPush: */
 					longAtput((localSP += 1 * BytesPerOop),(((usqInt)mod << 3) | 1));
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l38;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (20U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (20U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -5129,31 +5129,31 @@ l38:;
 					/* begin eeInstantiatePoint */
 					/* begin eeInstantiateSmallClassIndex:format:numSlots: */
 					assert(((YIndex + 1) >= 0)
-					 && ((knownClassAtIndex(ClassPointCompactIndex)) != GIV(nilObj)));
+					 && ((knownClassAtIndex(ClassPointCompactIndex)) != nilObj));
 					assert((nonIndexablePointerFormat()) == (instSpecOfClass(knownClassAtIndex(ClassPointCompactIndex))));
 
 					/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 					assert((YIndex + 1) < (numSlotsMask()));
-					newObj = GIV(freeStart);
+					newObj = freeStart;
 					numBytes = BaseHeaderSize + (((YIndex + 1) < 1
 		? 8 /* allocationUnit */
 		: (YIndex + 1) * BytesPerOop));
 					assert((numBytes % (allocationUnit())) == 0);
 					assert((newObj % (allocationUnit())) == 0);
-					if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-						if (!GIV(needGCFlag)) {
+					if ((freeStart + numBytes) > scavengeThreshold) {
+						if (!needGCFlag) {
 							/* begin scheduleScavenge */
-							GIV(needGCFlag) = 1;
+							needGCFlag = 1;
 							forceInterruptCheck();
 						}
-						if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+						if ((freeStart + numBytes) > (((eden).limit))) {
 							error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 							pt = 0;
 							goto l40;
 						}
 					}
 					long64Atput((void *)(newObj),((((((usqLong) (YIndex + 1))) << (numSlotsFullShift()))) + ((((usqInt)((nonIndexablePointerFormat())) << (formatShift()))))) + ClassPointCompactIndex);
-					GIV(freeStart) += numBytes;
+					freeStart += numBytes;
 					pt = newObj;
 					/* end eeInstantiatePoint */
 l40:
@@ -5174,11 +5174,11 @@ l40:
 
 					/* begin internalPop:thenPush: */
 					longAtput((localSP += 1 * BytesPerOop),pt);
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l39;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (22U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (22U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -5194,36 +5194,36 @@ l39:;
 
 				VM_LABEL(bytecodePrimBitShift);
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
-				GIV(instructionPointer) = ((usqInt)localIP);
-				GIV(stackPointer) = localSP;
-				GIV(framePointer) = localFP;
+				primFailCode = 0;
+				instructionPointer = ((usqInt)localIP);
+				stackPointer = localSP;
+				framePointer = localFP;
 
 				/* begin primitiveBitShift */
-				integerArgument = longAt(GIV(stackPointer));
+				integerArgument = longAt(stackPointer);
 				if (!((((integerArgument) & 7) == 1))) {
 					/* begin primitiveFail */
-					if (!GIV(primFailCode)) {
-						GIV(primFailCode) = 1;
+					if (!primFailCode) {
+						primFailCode = 1;
 					}
 					goto l42;
 				}
-				integerReceiver = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+				integerReceiver = longAt(stackPointer + (1 * BytesPerWord));
 				integerReceiver = signed64BitValueOf(integerReceiver);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					if (((integerArgument = (integerArgument >> 3))) >= 0) {
 						if (!(integerArgument <= 61 /* numSmallIntegerBits */)) {
 							/* begin primitiveFail */
-							if (!GIV(primFailCode)) {
-								GIV(primFailCode) = 1;
+							if (!primFailCode) {
+								primFailCode = 1;
 							}
 							goto l42;
 						}
 						shifted = ((sqInt)((usqInt)(integerReceiver) << integerArgument));
 						if (!(integerReceiver == ((shifted) >> integerArgument))) {
 							/* begin primitiveFail */
-							if (!GIV(primFailCode)) {
-								GIV(primFailCode) = 1;
+							if (!primFailCode) {
+								primFailCode = 1;
 							}
 							goto l42;
 						}
@@ -5231,8 +5231,8 @@ l39:;
 					else {
 						if (!(integerArgument >= (-61 /* numSmallIntegerBits */))) {
 							/* begin primitiveFail */
-							if (!GIV(primFailCode)) {
-								GIV(primFailCode) = 1;
+							if (!primFailCode) {
+								primFailCode = 1;
 							}
 							goto l42;
 						}
@@ -5246,23 +5246,23 @@ l39:;
 								: signed64BitIntegerFor(shifted));
 
 					/* begin pop:thenPush: */
-					longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),shifted);
-					GIV(stackPointer) = sp;
+					longAtput((sp = stackPointer + (1 * BytesPerWord)),shifted);
+					stackPointer = sp;
 				}
 				/* end primitiveBitShift */
 l42:
 
 				/* begin internalizeIPandSP */
-				localIP = ((char *)GIV(instructionPointer));
-				localSP = GIV(stackPointer);
-				localFP = GIV(framePointer);
-				if (!GIV(primFailCode)) {
+				localIP = ((char *)instructionPointer);
+				localSP = stackPointer;
+				localFP = framePointer;
+				if (!primFailCode) {
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l41;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (24U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (24U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -5275,16 +5275,16 @@ l41:;
 
 				VM_LABEL(bytecodePrimDiv);
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				quotient = doPrimitiveDivby(longAt(localSP + (1 * BytesPerOop)), longAt(localSP));
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin internalPop:thenPush: */
 					longAtput((localSP += 1 * BytesPerOop),(((usqInt)quotient << 3) | 1));
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l43;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (26U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (26U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -5303,28 +5303,28 @@ l43:;
 				 && ((((rcvr) & 7) == 1))) {
 					/* begin internalPop:thenPush: */
 					longAtput((localSP += 1 * BytesPerOop),arg & rcvr);
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l44;
 				}
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
-				GIV(instructionPointer) = ((usqInt)localIP);
-				GIV(stackPointer) = localSP;
-				GIV(framePointer) = localFP;
+				primFailCode = 0;
+				instructionPointer = ((usqInt)localIP);
+				stackPointer = localSP;
+				framePointer = localFP;
 				primitiveBitAnd();
 
 				/* begin internalizeIPandSP */
-				localIP = ((char *)GIV(instructionPointer));
-				localSP = GIV(stackPointer);
-				localFP = GIV(framePointer);
-				if (!GIV(primFailCode)) {
+				localIP = ((char *)instructionPointer);
+				localSP = stackPointer;
+				localFP = framePointer;
+				if (!primFailCode) {
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l44;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (28U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (28U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -5343,28 +5343,28 @@ l44:;
 				 && ((((rcvr) & 7) == 1))) {
 					/* begin internalPop:thenPush: */
 					longAtput((localSP += 1 * BytesPerOop),arg | rcvr);
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l45;
 				}
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
-				GIV(instructionPointer) = ((usqInt)localIP);
-				GIV(stackPointer) = localSP;
-				GIV(framePointer) = localFP;
+				primFailCode = 0;
+				instructionPointer = ((usqInt)localIP);
+				stackPointer = localSP;
+				framePointer = localFP;
 				primitiveBitOr();
 
 				/* begin internalizeIPandSP */
-				localIP = ((char *)GIV(instructionPointer));
-				localSP = GIV(stackPointer);
-				localFP = GIV(framePointer);
-				if (!GIV(primFailCode)) {
+				localIP = ((char *)instructionPointer);
+				localSP = stackPointer;
+				localFP = framePointer;
+				if (!primFailCode) {
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l45;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (30U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (30U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -5398,11 +5398,11 @@ l45:;
 				 && ((((index) & 7) == 1))) {
 					/* Index into atCache = 4N, for N = 0 ... 7 */
 					atIx = rcvr & AtCacheMask;
-					if ((GIV(atCache)[atIx + AtCacheOop]) != rcvr) {
+					if ((atCache[atIx + AtCacheOop]) != rcvr) {
 						lkupClassTag = (longAt((void *)(rcvr))) & (classIndexMask());
-						GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (32U << (shiftForWord()))));
-						if (!(lookupInMethodCacheSelclassTag(GIV(messageSelector), lkupClassTag))) {
-							GIV(argumentCount) = 1;
+						messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (32U << (shiftForWord()))));
+						if (!(lookupInMethodCacheSelclassTag(messageSelector, lkupClassTag))) {
+							argumentCount = 1;
 							goto commonSendOrdinary;
 							goto l46;
 						}
@@ -5415,15 +5415,15 @@ l45:;
 							/* For now the AtCache code doesn't support 16-bit indexability. */
 							if (((fmt >= (firstShortFormat())) && (fmt <= ((firstByteFormat()) - 1)))) {
 								/* begin primitiveFail */
-								if (!GIV(primFailCode)) {
-									GIV(primFailCode) = 1;
+								if (!primFailCode) {
+									primFailCode = 1;
 								}
 								goto l55;
 							}
 							if ((fmt == (indexablePointersFormat()))
 							 && ((hdr & (classIndexMask())) == ClassMethodContextCompactIndex)) {
 								/* primitiveFailFor: */
-								GIV(primFailCode) = PrimErrBadReceiver;
+								primFailCode = PrimErrBadReceiver;
 								goto l55;
 							}
 
@@ -5478,10 +5478,10 @@ l51:
 							fixedFields = (((longAt((void *)((class + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3)) & ((1U << (fixedFieldsFieldWidth())) - 1);
 							/* end fixedFieldsOf:format:length: */
 l54:
-							GIV(atCache)[atIx + AtCacheOop] = rcvr;
-							GIV(atCache)[atIx + AtCacheFmt] = fmt;
-							GIV(atCache)[atIx + AtCacheFixedFields] = fixedFields;
-							GIV(atCache)[atIx + AtCacheSize] = (totalLength - fixedFields);
+							atCache[atIx + AtCacheOop] = rcvr;
+							atCache[atIx + AtCacheFmt] = fmt;
+							atCache[atIx + AtCacheFixedFields] = fixedFields;
+							atCache[atIx + AtCacheSize] = (totalLength - fixedFields);
 							/* end install:inAtCache:at:string: */
 l55:;
 						}
@@ -5495,8 +5495,8 @@ l55:;
 								/* For now the AtCache code doesn't support 16-bit indexability. */
 								if (((fmt >= (firstShortFormat())) && (fmt <= ((firstByteFormat()) - 1)))) {
 									/* begin primitiveFail */
-									if (!GIV(primFailCode)) {
-										GIV(primFailCode) = 1;
+									if (!primFailCode) {
+										primFailCode = 1;
 									}
 									goto l50;
 								}
@@ -5539,31 +5539,31 @@ l47:
 
 								/* special flag for strings */
 								fmt += 32 /* firstStringyFakeFormat */;
-								GIV(atCache)[atIx + AtCacheOop] = rcvr;
-								GIV(atCache)[atIx + AtCacheFmt] = fmt;
-								GIV(atCache)[atIx + AtCacheFixedFields] = fixedFields;
-								GIV(atCache)[atIx + AtCacheSize] = (totalLength - fixedFields);
+								atCache[atIx + AtCacheOop] = rcvr;
+								atCache[atIx + AtCacheFmt] = fmt;
+								atCache[atIx + AtCacheFixedFields] = fixedFields;
+								atCache[atIx + AtCacheSize] = (totalLength - fixedFields);
 								/* end install:inAtCache:at:string: */
 l50:;
 							}
 							else {
-								GIV(argumentCount) = 1;
+								argumentCount = 1;
 								goto commonSendOrdinary;
 								goto l46;
 							}
 						}
 					}
-					if (!GIV(primFailCode)) {
+					if (!primFailCode) {
 						indexSqInt = (index >> 3);
 
 						/* begin commonVariable:at:cacheIndex: */
-						stSize = GIV(atCache)[atIx + AtCacheSize];
+						stSize = atCache[atIx + AtCacheSize];
 						if ((oopisGreaterThanOrEqualTo(indexSqInt, 1))
 						 && (oopisLessThanOrEqualTo(indexSqInt, stSize))) {
-							fmtSqInt = GIV(atCache)[atIx + AtCacheFmt];
+							fmtSqInt = atCache[atIx + AtCacheFmt];
 							if (fmtSqInt <= (weakArrayFormat())) {
 								assert(!(isContextNonImm(rcvr)));
-								fixedFields = GIV(atCache)[atIx + AtCacheFixedFields];
+								fixedFields = atCache[atIx + AtCacheFixedFields];
 								result = longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(((indexSqInt + fixedFields) - 1)) << (shiftForWord()))))));
 								goto l53;
 							}
@@ -5602,22 +5602,22 @@ l50:;
 						reasonCode = (isIndexable(rcvr)
 									? PrimErrBadIndex
 									: PrimErrBadReceiver);
-						result = (GIV(primFailCode) = reasonCode);
+						result = (primFailCode = reasonCode);
 						/* end commonVariable:at:cacheIndex: */
 l53:;
 					}
-					if (!GIV(primFailCode)) {
+					if (!primFailCode) {
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						longAtput((localSP += 1 * BytesPerOop),result);
 						goto l46;
 					}
 
 					/* begin initPrimCall */
-					GIV(primFailCode) = 0;
+					primFailCode = 0;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (32U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (32U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -5663,11 +5663,11 @@ l46:;
 				 && ((((index) & 7) == 1))) {
 					/* Index into atPutCache */
 					atIx = (rcvr & AtCacheMask) + AtPutBase;
-					if ((GIV(atCache)[atIx + AtCacheOop]) != rcvr) {
+					if ((atCache[atIx + AtCacheOop]) != rcvr) {
 						lkupClassTag = (longAt((void *)(rcvr))) & (classIndexMask());
-						GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (34U << (shiftForWord()))));
-						if (!(lookupInMethodCacheSelclassTag(GIV(messageSelector), lkupClassTag))) {
-							GIV(argumentCount) = 2;
+						messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (34U << (shiftForWord()))));
+						if (!(lookupInMethodCacheSelclassTag(messageSelector, lkupClassTag))) {
+							argumentCount = 2;
 							goto commonSendOrdinary;
 							goto l56;
 						}
@@ -5680,15 +5680,15 @@ l46:;
 							/* For now the AtCache code doesn't support 16-bit indexability. */
 							if (((fmt >= (firstShortFormat())) && (fmt <= ((firstByteFormat()) - 1)))) {
 								/* begin primitiveFail */
-								if (!GIV(primFailCode)) {
-									GIV(primFailCode) = 1;
+								if (!primFailCode) {
+									primFailCode = 1;
 								}
 								goto l65;
 							}
 							if ((fmt == (indexablePointersFormat()))
 							 && ((hdr & (classIndexMask())) == ClassMethodContextCompactIndex)) {
 								/* primitiveFailFor: */
-								GIV(primFailCode) = PrimErrBadReceiver;
+								primFailCode = PrimErrBadReceiver;
 								goto l65;
 							}
 
@@ -5743,10 +5743,10 @@ l61:
 							fixedFields = (((longAt((void *)((class + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3)) & ((1U << (fixedFieldsFieldWidth())) - 1);
 							/* end fixedFieldsOf:format:length: */
 l64:
-							GIV(atCache)[atIx + AtCacheOop] = rcvr;
-							GIV(atCache)[atIx + AtCacheFmt] = fmt;
-							GIV(atCache)[atIx + AtCacheFixedFields] = fixedFields;
-							GIV(atCache)[atIx + AtCacheSize] = (totalLength - fixedFields);
+							atCache[atIx + AtCacheOop] = rcvr;
+							atCache[atIx + AtCacheFmt] = fmt;
+							atCache[atIx + AtCacheFixedFields] = fixedFields;
+							atCache[atIx + AtCacheSize] = (totalLength - fixedFields);
 							/* end install:inAtCache:at:string: */
 l65:;
 						}
@@ -5760,8 +5760,8 @@ l65:;
 								/* For now the AtCache code doesn't support 16-bit indexability. */
 								if (((fmt >= (firstShortFormat())) && (fmt <= ((firstByteFormat()) - 1)))) {
 									/* begin primitiveFail */
-									if (!GIV(primFailCode)) {
-										GIV(primFailCode) = 1;
+									if (!primFailCode) {
+										primFailCode = 1;
 									}
 									goto l60;
 								}
@@ -5804,40 +5804,40 @@ l57:
 
 								/* special flag for strings */
 								fmt += 32 /* firstStringyFakeFormat */;
-								GIV(atCache)[atIx + AtCacheOop] = rcvr;
-								GIV(atCache)[atIx + AtCacheFmt] = fmt;
-								GIV(atCache)[atIx + AtCacheFixedFields] = fixedFields;
-								GIV(atCache)[atIx + AtCacheSize] = (totalLength - fixedFields);
+								atCache[atIx + AtCacheOop] = rcvr;
+								atCache[atIx + AtCacheFmt] = fmt;
+								atCache[atIx + AtCacheFixedFields] = fixedFields;
+								atCache[atIx + AtCacheSize] = (totalLength - fixedFields);
 								/* end install:inAtCache:at:string: */
 l60:;
 							}
 							else {
-								GIV(argumentCount) = 2;
+								argumentCount = 2;
 								goto commonSendOrdinary;
 								goto l56;
 							}
 						}
 					}
-					if (!GIV(primFailCode)) {
+					if (!primFailCode) {
 						indexSqInt = (index >> 3);
 
 						/* begin commonVariable:at:put:cacheIndex: */
-						stSize = GIV(atCache)[atIx + AtCacheSize];
+						stSize = atCache[atIx + AtCacheSize];
 						if ((oopisGreaterThanOrEqualTo(indexSqInt, 1))
 						 && (oopisLessThanOrEqualTo(indexSqInt, stSize))) {
-							fmtSqInt = GIV(atCache)[atIx + AtCacheFmt];
+							fmtSqInt = atCache[atIx + AtCacheFmt];
 							if (fmtSqInt <= (weakArrayFormat())) {
 								assert(!(isContextNonImm(rcvr)));
-								fixedFields = GIV(atCache)[atIx + AtCacheFixedFields];
+								fixedFields = atCache[atIx + AtCacheFixedFields];
 								fieldIndex = (indexSqInt + fixedFields) - 1;
 
 								/* begin storePointer:ofObject:withValue: */
 								assert(validStorePointerArgs(fieldIndex, rcvr, value));
 								assert(isNonImmediate(rcvr));
-								if (oopisGreaterThanOrEqualTo(rcvr, GIV(oldSpaceStart))) {
+								if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
 									if (/* isYoung: */
 										((!(value & (tagMask()))))
-									 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+									 && (oopisLessThan(value, oldSpaceStart))) {
 										/* begin possibleRootStoreInto: */
 										if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 											remember(rcvr);
@@ -5857,7 +5857,7 @@ l60:;
 									if (!((valToPut >= 0)
 										 && (valToPut <= 0xFFFF))) {
 										/* primitiveFailFor: */
-										GIV(primFailCode) = PrimErrBadArgument;
+										primFailCode = PrimErrBadArgument;
 										goto l63;
 									}
 
@@ -5867,25 +5867,25 @@ l60:;
 								}
 								if (fmtSqInt == (sixtyFourBitIndexableFormat())) {
 									val64ToPut = positive64BitValueOf(value);
-									if (!GIV(primFailCode)) {
+									if (!primFailCode) {
 										/* storeLong64:ofObject:withValue: */
 										long64Atput((void *)((rcvr + BaseHeaderSize) + ((((usqInt)((indexSqInt - 1)) << 3)))),val64ToPut);
 										goto l63;
 									}
 
 									/* primitiveFailFor: */
-									GIV(primFailCode) = PrimErrBadArgument;
+									primFailCode = PrimErrBadArgument;
 									goto l63;
 								}
 								valToPut = positive32BitValueOf(value);
-								if (!GIV(primFailCode)) {
+								if (!primFailCode) {
 									/* storeLong32:ofObject:withValue: */
 									long32Atput((void *)((rcvr + BaseHeaderSize) + ((((usqInt)((indexSqInt - 1)) << 2)))),valToPut);
 									goto l63;
 								}
 
 								/* primitiveFailFor: */
-								GIV(primFailCode) = PrimErrBadArgument;
+								primFailCode = PrimErrBadArgument;
 								goto l63;
 							}
 
@@ -5894,7 +5894,7 @@ l60:;
 								isCharacter = ((value & (characterTag())) != 0);
 								if (!isCharacter) {
 									/* primitiveFailFor: */
-									GIV(primFailCode) = PrimErrBadArgument;
+									primFailCode = PrimErrBadArgument;
 									goto l63;
 								}
 								valToPut = ((((usqInt)value))) >> (numTagBits());
@@ -5910,7 +5910,7 @@ l60:;
 										if (!((valToPut >= 0)
 											 && (valToPut <= 0xFFFF))) {
 											/* primitiveFailFor: */
-											GIV(primFailCode) = PrimErrBadArgument;
+											primFailCode = PrimErrBadArgument;
 											goto l63;
 										}
 
@@ -5924,7 +5924,7 @@ l60:;
 								if ((fmtSqInt >= (firstCompiledMethodFormat()))
 								 && (indexSqInt < ((((literalCountOf(rcvr)) + LiteralStart) * BytesPerOop) + 1))) {
 									/* primitiveFailFor: */
-									GIV(primFailCode) = PrimErrBadIndex;
+									primFailCode = PrimErrBadIndex;
 									goto l63;
 								}
 								valToPut = ((((value) & 7) == 1)
@@ -5936,7 +5936,7 @@ l60:;
 							if (!((valToPut >= 0)
 								 && (valToPut <= 0xFF))) {
 								/* primitiveFailFor: */
-								GIV(primFailCode) = PrimErrBadArgument;
+								primFailCode = PrimErrBadArgument;
 								goto l63;
 							}
 
@@ -5947,22 +5947,22 @@ l60:;
 						reasonCode = (isIndexable(rcvr)
 									? PrimErrBadIndex
 									: PrimErrBadReceiver);
-						GIV(primFailCode) = reasonCode;
+						primFailCode = reasonCode;
 						/* end commonVariable:at:put:cacheIndex: */
 l63:;
 					}
-					if (!GIV(primFailCode)) {
+					if (!primFailCode) {
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						longAtput((localSP += 2 * BytesPerOop),value);
 						goto l56;
 					}
 
 					/* begin initPrimCall */
-					GIV(primFailCode) = 0;
+					primFailCode = 0;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (34U << (shiftForWord()))));
-				GIV(argumentCount) = 2;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (34U << (shiftForWord()))));
+				argumentCount = 2;
 				goto normalSend;
 			}
 			/* end case */
@@ -5982,7 +5982,7 @@ l56:;
 
 				VM_LABEL(bytecodePrimSize);
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				rcvr = longAt(localSP);
 
 				/* Shortcut the mega-lookup for ByteString and Array, the two big consumers of cycles
@@ -6040,7 +6040,7 @@ l68:
 					longAtput(localSP,(((usqInt)sz << 3) | 1));
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l66;
 				}
 
@@ -6096,11 +6096,11 @@ l70:
 					longAtput(localSP,(((usqInt)sz << 3) | 1));
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 					goto l66;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (36U << (shiftForWord()))));
-				GIV(argumentCount) = 0;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (36U << (shiftForWord()))));
+				argumentCount = 0;
 				goto normalSend;
 			}
 			/* end case */
@@ -6110,8 +6110,8 @@ l66:;
 		case 371: // 115	bytecodePrimNext
 			{
 				VM_LABEL(bytecodePrimNext);
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (38U << (shiftForWord()))));
-				GIV(argumentCount) = ((fetchPointerofObject(39, longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord())))))))) >> 3);
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (38U << (shiftForWord()))));
+				argumentCount = ((fetchPointerofObject(39, longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord())))))))) >> 3);
 				goto normalSend;
 			}
 			break;
@@ -6119,8 +6119,8 @@ l66:;
 		case 372: // 116	bytecodePrimNextPut
 			{
 				VM_LABEL(bytecodePrimNextPut);
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (40U << (shiftForWord()))));
-				GIV(argumentCount) = ((fetchPointerofObject(41, longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord())))))))) >> 3);
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (40U << (shiftForWord()))));
+				argumentCount = ((fetchPointerofObject(41, longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord())))))))) >> 3);
 				goto normalSend;
 			}
 			break;
@@ -6128,8 +6128,8 @@ l66:;
 		case 373: // 117	bytecodePrimAtEnd
 			{
 				VM_LABEL(bytecodePrimAtEnd);
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (42U << (shiftForWord()))));
-				GIV(argumentCount) = ((fetchPointerofObject(43, longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord())))))))) >> 3);
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (42U << (shiftForWord()))));
+				argumentCount = ((fetchPointerofObject(43, longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord())))))))) >> 3);
 				goto normalSend;
 			}
 			break;
@@ -6177,12 +6177,12 @@ l66:;
 				}
 				aValue = /* fetchClassOf: */
 						((tagBits = rcvr & (tagMask()))
-							? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+							? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 							: fetchClassOfNonImm(rcvr));
 
 				/* begin internalStackTopPut: */
 				longAtput(localSP,aValue);
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 200: // bytecodePrimNotIdentical
@@ -6222,7 +6222,7 @@ l66:;
 
 				VM_LABEL(bytecodePrimValue);
 				rcvr = longAt(localSP);
-				GIV(argumentCount) = 0;
+				argumentCount = 0;
 
 				/* begin isInstanceOfClassBlockClosure: */
 				/* begin is:instanceOf:compactClassIndex: */
@@ -6239,26 +6239,26 @@ l66:;
 l72:
 				if (isBlock) {
 					/* begin externalizeIPandSP */
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 
 					/* begin initPrimCall */
-					GIV(primFailCode) = 0;
+					primFailCode = 0;
 					primitiveClosureValue();
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
-					if (!GIV(primFailCode)) {
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
+					if (!primFailCode) {
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l71;
 					}
-					GIV(primFailCode) = 0;
+					primFailCode = 0;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (50U << (shiftForWord()))));
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (50U << (shiftForWord()))));
 				goto normalSend;
 			}
 			/* end case */
@@ -6273,7 +6273,7 @@ l71:;
 
 				VM_LABEL(bytecodePrimValueWithArg);
 				rcvr = longAt(localSP + (1 * BytesPerOop));
-				GIV(argumentCount) = 1;
+				argumentCount = 1;
 
 				/* begin isInstanceOfClassBlockClosure: */
 				/* begin is:instanceOf:compactClassIndex: */
@@ -6290,26 +6290,26 @@ l71:;
 l74:
 				if (isBlock) {
 					/* begin externalizeIPandSP */
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 
 					/* begin initPrimCall */
-					GIV(primFailCode) = 0;
+					primFailCode = 0;
 					primitiveClosureValue();
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
-					if (!GIV(primFailCode)) {
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
+					if (!primFailCode) {
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l73;
 					}
-					GIV(primFailCode) = 0;
+					primFailCode = 0;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (52U << (shiftForWord()))));
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (52U << (shiftForWord()))));
 				goto normalSend;
 			}
 			/* end case */
@@ -6319,8 +6319,8 @@ l73:;
 		case 379: // 123	bytecodePrimDo
 			{
 				VM_LABEL(bytecodePrimDo);
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (54U << (shiftForWord()))));
-				GIV(argumentCount) = ((fetchPointerofObject(55, longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord())))))))) >> 3);
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (54U << (shiftForWord()))));
+				argumentCount = ((fetchPointerofObject(55, longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord())))))))) >> 3);
 				goto normalSend;
 			}
 			break;
@@ -6328,8 +6328,8 @@ l73:;
 		case 380: // 124	bytecodePrimNew
 			{
 				VM_LABEL(bytecodePrimNew);
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (56U << (shiftForWord()))));
-				GIV(argumentCount) = 0;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (56U << (shiftForWord()))));
+				argumentCount = 0;
 				goto normalSend;
 			}
 			break;
@@ -6337,8 +6337,8 @@ l73:;
 		case 381: // 125	bytecodePrimNewWithArg
 			{
 				VM_LABEL(bytecodePrimNewWithArg);
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (58U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (58U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			break;
@@ -6351,7 +6351,7 @@ l73:;
 
 				VM_LABEL(bytecodePrimPointX);
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				rcvr = longAt(localSP);
 				if ((!(rcvr & (tagMask())))) {
 					/* begin isClassOfNonImm:equalTo:compactClassIndex: */
@@ -6362,12 +6362,12 @@ l73:;
 						longAtput(localSP,longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(XIndex) << (shiftForWord())))))));
 
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l75;
 					}
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (60U << (shiftForWord()))));
-				GIV(argumentCount) = 0;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (60U << (shiftForWord()))));
+				argumentCount = 0;
 				goto normalSend;
 			}
 			/* end case */
@@ -6382,7 +6382,7 @@ l75:;
 
 				VM_LABEL(bytecodePrimPointY);
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				rcvr = longAt(localSP);
 				if ((!(rcvr & (tagMask())))) {
 					/* begin isClassOfNonImm:equalTo:compactClassIndex: */
@@ -6393,12 +6393,12 @@ l75:;
 						longAtput(localSP,longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(YIndex) << (shiftForWord())))))));
 
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l76;
 					}
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (0x3EU << (shiftForWord()))));
-				GIV(argumentCount) = 0;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (0x3EU << (shiftForWord()))));
+				argumentCount = 0;
 				goto normalSend;
 			}
 			/* end case */
@@ -6442,9 +6442,9 @@ l76:;
 
 				VM_LABEL(sendLiteralSelector0ArgsBytecode);
 				/* begin literal: */
-				assert(GIV(method) == (iframeMethod(localFP)));
-				GIV(messageSelector) = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((currentBytecode & 15) + LiteralStart) << (shiftForWord())))));
-				GIV(argumentCount) = 0;
+				assert(method == (iframeMethod(localFP)));
+				messageSelector = longAt((void *)((method + BaseHeaderSize) + ((((currentBytecode & 15) + LiteralStart) << (shiftForWord())))));
+				argumentCount = 0;
 				rcvr = longAt(localSP);
 				lkupClassTag = /* fetchClassTagOf: */
 						((tagBits = rcvr & (tagMask()))
@@ -6492,9 +6492,9 @@ l76:;
 
 				VM_LABEL(sendLiteralSelector1ArgBytecode);
 				/* begin literal: */
-				assert(GIV(method) == (iframeMethod(localFP)));
-				GIV(messageSelector) = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((currentBytecode & 15) + LiteralStart) << (shiftForWord())))));
-				GIV(argumentCount) = 1;
+				assert(method == (iframeMethod(localFP)));
+				messageSelector = longAt((void *)((method + BaseHeaderSize) + ((((currentBytecode & 15) + LiteralStart) << (shiftForWord())))));
+				argumentCount = 1;
 				rcvr = longAt(localSP + (1 * BytesPerOop));
 				lkupClassTag = /* fetchClassTagOf: */
 						((tagBits = rcvr & (tagMask()))
@@ -6542,9 +6542,9 @@ l76:;
 
 				VM_LABEL(sendLiteralSelector2ArgsBytecode);
 				/* begin literal: */
-				assert(GIV(method) == (iframeMethod(localFP)));
-				GIV(messageSelector) = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((currentBytecode & 15) + LiteralStart) << (shiftForWord())))));
-				GIV(argumentCount) = 2;
+				assert(method == (iframeMethod(localFP)));
+				messageSelector = longAt((void *)((method + BaseHeaderSize) + ((((currentBytecode & 15) + LiteralStart) << (shiftForWord())))));
+				argumentCount = 2;
 				rcvr = longAt(localSP + (2 * BytesPerOop));
 				lkupClassTag = /* fetchClassTagOf: */
 						((tagBits = rcvr & (tagMask()))
@@ -6574,7 +6574,7 @@ l77:;
 					break;
 				case 1:
 					/* begin activeProcess */
-					objOop = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+					objOop = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
 					theThingToPush = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
 					break;
 				default:
@@ -6582,7 +6582,7 @@ l77:;
 				}
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),theThingToPush);
 				extB = 0;
 				numExtB = 0;
@@ -6619,7 +6619,7 @@ l77:;
 		case 349: // 93	returnNilFromBlock
 			{
 				VM_LABEL(returnNilFromBlock);
-				localReturnValue = GIV(nilObj);
+				localReturnValue = nilObj;
 				goto commonCallerReturn;
 			}
 			break;
@@ -6634,7 +6634,7 @@ l77:;
 			{
 				VM_LABEL(extNopBytecode);
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				numExtB = (extA = (extB = 0));
 			}
 			break;
@@ -6662,9 +6662,9 @@ l77:;
 				   But this means the simulator must override to do detagging. */
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatLessthanArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheatSistaV1: */
 					if (aBool) {
 						goto booleanCheatTrueSistaV1;
@@ -6674,8 +6674,8 @@ l77:;
 					}
 					goto l84;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (4U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (4U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -6696,7 +6696,7 @@ l84:
 				if (bytecode >= 192) {
 					if (bytecode <= 199) {
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l172;
 					}
 
@@ -6706,7 +6706,7 @@ l84:
 						byteAt(++localIP);
 
 						/* begin fetchNextBytecode */
-						currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 						goto l172;
 					}
 
@@ -6716,16 +6716,16 @@ l84:
 
 						/* begin jump: */
 						localIP = (localIP + offset) + 1;
-						currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+						currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 						goto l172;
 					}
 				}
 
 				/* not followed by a jumpIfFalse; (un)do instruction fetch and push boolean result */
-				currentBytecode = bytecode + GIV(bytecodeSetSelector);
+				currentBytecode = bytecode + bytecodeSetSelector;
 
 				/* begin internalPush: */
-				longAtput((localSP -= BytesPerOop),GIV(trueObj));
+				longAtput((localSP -= BytesPerOop),trueObj);
 			}
 			/* end case */
 l172:;
@@ -6754,9 +6754,9 @@ l172:;
 				   But this means the simulator must override to do detagging. */
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatGreaterthanArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheatSistaV1: */
 					if (aBool) {
 						goto booleanCheatTrueSistaV1;
@@ -6766,8 +6766,8 @@ l172:;
 					}
 					goto l85;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (6U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (6U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -6789,7 +6789,7 @@ l85:
 				 && (bytecode > 191)) {
 					/* begin jump: */
 					localIP = (localIP + (bytecode - 191)) + 1;
-					currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 					goto l173;
 				}
 
@@ -6799,16 +6799,16 @@ l85:
 
 					/* begin jump: */
 					localIP = (localIP + offset) + 1;
-					currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 					goto l173;
 				}
 
 				/* long jumpIfFalse
 				   not followed by a jumpIfFalse; (un)do instruction fetch and push boolean result */
-				currentBytecode = bytecode + GIV(bytecodeSetSelector);
+				currentBytecode = bytecode + bytecodeSetSelector;
 
 				/* begin internalPush: */
-				longAtput((localSP -= BytesPerOop),GIV(falseObj));
+				longAtput((localSP -= BytesPerOop),falseObj);
 			}
 			/* end case */
 l173:;
@@ -6837,9 +6837,9 @@ l173:;
 				   But this means the simulator must override to do detagging. */
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatLessOrEqualtoArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheatSistaV1: */
 					if (aBool) {
 						goto booleanCheatTrueSistaV1;
@@ -6849,8 +6849,8 @@ l173:;
 					}
 					goto l86;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (8U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (8U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -6880,9 +6880,9 @@ l86:;
 				   But this means the simulator must override to do detagging. */
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatGreaterOrEqualtoArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheatSistaV1: */
 					if (aBool) {
 						goto booleanCheatTrueSistaV1;
@@ -6892,8 +6892,8 @@ l86:;
 					}
 					goto l87;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (10U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (10U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -6920,9 +6920,9 @@ l87:;
 				}
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatEqualtoArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheatSistaV1: */
 					if (aBool) {
 						goto booleanCheatTrueSistaV1;
@@ -6932,8 +6932,8 @@ l87:;
 					}
 					goto l88;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (12U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (12U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -6960,9 +6960,9 @@ l88:;
 				}
 
 				/* begin initPrimCall */
-				GIV(primFailCode) = 0;
+				primFailCode = 0;
 				aBool = primitiveFloatEqualtoArg(rcvr, arg);
-				if (!GIV(primFailCode)) {
+				if (!primFailCode) {
 					/* begin booleanCheatSistaV1: */
 					if (aBool) {
 						goto booleanCheatFalseSistaV1;
@@ -6972,8 +6972,8 @@ l88:;
 					}
 					goto l89;
 				}
-				GIV(messageSelector) = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (14U << (shiftForWord()))));
-				GIV(argumentCount) = 1;
+				messageSelector = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SpecialSelectors) << (shiftForWord()))))))) + BaseHeaderSize) + (14U << (shiftForWord()))));
+				argumentCount = 1;
 				goto normalSend;
 			}
 			/* end case */
@@ -7052,22 +7052,22 @@ l89:;
 
 				/* begin jumplfTrueBy: */
 				boolean = longAt(localSP);
-				if (boolean == GIV(trueObj)) {
+				if (boolean == trueObj) {
 					/* begin jump: */
 					localIP = (localIP + offset) + 1;
-					currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 				}
 				else {
-					if (!(boolean == GIV(falseObj))) {
+					if (!(boolean == falseObj)) {
 						/* begin internalMustBeBoolean */
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
-						GIV(argumentCount) = 0;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
+						argumentCount = 0;
 						goto normalSend;
 						goto l135;
 					}
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				}
 				localSP += 1 * BytesPerOop;
 				/* end jumplfTrueBy: */
@@ -7080,7 +7080,7 @@ l135:;
 				extA = (((((usqInt)(extA) << 8)))) + (byteAt(++localIP));
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 481: // 225	extBBytecode
@@ -7091,7 +7091,7 @@ l135:;
 				byte = byteAt(++localIP);
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				extB = ((numExtB == 0)
 					 && (byte > 0x7F)
 							? byte - 0x100
@@ -7112,7 +7112,7 @@ l135:;
 				index = (byteAt(++localIP)) + ((((usqInt)(extA) << 8)));
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				extA = 0;
 
 				/* begin pushMaybeContextReceiverVariable: */
@@ -7128,14 +7128,14 @@ l135:;
 					}
 
 					/* begin writeBackHeadFramePointers */
-					assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
+					assert(stackPage == (mostRecentlyUsedPage));
 					assert(localSP < localFP);
-					assert((localSP < ((GIV(stackPage)->baseAddress)))
-					 && (localSP > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-					assert((localFP < ((GIV(stackPage)->baseAddress)))
-					 && (localFP > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-					(GIV(stackPage)->headFP = localFP);
-					(GIV(stackPage)->headSP = localSP);
+					assert((localSP < ((stackPage->baseAddress)))
+					 && (localSP > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+					assert((localFP < ((stackPage->baseAddress)))
+					 && (localFP > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+					(stackPage->headFP = localFP);
+					(stackPage->headSP = localSP);
 					assert(pageListIsWellFormed());
 					if (isWidowedContext(obj)) {
 						object = longAt((void *)((obj + BaseHeaderSize) + ((((usqInt)(index) << (shiftForWord()))))));
@@ -7203,16 +7203,16 @@ l138:
 				index = (byteAt(++localIP)) + ((((usqInt)(extA) << 8)));
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				extA = 0;
 
 				/* begin pushLiteralVariable: */
 				/* begin followObjLiteral:ofMethod: */
 				/* begin followObjField:ofObject: */
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((index + LiteralStart)) << (shiftForWord()))))));
+				litVar = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((index + LiteralStart)) << (shiftForWord()))))));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(index + LiteralStart, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(index + LiteralStart, method, litVar);
 				}
 
 				/* begin internalPush: */
@@ -7228,13 +7228,13 @@ l138:
 				index = (byteAt(++localIP)) + ((((usqInt)(extA) << 8)));
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				extA = 0;
 
 				/* begin pushLiteralConstant: */
 				/* begin literal: */
-				assert(GIV(method) == (iframeMethod(localFP)));
-				object = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((index + LiteralStart)) << (shiftForWord()))))));
+				assert(method == (iframeMethod(localFP)));
+				object = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((index + LiteralStart)) << (shiftForWord()))))));
 
 				/* begin internalPush: */
 				longAtput((localSP -= BytesPerOop),object);
@@ -7249,7 +7249,7 @@ l138:
 				index = byteAt(++localIP);
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),/* temporary:in: */
 					(index < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
 						? longAt((localFP + FoxCallerSavedIP) + ((frameNumArgs - index) * BytesPerWord))
@@ -7264,7 +7264,7 @@ l138:
 				value = (byteAt(++localIP)) + ((((usqInt)(extB) << 8)));
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				extB = 0;
 				numExtB = 0;
 
@@ -7281,7 +7281,7 @@ l138:
 				value = (byteAt(++localIP)) + ((((usqInt)(extA) << 8)));
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				object = ((((usqInt)(value) << (numTagBits())))) + (characterTag());
 
 				/* begin internalPush: */
@@ -7299,13 +7299,13 @@ l138:
 				byte = byteAt(++localIP);
 
 				/* begin literal: */
-				assert(GIV(method) == (iframeMethod(localFP)));
-				GIV(messageSelector) = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((((((usqInt)(byte)) >> 3) + ((((usqInt)(extA) << 5)))) + LiteralStart)) << (shiftForWord()))))));
+				assert(method == (iframeMethod(localFP)));
+				messageSelector = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((((((usqInt)(byte)) >> 3) + ((((usqInt)(extA) << 5)))) + LiteralStart)) << (shiftForWord()))))));
 				extA = 0;
-				GIV(argumentCount) = (byte & 7) + ((((usqInt)(extB) << 3)));
+				argumentCount = (byte & 7) + ((((usqInt)(extB) << 3)));
 				extB = 0;
 				numExtB = 0;
-				rcvr = longAt(localSP + (GIV(argumentCount) * BytesPerOop));
+				rcvr = longAt(localSP + (argumentCount * BytesPerOop));
 				lkupClassTag = /* fetchClassTagOf: */
 						((tagBits = rcvr & (tagMask()))
 							? tagBits
@@ -7321,18 +7321,18 @@ l138:
 				byte = byteAt(++localIP);
 
 				/* begin literal: */
-				assert(GIV(method) == (iframeMethod(localFP)));
-				GIV(messageSelector) = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((((((usqInt)(byte)) >> 3) + ((((usqInt)(extA) << 5)))) + LiteralStart)) << (shiftForWord()))))));
+				assert(method == (iframeMethod(localFP)));
+				messageSelector = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((((((usqInt)(byte)) >> 3) + ((((usqInt)(extA) << 5)))) + LiteralStart)) << (shiftForWord()))))));
 				extA = 0;
 				if (extB >= 64) {
-					GIV(argumentCount) = (byte & 7) + ((((usqInt)((extB - 64)) << 3)));
+					argumentCount = (byte & 7) + ((((usqInt)((extB - 64)) << 3)));
 					extB = 0;
 					numExtB = 0;
 
 					/* goto directedSuperclassSend */
 					goto l140;
 				}
-				GIV(argumentCount) = (byte & 7) + ((((usqInt)(extB) << 3)));
+				argumentCount = (byte & 7) + ((((usqInt)(extB) << 3)));
 				extB = 0;
 				numExtB = 0;
 				goto superclassSend;
@@ -7397,9 +7397,9 @@ l140:
 
 				/* begin ensureReceiverUnforwarded */
 				if (/* isOopForwarded: */
-					((!((longAt(localSP + (GIV(argumentCount) * BytesPerOop))) & (tagMask()))))
-				 && ((!((longAt((void *)(longAt(localSP + (GIV(argumentCount) * BytesPerOop))))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
-					objOop = longAt(localSP + (GIV(argumentCount) * BytesPerOop));
+					((!((longAt(localSP + (argumentCount * BytesPerOop))) & (tagMask()))))
+				 && ((!((longAt((void *)(longAt(localSP + (argumentCount * BytesPerOop))))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+					objOop = longAt(localSP + (argumentCount * BytesPerOop));
 
 					/* begin followForwarded: */
 					assert(isUnambiguouslyForwarder(objOop));
@@ -7412,7 +7412,7 @@ l140:
 					aValue = referent;
 
 					/* begin internalStackValue:put: */
-					longAtput(localSP + (GIV(argumentCount) * BytesPerOop),aValue);
+					longAtput(localSP + (argumentCount * BytesPerOop),aValue);
 				}
 				assert(lkupClassTag != (nilObject()));
 				goto commonSendOrdinary;
@@ -7443,22 +7443,22 @@ l140:
 
 				/* begin ifBackwardsCheckForEvents: */
 				if (((offset + bcpcDelta) < 0)
-				 && (localSP < GIV(stackLimit))) {
+				 && (localSP < stackLimit)) {
 					/* begin externalizeIPandSP */
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 					checkForEventsMayContextSwitch(1);
 					browserPluginReturnIfNeeded();
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
 				}
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 494: // 238	extJumpIfTrue
@@ -7474,22 +7474,22 @@ l140:
 
 				/* begin jumplfTrueBy: */
 				boolean = longAt(localSP);
-				if (boolean == GIV(trueObj)) {
+				if (boolean == trueObj) {
 					/* begin jump: */
 					localIP = (localIP + offset) + 1;
-					currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 				}
 				else {
-					if (!(boolean == GIV(falseObj))) {
+					if (!(boolean == falseObj)) {
 						/* begin internalMustBeBoolean */
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
-						GIV(argumentCount) = 0;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
+						argumentCount = 0;
 						goto normalSend;
 						goto l141;
 					}
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				}
 				localSP += 1 * BytesPerOop;
 				/* end jumplfTrueBy: */
@@ -7509,22 +7509,22 @@ l141:;
 
 				/* begin jumplfFalseBy: */
 				boolean = longAt(localSP);
-				if (boolean == GIV(falseObj)) {
+				if (boolean == falseObj) {
 					/* begin jump: */
 					localIP = (localIP + offset) + 1;
-					currentBytecode = (byteAt(localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(localIP)) + bytecodeSetSelector;
 				}
 				else {
-					if (!(boolean == GIV(trueObj))) {
+					if (!(boolean == trueObj)) {
 						/* begin internalMustBeBoolean */
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
-						GIV(argumentCount) = 0;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorMustBeBoolean) << (shiftForWord()))))));
+						argumentCount = 0;
 						goto normalSend;
 						goto l142;
 					}
 
 					/* begin fetchNextBytecode */
-					currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+					currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				}
 				localSP += 1 * BytesPerOop;
 				/* end jumplfFalseBy: */
@@ -7557,14 +7557,14 @@ l142:;
 					assert(!((isObjImmutable(obj))));
 
 					/* begin writeBackHeadFramePointers */
-					assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
+					assert(stackPage == (mostRecentlyUsedPage));
 					assert(localSP < localFP);
-					assert((localSP < ((GIV(stackPage)->baseAddress)))
-					 && (localSP > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-					assert((localFP < ((GIV(stackPage)->baseAddress)))
-					 && (localFP > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-					(GIV(stackPage)->headFP = localFP);
-					(GIV(stackPage)->headSP = localSP);
+					assert((localSP < ((stackPage->baseAddress)))
+					 && (localSP > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+					assert((localFP < ((stackPage->baseAddress)))
+					 && (localFP > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+					(stackPage->headFP = localFP);
+					(stackPage->headSP = localSP);
 					assert(pageListIsWellFormed());
 					if (!(/* isStillMarriedContext: */
 							(((((longAt((void *)((obj + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
@@ -7572,10 +7572,10 @@ l142:;
 						/* begin storePointer:ofObject:withValue: */
 						assert(validStorePointerArgs(variableIndex, obj, value));
 						assert(isNonImmediate(obj));
-						if (oopisGreaterThanOrEqualTo(obj, GIV(oldSpaceStart))) {
+						if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
 							if (/* isYoung: */
 								((!(value & (tagMask()))))
-							 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+							 && (oopisLessThan(value, oldSpaceStart))) {
 								/* begin possibleRootStoreInto: */
 								if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 									remember(obj);
@@ -7594,33 +7594,33 @@ l142:;
 					theFP = ((char *)(senderOop - (smallIntegerTag())));
 					if (!variableIndex) {
 						/* begin stackPageFor: */
-						thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
-						assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-						onCurrentPage = thePage == GIV(stackPage);
+						thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
+						assert(stackPage == (mostRecentlyUsedPage));
+						onCurrentPage = thePage == stackPage;
 						storeSenderOfFramewithValue(theFP, value);
 						if (onCurrentPage) {
-							localFP = (GIV(stackPage)->headFP);
-							localSP = (GIV(stackPage)->headSP);
+							localFP = (stackPage->headFP);
+							localSP = (stackPage->headSP);
 						}
 						else {
-							markStackPageMostRecentlyUsed(GIV(stackPage));
+							markStackPageMostRecentlyUsed(stackPage);
 						}
 						goto l143;
 					}
 
 					/* begin externalizeIPandSP */
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 					externalDivorceFrameandContext(theFP, obj);
 
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(variableIndex, obj, value));
 					assert(isNonImmediate(obj));
-					if (oopisGreaterThanOrEqualTo(obj, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(value & (tagMask()))))
-						 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(value, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(obj);
@@ -7632,12 +7632,12 @@ l142:;
 					longAtput((void *)((obj + BaseHeaderSize) + ((((usqInt)(variableIndex) << (shiftForWord()))))),value);
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
 
 					/* Assigning various fields can force a divorce which can change the stackPage. */
-					markStackPageMostRecentlyUsed(GIV(stackPage));
+					markStackPageMostRecentlyUsed(stackPage);
 					assertValidExecutionPointersimbarline(((usqInt)localIP), localFP, localSP, 1, __LINE__);
 					/* end instVar:ofContext:put: */
 l143:;
@@ -7652,8 +7652,8 @@ l143:;
 						longAtput((localSP -= BytesPerOop),obj);
 						longAtput((localSP -= BytesPerOop),value);
 						longAtput((localSP -= BytesPerOop),(((usqInt)(variableIndex + 1) << 3) | 1));
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
-						GIV(argumentCount) = 2;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
+						argumentCount = 2;
 						goto normalSend;
 						goto l144;
 					}
@@ -7663,10 +7663,10 @@ l143:;
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(variableIndex, obj, value));
 					assert(isNonImmediate(obj));
-					if (oopisGreaterThanOrEqualTo(obj, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(value & (tagMask()))))
-						 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(value, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(obj);
@@ -7681,7 +7681,7 @@ l144:;
 				}
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 497: // 241	extStoreAndPopLiteralVariableBytecode
@@ -7701,10 +7701,10 @@ l144:;
 				/* begin storeLiteralVariable:withValue: */
 				/* begin followObjLiteral:ofMethod: */
 				/* begin followObjField:ofObject: */
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((variableIndex + LiteralStart)) << (shiftForWord()))))));
+				litVar = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((variableIndex + LiteralStart)) << (shiftForWord()))))));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(variableIndex + LiteralStart, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(variableIndex + LiteralStart, method, litVar);
 				}
 
 				/* begin storePointerImmutabilityCheck:ofObject:withValue: */
@@ -7716,8 +7716,8 @@ l144:;
 					longAtput((localSP -= BytesPerOop),litVar);
 					longAtput((localSP -= BytesPerOop),value);
 					longAtput((localSP -= BytesPerOop),(((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
-					GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
-					GIV(argumentCount) = 2;
+					messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
+					argumentCount = 2;
 					goto normalSend;
 					goto l145;
 				}
@@ -7727,10 +7727,10 @@ l144:;
 				/* begin storePointer:ofObject:withValue: */
 				assert(validStorePointerArgs(ValueIndex, litVar, value));
 				assert(isNonImmediate(litVar));
-				if (oopisGreaterThanOrEqualTo(litVar, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(litVar, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(value & (tagMask()))))
-					 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(value, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(litVar + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(litVar);
@@ -7744,7 +7744,7 @@ l144:;
 l145:
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 498: // 242	longStoreAndPopTemporaryVariableBytecode
@@ -7755,7 +7755,7 @@ l145:
 				VM_LABEL(longStoreAndPopTemporaryVariableBytecode);
 				/* begin longStoreTemporaryVariableBytecode */
 				index = byteAt(++localIP);
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* temporary:in:put: */
 				if (index < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
@@ -7794,14 +7794,14 @@ l145:
 					assert(!((isObjImmutable(obj))));
 
 					/* begin writeBackHeadFramePointers */
-					assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
+					assert(stackPage == (mostRecentlyUsedPage));
 					assert(localSP < localFP);
-					assert((localSP < ((GIV(stackPage)->baseAddress)))
-					 && (localSP > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-					assert((localFP < ((GIV(stackPage)->baseAddress)))
-					 && (localFP > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-					(GIV(stackPage)->headFP = localFP);
-					(GIV(stackPage)->headSP = localSP);
+					assert((localSP < ((stackPage->baseAddress)))
+					 && (localSP > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+					assert((localFP < ((stackPage->baseAddress)))
+					 && (localFP > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+					(stackPage->headFP = localFP);
+					(stackPage->headSP = localSP);
 					assert(pageListIsWellFormed());
 					if (!(/* isStillMarriedContext: */
 							(((((longAt((void *)((obj + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
@@ -7809,10 +7809,10 @@ l145:
 						/* begin storePointer:ofObject:withValue: */
 						assert(validStorePointerArgs(variableIndex, obj, anObject));
 						assert(isNonImmediate(obj));
-						if (oopisGreaterThanOrEqualTo(obj, GIV(oldSpaceStart))) {
+						if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
 							if (/* isYoung: */
 								((!(anObject & (tagMask()))))
-							 && (oopisLessThan(anObject, GIV(oldSpaceStart)))) {
+							 && (oopisLessThan(anObject, oldSpaceStart))) {
 								/* begin possibleRootStoreInto: */
 								if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 									remember(obj);
@@ -7831,33 +7831,33 @@ l145:
 					theFP = ((char *)(senderOop - (smallIntegerTag())));
 					if (!variableIndex) {
 						/* begin stackPageFor: */
-						thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
-						assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-						onCurrentPage = thePage == GIV(stackPage);
+						thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
+						assert(stackPage == (mostRecentlyUsedPage));
+						onCurrentPage = thePage == stackPage;
 						storeSenderOfFramewithValue(theFP, anObject);
 						if (onCurrentPage) {
-							localFP = (GIV(stackPage)->headFP);
-							localSP = (GIV(stackPage)->headSP);
+							localFP = (stackPage->headFP);
+							localSP = (stackPage->headSP);
 						}
 						else {
-							markStackPageMostRecentlyUsed(GIV(stackPage));
+							markStackPageMostRecentlyUsed(stackPage);
 						}
 						goto l146;
 					}
 
 					/* begin externalizeIPandSP */
-					GIV(instructionPointer) = ((usqInt)localIP);
-					GIV(stackPointer) = localSP;
-					GIV(framePointer) = localFP;
+					instructionPointer = ((usqInt)localIP);
+					stackPointer = localSP;
+					framePointer = localFP;
 					externalDivorceFrameandContext(theFP, obj);
 
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(variableIndex, obj, anObject));
 					assert(isNonImmediate(obj));
-					if (oopisGreaterThanOrEqualTo(obj, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(anObject & (tagMask()))))
-						 && (oopisLessThan(anObject, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(anObject, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(obj);
@@ -7869,12 +7869,12 @@ l145:
 					longAtput((void *)((obj + BaseHeaderSize) + ((((usqInt)(variableIndex) << (shiftForWord()))))),anObject);
 
 					/* begin internalizeIPandSP */
-					localIP = ((char *)GIV(instructionPointer));
-					localSP = GIV(stackPointer);
-					localFP = GIV(framePointer);
+					localIP = ((char *)instructionPointer);
+					localSP = stackPointer;
+					localFP = framePointer;
 
 					/* Assigning various fields can force a divorce which can change the stackPage. */
-					markStackPageMostRecentlyUsed(GIV(stackPage));
+					markStackPageMostRecentlyUsed(stackPage);
 					assertValidExecutionPointersimbarline(((usqInt)localIP), localFP, localSP, 1, __LINE__);
 					/* end instVar:ofContext:put: */
 l146:;
@@ -7889,8 +7889,8 @@ l146:;
 						longAtput((localSP -= BytesPerOop),obj);
 						longAtput((localSP -= BytesPerOop),anObject);
 						longAtput((localSP -= BytesPerOop),(((usqInt)(variableIndex + 1) << 3) | 1));
-						GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
-						GIV(argumentCount) = 2;
+						messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
+						argumentCount = 2;
 						goto normalSend;
 						goto l147;
 					}
@@ -7900,10 +7900,10 @@ l146:;
 					/* begin storePointer:ofObject:withValue: */
 					assert(validStorePointerArgs(variableIndex, obj, anObject));
 					assert(isNonImmediate(obj));
-					if (oopisGreaterThanOrEqualTo(obj, GIV(oldSpaceStart))) {
+					if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
 						if (/* isYoung: */
 							((!(anObject & (tagMask()))))
-						 && (oopisLessThan(anObject, GIV(oldSpaceStart)))) {
+						 && (oopisLessThan(anObject, oldSpaceStart))) {
 							/* begin possibleRootStoreInto: */
 							if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 								remember(obj);
@@ -7918,7 +7918,7 @@ l147:;
 				}
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 500: // 244	extStoreLiteralVariableBytecode
@@ -7935,10 +7935,10 @@ l147:;
 				/* begin storeLiteralVariable:withValue: */
 				/* begin followObjLiteral:ofMethod: */
 				/* begin followObjField:ofObject: */
-				litVar = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((variableIndex + LiteralStart)) << (shiftForWord()))))));
+				litVar = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((variableIndex + LiteralStart)) << (shiftForWord()))))));
 				assert(isNonImmediate(litVar));
 				if ((!((longAt((void *)(litVar))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					litVar = fixFollowedFieldofObjectwithInitialValue(variableIndex + LiteralStart, GIV(method), litVar);
+					litVar = fixFollowedFieldofObjectwithInitialValue(variableIndex + LiteralStart, method, litVar);
 				}
 
 				/* begin storePointerImmutabilityCheck:ofObject:withValue: */
@@ -7950,8 +7950,8 @@ l147:;
 					longAtput((localSP -= BytesPerOop),litVar);
 					longAtput((localSP -= BytesPerOop),anObject);
 					longAtput((localSP -= BytesPerOop),(((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
-					GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
-					GIV(argumentCount) = 2;
+					messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorAttemptToAssign) << (shiftForWord()))))));
+					argumentCount = 2;
 					goto normalSend;
 					goto l148;
 				}
@@ -7961,10 +7961,10 @@ l147:;
 				/* begin storePointer:ofObject:withValue: */
 				assert(validStorePointerArgs(ValueIndex, litVar, anObject));
 				assert(isNonImmediate(litVar));
-				if (oopisGreaterThanOrEqualTo(litVar, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(litVar, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(anObject & (tagMask()))))
-					 && (oopisLessThan(anObject, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(anObject, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(litVar + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(litVar);
@@ -7978,7 +7978,7 @@ l147:;
 l148:
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 			}
 			break;
 		case 501: // 245	longStoreTemporaryVariableBytecode
@@ -7990,7 +7990,7 @@ l148:
 				index = byteAt(++localIP);
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 
 				/* temporary:in:put: */
 				if (index < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
@@ -8026,10 +8026,10 @@ l148:
 
 				/* begin followObjLiteral:ofMethod: */
 				/* begin followObjField:ofObject: */
-				compiledBlock = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)((compiledBlockLiteralIndex + LiteralStart)) << (shiftForWord()))))));
+				compiledBlock = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)((compiledBlockLiteralIndex + LiteralStart)) << (shiftForWord()))))));
 				assert(isNonImmediate(compiledBlock));
 				if ((!((longAt((void *)(compiledBlock))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					compiledBlock = fixFollowedFieldofObjectwithInitialValue(compiledBlockLiteralIndex + LiteralStart, GIV(method), compiledBlock);
+					compiledBlock = fixFollowedFieldofObjectwithInitialValue(compiledBlockLiteralIndex + LiteralStart, method, compiledBlock);
 				}
 				assert(isOopCompiledMethod(compiledBlock));
 
@@ -8045,7 +8045,7 @@ l148:
 
 				/* begin pushFullClosureNumArgs:copiedValues:compiledBlock:receiverIsOnStack:ignoreContext: */
 				if (ignoreContext) {
-					context = GIV(nilObj);
+					context = nilObj;
 				}
 				else {
 					/* begin ensureFrameIsMarried:SP: */
@@ -8062,31 +8062,31 @@ l150:;
 				/* begin fullClosureIn:numArgs:numCopiedValues:compiledBlock: */
 				numSlots = FullClosureFirstCopiedValueIndex + numCopied;
 				assert((numSlots >= 0)
-				 && ((knownClassAtIndex(ClassFullBlockClosureCompactIndex)) != GIV(nilObj)));
+				 && ((knownClassAtIndex(ClassFullBlockClosureCompactIndex)) != nilObj));
 				assert((indexablePointersFormat()) == (instSpecOfClass(knownClassAtIndex(ClassFullBlockClosureCompactIndex))));
 
 				/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 				assert(numSlots < (numSlotsMask()));
-				newObj = GIV(freeStart);
+				newObj = freeStart;
 				numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 				assert((numBytes % (allocationUnit())) == 0);
 				assert((newObj % (allocationUnit())) == 0);
-				if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-					if (!GIV(needGCFlag)) {
+				if ((freeStart + numBytes) > scavengeThreshold) {
+					if (!needGCFlag) {
 						/* begin scheduleScavenge */
-						GIV(needGCFlag) = 1;
+						needGCFlag = 1;
 						forceInterruptCheck();
 					}
-					if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+					if ((freeStart + numBytes) > (((eden).limit))) {
 						error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 						newClosure = 0;
 						goto l151;
 					}
 				}
 				long64Atput((void *)(newObj),((((((usqLong) numSlots)) << (numSlotsFullShift()))) + ((((usqInt)((indexablePointersFormat())) << (formatShift()))))) + ClassFullBlockClosureCompactIndex);
-				GIV(freeStart) += numBytes;
+				freeStart += numBytes;
 				newClosure = newObj;
 				/* end eeInstantiateSmallClassIndex:format:numSlots: */
 l151:
@@ -8139,7 +8139,7 @@ l151:
 					/* begin internalPop: */
 					localSP += numCopiedSqInt * BytesPerOop;
 				}
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),newClosure);
 			}
 			break;
@@ -8175,36 +8175,36 @@ l151:
 				context = marryFrameSP(localFP, localSP + (numCopied * BytesPerOop));
 				/* end ensureFrameIsMarried:SP: */
 l152:
-				initialIP = ((((usqInt)localIP)) + 2) - (GIV(method) + BaseHeaderSize);
+				initialIP = ((((usqInt)localIP)) + 2) - (method + BaseHeaderSize);
 
 				/* begin closureIn:numArgs:instructionPointer:numCopiedValues: */
 				numSlots = ClosureFirstCopiedValueIndex + numCopied;
 				assert((numSlots >= 0)
-				 && ((knownClassAtIndex(ClassBlockClosureCompactIndex)) != GIV(nilObj)));
+				 && ((knownClassAtIndex(ClassBlockClosureCompactIndex)) != nilObj));
 				assert((indexablePointersFormat()) == (instSpecOfClass(knownClassAtIndex(ClassBlockClosureCompactIndex))));
 
 				/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 				assert(numSlots < (numSlotsMask()));
-				newObj = GIV(freeStart);
+				newObj = freeStart;
 				numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 				assert((numBytes % (allocationUnit())) == 0);
 				assert((newObj % (allocationUnit())) == 0);
-				if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-					if (!GIV(needGCFlag)) {
+				if ((freeStart + numBytes) > scavengeThreshold) {
+					if (!needGCFlag) {
 						/* begin scheduleScavenge */
-						GIV(needGCFlag) = 1;
+						needGCFlag = 1;
 						forceInterruptCheck();
 					}
-					if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+					if ((freeStart + numBytes) > (((eden).limit))) {
 						error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 						newClosure = 0;
 						goto l153;
 					}
 				}
 				long64Atput((void *)(newObj),((((((usqLong) numSlots)) << (numSlotsFullShift()))) + ((((usqInt)((indexablePointersFormat())) << (formatShift()))))) + ClassBlockClosureCompactIndex);
-				GIV(freeStart) += numBytes;
+				freeStart += numBytes;
 				newClosure = newObj;
 				/* end eeInstantiateSmallClassIndex:format:numSlots: */
 l153:
@@ -8246,7 +8246,7 @@ l153:
 				localIP += blockSize;
 
 				/* begin fetchNextBytecode */
-				currentBytecode = (byteAt(++localIP)) + GIV(bytecodeSetSelector);
+				currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
 				longAtput((localSP -= BytesPerOop),newClosure);
 			}
 			break;
@@ -8255,8 +8255,8 @@ l153:
 
 	/* undo the pre-increment of IP (in fetchByte in fetchNextBytecode) before returning */
 	localIP -= 1;
-	GIV(instructionPointer) = ((usqInt)localIP);
-	GIV(stackPointer) = localSP;
-	GIV(framePointer) = localFP;
+	instructionPointer = ((usqInt)localIP);
+	stackPointer = localSP;
+	framePointer = localFP;
 	return null;
 }

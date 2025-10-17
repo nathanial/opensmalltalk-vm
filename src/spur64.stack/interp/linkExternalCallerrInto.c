@@ -21,7 +21,7 @@ static NoDbgRegParms void
 
 	metadata = 0;
 	moduleName = longAt((void *)((externalCallLiteral + BaseHeaderSize) + ((((usqInt)(ExternalCallLiteralModuleNameIndex) << (shiftForWord()))))));
-	if (moduleName == GIV(nilObj)) {
+	if (moduleName == nilObj) {
 		moduleLength = 0;
 	}
 	else {
@@ -69,10 +69,10 @@ static NoDbgRegParms void
 		functionAddress = ((void *) addr);
 
 		/* begin addToExternalPrimitiveTable: */
-		for (i = GIV(externalPrimitiveTableFirstFreeIndex); i < MaxExternalPrimitiveTableSize; i += 1) {
+		for (i = externalPrimitiveTableFirstFreeIndex; i < MaxExternalPrimitiveTableSize; i += 1) {
 			if (!(externalPrimitiveTable[i])) {
 				externalPrimitiveTable[i] = functionAddress;
-				index = (GIV(externalPrimitiveTableFirstFreeIndex) = i + 1);
+				index = (externalPrimitiveTableFirstFreeIndex = i + 1);
 				goto l1;
 			}
 		}

@@ -11,21 +11,21 @@ isInMemory(sqInt address)
     sqInt i;
 
 	if (/* isInNewSpace: */
-		(oopisLessThan(address, GIV(oldSpaceStart)))
-	 && (oopisGreaterThanOrEqualTo(address, GIV(newSpaceStart)))) {
-		return (oopisGreaterThanOrEqualToandLessThan(address, ((GIV(eden)).start), GIV(freeStart)))
-		 || ((oopisGreaterThanOrEqualToandLessThan(address, ((GIV(pastSpace)).start), GIV(pastSpaceStart)))
-		 || ((GIV(gcPhaseInProgress) == ScavengeInProgress)
-		 && (oopisGreaterThanOrEqualToandLessThan(address, ((GIV(futureSpace)).start), GIV(futureSurvivorStart)))));
+		(oopisLessThan(address, oldSpaceStart))
+	 && (oopisGreaterThanOrEqualTo(address, newSpaceStart))) {
+		return (oopisGreaterThanOrEqualToandLessThan(address, ((eden).start), freeStart))
+		 || ((oopisGreaterThanOrEqualToandLessThan(address, ((pastSpace).start), pastSpaceStart))
+		 || ((gcPhaseInProgress == ScavengeInProgress)
+		 && (oopisGreaterThanOrEqualToandLessThan(address, ((futureSpace).start), futureSurvivorStart))));
 	}
 	addressUsqInt = address;
 
 	/* begin isInSegments: */
-	for (i = 0; i < GIV(numSegments); i += 1) {
-		if (addressUsqInt < (((GIV(segments)[i]).segStart))) {
+	for (i = 0; i < numSegments; i += 1) {
+		if (addressUsqInt < (((segments[i]).segStart))) {
 			return 0;
 		}
-		if (addressUsqInt < ((((GIV(segments)[i]).segSize)) + (((GIV(segments)[i]).segStart)))) {
+		if (addressUsqInt < ((((segments[i]).segSize)) + (((segments[i]).segStart)))) {
 			return 1;
 		}
 	}

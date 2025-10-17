@@ -16,14 +16,14 @@ addLastLinktoList(sqInt proc, sqInt aList)
 
 	/* begin isEmptyList: */
 	assert(!(isForwarded(aList)));
-	if ((longAt((void *)((aList + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) == GIV(nilObj)) {
+	if ((longAt((void *)((aList + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) == nilObj) {
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(FirstLinkIndex, aList, proc));
 		assert(isNonImmediate(aList));
-		if (oopisGreaterThanOrEqualTo(aList, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(aList, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(proc & (tagMask()))))
-			 && (oopisLessThan(proc, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(proc, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(aList + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(aList);
@@ -41,10 +41,10 @@ addLastLinktoList(sqInt proc, sqInt aList)
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(NextLinkIndex, lastLink, proc));
 		assert(isNonImmediate(lastLink));
-		if (oopisGreaterThanOrEqualTo(lastLink, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(lastLink, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(proc & (tagMask()))))
-			 && (oopisLessThan(proc, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(proc, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(lastLink + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(lastLink);
@@ -59,10 +59,10 @@ addLastLinktoList(sqInt proc, sqInt aList)
 	/* begin storePointer:ofObject:withValue: */
 	assert(validStorePointerArgs(LastLinkIndex, aList, proc));
 	assert(isNonImmediate(aList));
-	if (oopisGreaterThanOrEqualTo(aList, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(aList, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(proc & (tagMask()))))
-		 && (oopisLessThan(proc, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(proc, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(aList + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(aList);
@@ -76,10 +76,10 @@ addLastLinktoList(sqInt proc, sqInt aList)
 	/* begin storePointer:ofObject:withValue: */
 	assert(validStorePointerArgs(MyListIndex, proc, aList));
 	assert(isNonImmediate(proc));
-	if (oopisGreaterThanOrEqualTo(proc, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(proc, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(aList & (tagMask()))))
-		 && (oopisLessThan(aList, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(aList, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(proc + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(proc);

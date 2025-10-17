@@ -12,10 +12,10 @@ storePointerofObjectwithValue(sqInt fieldIndex, sqInt objOop, sqInt valuePointer
 
 	/* begin isOldObject: */
 	assert(isNonImmediate(objOop));
-	if (oopisGreaterThanOrEqualTo(objOop, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(valuePointer & (tagMask()))))
-		 && (oopisLessThan(valuePointer, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(valuePointer, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(objOop);

@@ -38,7 +38,7 @@ instantiateClass(sqInt classObj)
 						: -PrimErrBadReceiver));
 	if (classIndex < 0) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -classIndex;
+		primFailCode = -classIndex;
 		return null;
 	}
 	numSlots = classFormat & ((1U << (fixedFieldsFieldWidth())) - 1);
@@ -49,20 +49,20 @@ instantiateClass(sqInt classObj)
 			newObj = null;
 			goto l1;
 		}
-		newObjUsqInt = GIV(freeStart) + BaseHeaderSize;
+		newObjUsqInt = freeStart + BaseHeaderSize;
 		numBytes = (BaseHeaderSize + BaseHeaderSize) + (numSlots * BytesPerOop);
 	}
 	else {
-		newObjUsqInt = GIV(freeStart);
+		newObjUsqInt = freeStart;
 		numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 	}
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
 		if (numSlots <= ((1U << (fixedFieldsFieldWidth())) - 1)) {
-			if (!GIV(needGCFlag)) {
+			if (!needGCFlag) {
 				/* begin scheduleScavenge */
-				GIV(needGCFlag) = 1;
+				needGCFlag = 1;
 				forceInterruptCheck();
 			}
 		}
@@ -70,7 +70,7 @@ instantiateClass(sqInt classObj)
 		goto l1;
 	}
 	if (numSlots >= (numSlotsMask())) {
-		longAtput((void *)(GIV(freeStart)),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
+		longAtput((void *)(freeStart),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
 		longAtput((void *)(newObjUsqInt),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)(instSpec) << (formatShift()))))) + classIndex);
 	}
 	else {
@@ -80,7 +80,7 @@ instantiateClass(sqInt classObj)
 	/* for header parsing we put a saturated slot count in the prepended overflow size word */
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObjUsqInt % (allocationUnit())) == 0);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	newObj = newObjUsqInt;
 	/* end allocateSlots:format:classIndex: */
 l1:
@@ -89,7 +89,7 @@ l1:
 		assert(oopisLessThan(((newObj + BaseHeaderSize) + (numSlots * BytesPerOop)) - 1, addressAfter(newObj)));
 		toDoLimit = ((usqInt)(((newObj + BaseHeaderSize) + (numSlots * BytesPerOop)) - 1));
 		for (p = (((usqInt)(newObj + BaseHeaderSize))); p <= toDoLimit; p += 8 /* allocationUnit */) {
-			longAtput((void *)(p),GIV(nilObj));
+			longAtput((void *)(p),nilObj);
 		}
 	}
 	return newObj;

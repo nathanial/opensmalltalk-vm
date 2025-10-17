@@ -21,7 +21,7 @@ primitivePinnedNew(void)
 
 
 	/* For the mirror prims check that the class obj is actually a valid class. */
-	classObj = longAt(GIV(stackPointer));
+	classObj = longAt(stackPointer);
 
 	/* begin inOldSpaceInstantiatePinnedClass: */
 	classFormat = ((longAt((void *)((classObj + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3);
@@ -46,7 +46,7 @@ primitivePinnedNew(void)
 						: -PrimErrBadReceiver));
 	if (classIndex < 0) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -classIndex;
+		primFailCode = -classIndex;
 		obj = null;
 		goto l1;
 	}
@@ -62,7 +62,7 @@ primitivePinnedNew(void)
 		assert(oopisLessThan(((newObj + BaseHeaderSize) + (numSlots * BytesPerOop)) - 1, addressAfter(newObj)));
 		toDoLimit = ((usqInt)(((newObj + BaseHeaderSize) + (numSlots * BytesPerOop)) - 1));
 		for (p = (((usqInt)(newObj + BaseHeaderSize))); p <= toDoLimit; p += 8 /* allocationUnit */) {
-			longAtput((void *)(p),GIV(nilObj));
+			longAtput((void *)(p),nilObj);
 		}
 	}
 	obj = newObj;
@@ -70,15 +70,15 @@ primitivePinnedNew(void)
 l1:
 	if (obj) {
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),obj);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),obj);
+		stackPointer = sp;
 	}
 	else {
-		reasonCode = (isFixedSizePointerFormat((((usqInt)((((longAt((void *)(((longAt(GIV(stackPointer))) + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3)))) >> (fixedFieldsFieldWidth())) & (formatMask()))
+		reasonCode = (isFixedSizePointerFormat((((usqInt)((((longAt((void *)(((longAt(stackPointer)) + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3)))) >> (fixedFieldsFieldWidth())) & (formatMask()))
 					? PrimErrNoMemory
 					: PrimErrBadReceiver);
 
 		/* begin primitiveFailFor: */
-		GIV(primFailCode) = reasonCode;
+		primFailCode = reasonCode;
 	}
 }

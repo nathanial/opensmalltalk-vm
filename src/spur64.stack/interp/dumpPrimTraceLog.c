@@ -13,19 +13,19 @@ dumpPrimTraceLog(void)
     sqInt i;
     sqInt remainder;
 
-	if (!(GIV(primTraceLog)[/* safe:mod: */
-				(((remainder = (GIV(primTraceLogIndex) - 1) % PrimTraceLogSize)) < 0
+	if (!(primTraceLog[/* safe:mod: */
+				(((remainder = (primTraceLogIndex - 1) % PrimTraceLogSize)) < 0
 					? remainder + PrimTraceLogSize
 					: remainder)])) {
 		return;
 	}
 	hasParameter = 0;
-	if (GIV(primTraceLog)[GIV(primTraceLogIndex)]) {
-		for (i = GIV(primTraceLogIndex); i < PrimTraceLogSize; i += 1) {
+	if (primTraceLog[primTraceLogIndex]) {
+		for (i = primTraceLogIndex; i < PrimTraceLogSize; i += 1) {
 			hasParameter = printPrimLogEntryAthasParameter(i, hasParameter);
 		}
 	}
-	for (i = 0; i < GIV(primTraceLogIndex); i += 1) {
+	for (i = 0; i < primTraceLogIndex; i += 1) {
 		hasParameter = printPrimLogEntryAthasParameter(i, hasParameter);
 	}
 }

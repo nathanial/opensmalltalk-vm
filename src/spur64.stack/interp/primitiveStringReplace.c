@@ -30,17 +30,17 @@ primitiveStringReplace(void)
     sqInt valuePointer;
 
 	/* begin primitiveSpurStringReplace */
-	array = longAt(GIV(stackPointer) + (4 * BytesPerWord));
-	start = longAt(GIV(stackPointer) + (3 * BytesPerWord));
-	stop = longAt(GIV(stackPointer) + (2 * BytesPerWord));
-	repl = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	replStart = longAt(GIV(stackPointer));
+	array = longAt(stackPointer + (4 * BytesPerWord));
+	start = longAt(stackPointer + (3 * BytesPerWord));
+	stop = longAt(stackPointer + (2 * BytesPerWord));
+	repl = longAt(stackPointer + (1 * BytesPerWord));
+	replStart = longAt(stackPointer);
 	if (((!(start & (smallIntegerTag()))))
 	 || (((!(stop & (smallIntegerTag()))))
 	 || (((!(replStart & (smallIntegerTag()))))
 	 || (((repl & (tagMask())) != 0))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		goto l7;
 	}
 
@@ -57,7 +57,7 @@ primitiveStringReplace(void)
 #  endif
 		)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNoModification;
+		primFailCode = PrimErrNoModification;
 		goto l7;
 	}
 	arrayFmt = (byteAt((void *)(array + (formatFieldByteOffset())))) & (formatMask());
@@ -73,7 +73,7 @@ primitiveStringReplace(void)
 		}
 		if (arrayFmt != replFmt) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrInappropriate;
+			primFailCode = PrimErrInappropriate;
 			goto l7;
 		}
 
@@ -124,7 +124,7 @@ l6:
 			 && ((replStart >= 1)
 			 && ((((stop - start) + replStart) + replInstSize) <= replLength)))))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadIndex;
+			primFailCode = PrimErrBadIndex;
 			goto l7;
 		}
 		start += arrayInstSize;
@@ -133,13 +133,13 @@ l6:
 
 		/* begin isOldObject: */
 		assert(isNonImmediate(array));
-		if (oopisGreaterThanOrEqualTo(array, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(array, oldSpaceStart)) {
 			mustRemember = 0;
 			for (i = (start - 1); i < stop; i += 1) {
 				oop = longAt((void *)((repl + BaseHeaderSize) + ((((usqInt)((srcDelta + i)) << (shiftForWord()))))));
 				if (/* isYoung: */
 					((!(oop & (tagMask()))))
-				 && (oopisLessThan(oop, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(oop, oldSpaceStart))) {
 					mustRemember = 1;
 				}
 
@@ -171,7 +171,7 @@ l6:
 		/* We might consider comparing stop - start to some value here and using forceInterruptCheck */
 
 		/* begin pop: */
-		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+		stackPointer += argumentCount * BytesPerWord;
 		goto l7;
 	}
 
@@ -285,7 +285,7 @@ l2:
 		 && ((arrayFmt >= (sixtyFourBitIndexableFormat()))
 		 && (arrayFmt < (firstCompiledMethodFormat()))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrInappropriate;
+		primFailCode = PrimErrInappropriate;
 		goto l7;
 	}
 	if (!((start >= 1)
@@ -294,7 +294,7 @@ l2:
 		 && ((replStart >= 1)
 		 && (((stop - start) + replStart) <= replLength)))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l7;
 	}
 	srcDelta = replStart - start;
@@ -332,7 +332,7 @@ l2:
 	   We might consider comparing stop - start to some value here and using forceInterruptCheck */
 
 	/* begin pop: */
-	GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+	stackPointer += argumentCount * BytesPerWord;
 	/* end primitiveSpurStringReplace */
 l7:;
 }

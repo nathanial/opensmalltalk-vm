@@ -17,12 +17,12 @@ primitiveImageFormatVersion(void)
     char *sp;
 
 	oop = ((((((usqInt)(/* imageFormatVersionForSnapshot */
-	(GIV(multipleBytecodeSetsActive)
+	(multipleBytecodeSetsActive
 		? 68533 /* (imageFormatVersion bitOr: MultipleBytecodeSetsBitmask) */
 		: 68021 /* imageFormatVersion */)))) & 0xFFFFFFFFU) << 3) | 1);
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer)),oop);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),oop);
+	stackPointer = sp;
 	return 0;
 }

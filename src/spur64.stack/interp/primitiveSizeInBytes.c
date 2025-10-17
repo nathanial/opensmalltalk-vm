@@ -10,12 +10,12 @@ primitiveSizeInBytes(void)
     char *sp;
 
 	byteSize = /* totalByteSizeOf: */
-			((((longAt(GIV(stackPointer))) & (tagMask())) != 0)
+			((((longAt(stackPointer)) & (tagMask())) != 0)
 				? 0
-				: bytesInBody(longAt(GIV(stackPointer))));
+				: bytesInBody(longAt(stackPointer)));
 	oop = positive64BitIntegerFor(byteSize);
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),oop);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),oop);
+	stackPointer = sp;
 }

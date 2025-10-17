@@ -13,13 +13,13 @@ primitiveProfileSample(void)
     sqInt oop;
     char *sp;
 
-	oop = (!(GIV(profileProcess))
-			? GIV(nilObj)
-			: GIV(profileProcess));
+	oop = (!(profileProcess)
+			? nilObj
+			: profileProcess);
 
 	/* begin methodReturnValue: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),oop);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),oop);
+	stackPointer = sp;
 	return 0;
 }

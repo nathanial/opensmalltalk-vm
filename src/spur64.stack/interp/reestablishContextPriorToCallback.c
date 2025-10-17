@@ -28,22 +28,22 @@ reestablishContextPriorToCallback(sqInt callbackContext)
 	/* We're about to leave this stack page; must save the current frame's instructionPointer. */
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(instructionPointer));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),instructionPointer);
+	stackPointer = sp;
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
 
 	/* Mark callbackContext as dead; the common case is that it is the current frame.
@@ -53,29 +53,29 @@ reestablishContextPriorToCallback(sqInt callbackContext)
 		assert(isContext(callbackContext));
 		assert((isNonImmediate(callbackContext))
 		 && (!(isForwarded(callbackContext))));
-		assert(validStorePointerUncheckedArgs(SenderIndex, callbackContext, GIV(nilObj)));
-		longAtput((void *)((callbackContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(SenderIndex, callbackContext, nilObj));
+		longAtput((void *)((callbackContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),nilObj);
 
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(callbackContext))
 		 && (!(isForwarded(callbackContext))));
-		assert(validStorePointerUncheckedArgs(InstructionPointerIndex, callbackContext, GIV(nilObj)));
-		longAtput((void *)((callbackContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(InstructionPointerIndex, callbackContext, nilObj));
+		longAtput((void *)((callbackContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),nilObj);
 	}
 	else {
 		/* begin frameOfMarriedContext: */
 		senderOop = longAt((void *)((callbackContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));
 		assert((((senderOop) & 7) == 1));
 		theFP = ((char *)(senderOop - (smallIntegerTag())));
-		if (GIV(framePointer) == theFP) {
+		if (framePointer == theFP) {
 			if (longAt(theFP + FoxSavedFP)) {
-				GIV(instructionPointer) = longAt(GIV(framePointer) + FoxCallerSavedIP);
-				GIV(stackPointer) = (GIV(framePointer) + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((GIV(framePointer) + FoxFrameFlags) + 1))) << (shiftForWord())))))) + BytesPerWord;
-				GIV(framePointer) = ((char *)(longAt(GIV(framePointer) + FoxSavedFP)));
+				instructionPointer = longAt(framePointer + FoxCallerSavedIP);
+				stackPointer = (framePointer + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((framePointer + FoxFrameFlags) + 1))) << (shiftForWord())))))) + BytesPerWord;
+				framePointer = ((char *)(longAt(framePointer + FoxSavedFP)));
 				return 1;
 			}
 			else {
-				freeStackPage(GIV(stackPage));
+				freeStackPage(stackPage);
 			}
 		}
 		else {
@@ -85,14 +85,14 @@ reestablishContextPriorToCallback(sqInt callbackContext)
 			assert(isContext(callbackContext));
 			assert((isNonImmediate(callbackContext))
 			 && (!(isForwarded(callbackContext))));
-			assert(validStorePointerUncheckedArgs(SenderIndex, callbackContext, GIV(nilObj)));
-			longAtput((void *)((callbackContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),GIV(nilObj));
+			assert(validStorePointerUncheckedArgs(SenderIndex, callbackContext, nilObj));
+			longAtput((void *)((callbackContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),nilObj);
 
 			/* begin storePointerUnchecked:ofObject:withValue: */
 			assert((isNonImmediate(callbackContext))
 			 && (!(isForwarded(callbackContext))));
-			assert(validStorePointerUncheckedArgs(InstructionPointerIndex, callbackContext, GIV(nilObj)));
-			longAtput((void *)((callbackContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),GIV(nilObj));
+			assert(validStorePointerUncheckedArgs(InstructionPointerIndex, callbackContext, nilObj));
+			longAtput((void *)((callbackContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),nilObj);
 		}
 	}
 
@@ -107,33 +107,33 @@ reestablishContextPriorToCallback(sqInt callbackContext)
 		theFP = ((char *)(senderOop - (smallIntegerTag())));
 
 		/* begin stackPageFor: */
-		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
 
 		/* findSPOf:on: points to the word beneath the instructionPointer, but
 		   there is no instructionPointer on the top frame of the current page. */
-		assert(thePage != GIV(stackPage));
-		GIV(stackPointer) = (findSPOfon(theFP, thePage)) - BytesPerWord;
-		GIV(framePointer) = theFP;
-		assert(GIV(stackPointer) < GIV(framePointer));
+		assert(thePage != stackPage);
+		stackPointer = (findSPOfon(theFP, thePage)) - BytesPerWord;
+		framePointer = theFP;
+		assert(stackPointer < framePointer);
 	}
 	else {
 		thePage = makeBaseFrameFor(calloutContext);
 
 		/* begin setStackPointersFromPage: */
-		GIV(stackPointer) = (thePage->headSP);
-		GIV(framePointer) = (thePage->headFP);
+		stackPointer = (thePage->headSP);
+		framePointer = (thePage->headFP);
 	}
 
 	/* begin popStack */
-	top = longAt(GIV(stackPointer));
-	GIV(stackPointer) += BytesPerWord;
-	GIV(instructionPointer) = top;
+	top = longAt(stackPointer);
+	stackPointer += BytesPerWord;
+	instructionPointer = top;
 
 	/* begin setStackPageAndLimit: */
 	assert(thePage);
-	GIV(stackPage) = thePage;
-	if (GIV(stackLimit) != (((char *) (((usqInt) -1))))) {
-		GIV(stackLimit) = (GIV(stackPage)->stackLimit);
+	stackPage = thePage;
+	if (stackLimit != (((char *) (((usqInt) -1))))) {
+		stackLimit = (stackPage->stackLimit);
 	}
 	markStackPageMostRecentlyUsed(thePage);
 	return 1;

@@ -16,7 +16,7 @@ shortPrintContext(sqInt aContext)
 		printHex(aContext);
 
 		/* begin print: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%s",
 				" is not a context");
 		cr();
@@ -24,33 +24,33 @@ shortPrintContext(sqInt aContext)
 	}
 	printHex(aContext);
 	if (((((longAt((void *)((aContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)) {
-		if (checkIsStillMarriedContextcurrentFP(aContext, GIV(framePointer))) {
+		if (checkIsStillMarriedContextcurrentFP(aContext, framePointer)) {
 			/* begin frameOfMarriedContext: */
 			senderOop = longAt((void *)((aContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));
 			assert((((senderOop) & 7) == 1));
 			theFP = ((char *)(senderOop - (smallIntegerTag())));
 
 			/* begin print: */
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%s",
 					" I (");
 			printHex(((usqIntptr_t)theFP));
 
 			/* begin print: */
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%s",
 					") ");
 		}
 		else {
 			/* begin print: */
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%s",
 					" w ");
 		}
 	}
 	else {
 		/* begin print: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%s",
 				" s ");
 	}
@@ -64,7 +64,7 @@ shortPrintContext(sqInt aContext)
 	}
 	else {
 		/* begin print: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%s",
 				" BOGUS CONTEXT (can't determine home)");
 		cr();

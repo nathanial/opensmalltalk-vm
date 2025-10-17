@@ -8,19 +8,19 @@ primitiveDiv(void)
     sqInt quotient;
     char *sp;
 
-	quotient = doPrimitiveDivby(longAt(GIV(stackPointer) + (1 * BytesPerWord)), longAt(GIV(stackPointer)));
+	quotient = doPrimitiveDivby(longAt(stackPointer + (1 * BytesPerWord)), longAt(stackPointer));
 
 	/* begin pop2AndPushIntegerIfOK: */
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		if ((((((usqInt)(quotient)) >> 60) + 1) & 15) <= 1) {
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),(((usqInt)quotient << 3) | 1));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (1 * BytesPerWord)),(((usqInt)quotient << 3) | 1));
+			stackPointer = sp;
 		}
 		else {
 			/* begin success: */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
 	}

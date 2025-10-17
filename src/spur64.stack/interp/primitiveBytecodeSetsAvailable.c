@@ -13,33 +13,33 @@ primitiveBytecodeSetsAvailable(void)
     char *sp;
     sqInt valuePointer;
 
-	if (GIV(argumentCount) > 0) {
-		return (GIV(primFailCode) = PrimErrBadNumArgs);
+	if (argumentCount > 0) {
+		return (primFailCode = PrimErrBadNumArgs);
 	}
 
 	/* begin eeInstantiateSmallClassIndex:format:numSlots: */
-	assert((knownClassAtIndex(ClassArrayCompactIndex)) != GIV(nilObj));
+	assert((knownClassAtIndex(ClassArrayCompactIndex)) != nilObj);
 	assert((arrayFormat()) == (instSpecOfClass(knownClassAtIndex(ClassArrayCompactIndex))));
 
 	/* begin allocateSmallNewSpaceSlots:format:classIndex: */
-	newObj = GIV(freeStart);
+	newObj = freeStart;
 	numBytes = BaseHeaderSize + (2 * BytesPerOop);
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 			encoderNames = 0;
 			goto l1;
 		}
 	}
 	long64Atput((void *)(newObj),((((((usqLong) 2)) << (numSlotsFullShift()))) + ((((usqInt)((arrayFormat())) << (formatShift()))))) + ClassArrayCompactIndex);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	encoderNames = newObj;
 	/* end eeInstantiateSmallClassIndex:format:numSlots: */
 l1:
@@ -60,7 +60,7 @@ l1:
 
 	/* begin methodReturnValue: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),encoderNames);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),encoderNames);
+	stackPointer = sp;
 	return 0;
 }

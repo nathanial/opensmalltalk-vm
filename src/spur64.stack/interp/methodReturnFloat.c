@@ -12,7 +12,7 @@ methodReturnFloat(double aFloat)
 	assert(!((failed())));
 
 	/* begin pop:thenPushFloat: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),floatObjectOf(aFloat));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),floatObjectOf(aFloat));
+	stackPointer = sp;
 	return 0;
 }

@@ -28,7 +28,7 @@ indexOfin(sqInt anElement, sqInt anObject)
 	}
 	if (fmt >= (firstByteFormat())) {
 		if (fmt >= (firstCompiledMethodFormat())) {
-			return (GIV(primFailCode) = PrimErrUnsupported);
+			return (primFailCode = PrimErrUnsupported);
 		}
 
 		/* begin numBytesOfBytes: */

@@ -16,8 +16,8 @@ freeStackPageNoAssert(StackPage *aPage)
     StackPage *self_in_CogStackPage;
 
 	(aPage->baseFP = 0);
-	if (aPage == GIV(mostRecentlyUsedPage)) {
-		GIV(mostRecentlyUsedPage) = (GIV(mostRecentlyUsedPage)->prevPage);
+	if (aPage == mostRecentlyUsedPage) {
+		mostRecentlyUsedPage = (mostRecentlyUsedPage->prevPage);
 		return null;
 	}
 	self_in_CogStackPage = (prev = (aPage->prevPage));
@@ -26,9 +26,9 @@ freeStackPageNoAssert(StackPage *aPage)
 	}
 	(prev->nextPage = (aPage->nextPage));
 	(((aPage->nextPage))->prevPage = prev);
-	(aPage->nextPage = (GIV(mostRecentlyUsedPage)->nextPage));
-	(((GIV(mostRecentlyUsedPage)->nextPage))->prevPage = aPage);
-	(aPage->prevPage = GIV(mostRecentlyUsedPage));
-	(GIV(mostRecentlyUsedPage)->nextPage = aPage);
+	(aPage->nextPage = (mostRecentlyUsedPage->nextPage));
+	(((mostRecentlyUsedPage->nextPage))->prevPage = aPage);
+	(aPage->prevPage = mostRecentlyUsedPage);
+	(mostRecentlyUsedPage->nextPage = aPage);
 	return 0;
 }

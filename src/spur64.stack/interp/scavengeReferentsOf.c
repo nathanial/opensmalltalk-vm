@@ -52,8 +52,8 @@ scavengeReferentsOf(sqInt referrer)
 				/* begin isReallyYoungObject: */
 				/* begin isYoungObject: */
 				assert(isNonImmediate(referent));
-				if (oopisLessThan(referent, GIV(oldSpaceStart))) {
-					if (oopisGreaterThanOrEqualToandLessThan(referent, ((GIV(futureSpace)).start), GIV(futureSurvivorStart))) {
+				if (oopisLessThan(referent, oldSpaceStart)) {
+					if (oopisGreaterThanOrEqualToandLessThan(referent, ((futureSpace).start), futureSurvivorStart)) {
 						foundNewReferent = 1;
 					}
 					else {
@@ -62,7 +62,7 @@ scavengeReferentsOf(sqInt referrer)
 						/* begin isReallyYoungObject: */
 						/* begin isYoungObject: */
 						assert(isNonImmediate(referent));
-						if (oopisLessThan(referent, GIV(oldSpaceStart))) {
+						if (oopisLessThan(referent, oldSpaceStart)) {
 							foundNewReferent = 1;
 						}
 					}
@@ -98,8 +98,8 @@ scavengeReferentsOf(sqInt referrer)
 				/* begin isReallyYoungObject: */
 				/* begin isYoungObject: */
 				assert(isNonImmediate(referent));
-				if (oopisLessThan(referent, GIV(oldSpaceStart))) {
-					if (oopisGreaterThanOrEqualToandLessThan(referent, ((GIV(futureSpace)).start), GIV(futureSurvivorStart))) {
+				if (oopisLessThan(referent, oldSpaceStart)) {
+					if (oopisGreaterThanOrEqualToandLessThan(referent, ((futureSpace).start), futureSurvivorStart)) {
 						foundNewReferent = 1;
 					}
 					else {
@@ -108,7 +108,7 @@ scavengeReferentsOf(sqInt referrer)
 						/* begin isReallyYoungObject: */
 						/* begin isYoungObject: */
 						assert(isNonImmediate(referent));
-						if (oopisLessThan(referent, GIV(oldSpaceStart))) {
+						if (oopisLessThan(referent, oldSpaceStart)) {
 							foundNewReferent = 1;
 						}
 					}
@@ -143,8 +143,8 @@ scavengeReferentsOf(sqInt referrer)
 				/* begin isReallyYoungObject: */
 				/* begin isYoungObject: */
 				assert(isNonImmediate(referent));
-				if (oopisLessThan(referent, GIV(oldSpaceStart))) {
-					if (!(oopisGreaterThanOrEqualToandLessThan(referent, ((GIV(futureSpace)).start), GIV(futureSurvivorStart)))) {
+				if (oopisLessThan(referent, oldSpaceStart)) {
+					if (!(oopisGreaterThanOrEqualToandLessThan(referent, ((futureSpace).start), futureSurvivorStart))) {
 						referent = copyAndForward(referent);
 					}
 				}
@@ -194,8 +194,8 @@ scavengeReferentsOf(sqInt referrer)
 				/* begin isReallyYoungObject: */
 				/* begin isYoungObject: */
 				assert(isNonImmediate(referent));
-				if (oopisLessThan(referent, GIV(oldSpaceStart))) {
-					if (oopisGreaterThanOrEqualToandLessThan(referent, ((GIV(futureSpace)).start), GIV(futureSurvivorStart))) {
+				if (oopisLessThan(referent, oldSpaceStart)) {
+					if (oopisGreaterThanOrEqualToandLessThan(referent, ((futureSpace).start), futureSurvivorStart)) {
 						foundNewReferent = 1;
 					}
 					else {
@@ -204,7 +204,7 @@ scavengeReferentsOf(sqInt referrer)
 						/* begin isReallyYoungObject: */
 						/* begin isYoungObject: */
 						assert(isNonImmediate(referent));
-						if (oopisLessThan(referent, GIV(oldSpaceStart))) {
+						if (oopisLessThan(referent, oldSpaceStart)) {
 							foundNewReferent = 1;
 						}
 					}
@@ -238,8 +238,8 @@ scavengeReferentsOf(sqInt referrer)
 			/* begin isReallyYoungObject: */
 			/* begin isYoungObject: */
 			assert(isNonImmediate(referent));
-			if (oopisLessThan(referent, GIV(oldSpaceStart))) {
-				if (oopisGreaterThanOrEqualToandLessThan(referent, ((GIV(futureSpace)).start), GIV(futureSurvivorStart))) {
+			if (oopisLessThan(referent, oldSpaceStart)) {
+				if (oopisGreaterThanOrEqualToandLessThan(referent, ((futureSpace).start), futureSurvivorStart)) {
 					foundNewReferent = 1;
 				}
 				else {
@@ -248,7 +248,7 @@ scavengeReferentsOf(sqInt referrer)
 					/* begin isReallyYoungObject: */
 					/* begin isYoungObject: */
 					assert(isNonImmediate(referent));
-					if (oopisLessThan(referent, GIV(oldSpaceStart))) {
+					if (oopisLessThan(referent, oldSpaceStart)) {
 						foundNewReferent = 1;
 					}
 				}
@@ -292,8 +292,8 @@ scavengeReferentsOf(sqInt referrer)
 				/* begin isReallyYoungObject: */
 				/* begin isYoungObject: */
 				assert(isNonImmediate(referent));
-				if (oopisLessThan(referent, GIV(oldSpaceStart))) {
-					if (oopisGreaterThanOrEqualToandLessThan(referent, ((GIV(futureSpace)).start), GIV(futureSurvivorStart))) {
+				if (oopisLessThan(referent, oldSpaceStart)) {
+					if (oopisGreaterThanOrEqualToandLessThan(referent, ((futureSpace).start), futureSurvivorStart)) {
 						foundNewReferent = 1;
 					}
 					else {
@@ -302,7 +302,7 @@ scavengeReferentsOf(sqInt referrer)
 						/* begin isReallyYoungObject: */
 						/* begin isYoungObject: */
 						assert(isNonImmediate(referent));
-						if (oopisLessThan(referent, GIV(oldSpaceStart))) {
+						if (oopisLessThan(referent, oldSpaceStart)) {
 							foundNewReferent = 1;
 						}
 					}

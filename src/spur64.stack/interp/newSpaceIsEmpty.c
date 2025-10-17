@@ -5,6 +5,6 @@
 static sqInt
 newSpaceIsEmpty(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return (GIV(freeStart) == (((GIV(eden)).start)))
-	 && (GIV(pastSpaceStart) == (((GIV(pastSpace)).start)));
+	return (freeStart == (((eden).start)))
+	 && (pastSpaceStart == (((pastSpace).start)));
 }

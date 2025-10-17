@@ -29,7 +29,7 @@ pruneStackstackp(sqInt stack, sqInt stackp)
 		objOrFP = longAt((void *)((stack + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 		if (/* couldBeFramePointer: */
 			(((((usqInt)(((char *) objOrFP)))) & (BytesPerWord - 1)) == 0)
-		 && ((((((usqInt)(((char *) objOrFP)))) >= (((usqInt)GIV(stackMemory)))) && ((((usqInt)(((char *) objOrFP)))) <= (((usqInt)GIV(pages))))))) {
+		 && ((((((usqInt)(((char *) objOrFP)))) >= (((usqInt)stackMemory))) && ((((usqInt)(((char *) objOrFP)))) <= (((usqInt)pages)))))) {
 			objOrFP += smallIntegerTag();
 		}
 
@@ -45,15 +45,15 @@ pruneStackstackp(sqInt stack, sqInt stackp)
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(stack))
 		 && (!(isForwarded(stack))));
-		assert(validStorePointerUncheckedArgs(i, stack, GIV(nilObj)));
-		longAtput((void *)((stack + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(i, stack, nilObj));
+		longAtput((void *)((stack + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),nilObj);
 	}
 	oop = (theStack = stack);
 
 	/* begin pushRemappableOop: */
 	assert(addressCouldBeOop(oop));
-	GIV(remapBuffer)[(GIV(remapBufferCount) += 1)] = oop;
-	if (!(GIV(remapBufferCount) <= RemapBufferSize)) {
+	remapBuffer[(remapBufferCount += 1)] = oop;
+	if (!(remapBufferCount <= RemapBufferSize)) {
 		error("remapBuffer overflow");
 	}
 	for (i = 1; i < finger; i += 1) {
@@ -64,7 +64,7 @@ pruneStackstackp(sqInt stack, sqInt stackp)
 			theFP = ((char *)(objOrFP - (smallIntegerTag())));
 
 			/* begin stackPageFor: */
-			thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+			thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
 			callerFP = ((char *) 0);
 			fp = (thePage->headFP);
 			if (fp == theFP) {
@@ -96,17 +96,17 @@ l1:
 			objOrFP = marryFrameSP(theFP, theSP);
 			/* end ensureFrameIsMarried:SP: */
 l2:
-			theStack = GIV(remapBuffer)[GIV(remapBufferCount)];
+			theStack = remapBuffer[remapBufferCount];
 
 			/* after a GC stack may no longer be a root. */
 
 			/* begin storePointer:ofObject:withValue: */
 			assert(validStorePointerArgs(finger, theStack, objOrFP));
 			assert(isNonImmediate(theStack));
-			if (oopisGreaterThanOrEqualTo(theStack, GIV(oldSpaceStart))) {
+			if (oopisGreaterThanOrEqualTo(theStack, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(objOrFP & (tagMask()))))
-				 && (oopisLessThan(objOrFP, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(objOrFP, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
 					if (!((byteAt((void *)(theStack + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 						remember(theStack);
@@ -120,6 +120,6 @@ l2:
 	}
 
 	/* begin popRemappableOop */
-	oop = GIV(remapBuffer)[GIV(remapBufferCount)];
-	GIV(remapBufferCount) -= 1;
+	oop = remapBuffer[remapBufferCount];
+	remapBufferCount -= 1;
 }

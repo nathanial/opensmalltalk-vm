@@ -13,8 +13,8 @@ void
 pushRemappableOop(sqInt oop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
 	assert(addressCouldBeOop(oop));
-	GIV(remapBuffer)[(GIV(remapBufferCount) += 1)] = oop;
-	if (!(GIV(remapBufferCount) <= RemapBufferSize)) {
+	remapBuffer[(remapBufferCount += 1)] = oop;
+	if (!(remapBufferCount <= RemapBufferSize)) {
 		error("remapBuffer overflow");
 	}
 }

@@ -13,7 +13,7 @@ primitiveNextInstance(void)
     char *sp;
     sqInt subsequentObject;
 
-	object = longAt(GIV(stackPointer));
+	object = longAt(stackPointer);
 	if (!(((object & (tagMask())) != 0))) {
 		/* begin instanceAfter: */
 		actualObj = object;
@@ -21,13 +21,13 @@ primitiveNextInstance(void)
 
 		/* begin isYoungObject: */
 		assert(isNonImmediate(object));
-		if (oopisLessThan(object, GIV(oldSpaceStart))) {
-			if (oopisGreaterThanOrEqualToandLessThan(object, ((GIV(eden)).start), GIV(freeStart))) {
+		if (oopisLessThan(object, oldSpaceStart)) {
+			if (oopisGreaterThanOrEqualToandLessThan(object, ((eden).start), freeStart)) {
 				while (1) {
 					/* begin objectAfter:limit: */
 					followingWordAddress = addressAfter(actualObj);
-					if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(freeStart))) {
-						actualObj = GIV(freeStart);
+					if (oopisGreaterThanOrEqualTo(followingWordAddress, freeStart)) {
+						actualObj = freeStart;
 						goto l1;
 					}
 					followingWord = longAt((void *)(followingWordAddress));
@@ -36,22 +36,22 @@ primitiveNextInstance(void)
 								: followingWordAddress);
 					/* end objectAfter:limit: */
 l1:;
-					if (!(oopisLessThan(actualObj, GIV(freeStart)))) break;
+					if (!(oopisLessThan(actualObj, freeStart))) break;
 					if (classIndex == ((longAt((void *)(actualObj))) & (classIndexMask()))) {
 						subsequentObject = actualObj;
 						goto l4;
 					}
 				}
-				actualObj = (oopisGreaterThan(GIV(pastSpaceStart), ((GIV(pastSpace)).start))
-							? objectStartingAt(((GIV(pastSpace)).start))
-							: GIV(nilObj));
+				actualObj = (oopisGreaterThan(pastSpaceStart, ((pastSpace).start))
+							? objectStartingAt(((pastSpace).start))
+							: nilObj);
 			}
-			if (oopisGreaterThanOrEqualToandLessThan(actualObj, ((GIV(pastSpace)).start), GIV(pastSpaceStart))) {
+			if (oopisGreaterThanOrEqualToandLessThan(actualObj, ((pastSpace).start), pastSpaceStart)) {
 				while (1) {
 					/* begin objectAfter:limit: */
 					followingWordAddress = addressAfter(actualObj);
-					if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(pastSpaceStart))) {
-						actualObj = GIV(pastSpaceStart);
+					if (oopisGreaterThanOrEqualTo(followingWordAddress, pastSpaceStart)) {
+						actualObj = pastSpaceStart;
 						goto l2;
 					}
 					followingWord = longAt((void *)(followingWordAddress));
@@ -60,13 +60,13 @@ l1:;
 								: followingWordAddress);
 					/* end objectAfter:limit: */
 l2:;
-					if (!(oopisLessThan(actualObj, GIV(pastSpaceStart)))) break;
+					if (!(oopisLessThan(actualObj, pastSpaceStart))) break;
 					if (classIndex == ((longAt((void *)(actualObj))) & (classIndexMask()))) {
 						subsequentObject = actualObj;
 						goto l4;
 					}
 				}
-				actualObj = GIV(nilObj);
+				actualObj = nilObj;
 			}
 		}
 
@@ -74,8 +74,8 @@ l2:;
 		while (1) {
 			/* begin objectAfter:limit: */
 			followingWordAddress = addressAfter(actualObj);
-			if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-				actualObj = GIV(endOfMemory);
+			if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+				actualObj = endOfMemory;
 				goto l3;
 			}
 			followingWord = longAt((void *)(followingWordAddress));
@@ -84,7 +84,7 @@ l2:;
 						: followingWordAddress);
 			/* end objectAfter:limit: */
 l3:;
-			if (!(oopisLessThan(actualObj, GIV(endOfMemory)))) break;
+			if (!(oopisLessThan(actualObj, endOfMemory))) break;
 			if (classIndex == ((longAt((void *)(actualObj))) & (classIndexMask()))) {
 				subsequentObject = actualObj;
 				goto l4;
@@ -95,14 +95,14 @@ l3:;
 l4:
 		if (subsequentObject) {
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),subsequentObject);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),subsequentObject);
+			stackPointer = sp;
 			return;
 		}
 	}
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 }

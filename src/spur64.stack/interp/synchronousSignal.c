@@ -20,7 +20,7 @@ synchronousSignal(sqInt aSemaphore)
 
 	/* begin isEmptyList: */
 	assert(!(isForwarded(aSemaphore)));
-	if ((longAt((void *)((aSemaphore + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) == GIV(nilObj)) {
+	if ((longAt((void *)((aSemaphore + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) == nilObj) {
 		excessSignals = fetchIntegerofObject(ExcessSignalsIndex, aSemaphore);
 		integerValue = excessSignals + 1;
 
@@ -34,8 +34,8 @@ synchronousSignal(sqInt aSemaphore)
 		}
 		else {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
 		return 0;
@@ -65,10 +65,10 @@ synchronousSignal(sqInt aSemaphore)
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(SuspendedContextIndex, proc, ctxt));
 		assert(isNonImmediate(proc));
-		if (oopisGreaterThanOrEqualTo(proc, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(proc, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(ctxt & (tagMask()))))
-			 && (oopisLessThan(ctxt, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(ctxt, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(proc + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(proc);
@@ -79,5 +79,5 @@ synchronousSignal(sqInt aSemaphore)
 		/* most stores into young objects */
 		longAtput((void *)((proc + BaseHeaderSize) + ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))),ctxt);
 	}
-	return resumepreemptedYieldingIffrom(removeFirstLinkOfList(aSemaphore), GIV(preemptionYields), CSSynchronousSignal);
+	return resumepreemptedYieldingIffrom(removeFirstLinkOfList(aSemaphore), preemptionYields, CSSynchronousSignal);
 }

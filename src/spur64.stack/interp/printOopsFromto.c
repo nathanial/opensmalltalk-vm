@@ -15,7 +15,7 @@ printOopsFromto(sqInt startAddress, sqInt endAddress)
 
 	firstNonEntity = 0;
 	oop = objectBefore(startAddress);
-	limit = (((((usqIntptr_t)endAddress)) < GIV(endOfMemory)) ? (((usqIntptr_t)endAddress)) : GIV(endOfMemory));
+	limit = (((((usqIntptr_t)endAddress)) < endOfMemory) ? (((usqIntptr_t)endAddress)) : endOfMemory);
 	oop = (oop
 				? ((objectAfter(oop)) == startAddress
 						? startAddress
@@ -38,13 +38,13 @@ printOopsFromto(sqInt startAddress, sqInt endAddress)
 			print("skipped empty space from ");
 
 			/* printHexnp: */
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%p",
 					((void *)firstNonEntity));
 			print(" to ");
 
 			/* printHexnp: */
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%p",
 					((void *)lastNonEntity));
 			cr();

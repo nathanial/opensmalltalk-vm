@@ -19,19 +19,19 @@ primitiveGetenv(void)
 
 	if (sHEAFn) {
 		if (!(sHEAFn())) {
-			return (GIV(primFailCode) = PrimErrInappropriate);
+			return (primFailCode = PrimErrInappropriate);
 		}
 	}
 
 	/* secHasEnvironmentAccess */
 
 	/* begin stackEphemeralStringValue: */
-	obj = longAt(GIV(stackPointer));
+	obj = longAt(stackPointer);
 	if (!(/* isBytes: */
 			((!(obj & (tagMask()))))
 		 && (((byteAt((void *)(obj + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat())))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		key = null;
 		goto l2;
 	}
@@ -71,7 +71,7 @@ l1:
 	dstPtr = alloca(sz + 1);
 	if (!dstPtr) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNoCMemory;
+		primFailCode = PrimErrNoCMemory;
 		key = null;
 		goto l2;
 	}
@@ -87,8 +87,8 @@ l2:
 		else {
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),GIV(nilObj));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),nilObj);
+			stackPointer = sp;
 		}
 	}
 	return 0;

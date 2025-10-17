@@ -136,8 +136,8 @@ l2:;
 			/* begin storePointerUnchecked:ofObject:withValue: */
 			assert((isNonImmediate(copy))
 			 && (!(isForwarded(copy))));
-			assert(validStorePointerUncheckedArgs(iSqInt, copy, GIV(nilObj)));
-			longAtput((void *)((copy + BaseHeaderSize) + ((((usqInt)(iSqInt) << (shiftForWord()))))),GIV(nilObj));
+			assert(validStorePointerUncheckedArgs(iSqInt, copy, nilObj));
+			longAtput((void *)((copy + BaseHeaderSize) + ((((usqInt)(iSqInt) << (shiftForWord()))))),nilObj);
 		}
 	}
 

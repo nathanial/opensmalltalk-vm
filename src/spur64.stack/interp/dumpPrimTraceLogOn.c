@@ -13,10 +13,10 @@ dumpPrimTraceLogOn(FILE *aStdioStream)
     FILE *savedTranscript;
 
 	/* begin withRedirectedOutputTo:do: */
-	savedTranscript = GIV(transcript);
-	GIV(transcript) = (aStdioStream
+	savedTranscript = transcript;
+	transcript = (aStdioStream
 				? aStdioStream
 				: stdout);
 	dumpPrimTraceLog();
-	GIV(transcript) = savedTranscript;
+	transcript = savedTranscript;
 }

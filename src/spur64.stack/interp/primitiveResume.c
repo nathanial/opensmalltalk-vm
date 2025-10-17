@@ -18,7 +18,7 @@ primitiveResume(void)
 
 	/* rcvr */
 	/* Alas in Spur we need a read barrier */
-	proc = longAt(GIV(stackPointer));
+	proc = longAt(stackPointer);
 
 	/* begin followObjField:ofObject: */
 	ctxt = longAt((void *)((proc + BaseHeaderSize) + ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))));
@@ -30,8 +30,8 @@ primitiveResume(void)
 			((!(ctxt & (tagMask()))))
 		 && (((longAt((void *)(ctxt))) & (classIndexMask())) == ClassMethodContextCompactIndex))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
-	resumepreemptedYieldingIffrom(proc, GIV(preemptionYields), CSResume);
+	resumepreemptedYieldingIffrom(proc, preemptionYields, CSResume);
 }

@@ -25,10 +25,10 @@ segmentContainingObj(sqInt objOop)
     SpurSegmentInfo *seg;
 
 	low = 0;
-	mid = GIV(numSegments) / 2;
-	high = GIV(numSegments) - 1;
+	mid = numSegments / 2;
+	high = numSegments - 1;
 	do {
-		seg = (&(GIV(segments)[mid]));
+		seg = (&(segments[mid]));
 		if (oopisGreaterThanOrEqualTo(objOop, (seg->segStart))) {
 			if (mid == high) {
 				return (oopisLessThan(objOop, ((seg->segSize)) + ((seg->segStart)))

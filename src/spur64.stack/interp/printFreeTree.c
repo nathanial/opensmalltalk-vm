@@ -7,5 +7,5 @@
 void
 printFreeTree(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	printFreeTreeChunk(GIV(freeLists)[0]);
+	printFreeTreeChunk(freeLists[0]);
 }

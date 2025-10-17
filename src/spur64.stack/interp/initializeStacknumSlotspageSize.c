@@ -36,16 +36,16 @@ initializeStacknumSlotspageSize(char *theStackPages, sqInt stackSlots, sqInt slo
     sqInt theIndex;
 
 	/* For initialization in the C code. */
-	GIV(stackMemory) = theStackPages;
+	stackMemory = theStackPages;
 	structStackPageSize = sizeof(CogStackPage);
-	GIV(bytesPerPage) = slotsPerPage * BytesPerWord;
-	numPages = GIV(numStackPages);
+	bytesPerPage = slotsPerPage * BytesPerWord;
+	numPages = numStackPages;
 
 	/* Because stack pages grow down baseAddress is at the top of a stack page and so to avoid
 	   subtracting BytesPerWord from baseAddress and lastAddress in the init loop below we simply
 	   push the stackPage array up one word to avoid the overlap.  This word is extraStackBytes. */
-	pageStructBase = (theStackPages + (numPages * GIV(bytesPerPage))) + BytesPerWord;
-	GIV(pages) = ((StackPage *) pageStructBase);
+	pageStructBase = (theStackPages + (numPages * bytesPerPage)) + BytesPerWord;
+	pages = ((StackPage *) pageStructBase);
 
 	/* Simulation only.  Since addresses are negative the offset is positive.  To make all
 	   stack addresses negative we make the offset a page more than it needs to be so the
@@ -58,9 +58,9 @@ initializeStacknumSlotspageSize(char *theStackPages, sqInt stackSlots, sqInt slo
 	assert((((stackPageByteSize()) - (stackLimitBytes())) - (stackLimitOffset())) >= (stackPageHeadroom()));
 	for (index = 0; index < numPages; index += 1) {
 		/* begin stackPageAt: */
-		page = stackPageAtpages(index, GIV(pages));
-		(page->lastAddress = (char *)theStackPages + (index * GIV(bytesPerPage)));
-		(page->baseAddress = ((page->lastAddress)) + GIV(bytesPerPage));
+		page = stackPageAtpages(index, pages);
+		(page->lastAddress = (char *)theStackPages + (index * bytesPerPage));
+		(page->baseAddress = ((page->lastAddress)) + bytesPerPage);
 		(page->stackLimit = ((page->baseAddress)) - ((((stackPageFrameBytes()) < (((stackPageByteSize()) - (((FrameSlots + LargeContextSlots) + 1) * BytesPerWord)))) ? (stackPageFrameBytes()) : (((stackPageByteSize()) - (((FrameSlots + LargeContextSlots) + 1) * BytesPerWord))))));
 		(page->realStackLimit = (page->stackLimit));
 		(page->baseFP = 0);
@@ -76,11 +76,11 @@ initializeStacknumSlotspageSize(char *theStackPages, sqInt stackSlots, sqInt slo
 	   stack to reduce thrashing.  See stackOverflowOrEvent:mayContextSwitch: */
 
 	/* begin stackPageAt: */
-	page = stackPageAtpages(0, GIV(pages));
-	GIV(overflowLimit) = ((((page->baseAddress)) - ((page->realStackLimit))) * 3) / 5;
+	page = stackPageAtpages(0, pages);
+	overflowLimit = ((((page->baseAddress)) - ((page->realStackLimit))) * 3) / 5;
 	for (index = 0; index < numPages; index += 1) {
 		/* begin stackPageAt: */
-		page = stackPageAtpages(index, GIV(pages));
+		page = stackPageAtpages(index, pages);
 		assert((pageIndexFor((page->baseAddress))) == index);
 		assert((pageIndexFor(((page->baseAddress)) - ((slotsPerPage - 1) * BytesPerWord))) == index);
 		assert((stackPageFor((page->baseAddress))) == page);
@@ -89,17 +89,17 @@ initializeStacknumSlotspageSize(char *theStackPages, sqInt stackSlots, sqInt slo
 		/* begin initializePageTraceToInvalid: */
 		(page->trace = StackPageTraceInvalid);
 	}
-	GIV(mostRecentlyUsedPage) = stackPageAtpages(0, GIV(pages));
-	page = GIV(mostRecentlyUsedPage);
+	mostRecentlyUsedPage = stackPageAtpages(0, pages);
+	page = mostRecentlyUsedPage;
 	count = 0;
 	do {
 		count += 1;
-		theIndex = pageIndexForstackMemorybytesPerPage((page->baseAddress), GIV(stackMemory), GIV(bytesPerPage));
+		theIndex = pageIndexForstackMemorybytesPerPage((page->baseAddress), stackMemory, bytesPerPage);
 		assert((stackPageAt(theIndex)) == page);
 		assert((pageIndexFor((page->baseAddress))) == theIndex);
 		assert((pageIndexFor((page->stackLimit))) == theIndex);
 		assert((pageIndexFor(((page->lastAddress)) + BytesPerWord)) == theIndex);
-	} while(((page = (page->nextPage))) != GIV(mostRecentlyUsedPage));
+	} while(((page = (page->nextPage))) != mostRecentlyUsedPage);
 	assert(count == numPages);
 	assert(pageListIsWellFormed());
 }

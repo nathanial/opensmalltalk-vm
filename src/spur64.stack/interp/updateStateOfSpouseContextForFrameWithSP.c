@@ -39,10 +39,10 @@ updateStateOfSpouseContextForFrameWithSP(char *theFP, char *theSP)
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(fieldIndex, theContext, valuePointer));
 		assert(isNonImmediate(theContext));
-		if (oopisGreaterThanOrEqualTo(theContext, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(theContext, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(valuePointer & (tagMask()))))
-			 && (oopisLessThan(valuePointer, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(valuePointer, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(theContext + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(theContext);
@@ -65,10 +65,10 @@ updateStateOfSpouseContextForFrameWithSP(char *theFP, char *theSP)
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(fieldIndex, theContext, valuePointer));
 		assert(isNonImmediate(theContext));
-		if (oopisGreaterThanOrEqualTo(theContext, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(theContext, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(valuePointer & (tagMask()))))
-			 && (oopisLessThan(valuePointer, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(valuePointer, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(theContext + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(theContext);

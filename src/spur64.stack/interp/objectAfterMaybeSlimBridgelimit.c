@@ -53,7 +53,7 @@ objectAfterMaybeSlimBridgelimit(sqInt objOop, sqInt limit)
 	}
 	followingWord = longAt((void *)(followingWordAddress));
 	return ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-			? ((oopisLessThan(objOop, GIV(oldSpaceStart)))
+			? ((oopisLessThan(objOop, oldSpaceStart))
 			 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 					? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 					: followingWordAddress + BaseHeaderSize)

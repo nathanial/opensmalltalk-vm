@@ -16,9 +16,9 @@ fetchPointerofMarriedContext(sqInt offset, sqInt aContext)
     char *spouseFP;
 
 	assert(isContext(aContext));
-	assert((((GIV(stackPage)->headFP)) == GIV(framePointer))
-	 && (((GIV(stackPage)->headSP)) == GIV(stackPointer)));
-	assert(checkIsStillMarriedContextcurrentFP(aContext, GIV(framePointer)));
+	assert((((stackPage->headFP)) == framePointer)
+	 && (((stackPage->headSP)) == stackPointer));
+	assert(checkIsStillMarriedContextcurrentFP(aContext, framePointer));
 
 	/* method, closureOrNil & receiver need no special handling; only
 	   sender, pc & stackp have to be computed for married contexts. */
@@ -57,7 +57,7 @@ fetchPointerofMarriedContext(sqInt offset, sqInt aContext)
 			return (((stackPointerIndexForFrame(spouseFP)) << 3) | 1);
 		}
 		if (offset == InstructionPointerIndex) {
-			return instructionPointerForFramecurrentFPcurrentIP(spouseFP, GIV(framePointer), GIV(instructionPointer));
+			return instructionPointerForFramecurrentFPcurrentIP(spouseFP, framePointer, instructionPointer);
 		}
 	}
 
@@ -70,5 +70,5 @@ fetchPointerofMarriedContext(sqInt offset, sqInt aContext)
 				((offset - (ReceiverIndex + 1)) < ((frameNumArgs = byteAt((spouseFP + FoxFrameFlags) + 1)))
 					? longAt((spouseFP + FoxCallerSavedIP) + ((frameNumArgs - (offset - (ReceiverIndex + 1))) * BytesPerWord))
 					: longAt(((spouseFP + FoxReceiver) - BytesPerWord) + ((frameNumArgs - (offset - (ReceiverIndex + 1))) * BytesPerWord)))
-			: GIV(nilObj));
+			: nilObj);
 }

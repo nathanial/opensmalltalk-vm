@@ -13,7 +13,7 @@ primitiveFractionalPart(void)
     sqInt rcvr;
     double trunc;
 
-	rcvr = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer);
 
 	/* begin noFailFloatValueOf: */
 	assert(isFloatInstance(rcvr));
@@ -36,5 +36,5 @@ primitiveFractionalPart(void)
 	aValue = floatObjectOf(modf(doubleValue, (&trunc)));
 
 	/* begin stackTopPut: */
-	longAtput(GIV(stackPointer),aValue);
+	longAtput(stackPointer,aValue);
 }

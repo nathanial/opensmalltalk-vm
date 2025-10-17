@@ -10,5 +10,5 @@ static void
 primitiveNoop(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
 	/* begin pop: */
-	GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+	stackPointer += argumentCount * BytesPerWord;
 }

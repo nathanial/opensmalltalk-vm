@@ -12,7 +12,7 @@ validFreeTreeChunkparent(sqInt chunk, sqInt parent)
 	}
 	if (!(/* addressCouldBeOldObj: */
 			((chunk & (BaseHeaderSize - 1)) == 0)
-		 && (oopisGreaterThanOrEqualToandLessThan(chunk, GIV(oldSpaceStart), GIV(endOfMemory))))) {
+		 && (oopisGreaterThanOrEqualToandLessThan(chunk, oldSpaceStart, endOfMemory)))) {
 		return "not in old space";
 	}
 	if (((bytesInBody(chunk)) / 8 /* allocationUnit */) < 64 /* numFreeLists */) {

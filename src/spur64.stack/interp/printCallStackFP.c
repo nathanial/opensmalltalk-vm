@@ -8,9 +8,9 @@ printCallStackFP(char *theFP)
     sqInt context;
 
 	context = shortReversePrintFrameAndCallers(theFP);
-	while (!(context == GIV(nilObj))) {
+	while (!(context == nilObj)) {
 		if (((((longAt((void *)((context + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)) {
-			if (!(checkIsStillMarriedContextcurrentFP(context, GIV(framePointer)))) {
+			if (!(checkIsStillMarriedContextcurrentFP(context, framePointer))) {
 				shortPrintContext(context);
 				return null;
 			}

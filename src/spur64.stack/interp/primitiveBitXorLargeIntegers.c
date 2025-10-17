@@ -12,15 +12,15 @@ primitiveBitXorLargeIntegers(void)
     sqInt oopResult;
     char *sp;
 
-	integerArg = positive64BitValueOf(longAt(GIV(stackPointer)));
-	integerRcvr = positive64BitValueOf(longAt(GIV(stackPointer) + (1 * BytesPerWord)));
-	if (GIV(primFailCode)) {
+	integerArg = positive64BitValueOf(longAt(stackPointer));
+	integerRcvr = positive64BitValueOf(longAt(stackPointer + (1 * BytesPerWord)));
+	if (primFailCode) {
 		return;
 	}
 	oopResult = positive64BitIntegerFor(integerRcvr ^ integerArg);
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),oopResult);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),oopResult);
+		stackPointer = sp;
 	}
 }

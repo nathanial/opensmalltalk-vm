@@ -13,31 +13,31 @@ primitiveObjectAt(void)
     sqInt thisReceiver;
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer));
+	integerPointer = longAt(stackPointer);
 	if ((((integerPointer) & 7) == 1)) {
 		index = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		index = 0;
 	}
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
-	thisReceiver = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	thisReceiver = longAt(stackPointer + (1 * BytesPerWord));
 	if (!((index > 0)
 		 && (index <= ((literalCountOf(thisReceiver)) + LiteralStart)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),longAt((void *)((thisReceiver + BaseHeaderSize) + ((((usqInt)((index - 1)) << (shiftForWord())))))));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (1 * BytesPerWord)),longAt((void *)((thisReceiver + BaseHeaderSize) + ((((usqInt)((index - 1)) << (shiftForWord())))))));
+	stackPointer = sp;
 }

@@ -17,7 +17,7 @@ printContext(sqInt aContext)
 	sender = longAt((void *)((aContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));
 	ip = longAt((void *)((aContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))));
 	if ((((sender) & 7) == 1)) {
-		if (checkIsStillMarriedContextcurrentFP(aContext, GIV(framePointer))) {
+		if (checkIsStillMarriedContextcurrentFP(aContext, framePointer)) {
 			print("married (assuming framePointer valid)");
 			cr();
 		}
@@ -48,7 +48,7 @@ printContext(sqInt aContext)
 		print("sender   ");
 		shortPrintOop(sender);
 		print("ip       ");
-		if (ip == GIV(nilObj)) {
+		if (ip == nilObj) {
 			shortPrintOop(ip);
 		}
 		else {
@@ -74,7 +74,7 @@ printContext(sqInt aContext)
 
 	/* begin printMethodFieldForPrintContext: */
 	theMethod = longAt((void *)((aContext + BaseHeaderSize) + ((((usqInt)(MethodIndex) << (shiftForWord()))))));
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p: ",
 			((void *)theMethod));
 	shortPrintOop(theMethod);

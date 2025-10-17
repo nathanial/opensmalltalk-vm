@@ -35,7 +35,7 @@ returnrestoringObjectsInupTosavedFirstFields(sqInt errCode, sqInt reachableObjec
 		assert(!(isFreeObject(oop)));
 		byteAtput((void *)(oop + (markBitsByteOffset())),(byteAt((void *)(oop + (markBitsByteOffset())))) & (0xFF - (1U << (markedBitByteShift()))));
 	}
-	if (oopisGreaterThanOrEqualToandLessThan(savedFirstFields, GIV(oldSpaceStart), GIV(endOfMemory))) {
+	if (oopisGreaterThanOrEqualToandLessThan(savedFirstFields, oldSpaceStart, endOfMemory)) {
 		freeObject(savedFirstFields);
 	}
 	freeObject(reachableObjectsArray);

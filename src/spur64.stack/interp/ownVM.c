@@ -21,26 +21,26 @@ ownVM(void *vmHandle)
     sqInt flags;
     char *sp;
 
-	assert((isOopCompiledMethod(GIV(newMethod)))
-	 && ((argumentCountOf(GIV(newMethod))) == GIV(argumentCount)));
+	assert((isOopCompiledMethod(newMethod))
+	 && ((argumentCountOf(newMethod)) == argumentCount));
 
 	/* From callbacks (see thunkEntry), we don't know our ownerhip. Stash newMethod
 	   and argumentCount on the stack. */
 	if (!vmHandle) {
-		assert(GIV(primFailCode) == 0);
+		assert(primFailCode == 0);
 
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(newMethod));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),newMethod);
+		stackPointer = sp;
 
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),(((usqInt)GIV(argumentCount) << 3) | 1));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),(((usqInt)argumentCount << 3) | 1));
+		stackPointer = sp;
 		return 1;
 	}
 	flags = ((sqInt) vmHandle);
 	if (((flags & DisownVMForFFICall) != 0)) {
-		GIV(ffiCalloutVMHandle) = null;
+		ffiCalloutVMHandle = null;
 	}
 	return 0;
 }

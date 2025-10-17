@@ -32,22 +32,22 @@ compact(void)
 
 	/* for profiling */
 	/* begin initializeScanCheckingForFullyCompactedHeap */
-	GIV(firstMobileObject) = (GIV(lastMobileObject) = (GIV(objectAfterLastMobileObject) = null));
-	reinitializeScanFrom(GIV(hiddenRootsObj));
-	if (!GIV(firstFreeObject)) {
+	firstMobileObject = (lastMobileObject = (objectAfterLastMobileObject = null));
+	reinitializeScanFrom(hiddenRootsObj);
+	if (!firstFreeObject) {
 		error("uncompactable heap; no unmarked objects found");
 	}
-	if (GIV(firstMobileObject) >= GIV(endOfMemory)) {
+	if (firstMobileObject >= endOfMemory) {
 		/* begin unmarkObjectsInFullyCompactedHeap */
 		/* begin unmarkInitialImmobileObjects */
 		/* begin allOldSpaceObjectsFrom:do: */
 		/* begin allOldSpaceEntitiesFrom:do: */
-		assert(isOldObject(GIV(nilObj)));
+		assert(isOldObject(nilObj));
 		prevPrevObj = (prevObj = null);
-		objOopSqInt = GIV(nilObj);
+		objOopSqInt = nilObj;
 		while (1) {
 			assert((objOopSqInt % (allocationUnit())) == 0);
-			if (!(oopisLessThan(objOopSqInt, GIV(endOfMemory)))) break;
+			if (!(oopisLessThan(objOopSqInt, endOfMemory))) break;
 			assert((long64At((void *)(objOopSqInt))) != 0);
 
 			/* begin isEnumerableObject: */
@@ -55,9 +55,9 @@ compact(void)
 			assert((classIndex == (segmentBridgePun()))
 			 || ((classIndex == (isForwardedObjectClassIndexPun()))
 			 || (((long64At((void *)(objOopSqInt))) != 0)
-			 && (classIndex < (GIV(numClassTablePages) * (classTablePageSize()))))));
+			 && (classIndex < (numClassTablePages * (classTablePageSize()))))));
 			if (classIndex >= (isForwardedObjectClassIndexPun())) {
-				if (oopisGreaterThanOrEqualTo(objOopSqInt, GIV(firstMobileObject))) {
+				if (oopisGreaterThanOrEqualTo(objOopSqInt, firstMobileObject)) {
 					goto l2;
 				}
 
@@ -70,8 +70,8 @@ compact(void)
 
 			/* begin objectAfter:limit: */
 			followingWordAddress = addressAfter(objOopSqInt);
-			if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-				objOopSqInt = GIV(endOfMemory);
+			if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+				objOopSqInt = endOfMemory;
 				goto l4;
 			}
 			followingWord = longAt((void *)(followingWordAddress));
@@ -88,14 +88,14 @@ l2:
 		/* begin allPastSpaceObjectsDo: */
 		/* begin allPastSpaceEntitiesDo: */
 		prevPrevObj = (prevObj = null);
-		address = ((GIV(pastSpace)).start);
+		address = ((pastSpace).start);
 
 		/* begin objectStartingAt: */
 		numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
 		objOopSqInt = (numSlots == (numSlotsMask())
 					? address + BaseHeaderSize
 					: address);
-		while (oopisLessThan(objOopSqInt, GIV(pastSpaceStart))) {
+		while (oopisLessThan(objOopSqInt, pastSpaceStart)) {
 			assert(isEnumerableObjectNoAssert(objOopSqInt));
 			if ((byteAt((void *)(objOopSqInt + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) {
 				/* begin setIsMarkedOf:to: */
@@ -107,13 +107,13 @@ l2:
 
 			/* begin objectAfterMaybeSlimBridge:limit: */
 			followingWordAddress = addressAfter(objOopSqInt);
-			if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(pastSpaceStart))) {
-				objOopSqInt = GIV(pastSpaceStart);
+			if (oopisGreaterThanOrEqualTo(followingWordAddress, pastSpaceStart)) {
+				objOopSqInt = pastSpaceStart;
 				goto l3;
 			}
 			followingWord = longAt((void *)(followingWordAddress));
 			objOopSqInt = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-						? ((oopisLessThan(objOopSqInt, GIV(oldSpaceStart)))
+						? ((oopisLessThan(objOopSqInt, oldSpaceStart))
 						 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 								? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 								: followingWordAddress + BaseHeaderSize)
@@ -127,19 +127,19 @@ l3:;
 	/* begin initializeCompaction */
 	/* begin checkFreeSpace: */
 	assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-	assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+	assert(totalFreeOldSpace == (totalFreeListBytes()));
 	if (((checkForLeaks & (GCCheckFreeSpace | GCModeFull)) == (GCCheckFreeSpace | GCModeFull))) {
 		runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 	}
 
 	/* begin selectSavedFirstFieldsSpace */
-	spaceEstimate = (GIV(endOfMemory) - GIV(nilObj)) / 40;
-	sizeOfEden = (((GIV(eden)).limit)) - (((GIV(eden)).start));
+	spaceEstimate = (endOfMemory - nilObj) / 40;
+	sizeOfEden = (((eden).limit)) - (((eden).start));
 	if (spaceEstimate > sizeOfEden) {
 		/* begin findHighestSuitableFreeBlock: */
 		if ((largestFreeChunk = findLargestFreeChunk())) {
 			if (((bytesInBody(largestFreeChunk)) >= spaceEstimate)
-			 && ((((usqInt)largestFreeChunk)) > (((usqInt)(GIV(endOfMemory) - GIV(totalFreeOldSpace)))))) {
+			 && ((((usqInt)largestFreeChunk)) > (((usqInt)(endOfMemory - totalFreeOldSpace))))) {
 				highestSuitableFreeBlock = largestFreeChunk;
 				goto l8;
 			}
@@ -159,9 +159,9 @@ l8:
 			bytesInBody(highestSuitableFreeBlock))) > sizeOfEden) {
 				/* begin useFreeChunkForSavedFirstFieldsSpace: */
 				assert(validFreeTreeChunk(highestSuitableFreeBlock));
-				(GIV(savedFirstFieldsSpace).start = highestSuitableFreeBlock + (4 /* freeChunkLargerIndex */ * BytesPerOop));
-				(GIV(savedFirstFieldsSpace).limit = addressAfter(highestSuitableFreeBlock));
-				GIV(savedFirstFieldsSpaceNotInOldSpace) = 0;
+				(savedFirstFieldsSpace.start = highestSuitableFreeBlock + (4 /* freeChunkLargerIndex */ * BytesPerOop));
+				(savedFirstFieldsSpace.limit = addressAfter(highestSuitableFreeBlock));
+				savedFirstFieldsSpaceNotInOldSpace = 0;
 				assert(!((savedFirstFieldsSpaceWasAllocated())));
 				goto l5;
 			}
@@ -172,30 +172,30 @@ l8:
 	}
 
 	/* begin useEdenForSavedFirstFieldsSpace */
-	(GIV(savedFirstFieldsSpace).start = ((GIV(eden)).start));
-	(GIV(savedFirstFieldsSpace).limit = ((GIV(eden)).limit));
-	GIV(savedFirstFieldsSpaceNotInOldSpace) = 1;
+	(savedFirstFieldsSpace.start = ((eden).start));
+	(savedFirstFieldsSpace.limit = ((eden).limit));
+	savedFirstFieldsSpaceNotInOldSpace = 1;
 	assert(!((savedFirstFieldsSpaceWasAllocated())));
 	/* end selectSavedFirstFieldsSpace */
 l5:
 
 	/* begin unpinRememberedSet */
 	/* begin fetchPointer:ofObject: */
-	GIV(firstFieldOfRememberedSet) = longAt((void *)(((longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))))) + BaseHeaderSize) + (0U << (shiftForWord()))));
-	setIsPinnedOfto(longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord())))))), 0);
+	firstFieldOfRememberedSet = longAt((void *)(((longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))))) + BaseHeaderSize) + (0U << (shiftForWord()))));
+	setIsPinnedOfto(longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord())))))), 0);
 
 	/* begin resetFreeListHeads */
-	GIV(freeListsMask) = 0;
+	freeListsMask = 0;
 	for (i = 0; i <= 0x3F /* (numFreeLists - 1) */; i += 1) {
-		GIV(freeLists)[i] = 0;
+		freeLists[i] = 0;
 	}
 
 	/* begin prepareObjStacksForPlanningCompactor */
 	/* begin prepareObjStackForPlanningCompactor: */
-	if (GIV(markStack) == GIV(nilObj)) {
+	if (markStack == nilObj) {
 		goto l7;
 	}
-	stackOrNil = GIV(markStack);
+	stackOrNil = markStack;
 	do {
 		assert((numSlotsOfAny(stackOrNil)) == ObjStackPageSlots);
 
@@ -204,10 +204,10 @@ l5:
 	} while(((stackOrNil = longAt((void *)((stackOrNil + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord())))))))) != 0);
 	/* end prepareObjStackForPlanningCompactor: */
 l7:
-	if (GIV(weaklingStack) == GIV(nilObj)) {
+	if (weaklingStack == nilObj) {
 		goto l9;
 	}
-	stackOrNil = GIV(weaklingStack);
+	stackOrNil = weaklingStack;
 	do {
 		assert((numSlotsOfAny(stackOrNil)) == ObjStackPageSlots);
 
@@ -216,10 +216,10 @@ l7:
 	} while(((stackOrNil = longAt((void *)((stackOrNil + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord())))))))) != 0);
 	/* end prepareObjStackForPlanningCompactor: */
 l9:
-	if (GIV(mournQueue) == GIV(nilObj)) {
+	if (mournQueue == nilObj) {
 		goto l6;
 	}
-	stackOrNil = GIV(mournQueue);
+	stackOrNil = mournQueue;
 	do {
 		assert((numSlotsOfAny(stackOrNil)) == ObjStackPageSlots);
 
@@ -228,9 +228,9 @@ l9:
 	} while(((stackOrNil = longAt((void *)((stackOrNil + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord())))))))) != 0);
 	/* end prepareObjStackForPlanningCompactor: */
 l6:
-	GIV(totalFreeOldSpace) = 0;
-	GIV(gcPhaseInProgress) = SlidingCompactionInProgress;
-	(GIV(savedFirstFieldsSpace).top = ((GIV(savedFirstFieldsSpace).start)) - BytesPerOop);
+	totalFreeOldSpace = 0;
+	gcPhaseInProgress = SlidingCompactionInProgress;
+	(savedFirstFieldsSpace.top = ((savedFirstFieldsSpace.start)) - BytesPerOop);
 	firstPass = 1;
 	while (1) {
 		finalPass = planCompactSavingForwarders();
@@ -245,16 +245,16 @@ l6:
 		   by looking at the large free tree and seeing that the ratio of the largest free
 		   chunk to the total ammount of free space is high. */
 		if (finalPass
-		 || (GIV(biasForGC))) break;
+		 || (biasForGC)) break;
 		firstPass = 0;
-		reinitializeScanFrom(GIV(firstFreeObject));
-		if (!(GIV(firstMobileObject) > GIV(firstFreeObject))) {
-			GIV(firstFreeObject) = GIV(firstMobileObject);
+		reinitializeScanFrom(firstFreeObject);
+		if (!(firstMobileObject > firstFreeObject)) {
+			firstFreeObject = firstMobileObject;
 			unmarkObjectsFromFirstFreeObject();
 
 			/* begin checkFreeSpace: */
 			assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-			assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+			assert(totalFreeOldSpace == (totalFreeListBytes()));
 			if (((checkForLeaks & (GCCheckFreeSpace | GCModeFull)) == (GCCheckFreeSpace | GCModeFull))) {
 				runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 			}
@@ -269,15 +269,15 @@ l6:
 
 		/* begin updateSavedFirstFieldsSpaceIfNecessary */
 		if ((/* savedFirstFieldsSpaceInFreeChunk */
-			(!GIV(savedFirstFieldsSpaceNotInOldSpace))
-		 && (oopisGreaterThan((GIV(savedFirstFieldsSpace).start), GIV(nilObj))))
-		 && (((GIV(savedFirstFieldsSpace).start)) < GIV(lastMobileObject))) {
-			spaceEstimate = ((GIV(savedFirstFieldsSpace).limit)) - ((GIV(savedFirstFieldsSpace).start));
+			(!savedFirstFieldsSpaceNotInOldSpace)
+		 && (oopisGreaterThan((savedFirstFieldsSpace.start), nilObj)))
+		 && (((savedFirstFieldsSpace.start)) < lastMobileObject)) {
+			spaceEstimate = ((savedFirstFieldsSpace.limit)) - ((savedFirstFieldsSpace.start));
 
 			/* begin findHighestSuitableFreeBlock: */
 			if ((largestFreeChunkSqInt = findLargestFreeChunk())) {
 				if (((bytesInBody(largestFreeChunkSqInt)) >= spaceEstimate)
-				 && ((((usqInt)largestFreeChunkSqInt)) > (((usqInt)(GIV(endOfMemory) - GIV(totalFreeOldSpace)))))) {
+				 && ((((usqInt)largestFreeChunkSqInt)) > (((usqInt)(endOfMemory - totalFreeOldSpace))))) {
 					largestFreeChunk = largestFreeChunkSqInt;
 					goto l1;
 				}
@@ -288,25 +288,25 @@ l1:
 			if (largestFreeChunk) {
 				/* begin useFreeChunkForSavedFirstFieldsSpace: */
 				assert(validFreeTreeChunk(largestFreeChunk));
-				(GIV(savedFirstFieldsSpace).start = largestFreeChunk + (4 /* freeChunkLargerIndex */ * BytesPerOop));
-				(GIV(savedFirstFieldsSpace).limit = addressAfter(largestFreeChunk));
-				GIV(savedFirstFieldsSpaceNotInOldSpace) = 0;
+				(savedFirstFieldsSpace.start = largestFreeChunk + (4 /* freeChunkLargerIndex */ * BytesPerOop));
+				(savedFirstFieldsSpace.limit = addressAfter(largestFreeChunk));
+				savedFirstFieldsSpaceNotInOldSpace = 0;
 				assert(!((savedFirstFieldsSpaceWasAllocated())));
 			}
 			else {
 				/* begin useEdenForSavedFirstFieldsSpace */
-				(GIV(savedFirstFieldsSpace).start = ((GIV(eden)).start));
-				(GIV(savedFirstFieldsSpace).limit = ((GIV(eden)).limit));
-				GIV(savedFirstFieldsSpaceNotInOldSpace) = 1;
+				(savedFirstFieldsSpace.start = ((eden).start));
+				(savedFirstFieldsSpace.limit = ((eden).limit));
+				savedFirstFieldsSpaceNotInOldSpace = 1;
 				assert(!((savedFirstFieldsSpaceWasAllocated())));
 			}
 		}
-		(GIV(savedFirstFieldsSpace).top = ((GIV(savedFirstFieldsSpace).start)) - BytesPerOop);
+		(savedFirstFieldsSpace.top = ((savedFirstFieldsSpace.start)) - BytesPerOop);
 	}
 
 	/* begin checkFreeSpace: */
 	assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-	assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+	assert(totalFreeOldSpace == (totalFreeListBytes()));
 	if (((checkForLeaks & (GCCheckFreeSpace | GCModeFull)) == (GCCheckFreeSpace | GCModeFull))) {
 		runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 	}

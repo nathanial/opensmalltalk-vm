@@ -25,11 +25,11 @@ printMethodImplementorsOf(sqInt anOop)
 
 	/* begin allObjectsDo: */
 	address = /* startAddressForBridgedHeapEnumeration */
-			(GIV(pastSpaceStart) > (((GIV(pastSpace)).start))
-				? ((GIV(pastSpace)).start)
-				: (GIV(freeStart) > (((GIV(eden)).start))
-						? ((GIV(eden)).start)
-						: GIV(oldSpaceStart)));
+			(pastSpaceStart > (((pastSpace).start))
+				? ((pastSpace).start)
+				: (freeStart > (((eden).start))
+						? ((eden).start)
+						: oldSpaceStart));
 
 	/* begin objectStartingAt: */
 	numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
@@ -43,7 +43,7 @@ printMethodImplementorsOf(sqInt anOop)
 	enableObjectEnumerationFrom(startObject);
 	while (1) {
 		assert((objSqInt % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objSqInt, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objSqInt, endOfMemory))) break;
 		assert((long64At((void *)(objSqInt))) != 0);
 
 		/* begin isEnumerableObject: */
@@ -51,7 +51,7 @@ printMethodImplementorsOf(sqInt anOop)
 		assert((classIndex == (segmentBridgePun()))
 		 || ((classIndex == (isForwardedObjectClassIndexPun()))
 		 || (((long64At((void *)(objSqInt))) != 0)
-		 && (classIndex < (GIV(numClassTablePages) * (classTablePageSize()))))));
+		 && (classIndex < (numClassTablePages * (classTablePageSize()))))));
 		if (classIndex >= (isForwardedObjectClassIndexPun())) {
 			if ((((byteAt((void *)(objSqInt + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat()))
 			 && ((maybeSelectorOfMethod(objSqInt)) == anOop)) {
@@ -68,13 +68,13 @@ printMethodImplementorsOf(sqInt anOop)
 
 		/* begin objectAfterMaybeSlimBridge:limit: */
 		followingWordAddress = addressAfter(objSqInt);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objSqInt = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objSqInt = endOfMemory;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
 		objSqInt = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-					? ((oopisLessThan(objSqInt, GIV(oldSpaceStart)))
+					? ((oopisLessThan(objSqInt, oldSpaceStart))
 					 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 							? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 							: followingWordAddress + BaseHeaderSize)

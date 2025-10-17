@@ -13,7 +13,7 @@ markAndTraceObjStackandContents(sqInt stackOrNil, sqInt markAndTraceContents)
     sqInt field;
     sqInt index;
 
-	if (stackOrNil == GIV(nilObj)) {
+	if (stackOrNil == nilObj) {
 		return;
 	}
 

@@ -18,51 +18,51 @@ primitiveSizeInBytesOfInstance(void)
     sqInt oop;
     char *sp;
 
-	if (GIV(argumentCount) > 1) {
+	if (argumentCount > 1) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadNumArgs;
+		primFailCode = PrimErrBadNumArgs;
 		return;
 	}
 
 	/* Support VMMirror>>byteSizeOfInstanceOf:WithIndexableVariables: */
 	err = -1;
-	if (GIV(argumentCount) >= 1) {
-		if (!(((((longAt(GIV(stackPointer)))) & 7) == 1))) {
+	if (argumentCount >= 1) {
+		if (!(((((longAt(stackPointer))) & 7) == 1))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			return;
 		}
 
 		/* begin byteSizeOfInstanceOf:withIndexableSlots:errInto: */
-		classFormat = ((longAt((void *)(((longAt(GIV(stackPointer) + (1 * BytesPerWord))) + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3);
+		classFormat = ((longAt((void *)(((longAt(stackPointer + (1 * BytesPerWord))) + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3);
 		instSpec = (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());
 		switch (instSpec) {
 		case arrayFormat():
-			numSlots = ((longAt(GIV(stackPointer))) >> 3);
+			numSlots = ((longAt(stackPointer)) >> 3);
 			break;
 		case indexablePointersFormat():
 		case weakArrayFormat():
-			numSlots = (classFormat & ((1U << (fixedFieldsFieldWidth())) - 1)) + (((longAt(GIV(stackPointer))) >> 3));
+			numSlots = (classFormat & ((1U << (fixedFieldsFieldWidth())) - 1)) + (((longAt(stackPointer)) >> 3));
 			break;
 		case sixtyFourBitIndexableFormat():
-			numSlots = ((longAt(GIV(stackPointer))) >> 3);
+			numSlots = ((longAt(stackPointer)) >> 3);
 			break;
 		case firstLongFormat():
-			numSlots = ((((longAt(GIV(stackPointer))) >> 3)) + 1) / 2;
+			numSlots = ((((longAt(stackPointer)) >> 3)) + 1) / 2;
 			break;
 		case firstShortFormat():
-			numSlots = ((((longAt(GIV(stackPointer))) >> 3)) + 3) / 4;
+			numSlots = ((((longAt(stackPointer)) >> 3)) + 3) / 4;
 			break;
 		case firstByteFormat():
 		case firstCompiledMethodFormat():
-			numSlots = ((((longAt(GIV(stackPointer))) >> 3)) + (BytesPerOop - 1)) / BytesPerOop;
+			numSlots = ((((longAt(stackPointer)) >> 3)) + (BytesPerOop - 1)) / BytesPerOop;
 			break;
 		default:
 			byteSize = (err = PrimErrBadReceiver);
 			goto l1;
 		}
 		if (numSlots >= (((((usqInt)1)) << ((BytesPerOop * 8) - 3 /* logBytesPerOop */)))) {
-			byteSize = (err = ((((longAt(GIV(stackPointer))) >> 3)) < 0
+			byteSize = (err = ((((longAt(stackPointer)) >> 3)) < 0
 							? PrimErrBadArgument
 							: PrimErrLimitExceeded));
 			goto l1;
@@ -77,19 +77,19 @@ primitiveSizeInBytesOfInstance(void)
 l1:
 		if (err >= 0) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = err;
+			primFailCode = err;
 			return;
 		}
 		oop = positive64BitIntegerFor(byteSize);
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),oop);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),oop);
+		stackPointer = sp;
 		return;
 	}
 
 	/* begin byteSizeOfInstanceOf:errInto: */
-	classFormat = ((longAt((void *)(((longAt(GIV(stackPointer))) + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3);
+	classFormat = ((longAt((void *)(((longAt(stackPointer)) + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3);
 	instSpec = (((usqInt)(classFormat)) >> (fixedFieldsFieldWidth())) & (formatMask());
 	if (!(/* isFixedSizePointerFormat: */
 			(instSpec <= (nonIndexablePointerFormat()))
@@ -108,11 +108,11 @@ l1:
 l2:
 	if (err >= 0) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = err;
+		primFailCode = err;
 		return;
 	}
 
 	/* begin pop:thenPushInteger: */
-	longAtput((sp = GIV(stackPointer)),((byteSize << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),((byteSize << 3) | 1));
+	stackPointer = sp;
 }

@@ -32,8 +32,8 @@ processEphemerons(void)
 	/* begin scavengeUnfiredEphemeronsInRememberedSet */
 	unfiredEphemeronsScavenged = 0;
 	i = 0;
-	while (i < GIV(numRememberedEphemerons)) {
-		referrer = GIV(rememberedSet)[i];
+	while (i < numRememberedEphemerons) {
+		referrer = rememberedSet[i];
 		assert(isEphemeron(referrer));
 		if (isScavengeSurvivor(
 			(/* begin keyOfEphemeron: */
@@ -45,16 +45,16 @@ processEphemerons(void)
 			hasNewReferents = scavengeReferentsOf(referrer);
 
 			/* remove from unscanned ephemerons in set by swapping with last ephemeron */
-			GIV(numRememberedEphemerons) -= 1;
-			GIV(rememberedSet)[i] = (GIV(rememberedSet)[GIV(numRememberedEphemerons)]);
+			numRememberedEphemerons -= 1;
+			rememberedSet[i] = (rememberedSet[numRememberedEphemerons]);
 			if (hasNewReferents) {
-				GIV(rememberedSet)[GIV(numRememberedEphemerons)] = referrer;
+				rememberedSet[numRememberedEphemerons] = referrer;
 			}
 			else {
-				GIV(previousRememberedSetSize) -= 1;
-				GIV(rememberedSetSize) -= 1;
-				GIV(rememberedSet)[GIV(numRememberedEphemerons)] = (GIV(rememberedSet)[GIV(previousRememberedSetSize)]);
-				GIV(rememberedSet)[GIV(previousRememberedSetSize)] = (GIV(rememberedSet)[GIV(rememberedSetSize)]);
+				previousRememberedSetSize -= 1;
+				rememberedSetSize -= 1;
+				rememberedSet[numRememberedEphemerons] = (rememberedSet[previousRememberedSetSize]);
+				rememberedSet[previousRememberedSetSize] = (rememberedSet[rememberedSetSize]);
 				setIsRememberedOfto(referrer, 0);
 			}
 		}
@@ -69,8 +69,8 @@ processEphemerons(void)
 		/* begin fireEphemeronsInRememberedSet */
 		assert(noUnfiredEphemeronsAtEndOfRememberedSet());
 		i = 0;
-		while (i < GIV(numRememberedEphemerons)) {
-			ephemeron = GIV(rememberedSet)[i];
+		while (i < numRememberedEphemerons) {
+			ephemeron = rememberedSet[i];
 			assert(isEphemeron(ephemeron));
 
 			/* begin keyOfEphemeron: */
@@ -98,34 +98,34 @@ processEphemerons(void)
 				setIsRememberedOfto(ephemeron, 0);
 
 				/* remove from set by overwriting with next-to-be scanned */
-				GIV(numRememberedEphemerons) -= 1;
-				GIV(previousRememberedSetSize) -= 1;
-				GIV(rememberedSetSize) -= 1;
+				numRememberedEphemerons -= 1;
+				previousRememberedSetSize -= 1;
+				rememberedSetSize -= 1;
 
 				/* First overwrite with last firable ephemeron (could be a noop if this is the last one).
 				   Then overwrite last firable entry with next unscanned rememberedSet entry (could also be a noop).
 				   Then overwrite next unscanned entry with last unscanned rememberedSet entry (could also be a noop). */
-				GIV(rememberedSet)[i] = (GIV(rememberedSet)[GIV(numRememberedEphemerons)]);
-				GIV(rememberedSet)[GIV(numRememberedEphemerons)] = (GIV(rememberedSet)[GIV(previousRememberedSetSize)]);
-				GIV(rememberedSet)[GIV(previousRememberedSetSize)] = (GIV(rememberedSet)[GIV(rememberedSetSize)]);
+				rememberedSet[i] = (rememberedSet[numRememberedEphemerons]);
+				rememberedSet[numRememberedEphemerons] = (rememberedSet[previousRememberedSetSize]);
+				rememberedSet[previousRememberedSetSize] = (rememberedSet[rememberedSetSize]);
 			}
 		}
 
 		/* no more firable ephemerons in this cycle.
 		   scavengeRememberedSetStartingAt: may find new ones. */
-		GIV(numRememberedEphemerons) = 0;
+		numRememberedEphemerons = 0;
 
 		/* begin fireEphemeronsOnEphemeronList */
-		if (!GIV(ephemeronList)) {
+		if (!ephemeronList) {
 			goto l1;
 		}
 		oldCorpse = null;
-		ephemeronCorpse = ((((usqInt)((GIV(ephemeronList) - 1)) << 3 /* shiftForAllocationUnit */))) + GIV(newSpaceStart);
+		ephemeronCorpse = ((((usqInt)((ephemeronList - 1)) << 3 /* shiftForAllocationUnit */))) + newSpaceStart;
 
 		/* Reset the list head so that new ephemerons will get added
 		   to a new list, not concatenated on the one we are scanning. */
-		oldList = GIV(ephemeronList);
-		GIV(ephemeronList) = null;
+		oldList = ephemeronList;
+		ephemeronList = null;
 		while (ephemeronCorpse) {
 			assert((isYoung(ephemeronCorpse))
 			 && (isForwarded(ephemeronCorpse)));
@@ -164,7 +164,7 @@ processEphemerons(void)
 			assert(isYoung(ephemeronCorpse));
 			listOffset = ((((usqInt)(((long32At((void *)(ephemeronCorpse + 4))) & (identityHashHalfWordMask()))) << (formatFieldWidthShift())))) + ((byteAt((void *)(ephemeronCorpse + (formatFieldByteOffset())))) & (formatMask()));
 			ephemeronCorpse = ((sqInt) ((listOffset
-		? ((((usqInt)((listOffset - 1)) << 3 /* shiftForAllocationUnit */))) + GIV(newSpaceStart)
+		? ((((usqInt)((listOffset - 1)) << 3 /* shiftForAllocationUnit */))) + newSpaceStart
 		: 0)));
 		}
 		/* end fireEphemeronsOnEphemeronList */

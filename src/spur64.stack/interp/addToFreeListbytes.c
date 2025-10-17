@@ -28,7 +28,7 @@ addToFreeListbytes(sqInt freeChunk, sqInt chunkBytes)
 	   self deny: (compactor isSegmentBeingCompacted: (segmentManager segmentContainingObj: freeChunk)). */
 	index = chunkBytes / 8 /* allocationUnit */;
 	if (index < 64 /* numFreeLists */) {
-		nextFreeChunk = GIV(freeLists)[index];
+		nextFreeChunk = freeLists[index];
 
 		/* begin setNextFreeChunkOf:withValue:chunkBytes: */
 		/* begin isLilliputianSize: */
@@ -57,8 +57,8 @@ addToFreeListbytes(sqInt freeChunk, sqInt chunkBytes)
 			assert(isFreeObject(freeChunk));
 			longAtput((void *)((freeChunk + BaseHeaderSize) + (1U << (shiftForWord()))),0);
 		}
-		GIV(freeLists)[index] = freeChunk;
-		GIV(freeListsMask) = GIV(freeListsMask) | (1ULL << index);
+		freeLists[index] = freeChunk;
+		freeListsMask = freeListsMask | (1ULL << index);
 		return 0;
 	}
 
@@ -91,7 +91,7 @@ addToFreeListbytes(sqInt freeChunk, sqInt chunkBytes)
 	/* Large chunk list organized as a tree, each node of which is a list of chunks of the same size.
 	   Beneath the node are smaller and larger blocks. */
 	parent = 0;
-	child = GIV(freeLists)[0];
+	child = freeLists[0];
 	while (child != 0) {
 		childBytes = bytesInBody(child);
 
@@ -140,12 +140,12 @@ addToFreeListbytes(sqInt freeChunk, sqInt chunkBytes)
 		: 4 /* freeChunkLargerIndex */))) << (shiftForWord()))))));
 	}
 	if (!parent) {
-		assert((GIV(freeLists)[0]) == 0);
-		GIV(freeLists)[0] = freeChunk;
-		GIV(freeListsMask) = GIV(freeListsMask) | 1;
+		assert((freeLists[0]) == 0);
+		freeLists[0] = freeChunk;
+		freeListsMask = freeListsMask | 1;
 		return 0;
 	}
-	assert(((GIV(freeListsMask) & 1) != 0));
+	assert(((freeListsMask & 1) != 0));
 
 	/* insert in tree */
 

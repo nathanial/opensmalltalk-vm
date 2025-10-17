@@ -14,7 +14,7 @@ queueMourner(sqInt anEphemeronOrWeakArray)
 	 && (((formatOf(anEphemeronOrWeakArray)) == (ephemeronFormat()))
 	 || ((formatOf(anEphemeronOrWeakArray)) == (weakArrayFormat()))));
 	assert(!((((formatOf(anEphemeronOrWeakArray)) == (ephemeronFormat()))
- && (isonObjStack(anEphemeronOrWeakArray, GIV(mournQueue))))));
+ && (isonObjStack(anEphemeronOrWeakArray, mournQueue)))));
 	ensureRoomOnObjStackAt(MournQueueRootIndex);
 
 	/* There is no point queueing weak arrays more than once.  Note that it should be impossible
@@ -26,26 +26,26 @@ queueMourner(sqInt anEphemeronOrWeakArray)
 	assert(isNonImmediate(anEphemeronOrWeakArray));
 	format = (byteAt((void *)(anEphemeronOrWeakArray + (formatFieldByteOffset())))) & (formatMask());
 	if (!(format == (ephemeronFormat()))) {
-		if (isonObjStack(anEphemeronOrWeakArray, GIV(mournQueue))) {
+		if (isonObjStack(anEphemeronOrWeakArray, mournQueue)) {
 			return;
 		}
 	}
-	objStack = GIV(mournQueue);
+	objStack = mournQueue;
 
 	/* begin push:onObjStack: */
 	assert(addressCouldBeOop(anEphemeronOrWeakArray));
 	if (((anEphemeronOrWeakArray & (tagMask())) != 0)) {
-		assert(objStack == GIV(markStack));
+		assert(objStack == markStack);
 		assert(addressCouldBeObj(topOfObjStack((0 == (fetchPointerofObject(ObjStackTopx, objStack))
 				? fetchPointerofObject(ObjStackNextx, objStack)
 				: objStack))));
 	}
 	else {
-		assert(!((objStack == GIV(markStack))
+		assert(!((objStack == markStack)
 		 && (isWeakNonImm(anEphemeronOrWeakArray))));
 
 		/* There should only be weaklings on the weaklingStack */
-		assert((objStack != GIV(weaklingStack))
+		assert((objStack != weaklingStack)
 		 || (isWeakNonImm(anEphemeronOrWeakArray)));
 	}
 

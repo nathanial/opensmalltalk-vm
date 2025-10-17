@@ -13,7 +13,7 @@ primitiveExponent(void)
     sqInt rcvr;
 
 	pwr = 0;
-	rcvr = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer);
 
 	/* begin noFailFloatValueOf: */
 	assert(isFloatInstance(rcvr));
@@ -38,5 +38,5 @@ primitiveExponent(void)
 	frexp(doubleValue, (&pwr));
 
 	/* stackTopPut: */
-	longAtput(GIV(stackPointer),(((usqInt)(pwr - 1) << 3) | 1));
+	longAtput(stackPointer,(((usqInt)(pwr - 1) << 3) | 1));
 }

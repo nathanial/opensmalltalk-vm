@@ -13,30 +13,30 @@ primitiveBitShift(void)
     sqInt shifted;
     char *sp;
 
-	integerArgument = longAt(GIV(stackPointer));
+	integerArgument = longAt(stackPointer);
 	if (!((((integerArgument) & 7) == 1))) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
-	integerReceiver = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	integerReceiver = longAt(stackPointer + (1 * BytesPerWord));
 	integerReceiver = signed64BitValueOf(integerReceiver);
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		if (((integerArgument = (integerArgument >> 3))) >= 0) {
 			if (!(integerArgument <= 61 /* numSmallIntegerBits */)) {
 				/* begin primitiveFail */
-				if (!GIV(primFailCode)) {
-					GIV(primFailCode) = 1;
+				if (!primFailCode) {
+					primFailCode = 1;
 				}
 				return;
 			}
 			shifted = ((sqInt)((usqInt)(integerReceiver) << integerArgument));
 			if (!(integerReceiver == ((shifted) >> integerArgument))) {
 				/* begin primitiveFail */
-				if (!GIV(primFailCode)) {
-					GIV(primFailCode) = 1;
+				if (!primFailCode) {
+					primFailCode = 1;
 				}
 				return;
 			}
@@ -44,8 +44,8 @@ primitiveBitShift(void)
 		else {
 			if (!(integerArgument >= (-61 /* numSmallIntegerBits */))) {
 				/* begin primitiveFail */
-				if (!GIV(primFailCode)) {
-					GIV(primFailCode) = 1;
+				if (!primFailCode) {
+					primFailCode = 1;
 				}
 				return;
 			}
@@ -59,7 +59,7 @@ primitiveBitShift(void)
 					: signed64BitIntegerFor(shifted));
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),shifted);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),shifted);
+		stackPointer = sp;
 	}
 }

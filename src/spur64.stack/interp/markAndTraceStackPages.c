@@ -29,9 +29,9 @@ markAndTraceStackPages(sqInt fullGCFlag)
 
 	/* On an incremental GC simply consider all non-free stack pages to be roots. */
 	if (!fullGCFlag) {
-		for (i = 0; i < GIV(numStackPages); i += 1) {
+		for (i = 0; i < numStackPages; i += 1) {
 			/* begin stackPageAt: */
-			thePage = stackPageAtpages(i, GIV(pages));
+			thePage = stackPageAtpages(i, pages);
 			if (!(isFree(thePage))) {
 				markAndTraceStackPage(thePage);
 			}
@@ -41,10 +41,10 @@ markAndTraceStackPages(sqInt fullGCFlag)
 
 	/* On a full GC only eagerly trace pages referenced from
 	   the base of the active page, i.e. on the active stack. */
-	if (!GIV(stackPage)) {
+	if (!stackPage) {
 		return null;
 	}
-	thePage = GIV(stackPage);
+	thePage = stackPage;
 	do {
 		markAndTraceStackPage(thePage);
 
@@ -64,7 +64,7 @@ markAndTraceStackPages(sqInt fullGCFlag)
 			pointer = ((char *)(senderOop - (smallIntegerTag())));
 
 			/* begin stackPageFor: */
-			thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(pointer, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+			thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(pointer, stackMemory, bytesPerPage), pages);
 			assert(!(isFree(thePage)));
 		}
 	} while(((thePage->trace)) < StackPageTraced);

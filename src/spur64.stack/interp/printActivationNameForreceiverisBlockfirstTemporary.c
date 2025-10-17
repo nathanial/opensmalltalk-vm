@@ -28,12 +28,12 @@ printActivationNameForreceiverisBlockfirstTemporary(sqInt aMethod, sqInt anObjec
 	 && ((!((longAt((void *)(anObject))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))))
 	 && (addressCouldBeClassObj((classObj = /* fetchClassOf: */
 			((tagBits = anObject & (tagMask()))
-				? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+				? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 				: fetchClassOfNonImm(anObject))))))) {
 		printNameOfClasscount(classObj, 5);
 		if (!((classObj == methClass)
 			 || ((!methClass)
-			 || (methClass == GIV(nilObj))))) {
+			 || (methClass == nilObj)))) {
 			printChar('(');
 			printNameOfClasscount(methClass, 5);
 			printChar(')');
@@ -46,7 +46,7 @@ printActivationNameForreceiverisBlockfirstTemporary(sqInt aMethod, sqInt anObjec
 	if (/* addressCouldBeOop: */
 		(((methodSel & (tagMask())) != 0))
 	 || (addressCouldBeObj(methodSel))) {
-		if (methodSel == GIV(nilObj)) {
+		if (methodSel == nilObj) {
 			print("(nil)");
 		}
 		else {
@@ -64,9 +64,9 @@ printActivationNameForreceiverisBlockfirstTemporary(sqInt aMethod, sqInt anObjec
 		print("INVALID SELECTOR = ");
 		printHex(methodSel);
 	}
-	if ((methodSel == (longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord()))))))))
+	if ((methodSel == (longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord()))))))))
 	 && ((addressCouldBeObj(maybeMessage))
-	 && ((fetchClassOfNonImm(maybeMessage)) == (longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassMessage) << (shiftForWord())))))))))) {
+	 && ((fetchClassOfNonImm(maybeMessage)) == (longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassMessage) << (shiftForWord())))))))))) {
 		methodSel = longAt((void *)((maybeMessage + BaseHeaderSize) + ((((usqInt)(MessageSelectorIndex) << (shiftForWord()))))));
 
 		/* begin space */

@@ -10,23 +10,23 @@ shortPrintOop(sqInt oop)
 
 	length = 0;
 	if (((oop & (tagMask())) != 0)) {
-		printImmediateObjecton(oop, GIV(transcript));
+		printImmediateObjecton(oop, transcript);
 		return;
 	}
 	if (!(addressCouldBeObj(oop))) {
-		printCantBeObjecton(oop, GIV(transcript));
+		printCantBeObjecton(oop, transcript);
 		return;
 	}
 	if (((longAt((void *)(oop))) & (classIndexMask())) == (isFreeObjectClassIndexPun())) {
-		printFreeObjecton(oop, GIV(transcript));
+		printFreeObjecton(oop, transcript);
 		return;
 	}
 	if ((!((longAt((void *)(oop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-		printForwarderon(oop, GIV(transcript));
+		printForwarderon(oop, transcript);
 		return;
 	}
 	className = nameOfClasslengthInto(fetchClassOfNonImm(oop), (&length));
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p: a(n) %.*s\n",
 			((void *)oop),
 			((int) length),

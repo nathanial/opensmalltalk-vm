@@ -17,7 +17,7 @@ findHomeForContext(sqInt aContext)
 	 && ((closureOrNil == (nilObject()))
 	 || ((numSlotsOf(closureOrNil)) >= ClosureFirstCopiedValueIndex)));
 	if ((((closureOrNil & (tagMask())) != 0))
-	 || (closureOrNil == GIV(nilObj))) {
+	 || (closureOrNil == nilObj)) {
 		return aContext;
 	}
 

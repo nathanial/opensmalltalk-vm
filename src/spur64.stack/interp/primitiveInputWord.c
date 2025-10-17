@@ -12,6 +12,6 @@ primitiveInputWord(void)
     char *sp;
 
 	/* begin pop:thenPushInteger: */
-	longAtput((sp = GIV(stackPointer)),(((usqInt)0 << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),(((usqInt)0 << 3) | 1));
+	stackPointer = sp;
 }

@@ -9,37 +9,37 @@ primitiveGetSetFFIExceptionHandling(void)
     sqInt integer;
     char *sp;
 
-	if (!GIV(argumentCount)) {
+	if (!argumentCount) {
 		integer = (ioCanCatchFFIExceptions()
 					? ffiExceptionResponse
 					: -1);
 
 		/* begin methodReturnInteger: */
 		assert(!((failed())));
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)integer << 3) | 1));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)integer << 3) | 1));
+		stackPointer = sp;
 		return;
 	}
 	if (!(ioCanCatchFFIExceptions())) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrUnsupported;
+		primFailCode = PrimErrUnsupported;
 		return;
 	}
-	if (!(GIV(argumentCount) == 1)) {
+	if (!(argumentCount == 1)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadNumArgs;
+		primFailCode = PrimErrBadNumArgs;
 		return;
 	}
-	arg = longAt(GIV(stackPointer));
+	arg = longAt(stackPointer);
 	if (!(((((arg) & 7) == 1))
 		 && (((((arg = (arg >> 3))) >= -1) && (arg <= 1))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	ffiExceptionResponse = arg;
 
 	/* begin methodReturnReceiver */
 	assert(!((failed())));
-	GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+	stackPointer += argumentCount * BytesPerWord;
 }

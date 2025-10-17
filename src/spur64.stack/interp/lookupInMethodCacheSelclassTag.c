@@ -19,26 +19,26 @@ lookupInMethodCacheSelclassTag(sqInt selector, sqInt classTag)
 
 	/* first probe */
 	probe = hash & MethodCacheMask;
-	if (((GIV(methodCache)[probe + MethodCacheSelector]) == selector)
-	 && ((GIV(methodCache)[probe + MethodCacheClass]) == classTag)) {
-		GIV(newMethod) = GIV(methodCache)[probe + MethodCacheMethod];
-		primitiveFunctionPointer = ((void (*)()) (GIV(methodCache)[probe + MethodCachePrimFunction]));
+	if (((methodCache[probe + MethodCacheSelector]) == selector)
+	 && ((methodCache[probe + MethodCacheClass]) == classTag)) {
+		newMethod = methodCache[probe + MethodCacheMethod];
+		primitiveFunctionPointer = ((void (*)()) (methodCache[probe + MethodCachePrimFunction]));
 		return 1;
 	}
 
 	/* second probe */
 	probe = (((usqInt)(hash)) >> 1) & MethodCacheMask;
-	if (((GIV(methodCache)[probe + MethodCacheSelector]) == selector)
-	 && ((GIV(methodCache)[probe + MethodCacheClass]) == classTag)) {
-		GIV(newMethod) = GIV(methodCache)[probe + MethodCacheMethod];
-		primitiveFunctionPointer = ((void (*)()) (GIV(methodCache)[probe + MethodCachePrimFunction]));
+	if (((methodCache[probe + MethodCacheSelector]) == selector)
+	 && ((methodCache[probe + MethodCacheClass]) == classTag)) {
+		newMethod = methodCache[probe + MethodCacheMethod];
+		primitiveFunctionPointer = ((void (*)()) (methodCache[probe + MethodCachePrimFunction]));
 		return 1;
 	}
 	probe = (((usqInt)(hash)) >> 2) & MethodCacheMask;
-	if (((GIV(methodCache)[probe + MethodCacheSelector]) == selector)
-	 && ((GIV(methodCache)[probe + MethodCacheClass]) == classTag)) {
-		GIV(newMethod) = GIV(methodCache)[probe + MethodCacheMethod];
-		primitiveFunctionPointer = ((void (*)()) (GIV(methodCache)[probe + MethodCachePrimFunction]));
+	if (((methodCache[probe + MethodCacheSelector]) == selector)
+	 && ((methodCache[probe + MethodCacheClass]) == classTag)) {
+		newMethod = methodCache[probe + MethodCacheMethod];
+		primitiveFunctionPointer = ((void (*)()) (methodCache[probe + MethodCachePrimFunction]));
 		return 1;
 	}
 	return 0;

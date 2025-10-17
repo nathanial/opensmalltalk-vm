@@ -21,13 +21,13 @@ checkOkayOop(usqInt oop)
 		return 1;
 	}
 	if (!(addressCouldBeObj(oop))) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"oop %p is not a valid address",
 				((void *)oop));
 		return 0;
 	}
-	if (!(oopisLessThanOrEqualTo(addressAfter(oop), GIV(endOfMemory)))) {
-		fprintf(GIV(transcript),
+	if (!(oopisLessThanOrEqualTo(addressAfter(oop), endOfMemory))) {
+		fprintf(transcript,
 				"oop %p size would make it extend beyond the end of memory",
 				((void *)oop));
 		return 0;
@@ -35,14 +35,14 @@ checkOkayOop(usqInt oop)
 
 	/* header type checks */
 	if (!(((classIndex = (longAt((void *)(oop))) & (classIndexMask()))) >= (firstClassIndexPun()))) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"oop %p is a free chunk, or bridge, not an object",
 				((void *)oop));
 		return 0;
 	}
 	if (((byteAt((void *)(oop + (numSlotsFieldByteOffset())))) == (numSlotsMask()))
 	 && ((byteAt((void *)((oop - BaseHeaderSize) + (numSlotsFieldByteOffset())))) != (numSlotsMask()))) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"oop %p header has overflow header word, but overflow word does not have a saturated numSlots field",
 				((void *)oop));
 		return 0;
@@ -51,13 +51,13 @@ checkOkayOop(usqInt oop)
 	/* format check */
 	fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
 	if ((fmt == 6) || (fmt == 8)) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"oop %p has an unknown format type",
 				((void *)oop));
 		return 0;
 	}
 	if ((fmt == (forwardedFormat())) != (classIndex == (isForwardedObjectClassIndexPun()))) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"oop %p has mis-matched format/classIndex fields; only one of them is the isForwarded value",
 				((void *)oop));
 		return 0;
@@ -66,14 +66,14 @@ checkOkayOop(usqInt oop)
 	/* specific header bit checks */
 	unusedBits = (0x400000) | (0x40000000000000LL);
 	if ((long64At((void *)(oop))) & unusedBits) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"oop %p has some unused header bits set; should be zero",
 				((void *)oop));
 		return 0;
 	}
 	unusedBitsInYoungObjects = (1U << (unusedBitShift())) | ((1U << (pinnedBitShift())) | (1U << (rememberedBitShift())));
 	if ((longAt((void *)(oop))) & unusedBitsInYoungObjects) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"oop %p has some header bits unused in young objects set; should be zero",
 				((void *)oop));
 		return 0;

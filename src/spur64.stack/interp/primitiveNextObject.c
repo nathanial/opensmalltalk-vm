@@ -12,21 +12,21 @@ primitiveNextObject(void)
     sqInt instance;
     char *sp;
 
-	if ((((longAt(GIV(stackPointer))) & (tagMask())) != 0)) {
+	if ((((longAt(stackPointer)) & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
-	if ((instance = accessibleObjectAfter(longAt(GIV(stackPointer))))) {
+	if ((instance = accessibleObjectAfter(longAt(stackPointer)))) {
 		assert(isInMemory(instance));
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),instance);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),instance);
+		stackPointer = sp;
 	}
 	else {
 		/* begin pop:thenPushInteger: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)0 << 3) | 1));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)0 << 3) | 1));
+		stackPointer = sp;
 	}
 }

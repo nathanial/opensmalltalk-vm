@@ -54,7 +54,7 @@ mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr, sqInt outPointe
 	assert(oopisLessThan(((outPointerArray + BaseHeaderSize) + (numSlotsSqInt * BytesPerOop)) - 1, addressAfter(outPointerArray)));
 	toDoLimitUsqInt = ((usqInt)(((outPointerArray + BaseHeaderSize) + (numSlotsSqInt * BytesPerOop)) - 1));
 	for (p = (((usqInt)(outPointerArray + BaseHeaderSize))); p <= toDoLimitUsqInt; p += 8 /* allocationUnit */) {
-		longAtput((void *)(p),GIV(nilObj));
+		longAtput((void *)(p),nilObj);
 	}
 
 	/* begin objectStartingAt: */
@@ -99,10 +99,10 @@ mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr, sqInt outPointe
 				/* begin storePointer:ofObject:withValue: */
 				assert(validStorePointerArgs(outIndex, outPointerArray, heapOop));
 				assert(isNonImmediate(outPointerArray));
-				if (oopisGreaterThanOrEqualTo(outPointerArray, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(outPointerArray, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(heapOop & (tagMask()))))
-					 && (oopisLessThan(heapOop, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(heapOop, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(outPointerArray + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(outPointerArray);
@@ -171,10 +171,10 @@ l2:
 						/* begin storePointer:ofObject:withValue: */
 						assert(validStorePointerArgs(outIndex, outPointerArray, heapOop));
 						assert(isNonImmediate(outPointerArray));
-						if (oopisGreaterThanOrEqualTo(outPointerArray, GIV(oldSpaceStart))) {
+						if (oopisGreaterThanOrEqualTo(outPointerArray, oldSpaceStart)) {
 							if (/* isYoung: */
 								((!(heapOop & (tagMask()))))
-							 && (oopisLessThan(heapOop, GIV(oldSpaceStart)))) {
+							 && (oopisLessThan(heapOop, oldSpaceStart))) {
 								/* begin possibleRootStoreInto: */
 								if (!((byteAt((void *)(outPointerArray + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 									remember(outPointerArray);

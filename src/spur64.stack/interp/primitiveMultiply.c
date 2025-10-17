@@ -13,31 +13,31 @@ primitiveMultiply(void)
     char *sp;
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	integerPointer = longAt(stackPointer + (1 * BytesPerWord));
 	if ((((integerPointer) & 7) == 1)) {
 		integerRcvr = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		integerRcvr = 0;
 	}
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer));
+	integerPointer = longAt(stackPointer);
 	if ((((integerPointer) & 7) == 1)) {
 		integerArg = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		integerArg = 0;
 	}
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		overflow = (integerRcvr > 0
 					? (integerArg > 0
 							? integerRcvr > ((MaxSmallInteger) / integerArg)
@@ -48,16 +48,16 @@ primitiveMultiply(void)
 							 && (integerArg < ((MaxSmallInteger) / integerRcvr))));
 		if (overflow) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
 		else {
 			integerResult = integerRcvr * integerArg;
 
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),(((usqInt)integerResult << 3) | 1));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (1 * BytesPerWord)),(((usqInt)integerResult << 3) | 1));
+			stackPointer = sp;
 		}
 	}
 }

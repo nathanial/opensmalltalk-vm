@@ -8,7 +8,7 @@ printStackPageuseCount(StackPage *page, sqInt n)
 	print("page ");
 	printHexPtrnp(page);
 	print(" (");
-	printNum(pageIndexForstackMemorybytesPerPage((page->realStackLimit), GIV(stackMemory), GIV(bytesPerPage)));
+	printNum(pageIndexForstackMemorybytesPerPage((page->realStackLimit), stackMemory, bytesPerPage));
 	if (n >= 0) {
 		print(",");
 		printNum(n);
@@ -19,10 +19,10 @@ printStackPageuseCount(StackPage *page, sqInt n)
 	if (isFree(page)) {
 		print(" (free)");
 	}
-	if (page == (GIV(mostRecentlyUsedPage))) {
+	if (page == (mostRecentlyUsedPage)) {
 		print(" (MRU)");
 	}
-	if (((page->prevPage)) == (GIV(mostRecentlyUsedPage))) {
+	if (((page->prevPage)) == (mostRecentlyUsedPage)) {
 		print(" (LRU)");
 	}
 	cr();
@@ -66,7 +66,7 @@ printStackPageuseCount(StackPage *page, sqInt n)
 	print("prev ");
 	printHexPtrnp(page->prevPage);
 	print(" (");
-	printNum(pageIndexForstackMemorybytesPerPage((((page->prevPage))->realStackLimit), GIV(stackMemory), GIV(bytesPerPage)));
+	printNum(pageIndexForstackMemorybytesPerPage((((page->prevPage))->realStackLimit), stackMemory, bytesPerPage));
 	printChar(')');
 
 	/* begin tab */
@@ -74,7 +74,7 @@ printStackPageuseCount(StackPage *page, sqInt n)
 	print("next ");
 	printHexPtrnp(page->nextPage);
 	print(" (");
-	printNum(pageIndexForstackMemorybytesPerPage((((page->nextPage))->realStackLimit), GIV(stackMemory), GIV(bytesPerPage)));
+	printNum(pageIndexForstackMemorybytesPerPage((((page->nextPage))->realStackLimit), stackMemory, bytesPerPage));
 	printChar(')');
 	cr();
 }

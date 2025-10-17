@@ -13,7 +13,7 @@ printProcessStack(sqInt aProcess)
 	cr();
 	printNameOfClasscount(/* fetchClassOf: */
 		((tagBits = aProcess & (tagMask()))
-			? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+			? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 			: fetchClassOfNonImm(aProcess)), 5);
 
 	/* begin space */
@@ -23,7 +23,7 @@ printProcessStack(sqInt aProcess)
 	printNum(quickFetchIntegerofObject(PriorityIndex, aProcess));
 	cr();
 	ctx = followFieldofObject(SuspendedContextIndex, aProcess);
-	if (!(ctx == GIV(nilObj))) {
-		printCallStackOfcurrentFP(ctx, GIV(framePointer));
+	if (!(ctx == nilObj)) {
+		printCallStackOfcurrentFP(ctx, framePointer);
 	}
 }

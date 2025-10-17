@@ -10,10 +10,10 @@ pushBool(sqInt trueOrFalse)
 
 	object = /* booleanObjectOf: */
 			(trueOrFalse
-				? GIV(trueObj)
-				: GIV(falseObj));
+				? trueObj
+				: falseObj);
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),object);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),object);
+	stackPointer = sp;
 }

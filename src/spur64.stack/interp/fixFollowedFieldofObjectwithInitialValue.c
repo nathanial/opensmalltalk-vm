@@ -24,10 +24,10 @@ fixFollowedFieldofObjectwithInitialValue(sqInt fieldIndex, sqInt anObject, sqInt
 	/* begin storePointer:ofObject:withValue: */
 	assert(validStorePointerArgs(fieldIndex, anObject, objOop));
 	assert(isNonImmediate(anObject));
-	if (oopisGreaterThanOrEqualTo(anObject, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(anObject, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(objOop & (tagMask()))))
-		 && (oopisLessThan(objOop, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(objOop, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(anObject + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(anObject);

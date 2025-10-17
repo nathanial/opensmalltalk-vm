@@ -9,7 +9,7 @@ bridgeAt(sqInt segIndex)
     usqInt numSlots;
 
 	/* begin bridgeFor: */
-	address = (((((&(GIV(segments)[segIndex])))->segSize)) + ((((&(GIV(segments)[segIndex])))->segStart))) - (2 * BaseHeaderSize);
+	address = (((((&(segments[segIndex])))->segSize)) + ((((&(segments[segIndex])))->segStart))) - (2 * BaseHeaderSize);
 	numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
 	return (numSlots == (numSlotsMask())
 			? address + BaseHeaderSize

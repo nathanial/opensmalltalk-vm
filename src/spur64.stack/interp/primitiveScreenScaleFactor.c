@@ -13,11 +13,11 @@ primitiveScreenScaleFactor(void)
     char *sp;
 
 	factor = ioScreenScaleFactor();
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		/* begin methodReturnFloat: */
 		assert(!((failed())));
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),floatObjectOf(factor));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),floatObjectOf(factor));
+		stackPointer = sp;
 	}
 	return 0;
 }

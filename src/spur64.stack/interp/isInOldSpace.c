@@ -5,5 +5,5 @@
 sqInt
 isInOldSpace(sqInt address)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return oopisGreaterThanOrEqualToandLessThan(address, GIV(oldSpaceStart), GIV(endOfMemory));
+	return oopisGreaterThanOrEqualToandLessThan(address, oldSpaceStart, endOfMemory);
 }

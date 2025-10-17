@@ -60,7 +60,7 @@ cloneInOldSpaceforPinning(sqInt objOop, sqInt forPinning)
 			if (((!(oop & (tagMask()))))
 			 && ((/* begin isYoungObject: */
 				assert(isNonImmediate(oop)),
-			oopisLessThan(oop, GIV(oldSpaceStart))))) {
+			oopisLessThan(oop, oldSpaceStart)))) {
 				hasYoung = 1;
 			}
 
@@ -87,7 +87,7 @@ cloneInOldSpaceforPinning(sqInt objOop, sqInt forPinning)
 		if (fmt >= (firstCompiledMethodFormat())) {
 			if (((/* begin isYoungObject: */
 				assert(isNonImmediate(objOop)),
-			oopisLessThan(objOop, GIV(oldSpaceStart))))
+			oopisLessThan(objOop, oldSpaceStart)))
 			 || (((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift()))) != 0)) {
 				remember(newObj);
 			}

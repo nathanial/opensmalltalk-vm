@@ -23,8 +23,8 @@ signed64BitValueOf(sqInt oop)
 	}
 	if (((oop & (tagMask())) != 0)) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return 0;
 	}
@@ -45,8 +45,8 @@ signed64BitValueOf(sqInt oop)
 		ok = ClassLargeNegativeIntegerCompactIndex == ccIndex;
 		if (!ok) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return 0;
 		}
@@ -67,8 +67,8 @@ signed64BitValueOf(sqInt oop)
 				? magnitude > 0x8000000000000000ULL
 				: magnitude >= 0x8000000000000000ULL))) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return 0;
 		}

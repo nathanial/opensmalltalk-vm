@@ -36,7 +36,7 @@ magnitude64BitIntegerForneg(usqLong magnitude, sqInt isNegative)
 	/* begin eeInstantiateSmallClassIndex:format:numBytes: */
 	assert((sz >= 0)
 	 && ((largeClassIndex != 0)
-	 && ((knownClassAtIndex(largeClassIndex)) != GIV(nilObj))));
+	 && ((knownClassAtIndex(largeClassIndex)) != nilObj)));
 	assert(((objFormat < (firstByteFormat())
 			? objFormat
 			: objFormat & (byteFormatMask()))) == (instSpecOfClass(knownClassAtIndex(largeClassIndex))));
@@ -44,26 +44,26 @@ magnitude64BitIntegerForneg(usqLong magnitude, sqInt isNegative)
 
 	/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 	assert(numSlots < (numSlotsMask()));
-	newObj = GIV(freeStart);
+	newObj = freeStart;
 	numBytesUsqInt = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 	assert((numBytesUsqInt % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	if ((GIV(freeStart) + numBytesUsqInt) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytesUsqInt) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytesUsqInt) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytesUsqInt) > (((eden).limit))) {
 			error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 			newLargeInteger = 0;
 			goto l1;
 		}
 	}
 	long64Atput((void *)(newObj),((((((usqLong) numSlots)) << (numSlotsFullShift()))) + ((((usqInt)(objFormat) << (formatShift()))))) + largeClassIndex);
-	GIV(freeStart) += numBytesUsqInt;
+	freeStart += numBytesUsqInt;
 	newLargeInteger = newObj;
 	/* end eeInstantiateSmallClassIndex:format:numBytes: */
 l1:

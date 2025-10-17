@@ -14,22 +14,22 @@ primitiveDisablePowerManager(void)
     sqInt integerPointer;
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer));
+	integerPointer = longAt(stackPointer);
 	if ((((integerPointer) & 7) == 1)) {
 		integer = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		integer = 0;
 	}
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		ioDisablePowerManager(integer);
 
 		/* begin pop: */
-		GIV(stackPointer) += 1 * BytesPerWord;
+		stackPointer += 1 * BytesPerWord;
 	}
 	return 0;
 }

@@ -22,14 +22,14 @@ makeContextSnapshotSafe(sqInt ctxt)
 		assert(isContext(ctxt));
 		assert((isNonImmediate(ctxt))
 		 && (!(isForwarded(ctxt))));
-		assert(validStorePointerUncheckedArgs(SenderIndex, ctxt, GIV(nilObj)));
-		longAtput((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(SenderIndex, ctxt, nilObj));
+		longAtput((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),nilObj);
 
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(ctxt))
 		 && (!(isForwarded(ctxt))));
-		assert(validStorePointerUncheckedArgs(InstructionPointerIndex, ctxt, GIV(nilObj)));
-		longAtput((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(InstructionPointerIndex, ctxt, nilObj));
+		longAtput((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),nilObj);
 	}
 	else {
 	}
@@ -45,7 +45,7 @@ makeContextSnapshotSafe(sqInt ctxt)
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(ctxt))
 		 && (!(isForwarded(ctxt))));
-		assert(validStorePointerUncheckedArgs(i, ctxt, GIV(nilObj)));
-		longAtput((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(i, ctxt, nilObj));
+		longAtput((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))),nilObj);
 	}
 }

@@ -14,8 +14,8 @@ signed32BitValueOf(sqInt oop)
 		value64 = (oop >> 3);
 		if ((((int) value64)) != value64) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			value64 = 0;
 		}
@@ -23,8 +23,8 @@ signed32BitValueOf(sqInt oop)
 	}
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	return 0;
 }

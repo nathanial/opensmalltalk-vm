@@ -13,7 +13,7 @@ scavengeFutureSurvivorSpaceStartingAt(sqInt initialAddress)
     usqInt ptr;
 
 	ptr = initialAddress;
-	while (ptr < GIV(futureSurvivorStart)) {
+	while (ptr < futureSurvivorStart) {
 		/* begin objectStartingAt: */
 		numSlots = byteAt((void *)(ptr + (numSlotsFieldByteOffset())));
 		obj = (numSlots == (numSlotsMask())

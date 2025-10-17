@@ -19,10 +19,10 @@ primitiveSuspend(void)
     sqInt ok;
     sqInt process;
 
-	process = longAt(GIV(stackPointer));
+	process = longAt(stackPointer);
 	if (process == (activeProcess())) {
 		/* stackTopPut: */
-		longAtput(GIV(stackPointer),GIV(nilObj));
+		longAtput(stackPointer,nilObj);
 
 		/* transferToHighestPriorityProcessFrom: */
 		transferTofrom(wakeHighestPriority(), CSSuspend);
@@ -43,16 +43,16 @@ primitiveSuspend(void)
 			assert(isContext(myContext)),
 		((((longAt((void *)((myContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord())))))))) & 7) == 1))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 	ok = removeProcessfromList(process, myList);
 	if (!ok) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrOperationFailed;
+		primFailCode = PrimErrOperationFailed;
 		return;
 	}
 
 	/* stackTopPut: */
-	longAtput(GIV(stackPointer),myList);
+	longAtput(stackPointer,myList);
 }

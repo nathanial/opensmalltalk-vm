@@ -17,19 +17,19 @@ primitiveModLargeIntegers(void)
     usqLong result;
     char *sp;
 
-	oopArg = longAt(GIV(stackPointer));
-	oopRcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	oopArg = longAt(stackPointer);
+	oopRcvr = longAt(stackPointer + (1 * BytesPerWord));
 	aIsNegative = isNegativeIntegerValueOf(oopRcvr);
 	bIsNegative = isNegativeIntegerValueOf(oopArg);
 	a = magnitude64BitValueOf(oopRcvr);
 	b = magnitude64BitValueOf(oopArg);
 	if (!b) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		return;
 	}
 	result = a % b;
@@ -41,9 +41,9 @@ primitiveModLargeIntegers(void)
 		}
 	}
 	oopResult = magnitude64BitIntegerForneg(result, bIsNegative);
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),oopResult);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),oopResult);
+		stackPointer = sp;
 	}
 }

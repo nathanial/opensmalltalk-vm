@@ -40,30 +40,30 @@ popObjStack(sqInt objStack)
 
 		/* begin updateRootOfObjStackAt:with: */
 		/* begin storePointer:ofObject:withValue: */
-		assert(validStorePointerArgs(myx, GIV(hiddenRootsObj), nextPage));
-		assert(isNonImmediate(GIV(hiddenRootsObj)));
-		if (oopisGreaterThanOrEqualTo(GIV(hiddenRootsObj), GIV(oldSpaceStart))) {
+		assert(validStorePointerArgs(myx, hiddenRootsObj, nextPage));
+		assert(isNonImmediate(hiddenRootsObj));
+		if (oopisGreaterThanOrEqualTo(hiddenRootsObj, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(nextPage & (tagMask()))))
-			 && (oopisLessThan(nextPage, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(nextPage, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
-				if (!((byteAt((void *)(GIV(hiddenRootsObj) + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-					remember(GIV(hiddenRootsObj));
+				if (!((byteAt((void *)(hiddenRootsObj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+					remember(hiddenRootsObj);
 				}
 			}
 		}
 
 		/* most stores into young objects */
-		longAtput((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(myx) << (shiftForWord()))))),nextPage);
+		longAtput((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(myx) << (shiftForWord()))))),nextPage);
 		switch (myx) {
 		case MarkStackRootIndex:
-			GIV(markStack) = nextPage;
+			markStack = nextPage;
 			break;
 		case WeaklingStackRootIndex:
-			GIV(weaklingStack) = nextPage;
+			weaklingStack = nextPage;
 			break;
 		case MournQueueRootIndex:
-			GIV(mournQueue) = nextPage;
+			mournQueue = nextPage;
 			break;
 		default:
 			error("Case not found and no otherwise clause");

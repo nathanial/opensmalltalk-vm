@@ -20,19 +20,19 @@ primitiveIntegerAtPut(void)
     sqInt valueOop;
 
 	/* begin primitiveSpurIntegerAtPut */
-	valueOop = longAt(GIV(stackPointer));
-	index = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	rcvr = longAt(GIV(stackPointer) + (2 * BytesPerWord));
+	valueOop = longAt(stackPointer);
+	index = longAt(stackPointer + (1 * BytesPerWord));
+	rcvr = longAt(stackPointer + (2 * BytesPerWord));
 	value = signed64BitValueOf(valueOop);
-	if (!((!GIV(primFailCode))
+	if (!((!primFailCode)
 		 && ((((index) & 7) == 1)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		goto l1;
 	}
 	if (((rcvr & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		goto l1;
 	}
 	if (
@@ -43,7 +43,7 @@ primitiveIntegerAtPut(void)
 #  endif
 		) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNoModification;
+		primFailCode = PrimErrNoModification;
 		goto l1;
 	}
 	fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
@@ -51,12 +51,12 @@ primitiveIntegerAtPut(void)
 	if (fmt >= (firstByteFormat())) {
 		if (fmt >= (firstCompiledMethodFormat())) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrUnsupported;
+			primFailCode = PrimErrUnsupported;
 			goto l1;
 		}
 		if (!((((usqInt)((((value) >> 7)) + 1))) <= 1)) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			goto l1;
 		}
 
@@ -74,19 +74,19 @@ primitiveIntegerAtPut(void)
 
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),valueOop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),valueOop);
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 	if (fmt >= (firstShortFormat())) {
 		if (!((((usqInt)((((value) >> 15)) + 1))) <= 1)) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			goto l1;
 		}
 		numSlots = ((usqInt)((numBytesOf(rcvr)))) >> 1;
@@ -96,13 +96,13 @@ primitiveIntegerAtPut(void)
 
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),valueOop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),valueOop);
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 	if (fmt == (sixtyFourBitIndexableFormat())) {
@@ -113,13 +113,13 @@ primitiveIntegerAtPut(void)
 
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),valueOop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),valueOop);
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 
@@ -127,7 +127,7 @@ primitiveIntegerAtPut(void)
 	if (fmt >= (firstLongFormat())) {
 		if (!((((usqInt)((((value) >> 0x1F)) + 1))) <= 1)) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			goto l1;
 		}
 		numSlots = ((usqInt)((numBytesOf(rcvr)))) >> 2;
@@ -137,13 +137,13 @@ primitiveIntegerAtPut(void)
 
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),valueOop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),valueOop);
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 	if ((fmt <= 5 /* lastPointerFormat */)
@@ -161,10 +161,10 @@ primitiveIntegerAtPut(void)
 				/* begin storePointer:ofObject:withValue: */
 				assert(validStorePointerArgs(index, rcvr, valueOop));
 				assert(isNonImmediate(rcvr));
-				if (oopisGreaterThanOrEqualTo(rcvr, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(valueOop & (tagMask()))))
-					 && (oopisLessThan(valueOop, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(valueOop, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(rcvr);
@@ -177,8 +177,8 @@ primitiveIntegerAtPut(void)
 
 				/* begin methodReturnValue: */
 				assert(!((failed())));
-				longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),valueOop);
-				GIV(stackPointer) = sp;
+				longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),valueOop);
+				stackPointer = sp;
 				goto l1;
 			}
 		}
@@ -193,10 +193,10 @@ primitiveIntegerAtPut(void)
 			/* begin storePointer:ofObject:withValue: */
 			assert(validStorePointerArgs(fieldIndex, rcvr, valueOop));
 			assert(isNonImmediate(rcvr));
-			if (oopisGreaterThanOrEqualTo(rcvr, GIV(oldSpaceStart))) {
+			if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(valueOop & (tagMask()))))
-				 && (oopisLessThan(valueOop, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(valueOop, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
 					if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 						remember(rcvr);
@@ -209,18 +209,18 @@ primitiveIntegerAtPut(void)
 
 			/* begin methodReturnValue: */
 			assert(!((failed())));
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),valueOop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),valueOop);
+			stackPointer = sp;
 			goto l1;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		goto l1;
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = PrimErrBadReceiver;
+	primFailCode = PrimErrBadReceiver;
 	/* end primitiveSpurIntegerAtPut */
 l1:;
 }

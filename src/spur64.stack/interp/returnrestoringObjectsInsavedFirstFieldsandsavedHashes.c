@@ -35,7 +35,7 @@ returnrestoringObjectsInsavedFirstFieldsandsavedHashes(sqInt errCode, sqInt reac
 		assert(!(isFreeObject(oop)));
 		byteAtput((void *)(oop + (markBitsByteOffset())),(byteAt((void *)(oop + (markBitsByteOffset())))) & (0xFF - (1U << (markedBitByteShift()))));
 	}
-	if (oopisGreaterThanOrEqualToandLessThan(savedFirstFields, GIV(oldSpaceStart), GIV(endOfMemory))) {
+	if (oopisGreaterThanOrEqualToandLessThan(savedFirstFields, oldSpaceStart, endOfMemory)) {
 		freeObject(savedFirstFields);
 	}
 
@@ -46,7 +46,7 @@ returnrestoringObjectsInsavedFirstFieldsandsavedHashes(sqInt errCode, sqInt reac
 			: numSlots))) - 1;
 	for (i = 0; i <= toDoLimit; i += 1) {
 		if (((hash = long32At((void *)((savedHashes + BaseHeaderSize) + ((((usqInt)(i) << 2))))))) > (identityHashHalfWordMask())) {
-			if (oopisGreaterThanOrEqualToandLessThan(savedHashes, GIV(oldSpaceStart), GIV(endOfMemory))) {
+			if (oopisGreaterThanOrEqualToandLessThan(savedHashes, oldSpaceStart, endOfMemory)) {
 				freeObject(savedHashes);
 			}
 			goto l1;
@@ -58,7 +58,7 @@ returnrestoringObjectsInsavedFirstFieldsandsavedHashes(sqInt errCode, sqInt reac
 		assert(!(isFreeObject(oop)));
 		byteAtput((void *)(oop + (markBitsByteOffset())),(byteAt((void *)(oop + (markBitsByteOffset())))) & (0xFF - (1U << (markedBitByteShift()))));
 	}
-	if (oopisGreaterThanOrEqualToandLessThan(savedHashes, GIV(oldSpaceStart), GIV(endOfMemory))) {
+	if (oopisGreaterThanOrEqualToandLessThan(savedHashes, oldSpaceStart, endOfMemory)) {
 		freeObject(savedHashes);
 	}
 	/* end restoreObjectsIn:savedHashes: */

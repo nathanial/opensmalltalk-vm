@@ -11,19 +11,19 @@ printCallStackOf(sqInt aContextOrProcessOrFrame)
 
 	if (/* couldBeFramePointer: */
 		(((((usqInt)aContextOrProcessOrFrame)) & (BytesPerWord - 1)) == 0)
-	 && ((((((usqInt)aContextOrProcessOrFrame)) >= (((usqInt)GIV(stackMemory)))) && ((((usqInt)aContextOrProcessOrFrame)) <= (((usqInt)GIV(pages))))))) {
+	 && ((((((usqInt)aContextOrProcessOrFrame)) >= (((usqInt)stackMemory))) && ((((usqInt)aContextOrProcessOrFrame)) <= (((usqInt)pages)))))) {
 		return printCallStackFP(((char *)aContextOrProcessOrFrame));
 	}
 	if (aContextOrProcessOrFrame == (activeProcess())) {
-		return printCallStackOf(((sqInt)GIV(framePointer)));
+		return printCallStackOf(((sqInt)framePointer));
 	}
 	if (couldBeProcess(aContextOrProcessOrFrame)) {
 		return printCallStackOf(longAt((void *)((aContextOrProcessOrFrame + BaseHeaderSize) + ((((usqInt)(SuspendedContextIndex) << (shiftForWord())))))));
 	}
 	context = aContextOrProcessOrFrame;
-	while (!(context == GIV(nilObj))) {
+	while (!(context == nilObj)) {
 		if (((((longAt((void *)((context + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)) {
-			if (!(checkIsStillMarriedContextcurrentFP(context, GIV(framePointer)))) {
+			if (!(checkIsStillMarriedContextcurrentFP(context, framePointer))) {
 				shortPrintContext(context);
 				return null;
 			}

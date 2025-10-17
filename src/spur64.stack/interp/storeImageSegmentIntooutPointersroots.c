@@ -134,7 +134,7 @@ storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg, sqInt outPointe
 	/* If objectsReachableFromRoots: answers an integer there is not enough continuous free space in which to allocate the
 	   reachable objects.  If there is sufficient free space then answer an error code to prompt a compacting GC and a retry. */
 	if ((((arrayOfObjects) & 7) == 1)) {
-		if ((GIV(totalFreeOldSpace) - 8 /* allocationUnit */) >= ((arrayOfObjects >> 3))) {
+		if ((totalFreeOldSpace - 8 /* allocationUnit */) >= ((arrayOfObjects >> 3))) {
 			return PrimErrNeedCompaction;
 		}
 		return PrimErrNoMemory;
@@ -207,10 +207,10 @@ storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg, sqInt outPointe
 	if ((!savedFirstFields)
 	 || (!savedOutHashes)) {
 		freeObject(arrayOfObjects);
-		if (oopisGreaterThanOrEqualToandLessThan(savedFirstFields, GIV(oldSpaceStart), GIV(endOfMemory))) {
+		if (oopisGreaterThanOrEqualToandLessThan(savedFirstFields, oldSpaceStart, endOfMemory)) {
 			freeObject(savedFirstFields);
 		}
-		if (oopisGreaterThanOrEqualToandLessThan(savedOutHashes, GIV(oldSpaceStart), GIV(endOfMemory))) {
+		if (oopisGreaterThanOrEqualToandLessThan(savedOutHashes, oldSpaceStart, endOfMemory)) {
 			freeObject(savedOutHashes);
 		}
 		return PrimErrNoMemory;

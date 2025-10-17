@@ -16,13 +16,13 @@ primitiveSize(void)
     sqInt totalLength;
 
 	fmt = 0;
-	rcvr = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer);
 	if ((((rcvr & (tagMask())) != 0))
 	 || (((hdr = long64At((void *)(rcvr))),
 	(((fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask()))) < (arrayFormat()))
 		 || (fmt == (forwardedFormat()))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 
@@ -86,6 +86,6 @@ l1:
 
 	/* begin methodReturnInteger: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)(totalLength - fixedFields) << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)(totalLength - fixedFields) << 3) | 1));
+	stackPointer = sp;
 }

@@ -16,39 +16,39 @@ printFrame(char *theFP)
 
 	if (!(/* couldBeFramePointer: */
 			(((((usqInt)theFP)) & (BytesPerWord - 1)) == 0)
-		 && ((((((usqInt)theFP)) >= (((usqInt)GIV(stackMemory)))) && ((((usqInt)theFP)) <= (((usqInt)GIV(pages)))))))) {
+		 && ((((((usqInt)theFP)) >= (((usqInt)stackMemory))) && ((((usqInt)theFP)) <= (((usqInt)pages))))))) {
 		if ((addressCouldBeObj(((sqInt)theFP)))
 		 && ((isInMemory(((sqInt)theFP)))
 		 && ((((longAt((void *)(((sqInt)theFP)))) & (classIndexMask())) == ClassMethodContextCompactIndex)
-		 && (checkIsStillMarriedContextcurrentFP(((sqInt)theFP), GIV(framePointer)))))) {
+		 && (checkIsStillMarriedContextcurrentFP(((sqInt)theFP), framePointer))))) {
 			return printFrame(frameOfMarriedContext(((sqInt)theFP)));
 		}
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p is not in the stack zone?!\n",
 				theFP);
 		return null;
 	}
 	frameAbove = null;
-	if (theFP == GIV(framePointer)) {
-		theSP = GIV(stackPointer);
+	if (theFP == framePointer) {
+		theSP = stackPointer;
 	}
 	else {
 		/* begin stackPageFor: */
-		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
 		if (isFree(thePage)) {
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%p is on a free page?!\n",
 					theFP);
 			return null;
 		}
-		if ((thePage != GIV(stackPage))
+		if ((thePage != stackPage)
 		 && (theFP == ((thePage->headFP)))) {
 			theSP = (thePage->headSP);
 		}
 		else {
-			startFrame = ((thePage == GIV(stackPage))
-				 && (((GIV(framePointer) >= ((thePage->realStackLimit))) && (GIV(framePointer) <= ((thePage->baseAddress)))))
-						? GIV(framePointer)
+			startFrame = ((thePage == stackPage)
+				 && (((framePointer >= ((thePage->realStackLimit))) && (framePointer <= ((thePage->baseAddress)))))
+						? framePointer
 						: (thePage->headFP));
 
 			/* begin safeFindFrameAbove:on:startingFrom: */
@@ -77,7 +77,7 @@ l1:
 		}
 	}
 	if (!theSP) {
-		fprintf(GIV(transcript), "could not find sp; using bogus value\n");
+		fprintf(transcript, "could not find sp; using bogus value\n");
 		theSP = theFP + FoxReceiver;
 	}
 	printFrameWithSP(theFP, theSP);

@@ -18,7 +18,7 @@ growRememberedSet(void)
 
 
 	/* Don't ruin locality in remember: */
-	obj = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
+	obj = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
 
 	/* begin numSlotsOf: */
 	assert((classIndexOf(obj)) > (isForwardedObjectClassIndexPun()));
@@ -93,13 +93,13 @@ growRememberedSet(void)
 
 	/* begin rememberedSetObj: */
 	assert(isOldObject(newObj));
-	assert((isNonImmediate(GIV(hiddenRootsObj)))
-	 && (!(isForwarded(GIV(hiddenRootsObj)))));
-	assert(validStorePointerUncheckedArgs(RememberedSetRootIndex, GIV(hiddenRootsObj), newObj));
-	longAtput((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))),newObj);
+	assert((isNonImmediate(hiddenRootsObj))
+	 && (!(isForwarded(hiddenRootsObj))));
+	assert(validStorePointerUncheckedArgs(RememberedSetRootIndex, hiddenRootsObj, newObj));
+	longAtput((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))),newObj);
 	base = firstIndexableField(newObj);
-	for (i = 0; i < GIV(rememberedSetSize); i += 1) {
-		base[i] = (GIV(rememberedSet)[i]);
+	for (i = 0; i < rememberedSetSize; i += 1) {
+		base[i] = (rememberedSet[i]);
 	}
 
 	/* if growing in the middle of a GC, need to preserve marked status. */
@@ -113,15 +113,15 @@ growRememberedSet(void)
 		byteAtput((void *)(obj + (markBitsByteOffset())),(byteAt((void *)(obj + (markBitsByteOffset())))) & (0xFF - (1U << (markedBitByteShift()))));
 	}
 	freeObject(obj);
-	GIV(rememberedSet) = base;
+	rememberedSet = base;
 
 	/* begin numSlotsOf: */
 	assert((classIndexOf(newObj)) > (isForwardedObjectClassIndexPun()));
-	GIV(rememberedSetLimit) = (((numSlotsUsqInt = byteAt((void *)(newObj + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
+	rememberedSetLimit = (((numSlotsUsqInt = byteAt((void *)(newObj + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
 				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(newObj - BaseHeaderSize)))) << 8)))))) >> 8
 				: numSlotsUsqInt);
 
 	/* begin setRememberedSetRedZone */
-	fudge = ((((GIV(eden).limit)) - ((GIV(eden).start))) / BytesPerWord) / 0x400;
-	GIV(rememberedSetRedZone) = ((((GIV(rememberedSetLimit) * 3) / 4) < fudge) ? fudge : ((GIV(rememberedSetLimit) * 3) / 4));
+	fudge = ((((eden.limit)) - ((eden.start))) / BytesPerWord) / 0x400;
+	rememberedSetRedZone = ((((rememberedSetLimit * 3) / 4) < fudge) ? fudge : ((rememberedSetLimit * 3) / 4));
 }

@@ -42,7 +42,7 @@ becomewithtwoWaycopyHash(sqInt array1, sqInt array2, sqInt twoWayFlag, sqInt cop
     sqInt sp;
     sqInt toDoLimit;
 
-	assert(GIV(becomeEffectsFlags) == 0);
+	assert(becomeEffectsFlags == 0);
 	runLeakCheckerFor(GCModeBecome);
 	if (!(/* isArray: */
 			((!(array1 & (tagMask()))))
@@ -187,7 +187,7 @@ l3:
 				/* end ifOopInvalidForBecome:errorCodeInto: */
 l4:
 				size = (size + (bytesInBody(oop1))) + (bytesInBody(oop2));
-				GIV(becomeEffectsFlags) = (GIV(becomeEffectsFlags) | (becomeEffectFlagsFor(oop1))) | (becomeEffectFlagsFor(oop2));
+				becomeEffectsFlags = (becomeEffectsFlags | (becomeEffectFlagsFor(oop1))) | (becomeEffectFlagsFor(oop2));
 			}
 			else {
 				if (copyHashFlag) {
@@ -206,12 +206,12 @@ l4:
 						goto l6;
 					}
 				}
-				GIV(becomeEffectsFlags) = GIV(becomeEffectsFlags) | (becomeEffectFlagsFor(oop1));
+				becomeEffectsFlags = becomeEffectsFlags | (becomeEffectFlagsFor(oop1));
 			}
 		}
 		fieldOffset -= BytesPerOop;
 	}
-	if (size >= (GIV(totalFreeOldSpace) + (GIV(scavengeThreshold) - GIV(freeStart)))) {
+	if (size >= (totalFreeOldSpace + (scavengeThreshold - freeStart))) {
 		ec = PrimErrNoMemory;
 		goto l6;
 	}
@@ -220,25 +220,25 @@ l4:
 l6:
 	if (ec) {
 		/* begin zeroBecomeEffectFlagsOnFailure */
-		GIV(becomeEffectsFlags) = 0;
+		becomeEffectsFlags = 0;
 		return ec;
 	}
 
 	/* begin preBecomeAction: */
-	if (GIV(stackPage)) {
+	if (stackPage) {
 		/* begin externalWriteBackHeadFramePointers */
-		assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-		assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-		assert(!((isFree(GIV(stackPage)))));
+		assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+		assert(stackPage == (mostRecentlyUsedPage));
+		assert(!((isFree(stackPage))));
 
 		/* begin setHeadFP:andSP:inPage: */
-		assert(GIV(stackPointer) < GIV(framePointer));
-		assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-		 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-		assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-		 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-		(GIV(stackPage)->headFP = GIV(framePointer));
-		(GIV(stackPage)->headSP = GIV(stackPointer));
+		assert(stackPointer < framePointer);
+		assert((stackPointer < ((stackPage->baseAddress)))
+		 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+		assert((framePointer < ((stackPage->baseAddress)))
+		 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+		(stackPage->headFP = framePointer);
+		(stackPage->headSP = stackPointer);
 		assert(pageListIsWellFormed());
 	}
 	if (twoWayFlag) {
@@ -396,10 +396,10 @@ l1:
 
 				/* begin isOldObject: */
 				assert(isNonImmediate(obj1));
-				if (oopisGreaterThanOrEqualTo(obj1, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(obj1, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(obj2 & (tagMask()))))
-					 && (oopisLessThan(obj2, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(obj2, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(obj1 + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(obj1);
@@ -423,11 +423,11 @@ l1:
 				}
 				if (((/* begin isOldObject: */
 					assert(isNonImmediate(obj1)),
-				oopisGreaterThanOrEqualTo(obj1, GIV(oldSpaceStart))))
+				oopisGreaterThanOrEqualTo(obj1, oldSpaceStart)))
 				 && (/* isYoung: */
 					((!(obj2 & (tagMask()))))
-				 && (oopisLessThan(obj2, GIV(oldSpaceStart))))) {
-					GIV(becomeEffectsFlags) = GIV(becomeEffectsFlags) | OldBecameNewFlag;
+				 && (oopisLessThan(obj2, oldSpaceStart)))) {
+					becomeEffectsFlags = becomeEffectsFlags | OldBecameNewFlag;
 				}
 				assert(!((isOopForwarded(obj2))));
 
@@ -444,28 +444,28 @@ l1:
 	}
 
 	/* begin followSpecialObjectsOop */
-	if ((!((longAt((void *)(GIV(specialObjectsOop)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-		GIV(validatedIntegerClassFlags) = 0;
+	if ((!((longAt((void *)(specialObjectsOop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
+		validatedIntegerClassFlags = 0;
 
 		/* begin followForwarded: */
-		assert(isUnambiguouslyForwarder(GIV(specialObjectsOop)));
-		referent = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + (0U << (shiftForWord()))));
+		assert(isUnambiguouslyForwarder(specialObjectsOop));
+		referent = longAt((void *)((specialObjectsOop + BaseHeaderSize) + (0U << (shiftForWord()))));
 		while (/* isOopForwarded: */
 			((!(referent & (tagMask()))))
 		 && ((!((longAt((void *)(referent))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 			referent = longAt((void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
 		}
-		GIV(specialObjectsOop) = referent;
+		specialObjectsOop = referent;
 	}
-	followForwardedObjectFieldstoDepth(GIV(specialObjectsOop), 0);
+	followForwardedObjectFieldstoDepth(specialObjectsOop, 0);
 
 	/* N.B. perform coInterpreter's postBecomeAction: *before* postBecomeScanClassTable:
 	   to allow the coInterpreter to void method cache entries by spotting classIndices that
 	   refer to forwarded objects. postBecomeScanClassTable: follows forwarders in the table. */
 
 	/* begin postBecomeAction: */
-	spurPostBecomeAction(GIV(becomeEffectsFlags));
-	postBecomeScanClassTable(GIV(becomeEffectsFlags));
+	spurPostBecomeAction(becomeEffectsFlags);
+	postBecomeScanClassTable(becomeEffectsFlags);
 	if (twoWayFlag) {
 		assert(validPostBecomeArrayContents(array1));
 		assert(validPostBecomeArrayContents(array2));
@@ -477,6 +477,6 @@ l1:
 	runLeakCheckerFor(GCModeBecome);
 
 	/* begin zeroBecomeEffectFlagsOnSuccess */
-	GIV(becomeEffectsFlags) = 0;
+	becomeEffectsFlags = 0;
 	return PrimNoErr;
 }

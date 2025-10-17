@@ -5,5 +5,5 @@
 sqInt
 falseObject(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return GIV(falseObj);
+	return falseObj;
 }

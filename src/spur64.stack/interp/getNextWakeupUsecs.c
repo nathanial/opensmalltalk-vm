@@ -5,5 +5,5 @@
 usqLong
 getNextWakeupUsecs(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return GIV(nextWakeupUsecs);
+	return nextWakeupUsecs;
 }

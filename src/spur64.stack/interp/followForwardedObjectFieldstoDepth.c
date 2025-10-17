@@ -92,10 +92,10 @@ l2:
 				/* begin storePointer:ofObject:withValue: */
 				assert(validStorePointerArgs(i, objOop, oop));
 				assert(isNonImmediate(objOop));
-				if (oopisGreaterThanOrEqualTo(objOop, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(oop & (tagMask()))))
-					 && (oopisLessThan(oop, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(oop, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(objOop);

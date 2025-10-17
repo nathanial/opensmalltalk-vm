@@ -15,31 +15,31 @@ makePointwithxValueyValue(sqInt xValue, sqInt yValue)
 	/* begin eeInstantiatePoint */
 	/* begin eeInstantiateSmallClassIndex:format:numSlots: */
 	assert(((YIndex + 1) >= 0)
-	 && ((knownClassAtIndex(ClassPointCompactIndex)) != GIV(nilObj)));
+	 && ((knownClassAtIndex(ClassPointCompactIndex)) != nilObj));
 	assert((nonIndexablePointerFormat()) == (instSpecOfClass(knownClassAtIndex(ClassPointCompactIndex))));
 
 	/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 	assert((YIndex + 1) < (numSlotsMask()));
-	newObj = GIV(freeStart);
+	newObj = freeStart;
 	numBytes = BaseHeaderSize + (((YIndex + 1) < 1
 		? 8 /* allocationUnit */
 		: (YIndex + 1) * BytesPerOop));
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 			pointResult = 0;
 			goto l1;
 		}
 	}
 	long64Atput((void *)(newObj),((((((usqLong) (YIndex + 1))) << (numSlotsFullShift()))) + ((((usqInt)((nonIndexablePointerFormat())) << (formatShift()))))) + ClassPointCompactIndex);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	pointResult = newObj;
 	/* end eeInstantiatePoint */
 l1:

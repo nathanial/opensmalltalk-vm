@@ -7,7 +7,7 @@
 static NoDbgRegParms sqInt
 printHexPtrnp(void *p)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return fprintf(GIV(transcript),
+	return fprintf(transcript,
 			"%p",
 			p);
 }

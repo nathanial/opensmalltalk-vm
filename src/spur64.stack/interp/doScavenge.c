@@ -16,67 +16,67 @@ doScavenge(sqInt tenuringCriterion)
 
 	/* begin doAllocationAccountingForScavenge */
 	/* begin currentAllocatedBytes */
-	use = ((assert((totalBytesInSegments()) == GIV(totalHeapSizeIncludingBridges)),
-GIV(totalHeapSizeIncludingBridges) - (GIV(numSegments) * (2 * BaseHeaderSize)))) - GIV(totalFreeOldSpace);
-	GIV(statAllocatedBytes) = (GIV(statAllocatedBytes) + (GIV(freeStart) - (((GIV(eden)).start)))) + (use - GIV(oldSpaceUsePriorToScavenge));
-	GIV(gcPhaseInProgress) = ScavengeInProgress;
+	use = ((assert((totalBytesInSegments()) == totalHeapSizeIncludingBridges),
+totalHeapSizeIncludingBridges - (numSegments * (2 * BaseHeaderSize)))) - totalFreeOldSpace;
+	statAllocatedBytes = (statAllocatedBytes + (freeStart - (((eden).start)))) + (use - oldSpaceUsePriorToScavenge);
+	gcPhaseInProgress = ScavengeInProgress;
 
 	/* begin scavenge: */
-	GIV(statSurvivorCount) = 0;
-	GIV(tenureCriterion) = tenuringCriterion;
+	statSurvivorCount = 0;
+	tenureCriterion = tenuringCriterion;
 
 	/* begin logStartScavenge */
-	(GIV(scavengeLogRecord).sEdenBytes = GIV(freeStart) - ((GIV(eden).start)));
-	(GIV(scavengeLogRecord).sPastBytes = GIV(pastSpaceStart) - ((GIV(pastSpace).start)));
-	(GIV(scavengeLogRecord).sRememberedSetSize = GIV(rememberedSetSize));
-	(GIV(scavengeLogRecord).sRememberedSetRedZone = GIV(rememberedSetRedZone));
-	(GIV(scavengeLogRecord).sRememberedSetLimit = GIV(rememberedSetLimit));
-	(GIV(scavengeLogRecord).sStatTenures = GIV(statTenures));
+	(scavengeLogRecord.sEdenBytes = freeStart - ((eden.start)));
+	(scavengeLogRecord.sPastBytes = pastSpaceStart - ((pastSpace.start)));
+	(scavengeLogRecord.sRememberedSetSize = rememberedSetSize);
+	(scavengeLogRecord.sRememberedSetRedZone = rememberedSetRedZone);
+	(scavengeLogRecord.sRememberedSetLimit = rememberedSetLimit);
+	(scavengeLogRecord.sStatTenures = statTenures);
 
 	/* begin strategizeToLimitRememberedTable */
-	if ((GIV(tenureCriterion) == TenureByAge)
-	 && (GIV(rememberedSetSize) >= GIV(rememberedSetRedZone))) {
-		GIV(tenureCriterion) = TenureToShrinkRT;
+	if ((tenureCriterion == TenureByAge)
+	 && (rememberedSetSize >= rememberedSetRedZone)) {
+		tenureCriterion = TenureToShrinkRT;
 		computeRefCountToShrinkRT();
 	}
 
 	/* begin logTenuringPolicy */
-	(GIV(scavengeLogRecord).tTenureCriterion = GIV(tenureCriterion));
-	(GIV(scavengeLogRecord).tTenureThreshold = ((GIV(tenureCriterion) == TenureByAge)
-	 && (GIV(tenureThreshold) > ((GIV(pastSpace).start)))
-			? GIV(tenureThreshold) - ((GIV(pastSpace).start))
+	(scavengeLogRecord.tTenureCriterion = tenureCriterion);
+	(scavengeLogRecord.tTenureThreshold = ((tenureCriterion == TenureByAge)
+	 && (tenureThreshold > ((pastSpace.start)))
+			? tenureThreshold - ((pastSpace.start))
 			: 0));
-	(GIV(scavengeLogRecord).tRefCountToShrinkRT = GIV(refCountToShrinkRT));
+	(scavengeLogRecord.tRefCountToShrinkRT = refCountToShrinkRT);
 	scavengeLoop();
 	processWeaklings();
 
 	/* begin computeTenuringThreshold */
-	fractionSurvived = (((GIV(futureSpace).limit)) == ((GIV(futureSpace).start))
+	fractionSurvived = (((futureSpace.limit)) == ((futureSpace.start))
 				? 0.0
-				: (((double) (GIV(futureSurvivorStart) - ((GIV(futureSpace).start))) )) / (((GIV(futureSpace).limit)) - ((GIV(futureSpace).start))));
-	GIV(tenureThreshold) = (fractionSurvived > 0.9
-				? (round(((((GIV(pastSpace).limit)) - ((GIV(pastSpace).start))) * (1.0 - GIV(tenuringProportion))))) + ((GIV(pastSpace).start))
+				: (((double) (futureSurvivorStart - ((futureSpace.start))) )) / (((futureSpace.limit)) - ((futureSpace.start))));
+	tenureThreshold = (fractionSurvived > 0.9
+				? (round(((((pastSpace.limit)) - ((pastSpace.start))) * (1.0 - tenuringProportion)))) + ((pastSpace.start))
 				: 0);
 
 	/* begin exchangeSurvivorSpaces */
-	temp = GIV(pastSpace);
-	GIV(pastSpace) = GIV(futureSpace);
-	GIV(futureSpace) = temp;
+	temp = pastSpace;
+	pastSpace = futureSpace;
+	futureSpace = temp;
 
 	/* begin logEndScavenge */
-	(GIV(scavengeLogRecord).eSurvivorBytes = GIV(futureSurvivorStart) - ((GIV(pastSpace).start)));
-	(GIV(scavengeLogRecord).eRememberedSetSize = GIV(rememberedSetSize));
-	(GIV(scavengeLogRecord).eStatTenures = GIV(statTenures));
+	(scavengeLogRecord.eSurvivorBytes = futureSurvivorStart - ((pastSpace.start)));
+	(scavengeLogRecord.eRememberedSetSize = rememberedSetSize);
+	(scavengeLogRecord.eStatTenures = statTenures);
 
 	/* begin initFutureSpaceStart */
-	oldStart = GIV(futureSurvivorStart);
-	GIV(futureSurvivorStart) = (GIV(futureSpace).start);
-	GIV(pastSpaceStart) = oldStart;
-	assert(oopisGreaterThanOrEqualToandLessThanOrEqualTo(GIV(pastSpaceStart), ((GIV(pastSpace)).start), ((GIV(pastSpace)).limit)));
-	GIV(freeStart) = ((GIV(eden)).start);
-	GIV(gcPhaseInProgress) = 0;
+	oldStart = futureSurvivorStart;
+	futureSurvivorStart = (futureSpace.start);
+	pastSpaceStart = oldStart;
+	assert(oopisGreaterThanOrEqualToandLessThanOrEqualTo(pastSpaceStart, ((pastSpace).start), ((pastSpace).limit)));
+	freeStart = ((eden).start);
+	gcPhaseInProgress = 0;
 
 	/* begin resetAllocationAccountingAfterGC */
-	GIV(oldSpaceUsePriorToScavenge) = ((assert((totalBytesInSegments()) == GIV(totalHeapSizeIncludingBridges)),
-GIV(totalHeapSizeIncludingBridges) - (GIV(numSegments) * (2 * BaseHeaderSize)))) - GIV(totalFreeOldSpace);
+	oldSpaceUsePriorToScavenge = ((assert((totalBytesInSegments()) == totalHeapSizeIncludingBridges),
+totalHeapSizeIncludingBridges - (numSegments * (2 * BaseHeaderSize)))) - totalFreeOldSpace;
 }

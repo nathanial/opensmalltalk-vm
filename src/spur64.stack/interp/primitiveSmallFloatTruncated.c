@@ -10,7 +10,7 @@ primitiveSmallFloatTruncated(void)
     double rcvr;
     double trunc;
 
-	oop = longAt(GIV(stackPointer));
+	oop = longAt(stackPointer);
 
 	/* begin smallFloatValueOf: */
 	/* begin smallFloatBitsOf: */
@@ -27,12 +27,12 @@ primitiveSmallFloatTruncated(void)
 	if ((((trunc >= (((double) (MinSmallInteger) ))) && (trunc <= (((double) (MaxSmallInteger) )))))
 	 && ((((((usqInt)((((sqInt)trunc)))) >> 60) + 1) & 15) <= 1)) {
 		/* stackTopPut: */
-		longAtput(GIV(stackPointer),(((usqInt)(((sqInt)trunc)) << 3) | 1));
+		longAtput(stackPointer,(((usqInt)(((sqInt)trunc)) << 3) | 1));
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 }

@@ -12,7 +12,7 @@ primitiveSmallFloatLogN(void)
     sqInt oop;
     double rcvr;
 
-	oop = longAt(GIV(stackPointer));
+	oop = longAt(stackPointer);
 
 	/* begin smallFloatValueOf: */
 	/* begin smallFloatBitsOf: */
@@ -28,5 +28,5 @@ primitiveSmallFloatLogN(void)
 	aValue = floatObjectOf(log(rcvr));
 
 	/* begin stackTopPut: */
-	longAtput(GIV(stackPointer),aValue);
+	longAtput(stackPointer,aValue);
 }

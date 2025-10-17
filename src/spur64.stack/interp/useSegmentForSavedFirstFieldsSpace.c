@@ -16,9 +16,9 @@ useSegmentForSavedFirstFieldsSpace(sqInt spaceEstimate)
 	allocatedSize = 0;
 	roundedSize = ((spaceEstimate + 0x3FF) / 0x400) * 0x400;
 	if ((segAddress = sqAllocateMemorySegmentOfSizeAboveAllocatedSizeInto(roundedSize, firstGapOfSizeAtLeast(roundedSize), (&allocatedSize)))) {
-		(GIV(savedFirstFieldsSpace).start = ((usqIntptr_t)segAddress));
-		(GIV(savedFirstFieldsSpace).limit = (((usqIntptr_t)segAddress)) + allocatedSize);
-		GIV(savedFirstFieldsSpaceNotInOldSpace) = 1;
+		(savedFirstFieldsSpace.start = ((usqIntptr_t)segAddress));
+		(savedFirstFieldsSpace.limit = (((usqIntptr_t)segAddress)) + allocatedSize);
+		savedFirstFieldsSpaceNotInOldSpace = 1;
 		assert(savedFirstFieldsSpaceWasAllocated());
 		return 1;
 	}

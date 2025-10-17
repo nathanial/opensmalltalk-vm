@@ -11,18 +11,18 @@
 static NoDbgRegParms sqInt
 ifCurrentStackPageHasValidHeadPointers(StackPage *thePage)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	if (thePage == GIV(stackPage)) {
+	if (thePage == stackPage) {
 		if (/* addressIsInPage: */
-			(((thePage->lastAddress)) < GIV(framePointer))
-		 && (GIV(framePointer) < ((thePage->baseAddress)))) {
-			if (((thePage->headFP)) != GIV(framePointer)) {
+			(((thePage->lastAddress)) < framePointer)
+		 && (framePointer < ((thePage->baseAddress)))) {
+			if (((thePage->headFP)) != framePointer) {
 				return 0;
 			}
 		}
 		if (/* addressIsInPage: */
-			(((thePage->lastAddress)) < GIV(stackPointer))
-		 && (GIV(stackPointer) < ((thePage->baseAddress)))) {
-			if (((thePage->headSP)) != GIV(stackPointer)) {
+			(((thePage->lastAddress)) < stackPointer)
+		 && (stackPointer < ((thePage->baseAddress)))) {
+			if (((thePage->headSP)) != stackPointer) {
 				return 0;
 			}
 		}

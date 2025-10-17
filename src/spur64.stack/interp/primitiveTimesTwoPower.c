@@ -19,10 +19,10 @@ primitiveTimesTwoPower(void)
     char *sp;
     sqInt twiceMaxExponent;
 
-	arg = longAt(GIV(stackPointer));
+	arg = longAt(stackPointer);
 	if (!((((arg) & 7) == 1))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	arg = (arg >> 3);
@@ -37,7 +37,7 @@ primitiveTimesTwoPower(void)
 	}
 
 	/* clip arg to at most int range; ldexp's last arg is of type int */
-	aFloatOop = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	aFloatOop = longAt(stackPointer + (1 * BytesPerWord));
 
 	/* begin noFailFloatValueOf: */
 	assert(isFloatInstance(aFloatOop));
@@ -60,6 +60,6 @@ primitiveTimesTwoPower(void)
 	result = ldexp(rcvr, ((int) arg));
 
 	/* begin pop:thenPushFloat: */
-	longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),floatObjectOf(result));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (1 * BytesPerWord)),floatObjectOf(result));
+	stackPointer = sp;
 }

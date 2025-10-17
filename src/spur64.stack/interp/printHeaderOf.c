@@ -11,7 +11,7 @@ printHeaderOf(sqInt objOop)
     usqInt n;
 
 	/* printHexnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p",
 			((void *)objOop));
 	if ((byteAt((void *)(objOop + (numSlotsFieldByteOffset())))) == (numSlotsMask())) {
@@ -19,13 +19,13 @@ printHeaderOf(sqInt objOop)
 		n = byteAt((void *)(objOop + (numSlotsFieldByteOffset())));
 
 		/* begin printHexnp: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p",
 				((void *)n));
 		print(" slotc ");
 
 		/* printHexnp: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p",
 				((void *)(((((usqInt)(((sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize)))) << 8)))))) >> 8)));
 
@@ -37,7 +37,7 @@ printHeaderOf(sqInt objOop)
 		n = numSlotsOfAny(objOop);
 
 		/* begin printHexnp: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p",
 				((void *)n));
 	}
@@ -61,21 +61,21 @@ printHeaderOf(sqInt objOop)
 	n = (long32At((void *)(objOop + 4))) & (identityHashHalfWordMask());
 
 	/* begin printHexnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p",
 			((void *)n));
 	print(" fmt ");
 	n = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
 
 	/* begin printHexnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p",
 			((void *)n));
 	print(" cidx ");
 	n = (longAt((void *)(objOop))) & (classIndexMask());
 
 	/* begin printHexnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p",
 			((void *)n));
 	cr();

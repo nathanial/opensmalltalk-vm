@@ -12,7 +12,7 @@ unlinkLilliputianChunkindex(sqInt freeChunk, sqInt index)
 
 
 	/* for profiling */
-	node = GIV(freeLists)[index];
+	node = freeLists[index];
 	prev = 0;
 	while (node != 0) {
 		assert(node == (startOfObject(node)));
@@ -36,7 +36,7 @@ unlinkLilliputianChunkindex(sqInt freeChunk, sqInt index)
 				 && ((startOfObject(freeChunk)) == freeChunk)));
 
 				/* For some reason the assertion is not compiled correctly */
-				GIV(freeLists)[index] = ((nextSqInt = longAt((void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))))));
+				freeLists[index] = ((nextSqInt = longAt((void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))))));
 			}
 			return freeChunk;
 		}

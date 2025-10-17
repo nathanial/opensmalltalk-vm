@@ -42,38 +42,38 @@ scavengeLoop(void)
     sqInt previousFutureSurvivorStart;
     StackPage *thePage;
 
-	assert(GIV(futureSurvivorStart) == ((GIV(futureSpace).start)));
-	GIV(weakList) = (GIV(ephemeronList) = null);
-	GIV(numRememberedEphemerons) = 0;
+	assert(futureSurvivorStart == ((futureSpace.start)));
+	weakList = (ephemeronList = null);
+	numRememberedEphemerons = 0;
 	firstTime = 1;
-	GIV(previousRememberedSetSize) = 0;
-	previousFutureSurvivorStart = GIV(futureSurvivorStart);
+	previousRememberedSetSize = 0;
+	previousFutureSurvivorStart = futureSurvivorStart;
 
 	/* begin initStackPageGC */
-	if (GIV(stackPage)) {
+	if (stackPage) {
 		/* begin externalWriteBackHeadFramePointers */
-		assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-		assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-		assert(!((isFree(GIV(stackPage)))));
+		assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+		assert(stackPage == (mostRecentlyUsedPage));
+		assert(!((isFree(stackPage))));
 
 		/* begin setHeadFP:andSP:inPage: */
-		assert(GIV(stackPointer) < GIV(framePointer));
-		assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-		 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-		assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-		 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-		(GIV(stackPage)->headFP = GIV(framePointer));
-		(GIV(stackPage)->headSP = GIV(stackPointer));
+		assert(stackPointer < framePointer);
+		assert((stackPointer < ((stackPage->baseAddress)))
+		 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+		assert((framePointer < ((stackPage->baseAddress)))
+		 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+		(stackPage->headFP = framePointer);
+		(stackPage->headSP = stackPointer);
 		assert(pageListIsWellFormed());
 	}
-	for (i = 0; i < GIV(numStackPages); i += 1) {
+	for (i = 0; i < numStackPages; i += 1) {
 		/* begin stackPageAt: */
-		thePage = stackPageAtpages(i, GIV(pages));
+		thePage = stackPageAtpages(i, pages);
 		(thePage->trace = StackPageUnreached);
 	}
 	while (1) {
-		scavengeRememberedSetStartingAt(GIV(previousRememberedSetSize));
-		GIV(previousRememberedSetSize) = GIV(rememberedSetSize);
+		scavengeRememberedSetStartingAt(previousRememberedSetSize);
+		previousRememberedSetSize = rememberedSetSize;
 		if (firstTime) {
 			mapInterpreterOops();
 			mapMournQueue();
@@ -83,19 +83,19 @@ scavengeLoop(void)
 
 		/* if nothing more copied and forwarded (or remembered by mapInterpreterOops)
 		   to scavenge, and no ephemerons to process, scavenge is done. */
-		if ((GIV(previousRememberedSetSize) == GIV(rememberedSetSize))
-		 && ((previousFutureSurvivorStart == GIV(futureSurvivorStart))
-		 && ((GIV(numRememberedEphemerons) == 0)
-		 && (!GIV(ephemeronList))))) {
+		if ((previousRememberedSetSize == rememberedSetSize)
+		 && ((previousFutureSurvivorStart == futureSurvivorStart)
+		 && ((numRememberedEphemerons == 0)
+		 && (!ephemeronList)))) {
 			return;
 		}
 		scavengeFutureSurvivorSpaceStartingAt(previousFutureSurvivorStart);
-		previousFutureSurvivorStart = GIV(futureSurvivorStart);
+		previousFutureSurvivorStart = futureSurvivorStart;
 
 		/* no more roots created to scavenge... */
-		if (GIV(previousRememberedSetSize) == GIV(rememberedSetSize)) {
-			if ((GIV(numRememberedEphemerons) == 0)
-			 && (!GIV(ephemeronList))) {
+		if (previousRememberedSetSize == rememberedSetSize) {
+			if ((numRememberedEphemerons == 0)
+			 && (!ephemeronList)) {
 				return;
 			}
 			processEphemerons();

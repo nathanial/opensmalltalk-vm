@@ -10,7 +10,7 @@ signalExternalSemaphores(void)
     usqInt numSlots;
     sqInt xArray;
 
-	xArray = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))));
+	xArray = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))));
 	return doSignalExternalSemaphores(
 		(/* begin numSlotsOf: */
 			assert((classIndexOf(xArray)) > (isForwardedObjectClassIndexPun())),

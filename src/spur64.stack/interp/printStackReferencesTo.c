@@ -14,21 +14,21 @@ printStackReferencesTo(sqInt oop)
     char *theSP;
 
 	callerFP = ((char *) 0);
-	for (i = 0; i < GIV(numStackPages); i += 1) {
+	for (i = 0; i < numStackPages; i += 1) {
 		/* begin stackPageAt: */
-		thePage = stackPageAtpages(i, GIV(pages));
+		thePage = stackPageAtpages(i, pages);
 		if ((thePage->baseFP)) {
 			theSP = (thePage->headSP);
 			theFP = (thePage->headFP);
 
 			/* Skip the instruction pointer on top of stack of inactive pages. */
-			if (!(thePage == GIV(stackPage))) {
+			if (!(thePage == stackPage)) {
 				theSP += BytesPerWord;
 			}
 			while (1) {
 				while (theSP <= (theFP + FoxReceiver)) {
 					if (oop == (longAt(theSP))) {
-						fprintf(GIV(transcript),
+						fprintf(transcript,
 								"FP:%p @ %p\n",
 								theFP,
 								theSP);
@@ -37,12 +37,12 @@ printStackReferencesTo(sqInt oop)
 				}
 				if (((byteAt((theFP + FoxFrameFlags) + 2)) != 0)
 				 && (oop == (longAt(theFP + FoxThisContext)))) {
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"FP:%p CTXT\n",
 							theFP);
 				}
 				if (oop == (longAt(theFP + FoxMethod))) {
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"FP:%p MTHD\n",
 							theFP);
 				}
@@ -55,7 +55,7 @@ printStackReferencesTo(sqInt oop)
 			theSP = theFP + FoxCallerSavedIP;
 			while (theSP <= ((thePage->baseAddress))) {
 				if (oop == (longAt(theSP))) {
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"FP:%p @ %p\n",
 							theFP,
 							theSP);

@@ -33,7 +33,7 @@ findClassContainingMethodstartingAt(sqInt meth, sqInt classObj)
 	do {
 		assert(!(isForwarded(currClass)));
 		if (!(addressCouldBeClassObj(currClass))) {
-			return GIV(nilObj);
+			return nilObj;
 		}
 
 		/* begin noFixupFollowField:ofObject: */
@@ -101,6 +101,6 @@ findClassContainingMethodstartingAt(sqInt meth, sqInt classObj)
 			objOop = referentSqInt;
 		}
 		currClass = objOop;
-	} while(!(currClass == GIV(nilObj)));
+	} while(!(currClass == nilObj));
 	return currClass;
 }

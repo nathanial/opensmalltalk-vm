@@ -32,11 +32,11 @@ reverseDisplayFromto(sqInt startIndex, sqInt endIndex)
 		reversed = (long32At((void *)(ptr))) ^ 0xFFFFFFFFU;
 		long32Atput((void *)(ptr),reversed);
 	}
-	primFailCodeValue = GIV(primFailCode);
+	primFailCodeValue = primFailCode;
 
 	/* begin initPrimCall */
-	GIV(primFailCode) = 0;
+	primFailCode = 0;
 	updateDisplayLeftTopRightBottom(0, 0, displayWidth, 1);
 	ioForceDisplayUpdate();
-	GIV(primFailCode) = primFailCodeValue;
+	primFailCode = primFailCodeValue;
 }

@@ -11,34 +11,34 @@ primitiveInterruptSemaphore(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt arg;
 
-	arg = longAt(GIV(stackPointer));
-	if ((arg == GIV(nilObj))
+	arg = longAt(stackPointer);
+	if ((arg == nilObj)
 	 || (/* isSemaphoreOop: */
 		((!(arg & (tagMask()))))
-	 && (((longAt((void *)(arg))) & (classIndexMask())) == (rawHashBitsOf(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassSemaphore) << (shiftForWord()))))))))))) {
+	 && (((longAt((void *)(arg))) & (classIndexMask())) == (rawHashBitsOf(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassSemaphore) << (shiftForWord()))))))))))) {
 		/* begin splObj:put: */
 		/* begin storePointer:ofObject:withValue: */
-		assert(validStorePointerArgs(TheInterruptSemaphore, GIV(specialObjectsOop), arg));
-		assert(isNonImmediate(GIV(specialObjectsOop)));
-		if (oopisGreaterThanOrEqualTo(GIV(specialObjectsOop), GIV(oldSpaceStart))) {
+		assert(validStorePointerArgs(TheInterruptSemaphore, specialObjectsOop, arg));
+		assert(isNonImmediate(specialObjectsOop));
+		if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(arg & (tagMask()))))
-			 && (oopisLessThan(arg, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(arg, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
-				if (!((byteAt((void *)(GIV(specialObjectsOop) + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-					remember(GIV(specialObjectsOop));
+				if (!((byteAt((void *)(specialObjectsOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+					remember(specialObjectsOop);
 				}
 			}
 		}
 
 		/* most stores into young objects */
-		longAtput((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))),arg);
+		longAtput((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))),arg);
 
 		/* begin pop: */
-		GIV(stackPointer) += 1 * BytesPerWord;
+		stackPointer += 1 * BytesPerWord;
 	}
 	else {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 	}
 }

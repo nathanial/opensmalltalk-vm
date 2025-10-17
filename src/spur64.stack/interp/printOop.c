@@ -24,29 +24,29 @@ printOop(sqInt oop)
 
 	length = 0;
 	if (((oop & (tagMask())) != 0)) {
-		printImmediateObjecton(oop, GIV(transcript));
+		printImmediateObjecton(oop, transcript);
 		return;
 	}
 	if (!(addressCouldBeObj(oop))) {
-		printCantBeObjecton(oop, GIV(transcript));
+		printCantBeObjecton(oop, transcript);
 		return;
 	}
 	if (((longAt((void *)(oop))) & (classIndexMask())) == (isFreeObjectClassIndexPun())) {
-		printFreeObjecton(oop, GIV(transcript));
+		printFreeObjecton(oop, transcript);
 		return;
 	}
 	if ((!((longAt((void *)(oop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-		printForwarderon(oop, GIV(transcript));
+		printForwarderon(oop, transcript);
 		return;
 	}
 	if (!((cls = fetchClassOfNonImm(oop)))) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p has a nil class!!\n",
 				((void *)oop));
 		return;
 	}
 	className = nameOfClasslengthInto(cls, (&length));
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p: a(n) %.*s",
 			((void *)oop),
 			((int) length),
@@ -55,14 +55,14 @@ printOop(sqInt oop)
 		((tagBits = oop & (tagMask()))
 			? tagBits == (smallFloatTag())
 			: ((longAt((void *)(oop))) & (classIndexMask())) == ClassFloatCompactIndex)) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"\n%g\n",
 				noFailFloatValueOf(oop));
 		return;
 	}
 	fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
 	if (fmt > 5 /* lastPointerFormat */) {
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				" nbytes %" PRIdSQINT "",
 				numBytesOf(oop));
 	}
@@ -70,8 +70,8 @@ printOop(sqInt oop)
 	if (/* isPureBitsFormat: */
 		(fmt >= (sixtyFourBitIndexableFormat()))
 	 && (fmt < (firstCompiledMethodFormat()))) {
-		if (isKindOfClass(oop, longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassAlien) << (shiftForWord())))))))) {
-			fprintf(GIV(transcript),
+		if (isKindOfClass(oop, longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassAlien) << (shiftForWord())))))))) {
+			fprintf(transcript,
 					" datasize %" PRIdSQINT " %s @ %p\n",
 					longAt((void *)(oop + BaseHeaderSize)),
 					((longAt((void *)(oop + BaseHeaderSize))) < 0
@@ -82,11 +82,11 @@ printOop(sqInt oop)
 					startOfAlienData(oop));
 			return;
 		}
-		if (isKindOfClass(oop, superclassOf(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassByteString) << (shiftForWord()))))))))) {
-			printStringDataOfon(oop, GIV(transcript));
+		if (isKindOfClass(oop, superclassOf(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassByteString) << (shiftForWord()))))))))) {
+			printStringDataOfon(oop, transcript);
 			return;
 		}
-		printNonPointerDataOfon(oop, GIV(transcript));
+		printNonPointerDataOfon(oop, transcript);
 		return;
 	}
 
@@ -152,12 +152,12 @@ l1:
 		column = 1;
 		for (index = startIP; index <= lastIndex; index += 1) {
 			if (column == 1) {
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"%10p",
 						((void *)(((oop + BaseHeaderSize) + index) - 1)));
 			}
 			byte = byteAt((void *)((oop + BaseHeaderSize) + (index - 1)));
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					" %02x/%-+3d",
 					((int) byte),
 					((int) byte));

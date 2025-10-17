@@ -99,7 +99,7 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray)
 
 	/* begin isOldObject: */
 	assert(isNonImmediate(segmentWordArray));
-	if (oopisGreaterThanOrEqualTo(segmentWordArray, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(segmentWordArray, oldSpaceStart)) {
 		/* begin ensureNoNewObjectsIn: */
 		hash = 0;
 		scanClassTable = 0;
@@ -112,7 +112,7 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray)
 			oop = longAt((void *)((outPointerArray + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 			if (/* isYoung: */
 				((!(oop & (tagMask()))))
-			 && (oopisLessThan(oop, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(oop, oldSpaceStart))) {
 				clone = cloneInOldSpaceforPinning(oop, 0);
 				if (!clone) {
 					errorCode = PrimErrNoMemory;
@@ -138,10 +138,10 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray)
 
 				/* begin isOldObject: */
 				assert(isNonImmediate(oop));
-				if (oopisGreaterThanOrEqualTo(oop, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(oop, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(clone & (tagMask()))))
-					 && (oopisLessThan(clone, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(clone, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(oop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(oop);
@@ -389,8 +389,8 @@ l3:
 		assert(((classIndex >= 0) && (classIndex <= (classIndexMask()))));
 		longAtput((void *)(objOop),((longAt((void *)(objOop))) & (~(usqIntptr_t)(classIndexMask()))) + classIndex);
 		if ((/* isInNewSpace: */
-			(oopisLessThan(objOop, GIV(oldSpaceStart)))
-		 && (oopisGreaterThanOrEqualTo(objOop, GIV(newSpaceStart))))
+			(oopisLessThan(objOop, oldSpaceStart))
+		 && (oopisGreaterThanOrEqualTo(objOop, newSpaceStart)))
 		 && (((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)) {
 			oldClone = cloneInOldSpaceforPinning(objOop, 1);
 			if (oldClone) {
@@ -411,10 +411,10 @@ l3:
 
 				/* begin isOldObject: */
 				assert(isNonImmediate(objOop));
-				if (oopisGreaterThanOrEqualTo(objOop, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(oldClone & (tagMask()))))
-					 && (oopisLessThan(oldClone, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(oldClone, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(objOop);
@@ -455,7 +455,7 @@ l5:
 
 	/* Evaporate the container, leaving the newly loaded objects in place. */
 	if ((byteAt((void *)(segmentWordArray + (numSlotsFieldByteOffset())))) == (numSlotsMask())) {
-		if (oopisLessThan(segmentWordArray, GIV(oldSpaceStart))) {
+		if (oopisLessThan(segmentWordArray, oldSpaceStart)) {
 			/* begin rawOverflowSlotsOf:put: */
 			longAtput((void *)(segmentWordArray - BaseHeaderSize),((((usqInt)((numSlotsMask())) << 56))));
 
@@ -492,10 +492,10 @@ l5:
 
 	/* begin isOldObject: */
 	assert(isNonImmediate(segmentWordArray));
-	if (oopisGreaterThanOrEqualTo(segmentWordArray, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(segmentWordArray, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(loadedObjectsArray & (tagMask()))))
-		 && (oopisLessThan(loadedObjectsArray, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(loadedObjectsArray, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(segmentWordArray + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(segmentWordArray);

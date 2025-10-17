@@ -9,7 +9,7 @@ popStack(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt top;
 
-	top = longAt(GIV(stackPointer));
-	GIV(stackPointer) += BytesPerWord;
+	top = longAt(stackPointer);
+	stackPointer += BytesPerWord;
 	return top;
 }

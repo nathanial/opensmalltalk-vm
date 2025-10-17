@@ -28,7 +28,7 @@ updateDisplayLeftTopRightBottom(sqInt l, sqInt t, sqInt r, sqInt b)
 		if (!showSurfaceFn) {
 			showSurfaceFn = ioLoadFunctionFrom("ioShowSurface", "SurfacePlugin");
 			if (!showSurfaceFn) {
-				return (GIV(primFailCode) = PrimErrNotFound);
+				return (primFailCode = PrimErrNotFound);
 			}
 		}
 		showSurfaceFn(surfaceHandle, left, top, right - left, bottom - top);

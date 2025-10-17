@@ -15,8 +15,8 @@ primitiveFloatMultiply(void)
     sqInt tagBits;
     double value;
 
-	rcvrOop = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	argOop = longAt(GIV(stackPointer));
+	rcvrOop = longAt(stackPointer + (1 * BytesPerWord));
+	argOop = longAt(stackPointer);
 
 	/* begin primitiveFloatMultiply:byArg: */
 	/* begin loadFloatOrIntFrom: */
@@ -51,8 +51,8 @@ primitiveFloatMultiply(void)
 	}
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	rcvr = 0.0;
 	/* end loadFloatOrIntFrom: */
@@ -90,15 +90,15 @@ l1:
 	}
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	arg = 0.0;
 	/* end loadFloatOrIntFrom: */
 l2:
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		/* begin pop:thenPushFloat: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),floatObjectOf(rcvr * arg));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),floatObjectOf(rcvr * arg));
+		stackPointer = sp;
 	}
 }

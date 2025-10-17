@@ -13,9 +13,9 @@ classOrNilAtIndex(sqInt classIndex)
 	fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
 	/* begin fetchPointer:ofObject: */
-	classTablePage = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-	if (classTablePage == GIV(nilObj)) {
-		return GIV(nilObj);
+	classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+	if (classTablePage == nilObj) {
+		return nilObj;
 	}
 	fieldIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);
 

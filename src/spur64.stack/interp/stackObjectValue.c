@@ -10,11 +10,11 @@ stackObjectValue(sqInt offset)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt oop;
 
-	oop = longAt(GIV(stackPointer) + (offset * BytesPerWord));
+	oop = longAt(stackPointer + (offset * BytesPerWord));
 	if (((oop & (tagMask())) != 0)) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return null;
 	}

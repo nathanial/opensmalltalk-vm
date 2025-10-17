@@ -16,20 +16,20 @@ primitiveSetInterruptKey(void)
     sqInt keycode;
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer));
+	integerPointer = longAt(stackPointer);
 	if ((((integerPointer) & 7) == 1)) {
 		keycode = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		keycode = 0;
 	}
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		/* begin setInterruptKeycode: */
-		GIV(interruptKeycode) = keycode;
-		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+		interruptKeycode = keycode;
+		stackPointer += argumentCount * BytesPerWord;
 	}
 }

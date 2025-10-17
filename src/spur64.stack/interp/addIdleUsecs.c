@@ -10,5 +10,5 @@
 void
 addIdleUsecs(sqInt idleUsecs)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	GIV(statIdleUsecs) += idleUsecs;
+	statIdleUsecs += idleUsecs;
 }

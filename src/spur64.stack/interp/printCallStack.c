@@ -9,7 +9,7 @@ printCallStack(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     char *fp;
 
-	if ((fp = GIV(framePointer))) {
+	if ((fp = framePointer)) {
 		printCallStackFP(fp);
 	}
 	else {

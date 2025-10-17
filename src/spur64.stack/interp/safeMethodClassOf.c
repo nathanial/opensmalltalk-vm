@@ -30,7 +30,7 @@ safeMethodClassOf(sqInt methodPointer)
 		(((numSlots = byteAt((void *)(literal + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
 					? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(literal - BaseHeaderSize)))) << 8)))))) >> 8
 					: numSlots))) > ValueIndex))) {
-		return GIV(nilObj);
+		return nilObj;
 	}
 	maybeClass = longAt((void *)((literal + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
 	if (/* isOopForwarded: */

@@ -10,7 +10,7 @@ shortPrintFrameAndNCallers(char *theFP, sqInt n)
 	if ((n != 0)
 	 && (/* couldBeFramePointer: */
 		(((((usqInt)theFP)) & (BytesPerWord - 1)) == 0)
-	 && ((((((usqInt)theFP)) >= (((usqInt)GIV(stackMemory)))) && ((((usqInt)theFP)) <= (((usqInt)GIV(pages)))))))) {
+	 && ((((((usqInt)theFP)) >= (((usqInt)stackMemory))) && ((((usqInt)theFP)) <= (((usqInt)pages))))))) {
 		shortPrintFrame(theFP);
 		shortPrintFrameAndNCallers(((char *)(longAt(theFP + FoxSavedFP))), n - 1);
 	}

@@ -17,23 +17,23 @@ primitiveShortAtPut(void)
     char *sp;
     sqInt value;
 
-	value = longAt(GIV(stackPointer));
-	index = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	value = longAt(stackPointer);
+	index = longAt(stackPointer + (1 * BytesPerWord));
 	if (!(((((value) & 7) == 1))
 		 && (((((index) & 7) == 1))
 		 && (((value = (value >> 3)),
 		(value >= -32768)
 			 && (value <= 0x7FFF)))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
-	rcvr = longAt(GIV(stackPointer) + (2 * BytesPerWord));
+	rcvr = longAt(stackPointer + (2 * BytesPerWord));
 	if (!(/* isWordsOrBytes: */
 			((!(rcvr & (tagMask()))))
 		 && (isWordsOrBytesNonImm(rcvr)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrInappropriate;
+		primFailCode = PrimErrInappropriate;
 		return;
 	}
 	if (
@@ -44,14 +44,14 @@ primitiveShortAtPut(void)
 #  endif
 		) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNoModification;
+		primFailCode = PrimErrNoModification;
 		return;
 	}
 	index = (index >> 3);
 	if (!((index >= 1)
 		 && (index <= (((usqInt)((numBytesOf(rcvr)))) >> 1)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 
@@ -59,6 +59,6 @@ primitiveShortAtPut(void)
 	shortAtput((void *)((rcvr + BaseHeaderSize) + ((((usqInt)((index - 1)) << 1)))),value);
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (2 * BytesPerWord)),(((usqInt)value << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (2 * BytesPerWord)),(((usqInt)value << 3) | 1));
+	stackPointer = sp;
 }

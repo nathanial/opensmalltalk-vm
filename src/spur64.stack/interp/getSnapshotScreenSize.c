@@ -13,7 +13,7 @@ getSnapshotScreenSize(void)
 	screenSize = ioScreenSize();
 	if (((screenSize & 0xFFFF) == 0)
 	 || ((((usqInt)(screenSize)) >> 16) == 0)) {
-		screenSize = GIV(savedWindowSize);
+		screenSize = savedWindowSize;
 	}
 	return screenSize;
 }

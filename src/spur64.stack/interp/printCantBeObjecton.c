@@ -7,13 +7,13 @@ printCantBeObjecton(sqInt oop, FILE *aStream)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
 	if (!(oop & 7 /* (allocationUnit - 1) */)) {
 		if ((/* isInNewSpace: */
-			(oopisLessThan(oop, GIV(oldSpaceStart)))
-		 && (oopisGreaterThanOrEqualTo(oop, GIV(newSpaceStart))))
+			(oopisLessThan(oop, oldSpaceStart))
+		 && (oopisGreaterThanOrEqualTo(oop, newSpaceStart)))
 		 && ((!((longAt((void *)(oop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 			printForwarderon(oop, aStream);
 			return;
 		}
-		if (oop == (bridgeAt(GIV(numSegments) - 1))) {
+		if (oop == (bridgeAt(numSegments - 1))) {
 			printBridgeon(oop, aStream);
 			return;
 		}

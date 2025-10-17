@@ -18,8 +18,8 @@ copyBitsFromtoat(sqInt x0, sqInt x1, sqInt y)
 	fn = ioLoadFunctionFrom("copyBitsFromtoat", "BitBltPlugin");
 	if (!fn) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return null;
 	}

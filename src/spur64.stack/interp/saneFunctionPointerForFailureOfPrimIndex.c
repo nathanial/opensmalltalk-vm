@@ -29,5 +29,5 @@ saneFunctionPointerForFailureOfPrimIndex(sqInt primIndex)
 	 || ((/* isMetaPrimitiveIndex: */
 		(primIndex == PrimNumberDoPrimitive)
 	 || (primIndex == PrimNumberDoExternalCall))
-	 && (GIV(metaAccessorDepth) > -2)));
+	 && (metaAccessorDepth > -2)));
 }

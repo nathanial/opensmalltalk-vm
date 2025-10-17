@@ -11,14 +11,14 @@ primitiveNotEqualLargeIntegers(void)
     sqLong integerRcvr;
     char *sp;
 
-	integerArg = signed64BitValueOf(longAt(GIV(stackPointer)));
-	integerRcvr = signed64BitValueOf(longAt(GIV(stackPointer) + (1 * BytesPerWord)));
-	if (!GIV(primFailCode)) {
+	integerArg = signed64BitValueOf(longAt(stackPointer));
+	integerRcvr = signed64BitValueOf(longAt(stackPointer + (1 * BytesPerWord)));
+	if (!primFailCode) {
 		/* begin pop:thenPushBool: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),/* booleanObjectOf: */
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),/* booleanObjectOf: */
 			(integerRcvr != integerArg
-				? GIV(trueObj)
-				: GIV(falseObj)));
-		GIV(stackPointer) = sp;
+				? trueObj
+				: falseObj));
+		stackPointer = sp;
 	}
 }

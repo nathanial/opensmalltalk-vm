@@ -17,23 +17,23 @@ freeObject(sqInt objOop)
 	assert(isInOldSpace(objOop));
 	if ((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift()))) {
 		/* begin forgetObject: */
-		assert(GIV(rememberedSetSize) > 0);
+		assert(rememberedSetSize > 0);
 		assert(isRemembered(objOop));
 		setIsRememberedOfto(objOop, 0);
-		if (!(objOop == (GIV(rememberedSet)[GIV(rememberedSetSize) - 1]))) {
+		if (!(objOop == (rememberedSet[rememberedSetSize - 1]))) {
 			index = 0;
-			while (index < GIV(rememberedSetSize)) {
-				if (objOop == (GIV(rememberedSet)[index])) {
-					GIV(rememberedSet)[index] = (GIV(rememberedSet)[GIV(rememberedSetSize) - 1]);
-					index = GIV(rememberedSetSize);
+			while (index < rememberedSetSize) {
+				if (objOop == (rememberedSet[index])) {
+					rememberedSet[index] = (rememberedSet[rememberedSetSize - 1]);
+					index = rememberedSetSize;
 				}
 				else {
 					index += 1;
 				}
 			}
 		}
-		GIV(rememberedSetSize) -= 1;
-		assert(GIV(rememberedSetSize) >= 0);
+		rememberedSetSize -= 1;
+		assert(rememberedSetSize >= 0);
 	}
 	bytes = bytesInBody(objOop);
 	start = /* startOfObject: */
@@ -49,10 +49,10 @@ freeObject(sqInt objOop)
 	if (((longAt((void *)(next))) & (classIndexMask())) == (isFreeObjectClassIndexPun())) {
 		/* begin detachFreeObject: */
 		chunkBytes = bytesInBody(next);
-		GIV(totalFreeOldSpace) -= chunkBytes;
+		totalFreeOldSpace -= chunkBytes;
 		unlinkFreeChunkchunkBytes(next, chunkBytes);
 		bytes += bytesInBody(next);
 	}
-	GIV(totalFreeOldSpace) += bytes;
+	totalFreeOldSpace += bytes;
 	return freeChunkWithBytesat(bytes, start);
 }

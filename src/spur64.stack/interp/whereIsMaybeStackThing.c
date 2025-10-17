@@ -9,7 +9,7 @@
 static NoDbgRegParms char *
 whereIsMaybeStackThing(sqInt anOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	if (oopisGreaterThanOrEqualToandLessThan(anOop, GIV(stackMemory), GIV(pages))) {
+	if (oopisGreaterThanOrEqualToandLessThan(anOop, stackMemory, pages)) {
 		return " is in the stack zone";
 	}
 	return null;

@@ -28,16 +28,16 @@ primitiveSlotAt(void)
     char *sp;
     sqInt value;
 
-	index = longAt(GIV(stackPointer));
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	index = longAt(stackPointer);
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 	if (!((((index) & 7) == 1))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	if (((rcvr & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 	fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
@@ -51,42 +51,42 @@ primitiveSlotAt(void)
 		if ((((usqInt)index)) < numSlots) {
 			if (((longAt((void *)(rcvr))) & (classIndexMask())) == ClassMethodContextCompactIndex) {
 				/* begin externalWriteBackHeadFramePointers */
-				assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-				assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-				assert(!((isFree(GIV(stackPage)))));
+				assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+				assert(stackPage == (mostRecentlyUsedPage));
+				assert(!((isFree(stackPage))));
 
 				/* begin setHeadFP:andSP:inPage: */
-				assert(GIV(stackPointer) < GIV(framePointer));
-				assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-				 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-				assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-				 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-				(GIV(stackPage)->headFP = GIV(framePointer));
-				(GIV(stackPage)->headSP = GIV(stackPointer));
+				assert(stackPointer < framePointer);
+				assert((stackPointer < ((stackPage->baseAddress)))
+				 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+				assert((framePointer < ((stackPage->baseAddress)))
+				 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+				(stackPage->headFP = framePointer);
+				(stackPage->headSP = stackPointer);
 				assert(pageListIsWellFormed());
 				numLiveSlots = (stackPointerForMaybeMarriedContext(rcvr)) + CtxtTempFrameStart;
 				value = ((((usqInt)index)) < numLiveSlots
 							? externalInstVarofContext(index, rcvr)
-							: GIV(nilObj));
+							: nilObj);
 			}
 			else {
 				value = longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << (shiftForWord()))))));
 			}
 
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),value);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),value);
+			stackPointer = sp;
 			return;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 	if (fmt >= (firstByteFormat())) {
 		if (fmt >= (firstCompiledMethodFormat())) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrUnsupported;
+			primFailCode = PrimErrUnsupported;
 			return;
 		}
 
@@ -100,26 +100,26 @@ primitiveSlotAt(void)
 			: numSlotsUsqInt))) << (shiftForWord()))) - (fmtSqInt & 7);
 		if ((((usqInt)index)) < numSlots) {
 			/* begin pop:thenPushInteger: */
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)(byteAt((void *)((rcvr + BaseHeaderSize) + index))) << 3) | 1));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)(byteAt((void *)((rcvr + BaseHeaderSize) + index))) << 3) | 1));
+			stackPointer = sp;
 			return;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 	if (fmt >= (firstShortFormat())) {
 		numSlots = ((usqInt)((numBytesOf(rcvr)))) >> 1;
 		if ((((usqInt)index)) < numSlots) {
 			/* begin pop:thenPushInteger: */
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)(((unsigned short) (shortAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 1)))))))) << 3) | 1));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)(((unsigned short) (shortAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 1)))))))) << 3) | 1));
+			stackPointer = sp;
 			return;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 	if (fmt == (sixtyFourBitIndexableFormat())) {
@@ -128,30 +128,30 @@ primitiveSlotAt(void)
 			oop = positive64BitIntegerFor(long64At((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 3))))));
 
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),oop);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),oop);
+			stackPointer = sp;
 			return;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 	if (fmt >= (firstLongFormat())) {
 		numSlots = ((usqInt)((numBytesOf(rcvr)))) >> 2;
 		if ((((usqInt)index)) < numSlots) {
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),((((((usqInt)(long32At((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 2)))))))) & 0xFFFFFFFFU) << 3) | 1));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),((((((usqInt)(long32At((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 2)))))))) & 0xFFFFFFFFU) << 3) | 1));
+			stackPointer = sp;
 			return;
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = PrimErrBadReceiver;
+	primFailCode = PrimErrBadReceiver;
 	return;
 }

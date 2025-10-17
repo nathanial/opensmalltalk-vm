@@ -15,30 +15,30 @@ primitiveShortAt(void)
     char *sp;
     sqInt value;
 
-	index = longAt(GIV(stackPointer));
+	index = longAt(stackPointer);
 	if (!((((index) & 7) == 1))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 	if (!(/* isWordsOrBytes: */
 			((!(rcvr & (tagMask()))))
 		 && (isWordsOrBytesNonImm(rcvr)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrInappropriate;
+		primFailCode = PrimErrInappropriate;
 		return;
 	}
 	index = (index >> 3);
 	if (!((index >= 1)
 		 && (index <= (((usqInt)((numBytesOf(rcvr)))) >> 1)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 	value = shortAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)((index - 1)) << 1)))));
 
 	/* begin pop:thenPushInteger: */
-	longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),(((usqInt)value << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (1 * BytesPerWord)),(((usqInt)value << 3) | 1));
+	stackPointer = sp;
 }

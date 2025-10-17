@@ -12,9 +12,9 @@ validStackPageBaseFrames(void)
     StackPage *aPage;
     sqInt i;
 
-	for (i = 0; i < GIV(numStackPages); i += 1) {
+	for (i = 0; i < numStackPages; i += 1) {
 		/* begin stackPageAt: */
-		aPage = stackPageAtpages(i, GIV(pages));
+		aPage = stackPageAtpages(i, pages);
 		if (!(isFree(aPage))) {
 			if (!(validStackPageBaseFrame(aPage))) {
 				return 0;

@@ -22,26 +22,26 @@ primitiveCopyObject(void)
     sqInt rcvr;
     sqInt valuePointer;
 
-	if (!(GIV(argumentCount) >= 1)) {
+	if (!(argumentCount >= 1)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadNumArgs;
+		primFailCode = PrimErrBadNumArgs;
 		return;
 	}
-	arg = longAt(GIV(stackPointer));
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	arg = longAt(stackPointer);
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 	if (((rcvr & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 	if (((arg & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	if (((longAt((void *)(rcvr))) & (classIndexMask())) != ((longAt((void *)(arg))) & (classIndexMask()))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	if (isWordsOrBytesNonImm(rcvr)) {
@@ -74,7 +74,7 @@ l1:
 		if (!((((byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask())) == ((byteAt((void *)(arg + (formatFieldByteOffset())))) & (formatMask())))
 			 && (length == (numBytesOf(arg))))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			return;
 		}
 		memcpy(((void *)(rcvr + BaseHeaderSize)), ((void *)(arg + BaseHeaderSize)), length);
@@ -82,7 +82,7 @@ l1:
 	else {
 		if (!(isAppropriateForCopyObject(rcvr))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadReceiver;
+			primFailCode = PrimErrBadReceiver;
 			return;
 		}
 
@@ -94,7 +94,7 @@ l1:
 		if (!((isAppropriateForCopyObject(arg))
 			 && (length == (lengthOf(arg))))) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			return;
 		}
 		for (i = 0; i < length; i += 1) {
@@ -103,10 +103,10 @@ l1:
 			/* begin storePointer:ofObject:withValue: */
 			assert(validStorePointerArgs(i, rcvr, valuePointer));
 			assert(isNonImmediate(rcvr));
-			if (oopisGreaterThanOrEqualTo(rcvr, GIV(oldSpaceStart))) {
+			if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(valuePointer & (tagMask()))))
-				 && (oopisLessThan(valuePointer, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(valuePointer, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
 					if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 						remember(rcvr);
@@ -122,5 +122,5 @@ l1:
 	/* Note: The above could be faster for young receivers but I don't think it'll matter */
 
 	/* begin pop: */
-	GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+	stackPointer += argumentCount * BytesPerWord;
 }

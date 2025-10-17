@@ -12,7 +12,7 @@ primitiveSmallFloatFractionalPart(void)
     double rcvr;
     double trunc;
 
-	oop = longAt(GIV(stackPointer));
+	oop = longAt(stackPointer);
 
 	/* begin smallFloatValueOf: */
 	/* begin smallFloatBitsOf: */
@@ -29,5 +29,5 @@ primitiveSmallFloatFractionalPart(void)
 	aValue = floatObjectOf(frac);
 
 	/* begin stackTopPut: */
-	longAtput(GIV(stackPointer),aValue);
+	longAtput(stackPointer,aValue);
 }

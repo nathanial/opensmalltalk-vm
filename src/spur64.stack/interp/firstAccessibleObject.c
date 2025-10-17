@@ -7,19 +7,19 @@ firstAccessibleObject(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt savedTenuringThreshold;
 
-	assert(GIV(nilObj) == GIV(oldSpaceStart));
+	assert(nilObj == oldSpaceStart);
 
 	/* flush newSpace to settle the enumeration. */
 
 	/* begin flushNewSpace */
-	savedTenuringThreshold = GIV(tenureThreshold);
-	GIV(tenureThreshold) = GIV(oldSpaceStart);
+	savedTenuringThreshold = tenureThreshold;
+	tenureThreshold = oldSpaceStart;
 	scavengingGCTenuringIf(TenureByAge);
 
 	/* begin setRawTenuringThreshold: */
-	GIV(tenureThreshold) = savedTenuringThreshold;
-	assert((GIV(rememberedSetSize)) == 0);
-	assert(GIV(pastSpaceStart) == (((GIV(pastSpace)).start)));
-	assert(GIV(freeStart) == (((GIV(eden)).start)));
-	return GIV(nilObj);
+	tenureThreshold = savedTenuringThreshold;
+	assert((rememberedSetSize) == 0);
+	assert(pastSpaceStart == (((pastSpace).start)));
+	assert(freeStart == (((eden).start)));
+	return nilObj;
 }

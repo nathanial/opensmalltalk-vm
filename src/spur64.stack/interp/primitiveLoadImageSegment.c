@@ -31,8 +31,8 @@ primitiveLoadImageSegment(void)
     sqInt segmentWordArray;
     char *sp;
 
-	outPointerArray = longAt(GIV(stackPointer));
-	segmentWordArray = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	outPointerArray = longAt(stackPointer);
+	segmentWordArray = longAt(stackPointer + (1 * BytesPerWord));
 
 	/* Essential type checks */
 	if (!((/* isArray: */
@@ -42,8 +42,8 @@ primitiveLoadImageSegment(void)
 			((!(segmentWordArray & (tagMask()))))
 		 && (((((byteAt((void *)(segmentWordArray + (formatFieldByteOffset())))) & (formatMask())) >= (firstLongFormat())) && (((byteAt((void *)(segmentWordArray + (formatFieldByteOffset())))) & (formatMask())) <= ((firstShortFormat()) - 1))))))) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
@@ -54,11 +54,11 @@ primitiveLoadImageSegment(void)
 	result = loadImageSegmentFromoutPointers(segmentWordArray, outPointerArray);
 	if (oopisGreaterThan(result, segmentWordArray)) {
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (2 * BytesPerWord)),result);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (2 * BytesPerWord)),result);
+		stackPointer = sp;
 	}
 	else {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = result;
+		primFailCode = result;
 	}
 }

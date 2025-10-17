@@ -24,15 +24,15 @@ primitiveFindNextUnwindContext(void)
     sqInt theMethod;
     char *theSP;
 
-	stopContext = longAt(GIV(stackPointer));
-	calleeContext = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	if (!((stopContext == GIV(nilObj))
+	stopContext = longAt(stackPointer);
+	calleeContext = longAt(stackPointer + (1 * BytesPerWord));
+	if (!((stopContext == nilObj)
 		 || (/* isContext: */
 			((!(stopContext & (tagMask()))))
 		 && (((longAt((void *)(stopContext))) & (classIndexMask())) == ClassMethodContextCompactIndex)))) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
@@ -42,18 +42,18 @@ primitiveFindNextUnwindContext(void)
 	assert(stopContext != calleeContext);
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
 	if (/* isStillMarriedContext: */
 		(((((longAt((void *)((calleeContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
@@ -104,7 +104,7 @@ primitiveFindNextUnwindContext(void)
 			if (!(/* isContext: */
 					((!(senderContext & (tagMask()))))
 				 && (((longAt((void *)(senderContext))) & (classIndexMask())) == ClassMethodContextCompactIndex))) {
-				handlerOrNilOrZero = GIV(nilObj);
+				handlerOrNilOrZero = nilObj;
 				goto l1;
 			}
 			handlerOrNilOrZero = findMethodWithPrimitiveFromContextUpToContext(PrimNumberUnwindMarker, senderContext, stopContext);
@@ -132,10 +132,10 @@ l1:;
 		}
 	}
 	if (!handlerOrNilOrZero) {
-		handlerOrNilOrZero = GIV(nilObj);
+		handlerOrNilOrZero = nilObj;
 	}
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),handlerOrNilOrZero);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (1 * BytesPerWord)),handlerOrNilOrZero);
+	stackPointer = sp;
 }

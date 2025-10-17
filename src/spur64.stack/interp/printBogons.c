@@ -11,15 +11,15 @@ printBogons(void)
 	print("bogon ");
 
 	/* printHexnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p",
-			((void *)GIV(bogon)));
+			((void *)bogon));
 	cr();
 	print("anomaly ");
 
 	/* printHexnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p",
-			((void *)GIV(anomaly)));
+			((void *)anomaly));
 	cr();
 }

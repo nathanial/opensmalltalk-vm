@@ -7,5 +7,5 @@
 static NoDbgRegParms StackPage *
 stackPageFor(void *pointer)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return stackPageAtpages(pageIndexForstackMemorybytesPerPage(pointer, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+	return stackPageAtpages(pageIndexForstackMemorybytesPerPage(pointer, stackMemory, bytesPerPage), pages);
 }

@@ -10,24 +10,24 @@ printFrameThingandFrameat(char *name, char *theFP, char *address)
 	it = longAt(address);
 
 	/* begin printFrameAddress: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%16p:",
 			((void *)address));
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%12s: %16p" /* pst: */,
 			name,
 			((void *)it));
 	if (it) {
-		if (it == GIV(nilObj)) {
-			fprintf(GIV(transcript), "=nil");
+		if (it == nilObj) {
+			fprintf(transcript, "=nil");
 		}
 		else {
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"=%" PRIdSQINT "",
 					it);
 		}
 	}
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			" frame: %p\n",
 			theFP);
 }

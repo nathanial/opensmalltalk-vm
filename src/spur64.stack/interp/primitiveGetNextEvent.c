@@ -18,17 +18,17 @@ primitiveGetNextEvent(void)
     sqInt integerValue;
     sqIntptr_t value;
 
-	arg = longAt(GIV(stackPointer));
+	arg = longAt(stackPointer);
 	if (!((/* isArray: */
 			((!(arg & (tagMask()))))
 		 && (((byteAt((void *)(arg + (formatFieldByteOffset())))) & (formatMask())) == (arrayFormat())))
 		 && ((slotSizeOf(arg)) == 8))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	ioGetNextEvent(((sqInputEvent*) evtBuf));
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		return;
 	}
 	if ((eventTraceMask != 0)
@@ -67,11 +67,11 @@ primitiveGetNextEvent(void)
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		return;
 	}
 	if (eventTypeIs == 6) {
@@ -81,10 +81,10 @@ primitiveGetNextEvent(void)
 			/* begin storePointer:ofObject:withValue: */
 			assert(validStorePointerArgs(i, arg, value));
 			assert(isNonImmediate(arg));
-			if (oopisGreaterThanOrEqualTo(arg, GIV(oldSpaceStart))) {
+			if (oopisGreaterThanOrEqualTo(arg, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(value & (tagMask()))))
-				 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(value, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
 					if (!((byteAt((void *)(arg + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 						remember(arg);
@@ -109,11 +109,11 @@ primitiveGetNextEvent(void)
 		}
 		else {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
-		if (GIV(primFailCode)) {
+		if (primFailCode) {
 			return;
 		}
 		for (i = 2; i <= 7; i += 1) {
@@ -129,8 +129,8 @@ primitiveGetNextEvent(void)
 				}
 				else {
 					/* begin primitiveFail */
-					if (!GIV(primFailCode)) {
-						GIV(primFailCode) = 1;
+					if (!primFailCode) {
+						primFailCode = 1;
 					}
 				}
 			}
@@ -140,10 +140,10 @@ primitiveGetNextEvent(void)
 				/* begin storePointer:ofObject:withValue: */
 				assert(validStorePointerArgs(i, arg, value));
 				assert(isNonImmediate(arg));
-				if (oopisGreaterThanOrEqualTo(arg, GIV(oldSpaceStart))) {
+				if (oopisGreaterThanOrEqualTo(arg, oldSpaceStart)) {
 					if (/* isYoung: */
 						((!(value & (tagMask()))))
-					 && (oopisLessThan(value, GIV(oldSpaceStart)))) {
+					 && (oopisLessThan(value, oldSpaceStart))) {
 						/* begin possibleRootStoreInto: */
 						if (!((byteAt((void *)(arg + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 							remember(arg);
@@ -159,8 +159,8 @@ primitiveGetNextEvent(void)
 
 	/* Event is Complex, assume evtBuf is populated correctly and return
 	   Event time stamp */
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		/* begin pop: */
-		GIV(stackPointer) += 1 * BytesPerWord;
+		stackPointer += 1 * BytesPerWord;
 	}
 }

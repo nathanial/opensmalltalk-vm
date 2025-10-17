@@ -17,8 +17,8 @@ primitiveFloatAt(void)
     usqInt result;
     char *sp;
 
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	index = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
+	index = longAt(stackPointer);
 	if (index == ConstOne) {
 		fieldIndex = (VMBIGENDIAN
 					? 0
@@ -47,8 +47,8 @@ l1:
 
 		/* begin positive32BitIntegerFor: */
 		result = ((((((usqInt)integerValue)) & 0xFFFFFFFFU) << 3) | 1);
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),result);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),result);
+		stackPointer = sp;
 		return;
 	}
 	if (index == ConstTwo) {
@@ -79,13 +79,13 @@ l2:
 
 		/* begin positive32BitIntegerFor: */
 		result = ((((((usqInt)integerValue)) & 0xFFFFFFFFU) << 3) | 1);
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),result);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),result);
+		stackPointer = sp;
 		return;
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = ((((index) & 7) == 1)
+	primFailCode = ((((index) & 7) == 1)
 				? PrimErrBadIndex
 				: PrimErrBadArgument);
 }

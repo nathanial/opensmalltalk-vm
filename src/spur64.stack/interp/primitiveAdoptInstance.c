@@ -24,14 +24,14 @@ primitiveAdoptInstance(void)
     sqInt err;
     sqInt rcvr;
 
-	arg = longAt(GIV(stackPointer));
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	arg = longAt(stackPointer);
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 	if ((((arg & (tagMask())) != 0))
-	 || ((GIV(argumentCount) > 1)
+	 || ((argumentCount > 1)
 	 && ((((rcvr & (tagMask())) != 0))
 	 || (!(objCouldBeClassObj(rcvr)))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	err = changeClassOfto(arg, rcvr);
@@ -46,12 +46,12 @@ primitiveAdoptInstance(void)
 		}
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = err;
+		primFailCode = err;
 	}
 	else {
 		/* begin flushAtCache */
-		memset(GIV(atCache), 0, AtCacheTotalSize * (sizeof(GIV(atCache)[0])));
-		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+		memset(atCache, 0, AtCacheTotalSize * (sizeof(atCache[0])));
+		stackPointer += argumentCount * BytesPerWord;
 	}
 
 	/* Flush at cache because rcvr's class has changed.

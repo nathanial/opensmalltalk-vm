@@ -26,71 +26,71 @@ transferTofrom(sqInt newProcOrNil, sqInt sourceCode)
     char *toDoLimit;
     sqInt top;
 
-	GIV(statProcessSwitch) += 1;
+	statProcessSwitch += 1;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(instructionPointer));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),instructionPointer);
+	stackPointer = sp;
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
 
 	/* begin assertValidExternalFrameWithIP: */
-	assertValidExecutionPointersimbarline(GIV(instructionPointer) + 1, GIV(framePointer), GIV(stackPointer), 1 /* (isMachineCodeFrame: not) */, __LINE__);
-	for (ptr = (GIV(stackPointer) + BytesPerWord); ptr <= (GIV(framePointer) + FoxReceiver); ptr += BytesPerWord) {
+	assertValidExecutionPointersimbarline(instructionPointer + 1, framePointer, stackPointer, 1 /* (isMachineCodeFrame: not) */, __LINE__);
+	for (ptr = (stackPointer + BytesPerWord); ptr <= (framePointer + FoxReceiver); ptr += BytesPerWord) {
 		assert(addressCouldBeOop(longAt(ptr)));
 	}
 
 	/* skip pushed instructionPointer */
-	assert(isOopCompiledMethod(frameMethodObject(GIV(framePointer))));
-	if (byteAt((GIV(framePointer) + FoxFrameFlags) + 2)) {
-		assert(!((isForwarded(frameContext(GIV(framePointer))))));
+	assert(isOopCompiledMethod(frameMethodObject(framePointer)));
+	if (byteAt((framePointer + FoxFrameFlags) + 2)) {
+		assert(!((isForwarded(frameContext(framePointer)))));
 	}
-	toDoLimit = GIV(framePointer) + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((GIV(framePointer) + FoxFrameFlags) + 1))) << (shiftForWord())))));
-	for (ptr = ((GIV(framePointer) + FoxCallerSavedIP) + BytesPerWord); ptr <= toDoLimit; ptr += BytesPerWord) {
+	toDoLimit = framePointer + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((framePointer + FoxFrameFlags) + 1))) << (shiftForWord())))));
+	for (ptr = ((framePointer + FoxCallerSavedIP) + BytesPerWord); ptr <= toDoLimit; ptr += BytesPerWord) {
 		assert(addressCouldBeOop(longAt(ptr)));
 	}
-	sched = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+	sched = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
 	oldProc = longAt((void *)((sched + BaseHeaderSize) + ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
 
 	/* begin recordContextSwitchFrom:in: */
 	/* begin recordTrace:thing:source: */
 	if (TraceLog) {
-		GIV(traceLog)[GIV(traceLogIndex)] = TraceContextSwitch;
-		GIV(traceLog)[GIV(traceLogIndex) + 1] = oldProc;
-		GIV(traceLog)[GIV(traceLogIndex) + 2] = sourceCode;
-		GIV(traceLogIndex) = (GIV(traceLogIndex) + 3) % TraceBufferSize;
+		traceLog[traceLogIndex] = TraceContextSwitch;
+		traceLog[traceLogIndex + 1] = oldProc;
+		traceLog[traceLogIndex + 2] = sourceCode;
+		traceLogIndex = (traceLogIndex + 3) % TraceBufferSize;
 	}
 
 	/* begin ensureFrameIsMarried:SP: */
-	if (byteAt((GIV(framePointer) + FoxFrameFlags) + 2)) {
-		assert(isContext(frameContext(GIV(framePointer))));
-		activeContext = longAt(GIV(framePointer) + FoxThisContext);
+	if (byteAt((framePointer + FoxFrameFlags) + 2)) {
+		assert(isContext(frameContext(framePointer)));
+		activeContext = longAt(framePointer + FoxThisContext);
 		goto l1;
 	}
-	activeContext = marryFrameSP(GIV(framePointer), GIV(stackPointer) + BytesPerWord);
+	activeContext = marryFrameSP(framePointer, stackPointer + BytesPerWord);
 	/* end ensureFrameIsMarried:SP: */
 l1:
 
 	/* begin storePointer:ofObject:withValue: */
 	assert(validStorePointerArgs(SuspendedContextIndex, oldProc, activeContext));
 	assert(isNonImmediate(oldProc));
-	if (oopisGreaterThanOrEqualTo(oldProc, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(oldProc, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(activeContext & (tagMask()))))
-		 && (oopisLessThan(activeContext, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(activeContext, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(oldProc + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(oldProc);
@@ -107,10 +107,10 @@ l1:
 	/* begin storePointer:ofObject:withValue: */
 	assert(validStorePointerArgs(ActiveProcessIndex, sched, newProcOrNil));
 	assert(isNonImmediate(sched));
-	if (oopisGreaterThanOrEqualTo(sched, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(sched, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(newProcOrNil & (tagMask()))))
-		 && (oopisLessThan(newProcOrNil, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(newProcOrNil, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(sched + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(sched);
@@ -124,21 +124,21 @@ l1:
 	/* begin storePointerUnchecked:ofObject:withValue: */
 	assert((isNonImmediate(newProcOrNil))
 	 && (!(isForwarded(newProcOrNil))));
-	assert(validStorePointerUncheckedArgs(MyListIndex, newProcOrNil, GIV(nilObj)));
-	longAtput((void *)((newProcOrNil + BaseHeaderSize) + ((((usqInt)(MyListIndex) << (shiftForWord()))))),GIV(nilObj));
+	assert(validStorePointerUncheckedArgs(MyListIndex, newProcOrNil, nilObj));
+	longAtput((void *)((newProcOrNil + BaseHeaderSize) + ((((usqInt)(MyListIndex) << (shiftForWord()))))),nilObj);
 
 	/* begin externalSetStackPageAndPointersForSuspendedContextOfProcess: */
 	newContext = longAt((void *)((newProcOrNil + BaseHeaderSize) + ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))));
 	assert(isContext(newContext));
 	if (((((longAt((void *)((newContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)) {
-		assert(checkIsStillMarriedContextcurrentFP(newContext, GIV(framePointer)));
+		assert(checkIsStillMarriedContextcurrentFP(newContext, framePointer));
 	}
 
 	/* begin storePointerUnchecked:ofObject:withValue: */
 	assert((isNonImmediate(newProcOrNil))
 	 && (!(isForwarded(newProcOrNil))));
-	assert(validStorePointerUncheckedArgs(SuspendedContextIndex, newProcOrNil, GIV(nilObj)));
-	longAtput((void *)((newProcOrNil + BaseHeaderSize) + ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))),GIV(nilObj));
+	assert(validStorePointerUncheckedArgs(SuspendedContextIndex, newProcOrNil, nilObj));
+	longAtput((void *)((newProcOrNil + BaseHeaderSize) + ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))),nilObj);
 	if (/* isStillMarriedContext: */
 		(((((longAt((void *)((newContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
 	 && (!(isWidowedContext(newContext)))) {
@@ -148,10 +148,10 @@ l1:
 		theFrame = ((char *)(senderOop - (smallIntegerTag())));
 
 		/* begin stackPageFor: */
-		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFrame, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFrame, stackMemory, bytesPerPage), pages);
 		if (theFrame != ((thePage->headFP))) {
 			/* begin newStackPage */
-			newPage = (GIV(mostRecentlyUsedPage)->nextPage);
+			newPage = (mostRecentlyUsedPage->nextPage);
 			if (!((newPage->baseFP))) {
 				goto l3;
 			}
@@ -161,7 +161,7 @@ l3:
 			moveFramesInthroughtoPage(thePage, findFrameAboveinPage(theFrame, thePage), newPage);
 
 			/* begin markStackPageLeastMostRecentlyUsed: */
-			assert(newPage == ((GIV(mostRecentlyUsedPage)->nextPage)));
+			assert(newPage == ((mostRecentlyUsedPage->nextPage)));
 			lastUsedPage = (newPage->nextPage);
 			while (((lastUsedPage->baseFP)) == 0) {
 				lastUsedPage = (lastUsedPage->nextPage);
@@ -190,37 +190,37 @@ l2:;
 
 	/* begin setStackPageAndLimit: */
 	assert(thePage);
-	GIV(stackPage) = thePage;
-	if (GIV(stackLimit) != (((char *) (((usqInt) -1))))) {
-		GIV(stackLimit) = (GIV(stackPage)->stackLimit);
+	stackPage = thePage;
+	if (stackLimit != (((char *) (((usqInt) -1))))) {
+		stackLimit = (stackPage->stackLimit);
 	}
 	markStackPageMostRecentlyUsed(thePage);
 
 	/* begin setStackPointersFromPage: */
-	GIV(stackPointer) = (thePage->headSP);
-	GIV(framePointer) = (thePage->headFP);
+	stackPointer = (thePage->headSP);
+	framePointer = (thePage->headFP);
 
 	/* begin setMethod: */
-	GIV(method) = longAt(GIV(framePointer) + FoxMethod);
-	assert(isOopCompiledMethod(GIV(method)));
+	method = longAt(framePointer + FoxMethod);
+	assert(isOopCompiledMethod(method));
 
 	/* begin methodUsesAlternateBytecodeSet: */
 	/* begin methodHeaderOf: */
-	assert(isCompiledMethod(GIV(method)));
-	methodHeader = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+	assert(isCompiledMethod(method));
+	methodHeader = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 	if ((((sqLong) methodHeader)) < 0) {
-		GIV(bytecodeSetSelector) = 0x100;
+		bytecodeSetSelector = 0x100;
 	}
 	else {
-		GIV(bytecodeSetSelector) = 0;
+		bytecodeSetSelector = 0;
 	}
 
 	/* begin popStack */
-	top = longAt(GIV(stackPointer));
-	GIV(stackPointer) += BytesPerWord;
-	GIV(instructionPointer) = top;
+	top = longAt(stackPointer);
+	stackPointer += BytesPerWord;
+	instructionPointer = top;
 
 	/* begin assertValidExecutionPointe:r:s: */
-	assertValidExecutionPointersimbarline(GIV(instructionPointer), GIV(framePointer), GIV(stackPointer), 1 /* (isMachineCodeFrame: not) */, __LINE__);
+	assertValidExecutionPointersimbarline(instructionPointer, framePointer, stackPointer, 1 /* (isMachineCodeFrame: not) */, __LINE__);
 	return 0;
 }

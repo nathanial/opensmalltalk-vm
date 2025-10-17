@@ -16,15 +16,15 @@ validStorePointerUncheckedArgs(sqInt fieldIndex, sqInt objOop, sqInt valuePointe
 				: numSlots)))))
 	 && ((((valuePointer & (tagMask())) != 0))
 	 || ((/* isInHeapBounds: */
-		(oopisGreaterThanOrEqualTo(valuePointer, GIV(newSpaceStart)))
-	 && (oopisLessThan(valuePointer, GIV(endOfMemory))))
+		(oopisGreaterThanOrEqualTo(valuePointer, newSpaceStart))
+	 && (oopisLessThan(valuePointer, endOfMemory)))
 	 || (((fieldIndex == 0)
 	 && ((((/* begin numSlotsOf: */
 		assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun())),
 	(((numSlots = byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
 				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize)))) << 8)))))) >> 8
 				: numSlots))) == 0)
-	 || (GIV(gcPhaseInProgress) == SlidingCompactionInProgress)))
+	 || (gcPhaseInProgress == SlidingCompactionInProgress)))
 	 || ((((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask())) >= (sixtyFourBitIndexableFormat()))
 	 && ((((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask())) < (firstCompiledMethodFormat()))
 	 || (fieldIndex > (literalCountOf(objOop)))))))));

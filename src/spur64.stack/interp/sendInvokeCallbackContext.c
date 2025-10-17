@@ -36,16 +36,16 @@ sendInvokeCallbackContext(VMCallbackContext *vmCallbackContext)
 
 	/* begin recordTrace:thing:source: */
 	if (TraceLog) {
-		GIV(traceLog)[GIV(traceLogIndex)] = TraceVMCallback;
-		GIV(traceLog)[GIV(traceLogIndex) + 1] = (longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorInvokeCallback) << (shiftForWord())))))));
-		GIV(traceLog)[GIV(traceLogIndex) + 2] = 0;
-		GIV(traceLogIndex) = (GIV(traceLogIndex) + 3) % TraceBufferSize;
+		traceLog[traceLogIndex] = TraceVMCallback;
+		traceLog[traceLogIndex + 1] = (longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorInvokeCallback) << (shiftForWord())))))));
+		traceLog[traceLogIndex + 2] = 0;
+		traceLogIndex = (traceLogIndex + 3) % TraceBufferSize;
 	}
 
 	/* begin fetchClassTagOfNonImm: */
-	classTag = (longAt((void *)(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassAlien) << (shiftForWord()))))))))) & (classIndexMask());
-	GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorInvokeCallback) << (shiftForWord()))))));
-	if (!(lookupInMethodCacheSelclassTag(GIV(messageSelector), classTag))) {
+	classTag = (longAt((void *)(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassAlien) << (shiftForWord()))))))))) & (classIndexMask());
+	messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorInvokeCallback) << (shiftForWord()))))));
+	if (!(lookupInMethodCacheSelclassTag(messageSelector, classTag))) {
 		if (lookupOrdinaryNoMNUEtcInClass(classForClassTag(classTag))) {
 			return 0;
 		}
@@ -55,61 +55,61 @@ sendInvokeCallbackContext(VMCallbackContext *vmCallbackContext)
 	/* self assert: debugCallbackInvokes < 3802. */
 
 	/* begin saveCStackStateForCallbackContext: */
-	memcpy(((void *)((vmCallbackContext->savedReenterInterpreter))), GIV(reenterInterpreter), sizeof(jmp_buf));
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassAlien) << (shiftForWord())))))));
-	GIV(stackPointer) = sp;
-	if ((argumentCountOf(GIV(newMethod))) == 4) {
+	memcpy(((void *)((vmCallbackContext->savedReenterInterpreter))), reenterInterpreter, sizeof(jmp_buf));
+	longAtput((sp = stackPointer - BytesPerWord),longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassAlien) << (shiftForWord())))))));
+	stackPointer = sp;
+	if ((argumentCountOf(newMethod)) == 4) {
 		object = positive64BitIntegerFor(((usqInt)((vmCallbackContext->thunkp))));
 
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),object);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),object);
+		stackPointer = sp;
 		object = positive64BitIntegerFor(((usqInt)((vmCallbackContext->stackp))));
 
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),object);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),object);
+		stackPointer = sp;
 		object = positive64BitIntegerFor(((usqInt)((vmCallbackContext->intregargsp))));
 
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),object);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),object);
+		stackPointer = sp;
 	}
 	object = positive64BitIntegerFor(((usqInt)vmCallbackContext));
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),object);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),object);
+	stackPointer = sp;
 
 	/* begin justActivateNewMethod: */
 	/* begin methodHeaderOf: */
-	assert(isCompiledMethod(GIV(newMethod)));
-	methodHeader = longAt((void *)((GIV(newMethod) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+	assert(isCompiledMethod(newMethod));
+	methodHeader = longAt((void *)((newMethod + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 	numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
 	numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 
 	/* could new rcvr be set at point of send? */
-	rcvr = longAt(GIV(stackPointer) + (numArgs * BytesPerWord));
+	rcvr = longAt(stackPointer + (numArgs * BytesPerWord));
 	assert(!(isOopForwarded(rcvr)));
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(instructionPointer));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),instructionPointer);
+	stackPointer = sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),((usqInt)GIV(framePointer)));
-	GIV(stackPointer) = sp;
-	GIV(framePointer) = GIV(stackPointer);
+	longAtput((sp = stackPointer - BytesPerWord),((usqInt)framePointer));
+	stackPointer = sp;
+	framePointer = stackPointer;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(newMethod));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),newMethod);
+	stackPointer = sp;
 
 	/* begin setMethod:methodHeader: */
-	GIV(method) = GIV(newMethod);
-	assert(isOopCompiledMethod(GIV(method)));
-	assert((methodHeaderOf(GIV(method))) == methodHeader);
-	GIV(bytecodeSetSelector) = ((((sqLong) methodHeader)) < 0
+	method = newMethod;
+	assert(isOopCompiledMethod(method));
+	assert((methodHeaderOf(method)) == methodHeader);
+	bytecodeSetSelector = ((((sqLong) methodHeader)) < 0
 				? 0x100
 				: 0);
 	object = /* encodeFrameFieldHasContext:isBlock:numArgs: */
@@ -118,31 +118,31 @@ sendInvokeCallbackContext(VMCallbackContext *vmCallbackContext)
 				: ((1 + ((numArgs << 8)))));
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),object);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),object);
+	stackPointer = sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(nilObj));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),nilObj);
+	stackPointer = sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),rcvr);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),rcvr);
+	stackPointer = sp;
 
 	/* clear remaining temps to nil */
 	for (i = (numArgs + 1); i <= numTemps; i += 1) {
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(nilObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),nilObj);
+		stackPointer = sp;
 	}
-	GIV(instructionPointer) = (((((usqInt)(pointerForOop(GIV(newMethod))))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
+	instructionPointer = (((((usqInt)(pointerForOop(newMethod)))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
 	assert((((methodHeader) & 7) == 1)),
 /* literalCountOfAlternateHeader: */
 	((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask))) * BytesPerOop)) + BaseHeaderSize) - 1;
 	if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
-		GIV(instructionPointer) += 3 /* sizeOfCallPrimitiveBytecode: */;
-		if (GIV(primFailCode)) {
-			reapAndResetErrorCodeToheader(GIV(stackPointer), methodHeader);
+		instructionPointer += 3 /* sizeOfCallPrimitiveBytecode: */;
+		if (primFailCode) {
+			reapAndResetErrorCodeToheader(stackPointer, methodHeader);
 		}
 	}
 
@@ -151,23 +151,23 @@ sendInvokeCallbackContext(VMCallbackContext *vmCallbackContext)
 
 	/* begin checkForStackOverflow */
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
-	if (GIV(stackPointer) < ((GIV(stackPage)->realStackLimit))) {
+	if (stackPointer < ((stackPage->realStackLimit))) {
 		handleStackOverflow();
 	}
-	assert((frameReceiver(GIV(framePointer))) == (splObj(ClassAlien)));
+	assert((frameReceiver(framePointer)) == (splObj(ClassAlien)));
 
 	/* begin enterSmalltalkExecutiveFromCallback */
 	enterSmalltalkExecutive();

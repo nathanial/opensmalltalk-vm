@@ -10,16 +10,16 @@ primitiveSetImmutability(void)
     char *sp;
     sqInt wasImmutable;
 
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
 	if (((rcvr & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
-	if ((GIV(argumentCount) > 1)
+	if ((argumentCount > 1)
 	 && ((!((longAt((void *)(rcvr))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 
@@ -31,7 +31,7 @@ primitiveSetImmutability(void)
 			0
 #    endif
 			;
-	if ((longAt(GIV(stackPointer))) == GIV(trueObj)) {
+	if ((longAt(stackPointer)) == trueObj) {
 		/* begin canBeImmutable: */
 		assert(isNonImmediate(rcvr));
 
@@ -60,7 +60,7 @@ primitiveSetImmutability(void)
 		}
 
 		/* No clue what is going on for semaphores so they can't be immutable */
-		if (((longAt((void *)(rcvr))) & (classIndexMask())) == (rawHashBitsOf(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassSemaphore) << (shiftForWord()))))))))) {
+		if (((longAt((void *)(rcvr))) & (classIndexMask())) == (rawHashBitsOf(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassSemaphore) << (shiftForWord()))))))))) {
 			goto l1;
 		}
 
@@ -68,7 +68,7 @@ primitiveSetImmutability(void)
 		   as well as the Processor and the array of activeProcess */
 
 		/* begin fetchPointer:ofObject: */
-		scheduler = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+		scheduler = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
 		processLists = longAt((void *)((scheduler + BaseHeaderSize) + ((((usqInt)(ProcessListsIndex) << (shiftForWord()))))));
 		if (rcvr == scheduler) {
 			goto l1;
@@ -116,7 +116,7 @@ primitiveSetImmutability(void)
 l1:
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrInappropriate;
+		primFailCode = PrimErrInappropriate;
 		return;
 l2:
 
@@ -124,22 +124,22 @@ l2:
 		longAtput((void *)(rcvr),(longAt((void *)(rcvr))) | (1U << (immutableBitShift())));
 	}
 	else {
-		if ((longAt(GIV(stackPointer))) == GIV(falseObj)) {
+		if ((longAt(stackPointer)) == falseObj) {
 			/* begin setIsImmutableOf:to: */
 			longAtput((void *)(rcvr),(longAt((void *)(rcvr))) & (~(usqIntptr_t)(1U << (immutableBitShift()))));
 		}
 		else {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			return;
 		}
 	}
 
 	/* begin methodReturnBool: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
 		(wasImmutable
-			? GIV(trueObj)
-			: GIV(falseObj)));
-	GIV(stackPointer) = sp;
+			? trueObj
+			: falseObj));
+	stackPointer = sp;
 }

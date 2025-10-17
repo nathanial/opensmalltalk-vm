@@ -13,7 +13,7 @@ postGCUpdateDisplayBits(void)
     sqInt bitsOop;
     sqInt displayObj;
 
-	displayObj = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheDisplay) << (shiftForWord()))))));
+	displayObj = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheDisplay) << (shiftForWord()))))));
 	if (!((/* isPointers: */
 			((!(displayObj & (tagMask()))))
 		 && (((byteAt((void *)(displayObj + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
@@ -28,7 +28,7 @@ postGCUpdateDisplayBits(void)
 	 && ((!((longAt((void *)(bitsOop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 		bitsOop = fixFollowedFieldofObjectwithInitialValue(0, displayObj, bitsOop);
 	}
-	if ((bitsOop == GIV(nilObj))
+	if ((bitsOop == nilObj)
 	 || ((((bitsOop) & 7) == 1))) {
 		return 1;
 	}
@@ -38,7 +38,7 @@ postGCUpdateDisplayBits(void)
 	assert((addressCouldBeObj(bitsOop))
 	 && (isWordsOrBytes(bitsOop)));
 	if (!((byteAt((void *)(bitsOop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift())))) {
-		if (GIV(stackPage)) {
+		if (stackPage) {
 			pinObject(bitsOop);
 
 			/* begin followOopField:ofObject: */

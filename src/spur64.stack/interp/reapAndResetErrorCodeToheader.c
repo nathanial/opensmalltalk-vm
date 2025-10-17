@@ -13,8 +13,8 @@ reapAndResetErrorCodeToheader(char *theSP, sqInt methodHeader)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     usqInt initialPC;
 
-	assert(GIV(primFailCode) != 0);
-	initialPC = (((((usqInt)(pointerForOop(GIV(newMethod))))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
+	assert(primFailCode != 0);
+	initialPC = (((((usqInt)(pointerForOop(newMethod)))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
 	assert((((methodHeader) & 7) == 1)),
 /* literalCountOfAlternateHeader: */
 	((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask))) * BytesPerOop)) + BaseHeaderSize) + 3 /* sizeOfCallPrimitiveBytecode: */;
@@ -24,5 +24,5 @@ reapAndResetErrorCodeToheader(char *theSP, sqInt methodHeader)
 			: LongStoreBytecode))) {
 		longAtput(theSP,getErrorObjectFromPrimFailCode());
 	}
-	GIV(primFailCode) = 0;
+	primFailCode = 0;
 }

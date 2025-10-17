@@ -5,5 +5,5 @@
 sqInt
 stackTop(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return longAt(GIV(stackPointer));
+	return longAt(stackPointer);
 }

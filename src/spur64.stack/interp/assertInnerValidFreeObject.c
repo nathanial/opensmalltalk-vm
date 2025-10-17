@@ -18,7 +18,7 @@ assertInnerValidFreeObject(sqInt objOop)
     sqInt smallChild;
     sqInt treeNode;
 
-	assert(oopisLessThanOrEqualTo(addressAfter(objOop), GIV(endOfMemory)));
+	assert(oopisLessThanOrEqualTo(addressAfter(objOop), endOfMemory));
 	chunk = longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
 	assert((chunk == 0)
 	 || (isFreeOop(chunk)));
@@ -35,14 +35,14 @@ assertInnerValidFreeObject(sqInt objOop)
 		chunk = longAt((void *)((objOop + BaseHeaderSize) + (1U << (shiftForWord()))));
 		index = (bytesInBody(objOop)) / 8 /* allocationUnit */;
 		if ((index < 64 /* numFreeLists */)
-		 && ((1ULL << index) <= GIV(freeListsMask))) {
-			if ((GIV(freeLists)[index]) == objOop) {
+		 && ((1ULL << index) <= freeListsMask)) {
+			if ((freeLists[index]) == objOop) {
 				assert(chunk == 0);
 			}
 		}
 		else {
 			/* begin freeTreeNodesDo: */
-			treeNode = GIV(freeLists)[0];
+			treeNode = freeLists[0];
 			if (!treeNode) {
 				goto l1;
 			}

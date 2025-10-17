@@ -13,13 +13,13 @@ primitiveSetLogDirectory(void)
     sqInt stringOop;
     sqInt sz;
 
-	stringOop = longAt(GIV(stackPointer));
+	stringOop = longAt(stackPointer);
 	if (!(/* isBytes: */
 			((!(stringOop & (tagMask()))))
 		 && (((byteAt((void *)(stringOop + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat())))) {
 		/* begin success: */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return null;
 	}
@@ -57,9 +57,9 @@ primitiveSetLogDirectory(void)
 	/* end byteSizeOf: */
 l1:
 	ioSetLogDirectoryOfSize(firstIndexableField(stringOop), sz);
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		/* begin pop: */
-		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+		stackPointer += argumentCount * BytesPerWord;
 	}
 	return 0;
 }

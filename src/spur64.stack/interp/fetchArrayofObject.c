@@ -23,8 +23,8 @@ fetchArrayofObject(sqInt fieldIndex, sqInt objectPointer)
 	}
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	return null;
 }

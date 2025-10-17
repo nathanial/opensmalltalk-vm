@@ -16,11 +16,11 @@ nextNonEmptySegmentAfter(sqInt i)
 
 	nextx = i;
 	while (1) {
-		if (((nextx += 1)) >= GIV(numSegments)) {
+		if (((nextx += 1)) >= numSegments) {
 			return null;
 		}
-		if ((((GIV(segments)[nextx]).segSize)) > (2 * BaseHeaderSize)) {
-			return (&(GIV(segments)[nextx]));
+		if ((((segments[nextx]).segSize)) > (2 * BaseHeaderSize)) {
+			return (&(segments[nextx]));
 		}
 	}
 	return 0;

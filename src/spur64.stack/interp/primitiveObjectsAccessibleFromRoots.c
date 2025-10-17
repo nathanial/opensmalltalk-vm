@@ -19,15 +19,15 @@ primitiveObjectsAccessibleFromRoots(void)
     sqInt result;
     char *sp;
 
-	arrayOfRoots = longAt(GIV(stackPointer));
+	arrayOfRoots = longAt(stackPointer);
 
 	/* Essential type checks */
 	if (!(/* isArray: */
 			((!(arrayOfRoots & (tagMask()))))
 		 && (((byteAt((void *)(arrayOfRoots + (formatFieldByteOffset())))) & (formatMask())) == (arrayFormat())))) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
@@ -37,17 +37,17 @@ primitiveObjectsAccessibleFromRoots(void)
 	if (((((result) & 7) == 1))
 	 && (((result >> 3)) == PrimErrNoMemory)) {
 		fullGC();
-		arrayOfRoots = longAt(GIV(stackPointer));
+		arrayOfRoots = longAt(stackPointer);
 		result = objectsAccessibleFromRoots(arrayOfRoots);
 	}
 	if ((((result) & 7) == 1)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = (result >> 3);
+		primFailCode = (result >> 3);
 	}
 	else {
 		/* begin methodReturnValue: */
 		assert(!((failed())));
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),result);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),result);
+		stackPointer = sp;
 	}
 }

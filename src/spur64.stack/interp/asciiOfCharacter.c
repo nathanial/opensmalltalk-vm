@@ -12,6 +12,6 @@ asciiOfCharacter(sqInt characterObj)
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = PrimErrBadArgument;
+	primFailCode = PrimErrBadArgument;
 	return ConstZero;
 }

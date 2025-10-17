@@ -16,20 +16,20 @@ primitiveUtcWithOffset(void)
     char *sp;
     sqInt valuePointer;
 
-	if (GIV(argumentCount) > 0) {
-		if (GIV(argumentCount) > 1) {
-			return (GIV(primFailCode) = PrimErrBadNumArgs);
+	if (argumentCount > 0) {
+		if (argumentCount > 1) {
+			return (primFailCode = PrimErrBadNumArgs);
 		}
-		resultArray = longAt(GIV(stackPointer));
+		resultArray = longAt(stackPointer);
 		if (!((/* isPointers: */
 				((!(resultArray & (tagMask()))))
 			 && (((byteAt((void *)(resultArray + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
 			 && ((lengthOf(resultArray)) >= 2))) {
-			return (GIV(primFailCode) = PrimErrBadArgument);
+			return (primFailCode = PrimErrBadArgument);
 		}
 	}
 	else {
-		resultArray = instantiateClassindexableSize(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassArray) << (shiftForWord())))))), 2);
+		resultArray = instantiateClassindexableSize(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassArray) << (shiftForWord())))))), 2);
 	}
 
 	/* N.B. No pushRemappableOop:/popRemappableOop in Cog because positive64BitIntegerFor: et al use
@@ -46,10 +46,10 @@ primitiveUtcWithOffset(void)
 	/* begin storePointer:ofObject:withValue: */
 	assert(validStorePointerArgs(0, resultArray, valuePointer));
 	assert(isNonImmediate(resultArray));
-	if (oopisGreaterThanOrEqualTo(resultArray, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(resultArray, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(valuePointer & (tagMask()))))
-		 && (oopisLessThan(valuePointer, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(valuePointer, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(resultArray + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(resultArray);
@@ -61,7 +61,7 @@ primitiveUtcWithOffset(void)
 	longAtput((void *)((resultArray + BaseHeaderSize) + (0U << (shiftForWord()))),valuePointer);
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),resultArray);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),resultArray);
+	stackPointer = sp;
 	return 0;
 }

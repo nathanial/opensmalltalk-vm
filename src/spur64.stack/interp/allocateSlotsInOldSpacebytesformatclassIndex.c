@@ -18,7 +18,7 @@ allocateSlotsInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt totalBytes, 
 
 			/* begin checkFreeSpace:ignoring: */
 			assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-			assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+			assert(totalFreeOldSpace == (totalFreeListBytes()));
 			if (((checkForLeaks & (GCCheckFreeSpace | GCModeNewSpace)) == (GCCheckFreeSpace | GCModeNewSpace))) {
 				runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, chunk + BaseHeaderSize);
 			}
@@ -30,7 +30,7 @@ allocateSlotsInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt totalBytes, 
 
 		/* begin checkFreeSpace:ignoring: */
 		assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-		assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+		assert(totalFreeOldSpace == (totalFreeListBytes()));
 		if (((checkForLeaks & (GCCheckFreeSpace | GCModeNewSpace)) == (GCCheckFreeSpace | GCModeNewSpace))) {
 			runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, chunk);
 		}

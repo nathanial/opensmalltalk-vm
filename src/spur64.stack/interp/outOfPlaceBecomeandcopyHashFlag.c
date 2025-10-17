@@ -77,10 +77,10 @@ outOfPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag)
 
 	/* begin isOldObject: */
 	assert(isNonImmediate(obj1));
-	if (oopisGreaterThanOrEqualTo(obj1, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(obj1, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(clone2 & (tagMask()))))
-		 && (oopisLessThan(clone2, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(clone2, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(obj1 + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(obj1);
@@ -112,10 +112,10 @@ outOfPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag)
 
 	/* begin isOldObject: */
 	assert(isNonImmediate(obj2));
-	if (oopisGreaterThanOrEqualTo(obj2, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(obj2, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(clone1 & (tagMask()))))
-		 && (oopisLessThan(clone1, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(clone1, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(obj2 + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(obj2);
@@ -133,14 +133,14 @@ outOfPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag)
 	}
 	if ((((/* begin isYoungObject: */
 		assert(isNonImmediate(obj1)),
-	oopisLessThan(obj1, GIV(oldSpaceStart)))) != ((/* begin isYoungObject: */
+	oopisLessThan(obj1, oldSpaceStart))) != ((/* begin isYoungObject: */
 		assert(isNonImmediate(clone2)),
-	oopisLessThan(clone2, GIV(oldSpaceStart)))))
+	oopisLessThan(clone2, oldSpaceStart))))
 	 || (((/* begin isYoungObject: */
 		assert(isNonImmediate(obj2)),
-	oopisLessThan(obj2, GIV(oldSpaceStart)))) != ((/* begin isYoungObject: */
+	oopisLessThan(obj2, oldSpaceStart))) != ((/* begin isYoungObject: */
 		assert(isNonImmediate(clone1)),
-	oopisLessThan(clone1, GIV(oldSpaceStart)))))) {
-		GIV(becomeEffectsFlags) = GIV(becomeEffectsFlags) | OldBecameNewFlag;
+	oopisLessThan(clone1, oldSpaceStart))))) {
+		becomeEffectsFlags = becomeEffectsFlags | OldBecameNewFlag;
 	}
 }

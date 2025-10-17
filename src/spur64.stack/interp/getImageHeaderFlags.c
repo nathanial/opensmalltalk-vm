@@ -7,11 +7,11 @@
 static sqInt
 getImageHeaderFlags(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return ((((((GIV(fullScreenFlag) + ((VMBIGENDIAN
+	return ((((((fullScreenFlag + ((VMBIGENDIAN
 		? 0
-		: 2))) + ((GIV(preemptionYields)
+		: 2))) + ((preemptionYields
 		? 0
-		: 16))) + ((GIV(newFinalization)
+		: 16))) + ((newFinalization
 		? 64
 		: 0))) + ((sendWheelEvents
 		? 128
@@ -19,5 +19,5 @@ getImageHeaderFlags(void)
 		? 0
 		: 0x100))) + ((upscaleDisplayIfHighDPI
 		? 0
-		: 0x400))) + (((GIV(imageHeaderFlags) | (2003)) - (2003)));
+		: 0x400))) + (((imageHeaderFlags | (2003)) - (2003)));
 }

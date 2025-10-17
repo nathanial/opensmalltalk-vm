@@ -35,16 +35,16 @@ markWeaklingsAndMarkAndFireEphemerons(void)
 		do {
 			/* begin markAndTraceWeaklingsFrom: */
 			/* begin objStack:from:do: */
-			eassert(isValidObjStack(GIV(weaklingStack)));
-			size = longAt((void *)((GIV(weaklingStack) + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
-			objStackPage = longAt((void *)((GIV(weaklingStack) + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
+			eassert(isValidObjStack(weaklingStack));
+			size = longAt((void *)((weaklingStack + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
+			objStackPage = longAt((void *)((weaklingStack + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
 			while (objStackPage != 0) {
 				size += ObjStackLimit;
 				assert((fetchPointerofObject(ObjStackTopx, objStackPage)) == ObjStackLimit);
 				objStackPage = longAt((void *)((objStackPage + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
 			}
 			numToEnumerate = size - numTracedWeaklings;
-			objStackPage = GIV(weaklingStack);
+			objStackPage = weaklingStack;
 			while (numToEnumerate > 0) {
 				numOnThisPage = longAt((void *)((objStackPage + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
 				numToEnumerateOnThisPage = ((numToEnumerate < numOnThisPage) ? numToEnumerate : numOnThisPage);
@@ -75,8 +75,8 @@ markWeaklingsAndMarkAndFireEphemerons(void)
 				objStackPage = longAt((void *)((objStackPage + BaseHeaderSize) + ((((usqInt)(ObjStackNextx) << (shiftForWord()))))));
 			}
 			numTracedWeaklings = size;
-		} while((sizeOfObjStack(GIV(weaklingStack))) > numTracedWeaklings);
-		if (((GIV(unscannedEphemerons).top)) < ((GIV(unscannedEphemerons).start))) {
+		} while((sizeOfObjStack(weaklingStack)) > numTracedWeaklings);
+		if (((unscannedEphemerons.top)) < ((unscannedEphemerons.start))) {
 			markAndTraceUntracedReachableStackPages();
 			freeUntracedStackPages();
 			return;
@@ -85,17 +85,17 @@ markWeaklingsAndMarkAndFireEphemerons(void)
 			/* begin fireAllUnscannedEphemerons */
 			assert(!(noUnscannedEphemerons()));
 			assert(allUnscannedEphemeronsAreActive());
-			for (p = ((GIV(unscannedEphemerons).start)); p <= ((GIV(unscannedEphemerons).top)); p += BytesPerOop) {
+			for (p = ((unscannedEphemerons.start)); p <= ((unscannedEphemerons.top)); p += BytesPerOop) {
 				fireEphemeron(longAt((void *)(p)));
 			}
 		}
 
 		/* begin markAllUnscannedEphemerons */
 		assert(allUnscannedEphemeronsAreActive());
-		while (((GIV(unscannedEphemerons).top)) >= ((GIV(unscannedEphemerons).start))) {
-			ephemeron = longAt((void *)((GIV(unscannedEphemerons).start)));
-			longAtput((void *)((GIV(unscannedEphemerons).start)),longAt((void *)((GIV(unscannedEphemerons).top))));
-			(GIV(unscannedEphemerons).top = ((GIV(unscannedEphemerons).top)) - BytesPerOop);
+		while (((unscannedEphemerons.top)) >= ((unscannedEphemerons.start))) {
+			ephemeron = longAt((void *)((unscannedEphemerons.start)));
+			longAtput((void *)((unscannedEphemerons.start)),longAt((void *)((unscannedEphemerons.top))));
+			(unscannedEphemerons.top = ((unscannedEphemerons.top)) - BytesPerOop);
 
 			/* begin followedKeyOfMaybeFiredEphemeron: */
 			assert((isNonImmediate(ephemeron))

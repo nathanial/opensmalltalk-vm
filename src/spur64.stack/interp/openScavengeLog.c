@@ -5,5 +5,5 @@
 void
 openScavengeLog(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	GIV(scavengeLog) = fopen("scavenge.log", "a+");
+	scavengeLog = fopen("scavenge.log", "a+");
 }

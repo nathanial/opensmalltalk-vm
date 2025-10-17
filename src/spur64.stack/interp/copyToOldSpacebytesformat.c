@@ -18,11 +18,11 @@ copyToOldSpacebytesformat(sqInt survivor, sqInt bytesInObject, sqInt formatOfSur
 
 	assert((formatOfSurvivor == (formatOf(survivor)))
 	 && (((!(isMarked(survivor)))
-	 || (GIV(tenureCriterion) == MarkOnTenure))
-	 && ((GIV(tenureCriterion) == TenureToShrinkRT)
+	 || (tenureCriterion == MarkOnTenure))
+	 && ((tenureCriterion == TenureToShrinkRT)
 	 || ((!(isPinned(survivor)))
 	 && (!(isRemembered(survivor)))))));
-	nTenures = GIV(statTenures);
+	nTenures = statTenures;
 	startOfSurvivor = /* startOfObject: */
 			((byteAt((void *)(survivor + (numSlotsFieldByteOffset())))) == (numSlotsMask())
 				? survivor - BaseHeaderSize
@@ -39,19 +39,19 @@ copyToOldSpacebytesformat(sqInt survivor, sqInt bytesInObject, sqInt formatOfSur
 	/* manager checkFreeSpace. */
 	memcpy(((void *)newStart), ((void *)startOfSurvivor), bytesInObject);
 	newOop = newStart + (survivor - startOfSurvivor);
-	if (GIV(tenureCriterion) >= (((TenureToShrinkRT < MarkOnTenure) ? TenureToShrinkRT : MarkOnTenure))) {
-		if (GIV(tenureCriterion) == TenureToShrinkRT) {
+	if (tenureCriterion >= (((TenureToShrinkRT < MarkOnTenure) ? TenureToShrinkRT : MarkOnTenure))) {
+		if (tenureCriterion == TenureToShrinkRT) {
 			/* begin rtRefCountOf:put: */
 			assert(isYoungObject(newOop));
 			byteAtput((void *)(newOop + (formatFieldByteOffset())),((byteAt((void *)(newOop + (formatFieldByteOffset())))) & (formatMask())) + (0U << (rememberedBitByteShift())));
 		}
-		if (GIV(tenureCriterion) == MarkOnTenure) {
+		if (tenureCriterion == MarkOnTenure) {
 			/* begin setIsMarkedOf:to: */
 			assert(!(isFreeObject(newOop)));
 			byteAtput((void *)(newOop + (markBitsByteOffset())),(byteAt((void *)(newOop + (markBitsByteOffset())))) | (1U << (markedBitByteShift())));
 		}
 	}
-	GIV(statTenures) = nTenures + 1;
+	statTenures = nTenures + 1;
 	if (/* isAnyPointerFormat: */
 		(formatOfSurvivor <= 5 /* lastPointerFormat */)
 	 || (formatOfSurvivor >= (firstCompiledMethodFormat()))) {
@@ -62,7 +62,7 @@ copyToOldSpacebytesformat(sqInt survivor, sqInt bytesInObject, sqInt formatOfSur
 				((!(field & (tagMask()))))
 			 && ((/* begin isReallyYoungObject: *//* begin isYoungObject: */
 				assert(isNonImmediate(field)),
-			oopisLessThan(field, GIV(oldSpaceStart))))) {
+			oopisLessThan(field, oldSpaceStart)))) {
 				remember(newOop);
 				return newOop;
 			}

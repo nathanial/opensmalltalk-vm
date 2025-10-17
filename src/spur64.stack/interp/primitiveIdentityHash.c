@@ -11,12 +11,12 @@ primitiveIdentityHash(void)
     char *sp;
     sqInt thisReceiver;
 
-	thisReceiver = longAt(GIV(stackPointer));
+	thisReceiver = longAt(stackPointer);
 	if ((((thisReceiver & (tagMask())) != 0))
-	 || ((GIV(argumentCount) > 0)
+	 || ((argumentCount > 0)
 	 && ((!((longAt((void *)(thisReceiver))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = (GIV(argumentCount) > 0
+		primFailCode = (argumentCount > 0
 					? PrimErrBadArgument
 					: PrimErrBadReceiver);
 		return;
@@ -29,11 +29,11 @@ primitiveIdentityHash(void)
 	if (!hash) {
 		/* begin newHashBitsOf: */
 		/* begin newObjectHash */
-		assert(!((GIV(lastHash) == 0)));
-		GIV(lastHash) = GIV(lastHash) ^ (((GIV(lastHash)) >> 2));
-		GIV(lastHash) = GIV(lastHash) ^ ((((GIV(lastHash) << 7))) & (identityHashHalfWordMask()));
-		GIV(lastHash) = GIV(lastHash) ^ (((GIV(lastHash)) >> 3));
-		hashUsqInt = GIV(lastHash);
+		assert(!((lastHash == 0)));
+		lastHash = lastHash ^ (((lastHash) >> 2));
+		lastHash = lastHash ^ ((((lastHash << 7))) & (identityHashHalfWordMask()));
+		lastHash = lastHash ^ (((lastHash) >> 3));
+		hashUsqInt = lastHash;
 
 		/* begin setHashBitsOf:to: */
 		long32Atput((void *)(thisReceiver + 4),((((long32At((void *)(thisReceiver + 4))) | (identityHashHalfWordMask())) - (identityHashHalfWordMask()))) + (hashUsqInt & (identityHashHalfWordMask())));
@@ -50,6 +50,6 @@ primitiveIdentityHash(void)
 
 	/* begin methodReturnInteger: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),(((usqInt)integer << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)integer << 3) | 1));
+	stackPointer = sp;
 }

@@ -76,7 +76,7 @@ l2:
 		oop = longAt((void *)(firstFieldPtr));
 		if (((!(oop & (tagMask()))))
 		 && (/* isMobile: */
-			(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, GIV(mobileStart), GIV(lastMobileObject)))
+			(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart, lastMobileObject))
 		 && (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)))) {
 			assert(isMarked(oop));
 			fwd = longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
@@ -92,7 +92,7 @@ l2:
 		oop = longAt((void *)((obj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 		if (((!(oop & (tagMask()))))
 		 && (/* isMobile: */
-			(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, GIV(mobileStart), GIV(lastMobileObject)))
+			(oopisGreaterThanOrEqualToandLessThanOrEqualTo(oop, mobileStart, lastMobileObject))
 		 && (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0)))) {
 			assert((isMarked(oop))
 			 || (obj == (hiddenRootsObject())));

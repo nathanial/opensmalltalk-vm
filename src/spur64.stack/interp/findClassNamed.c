@@ -13,12 +13,12 @@ findClassNamed(char *aString)
     sqInt toDoLimit;
 
 	/* begin classTableEntriesDo: */
-	for (i = 0; i < GIV(numClassTablePages); i += 1) {
-		page = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
+	for (i = 0; i < numClassTablePages; i += 1) {
+		page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
 		toDoLimit = (1U << (classTableMajorIndexShift())) - 1;
 		for (j = 0; j <= toDoLimit; j += 1) {
 			classOrNil = longAt((void *)((page + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))));
-			if (classOrNil != GIV(nilObj)) {
+			if (classOrNil != nilObj) {
 				ignored = ((((usqInt)(i) << (classTableMajorIndexShift())))) + j;
 				if (classNameOfIs(classOrNil, aString)) {
 					return classOrNil;

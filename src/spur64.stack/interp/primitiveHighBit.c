@@ -10,7 +10,7 @@ primitiveHighBit(void)
     sqInt leadingZeroCount;
     char *sp;
 
-	integerReceiverOop = longAt(GIV(stackPointer));
+	integerReceiverOop = longAt(stackPointer);
 
 	/* Convert the receiver Oop to use a single tag bit */
 	integerReceiverOop = ((integerReceiverOop) >> 2 /* (numSmallIntegerTagBits - 1) */) | 1;
@@ -18,8 +18,8 @@ primitiveHighBit(void)
 	leadingZeroCount = __builtin_clzll(integerReceiverOop);
 	if (!leadingZeroCount) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
@@ -29,13 +29,13 @@ primitiveHighBit(void)
 	   This is like two-complement - clz - 1 on 5 bits, or in other words a bit-invert operation clz ^16r1F */
 
 	/* begin pop:thenPushInteger: */
-	longAtput((sp = GIV(stackPointer)),(((usqInt)(leadingZeroCount ^ ((BytesPerWord * 8) - 1)) << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),(((usqInt)(leadingZeroCount ^ ((BytesPerWord * 8) - 1)) << 3) | 1));
+	stackPointer = sp;
 #  elif (defined(_MSC_VER)) || (defined(__ICC))
 	if (integerReceiverOop < 0) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
@@ -49,12 +49,12 @@ primitiveHighBit(void)
 	/* thanks to the tag bit, the +1 operation for getting 1-based rank is not necessary */
 
 	/* begin pop:thenPushInteger: */
-	longAtput((sp = GIV(stackPointer)),(((usqInt)highestBitZeroBased << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),(((usqInt)highestBitZeroBased << 3) | 1));
+	stackPointer = sp;
 #  else // defined(__GNUC__) || (defined(_MSC_VER)) || (defined(__ICC))
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 #  endif
 }

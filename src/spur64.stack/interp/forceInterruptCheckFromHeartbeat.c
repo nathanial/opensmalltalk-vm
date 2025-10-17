@@ -12,22 +12,22 @@ forceInterruptCheckFromHeartbeat(void)
 	if (!suppressHeartbeatFlag) {
 		/* begin checkForLongRunningPrimitive */
 #    if LRPCheck
-		if (!GIV(longRunningPrimitiveCheckSemaphore)) {
+		if (!longRunningPrimitiveCheckSemaphore) {
 			goto l1;
 		}
-		if ((GIV(longRunningPrimitiveStartUsecs) > 0)
-		 && ((GIV(longRunningPrimitiveCheckMethod) == GIV(newMethod))
-		 && (GIV(longRunningPrimitiveCheckSequenceNumber) == GIV(statCheckForEvents)))) {
-			GIV(longRunningPrimitiveStopUsecs) = ioUTCMicroseconds();
-			assert(GIV(longRunningPrimitiveStopUsecs) > GIV(longRunningPrimitiveStartUsecs));
+		if ((longRunningPrimitiveStartUsecs > 0)
+		 && ((longRunningPrimitiveCheckMethod == newMethod)
+		 && (longRunningPrimitiveCheckSequenceNumber == statCheckForEvents))) {
+			longRunningPrimitiveStopUsecs = ioUTCMicroseconds();
+			assert(longRunningPrimitiveStopUsecs > longRunningPrimitiveStartUsecs);
 			goto l1;
 		}
 
 		/* See traceProfileState & mapProfileState. */
-		if (!GIV(longRunningPrimitiveStopUsecs)) {
-			GIV(longRunningPrimitiveCheckSequenceNumber) = GIV(statCheckForEvents);
-			GIV(longRunningPrimitiveCheckMethod) = GIV(newMethod);
-			GIV(longRunningPrimitiveStartUsecs) = ioUTCMicroseconds();
+		if (!longRunningPrimitiveStopUsecs) {
+			longRunningPrimitiveCheckSequenceNumber = statCheckForEvents;
+			longRunningPrimitiveCheckMethod = newMethod;
+			longRunningPrimitiveStartUsecs = ioUTCMicroseconds();
 			sqLowLevelMFence();
 		}
 #    endif // LRPCheck

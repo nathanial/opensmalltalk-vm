@@ -14,14 +14,14 @@ sizeOfAlienData(sqInt oop)
 	/* begin is:KindOfClass: */
 	oopClass = /* fetchClassOf: */
 			((tagBits = oop & (tagMask()))
-				? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+				? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 				: fetchClassOfNonImm(oop));
-	while ((oopClass != GIV(nilObj))
+	while ((oopClass != nilObj)
 	 && ((/* isPointers: */
 		((!(oopClass & (tagMask()))))
 	 && (((byteAt((void *)(oopClass + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
 	 && ((numSlotsOfAny(oopClass)) > InstanceSpecificationIndex))) {
-		if (oopClass == (longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassAlien) << (shiftForWord())))))))) {
+		if (oopClass == (longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassAlien) << (shiftForWord())))))))) {
 			goto l1;
 		}
 
@@ -36,7 +36,7 @@ sizeOfAlienData(sqInt oop)
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = PrimErrBadArgument;
+	primFailCode = PrimErrBadArgument;
 	return 0;
 l1:
 	return SQABS(longAt((void *)(oop + BaseHeaderSize)));

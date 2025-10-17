@@ -7,5 +7,5 @@
 sqInt
 splObj(sqInt index)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(index) << (shiftForWord()))))));
+	return longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(index) << (shiftForWord()))))));
 }

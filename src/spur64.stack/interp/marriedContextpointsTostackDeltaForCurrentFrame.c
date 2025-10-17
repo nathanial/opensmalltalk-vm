@@ -20,12 +20,12 @@ marriedContextpointsTostackDeltaForCurrentFrame(sqInt spouseContext, sqInt anOop
 	senderOop = longAt((void *)((spouseContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));
 	assert((((senderOop) & 7) == 1));
 	theFP = ((char *)(senderOop - (smallIntegerTag())));
-	if (theFP == GIV(framePointer)) {
-		theSP = GIV(stackPointer) + (stackDeltaForCurrentFrame * BytesPerWord);
+	if (theFP == framePointer) {
+		theSP = stackPointer + (stackDeltaForCurrentFrame * BytesPerWord);
 	}
 	else {
 		/* begin stackPageFor: */
-		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
 		theSP = findSPOfon(theFP, thePage);
 	}
 	if ((((anOop) & 7) == 1)) {

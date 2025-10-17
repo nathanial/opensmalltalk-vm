@@ -17,7 +17,7 @@ findSelectorOfMethod(sqInt aMethodOop)
     sqInt selector;
 
 	if (!(addressCouldBeObj(aMethodOop))) {
-		return GIV(nilObj);
+		return nilObj;
 	}
 	if ((!((longAt((void *)(aMethodOop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 		return findSelectorOfMethod(followForwarded(aMethodOop));
@@ -25,7 +25,7 @@ findSelectorOfMethod(sqInt aMethodOop)
 	if (!(/* isOopCompiledMethod: */
 			((!(aMethodOop & (tagMask()))))
 		 && (((byteAt((void *)(aMethodOop + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat())))) {
-		return GIV(nilObj);
+		return nilObj;
 	}
 	homeMethod = homeMethodOf(aMethodOop);
 	if ((selector = maybeSelectorOfMethod(homeMethod))) {
@@ -94,5 +94,5 @@ findSelectorOfMethod(sqInt aMethodOop)
 			}
 		}
 	}
-	return GIV(nilObj);
+	return nilObj;
 }

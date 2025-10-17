@@ -37,44 +37,44 @@ primitiveTerminateTo(void)
     sqInt valuePointer;
 
 	contextsFP = ((char *) 0);
-	aContextOrNil = longAt(GIV(stackPointer));
-	if (!((aContextOrNil == GIV(nilObj))
+	aContextOrNil = longAt(stackPointer);
+	if (!((aContextOrNil == nilObj)
 		 || (/* isContext: */
 			((!(aContextOrNil & (tagMask()))))
 		 && (((longAt((void *)(aContextOrNil))) & (classIndexMask())) == ClassMethodContextCompactIndex)))) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
-	thisCtx = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	thisCtx = longAt(stackPointer + (1 * BytesPerWord));
 	if (thisCtx == aContextOrNil) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
 
 	/* If we're searching for aContextOrNil it might be on a stack page.  Helps to know
 	   if we can free a whole page or not, or if we can short-cut the termination. */
-	if ((aContextOrNil != GIV(nilObj))
+	if ((aContextOrNil != nilObj)
 	 && (/* isStillMarriedContext: */
 		(((((longAt((void *)((aContextOrNil + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
 	 && (!(isWidowedContext(aContextOrNil))))) {
@@ -84,7 +84,7 @@ primitiveTerminateTo(void)
 		contextsFP = ((char *)(senderOop - (smallIntegerTag())));
 
 		/* begin stackPageFor: */
-		pageToStopOn = stackPageAtpages(pageIndexForstackMemorybytesPerPage(contextsFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+		pageToStopOn = stackPageAtpages(pageIndexForstackMemorybytesPerPage(contextsFP, stackMemory, bytesPerPage), pages);
 	}
 	else {
 		pageToStopOn = 0;
@@ -101,8 +101,8 @@ primitiveTerminateTo(void)
 
 		/* Optimize terminating thisContext.  Move its frame down to be next to
 		   aContextOrNil's frame. Common in the exception system and so helps to be fast. */
-		if ((theFP == GIV(framePointer))
-		 && (pageToStopOn == GIV(stackPage))) {
+		if ((theFP == framePointer)
+		 && (pageToStopOn == stackPage)) {
 			if ((((char *)(longAt(theFP + FoxSavedFP)))) != contextsFP) {
 				stackedReceiverOffset = (FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1))) << (shiftForWord()))));
 
@@ -130,7 +130,7 @@ l1:
 				assert(!(isBaseFrame(frameAbove)));
 				newSP = (frameAbove + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((frameAbove + FoxFrameFlags) + 1))) << (shiftForWord())))))) + BytesPerWord;
 				newFP = (newSP - stackedReceiverOffset) - BytesPerWord;
-				for (source = (theFP + stackedReceiverOffset); source >= GIV(stackPointer); source += (-BytesPerWord)) {
+				for (source = (theFP + stackedReceiverOffset); source >= stackPointer; source += (-BytesPerWord)) {
 					newSP -= BytesPerWord;
 					longAtput(newSP,longAt(source));
 				}
@@ -155,13 +155,13 @@ l1:
 				 && (!(isForwarded(thisCtx))));
 				assert(validStorePointerUncheckedArgs(InstructionPointerIndex, thisCtx, valuePointer));
 				longAtput((void *)((thisCtx + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),valuePointer);
-				GIV(framePointer) = newFP;
-				GIV(stackPointer) = newSP;
+				framePointer = newFP;
+				stackPointer = newSP;
 			}
 
 			/* begin pop: */
-			GIV(stackPointer) += 1 * BytesPerWord;
-			assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
+			stackPointer += 1 * BytesPerWord;
+			assert(stackPage == (mostRecentlyUsedPage));
 			return;
 		}
 
@@ -173,7 +173,7 @@ l1:
 		currentCtx = longAt(theFP + FoxCallerContext);
 
 		/* May also reclaim aContextOrNil's page, hence... */
-		if ((aContextOrNil != GIV(nilObj))
+		if ((aContextOrNil != nilObj)
 		 && (/* isStillMarriedContext: */
 			(((((longAt((void *)((aContextOrNil + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
 		 && (!(isWidowedContext(aContextOrNil))))) {
@@ -183,7 +183,7 @@ l1:
 			contextsFP = ((char *)(senderOop - (smallIntegerTag())));
 
 			/* begin stackPageFor: */
-			pageToStopOn = stackPageAtpages(pageIndexForstackMemorybytesPerPage(contextsFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+			pageToStopOn = stackPageAtpages(pageIndexForstackMemorybytesPerPage(contextsFP, stackMemory, bytesPerPage), pages);
 		}
 		else {
 			pageToStopOn = 0;
@@ -197,7 +197,7 @@ l1:
 	handlerOrNilOrZero = findMethodWithPrimitiveFromContextUpToContext(-1, thisCtx, aContextOrNil);
 	if (!handlerOrNilOrZero) {
 		while (!((currentCtx == aContextOrNil)
-		 || (currentCtx == GIV(nilObj)))) {
+		 || (currentCtx == nilObj))) {
 			assert(isContext(currentCtx));
 			if (((((longAt((void *)((currentCtx + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)) {
 				/* begin frameOfMarriedContext: */
@@ -206,7 +206,7 @@ l1:
 				theFP = ((char *)(senderOop - (smallIntegerTag())));
 
 				/* begin stackPageFor: */
-				thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+				thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
 
 				/* If externalEnsureIsBaseFrame: above has moved thisContext to its own stack
 				   then we will always terminate to a frame on a different page.  But if we are
@@ -240,7 +240,7 @@ l1:
 				   frame above currentCtx a base frame, i.e. making 0xbffc2458 in the above example
 				   a base frame.  But in this iteration of the loop we don't move down a frame i.e. currentCtx
 				   doesn't change on this iteration. */
-				if (thePage == GIV(stackPage)) {
+				if (thePage == stackPage) {
 					/* begin findFrameAbove:inPage: */
 					callerFP = ((char *) 0);
 					fp = (thePage->headFP);
@@ -263,7 +263,7 @@ l2:
 
 					/* May cause a GC!! May also reclaim aContextOrNil's page, hence... */
 					frameAbove = externalEnsureIsBaseFrame(frameAbove);
-					if ((aContextOrNil != GIV(nilObj))
+					if ((aContextOrNil != nilObj)
 					 && (/* isStillMarriedContext: */
 						(((((longAt((void *)((aContextOrNil + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
 					 && (!(isWidowedContext(aContextOrNil))))) {
@@ -273,7 +273,7 @@ l2:
 						contextsFP = ((char *)(senderOopSqInt - (smallIntegerTag())));
 
 						/* begin stackPageFor: */
-						pageToStopOn = stackPageAtpages(pageIndexForstackMemorybytesPerPage(contextsFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+						pageToStopOn = stackPageAtpages(pageIndexForstackMemorybytesPerPage(contextsFP, stackMemory, bytesPerPage), pages);
 					}
 					else {
 						pageToStopOn = 0;
@@ -333,14 +333,14 @@ l3:
 				assert(isContext(currentCtx));
 				assert((isNonImmediate(currentCtx))
 				 && (!(isForwarded(currentCtx))));
-				assert(validStorePointerUncheckedArgs(SenderIndex, currentCtx, GIV(nilObj)));
-				longAtput((void *)((currentCtx + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),GIV(nilObj));
+				assert(validStorePointerUncheckedArgs(SenderIndex, currentCtx, nilObj));
+				longAtput((void *)((currentCtx + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))),nilObj);
 
 				/* begin storePointerUnchecked:ofObject:withValue: */
 				assert((isNonImmediate(currentCtx))
 				 && (!(isForwarded(currentCtx))));
-				assert(validStorePointerUncheckedArgs(InstructionPointerIndex, currentCtx, GIV(nilObj)));
-				longAtput((void *)((currentCtx + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),GIV(nilObj));
+				assert(validStorePointerUncheckedArgs(InstructionPointerIndex, currentCtx, nilObj));
+				longAtput((void *)((currentCtx + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))),nilObj);
 				currentCtx = nextCntx;
 			}
 		}
@@ -349,7 +349,7 @@ l3:
 	/* Need to walk the stack freeing stack pages and nilling contexts. */
 	assert(pageListIsWellFormed());
 	if (((((longAt((void *)((thisCtx + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)) {
-		assert(checkIsStillMarriedContextcurrentFP(thisCtx, GIV(framePointer)));
+		assert(checkIsStillMarriedContextcurrentFP(thisCtx, framePointer));
 		assert(isBaseFrame(frameOfMarriedContext(thisCtx)));
 
 		/* begin frameOfMarriedContext: */
@@ -367,10 +367,10 @@ l3:
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(SenderIndex, thisCtx, aContextOrNil));
 		assert(isNonImmediate(thisCtx));
-		if (oopisGreaterThanOrEqualTo(thisCtx, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(thisCtx, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(aContextOrNil & (tagMask()))))
-			 && (oopisLessThan(aContextOrNil, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(aContextOrNil, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(thisCtx + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(thisCtx);
@@ -383,6 +383,6 @@ l3:
 	}
 
 	/* begin pop: */
-	GIV(stackPointer) += 1 * BytesPerWord;
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
+	stackPointer += 1 * BytesPerWord;
+	assert(stackPage == (mostRecentlyUsedPage));
 }

@@ -19,8 +19,8 @@ primitiveImageName(void)
     char *sp;
     sqInt sz;
 
-	if (GIV(argumentCount) == 1) {
-		s = longAt(GIV(stackPointer));
+	if (argumentCount == 1) {
+		s = longAt(stackPointer);
 
 		/* begin isInstanceOfClassByteString: */
 		/* begin is:instanceOf:compactClassIndex: */
@@ -37,7 +37,7 @@ primitiveImageName(void)
 l1:
 		if (!isString) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadArgument;
+			primFailCode = PrimErrBadArgument;
 			return;
 		}
 
@@ -48,22 +48,22 @@ l1:
 			okToRename = ((sqInt (*)(void))sCRIfn)();
 			if (!okToRename) {
 				/* primitiveFailFor: */
-				GIV(primFailCode) = PrimErrUnsupported;
+				primFailCode = PrimErrUnsupported;
 				return;
 			}
 		}
 		imageNamePutLength(s + BaseHeaderSize, numBytesOf(s));
 
 		/* begin pop: */
-		GIV(stackPointer) += 1 * BytesPerWord;
+		stackPointer += 1 * BytesPerWord;
 		return;
 	}
 	sz = imageNameSize();
-	s = instantiateClassindexableSize(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassByteString) << (shiftForWord())))))), sz);
+	s = instantiateClassindexableSize(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassByteString) << (shiftForWord())))))), sz);
 	imageNameGetLength(s + BaseHeaderSize, sz);
 
 	/* begin methodReturnValue: */
 	assert(!((failed())));
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),s);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),s);
+	stackPointer = sp;
 }

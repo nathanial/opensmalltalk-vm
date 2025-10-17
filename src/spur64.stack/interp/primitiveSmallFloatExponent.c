@@ -11,12 +11,12 @@ primitiveSmallFloatExponent(void)
     usqInt exp;
 
 	aValue = (((usqInt)(((/* begin exponentOfSmallFloat: */
-	assert(((longAt(GIV(stackPointer))) & (tagMask())) == (smallFloatTag())),
-((((usqInt)(longAt(GIV(stackPointer))))) <= 15
+	assert(((longAt(stackPointer)) & (tagMask())) == (smallFloatTag())),
+((((usqInt)(longAt(stackPointer)))) <= 15
 			? 0
-			: ((exp = ((((usqInt)(longAt(GIV(stackPointer)))))) >> (((numTagBits()) + (smallFloatMantissaBits())) + 1)),
+			: ((exp = ((((usqInt)(longAt(stackPointer))))) >> (((numTagBits()) + (smallFloatMantissaBits())) + 1)),
 			(exp + (smallFloatExponentOffset())) - 0x3FE)))) - 1) << 3) | 1);
 
 	/* begin stackTopPut: */
-	longAtput(GIV(stackPointer),aValue);
+	longAtput(stackPointer,aValue);
 }

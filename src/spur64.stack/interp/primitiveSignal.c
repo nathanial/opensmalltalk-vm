@@ -8,5 +8,5 @@
 static void
 primitiveSignal(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	synchronousSignal(longAt(GIV(stackPointer)));
+	synchronousSignal(longAt(stackPointer));
 }

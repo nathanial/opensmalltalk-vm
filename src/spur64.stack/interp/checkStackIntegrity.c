@@ -22,13 +22,13 @@ checkStackIntegrity(void)
 
 	callerFP = ((char *) 0);
 	ok = 1;
-	for (i = 0; i < GIV(numStackPages); i += 1) {
+	for (i = 0; i < numStackPages; i += 1) {
 		/* begin stackPageAt: */
-		thePage = stackPageAtpages(i, GIV(pages));
+		thePage = stackPageAtpages(i, pages);
 		if (!(isFree(thePage))) {
-			if (thePage == GIV(stackPage)) {
-				theSP = GIV(stackPointer);
-				theFP = GIV(framePointer);
+			if (thePage == stackPage) {
+				theSP = stackPointer;
+				theFP = framePointer;
 			}
 			else {
 				theSP = (thePage->headSP);
@@ -36,7 +36,7 @@ checkStackIntegrity(void)
 			}
 
 			/* Skip the instruction pointer on top of stack of inactive pages. */
-			if (!(thePage == GIV(stackPage))) {
+			if (!(thePage == stackPage)) {
 				theSP += BytesPerWord;
 			}
 			while (1) {

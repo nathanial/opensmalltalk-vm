@@ -11,8 +11,8 @@
 sqInt
 primitiveFail(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	return 0;
 }

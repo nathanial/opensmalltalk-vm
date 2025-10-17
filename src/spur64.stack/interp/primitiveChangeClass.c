@@ -26,11 +26,11 @@ primitiveChangeClass(void)
     sqInt rcvr;
 
 	/* begin stackObjectValue: */
-	oop = longAt(GIV(stackPointer));
+	oop = longAt(stackPointer);
 	if (((oop & (tagMask())) != 0)) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		arg = null;
 		goto l1;
@@ -40,11 +40,11 @@ primitiveChangeClass(void)
 l1:
 
 	/* begin stackObjectValue: */
-	oop = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	oop = longAt(stackPointer + (1 * BytesPerWord));
 	if (((oop & (tagMask())) != 0)) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		rcvr = null;
 		goto l2;
@@ -52,19 +52,19 @@ l1:
 	rcvr = oop;
 	/* end stackObjectValue: */
 l2:
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		return;
 	}
 	argClass = fetchClassOfNonImm(arg);
 	err = changeClassOfto(rcvr, argClass);
 	if (err) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = err;
+		primFailCode = err;
 	}
 	else {
 		/* begin flushAtCache */
-		memset(GIV(atCache), 0, AtCacheTotalSize * (sizeof(GIV(atCache)[0])));
-		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+		memset(atCache, 0, AtCacheTotalSize * (sizeof(atCache[0])));
+		stackPointer += argumentCount * BytesPerWord;
 	}
 
 	/* Flush at cache because rcvr's class has changed. */

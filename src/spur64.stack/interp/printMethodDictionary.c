@@ -17,7 +17,7 @@ printMethodDictionary(sqInt dictionary)
 	toDoLimit = (numSlotsOf(dictionary)) - 1;
 	for (index = SelectorStart; index <= toDoLimit; index += 1) {
 		selector = longAt((void *)((dictionary + BaseHeaderSize) + ((((usqInt)(index) << (shiftForWord()))))));
-		if (selector != GIV(nilObj)) {
+		if (selector != nilObj) {
 			meth = longAt((void *)((methodArray + BaseHeaderSize) + ((((usqInt)((index - SelectorStart)) << (shiftForWord()))))));
 			printOopShortInner(selector);
 			print(" => ");

@@ -25,20 +25,20 @@ stringForCString(const char *aCString)
 			newString = null;
 			goto l1;
 		}
-		newObj = GIV(freeStart) + BaseHeaderSize;
+		newObj = freeStart + BaseHeaderSize;
 		numBytes = (BaseHeaderSize + BaseHeaderSize) + (numSlots * BytesPerOop);
 	}
 	else {
-		newObj = GIV(freeStart);
+		newObj = freeStart;
 		numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 	}
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
 		if (numSlots <= ((1U << (fixedFieldsFieldWidth())) - 1)) {
-			if (!GIV(needGCFlag)) {
+			if (!needGCFlag) {
 				/* begin scheduleScavenge */
-				GIV(needGCFlag) = 1;
+				needGCFlag = 1;
 				forceInterruptCheck();
 			}
 		}
@@ -46,7 +46,7 @@ stringForCString(const char *aCString)
 		goto l1;
 	}
 	if (numSlots >= (numSlotsMask())) {
-		longAtput((void *)(GIV(freeStart)),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
+		longAtput((void *)(freeStart),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
 		longAtput((void *)(newObj),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)(formatField) << (formatShift()))))) + ClassByteStringCompactIndex);
 	}
 	else {
@@ -56,7 +56,7 @@ stringForCString(const char *aCString)
 	/* for header parsing we put a saturated slot count in the prepended overflow size word */
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	newString = newObj;
 	/* end allocateSlots:format:classIndex: */
 l1:

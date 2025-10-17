@@ -8,6 +8,6 @@ fetchClassOf(sqInt oop)
     sqInt tagBits;
 
 	return ((tagBits = oop & (tagMask()))
-			? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+			? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 			: fetchClassOfNonImm(oop));
 }

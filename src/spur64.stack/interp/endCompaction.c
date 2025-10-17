@@ -18,14 +18,14 @@ endCompaction(void)
 	/* begin allPastSpaceObjectsDo: */
 	/* begin allPastSpaceEntitiesDo: */
 	prevPrevObj = (prevObj = null);
-	address = ((GIV(pastSpace)).start);
+	address = ((pastSpace).start);
 
 	/* begin objectStartingAt: */
 	numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
 	objOopSqInt = (numSlots == (numSlotsMask())
 				? address + BaseHeaderSize
 				: address);
-	while (oopisLessThan(objOopSqInt, GIV(pastSpaceStart))) {
+	while (oopisLessThan(objOopSqInt, pastSpaceStart)) {
 		assert(isEnumerableObjectNoAssert(objOopSqInt));
 		if ((byteAt((void *)(objOopSqInt + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) {
 			/* begin setIsMarkedOf:to: */
@@ -37,13 +37,13 @@ endCompaction(void)
 
 		/* begin objectAfterMaybeSlimBridge:limit: */
 		followingWordAddress = addressAfter(objOopSqInt);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(pastSpaceStart))) {
-			objOopSqInt = GIV(pastSpaceStart);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, pastSpaceStart)) {
+			objOopSqInt = pastSpaceStart;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
 		objOopSqInt = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-					? ((oopisLessThan(objOopSqInt, GIV(oldSpaceStart)))
+					? ((oopisLessThan(objOopSqInt, oldSpaceStart))
 					 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 							? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 							: followingWordAddress + BaseHeaderSize)
@@ -53,23 +53,23 @@ l1:;
 	}
 
 	/* begin endSlidingCompaction */
-	GIV(gcPhaseInProgress) = 0;
-	if (GIV(rememberedSetSize) > 0) {
-		objOop = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
+	gcPhaseInProgress = 0;
+	if (rememberedSetSize > 0) {
+		objOop = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord()))))));
 
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(objOop))
 		 && (!(isForwarded(objOop))));
-		assert(validStorePointerUncheckedArgs(0, objOop, GIV(firstFieldOfRememberedSet)));
-		longAtput((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))),GIV(firstFieldOfRememberedSet));
+		assert(validStorePointerUncheckedArgs(0, objOop, firstFieldOfRememberedSet));
+		longAtput((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))),firstFieldOfRememberedSet);
 	}
-	setIsPinnedOfto(longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord())))))), 1);
+	setIsPinnedOfto(longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord())))))), 1);
 
 	/* begin relocateRememberedSet */
-	GIV(rememberedSet) = firstIndexableField(longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord())))))));
+	rememberedSet = firstIndexableField(longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(RememberedSetRootIndex) << (shiftForWord())))))));
 	if (/* savedFirstFieldsSpaceWasAllocated */
-		GIV(savedFirstFieldsSpaceNotInOldSpace)
-	 && (oopisGreaterThan((GIV(savedFirstFieldsSpace).start), GIV(nilObj)))) {
-		sqDeallocateMemorySegmentAtOfSize(((void *)((GIV(savedFirstFieldsSpace).start))), ((GIV(savedFirstFieldsSpace).limit)) - ((GIV(savedFirstFieldsSpace).start)));
+		savedFirstFieldsSpaceNotInOldSpace
+	 && (oopisGreaterThan((savedFirstFieldsSpace.start), nilObj))) {
+		sqDeallocateMemorySegmentAtOfSize(((void *)((savedFirstFieldsSpace.start))), ((savedFirstFieldsSpace.limit)) - ((savedFirstFieldsSpace.start)));
 	}
 }

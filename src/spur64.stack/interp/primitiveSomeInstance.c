@@ -9,19 +9,19 @@ primitiveSomeInstance(void)
     sqInt instance;
     char *sp;
 
-	class = longAt(GIV(stackPointer));
+	class = longAt(stackPointer);
 
 	/* For the mirror prims check that the class obj is actually a valid class. */
 	instance = initialInstanceOf(class);
 	if (instance) {
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),instance);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),instance);
+		stackPointer = sp;
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 }

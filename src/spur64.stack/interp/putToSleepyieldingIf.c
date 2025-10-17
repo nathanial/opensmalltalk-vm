@@ -17,17 +17,17 @@ putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly)
     sqInt processList;
     sqInt processLists;
 
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
 
 	/* begin quickFetchInteger:ofObject: */
 	oop = longAt((void *)((aProcess + BaseHeaderSize) + ((((usqInt)(PriorityIndex) << (shiftForWord()))))));
 	assert((((oop) & 7) == 1));
 	priority = (oop >> 3);
-	if ((GIV(highestRunnableProcessPriority) != 0)
-	 && (priority > GIV(highestRunnableProcessPriority))) {
-		GIV(highestRunnableProcessPriority) = priority;
+	if ((highestRunnableProcessPriority != 0)
+	 && (priority > highestRunnableProcessPriority)) {
+		highestRunnableProcessPriority = priority;
 	}
-	objOop = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+	objOop = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
 
 	/* begin fetchPointer:ofObject: */
 	processLists = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(ProcessListsIndex) << (shiftForWord()))))));
@@ -45,10 +45,10 @@ putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly)
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(FirstLinkIndex, processList, aProcess));
 		assert(isNonImmediate(processList));
-		if (oopisGreaterThanOrEqualTo(processList, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(processList, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(aProcess & (tagMask()))))
-			 && (oopisLessThan(aProcess, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(aProcess, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(processList + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(processList);
@@ -58,14 +58,14 @@ putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly)
 
 		/* most stores into young objects */
 		longAtput((void *)((processList + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))),aProcess);
-		if (firstLink == GIV(nilObj)) {
+		if (firstLink == nilObj) {
 			/* begin storePointer:ofObject:withValue: */
 			assert(validStorePointerArgs(LastLinkIndex, processList, aProcess));
 			assert(isNonImmediate(processList));
-			if (oopisGreaterThanOrEqualTo(processList, GIV(oldSpaceStart))) {
+			if (oopisGreaterThanOrEqualTo(processList, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(aProcess & (tagMask()))))
-				 && (oopisLessThan(aProcess, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(aProcess, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
 					if (!((byteAt((void *)(processList + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 						remember(processList);
@@ -80,10 +80,10 @@ putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly)
 			/* begin storePointer:ofObject:withValue: */
 			assert(validStorePointerArgs(NextLinkIndex, aProcess, firstLink));
 			assert(isNonImmediate(aProcess));
-			if (oopisGreaterThanOrEqualTo(aProcess, GIV(oldSpaceStart))) {
+			if (oopisGreaterThanOrEqualTo(aProcess, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(firstLink & (tagMask()))))
-				 && (oopisLessThan(firstLink, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(firstLink, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
 					if (!((byteAt((void *)(aProcess + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 						remember(aProcess);
@@ -100,10 +100,10 @@ putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly)
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(MyListIndex, aProcess, processList));
 		assert(isNonImmediate(aProcess));
-		if (oopisGreaterThanOrEqualTo(aProcess, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(aProcess, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(processList & (tagMask()))))
-			 && (oopisLessThan(processList, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(processList, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(aProcess + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(aProcess);

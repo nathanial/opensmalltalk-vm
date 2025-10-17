@@ -13,13 +13,13 @@ remember(sqInt objOop)
 	assert(!((isRemembered(objOop))));
 	assert(!((isInRememberedSet(objOop))));
 	setIsRememberedOfto(objOop, 1);
-	if (GIV(rememberedSetSize) >= GIV(rememberedSetLimit)) {
+	if (rememberedSetSize >= rememberedSetLimit) {
 		growRememberedSet();
 	}
-	GIV(rememberedSet)[GIV(rememberedSetSize)] = objOop;
-	if (((GIV(rememberedSetSize) += 1)) >= GIV(rememberedSetRedZone)) {
+	rememberedSet[rememberedSetSize] = objOop;
+	if (((rememberedSetSize += 1)) >= rememberedSetRedZone) {
 		/* begin scheduleScavenge */
-		GIV(needGCFlag) = 1;
+		needGCFlag = 1;
 		forceInterruptCheck();
 	}
 	return objOop;

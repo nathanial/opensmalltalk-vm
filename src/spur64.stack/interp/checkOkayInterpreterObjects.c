@@ -13,22 +13,22 @@ checkOkayInterpreterObjects(sqInt writeBack)
     sqIntptr_t oopOrZero;
 
 	ok = 1;
-	ok = ok && (checkOkayFields(GIV(nilObj)));
-	ok = ok && (checkOkayFields(GIV(falseObj)));
-	ok = ok && (checkOkayFields(GIV(trueObj)));
-	ok = ok && (checkOkayFields(GIV(specialObjectsOop)));
-	ok = ok && (checkOkayFields(GIV(messageSelector)));
-	ok = ok && (checkOkayFields(GIV(newMethod)));
-	ok = ok && (checkOkayFields(GIV(lkupClass)));
+	ok = ok && (checkOkayFields(nilObj));
+	ok = ok && (checkOkayFields(falseObj));
+	ok = ok && (checkOkayFields(trueObj));
+	ok = ok && (checkOkayFields(specialObjectsOop));
+	ok = ok && (checkOkayFields(messageSelector));
+	ok = ok && (checkOkayFields(newMethod));
+	ok = ok && (checkOkayFields(lkupClass));
 	for (i = 0; i < MethodCacheEntries; i += MethodCacheEntrySize) {
-		oopOrZero = GIV(methodCache)[i + MethodCacheSelector];
+		oopOrZero = methodCache[i + MethodCacheSelector];
 		if (oopOrZero) {
-			ok = ok && (checkOkayFields(GIV(methodCache)[i + MethodCacheSelector]));
-			ok = ok && (checkOkayFields(GIV(methodCache)[i + MethodCacheMethod]));
+			ok = ok && (checkOkayFields(methodCache[i + MethodCacheSelector]));
+			ok = ok && (checkOkayFields(methodCache[i + MethodCacheMethod]));
 		}
 	}
-	for (i = 1; i <= GIV(remapBufferCount); i += 1) {
-		oop = GIV(remapBuffer)[i];
+	for (i = 1; i <= remapBufferCount; i += 1) {
+		oop = remapBuffer[i];
 		if (!(((oop & (tagMask())) != 0))) {
 			ok = ok && (checkOkayFields(oop));
 		}

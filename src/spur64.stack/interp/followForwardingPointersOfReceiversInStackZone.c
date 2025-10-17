@@ -34,37 +34,37 @@ followForwardingPointersOfReceiversInStackZone(void)
     StackPage *thePage;
 
 	callerFP = ((char *) 0);
-	if (!GIV(stackPage)) {
-		assert((!(GIV(mostRecentlyUsedPage)))
-		 || (isFree(GIV(mostRecentlyUsedPage))));
+	if (!stackPage) {
+		assert((!(mostRecentlyUsedPage))
+		 || (isFree(mostRecentlyUsedPage)));
 		return;
 	}
 
 	/* the system must be snapshotting; nothing to do... */
 
 	/* begin externalWriteBackHeadFramePointers */
-	assert((GIV(framePointer) - GIV(stackPointer)) < (LargeContextSlots * BytesPerOop));
-	assert(GIV(stackPage) == (GIV(mostRecentlyUsedPage)));
-	assert(!((isFree(GIV(stackPage)))));
+	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+	assert(stackPage == (mostRecentlyUsedPage));
+	assert(!((isFree(stackPage))));
 
 	/* begin setHeadFP:andSP:inPage: */
-	assert(GIV(stackPointer) < GIV(framePointer));
-	assert((GIV(stackPointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(stackPointer) > (((GIV(stackPage)->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-	assert((GIV(framePointer) < ((GIV(stackPage)->baseAddress)))
-	 && (GIV(framePointer) > (((GIV(stackPage)->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-	(GIV(stackPage)->headFP = GIV(framePointer));
-	(GIV(stackPage)->headSP = GIV(stackPointer));
+	assert(stackPointer < framePointer);
+	assert((stackPointer < ((stackPage->baseAddress)))
+	 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
+	assert((framePointer < ((stackPage->baseAddress)))
+	 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
+	(stackPage->headFP = framePointer);
+	(stackPage->headSP = stackPointer);
 	assert(pageListIsWellFormed());
-	for (i = 0; i < GIV(numStackPages); i += 1) {
+	for (i = 0; i < numStackPages; i += 1) {
 		/* begin stackPageAt: */
-		thePage = stackPageAtpages(i, GIV(pages));
+		thePage = stackPageAtpages(i, pages);
 		if ((thePage->baseFP)) {
 			assert(ifCurrentStackPageHasValidHeadPointers(thePage));
 			theFP = (thePage->headFP);
 
 			/* Skip the instruction pointer on top of stack of inactive pages. */
-			theIPPtr = (!(thePage == GIV(stackPage))
+			theIPPtr = (!(thePage == stackPage)
 						? ((usqInt)((thePage->headSP)))
 						: 0);
 			while (1) {

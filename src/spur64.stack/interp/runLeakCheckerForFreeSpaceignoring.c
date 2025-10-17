@@ -16,8 +16,8 @@ runLeakCheckerForFreeSpaceignoring(sqInt gcModes, sqInt anOopOrNil)
 	if (((gcModes & GCCheckFreeSpace) != 0)) {
 		reverseDisplayFromto(16, 19);
 		clearLeakMapAndMapAccessibleFreeSpace();
-		GIV(freeSpaceCheckOopToIgnore) = anOopOrNil;
+		freeSpaceCheckOopToIgnore = anOopOrNil;
 		asserta(checkHeapFreeSpaceIntegrity());
-		GIV(freeSpaceCheckOopToIgnore) = null;
+		freeSpaceCheckOopToIgnore = null;
 	}
 }

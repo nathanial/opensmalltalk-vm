@@ -10,7 +10,7 @@ primitiveSmallFloatSine(void)
     sqInt oop;
     double rcvr;
 
-	oop = longAt(GIV(stackPointer));
+	oop = longAt(stackPointer);
 
 	/* begin smallFloatValueOf: */
 	/* begin smallFloatBitsOf: */
@@ -26,5 +26,5 @@ primitiveSmallFloatSine(void)
 	aValue = floatObjectOf(sin(rcvr));
 
 	/* begin stackTopPut: */
-	longAtput(GIV(stackPointer),aValue);
+	longAtput(stackPointer,aValue);
 }

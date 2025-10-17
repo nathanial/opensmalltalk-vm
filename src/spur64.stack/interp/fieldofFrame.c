@@ -34,7 +34,7 @@ fieldofFrame(sqInt index, char *theFP)
 	case ClosureIndex:
 		return (byteAt((theFP + FoxFrameFlags) + 3)
 				? longAt(theFP + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1))) << (shiftForWord()))))))
-				: GIV(nilObj));
+				: nilObj);
 
 	case ReceiverIndex:
 		return longAt(theFP + FoxReceiver);

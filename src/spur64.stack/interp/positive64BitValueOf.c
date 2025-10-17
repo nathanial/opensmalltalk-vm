@@ -21,8 +21,8 @@ positive64BitValueOf(sqInt oop)
 		smallIntValue = (oop >> 3);
 		if (smallIntValue < 0) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return null;
 		}
@@ -30,8 +30,8 @@ positive64BitValueOf(sqInt oop)
 	}
 	if (((oop & (tagMask())) != 0)) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return 0;
 	}
@@ -42,8 +42,8 @@ positive64BitValueOf(sqInt oop)
 	ok = ClassLargePositiveIntegerCompactIndex == ccIndex;
 	if (!ok) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return 0;
 	}
@@ -58,8 +58,8 @@ positive64BitValueOf(sqInt oop)
 			: numSlots))) << (shiftForWord()))) - (fmt & 7);
 	if (sz > (sizeof(sqLong))) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return 0;
 	}

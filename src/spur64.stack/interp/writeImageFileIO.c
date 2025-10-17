@@ -26,8 +26,8 @@ writeImageFileIO(void)
 		okToWrite = ((sqInt (*)(void))sCWIfn)();
 		if (!okToWrite) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			return null;
 		}
@@ -40,7 +40,7 @@ writeImageFileIO(void)
 	headerSize = BytesPerWord * 16;
 	f = sqImageFileOpen(imageName, "wb");
 	if (invalidSqImageFile(f)) {
-		return (GIV(primFailCode) = PrimErrOperationFailed);
+		return (primFailCode = PrimErrOperationFailed);
 	}
 
 	/* could not open the image file for writing */
@@ -48,9 +48,9 @@ writeImageFileIO(void)
 	/* begin imageSizeToWrite */
 	assert(newSpaceIsEmpty());
 	imageBytes = 0;
-	for (i = 0; i < GIV(numSegments); i += 1) {
-		if ((((GIV(segments)[i]).segSize)) > (2 * BaseHeaderSize)) {
-			imageBytes += ((GIV(segments)[i]).segSize);
+	for (i = 0; i < numSegments; i += 1) {
+		if ((((segments[i]).segSize)) > (2 * BaseHeaderSize)) {
+			imageBytes += ((segments[i]).segSize);
 		}
 	}
 	headerStart = sqImageFileStartLocation(f, imageName, headerSize + imageBytes);
@@ -59,26 +59,26 @@ writeImageFileIO(void)
 	/* position file to start of header */
 	sqImageFileSeek(f, headerStart);
 	putWord32toFile(/* imageFormatVersionForSnapshot */
-		(GIV(multipleBytecodeSetsActive)
+		(multipleBytecodeSetsActive
 			? 68533 /* (imageFormatVersion bitOr: MultipleBytecodeSetsBitmask) */
 			: 68021 /* imageFormatVersion */), f);
 	putWord32toFile(headerSize, f);
 	putLongtoFile(imageBytes, f);
-	putLongtoFile(GIV(oldSpaceStart), f);
-	putLongtoFile(GIV(specialObjectsOop), f);
-	putLongtoFile(GIV(lastHash), f);
+	putLongtoFile(oldSpaceStart, f);
+	putLongtoFile(specialObjectsOop, f);
+	putLongtoFile(lastHash, f);
 	putLongtoFile(getSnapshotScreenSize(), f);
 	putLongtoFile(getImageHeaderFlags(), f);
 	putWord32toFile(extraVMMemory, f);
 	putShorttoFile(desiredNumStackPages, f);
-	putShorttoFile(GIV(theUnknownShort), f);
+	putShorttoFile(theUnknownShort, f);
 	putWord32toFile(desiredEdenBytes, f);
-	putShorttoFile((GIV(maxExtSemTabSizeSet)
+	putShorttoFile((maxExtSemTabSizeSet
 			? ioGetMaxExtSemTableSize()
 			: 0), f);
-	putShorttoFile(GIV(the2ndUnknownShort), f);
-	putLongtoFile(((GIV(segments)[0]).segSize), f);
-	putLongtoFile(GIV(totalFreeOldSpace), f);
+	putShorttoFile(the2ndUnknownShort, f);
+	putLongtoFile(((segments[0]).segSize), f);
+	putLongtoFile(totalFreeOldSpace, f);
 		putLongtoFile(0, f);
 	putLongtoFile(0, f);
 		putLongtoFile(0, f);
@@ -88,7 +88,7 @@ writeImageFileIO(void)
 
 	/* position file after the header */
 	sqImageFileSeek(f, headerStart + headerSize);
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		sqImageFileClose(f);
 		return null;
 	}
@@ -99,8 +99,8 @@ writeImageFileIO(void)
 
 	/* begin success: */
 	if (!(bytesWritten == imageBytes)) {
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 	sqImageFileClose(f);

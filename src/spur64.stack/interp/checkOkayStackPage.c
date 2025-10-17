@@ -18,7 +18,7 @@ checkOkayStackPage(StackPage *thePage)
 	ok = 1;
 
 	/* Skip the instruction pointer on top of stack of inactive pages. */
-	if (!(thePage == GIV(stackPage))) {
+	if (!(thePage == stackPage)) {
 		theSP += BytesPerWord;
 	}
 	while (1) {

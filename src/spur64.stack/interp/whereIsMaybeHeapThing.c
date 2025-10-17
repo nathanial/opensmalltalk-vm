@@ -6,20 +6,20 @@ static NoDbgRegParms char *
 whereIsMaybeHeapThing(sqInt anOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
 	if (/* isInNewSpace: */
-		(oopisLessThan(anOop, GIV(oldSpaceStart)))
-	 && (oopisGreaterThanOrEqualTo(anOop, GIV(newSpaceStart)))) {
-		if (oopisGreaterThanOrEqualToandLessThan(anOop, ((GIV(eden)).start), GIV(freeStart))) {
+		(oopisLessThan(anOop, oldSpaceStart))
+	 && (oopisGreaterThanOrEqualTo(anOop, newSpaceStart))) {
+		if (oopisGreaterThanOrEqualToandLessThan(anOop, ((eden).start), freeStart)) {
 			return " is in eden";
 		}
-		if (oopisGreaterThanOrEqualToandLessThan(anOop, ((GIV(futureSpace)).start), GIV(futureSurvivorStart))) {
+		if (oopisGreaterThanOrEqualToandLessThan(anOop, ((futureSpace).start), futureSurvivorStart)) {
 			return " is in future space";
 		}
-		if (oopisGreaterThanOrEqualToandLessThan(anOop, ((GIV(pastSpace)).start), GIV(pastSpaceStart))) {
+		if (oopisGreaterThanOrEqualToandLessThan(anOop, ((pastSpace).start), pastSpaceStart)) {
 			return " is in past space";
 		}
 		return " is in new space";
 	}
-	if (oopisGreaterThanOrEqualToandLessThan(anOop, GIV(oldSpaceStart), GIV(endOfMemory))) {
+	if (oopisGreaterThanOrEqualToandLessThan(anOop, oldSpaceStart, endOfMemory)) {
 		if (segmentContainingObj(anOop)) {
 			return " is in old space";
 		}

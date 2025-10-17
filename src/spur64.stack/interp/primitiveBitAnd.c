@@ -15,12 +15,12 @@ primitiveBitAnd(void)
     sqInt value;
 
 	/* begin positiveMachineIntegerValueOf: */
-	if (((((longAt(GIV(stackPointer)))) & 7) == 1)) {
-		value = ((longAt(GIV(stackPointer))) >> 3);
+	if (((((longAt(stackPointer))) & 7) == 1)) {
+		value = ((longAt(stackPointer)) >> 3);
 		if (value < 0) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			integerArgumentValue = ((usqIntptr_t) null);
 			goto l1;
@@ -30,18 +30,18 @@ primitiveBitAnd(void)
 	}
 
 	/* don't inline the rare case */
-	integerArgumentValue = positiveMachineIntegerValueOfObj(longAt(GIV(stackPointer)));
+	integerArgumentValue = positiveMachineIntegerValueOfObj(longAt(stackPointer));
 	/* end positiveMachineIntegerValueOf: */
 l1:
-	oop = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	oop = longAt(stackPointer + (1 * BytesPerWord));
 
 	/* begin positiveMachineIntegerValueOf: */
 	if ((((oop) & 7) == 1)) {
 		value = (oop >> 3);
 		if (value < 0) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			integerReceiverValue = ((usqIntptr_t) null);
 			goto l2;
@@ -54,11 +54,11 @@ l1:
 	integerReceiverValue = positiveMachineIntegerValueOfObj(oop);
 	/* end positiveMachineIntegerValueOf: */
 l2:
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		oop = positive64BitIntegerFor(integerArgumentValue & integerReceiverValue);
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),oop);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),oop);
+		stackPointer = sp;
 	}
 }

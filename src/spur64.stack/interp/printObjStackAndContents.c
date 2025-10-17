@@ -6,7 +6,7 @@ void
 printObjStackAndContents(sqInt objStack)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
 	/* begin printObjStack:printContents: */
-	if (objStack == GIV(nilObj)) {
+	if (objStack == nilObj) {
 		print("nil");
 		cr();
 	}

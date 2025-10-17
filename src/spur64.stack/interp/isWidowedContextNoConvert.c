@@ -27,7 +27,7 @@ isWidowedContextNoConvert(sqInt aOnceMarriedContext)
 	theFrame = ((char *)(senderOop - (smallIntegerTag())));
 
 	/* begin stackPageFor: */
-	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFrame, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFrame, stackMemory, bytesPerPage), pages);
 	if (!((isFree(thePage))
 		 || (theFrame < ((thePage->headFP))))) {
 		anInteger = longAt((void *)((aOnceMarriedContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord()))))));

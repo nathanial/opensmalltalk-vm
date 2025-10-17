@@ -11,7 +11,7 @@ printNameOfClasscount(sqInt classOop, sqInt cnt)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     usqInt numSlots;
 
-	if (!GIV(classNameIndex)) {
+	if (!classNameIndex) {
 		print("??nil cnidx??");
 		return;
 	}
@@ -22,17 +22,17 @@ printNameOfClasscount(sqInt classOop, sqInt cnt)
 		return;
 	}
 	numSlots = numSlotsOf(classOop);
-	if ((numSlots == GIV(metaclassNumSlots))
-	 && (GIV(metaclassNumSlots) > GIV(thisClassIndex))) {
-		printNameOfClasscount(longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(GIV(thisClassIndex)) << (shiftForWord())))))), cnt - 1);
+	if ((numSlots == metaclassNumSlots)
+	 && (metaclassNumSlots > thisClassIndex)) {
+		printNameOfClasscount(longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(thisClassIndex) << (shiftForWord())))))), cnt - 1);
 		print(" class");
 	}
 	else {
-		if (numSlots <= GIV(classNameIndex)) {
+		if (numSlots <= classNameIndex) {
 			print("bad class");
 		}
 		else {
-			printStringOf(longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(GIV(classNameIndex)) << (shiftForWord())))))));
+			printStringOf(longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(classNameIndex) << (shiftForWord())))))));
 		}
 	}
 }

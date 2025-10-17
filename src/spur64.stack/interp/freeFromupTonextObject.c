@@ -22,7 +22,7 @@ freeFromupTonextObject(usqInt initialToFinger, usqInt limit, sqInt nextObject)
 				: nextObject);
 	if (toFinger < objStart) {
 		/* begin addFreeChunkWithBytes:at: */
-		GIV(totalFreeOldSpace) += objStart - toFinger;
+		totalFreeOldSpace += objStart - toFinger;
 		freeChunkWithBytesat(objStart - toFinger, toFinger);
 	}
 	toFinger = objStart;
@@ -51,7 +51,7 @@ freeFromupTonextObject(usqInt initialToFinger, usqInt limit, sqInt nextObject)
 			}
 			if (toFinger < objStart) {
 				/* begin addFreeChunkWithBytes:at: */
-				GIV(totalFreeOldSpace) += objStart - toFinger;
+				totalFreeOldSpace += objStart - toFinger;
 				freeChunkWithBytesat(objStart - toFinger, toFinger);
 			}
 			toFinger = (objStart = addressAfter(obj));
@@ -62,7 +62,7 @@ freeFromupTonextObject(usqInt initialToFinger, usqInt limit, sqInt nextObject)
 	}
 	if (limit > toFinger) {
 		/* begin addFreeChunkWithBytes:at: */
-		GIV(totalFreeOldSpace) += limit - toFinger;
+		totalFreeOldSpace += limit - toFinger;
 		freeChunkWithBytesat(limit - toFinger, toFinger);
 	}
 }

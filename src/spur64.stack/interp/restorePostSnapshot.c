@@ -18,31 +18,31 @@ restorePostSnapshot(void)
 
 
 	/* Set endOfMemory first, to avoid assert fails in freeChunkWithBytes:at:. */
-	seg = (&(GIV(segments)[GIV(numSegments) - 1]));
+	seg = (&(segments[numSegments - 1]));
 	if ((seg->lastFreeObject)) {
 		newEndOfMemory = (((seg->savedSegSize)) + ((seg->segStart))) - (2 * BaseHeaderSize);
 
 		/* begin setEndOfMemory: */
-		GIV(endOfMemory) = newEndOfMemory;
-		if (GIV(freeOldSpaceStart) > newEndOfMemory) {
-			GIV(freeOldSpaceStart) = newEndOfMemory;
+		endOfMemory = newEndOfMemory;
+		if (freeOldSpaceStart > newEndOfMemory) {
+			freeOldSpaceStart = newEndOfMemory;
 		}
 	}
 	else {
-		assert((GIV(endOfMemory)) == ((segLimit(seg)) - (bridgeSize())));
+		assert((endOfMemory) == ((segLimit(seg)) - (bridgeSize())));
 	}
-	for (i = (GIV(numSegments) - 1); i >= 0; i += -1) {
-		seg = (&(GIV(segments)[i]));
+	for (i = (numSegments - 1); i >= 0; i += -1) {
+		seg = (&(segments[i]));
 		if ((freeChunk = (seg->lastFreeObject))) {
 			address = (((seg->segSize)) + ((seg->segStart))) - (2 * BaseHeaderSize);
 			(seg->segSize = (seg->savedSegSize));
-			bridgeFromto(seg, (i < (GIV(numSegments) - 1)
-					? (&(GIV(segments)[i + 1]))
+			bridgeFromto(seg, (i < (numSegments - 1)
+					? (&(segments[i + 1]))
 					: 0));
 			bytes = ((((seg->segSize)) + ((seg->segStart))) - address) - (2 * BaseHeaderSize);
 
 			/* begin addFreeChunkWithBytes:at: */
-			GIV(totalFreeOldSpace) += bytes;
+			totalFreeOldSpace += bytes;
 			freeChunkWithBytesat(bytes, address);
 		}
 	}
@@ -50,7 +50,7 @@ restorePostSnapshot(void)
 
 	/* begin checkFreeSpace: */
 	assert(bitsSetInFreeSpaceMaskForAllFreeLists());
-	assert(GIV(totalFreeOldSpace) == (totalFreeListBytes()));
+	assert(totalFreeOldSpace == (totalFreeListBytes()));
 	if (((checkForLeaks & (GCCheckFreeSpace | GCModeFull)) == (GCCheckFreeSpace | GCModeFull))) {
 		runLeakCheckerForFreeSpaceignoring(GCCheckFreeSpace, null);
 	}

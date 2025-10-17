@@ -12,17 +12,17 @@ printFreeChunkprintAsTreeNode(sqInt freeChunk, sqInt printAsTreeNode)
 	print("freeChunk ");
 
 	/* printHexnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p",
 			((void *)freeChunk));
 	if (printAsTreeNode) {
-		print((freeChunk == (GIV(freeLists)[0])
+		print((freeChunk == (freeLists[0])
 				? " + "
 				: " - "));
 		n = addressAfter(freeChunk);
 
 		/* begin printHexnp: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p",
 				((void *)n));
 	}
@@ -32,7 +32,7 @@ printFreeChunkprintAsTreeNode(sqInt freeChunk, sqInt printAsTreeNode)
 	n = longAt((void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))));
 
 	/* begin printHexnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p",
 			((void *)n));
 	if (!(isLilliputianSize(numBytes))) {
@@ -40,7 +40,7 @@ printFreeChunkprintAsTreeNode(sqInt freeChunk, sqInt printAsTreeNode)
 		n = longAt((void *)((freeChunk + BaseHeaderSize) + (1U << (shiftForWord()))));
 
 		/* begin printHexnp: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p",
 				((void *)n));
 	}
@@ -50,21 +50,21 @@ printFreeChunkprintAsTreeNode(sqInt freeChunk, sqInt printAsTreeNode)
 		n = longAt((void *)((freeChunk + BaseHeaderSize) + (2U << (shiftForWord()))));
 
 		/* begin printHexnp: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p",
 				((void *)n));
 		print(" < ");
 		n = longAt((void *)((freeChunk + BaseHeaderSize) + (3U << (shiftForWord()))));
 
 		/* begin printHexnp: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p",
 				((void *)n));
 		print(" > ");
 		n = longAt((void *)((freeChunk + BaseHeaderSize) + (4U << (shiftForWord()))));
 
 		/* begin printHexnp: */
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p",
 				((void *)n));
 	}

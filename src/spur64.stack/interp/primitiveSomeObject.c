@@ -11,10 +11,10 @@ primitiveSomeObject(void)
     char *sp;
 
 	/* begin pop: */
-	GIV(stackPointer) += (GIV(argumentCount) + 1) * BytesPerWord;
+	stackPointer += (argumentCount + 1) * BytesPerWord;
 	object = firstAccessibleObject();
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),object);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),object);
+	stackPointer = sp;
 }

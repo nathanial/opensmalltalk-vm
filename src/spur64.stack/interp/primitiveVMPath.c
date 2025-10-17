@@ -12,10 +12,10 @@ primitiveVMPath(void)
     sqInt sz;
 
 	sz = vmPathSize();
-	s = instantiateClassindexableSize(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassByteString) << (shiftForWord())))))), sz);
+	s = instantiateClassindexableSize(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassByteString) << (shiftForWord())))))), sz);
 	vmPathGetLength(s + BaseHeaderSize, sz);
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer)),s);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),s);
+	stackPointer = sp;
 }

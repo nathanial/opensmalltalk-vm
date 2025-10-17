@@ -5,5 +5,5 @@
 sqInt
 classUnsafeAlien(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassUnsafeAlien) << (shiftForWord()))))));
+	return longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassUnsafeAlien) << (shiftForWord()))))));
 }

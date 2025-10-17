@@ -27,57 +27,57 @@ primitiveInvokeObjectAsMethod(void)
     sqInt valuePointer;
 
 	/* begin eeInstantiateClassIndex:format:numSlots: */
-	assert((GIV(argumentCount) >= 0)
-	 && ((knownClassAtIndex(ClassArrayCompactIndex)) != GIV(nilObj)));
+	assert((argumentCount >= 0)
+	 && ((knownClassAtIndex(ClassArrayCompactIndex)) != nilObj));
 	assert((arrayFormat()) == (instSpecOfClass(knownClassAtIndex(ClassArrayCompactIndex))));
 
 	/* begin allocateNewSpaceSlots:format:classIndex: */
-	if (GIV(argumentCount) >= (numSlotsMask())) {
-		if (GIV(argumentCount) > 0xFFFFFFFFU) {
+	if (argumentCount >= (numSlotsMask())) {
+		if (argumentCount > 0xFFFFFFFFU) {
 			runArgs = ((usqInt) null);
 			goto l1;
 		}
-		newObj = GIV(freeStart) + BaseHeaderSize;
-		numBytes = (BaseHeaderSize + BaseHeaderSize) + (GIV(argumentCount) * BytesPerOop);
+		newObj = freeStart + BaseHeaderSize;
+		numBytes = (BaseHeaderSize + BaseHeaderSize) + (argumentCount * BytesPerOop);
 	}
 	else {
-		newObj = GIV(freeStart);
-		numBytes = BaseHeaderSize + ((GIV(argumentCount) < 1
+		newObj = freeStart;
+		numBytes = BaseHeaderSize + ((argumentCount < 1
 		? 8 /* allocationUnit */
-		: GIV(argumentCount) * BytesPerOop));
+		: argumentCount * BytesPerOop));
 	}
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateNewSpaceSlots:format:classIndex:");
 			runArgs = 0;
 			goto l1;
 		}
 	}
-	if (GIV(argumentCount) >= (numSlotsMask())) {
-		longAtput((void *)(GIV(freeStart)),GIV(argumentCount));
-		longAtput((void *)(GIV(freeStart) + 4),((sqInt)((usqInt)((numSlotsMask())) << (numSlotsHalfShift()))));
+	if (argumentCount >= (numSlotsMask())) {
+		longAtput((void *)(freeStart),argumentCount);
+		longAtput((void *)(freeStart + 4),((sqInt)((usqInt)((numSlotsMask())) << (numSlotsHalfShift()))));
 		long64Atput((void *)(newObj),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)((arrayFormat())) << (formatShift()))))) + ClassArrayCompactIndex);
 	}
 	else {
-		long64Atput((void *)(newObj),((((((usqLong) GIV(argumentCount))) << (numSlotsFullShift()))) + ((((usqInt)((arrayFormat())) << (formatShift()))))) + ClassArrayCompactIndex);
+		long64Atput((void *)(newObj),((((((usqLong) argumentCount)) << (numSlotsFullShift()))) + ((((usqInt)((arrayFormat())) << (formatShift()))))) + ClassArrayCompactIndex);
 	}
 
 	/* for header parsing we put a saturated slot count in the prepended overflow size word */
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	runArgs = newObj;
 	/* end eeInstantiateClassIndex:format:numSlots: */
 l1:
-	for (i = (GIV(argumentCount) - 1); i >= 0; i += -1) {
+	for (i = (argumentCount - 1); i >= 0; i += -1) {
 		/* begin popStack */
-		top = longAt(GIV(stackPointer));
-		GIV(stackPointer) += BytesPerWord;
+		top = longAt(stackPointer);
+		stackPointer += BytesPerWord;
 		valuePointer = top;
 
 		/* begin storePointerUnchecked:ofObject:withValue: */
@@ -88,36 +88,36 @@ l1:
 	}
 
 	/* begin popStack */
-	runReceiver = longAt(GIV(stackPointer));
-	GIV(stackPointer) += BytesPerWord;
+	runReceiver = longAt(stackPointer);
+	stackPointer += BytesPerWord;
 
 	/* setup send of newMethod run: originalSelector with: runArgs in: runReceiver */
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(newMethod));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),newMethod);
+	stackPointer = sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(messageSelector));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),messageSelector);
+	stackPointer = sp;
 
 	/* original selector */
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),runArgs);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),runArgs);
+	stackPointer = sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),runReceiver);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),runReceiver);
+	stackPointer = sp;
 
 	/* stack is clean here */
-	GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorRunWithIn) << (shiftForWord()))))));
-	GIV(argumentCount) = 3;
+	messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorRunWithIn) << (shiftForWord()))))));
+	argumentCount = 3;
 	lookupClassTag = /* fetchClassTagOf: */
-			((tagBits = GIV(newMethod) & (tagMask()))
+			((tagBits = newMethod & (tagMask()))
 				? tagBits
-				: (longAt((void *)(GIV(newMethod)))) & (classIndexMask()));
+				: (longAt((void *)(newMethod))) & (classIndexMask()));
 	findNewMethodInClassTag(lookupClassTag);
 
 	/* begin executeNewMethod */
@@ -136,33 +136,33 @@ l1:
 	/* begin activateNewMethod */
 	/* begin justActivateNewMethod: */
 	/* begin methodHeaderOf: */
-	assert(isCompiledMethod(GIV(newMethod)));
-	methodHeader = longAt((void *)((GIV(newMethod) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+	assert(isCompiledMethod(newMethod));
+	methodHeader = longAt((void *)((newMethod + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 	numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
 	numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 
 	/* could new rcvr be set at point of send? */
-	rcvr = longAt(GIV(stackPointer) + (numArgs * BytesPerWord));
+	rcvr = longAt(stackPointer + (numArgs * BytesPerWord));
 	assert(!(isOopForwarded(rcvr)));
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(instructionPointer));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),instructionPointer);
+	stackPointer = sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),((usqInt)GIV(framePointer)));
-	GIV(stackPointer) = sp;
-	GIV(framePointer) = GIV(stackPointer);
+	longAtput((sp = stackPointer - BytesPerWord),((usqInt)framePointer));
+	stackPointer = sp;
+	framePointer = stackPointer;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(newMethod));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),newMethod);
+	stackPointer = sp;
 
 	/* begin setMethod:methodHeader: */
-	GIV(method) = GIV(newMethod);
-	assert(isOopCompiledMethod(GIV(method)));
-	assert((methodHeaderOf(GIV(method))) == methodHeader);
-	GIV(bytecodeSetSelector) = ((((sqLong) methodHeader)) < 0
+	method = newMethod;
+	assert(isOopCompiledMethod(method));
+	assert((methodHeaderOf(method)) == methodHeader);
+	bytecodeSetSelector = ((((sqLong) methodHeader)) < 0
 				? 0x100
 				: 0);
 	object = /* encodeFrameFieldHasContext:isBlock:numArgs: */
@@ -171,31 +171,31 @@ l1:
 				: ((1 + ((numArgs << 8)))));
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),object);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),object);
+	stackPointer = sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(nilObj));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),nilObj);
+	stackPointer = sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),rcvr);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),rcvr);
+	stackPointer = sp;
 
 	/* clear remaining temps to nil */
 	for (iUsqInt = (numArgs + 1); iUsqInt <= numTemps; iUsqInt += 1) {
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(nilObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),nilObj);
+		stackPointer = sp;
 	}
-	GIV(instructionPointer) = (((((usqInt)(pointerForOop(GIV(newMethod))))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
+	instructionPointer = (((((usqInt)(pointerForOop(newMethod)))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
 	assert((((methodHeader) & 7) == 1)),
 /* literalCountOfAlternateHeader: */
 	((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask))) * BytesPerOop)) + BaseHeaderSize) - 1;
 	if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
-		GIV(instructionPointer) += 3 /* sizeOfCallPrimitiveBytecode: */;
-		if (GIV(primFailCode)) {
-			reapAndResetErrorCodeToheader(GIV(stackPointer), methodHeader);
+		instructionPointer += 3 /* sizeOfCallPrimitiveBytecode: */;
+		if (primFailCode) {
+			reapAndResetErrorCodeToheader(stackPointer, methodHeader);
 		}
 	}
 
@@ -203,12 +203,12 @@ l1:
 	   with a long store temp.  Strictly no need to skip the store because it's effectively a noop. */
 
 	/* Now check for stack overflow or an event (interrupt, must scavenge, etc). */
-	if (GIV(stackPointer) < GIV(stackLimit)) {
-		handleStackOverflowOrEventAllowContextSwitch(canContextSwitchIfActivatingheader(GIV(newMethod), methodHeader));
+	if (stackPointer < stackLimit) {
+		handleStackOverflowOrEventAllowContextSwitch(canContextSwitchIfActivatingheader(newMethod, methodHeader));
 	}
 	/* end executeNewMethod */
 l2:
 
 	/* begin initPrimCall */
-	GIV(primFailCode) = 0;
+	primFailCode = 0;
 }

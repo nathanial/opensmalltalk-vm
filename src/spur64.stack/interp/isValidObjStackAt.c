@@ -9,7 +9,7 @@ isValidObjStackAt(sqInt objStackRootIndex)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt stackOrNil;
 
-	stackOrNil = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord()))))));
-	return (stackOrNil == GIV(nilObj))
+	stackOrNil = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord()))))));
+	return (stackOrNil == nilObj)
 	 || (isValidObjStackPagemyIndexfirstPage(stackOrNil, objStackRootIndex, 1));
 }

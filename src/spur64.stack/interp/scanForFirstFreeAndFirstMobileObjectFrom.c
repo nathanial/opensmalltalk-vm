@@ -17,7 +17,7 @@ scanForFirstFreeAndFirstMobileObjectFrom(sqInt initialObject)
     sqInt prevPrevObj;
 
 	firstFree = 0;
-	GIV(firstMobileObject) = GIV(endOfMemory);
+	firstMobileObject = endOfMemory;
 
 	/* begin allOldSpaceEntitiesFrom:do: */
 	assert(isOldObject(initialObject));
@@ -25,11 +25,11 @@ scanForFirstFreeAndFirstMobileObjectFrom(sqInt initialObject)
 	objOop = initialObject;
 	while (1) {
 		assert((objOop % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objOop, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objOop, endOfMemory))) break;
 		assert((long64At((void *)(objOop))) != 0);
 		if ((byteAt((void *)(objOop + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) {
 			if (firstFree) {
-				GIV(firstMobileObject) = objOop;
+				firstMobileObject = objOop;
 				return firstFree;
 			}
 		}
@@ -43,8 +43,8 @@ scanForFirstFreeAndFirstMobileObjectFrom(sqInt initialObject)
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objOop = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objOop = endOfMemory;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));

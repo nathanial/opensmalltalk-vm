@@ -20,12 +20,12 @@ primitiveNewWithArg(void)
 	/* For the mirror prims check that the class obj is actually a valid class. */
 
 	/* begin positiveMachineIntegerValueOf: */
-	if (((((longAt(GIV(stackPointer)))) & 7) == 1)) {
-		value = ((longAt(GIV(stackPointer))) >> 3);
+	if (((((longAt(stackPointer))) & 7) == 1)) {
+		value = ((longAt(stackPointer)) >> 3);
 		if (value < 0) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			size = null;
 			goto l1;
@@ -35,23 +35,23 @@ primitiveNewWithArg(void)
 	}
 
 	/* don't inline the rare case */
-	size = positiveMachineIntegerValueOfObj(longAt(GIV(stackPointer)));
+	size = positiveMachineIntegerValueOfObj(longAt(stackPointer));
 	/* end positiveMachineIntegerValueOf: */
 l1:
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 
 	/* positiveMachineIntegerValueOf: succeeds only for non-negative integers. */
-	if ((obj = instantiateClassindexableSize(longAt(GIV(stackPointer) + (1 * BytesPerWord)), size))) {
+	if ((obj = instantiateClassindexableSize(longAt(stackPointer + (1 * BytesPerWord)), size))) {
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),obj);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),obj);
+		stackPointer = sp;
 	}
 	else {
-		instSpec = (((usqInt)((((longAt((void *)(((longAt(GIV(stackPointer) + (1 * BytesPerWord))) + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3)))) >> (fixedFieldsFieldWidth())) & (formatMask());
+		instSpec = (((usqInt)((((longAt((void *)(((longAt(stackPointer + (1 * BytesPerWord))) + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3)))) >> (fixedFieldsFieldWidth())) & (formatMask());
 		reasonCode = ((/* isIndexableFormat: */
 				(instSpec >= (arrayFormat()))
 			 && ((instSpec <= (weakArrayFormat()))
@@ -61,6 +61,6 @@ l1:
 					: PrimErrBadReceiver);
 
 		/* begin primitiveFailFor: */
-		GIV(primFailCode) = reasonCode;
+		primFailCode = reasonCode;
 	}
 }

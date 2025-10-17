@@ -11,7 +11,7 @@ topOfObjStack(sqInt objStack)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt topx;
 
-	eassert(isValidObjStackPagemyIndexfirstPage(objStack, fetchPointerofObject(ObjStackMyx, objStack), objStack == (fetchPointerofObject(fetchPointerofObject(ObjStackMyx, objStack), GIV(hiddenRootsObj)))));
+	eassert(isValidObjStackPagemyIndexfirstPage(objStack, fetchPointerofObject(ObjStackMyx, objStack), objStack == (fetchPointerofObject(fetchPointerofObject(ObjStackMyx, objStack), hiddenRootsObj))));
 	topx = longAt((void *)((objStack + BaseHeaderSize) + ((((usqInt)(ObjStackTopx) << (shiftForWord()))))));
 	if (!topx) {
 		assert((fetchPointerofObject(ObjStackNextx, objStack)) == 0);

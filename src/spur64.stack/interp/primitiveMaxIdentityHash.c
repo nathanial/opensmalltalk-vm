@@ -8,6 +8,6 @@ primitiveMaxIdentityHash(void)
     char *sp;
 
 	/* begin pop:thenPushInteger: */
-	longAtput((sp = GIV(stackPointer)),(((usqInt)(identityHashHalfWordMask()) << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),(((usqInt)(identityHashHalfWordMask()) << 3) | 1));
+	stackPointer = sp;
 }

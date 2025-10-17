@@ -43,9 +43,9 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
     sqInt wSqInt;
 
 	rawVersion = 0;
-	GIV(transcript) = stdout;
-	GIV(metaclassNumSlots) = 6;
-	GIV(classNameIndex) = 6;
+	transcript = stdout;
+	metaclassNumSlots = 6;
+	classNameIndex = 6;
 	version = checkImageVersionFromstartingAtassignRawVersion(f, imageOffset, (&rawVersion));
 	if (!version) {
 		/* begin bailOutOfImageLoad: */
@@ -56,7 +56,7 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 				getImageName());
 	}
 	swapBytes = rawVersion != version;
-	GIV(multipleBytecodeSetsActive) = ((version & MultipleBytecodeSetsBitmask) != 0);
+	multipleBytecodeSetsActive = ((version & MultipleBytecodeSetsBitmask) != 0);
 	headerStart = (sqImageFilePosition(f)) - 4;
 
 	/* begin getWord32FromFile:swap: */
@@ -76,7 +76,7 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 	/* begin getLongFromFile:swap: */
 	wSqInt = 0;
 	sqImageFileRead((&wSqInt), sizeof(wSqInt), 1, f);
-	GIV(oldImageBaseAddress) = (swapBytes
+	oldImageBaseAddress = (swapBytes
 				? SQ_SWAP_8_BYTES(wSqInt)
 				: wSqInt);
 
@@ -88,7 +88,7 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 				: wSqInt);
 
 	/* begin specialObjectsOop: */
-	GIV(specialObjectsOop) = anObject;
+	specialObjectsOop = anObject;
 	wSqInt = 0;
 	sqImageFileRead((&wSqInt), sizeof(wSqInt), 1, f);
 	seed = (swapBytes
@@ -96,15 +96,15 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 				: wSqInt);
 
 	/* begin lastHash: */
-	if (!((GIV(lastHash) = seed & (identityHashHalfWordMask())))) {
-		while (((GIV(lastHash) = (((usqInt) (ioUTCMicrosecondsNow()))) & (identityHashHalfWordMask()))) == 0) {
+	if (!((lastHash = seed & (identityHashHalfWordMask())))) {
+		while (((lastHash = (((usqInt) (ioUTCMicrosecondsNow()))) & (identityHashHalfWordMask()))) == 0) {
 		}
 	}
 
 	/* begin getLongFromFile:swap: */
 	wSqInt = 0;
 	sqImageFileRead((&wSqInt), sizeof(wSqInt), 1, f);
-	GIV(savedWindowSize) = (swapBytes
+	savedWindowSize = (swapBytes
 				? SQ_SWAP_8_BYTES(wSqInt)
 				: wSqInt);
 
@@ -117,18 +117,18 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 
 	/* begin setImageHeaderFlagsFrom: */
 	/* so as to preserve unrecognised flags. */
-	GIV(imageHeaderFlags) = headerFlags;
-	GIV(fullScreenFlag) = headerFlags & 1;
-	GIV(imageFloatsBigEndian) = ((!(headerFlags & 2))
+	imageHeaderFlags = headerFlags;
+	fullScreenFlag = headerFlags & 1;
+	imageFloatsBigEndian = ((!(headerFlags & 2))
 				? 1
 				: 0);
 
 	/* processHasThreadAffinity := headerFlags anyMask: 4. specific to CoInterpreterMT
 	   flagInterpretedMethods := headerFlags anyMask: 8. specific to CoInterpreter */
-	GIV(preemptionYields) = (!(headerFlags & 16));
+	preemptionYields = (!(headerFlags & 16));
 
 	/* noThreadingOfGUIThread := headerFlags anyMask: 32. specific to CoInterpreterMT */
-	GIV(newFinalization) = ((headerFlags & 64) != 0);
+	newFinalization = ((headerFlags & 64) != 0);
 	sendWheelEvents = ((headerFlags & 128) != 0);
 	if ((((sqInt)primitiveDoMixedArithmetic)) < 0) {
 		primitiveDoMixedArithmetic = (!(headerFlags & 0x100));
@@ -153,7 +153,7 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 	hdrNumStackPages = (swapBytes
 				? ((((usqInt)(w1)) >> 8) & 0xFF) | (((w1 & 0xFF) << 8))
 				: w1);
-	GIV(numStackPages) = (desiredNumStackPages
+	numStackPages = (desiredNumStackPages
 				? desiredNumStackPages
 				: (hdrNumStackPages
 						? hdrNumStackPages
@@ -163,7 +163,7 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 	/* begin getShortFromFile:swap: */
 	w1 = 0;
 	sqImageFileRead((&w1), sizeof(unsigned short), 1, f);
-	GIV(theUnknownShort) = (swapBytes
+	theUnknownShort = (swapBytes
 				? ((((usqInt)(w1)) >> 8) & 0xFF) | (((w1 & 0xFF) << 8))
 				: w1);
 
@@ -180,7 +180,7 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 						: defaultEdenBytes()));
 
 	/* begin edenBytes: */
-	GIV(edenBytes) = bytes;
+	edenBytes = bytes;
 	desiredEdenBytes = hdrEdenBytes;
 
 	/* begin getShortFromFile:swap: */
@@ -191,14 +191,14 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 				: w1);
 	if (hdrMaxExtSemTabSize) {
 		/* begin setMaxExtSemSizeTo: */
-		GIV(maxExtSemTabSizeSet) = 1;
+		maxExtSemTabSizeSet = 1;
 		ioSetMaxExtSemTableSize(hdrMaxExtSemTabSize);
 	}
 
 	/* begin getShortFromFile:swap: */
 	w1 = 0;
 	sqImageFileRead((&w1), sizeof(unsigned short), 1, f);
-	GIV(the2ndUnknownShort) = (swapBytes
+	the2ndUnknownShort = (swapBytes
 				? ((((usqInt)(w1)) >> 8) & 0xFF) | (((w1 & 0xFF) << 8))
 				: w1);
 
@@ -210,9 +210,9 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 				: wSqInt);
 
 	/* begin firstSegmentSize: */
-	GIV(firstSegmentSize) = firstSegSize;
+	firstSegmentSize = firstSegSize;
 	allocationReserve = interpreterAllocationReserveBytes();
-	minimumMemory = (dataSize + GIV(edenBytes)) + allocationReserve;
+	minimumMemory = (dataSize + edenBytes) + allocationReserve;
 
 	/* begin getLongFromFile:swap: */
 	wSqInt = 0;
@@ -224,9 +224,9 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 	/* begin initialHeadroom:givenFreeOldSpaceInImage: */
 	headroomSqInt = (extraVMMemory
 				? extraVMMemory
-				: (!(GIV(growHeadroom))
+				: (!(growHeadroom)
 					? 0x1000000
-					: GIV(growHeadroom)));
+					: growHeadroom));
 	if (freeOldSpaceInImage >= headroomSqInt) {
 		headroom = 0;
 		goto l1;
@@ -250,7 +250,7 @@ readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squea
 	headroom = headroomSqInt;
 	/* end initialHeadroom:givenFreeOldSpaceInImage: */
 l1:
-	heapSizeUsqInt = ((dataSize + headroom) + GIV(edenBytes)) + ((headroom > allocationReserve
+	heapSizeUsqInt = ((dataSize + headroom) + edenBytes) + ((headroom > allocationReserve
 		? 0
 		: allocationReserve));
 
@@ -271,7 +271,7 @@ l1:
 		unableToReadImageError();
 	}
 	ensureImageFormatIsUpToDate(swapBytes);
-	bytesToShift = GIV(oldSpaceStart) - GIV(oldImageBaseAddress);
+	bytesToShift = oldSpaceStart - oldImageBaseAddress;
 
 	/* begin initializeInterpreter: */
 	interpreterProxy = sqGetInterpreterProxy();
@@ -280,72 +280,72 @@ l1:
 
 	/* begin checkAssumedCompactClasses */
 	/* begin checkCompactIndex:isClass:named: */
-	if ((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassArray) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
+	if ((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassArray) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
 		assert(((ClassArrayCompactIndex >= 1) && (ClassArrayCompactIndex <= (classTablePageSize())))),
 	/* fetchPointer:ofObject: */
-		longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(ClassArrayCompactIndex) << (shiftForWord()))))))))) {
+		longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(ClassArrayCompactIndex) << (shiftForWord()))))))))) {
 		invalidCompactClassError("Array");
 	}
 
 	/* begin checkCompactIndex:isClass:named: */
-	if ((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassLargeNegativeInteger) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
+	if ((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassLargeNegativeInteger) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
 		assert(((ClassLargeNegativeIntegerCompactIndex >= 1) && (ClassLargeNegativeIntegerCompactIndex <= (classTablePageSize())))),
 	/* fetchPointer:ofObject: */
-		longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(ClassLargeNegativeIntegerCompactIndex) << (shiftForWord()))))))))) {
+		longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(ClassLargeNegativeIntegerCompactIndex) << (shiftForWord()))))))))) {
 		invalidCompactClassError("LargeNegativeInteger");
 	}
 
 	/* begin checkCompactIndex:isClass:named: */
-	if ((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassLargePositiveInteger) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
+	if ((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassLargePositiveInteger) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
 		assert(((ClassLargePositiveIntegerCompactIndex >= 1) && (ClassLargePositiveIntegerCompactIndex <= (classTablePageSize())))),
 	/* fetchPointer:ofObject: */
-		longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(ClassLargePositiveIntegerCompactIndex) << (shiftForWord()))))))))) {
+		longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(ClassLargePositiveIntegerCompactIndex) << (shiftForWord()))))))))) {
 		invalidCompactClassError("LargePositiveInteger");
 	}
 
 	/* begin checkCompactIndex:isClass:named: */
-	if ((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassFloat) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
+	if ((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassFloat) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
 		assert(((ClassFloatCompactIndex >= 1) && (ClassFloatCompactIndex <= (classTablePageSize())))),
 	/* fetchPointer:ofObject: */
-		longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(ClassFloatCompactIndex) << (shiftForWord()))))))))) {
+		longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(ClassFloatCompactIndex) << (shiftForWord()))))))))) {
 		invalidCompactClassError("Float");
 	}
 
 	/* begin checkCompactIndex:isClass:named: */
-	if ((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassBlockClosure) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
+	if ((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassBlockClosure) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
 		assert(((ClassBlockClosureCompactIndex >= 1) && (ClassBlockClosureCompactIndex <= (classTablePageSize())))),
 	/* fetchPointer:ofObject: */
-		longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(ClassBlockClosureCompactIndex) << (shiftForWord()))))))))) {
+		longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(ClassBlockClosureCompactIndex) << (shiftForWord()))))))))) {
 		invalidCompactClassError("BlockClosure");
 	}
 
 	/* begin checkCompactIndex:isClass:named: */
-	if ((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassMethodContext) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
+	if ((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassMethodContext) << (shiftForWord()))))))) != ((/* begin knownClassAtIndex: */
 		assert(((ClassMethodContextCompactIndex >= 1) && (ClassMethodContextCompactIndex <= (classTablePageSize())))),
 	/* fetchPointer:ofObject: */
-		longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(ClassMethodContextCompactIndex) << (shiftForWord()))))))))) {
+		longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(ClassMethodContextCompactIndex) << (shiftForWord()))))))))) {
 		invalidCompactClassError("MethodContext");
 	}
-	objOop = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassByteArray) << (shiftForWord()))))));
+	objOop = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassByteArray) << (shiftForWord()))))));
 
 	/* begin compactIndexOfClass: */
 	assert((rawHashBitsOf(objOop)) != 0);
-	GIV(classByteArrayCompactIndex) = (long32At((void *)(objOop + 4))) & (identityHashHalfWordMask());
+	classByteArrayCompactIndex = (long32At((void *)(objOop + 4))) & (identityHashHalfWordMask());
 
 	/* begin initializeExtraClassInstVarIndices */
-	classArrayObj = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassArray) << (shiftForWord()))))));
+	classArrayObj = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassArray) << (shiftForWord()))))));
 	classArrayClass = fetchClassOfNonImm(classArrayObj);
 
 	/* begin numSlotsOf: */
 	assert((classIndexOf(classArrayClass)) > (isForwardedObjectClassIndexPun()));
 
 	/* determine actual Metaclass instSize */
-	GIV(metaclassNumSlots) = (((numSlots = byteAt((void *)(classArrayClass + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
+	metaclassNumSlots = (((numSlots = byteAt((void *)(classArrayClass + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
 				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(classArrayClass - BaseHeaderSize)))) << 8)))))) >> 8
 				: numSlots);
 
 	/* default */
-	GIV(thisClassIndex) = 5;
+	thisClassIndex = 5;
 	/* begin numSlotsOf: */
 	assert((classIndexOf(classArrayClass)) > (isForwardedObjectClassIndexPun()));
 	if (((numSlots = byteAt((void *)(classArrayClass + (numSlotsFieldByteOffset()))))) == (numSlotsMask())) {
@@ -356,12 +356,12 @@ l1:
 	}
 	for (i = (InstanceSpecificationIndex + 1); i <= toDoLimit; i += 1) {
 		if ((longAt((void *)((classArrayClass + BaseHeaderSize) + ((((usqInt)((i - 1)) << (shiftForWord()))))))) == classArrayObj) {
-			GIV(thisClassIndex) = i - 1;
+			thisClassIndex = i - 1;
 		}
 	}
 
 	/* default */
-	GIV(classNameIndex) = 6;
+	classNameIndex = 6;
 	/* begin numSlotsOf: */
 	assert((classIndexOf(classArrayObj)) > (isForwardedObjectClassIndexPun()));
 	if (((numSlots = byteAt((void *)(classArrayObj + (numSlotsFieldByteOffset()))))) == (numSlotsMask())) {
@@ -373,30 +373,30 @@ l1:
 	for (i = (InstanceSpecificationIndex + 1); i <= toDoLimit1; i += 1) {
 		oop = longAt((void *)((classArrayObj + BaseHeaderSize) + ((((usqInt)((i - 1)) << (shiftForWord()))))));
 		if (objectequalsString(oop, "Array")) {
-			GIV(classNameIndex) = i - 1;
+			classNameIndex = i - 1;
 		}
 	}
-	GIV(method) = (GIV(newMethod) = GIV(nilObj));
-	GIV(methodDictLinearSearchLimit) = 8;
+	method = (newMethod = nilObj);
+	methodDictLinearSearchLimit = 8;
 
 	/* begin initialCleanup */
 	/* begin flushMethodCache */
-	memset(GIV(methodCache), 0, MethodCacheSize * (sizeof(GIV(methodCache)[0])));
+	memset(methodCache, 0, MethodCacheSize * (sizeof(methodCache[0])));
 
 	/* this for primitiveExternalMethod */
-	GIV(lastMethodCacheProbeWrite) = 0;
+	lastMethodCacheProbeWrite = 0;
 
 	/* begin flushAtCache */
-	memset(GIV(atCache), 0, AtCacheTotalSize * (sizeof(GIV(atCache)[0])));
+	memset(atCache, 0, AtCacheTotalSize * (sizeof(atCache[0])));
 	memset(externalPrimitiveTable, 0, MaxExternalPrimitiveTableSize * (sizeof(externalPrimitiveTable[0])));
-	GIV(externalPrimitiveTableFirstFreeIndex) = 0;
+	externalPrimitiveTableFirstFreeIndex = 0;
 
 	/* cmd-. as used for Mac but no other OS */
-	GIV(interruptKeycode) = ((8U << 8)) + (((sqInt)'.'));
-	while (GIV(globalSessionID) == 0) {
-		GIV(globalSessionID) = ((time(NULL)) + (ioMSecs())) & 0x7FFFFFFF;
+	interruptKeycode = ((8U << 8)) + (((sqInt)'.'));
+	while (globalSessionID == 0) {
+		globalSessionID = ((time(NULL)) + (ioMSecs())) & 0x7FFFFFFF;
 	}
-	GIV(metaAccessorDepth) = -2;
+	metaAccessorDepth = -2;
 	sHEAFn = ioLoadFunctionFrom("secHasEnvironmentAccess", "SecurityPlugin");
 	return dataSize;
 }

@@ -20,14 +20,14 @@ removeFirstLinkOfList(sqInt aList)
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(aList))
 		 && (!(isForwarded(aList))));
-		assert(validStorePointerUncheckedArgs(FirstLinkIndex, aList, GIV(nilObj)));
-		longAtput((void *)((aList + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(FirstLinkIndex, aList, nilObj));
+		longAtput((void *)((aList + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))),nilObj);
 
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(aList))
 		 && (!(isForwarded(aList))));
-		assert(validStorePointerUncheckedArgs(LastLinkIndex, aList, GIV(nilObj)));
-		longAtput((void *)((aList + BaseHeaderSize) + ((((usqInt)(LastLinkIndex) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(LastLinkIndex, aList, nilObj));
+		longAtput((void *)((aList + BaseHeaderSize) + ((((usqInt)(LastLinkIndex) << (shiftForWord()))))),nilObj);
 	}
 	else {
 		next = longAt((void *)((first + BaseHeaderSize) + ((((usqInt)(NextLinkIndex) << (shiftForWord()))))));
@@ -35,10 +35,10 @@ removeFirstLinkOfList(sqInt aList)
 		/* begin storePointer:ofObject:withValue: */
 		assert(validStorePointerArgs(FirstLinkIndex, aList, next));
 		assert(isNonImmediate(aList));
-		if (oopisGreaterThanOrEqualTo(aList, GIV(oldSpaceStart))) {
+		if (oopisGreaterThanOrEqualTo(aList, oldSpaceStart)) {
 			if (/* isYoung: */
 				((!(next & (tagMask()))))
-			 && (oopisLessThan(next, GIV(oldSpaceStart)))) {
+			 && (oopisLessThan(next, oldSpaceStart))) {
 				/* begin possibleRootStoreInto: */
 				if (!((byteAt((void *)(aList + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 					remember(aList);
@@ -53,7 +53,7 @@ removeFirstLinkOfList(sqInt aList)
 	/* begin storePointerUnchecked:ofObject:withValue: */
 	assert((isNonImmediate(first))
 	 && (!(isForwarded(first))));
-	assert(validStorePointerUncheckedArgs(NextLinkIndex, first, GIV(nilObj)));
-	longAtput((void *)((first + BaseHeaderSize) + ((((usqInt)(NextLinkIndex) << (shiftForWord()))))),GIV(nilObj));
+	assert(validStorePointerUncheckedArgs(NextLinkIndex, first, nilObj));
+	longAtput((void *)((first + BaseHeaderSize) + ((((usqInt)(NextLinkIndex) << (shiftForWord()))))),nilObj);
 	return first;
 }

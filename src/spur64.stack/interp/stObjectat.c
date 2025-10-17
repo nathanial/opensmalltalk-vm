@@ -127,7 +127,7 @@ l3:
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = (fmt <= 1
+	primFailCode = (fmt <= 1
 				? PrimErrBadReceiver
 				: PrimErrBadIndex);
 	return 0;

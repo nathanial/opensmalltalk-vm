@@ -11,10 +11,10 @@ printCallStackOn(FILE *aStdioStream)
     FILE *savedTranscript;
 
 	/* begin withRedirectedOutputTo:do: */
-	savedTranscript = GIV(transcript);
-	GIV(transcript) = (aStdioStream
+	savedTranscript = transcript;
+	transcript = (aStdioStream
 				? aStdioStream
 				: stdout);
 	printCallStack();
-	GIV(transcript) = savedTranscript;
+	transcript = savedTranscript;
 }

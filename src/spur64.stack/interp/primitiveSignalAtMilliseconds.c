@@ -15,30 +15,30 @@ primitiveSignalAtMilliseconds(void)
     sqInt msecsObj;
     sqInt sema;
 
-	msecsObj = longAt(GIV(stackPointer));
-	sema = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	msecsObj = longAt(stackPointer);
+	sema = longAt(stackPointer + (1 * BytesPerWord));
 	msecs = positive32BitValueOf(msecsObj);
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		if (/* isSemaphoreOop: */
 			((!(sema & (tagMask()))))
-		 && (((longAt((void *)(sema))) & (classIndexMask())) == (rawHashBitsOf(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassSemaphore) << (shiftForWord())))))))))) {
+		 && (((longAt((void *)(sema))) & (classIndexMask())) == (rawHashBitsOf(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassSemaphore) << (shiftForWord())))))))))) {
 			/* begin splObj:put: */
 			/* begin storePointer:ofObject:withValue: */
-			assert(validStorePointerArgs(TheTimerSemaphore, GIV(specialObjectsOop), sema));
-			assert(isNonImmediate(GIV(specialObjectsOop)));
-			if (oopisGreaterThanOrEqualTo(GIV(specialObjectsOop), GIV(oldSpaceStart))) {
+			assert(validStorePointerArgs(TheTimerSemaphore, specialObjectsOop, sema));
+			assert(isNonImmediate(specialObjectsOop));
+			if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(sema & (tagMask()))))
-				 && (oopisLessThan(sema, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(sema, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
-					if (!((byteAt((void *)(GIV(specialObjectsOop) + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-						remember(GIV(specialObjectsOop));
+					if (!((byteAt((void *)(specialObjectsOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
+						remember(specialObjectsOop);
 					}
 				}
 			}
 
 			/* most stores into young objects */
-			longAtput((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))),sema);
+			longAtput((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))),sema);
 			deltaMsecs = msecs - ((ioMSecs()) & MillisecondClockMask);
 			limit = ((usqInt)(MillisecondClockMask)) >> 1;
 
@@ -48,28 +48,28 @@ primitiveSignalAtMilliseconds(void)
 			if (deltaMsecs > limit) {
 				deltaMsecs -= MillisecondClockMask;
 			}
-			GIV(nextWakeupUsecs) = (deltaMsecs > 0
+			nextWakeupUsecs = (deltaMsecs > 0
 						? (ioUTCMicroseconds()) + (deltaMsecs * 1000)
 						: ioUTCMicroseconds());
 
 			/* begin pop: */
-			GIV(stackPointer) += 2 * BytesPerWord;
+			stackPointer += 2 * BytesPerWord;
 			return;
 		}
-		if (sema == GIV(nilObj)) {
+		if (sema == nilObj) {
 			/* begin storePointerUnchecked:ofObject:withValue: */
-			assert((isNonImmediate(GIV(specialObjectsOop)))
-			 && (!(isForwarded(GIV(specialObjectsOop)))));
-			assert(validStorePointerUncheckedArgs(TheTimerSemaphore, GIV(specialObjectsOop), GIV(nilObj)));
-			longAtput((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))),GIV(nilObj));
-			GIV(nextWakeupUsecs) = 0;
+			assert((isNonImmediate(specialObjectsOop))
+			 && (!(isForwarded(specialObjectsOop))));
+			assert(validStorePointerUncheckedArgs(TheTimerSemaphore, specialObjectsOop, nilObj));
+			longAtput((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))),nilObj);
+			nextWakeupUsecs = 0;
 
 			/* begin pop: */
-			GIV(stackPointer) += 2 * BytesPerWord;
+			stackPointer += 2 * BytesPerWord;
 			return;
 		}
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = PrimErrBadArgument;
+	primFailCode = PrimErrBadArgument;
 }

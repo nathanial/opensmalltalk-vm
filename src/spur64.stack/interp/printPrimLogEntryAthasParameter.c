@@ -16,7 +16,7 @@ printPrimLogEntryAthasParameter(sqInt i, sqInt hasParameter)
     sqInt methodSel;
 
 	length = 0;
-	entryOop = GIV(primTraceLog)[i];
+	entryOop = primTraceLog[i];
 	if (hasParameter) {
 		if (addressCouldBeObj(entryOop)) {
 			className = nameOfClasslengthInto(entryOop, (&length));
@@ -25,7 +25,7 @@ printPrimLogEntryAthasParameter(sqInt i, sqInt hasParameter)
 			className = "bad class";
 			length = 9;
 		}
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%.*s\n",
 				((int) length),
 				className);
@@ -64,18 +64,18 @@ printPrimLogEntryAthasParameter(sqInt i, sqInt hasParameter)
 				className = "???";
 				length = 3;
 				methodClass = safeMethodClassOf(entryOop);
-				if (methodClass != GIV(nilObj)) {
+				if (methodClass != nilObj) {
 					className = nameOfClasslengthInto(methodClass, (&length));
 				}
 				methodSel = findSelectorOfMethod(entryOop);
-				if (methodSel == GIV(nilObj)) {
-					fprintf(GIV(transcript),
+				if (methodSel == nilObj) {
+					fprintf(transcript,
 							"%.*s>>(selector not found)\n",
 							((int) length),
 							className);
 				}
 				else {
-					fprintf(GIV(transcript),
+					fprintf(transcript,
 							"%.*s>>#%.*s\n",
 							((int) length),
 							className,
@@ -89,7 +89,7 @@ printPrimLogEntryAthasParameter(sqInt i, sqInt hasParameter)
 			}
 		}
 		else {
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%" PRIdSQINT "!!!\n",
 					i);
 		}

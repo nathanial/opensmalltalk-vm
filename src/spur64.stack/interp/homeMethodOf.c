@@ -24,7 +24,7 @@ homeMethodOf(sqInt aMethodOop)
 		if (!(/* isOopCompiledMethod: */
 				((!(lastLiteral & (tagMask()))))
 			 && (((byteAt((void *)(lastLiteral + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat())))) {
-			return GIV(nilObj);
+			return nilObj;
 		}
 		methodChain = lastLiteral;
 	}

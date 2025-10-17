@@ -19,74 +19,74 @@ createActualMessageTo(sqInt lookupClass)
 
 
 	/* This is a useful break-point */
-	assert((isImmediate(GIV(messageSelector)))
-	 || (addressCouldBeObj(GIV(messageSelector))));
+	assert((isImmediate(messageSelector))
+	 || (addressCouldBeObj(messageSelector)));
 
 	/* begin mnuBreakpoint:receiver: */
-	mnuBreakpointreceiver(firstFixedFieldOfMaybeImmediate(GIV(messageSelector)), lengthOfMaybeImmediate(GIV(messageSelector)), null);
-	assert((GIV(argumentCount) >= 0)
-	 && ((knownClassAtIndex(ClassArrayCompactIndex)) != GIV(nilObj)));
+	mnuBreakpointreceiver(firstFixedFieldOfMaybeImmediate(messageSelector), lengthOfMaybeImmediate(messageSelector), null);
+	assert((argumentCount >= 0)
+	 && ((knownClassAtIndex(ClassArrayCompactIndex)) != nilObj));
 	assert((arrayFormat()) == (instSpecOfClass(knownClassAtIndex(ClassArrayCompactIndex))));
 
 	/* begin allocateSmallNewSpaceSlots:format:classIndex: */
-	assert(GIV(argumentCount) < (numSlotsMask()));
-	newObj = GIV(freeStart);
-	numBytes = BaseHeaderSize + ((GIV(argumentCount) < 1
+	assert(argumentCount < (numSlotsMask()));
+	newObj = freeStart;
+	numBytes = BaseHeaderSize + ((argumentCount < 1
 		? 8 /* allocationUnit */
-		: GIV(argumentCount) * BytesPerOop));
+		: argumentCount * BytesPerOop));
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 			argumentArray = 0;
 			goto l1;
 		}
 	}
-	long64Atput((void *)(newObj),((((((usqLong) GIV(argumentCount))) << (numSlotsFullShift()))) + ((((usqInt)((arrayFormat())) << (formatShift()))))) + ClassArrayCompactIndex);
-	GIV(freeStart) += numBytes;
+	long64Atput((void *)(newObj),((((((usqLong) argumentCount)) << (numSlotsFullShift()))) + ((((usqInt)((arrayFormat())) << (formatShift()))))) + ClassArrayCompactIndex);
+	freeStart += numBytes;
 	argumentArray = newObj;
 	/* end eeInstantiateSmallClassIndex:format:numSlots: */
 l1:
 
 	/* begin eeInstantiateSmallClassIndex:format:numSlots: */
 	assert(((MessageLookupClassIndex + 1) >= 0)
-	 && ((knownClassAtIndex(ClassMessageCompactIndex)) != GIV(nilObj)));
+	 && ((knownClassAtIndex(ClassMessageCompactIndex)) != nilObj));
 	assert((nonIndexablePointerFormat()) == (instSpecOfClass(knownClassAtIndex(ClassMessageCompactIndex))));
 
 	/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 	assert((MessageLookupClassIndex + 1) < (numSlotsMask()));
-	newObj = GIV(freeStart);
+	newObj = freeStart;
 	numBytes = BaseHeaderSize + (((MessageLookupClassIndex + 1) < 1
 		? 8 /* allocationUnit */
 		: (MessageLookupClassIndex + 1) * BytesPerOop));
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 			message = 0;
 			goto l2;
 		}
 	}
 	long64Atput((void *)(newObj),((((((usqLong) (MessageLookupClassIndex + 1))) << (numSlotsFullShift()))) + ((((usqInt)((nonIndexablePointerFormat())) << (formatShift()))))) + ClassMessageCompactIndex);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	message = newObj;
 	/* end eeInstantiateSmallClassIndex:format:numSlots: */
 l2:
 
 	/* Since the array is new can use unchecked stores. */
-	for (i = ((GIV(argumentCount) - 1) * BytesPerOop); i >= 0; i += (-BytesPerOop)) {
+	for (i = ((argumentCount - 1) * BytesPerOop); i >= 0; i += (-BytesPerOop)) {
 		longAtput((void *)((argumentArray + BaseHeaderSize) + i),popStack());
 	}
 
@@ -95,8 +95,8 @@ l2:
 	/* begin storePointerUnchecked:ofObject:withValue: */
 	assert((isNonImmediate(message))
 	 && (!(isForwarded(message))));
-	assert(validStorePointerUncheckedArgs(MessageSelectorIndex, message, GIV(messageSelector)));
-	longAtput((void *)((message + BaseHeaderSize) + ((((usqInt)(MessageSelectorIndex) << (shiftForWord()))))),GIV(messageSelector));
+	assert(validStorePointerUncheckedArgs(MessageSelectorIndex, message, messageSelector));
+	longAtput((void *)((message + BaseHeaderSize) + ((((usqInt)(MessageSelectorIndex) << (shiftForWord()))))),messageSelector);
 
 	/* begin storePointerUnchecked:ofObject:withValue: */
 	assert((isNonImmediate(message))
@@ -111,7 +111,7 @@ l2:
 	longAtput((void *)((message + BaseHeaderSize) + ((((usqInt)(MessageLookupClassIndex) << (shiftForWord()))))),lookupClass);
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),message);
-	GIV(stackPointer) = sp;
-	GIV(argumentCount) = 1;
+	longAtput((sp = stackPointer - BytesPerWord),message);
+	stackPointer = sp;
+	argumentCount = 1;
 }

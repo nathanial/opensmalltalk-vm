@@ -13,19 +13,19 @@ primitiveExitCriticalSection(void)
     sqInt owningProcessIndex;
 
 	/* rcvr */
-	criticalSection = longAt(GIV(stackPointer));
+	criticalSection = longAt(stackPointer);
 
 	/* CriticalSections are laid out like Semaphores */
 	owningProcessIndex = ExcessSignalsIndex;
 
 	/* begin isEmptyList: */
 	assert(!(isForwarded(criticalSection)));
-	if ((longAt((void *)((criticalSection + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) == GIV(nilObj)) {
+	if ((longAt((void *)((criticalSection + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) == nilObj) {
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(criticalSection))
 		 && (!(isForwarded(criticalSection))));
-		assert(validStorePointerUncheckedArgs(owningProcessIndex, criticalSection, GIV(nilObj)));
-		longAtput((void *)((criticalSection + BaseHeaderSize) + ((((usqInt)(owningProcessIndex) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(owningProcessIndex, criticalSection, nilObj));
+		longAtput((void *)((criticalSection + BaseHeaderSize) + ((((usqInt)(owningProcessIndex) << (shiftForWord()))))),nilObj);
 	}
 	else {
 		owningProcess = removeFirstLinkOfList(criticalSection);
@@ -42,6 +42,6 @@ primitiveExitCriticalSection(void)
 		/* Note that resume: isn't fair; it won't suspend the active process.
 		   For fairness we must do the equivalent of a primitiveYield, but that
 		   may break old code, so we stick with unfair resume:. */
-		resumepreemptedYieldingIffrom(owningProcess, GIV(preemptionYields), CSExitCriticalSection);
+		resumepreemptedYieldingIffrom(owningProcess, preemptionYields, CSExitCriticalSection);
 	}
 }

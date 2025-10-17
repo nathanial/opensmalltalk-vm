@@ -14,12 +14,12 @@ segmentOverlap(void)
     usqInt starti;
     usqInt startj;
 
-	for (i = 0; i < GIV(numSegments); i += 1) {
-		starti = ((GIV(segments)[i]).segStart);
-		endi = (((GIV(segments)[i]).segSize)) + (((GIV(segments)[i]).segStart));
-		for (j = 0; j < GIV(numSegments); j += 1) {
-			startj = ((GIV(segments)[j]).segStart);
-			endj = (((GIV(segments)[j]).segSize)) + (((GIV(segments)[j]).segStart));
+	for (i = 0; i < numSegments; i += 1) {
+		starti = ((segments[i]).segStart);
+		endi = (((segments[i]).segSize)) + (((segments[i]).segStart));
+		for (j = 0; j < numSegments; j += 1) {
+			startj = ((segments[j]).segStart);
+			endj = (((segments[j]).segSize)) + (((segments[j]).segStart));
 			if (!(i == j)) {
 				if (!((starti < startj)
 					 || (starti >= endj))) {

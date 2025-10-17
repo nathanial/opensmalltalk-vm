@@ -13,8 +13,8 @@ swizzleObjStackAt(sqInt objStackRootIndex)
     sqInt page;
     sqInt stackOrNil;
 
-	firstPage = (stackOrNil = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord())))))));
-	if (stackOrNil == GIV(nilObj)) {
+	firstPage = (stackOrNil = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord())))))));
+	if (stackOrNil == nilObj) {
 		return stackOrNil;
 	}
 	do {
@@ -51,5 +51,5 @@ swizzleObjStackAt(sqInt objStackRootIndex)
 		} while(((stackOrNil = longAt((void *)((page + BaseHeaderSize) + ((((usqInt)(ObjStackFreex) << (shiftForWord())))))))) != 0);
 	}
 	assert(isValidObjStackAt(objStackRootIndex));
-	return longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord()))))));
+	return longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord()))))));
 }

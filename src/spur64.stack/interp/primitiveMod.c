@@ -8,19 +8,19 @@ primitiveMod(void)
     sqInt mod;
     char *sp;
 
-	mod = doPrimitiveModby(longAt(GIV(stackPointer) + (1 * BytesPerWord)), longAt(GIV(stackPointer)));
+	mod = doPrimitiveModby(longAt(stackPointer + (1 * BytesPerWord)), longAt(stackPointer));
 
 	/* begin pop2AndPushIntegerIfOK: */
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		if ((((((usqInt)(mod)) >> 60) + 1) & 15) <= 1) {
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),(((usqInt)mod << 3) | 1));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (1 * BytesPerWord)),(((usqInt)mod << 3) | 1));
+			stackPointer = sp;
 		}
 		else {
 			/* begin success: */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
 	}

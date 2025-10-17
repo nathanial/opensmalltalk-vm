@@ -29,8 +29,8 @@ ensureImageFormatIsUpToDate(sqInt swapBytes)
 		/* begin reverseBytesInImage */
 		/* begin reverseBytesInMemory */
 		/* begin reverseBytesFrom:to: */
-		addr = GIV(oldSpaceStart);
-		while (oopisLessThan(addr, GIV(endOfMemory))) {
+		addr = oldSpaceStart;
+		while (oopisLessThan(addr, endOfMemory)) {
 			longAtput((void *)(addr),SQ_SWAP_8_BYTES((longAt((void *)(addr)))));
 			addr += BytesPerWord;
 		}
@@ -39,16 +39,16 @@ ensureImageFormatIsUpToDate(sqInt swapBytes)
 		   orginal order, and perform any other format conversions. */
 
 		/* begin updateObjectsPostByteSwap */
-		swapFloatWords = VMBIGENDIAN != GIV(imageFloatsBigEndian);
+		swapFloatWords = VMBIGENDIAN != imageFloatsBigEndian;
 		assert(ClassFloatCompactIndex != 0);
 
 		/* begin allObjectsDo: */
 		address = /* startAddressForBridgedHeapEnumeration */
-				(GIV(pastSpaceStart) > (((GIV(pastSpace)).start))
-					? ((GIV(pastSpace)).start)
-					: (GIV(freeStart) > (((GIV(eden)).start))
-							? ((GIV(eden)).start)
-							: GIV(oldSpaceStart)));
+				(pastSpaceStart > (((pastSpace).start))
+					? ((pastSpace).start)
+					: (freeStart > (((eden).start))
+							? ((eden).start)
+							: oldSpaceStart));
 
 		/* begin objectStartingAt: */
 		numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
@@ -62,7 +62,7 @@ ensureImageFormatIsUpToDate(sqInt swapBytes)
 		enableObjectEnumerationFrom(startObject);
 		while (1) {
 			assert((obj % (allocationUnit())) == 0);
-			if (!(oopisLessThan(obj, GIV(endOfMemory)))) break;
+			if (!(oopisLessThan(obj, endOfMemory))) break;
 			assert((long64At((void *)(obj))) != 0);
 
 			/* begin isEnumerableObject: */
@@ -70,7 +70,7 @@ ensureImageFormatIsUpToDate(sqInt swapBytes)
 			assert((classIndex == (segmentBridgePun()))
 			 || ((classIndex == (isForwardedObjectClassIndexPun()))
 			 || (((long64At((void *)(obj))) != 0)
-			 && (classIndex < (GIV(numClassTablePages) * (classTablePageSize()))))));
+			 && (classIndex < (numClassTablePages * (classTablePageSize()))))));
 			if (classIndex >= (isForwardedObjectClassIndexPun())) {
 				fmt = (byteAt((void *)(obj + (formatFieldByteOffset())))) & (formatMask());
 				if (fmt >= (firstByteFormat())) {
@@ -115,13 +115,13 @@ ensureImageFormatIsUpToDate(sqInt swapBytes)
 
 			/* begin objectAfterMaybeSlimBridge:limit: */
 			followingWordAddress = addressAfter(obj);
-			if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-				obj = GIV(endOfMemory);
+			if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+				obj = endOfMemory;
 				goto l1;
 			}
 			followingWord = longAt((void *)(followingWordAddress));
 			obj = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-						? ((oopisLessThan(obj, GIV(oldSpaceStart)))
+						? ((oopisLessThan(obj, oldSpaceStart))
 						 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 								? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 								: followingWordAddress + BaseHeaderSize)
@@ -133,18 +133,18 @@ l1:
 	}
 	else {
 		/* begin convertFloatsToPlatformOrder */
-		if (VMBIGENDIAN == GIV(imageFloatsBigEndian)) {
+		if (VMBIGENDIAN == imageFloatsBigEndian) {
 			goto l3;
 		}
 		assert(ClassFloatCompactIndex != 0);
 
 		/* begin allObjectsDo: */
 		address = /* startAddressForBridgedHeapEnumeration */
-				(GIV(pastSpaceStart) > (((GIV(pastSpace)).start))
-					? ((GIV(pastSpace)).start)
-					: (GIV(freeStart) > (((GIV(eden)).start))
-							? ((GIV(eden)).start)
-							: GIV(oldSpaceStart)));
+				(pastSpaceStart > (((pastSpace).start))
+					? ((pastSpace).start)
+					: (freeStart > (((eden).start))
+							? ((eden).start)
+							: oldSpaceStart));
 
 		/* begin objectStartingAt: */
 		numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
@@ -158,7 +158,7 @@ l1:
 		enableObjectEnumerationFrom(startObject);
 		while (1) {
 			assert((objSqInt % (allocationUnit())) == 0);
-			if (!(oopisLessThan(objSqInt, GIV(endOfMemory)))) break;
+			if (!(oopisLessThan(objSqInt, endOfMemory))) break;
 			assert((long64At((void *)(objSqInt))) != 0);
 
 			/* begin isEnumerableObject: */
@@ -166,7 +166,7 @@ l1:
 			assert((classIndex == (segmentBridgePun()))
 			 || ((classIndex == (isForwardedObjectClassIndexPun()))
 			 || (((long64At((void *)(objSqInt))) != 0)
-			 && (classIndex < (GIV(numClassTablePages) * (classTablePageSize()))))));
+			 && (classIndex < (numClassTablePages * (classTablePageSize()))))));
 			if (classIndex >= (isForwardedObjectClassIndexPun())) {
 				if (((longAt((void *)(objSqInt))) & (classIndexMask())) == ClassFloatCompactIndex) {
 					temp = long32At((void *)(objSqInt + BaseHeaderSize));
@@ -179,13 +179,13 @@ l1:
 
 			/* begin objectAfterMaybeSlimBridge:limit: */
 			followingWordAddress = addressAfter(objSqInt);
-			if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-				objSqInt = GIV(endOfMemory);
+			if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+				objSqInt = endOfMemory;
 				goto l2;
 			}
 			followingWord = longAt((void *)(followingWordAddress));
 			objSqInt = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-						? ((oopisLessThan(objSqInt, GIV(oldSpaceStart)))
+						? ((oopisLessThan(objSqInt, oldSpaceStart))
 						 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 								? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 								: followingWordAddress + BaseHeaderSize)

@@ -17,8 +17,8 @@ putLongtoFile(sqInt aLong, sqImageFile aFile)
 
 	/* begin success: */
 	if (!(objectsWritten == 1)) {
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 }

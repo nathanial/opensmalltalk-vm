@@ -15,26 +15,26 @@ primitiveTestDisplayDepth(void)
 	okay = 0;
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer));
+	integerPointer = longAt(stackPointer);
 	if ((((integerPointer) & 7) == 1)) {
 		bitsPerPixel = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		bitsPerPixel = 0;
 	}
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		okay = ioHasDisplayDepth(bitsPerPixel);
 	}
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		/* begin pop:thenPushBool: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),/* booleanObjectOf: */
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),/* booleanObjectOf: */
 			(okay
-				? GIV(trueObj)
-				: GIV(falseObj)));
-		GIV(stackPointer) = sp;
+				? trueObj
+				: falseObj));
+		stackPointer = sp;
 	}
 }

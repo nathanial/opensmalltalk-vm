@@ -10,5 +10,5 @@
 sqInt
 getCurrentBytecode(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return byteAt((void *)(GIV(instructionPointer)));
+	return byteAt((void *)(instructionPointer));
 }

@@ -54,8 +54,8 @@ computeRefCountToShrinkRT(void)
 	assert(allNewSpaceObjectsHaveZeroRTRefCount());
 
 	/* begin referenceCountRememberedReferents: */
-	for (iSqInt = 0; iSqInt < GIV(rememberedSetSize); iSqInt += 1) {
-		elephant = GIV(rememberedSet)[iSqInt];
+	for (iSqInt = 0; iSqInt < rememberedSetSize; iSqInt += 1) {
+		elephant = rememberedSet[iSqInt];
 		if ((!((longAt((void *)(elephant))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 			/* begin followForwarded: */
 			assert(isUnambiguouslyForwarder(elephant));
@@ -67,11 +67,11 @@ computeRefCountToShrinkRT(void)
 			}
 			elephant = referentSqInt;
 			if (((elephant & (tagMask())) != 0)) {
-				elephant = GIV(nilObj);
+				elephant = nilObj;
 			}
 
 			/* take care if elephant forwarded to an immediate */
-			GIV(rememberedSet)[iSqInt] = elephant;
+			rememberedSet[iSqInt] = elephant;
 		}
 		toDoLimit = (numPointerSlotsOf(elephant)) - 1;
 		for (j = 0; j <= toDoLimit; j += 1) {
@@ -80,7 +80,7 @@ computeRefCountToShrinkRT(void)
 				((!(referent & (tagMask()))))
 			 && ((/* begin isReallyYoungObject: *//* begin isYoungObject: */
 				assert(isNonImmediate(referent)),
-			oopisLessThan(referent, GIV(oldSpaceStart))))) {
+			oopisLessThan(referent, oldSpaceStart)))) {
 				refCount = ((usqInt)((byteAt((void *)(referent + (formatFieldByteOffset())))))) >> (rememberedBitByteShift());
 				if (refCount < MaxRTRefCount) {
 					if (refCount > 0) {
@@ -109,5 +109,5 @@ computeRefCountToShrinkRT(void)
 	 && (((i -= 1)) >= 0)) {
 		count += population[i];
 	}
-	GIV(refCountToShrinkRT) = ((i < 0) ? 0 : i);
+	refCountToShrinkRT = ((i < 0) ? 0 : i);
 }

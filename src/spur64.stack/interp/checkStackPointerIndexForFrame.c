@@ -19,14 +19,14 @@ checkStackPointerIndexForFrame(char *theFP)
     StackPage *thePage;
     char *theSP;
 
-	if (theFP == GIV(framePointer)) {
-		return (((usqInt)(((theFP + FoxReceiver) - GIV(stackPointer)))) >> (shiftForWord())) + (byteAt((theFP + FoxFrameFlags) + 1));
+	if (theFP == framePointer) {
+		return (((usqInt)(((theFP + FoxReceiver) - stackPointer))) >> (shiftForWord())) + (byteAt((theFP + FoxFrameFlags) + 1));
 	}
 
 	/* begin stackPageFor: */
-	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
-	startFrame = (thePage == GIV(stackPage)
-				? GIV(framePointer)
+	thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
+	startFrame = (thePage == stackPage
+				? framePointer
 				: (thePage->headFP));
 
 	/* begin findSPOrNilOf:on:startingFrom: */
@@ -39,7 +39,7 @@ checkStackPointerIndexForFrame(char *theFP)
 
 		/* If the SP is invalid return the pointer to the receiver field.
 		   Skip the instruction pointer on top of stack of inactive pages. */
-		theSP = (thePage == GIV(stackPage)
+		theSP = (thePage == stackPage
 					? (thePage->headSP)
 					: ((thePage->headSP)) + BytesPerWord);
 		goto l1;

@@ -10,7 +10,7 @@ primitiveSmallFloatSquareRoot(void)
     sqInt oop;
     double rcvr;
 
-	oop = longAt(GIV(stackPointer));
+	oop = longAt(stackPointer);
 
 	/* begin smallFloatValueOf: */
 	/* begin smallFloatBitsOf: */
@@ -27,12 +27,12 @@ primitiveSmallFloatSquareRoot(void)
 		aValue = floatObjectOf(sqrt(rcvr));
 
 		/* begin stackTopPut: */
-		longAtput(GIV(stackPointer),aValue);
+		longAtput(stackPointer,aValue);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 }

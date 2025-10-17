@@ -10,6 +10,6 @@ primitiveSpecialObjectsOop(void)
     char *sp;
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer)),GIV(specialObjectsOop));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer),specialObjectsOop);
+	stackPointer = sp;
 }

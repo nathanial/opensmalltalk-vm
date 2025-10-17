@@ -23,10 +23,10 @@ primitiveSuspendBackingUpV1(void)
     sqInt ok;
     sqInt process;
 
-	process = longAt(GIV(stackPointer));
+	process = longAt(stackPointer);
 	if (process == (activeProcess())) {
 		/* stackTopPut: */
-		longAtput(GIV(stackPointer),GIV(nilObj));
+		longAtput(stackPointer,nilObj);
 
 		/* transferToHighestPriorityProcessFrom: */
 		transferTofrom(wakeHighestPriority(), CSSuspend);
@@ -47,19 +47,19 @@ primitiveSuspendBackingUpV1(void)
 			assert(isContext(myContext)),
 		((((longAt((void *)((myContext + BaseHeaderSize) + ((((usqInt)(InstructionPointerIndex) << (shiftForWord())))))))) & 7) == 1))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 	ok = removeProcessfromList(process, myList);
 	if (!ok) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrOperationFailed;
+		primFailCode = PrimErrOperationFailed;
 		return;
 	}
-	if (((longAt((void *)(myList))) & (classIndexMask())) != GIV(classLinkedListClassTag)) {
+	if (((longAt((void *)(myList))) & (classIndexMask())) != classLinkedListClassTag) {
 		backupContexttoBlockingSendTo(myContext, myList);
 	}
 
 	/* stackTopPut: */
-	longAtput(GIV(stackPointer),myList);
+	longAtput(stackPointer,myList);
 }

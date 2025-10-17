@@ -19,17 +19,17 @@ primitiveFullClosureValue(void)
     sqInt oop;
     char *sp;
 
-	blockClosure = longAt(GIV(stackPointer) + (GIV(argumentCount) * BytesPerWord));
+	blockClosure = longAt(stackPointer + (argumentCount * BytesPerWord));
 
 	/* begin argumentCountOfClosure: */
 	/* begin quickFetchInteger:ofObject: */
 	oop = longAt((void *)((blockClosure + BaseHeaderSize) + ((((usqInt)(ClosureNumArgsIndex) << (shiftForWord()))))));
 	assert((((oop) & 7) == 1));
 	numArgs = (oop >> 3);
-	if (!(GIV(argumentCount) == numArgs)) {
+	if (!(argumentCount == numArgs)) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
@@ -38,8 +38,8 @@ primitiveFullClosureValue(void)
 			((!(closureMethod & (tagMask()))))
 		 && (((byteAt((void *)(closureMethod + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat())))) {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return;
 	}
@@ -54,29 +54,29 @@ primitiveFullClosureValue(void)
 			: numSlots))) - FullClosureFirstCopiedValueIndex;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(instructionPointer));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),instructionPointer);
+	stackPointer = sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),((usqInt)GIV(framePointer)));
-	GIV(stackPointer) = sp;
-	GIV(framePointer) = GIV(stackPointer);
+	longAtput((sp = stackPointer - BytesPerWord),((usqInt)framePointer));
+	stackPointer = sp;
+	framePointer = stackPointer;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),closureMethod);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),closureMethod);
+	stackPointer = sp;
 	object = /* encodeFrameFieldHasContext:isBlock:numArgs: */
 			(VMBIGENDIAN
 				? ((1 + ((((usqInt)(numArgs) << ((BytesPerWord * 8) - 8)))))) + (1ULL << ((BytesPerWord * 8) - 24))
 				: ((1 + ((((usqInt)(numArgs) << 8))))) + (0x1000000));
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),object);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),object);
+	stackPointer = sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(nilObj));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),nilObj);
+	stackPointer = sp;
 
 	/* begin followField:ofObject: */
 	objOop = longAt((void *)((blockClosure + BaseHeaderSize) + ((((usqInt)(FullClosureReceiverIndex) << (shiftForWord()))))));
@@ -88,17 +88,17 @@ primitiveFullClosureValue(void)
 	object = objOop;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),object);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),object);
+	stackPointer = sp;
 
 	/* Copy the copied values... */
 	for (i = 0; i < numCopied; i += 1) {
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),longAt((void *)((blockClosure + BaseHeaderSize) + ((((usqInt)((i + FullClosureFirstCopiedValueIndex)) << (shiftForWord())))))));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),longAt((void *)((blockClosure + BaseHeaderSize) + ((((usqInt)((i + FullClosureFirstCopiedValueIndex)) << (shiftForWord())))))));
+		stackPointer = sp;
 	}
-	assert(frameIsBlockActivation(GIV(framePointer)));
-	assert(!(frameHasContext(GIV(framePointer))));
+	assert(frameIsBlockActivation(framePointer));
+	assert(!(frameHasContext(framePointer)));
 
 	/* begin methodHeaderOf: */
 	assert(isCompiledMethod(closureMethod));
@@ -106,29 +106,29 @@ primitiveFullClosureValue(void)
 	numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
 	for (i = ((numArgs + numCopied) + 1); i <= numTemps; i += 1) {
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(nilObj));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),nilObj);
+		stackPointer = sp;
 	}
-	GIV(instructionPointer) = (((((usqInt)(pointerForOop(closureMethod)))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
+	instructionPointer = (((((usqInt)(pointerForOop(closureMethod)))) + ((LiteralStart + ((/* begin literalCountOfMethodHeader: */
 	assert((((methodHeader) & 7) == 1)),
 /* literalCountOfAlternateHeader: */
 	((methodHeader >> 3)) & AlternateHeaderNumLiteralsMask))) * BytesPerOop)) + BaseHeaderSize) - 1;
-	GIV(method) = closureMethod;
-	assert(isOopCompiledMethod(GIV(method)));
+	method = closureMethod;
+	assert(isOopCompiledMethod(method));
 
 	/* begin methodUsesAlternateBytecodeSet: */
 	/* begin methodHeaderOf: */
-	assert(isCompiledMethod(GIV(method)));
-	methodHeaderSqInt = longAt((void *)((GIV(method) + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+	assert(isCompiledMethod(method));
+	methodHeaderSqInt = longAt((void *)((method + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 	if ((((sqLong) methodHeaderSqInt)) < 0) {
-		GIV(bytecodeSetSelector) = 0x100;
+		bytecodeSetSelector = 0x100;
 	}
 	else {
-		GIV(bytecodeSetSelector) = 0;
+		bytecodeSetSelector = 0;
 	}
 
 	/* Now check for stack overflow or an event (interrupt, must scavenge, etc) */
-	if (GIV(stackPointer) < GIV(stackLimit)) {
+	if (stackPointer < stackLimit) {
 		handleStackOverflowOrEventAllowContextSwitch(1);
 	}
 }

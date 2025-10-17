@@ -18,71 +18,71 @@ mapInterpreterOops(void)
 	mapTraceLog();
 
 	/* begin mapVMRegisters */
-	if (shouldRemapObj(GIV(method))) {
+	if (shouldRemapObj(method)) {
 		/* *rel to method */
-		GIV(instructionPointer) -= GIV(method);
-		GIV(method) = remapObj(GIV(method));
-		GIV(instructionPointer) += GIV(method);
+		instructionPointer -= method;
+		method = remapObj(method);
+		instructionPointer += method;
 	}
 	if (/* shouldRemapOop: */
-		((!(GIV(newMethod) & (tagMask()))))
-	 && (shouldRemapObj(GIV(newMethod)))) {
-		GIV(newMethod) = remapObj(GIV(newMethod));
+		((!(newMethod & (tagMask()))))
+	 && (shouldRemapObj(newMethod))) {
+		newMethod = remapObj(newMethod);
 	}
 
 	/* begin mapProfileState */
 	/* begin profileStateDoUpdating: */
-	if (GIV(profileProcess)) {
-		if ((result = (shouldRemapObj(GIV(profileProcess))
-					? remapObj(GIV(profileProcess))
+	if (profileProcess) {
+		if ((result = (shouldRemapObj(profileProcess)
+					? remapObj(profileProcess)
 					: 0))) {
-			GIV(profileProcess) = result;
+			profileProcess = result;
 		}
 	}
-	if (GIV(profileMethod)) {
-		if ((result = (shouldRemapObj(GIV(profileMethod))
-					? remapObj(GIV(profileMethod))
+	if (profileMethod) {
+		if ((result = (shouldRemapObj(profileMethod)
+					? remapObj(profileMethod)
 					: 0))) {
-			GIV(profileMethod) = result;
+			profileMethod = result;
 		}
 	}
-	if (GIV(profileSemaphore)) {
-		if ((result = (shouldRemapObj(GIV(profileSemaphore))
-					? remapObj(GIV(profileSemaphore))
+	if (profileSemaphore) {
+		if ((result = (shouldRemapObj(profileSemaphore)
+					? remapObj(profileSemaphore)
 					: 0))) {
-			GIV(profileSemaphore) = result;
+			profileSemaphore = result;
 		}
 	}
 #  if LRPCheck
 	sqLowLevelMFence();
-	if (GIV(longRunningPrimitiveCheckMethod)) {
-		if (GIV(longRunningPrimitiveCheckSequenceNumber) == GIV(statCheckForEvents)) {
-			GIV(longRunningPrimitiveCheckMethod) = GIV(newMethod);
+	if (longRunningPrimitiveCheckMethod) {
+		if (longRunningPrimitiveCheckSequenceNumber == statCheckForEvents) {
+			longRunningPrimitiveCheckMethod = newMethod;
 		}
 		else {
-			if (shouldRemapObj(GIV(longRunningPrimitiveCheckMethod))) {
-				GIV(longRunningPrimitiveCheckMethod) = remapObj(GIV(longRunningPrimitiveCheckMethod));
+			if (shouldRemapObj(longRunningPrimitiveCheckMethod)) {
+				longRunningPrimitiveCheckMethod = remapObj(longRunningPrimitiveCheckMethod);
 			}
 		}
 		sqLowLevelMFence();
 	}
-	if (GIV(longRunningPrimitiveCheckSemaphore)) {
-		if (shouldRemapObj(GIV(longRunningPrimitiveCheckSemaphore))) {
-			GIV(longRunningPrimitiveCheckSemaphore) = remapObj(GIV(longRunningPrimitiveCheckSemaphore));
+	if (longRunningPrimitiveCheckSemaphore) {
+		if (shouldRemapObj(longRunningPrimitiveCheckSemaphore)) {
+			longRunningPrimitiveCheckSemaphore = remapObj(longRunningPrimitiveCheckSemaphore);
 		}
 	}
 #  endif // LRPCheck
 
-	if ((GIV(tempOop) != 0)
+	if ((tempOop != 0)
 	 && (/* shouldRemapOop: */
-		((!(GIV(tempOop) & (tagMask()))))
-	 && (shouldRemapObj(GIV(tempOop))))) {
-		GIV(tempOop) = remapObj(GIV(tempOop));
+		((!(tempOop & (tagMask()))))
+	 && (shouldRemapObj(tempOop)))) {
+		tempOop = remapObj(tempOop);
 	}
-	if ((GIV(tempOop2) != 0)
+	if ((tempOop2 != 0)
 	 && (/* shouldRemapOop: */
-		((!(GIV(tempOop2) & (tagMask()))))
-	 && (shouldRemapObj(GIV(tempOop2))))) {
-		GIV(tempOop2) = remapObj(GIV(tempOop2));
+		((!(tempOop2 & (tagMask()))))
+	 && (shouldRemapObj(tempOop2)))) {
+		tempOop2 = remapObj(tempOop2);
 	}
 }

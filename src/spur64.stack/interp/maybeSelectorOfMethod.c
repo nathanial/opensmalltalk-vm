@@ -31,7 +31,7 @@ maybeSelectorOfMethod(sqInt methodObj)
 	if (/* isWordsOrBytes: */
 		((!(penultimateLiteral & (tagMask()))))
 	 && (isWordsOrBytesNonImm(penultimateLiteral))) {
-		return (((longAt((void *)(penultimateLiteral))) & (classIndexMask())) == (fetchClassTagOfNonImm(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord()))))))))
+		return (((longAt((void *)(penultimateLiteral))) & (classIndexMask())) == (fetchClassTagOfNonImm(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord()))))))))
 				? penultimateLiteral
 				: 0);
 	}
@@ -48,7 +48,7 @@ maybeSelectorOfMethod(sqInt methodObj)
 	(/* isWordsOrBytes: */
 			((!(maybeSelector & (tagMask()))))
 		 && (isWordsOrBytesNonImm(maybeSelector)))
-		 && (((longAt((void *)(maybeSelector))) & (classIndexMask())) == (fetchClassTagOfNonImm(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord())))))))))))))
+		 && (((longAt((void *)(maybeSelector))) & (classIndexMask())) == (fetchClassTagOfNonImm(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord())))))))))))))
 			? maybeSelector
 			: 0);
 }

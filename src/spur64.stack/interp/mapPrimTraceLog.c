@@ -13,30 +13,30 @@ mapPrimTraceLog(void)
     sqInt i;
     sqInt remainder;
 
-	if (!(GIV(primTraceLog)[/* safe:mod: */
-				(((remainder = (GIV(primTraceLogIndex) - 1) % PrimTraceLogSize)) < 0
+	if (!(primTraceLog[/* safe:mod: */
+				(((remainder = (primTraceLogIndex - 1) % PrimTraceLogSize)) < 0
 					? remainder + PrimTraceLogSize
 					: remainder)])) {
 		return;
 	}
-	if (GIV(primTraceLog)[GIV(primTraceLogIndex)]) {
-		for (i = GIV(primTraceLogIndex); i < PrimTraceLogSize; i += 1) {
-			entryOop = GIV(primTraceLog)[i];
+	if (primTraceLog[primTraceLogIndex]) {
+		for (i = primTraceLogIndex; i < PrimTraceLogSize; i += 1) {
+			entryOop = primTraceLog[i];
 			if ((entryOop != 0)
 			 && (/* shouldRemapOop: */
 				((!(entryOop & (tagMask()))))
 			 && (shouldRemapObj(entryOop)))) {
-				GIV(primTraceLog)[i] = (remapObj(entryOop));
+				primTraceLog[i] = (remapObj(entryOop));
 			}
 		}
 	}
-	for (i = 0; i < GIV(primTraceLogIndex); i += 1) {
-		entryOop = GIV(primTraceLog)[i];
+	for (i = 0; i < primTraceLogIndex; i += 1) {
+		entryOop = primTraceLog[i];
 		if ((entryOop != 0)
 		 && (/* shouldRemapOop: */
 			((!(entryOop & (tagMask()))))
 		 && (shouldRemapObj(entryOop)))) {
-			GIV(primTraceLog)[i] = (remapObj(entryOop));
+			primTraceLog[i] = (remapObj(entryOop));
 		}
 	}
 }

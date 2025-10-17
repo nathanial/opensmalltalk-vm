@@ -13,41 +13,41 @@ primitiveEventProcessingControl(void)
     char *sp;
 
 	enabled = inIOProcessEvents >= 0;
-	if (!GIV(argumentCount)) {
+	if (!argumentCount) {
 		/* begin pop:thenPushBool: */
-		longAtput((sp = GIV(stackPointer)),/* booleanObjectOf: */
+		longAtput((sp = stackPointer),/* booleanObjectOf: */
 			(enabled
-				? GIV(trueObj)
-				: GIV(falseObj)));
-		GIV(stackPointer) = sp;
+				? trueObj
+				: falseObj));
+		stackPointer = sp;
 		return;
 	}
-	if (GIV(argumentCount) == 1) {
-		if ((longAt(GIV(stackPointer))) == GIV(trueObj)) {
+	if (argumentCount == 1) {
+		if ((longAt(stackPointer)) == trueObj) {
 			if (inIOProcessEvents < 0) {
 				inIOProcessEvents = 0;
 			}
 		}
 		else {
-			if ((longAt(GIV(stackPointer))) == GIV(falseObj)) {
+			if ((longAt(stackPointer)) == falseObj) {
 				inIOProcessEvents = -1;
 			}
 			else {
 				/* primitiveFailFor: */
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				return;
 			}
 		}
 
 		/* begin pop:thenPushBool: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),/* booleanObjectOf: */
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),/* booleanObjectOf: */
 			(enabled
-				? GIV(trueObj)
-				: GIV(falseObj)));
-		GIV(stackPointer) = sp;
+				? trueObj
+				: falseObj));
+		stackPointer = sp;
 		return;
 	}
 
 	/* primitiveFailFor: */
-	GIV(primFailCode) = PrimErrBadNumArgs;
+	primFailCode = PrimErrBadNumArgs;
 }

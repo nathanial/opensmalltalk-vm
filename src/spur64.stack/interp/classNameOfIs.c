@@ -18,10 +18,10 @@ classNameOfIs(sqInt aClass, char *className)
 		assert((classIndexOf(aClass)) > (isForwardedObjectClassIndexPun())),
 	(((numSlots = byteAt((void *)(aClass + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
 				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(aClass - BaseHeaderSize)))) << 8)))))) >> 8
-				: numSlots))) <= GIV(classNameIndex)) {
+				: numSlots))) <= classNameIndex) {
 		return 0;
 	}
-	name = longAt((void *)((aClass + BaseHeaderSize) + ((((usqInt)(GIV(classNameIndex)) << (shiftForWord()))))));
+	name = longAt((void *)((aClass + BaseHeaderSize) + ((((usqInt)(classNameIndex) << (shiftForWord()))))));
 	if (!(/* isBytes: */
 			((!(name & (tagMask()))))
 		 && (((byteAt((void *)(name + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat())))) {

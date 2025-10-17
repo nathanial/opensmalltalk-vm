@@ -17,8 +17,8 @@ positive32BitValueOf(sqInt oop)
 		if ((value64 < 0)
 		 || ((((unsigned int) value64)) != value64)) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			value64 = 0;
 		}
@@ -26,8 +26,8 @@ positive32BitValueOf(sqInt oop)
 	}
 
 	/* begin primitiveFail */
-	if (!GIV(primFailCode)) {
-		GIV(primFailCode) = 1;
+	if (!primFailCode) {
+		primFailCode = 1;
 	}
 	return 0;
 }

@@ -9,5 +9,5 @@
 int
 fileTimesInUTC(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return ((GIV(imageHeaderFlags) & 0x200) != 0);
+	return ((imageHeaderFlags & 0x200) != 0);
 }

@@ -8,13 +8,13 @@ primitiveFloatLessThan(void)
     int aBool;
     char *sp;
 
-	aBool = primitiveFloatLessthanArg(longAt(GIV(stackPointer) + (1 * BytesPerWord)), longAt(GIV(stackPointer)));
-	if (!GIV(primFailCode)) {
+	aBool = primitiveFloatLessthanArg(longAt(stackPointer + (1 * BytesPerWord)), longAt(stackPointer));
+	if (!primFailCode) {
 		/* begin pop:thenPushBool: */
-		longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),/* booleanObjectOf: */
+		longAtput((sp = stackPointer + (1 * BytesPerWord)),/* booleanObjectOf: */
 			(aBool
-				? GIV(trueObj)
-				: GIV(falseObj)));
-		GIV(stackPointer) = sp;
+				? trueObj
+				: falseObj));
+		stackPointer = sp;
 	}
 }

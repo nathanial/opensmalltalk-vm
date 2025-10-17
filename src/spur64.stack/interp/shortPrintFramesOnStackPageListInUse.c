@@ -9,11 +9,11 @@ shortPrintFramesOnStackPageListInUse(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     StackPage *page;
 
-	page = GIV(mostRecentlyUsedPage);
+	page = mostRecentlyUsedPage;
 	do {
 		if (!(isFree(page))) {
 			/* begin print: */
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%s",
 					"page ");
 			printHexPtrnp(page);
@@ -21,5 +21,5 @@ shortPrintFramesOnStackPageListInUse(void)
 			shortPrintFramesInPage(page);
 			cr();
 		}
-	} while(((page = (page->prevPage))) != (GIV(mostRecentlyUsedPage)));
+	} while(((page = (page->prevPage))) != (mostRecentlyUsedPage));
 }

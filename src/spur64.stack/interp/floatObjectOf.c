@@ -32,31 +32,31 @@ floatObjectOf(double aFloat)
 
 	/* begin eeInstantiateSmallClassIndex:format:numSlots: */
 	assert((numSlots >= 0)
-	 && ((knownClassAtIndex(ClassFloatCompactIndex)) != GIV(nilObj)));
+	 && ((knownClassAtIndex(ClassFloatCompactIndex)) != nilObj));
 	assert((firstLongFormat()) == (instSpecOfClass(knownClassAtIndex(ClassFloatCompactIndex))));
 
 	/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 	assert(numSlots < (numSlotsMask()));
-	newObj = GIV(freeStart);
+	newObj = freeStart;
 	numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 			newFloatObj = 0;
 			goto l1;
 		}
 	}
 	long64Atput((void *)(newObj),((((((usqLong) numSlots)) << (numSlotsFullShift()))) + ((((usqInt)((firstLongFormat())) << (formatShift()))))) + ClassFloatCompactIndex);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	newFloatObj = newObj;
 	/* end eeInstantiateSmallClassIndex:format:numSlots: */
 l1:

@@ -16,5 +16,5 @@ interpreterAllocationReserveBytes(void)
 
 	maxUsedBytesPerPage = (stackPageFrameBytes()) + (((FrameSlots + LargeContextSlots) + 1) * BytesPerWord);
 	maxFramesPerPage = (maxUsedBytesPerPage / BytesPerWord) / FrameSlots;
-	return ((maxFramesPerPage * LargeContextSlots) * BytesPerOop) * GIV(numStackPages);
+	return ((maxFramesPerPage * LargeContextSlots) * BytesPerOop) * numStackPages;
 }

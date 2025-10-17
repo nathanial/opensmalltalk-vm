@@ -9,7 +9,7 @@ stackIntegerValue(sqInt offset)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt integerPointer;
 
-	integerPointer = longAt(GIV(stackPointer) + (offset * BytesPerWord));
+	integerPointer = longAt(stackPointer + (offset * BytesPerWord));
 
 	/* begin checkedIntegerValueOf: */
 	if ((((integerPointer) & 7) == 1)) {
@@ -17,8 +17,8 @@ stackIntegerValue(sqInt offset)
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		return 0;
 	}

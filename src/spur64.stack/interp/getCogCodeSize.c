@@ -7,5 +7,5 @@
 static sqInt
 getCogCodeSize(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return GIV(nilObj);
+	return nilObj;
 }

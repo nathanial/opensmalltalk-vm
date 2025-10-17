@@ -23,30 +23,30 @@ copyAndForward(sqInt survivor)
 	/* cog methods should be excluded. */
 	bytesInObj = bytesInBody(survivor);
 	format = (byteAt((void *)(survivor + (formatFieldByteOffset())))) & (formatMask());
-	if (((GIV(futureSurvivorStart) + bytesInObj) > ((GIV(futureSpace).limit)))
+	if (((futureSurvivorStart + bytesInObj) > ((futureSpace.limit)))
 	 || (/* shouldBeTenured: */
-		(GIV(tenureCriterion) == TenureByAge
-			? oopisLessThan(survivor, GIV(tenureThreshold))
-			: (GIV(tenureCriterion) == TenureToShrinkRT
-					? (((usqInt)((byteAt((void *)(survivor + (formatFieldByteOffset())))))) >> (rememberedBitByteShift())) >= GIV(refCountToShrinkRT)
-					: (GIV(tenureCriterion) == TenureByClass
-							? ((longAt((void *)(survivor))) & (classIndexMask())) == GIV(tenuringClassIndex)
+		(tenureCriterion == TenureByAge
+			? oopisLessThan(survivor, tenureThreshold)
+			: (tenureCriterion == TenureToShrinkRT
+					? (((usqInt)((byteAt((void *)(survivor + (formatFieldByteOffset())))))) >> (rememberedBitByteShift())) >= refCountToShrinkRT
+					: (tenureCriterion == TenureByClass
+							? ((longAt((void *)(survivor))) & (classIndexMask())) == tenuringClassIndex
 							: 0))))) {
 		newLocation = copyToOldSpacebytesformat(survivor, bytesInObj, format);
 	}
 	else {
 		/* begin copyToFutureSpace:bytes: */
 		/* we hope writes are cheap... */
-		GIV(statSurvivorCount) += 1;
-		assert((GIV(futureSurvivorStart) + bytesInObj) <= ((GIV(futureSpace).limit)));
+		statSurvivorCount += 1;
+		assert((futureSurvivorStart + bytesInObj) <= ((futureSpace.limit)));
 		startOfSurvivor = /* startOfObject: */
 				((byteAt((void *)(survivor + (numSlotsFieldByteOffset())))) == (numSlotsMask())
 					? survivor - BaseHeaderSize
 					: survivor);
-		newStart = GIV(futureSurvivorStart);
-		GIV(futureSurvivorStart) += bytesInObj;
+		newStart = futureSurvivorStart;
+		futureSurvivorStart += bytesInObj;
 		memcpy(((void *)newStart), ((void *)startOfSurvivor), bytesInObj);
-		if (GIV(tenureCriterion) == TenureToShrinkRT) {
+		if (tenureCriterion == TenureToShrinkRT) {
 			objOop = newStart + (survivor - startOfSurvivor);
 
 			/* begin rtRefCountOf:put: */

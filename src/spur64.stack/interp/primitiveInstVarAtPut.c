@@ -21,21 +21,21 @@ primitiveInstVarAtPut(void)
     usqLong unsigned64BitValueToStore;
     unsigned int unsignedValueToStore;
 
-	newValue = longAt(GIV(stackPointer));
-	index = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	rcvr = longAt(GIV(stackPointer) + (2 * BytesPerWord));
+	newValue = longAt(stackPointer);
+	index = longAt(stackPointer + (1 * BytesPerWord));
+	rcvr = longAt(stackPointer + (2 * BytesPerWord));
 	if (((!(index & (smallIntegerTag()))))
-	 || ((GIV(argumentCount) > 2)
+	 || ((argumentCount > 2)
 	 && (/* isOopForwarded: */
 		((!(rcvr & (tagMask()))))
 	 && ((!((longAt((void *)(rcvr))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 	if (((rcvr & (tagMask())) != 0)) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 	if (
@@ -46,7 +46,7 @@ primitiveInstVarAtPut(void)
 #  endif
 		) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrNoModification;
+		primFailCode = PrimErrNoModification;
 		return;
 	}
 	index = (index >> 3);
@@ -105,7 +105,7 @@ l1:
 	if (!((index >= 1)
 		 && (index <= fixedFields))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadIndex;
+		primFailCode = PrimErrBadIndex;
 		return;
 	}
 	if ((fmt == (indexablePointersFormat()))
@@ -120,10 +120,10 @@ l1:
 			/* begin storePointer:ofObject:withValue: */
 			assert(validStorePointerArgs(fieldIndex, rcvr, newValue));
 			assert(isNonImmediate(rcvr));
-			if (oopisGreaterThanOrEqualTo(rcvr, GIV(oldSpaceStart))) {
+			if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
 				if (/* isYoung: */
 					((!(newValue & (tagMask()))))
-				 && (oopisLessThan(newValue, GIV(oldSpaceStart)))) {
+				 && (oopisLessThan(newValue, oldSpaceStart))) {
 					/* begin possibleRootStoreInto: */
 					if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 						remember(rcvr);
@@ -137,13 +137,13 @@ l1:
 		}
 		if (fmt >= (firstByteFormat())) {
 			if (!((((newValue) & 7) == 1))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l3;
 			}
 			signedValueToStore = (newValue >> 3);
 			if (!((signedValueToStore >= 0)
 				 && (signedValueToStore <= 0xFF))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l3;
 			}
 
@@ -153,13 +153,13 @@ l1:
 		}
 		if (fmt >= (firstShortFormat())) {
 			if (!((((newValue) & 7) == 1))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l3;
 			}
 			signedValueToStore = (newValue >> 3);
 			if (!((signedValueToStore >= 0)
 				 && (signedValueToStore <= 0xFFFF))) {
-				GIV(primFailCode) = PrimErrBadArgument;
+				primFailCode = PrimErrBadArgument;
 				goto l3;
 			}
 
@@ -169,7 +169,7 @@ l1:
 		}
 		if (fmt == (sixtyFourBitIndexableFormat())) {
 			unsigned64BitValueToStore = positive64BitValueOf(newValue);
-			if (!GIV(primFailCode)) {
+			if (!primFailCode) {
 				/* storeLong64:ofObject:withValue: */
 				long64Atput((void *)((rcvr + BaseHeaderSize) + ((((usqInt)((index - 1)) << 3)))),unsigned64BitValueToStore);
 			}
@@ -178,7 +178,7 @@ l1:
 
 		/* 32bit-word type objects */
 		unsignedValueToStore = positive32BitValueOf(newValue);
-		if (!GIV(primFailCode)) {
+		if (!primFailCode) {
 			/* storeLong32:ofObject:withValue: */
 			long32Atput((void *)((rcvr + BaseHeaderSize) + ((((usqInt)((index - 1)) << 2)))),unsignedValueToStore);
 		}
@@ -187,6 +187,6 @@ l3:;
 	}
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),newValue);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),newValue);
+	stackPointer = sp;
 }

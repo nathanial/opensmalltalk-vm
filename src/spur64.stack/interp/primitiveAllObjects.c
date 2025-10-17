@@ -17,16 +17,16 @@ primitiveAllObjects(void)
 	if ((((result) & 7) == 1)) {
 		/* begin growToAccomodateContainerWithNumSlots: */
 		delta = (BaseHeaderSize * 2) + (((result >> 3)) * BytesPerOop);
-		growOldSpaceByAtLeast(((GIV(growHeadroom) < delta) ? delta : GIV(growHeadroom)));
+		growOldSpaceByAtLeast(((growHeadroom < delta) ? delta : growHeadroom));
 		result = allObjects();
 		if ((((result) & 7) == 1)) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrNoMemory;
+			primFailCode = PrimErrNoMemory;
 			return;
 		}
 	}
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),result);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),result);
+	stackPointer = sp;
 }

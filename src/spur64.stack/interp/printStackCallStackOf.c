@@ -17,7 +17,7 @@ printStackCallStackOf(sqInt aContextOrProcessOrFrame)
 			return printStackCallStackOf(((sqInt)(frameOfMarriedContext(aContextOrProcessOrFrame))));
 		}
 		if (aContextOrProcessOrFrame == (activeProcess())) {
-			return printStackCallStackOf(((sqInt)GIV(framePointer)));
+			return printStackCallStackOf(((sqInt)framePointer));
 		}
 		if (couldBeProcess(aContextOrProcessOrFrame)) {
 			return printCallStackOf(longAt((void *)((aContextOrProcessOrFrame + BaseHeaderSize) + ((((usqInt)(SuspendedContextIndex) << (shiftForWord())))))));

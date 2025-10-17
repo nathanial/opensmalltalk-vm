@@ -10,11 +10,11 @@ printRememberedSet(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt i;
 
-	for (i = 0; i < GIV(rememberedSetSize); i += 1) {
+	for (i = 0; i < rememberedSetSize; i += 1) {
 		printNum(i);
 
 		/* begin space */
 		printChar(' ');
-		shortPrintOop(GIV(rememberedSet)[i]);
+		shortPrintOop(rememberedSet[i]);
 	}
 }

@@ -17,8 +17,8 @@ putWord32toFile(int aWord32, sqImageFile aFile)
 
 	/* begin success: */
 	if (!(objectsWritten == 1)) {
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
 }

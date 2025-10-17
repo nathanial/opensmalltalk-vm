@@ -38,7 +38,7 @@ checkOkayFields(sqInt oop)
 			hasYoung = hasYoung
 				 || (/* isYoung: */
 					((!(fieldOop & (tagMask()))))
-				 && (oopisLessThan(fieldOop, GIV(oldSpaceStart))));
+				 && (oopisLessThan(fieldOop, oldSpaceStart)));
 			if (!(checkOkayOop(fieldOop))) {
 				return 0;
 			}
@@ -50,23 +50,23 @@ checkOkayFields(sqInt oop)
 	}
 	if (hasYoung) {
 		/* begin checkOkayYoungReferrer: */
-		if (oopisLessThan(oop, GIV(oldSpaceStart))) {
+		if (oopisLessThan(oop, oldSpaceStart)) {
 			return 1;
 		}
 		if (!((byteAt((void *)(oop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"remembered bit is not set in %p\n",
 					((void *)oop));
 			return 0;
 		}
 
 		/* begin isInRememberedSet: */
-		for (iSqInt = 0; iSqInt < GIV(rememberedSetSize); iSqInt += 1) {
-			if ((GIV(rememberedSet)[iSqInt]) == oop) {
+		for (iSqInt = 0; iSqInt < rememberedSetSize; iSqInt += 1) {
+			if ((rememberedSet[iSqInt]) == oop) {
 				return 1;
 			}
 		}
-		fprintf(GIV(transcript),
+		fprintf(transcript,
 				"%p has remembered bit set but is not in remembered set\n",
 				((void *)oop));
 		return 0;

@@ -15,7 +15,7 @@
 static sqInt
 enterSmalltalkExecutiveImplementation(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	_setjmp(GIV(reenterInterpreter));
+	_setjmp(reenterInterpreter);
 	interpret();
 	return 0;
 }

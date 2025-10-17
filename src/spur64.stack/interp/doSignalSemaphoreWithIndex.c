@@ -12,7 +12,7 @@ doSignalSemaphoreWithIndex(sqInt index)
     sqInt sema;
     sqInt xArray;
 
-	xArray = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))));
+	xArray = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))));
 	assert(isArray(xArray));
 
 	/* Note: semaphore indices are 1-based */
@@ -20,6 +20,6 @@ doSignalSemaphoreWithIndex(sqInt index)
 	assert(!(isOopForwarded(sema)));
 	return (/* isSemaphoreOop: */
 		((!(sema & (tagMask()))))
-	 && (((longAt((void *)(sema))) & (classIndexMask())) == (rawHashBitsOf(longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassSemaphore) << (shiftForWord()))))))))))
+	 && (((longAt((void *)(sema))) & (classIndexMask())) == (rawHashBitsOf(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassSemaphore) << (shiftForWord()))))))))))
 	 && (synchronousSignal(sema));
 }

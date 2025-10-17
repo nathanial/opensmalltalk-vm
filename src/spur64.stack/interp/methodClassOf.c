@@ -26,11 +26,11 @@ methodClassOf(sqInt methodPointer)
 	 && ((!((longAt((void *)(literal))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 		literal = fixFollowedFieldofObjectwithInitialValue(offset + LiteralStart, methodPointer, literal);
 	}
-	return ((literal != GIV(nilObj))
+	return ((literal != nilObj)
 	 && (/* isPointers: */
 		((!(literal & (tagMask()))))
 	 && (((byteAt((void *)(literal + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */))
 			? (assert((numSlotsOf(literal)) > ValueIndex),
 			followFieldofObject(ValueIndex, literal))
-			: GIV(nilObj));
+			: nilObj);
 }

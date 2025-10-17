@@ -11,19 +11,19 @@ primitiveIsPinned(void)
     char *sp;
     sqInt trueOrFalse;
 
-	obj = longAt(GIV(stackPointer));
+	obj = longAt(stackPointer);
 	if ((((obj & (tagMask())) != 0))
 	 || ((!((longAt((void *)(obj))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		return;
 	}
 	trueOrFalse = ((byteAt((void *)(obj + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0;
 
 	/* begin pop:thenPushBool: */
-	longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
+	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
 		(trueOrFalse
-			? GIV(trueObj)
-			: GIV(falseObj)));
-	GIV(stackPointer) = sp;
+			? trueObj
+			: falseObj));
+	stackPointer = sp;
 }

@@ -16,38 +16,38 @@ primitiveQuo(void)
 	integerResult = 0;
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	integerPointer = longAt(stackPointer + (1 * BytesPerWord));
 	if ((((integerPointer) & 7) == 1)) {
 		integerRcvr = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		integerRcvr = 0;
 	}
 
 	/* begin stackIntegerValue: */
-	integerPointer = longAt(GIV(stackPointer));
+	integerPointer = longAt(stackPointer);
 	if ((((integerPointer) & 7) == 1)) {
 		integerArg = (integerPointer >> 3);
 	}
 	else {
 		/* begin primitiveFail */
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 		integerArg = 0;
 	}
 
 	/* begin success: */
 	if (!integerArg) {
-		if (!GIV(primFailCode)) {
-			GIV(primFailCode) = 1;
+		if (!primFailCode) {
+			primFailCode = 1;
 		}
 	}
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		integerResult = /* quot:ient: */
 				(integerRcvr > 0
 					? (integerArg > 0
@@ -59,16 +59,16 @@ primitiveQuo(void)
 	}
 
 	/* begin pop2AndPushIntegerIfOK: */
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		if ((((((usqInt)(integerResult)) >> 60) + 1) & 15) <= 1) {
 			/* begin pop:thenPush: */
-			longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),(((usqInt)integerResult << 3) | 1));
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer + (1 * BytesPerWord)),(((usqInt)integerResult << 3) | 1));
+			stackPointer = sp;
 		}
 		else {
 			/* begin success: */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
 	}

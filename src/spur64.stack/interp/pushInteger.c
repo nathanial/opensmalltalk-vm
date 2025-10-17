@@ -8,7 +8,7 @@ pushInteger(sqInt integerValue)
     char *sp;
 
 	/* begin push: */
-	longAtput((sp = GIV(stackPointer) - BytesPerWord),(((usqInt)integerValue << 3) | 1));
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer - BytesPerWord),(((usqInt)integerValue << 3) | 1));
+	stackPointer = sp;
 	return null;
 }

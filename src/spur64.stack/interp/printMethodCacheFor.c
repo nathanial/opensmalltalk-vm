@@ -16,10 +16,10 @@ printMethodCacheFor(sqInt thing)
 
 	n = 0;
 	for (i = 0; i < MethodCacheSize; i += MethodCacheEntrySize) {
-		s = GIV(methodCache)[i + MethodCacheSelector];
-		c = GIV(methodCache)[i + MethodCacheClass];
-		m = GIV(methodCache)[i + MethodCacheMethod];
-		p = GIV(methodCache)[i + MethodCachePrimFunction];
+		s = methodCache[i + MethodCacheSelector];
+		c = methodCache[i + MethodCacheClass];
+		m = methodCache[i + MethodCacheMethod];
+		p = methodCache[i + MethodCachePrimFunction];
 		if (((thing == -1)
 		 || ((s == thing)
 		 || ((c == thing)
@@ -32,12 +32,12 @@ printMethodCacheFor(sqInt thing)
 		 && ((addressCouldBeClassObj(c))
 		 || (addressCouldBeClassObj(classForClassTag(c))))))) {
 			n += 1;
-			fprintf(GIV(transcript),
+			fprintf(transcript,
 					"%d %x\n\t",
 					((int) i),
 					((int) i));
 			if (((byteAt((void *)(s + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat())) {
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"%p %.*s\n",
 						((void *)s),
 						((int) (numBytesOfBytes(s))),
@@ -59,7 +59,7 @@ printMethodCacheFor(sqInt thing)
 				printChar(' ');
 
 				/* printHexnp: */
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"%p",
 						((void *)c));
 				printChar(' ');
@@ -74,7 +74,7 @@ printMethodCacheFor(sqInt thing)
 			printChar('\t');
 			if (p > 0x400) {
 				/* printHexnp: */
-				fprintf(GIV(transcript),
+				fprintf(transcript,
 						"%p",
 						((void *)p));
 			}

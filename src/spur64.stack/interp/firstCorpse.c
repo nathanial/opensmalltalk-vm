@@ -5,5 +5,5 @@
 static NoDbgRegParms usqInt
 firstCorpse(sqInt headOfCorpseList)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return ((((usqInt)((headOfCorpseList - 1)) << 3 /* shiftForAllocationUnit */))) + GIV(newSpaceStart);
+	return ((((usqInt)((headOfCorpseList - 1)) << 3 /* shiftForAllocationUnit */))) + newSpaceStart;
 }

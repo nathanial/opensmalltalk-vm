@@ -21,22 +21,22 @@ primitiveDoPrimitiveWithArgs(void)
     sqInt savedNumArgs;
     char *sp;
 
-	GIV(metaAccessorDepth) = -2;
+	metaAccessorDepth = -2;
 
 	/* See checkForAndFollowForwardedPrimitiveState */
-	if (!(((GIV(argumentCount) >= 2) && (GIV(argumentCount) <= 3)))) {
+	if (!(((argumentCount >= 2) && (argumentCount <= 3)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -PrimErrUnsupported;
+		primFailCode = -PrimErrUnsupported;
 		return;
 	}
-	argumentArray = longAt(GIV(stackPointer));
-	primIdx = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	argumentArray = longAt(stackPointer);
+	primIdx = longAt(stackPointer + (1 * BytesPerWord));
 	if (!((/* isArray: */
 			((!(argumentArray & (tagMask()))))
 		 && (((byteAt((void *)(argumentArray + (formatFieldByteOffset())))) & (formatMask())) == (arrayFormat())))
 		 && ((((primIdx) & 7) == 1)))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -PrimErrBadArgument;
+		primFailCode = -PrimErrBadArgument;
 		return;
 	}
 
@@ -47,7 +47,7 @@ primitiveDoPrimitiveWithArgs(void)
 				: numSlots);
 	if (!(arraySize <= (LargeContextSlots - CtxtTempFrameStart))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -PrimErrLimitExceeded;
+		primFailCode = -PrimErrLimitExceeded;
 		return;
 	}
 	primIdx = (primIdx >> 3);
@@ -60,17 +60,17 @@ primitiveDoPrimitiveWithArgs(void)
 		primitiveFunctionPointer = primitiveDoPrimitiveWithArgs;
 
 		/* primitiveFailFor: */
-		GIV(primFailCode) = -PrimErrBadIndex;
+		primFailCode = -PrimErrBadIndex;
 		return;
 	}
 
 	/* Pop primIndex and argArray, then push args in place... */
-	if (((savedNumArgs = GIV(argumentCount))) == 3) {
+	if (((savedNumArgs = argumentCount)) == 3) {
 		/* actual receiver */
-		GIV(tempOop2) = longAt(GIV(stackPointer) + (3 * BytesPerWord));
+		tempOop2 = longAt(stackPointer + (3 * BytesPerWord));
 
 		/* receiver for primitive */
-		rcvr = longAt(GIV(stackPointer) + (2 * BytesPerWord));
+		rcvr = longAt(stackPointer + (2 * BytesPerWord));
 		if (/* isOopForwarded: */
 			((!(rcvr & (tagMask()))))
 		 && ((!((longAt((void *)(rcvr))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
@@ -86,26 +86,26 @@ primitiveDoPrimitiveWithArgs(void)
 		}
 
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (3 * BytesPerWord)),rcvr);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (3 * BytesPerWord)),rcvr);
+		stackPointer = sp;
 	}
 	else {
 		/* begin pop: */
-		GIV(stackPointer) += 2 * BytesPerWord;
+		stackPointer += 2 * BytesPerWord;
 	}
 
 	/* ...and receiver if the three arg form */
-	GIV(argumentCount) = arraySize;
+	argumentCount = arraySize;
 	index = 1;
 	while (index <= arraySize) {
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),longAt((void *)((argumentArray + BaseHeaderSize) + ((((usqInt)((index - 1)) << (shiftForWord())))))));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),longAt((void *)((argumentArray + BaseHeaderSize) + ((((usqInt)((index - 1)) << (shiftForWord())))))));
+		stackPointer = sp;
 		index += 1;
 	}
 	if ((((usqIntptr_t) primitiveFunctionPointer)) <= MaxQuickPrimitiveIndex) {
 		externalQuickPrimitiveResponse();
-		GIV(tempOop2) = 0;
+		tempOop2 = 0;
 		return;
 	}
 
@@ -119,42 +119,42 @@ primitiveDoPrimitiveWithArgs(void)
 
 	/* prim might alloc/gc */
 	/* Run the primitive (sets primFailCode) */
-	GIV(tempOop) = argumentArray;
-	GIV(metaAccessorDepth) = primitiveAccessorDepthTable[primIdx];
+	tempOop = argumentArray;
+	metaAccessorDepth = primitiveAccessorDepthTable[primIdx];
 
 	/* See checkForAndFollowForwardedPrimitiveState */
 	if (!(slowPrimitiveResponse())) {
-		if (!GIV(tempOop)) {
+		if (!tempOop) {
 			return;
 		}
 
 		/* the primitive failed in a recursive invocation.  can't fix things with no value... */
 
 		/* begin pop: */
-		GIV(stackPointer) += arraySize * BytesPerWord;
+		stackPointer += arraySize * BytesPerWord;
 		if (savedNumArgs == 3) {
-			rcvr = longAt(GIV(stackPointer));
+			rcvr = longAt(stackPointer);
 
 			/* stackTopPut: */
-			longAtput(GIV(stackPointer),GIV(tempOop2));
+			longAtput(stackPointer,tempOop2);
 
 			/* begin push: */
-			longAtput((sp = GIV(stackPointer) - BytesPerWord),rcvr);
-			GIV(stackPointer) = sp;
+			longAtput((sp = stackPointer - BytesPerWord),rcvr);
+			stackPointer = sp;
 		}
 
 		/* begin pushInteger: */
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),(((usqInt)primIdx << 3) | 1));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),(((usqInt)primIdx << 3) | 1));
+		stackPointer = sp;
 
 		/* begin push: */
-		longAtput((sp = GIV(stackPointer) - BytesPerWord),GIV(tempOop));
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer - BytesPerWord),tempOop);
+		stackPointer = sp;
 		primitiveFunctionPointer = primitiveDoPrimitiveWithArgs;
-		GIV(argumentCount) = savedNumArgs;
+		argumentCount = savedNumArgs;
 	}
 
 	/* If primitive failed, then restore state for failure code */
-	GIV(tempOop) = (GIV(tempOop2) = 0);
+	tempOop = (tempOop2 = 0);
 }

@@ -26,11 +26,11 @@ printWeaklings(void)
 
 	/* begin allObjectsDo: */
 	address = /* startAddressForBridgedHeapEnumeration */
-			(GIV(pastSpaceStart) > (((GIV(pastSpace)).start))
-				? ((GIV(pastSpace)).start)
-				: (GIV(freeStart) > (((GIV(eden)).start))
-						? ((GIV(eden)).start)
-						: GIV(oldSpaceStart)));
+			(pastSpaceStart > (((pastSpace).start))
+				? ((pastSpace).start)
+				: (freeStart > (((eden).start))
+						? ((eden).start)
+						: oldSpaceStart));
 
 	/* begin objectStartingAt: */
 	numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
@@ -44,7 +44,7 @@ printWeaklings(void)
 	enableObjectEnumerationFrom(startObject);
 	while (1) {
 		assert((obj % (allocationUnit())) == 0);
-		if (!(oopisLessThan(obj, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(obj, endOfMemory))) break;
 		assert((long64At((void *)(obj))) != 0);
 
 		/* begin isEnumerableObject: */
@@ -52,7 +52,7 @@ printWeaklings(void)
 		assert((classIndex == (segmentBridgePun()))
 		 || ((classIndex == (isForwardedObjectClassIndexPun()))
 		 || (((long64At((void *)(obj))) != 0)
-		 && (classIndex < (GIV(numClassTablePages) * (classTablePageSize()))))));
+		 && (classIndex < (numClassTablePages * (classTablePageSize()))))));
 		if (classIndex >= (isForwardedObjectClassIndexPun())) {
 			format = (byteAt((void *)(obj + (formatFieldByteOffset())))) & (formatMask());
 			if (format == (weakArrayFormat())) {
@@ -72,13 +72,13 @@ printWeaklings(void)
 
 		/* begin objectAfterMaybeSlimBridge:limit: */
 		followingWordAddress = addressAfter(obj);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			obj = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			obj = endOfMemory;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
 		obj = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-					? ((oopisLessThan(obj, GIV(oldSpaceStart)))
+					? ((oopisLessThan(obj, oldSpaceStart))
 					 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 							? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 							: followingWordAddress + BaseHeaderSize)

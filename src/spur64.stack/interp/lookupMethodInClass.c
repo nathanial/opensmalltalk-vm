@@ -30,19 +30,19 @@ lookupMethodInClass(sqInt class)
 		warning("lookup class send break (heartbeat suppressed)");
 	}
 	currentClass = class;
-	while (currentClass != GIV(nilObj)) {
+	while (currentClass != nilObj) {
 		/* begin followObjField:ofObject: */
 		dictionary = longAt((void *)((currentClass + BaseHeaderSize) + ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
 		assert(isNonImmediate(dictionary));
 		if ((!((longAt((void *)(dictionary))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
 			dictionary = fixFollowedFieldofObjectwithInitialValue(MethodDictionaryIndex, currentClass, dictionary);
 		}
-		if (dictionary == GIV(nilObj)) {
+		if (dictionary == nilObj) {
 			createActualMessageTo(class);
-			GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorCannotInterpret) << (shiftForWord()))))));
+			messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorCannotInterpret) << (shiftForWord()))))));
 
 			/* begin sendBreakpoint:receiver: */
-			sendBreakpointclassTag(firstFixedFieldOfMaybeImmediate(GIV(messageSelector)), lengthOfMaybeImmediate(GIV(messageSelector)), /* fetchClassTagOf: */
+			sendBreakpointclassTag(firstFixedFieldOfMaybeImmediate(messageSelector), lengthOfMaybeImmediate(messageSelector), /* fetchClassTagOf: */
 				((tagBits = 0)
 					? tagBits
 					: (longAt((void *)(null))) & (classIndexMask())));
@@ -64,7 +64,7 @@ lookupMethodInClass(sqInt class)
 		   Also the limit can be set to force linear search of all dictionaries, which supports the
 		   booting of images that need rehashing (e.g. because a tracer has generated an image
 		   with different hashes but hasn't rehashed it yet.) */
-		if (mask <= GIV(methodDictLinearSearchLimit)) {
+		if (mask <= methodDictLinearSearchLimit) {
 			index = 0;
 			while (index <= mask) {
 				nextSelector = longAt((void *)((dictionary + BaseHeaderSize) + ((((usqInt)((index + SelectorStart)) << (shiftForWord()))))));
@@ -73,7 +73,7 @@ lookupMethodInClass(sqInt class)
 				 && ((!((longAt((void *)(nextSelector))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 					nextSelector = fixFollowedFieldofObjectwithInitialValue(index + SelectorStart, dictionary, nextSelector);
 				}
-				if (nextSelector == GIV(messageSelector)) {
+				if (nextSelector == messageSelector) {
 					/* begin followObjField:ofObject: */
 					methodArray = longAt((void *)((dictionary + BaseHeaderSize) + ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
 					assert(isNonImmediate(methodArray));
@@ -88,7 +88,7 @@ lookupMethodInClass(sqInt class)
 					 && ((!((longAt((void *)(objOop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 						objOop = fixFollowedFieldofObjectwithInitialValue(index, methodArray, objOop);
 					}
-					GIV(newMethod) = objOop;
+					newMethod = objOop;
 					found = 1;
 					goto l1;
 				}
@@ -97,9 +97,9 @@ lookupMethodInClass(sqInt class)
 			found = 0;
 			goto l1;
 		}
-		index = SelectorStart + (mask & ((((GIV(messageSelector) & (tagMask())) != 0)
-		? (GIV(messageSelector) >> 3)
-		: (long32At((void *)(GIV(messageSelector) + 4))) & (identityHashHalfWordMask()))));
+		index = SelectorStart + (mask & ((((messageSelector & (tagMask())) != 0)
+		? (messageSelector >> 3)
+		: (long32At((void *)(messageSelector + 4))) & (identityHashHalfWordMask()))));
 
 		/* It is assumed that there are some nils in this dictionary, and search will
 		   stop when one is encountered. However, if there are no nils, then wrapAround
@@ -107,7 +107,7 @@ lookupMethodInClass(sqInt class)
 		wrapAround = 0;
 		while (1) {
 			nextSelector = longAt((void *)((dictionary + BaseHeaderSize) + ((((usqInt)(index) << (shiftForWord()))))));
-			if (nextSelector == GIV(nilObj)) {
+			if (nextSelector == nilObj) {
 				found = 0;
 				goto l1;
 			}
@@ -116,7 +116,7 @@ lookupMethodInClass(sqInt class)
 			 && ((!((longAt((void *)(nextSelector))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 				nextSelector = fixFollowedFieldofObjectwithInitialValue(index + SelectorStart, dictionary, nextSelector);
 			}
-			if (nextSelector == GIV(messageSelector)) {
+			if (nextSelector == messageSelector) {
 				/* begin followObjField:ofObject: */
 				methodArray = longAt((void *)((dictionary + BaseHeaderSize) + ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
 				assert(isNonImmediate(methodArray));
@@ -131,7 +131,7 @@ lookupMethodInClass(sqInt class)
 				 && ((!((longAt((void *)(objOop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
 					objOop = fixFollowedFieldofObjectwithInitialValue(index - SelectorStart, methodArray, objOop);
 				}
-				GIV(newMethod) = objOop;
+				newMethod = objOop;
 				found = 1;
 				goto l1;
 			}
@@ -163,13 +163,13 @@ l1:
 	}
 
 	/* Could not find #doesNotUnderstand: -- unrecoverable error. */
-	if (GIV(messageSelector) == (longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord())))))))) {
+	if (messageSelector == (longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord())))))))) {
 		error("Recursive not understood error encountered");
 	}
 
 	/* Cound not find a normal message -- raise exception #doesNotUnderstand: */
 	createActualMessageTo(class);
-	GIV(messageSelector) = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord()))))));
-	sendBreakpointclassTag(GIV(messageSelector) + BaseHeaderSize, lengthOf(GIV(messageSelector)), (long32At((void *)(class + 4))) & (identityHashHalfWordMask()));
+	messageSelector = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SelectorDoesNotUnderstand) << (shiftForWord()))))));
+	sendBreakpointclassTag(messageSelector + BaseHeaderSize, lengthOf(messageSelector), (long32At((void *)(class + 4))) & (identityHashHalfWordMask()));
 	return lookupMethodInClass(class);
 }

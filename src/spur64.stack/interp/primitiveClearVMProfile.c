@@ -10,5 +10,5 @@ primitiveClearVMProfile(void)
 	ioClearProfile();
 
 	/* begin pop: */
-	GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+	stackPointer += argumentCount * BytesPerWord;
 }

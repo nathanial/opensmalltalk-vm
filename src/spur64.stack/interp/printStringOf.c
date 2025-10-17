@@ -24,7 +24,7 @@ printStringOf(sqInt oop)
 	}
 	cnt = ((((max = 128)) < ((len = lengthOf(oop)))) ? ((max = 128)) : ((len = lengthOf(oop))));
 	i = 0;
-	if ((isinstanceOfcompactClassIndex(oop, longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassByteArray) << (shiftForWord())))))), GIV(classByteArrayCompactIndex)))
+	if ((isinstanceOfcompactClassIndex(oop, longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassByteArray) << (shiftForWord())))))), classByteArrayCompactIndex))
 	 || (/* isLargeIntegerInstance: */
 		((!(oop & (tagMask()))))
 	 && ((((usqInt)(((longAt((void *)(oop))) & (classIndexMask())) - ClassLargeNegativeIntegerCompactIndex))) <= 1))) {
@@ -57,5 +57,5 @@ printStringOf(sqInt oop)
 	}
 
 	/* begin flush */
-	fflush(GIV(transcript));
+	fflush(transcript);
 }

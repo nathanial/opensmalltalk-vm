@@ -11,25 +11,25 @@ primitiveSetFullScreen(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt argOop;
 
-	argOop = longAt(GIV(stackPointer));
-	if (argOop == GIV(trueObj)) {
+	argOop = longAt(stackPointer);
+	if (argOop == trueObj) {
 		ioSetFullScreen(1);
 	}
 	else {
-		if (argOop == GIV(falseObj)) {
+		if (argOop == falseObj) {
 			ioSetFullScreen(0);
 		}
 		else {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 		}
 	}
-	if (!GIV(primFailCode)) {
+	if (!primFailCode) {
 		/* begin setFullScreenFlag: */
-		GIV(fullScreenFlag) = argOop == GIV(trueObj);
+		fullScreenFlag = argOop == trueObj;
 		assert(!((failed())));
-		GIV(stackPointer) += GIV(argumentCount) * BytesPerWord;
+		stackPointer += argumentCount * BytesPerWord;
 	}
 }

@@ -30,12 +30,12 @@ primitiveUninitializedNewWithArg(void)
 	/* For the mirror prims check that the class obj is actually a valid class. */
 
 	/* begin positiveMachineIntegerValueOf: */
-	if (((((longAt(GIV(stackPointer)))) & 7) == 1)) {
-		value = ((longAt(GIV(stackPointer))) >> 3);
+	if (((((longAt(stackPointer))) & 7) == 1)) {
+		value = ((longAt(stackPointer)) >> 3);
 		if (value < 0) {
 			/* begin primitiveFail */
-			if (!GIV(primFailCode)) {
-				GIV(primFailCode) = 1;
+			if (!primFailCode) {
+				primFailCode = 1;
 			}
 			size = null;
 			goto l1;
@@ -45,17 +45,17 @@ primitiveUninitializedNewWithArg(void)
 	}
 
 	/* don't inline the rare case */
-	size = positiveMachineIntegerValueOfObj(longAt(GIV(stackPointer)));
+	size = positiveMachineIntegerValueOfObj(longAt(stackPointer));
 	/* end positiveMachineIntegerValueOf: */
 l1:
-	if (GIV(primFailCode)) {
+	if (primFailCode) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 
 	/* positiveMachineIntegerValueOf: succeeds only for non-negative integers. */
-	classObj = longAt(GIV(stackPointer) + (1 * BytesPerWord));
+	classObj = longAt(stackPointer + (1 * BytesPerWord));
 
 	/* begin instantiateUninitializedClass:indexableSize: */
 	classFormat = ((longAt((void *)((classObj + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3);
@@ -70,7 +70,7 @@ l1:
 		if ((classIndex == ClassFloatCompactIndex)
 		 && (size != 2)) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrBadReceiver;
+			primFailCode = PrimErrBadReceiver;
 			obj = null;
 			goto l3;
 		}
@@ -87,7 +87,7 @@ l1:
 		break;
 	default:
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadReceiver;
+		primFailCode = PrimErrBadReceiver;
 		obj = null;
 		goto l3;
 	}
@@ -107,7 +107,7 @@ l1:
 							: -PrimErrBadReceiver));
 		if (classIndex < 0) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = -classIndex;
+			primFailCode = -classIndex;
 			obj = null;
 			goto l3;
 		}
@@ -115,7 +115,7 @@ l1:
 	if (numSlots > ((1U << (fixedFieldsFieldWidth())) - 1)) {
 		if (numSlots > (0x10000000000LL)) {
 			/* primitiveFailFor: */
-			GIV(primFailCode) = PrimErrUnsupported;
+			primFailCode = PrimErrUnsupported;
 			obj = null;
 			goto l3;
 		}
@@ -133,20 +133,20 @@ l1:
 				newObj = null;
 				goto l2;
 			}
-			newObjUsqInt = GIV(freeStart) + BaseHeaderSize;
+			newObjUsqInt = freeStart + BaseHeaderSize;
 			numBytes = (BaseHeaderSize + BaseHeaderSize) + (numSlots * BytesPerOop);
 		}
 		else {
-			newObjUsqInt = GIV(freeStart);
+			newObjUsqInt = freeStart;
 			numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 		}
-		if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
+		if ((freeStart + numBytes) > scavengeThreshold) {
 			if (numSlots <= ((1U << (fixedFieldsFieldWidth())) - 1)) {
-				if (!GIV(needGCFlag)) {
+				if (!needGCFlag) {
 					/* begin scheduleScavenge */
-					GIV(needGCFlag) = 1;
+					needGCFlag = 1;
 					forceInterruptCheck();
 				}
 			}
@@ -154,7 +154,7 @@ l1:
 			goto l2;
 		}
 		if (numSlots >= (numSlotsMask())) {
-			longAtput((void *)(GIV(freeStart)),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
+			longAtput((void *)(freeStart),((((usqInt)((numSlotsMask())) << (numSlotsFullShift())))) + numSlots);
 			longAtput((void *)(newObjUsqInt),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)(instSpecSqInt) << (formatShift()))))) + classIndex);
 		}
 		else {
@@ -164,7 +164,7 @@ l1:
 		/* for header parsing we put a saturated slot count in the prepended overflow size word */
 		assert((numBytes % (allocationUnit())) == 0);
 		assert((newObjUsqInt % (allocationUnit())) == 0);
-		GIV(freeStart) += numBytes;
+		freeStart += numBytes;
 		newObj = newObjUsqInt;
 		/* end allocateSlots:format:classIndex: */
 l2:;
@@ -174,11 +174,11 @@ l2:;
 l3:
 	if (obj) {
 		/* begin pop:thenPush: */
-		longAtput((sp = GIV(stackPointer) + (((GIV(argumentCount) + 1) - 1) * BytesPerWord)),obj);
-		GIV(stackPointer) = sp;
+		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),obj);
+		stackPointer = sp;
 	}
 	else {
-		instSpec = (((usqInt)((((longAt((void *)(((longAt(GIV(stackPointer) + (1 * BytesPerWord))) + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3)))) >> (fixedFieldsFieldWidth())) & (formatMask());
+		instSpec = (((usqInt)((((longAt((void *)(((longAt(stackPointer + (1 * BytesPerWord))) + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3)))) >> (fixedFieldsFieldWidth())) & (formatMask());
 		reasonCode = ((/* isIndexableFormat: */
 				(instSpec >= (arrayFormat()))
 			 && ((instSpec <= (weakArrayFormat()))
@@ -188,6 +188,6 @@ l3:
 					: PrimErrBadReceiver);
 
 		/* begin primitiveFailFor: */
-		GIV(primFailCode) = reasonCode;
+		primFailCode = reasonCode;
 	}
 }

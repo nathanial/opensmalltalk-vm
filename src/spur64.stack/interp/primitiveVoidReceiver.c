@@ -8,5 +8,5 @@
 EXPORT(void)
 primitiveVoidReceiver(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	longAtput(GIV(framePointer) + FoxReceiver,0);
+	longAtput(framePointer + FoxReceiver,0);
 }

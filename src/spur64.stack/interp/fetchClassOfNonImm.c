@@ -17,7 +17,7 @@ fetchClassOfNonImm(sqInt objOop)
 
 		/* Answer nil to avoid the assert failure in classOrNilAtIndex: */
 		if (classIndex == (isForwardedObjectClassIndexPun())) {
-			return GIV(nilObj);
+			return nilObj;
 		}
 	}
 	assert(classIndex >= (arrayClassIndexPun()));
@@ -28,9 +28,9 @@ fetchClassOfNonImm(sqInt objOop)
 	fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
 	/* begin fetchPointer:ofObject: */
-	classTablePage = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-	if (classTablePage == GIV(nilObj)) {
-		return GIV(nilObj);
+	classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+	if (classTablePage == nilObj) {
+		return nilObj;
 	}
 	fieldIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);
 

@@ -15,21 +15,21 @@ findNewMethodInClassTag(sqInt classTagArg)
     sqInt classTag;
     sqInt fieldIndex;
 
-	if (!(lookupInMethodCacheSelclassTag(GIV(messageSelector), classTagArg))) {
+	if (!(lookupInMethodCacheSelclassTag(messageSelector, classTagArg))) {
 		classTag = classTagArg;
 		if ((/* isOopForwarded: */
-			((!(GIV(messageSelector) & (tagMask()))))
-		 && ((!((longAt((void *)(GIV(messageSelector)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))
+			((!(messageSelector & (tagMask()))))
+		 && ((!((longAt((void *)(messageSelector))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))))
 		 || (classTag == (isForwardedObjectClassIndexPun()))) {
 			if (/* isOopForwarded: */
-				((!(GIV(messageSelector) & (tagMask()))))
-			 && ((!((longAt((void *)(GIV(messageSelector)))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
-				GIV(messageSelector) = handleForwardedSelectorFaultFor(GIV(messageSelector));
+				((!(messageSelector & (tagMask()))))
+			 && ((!((longAt((void *)(messageSelector))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+				messageSelector = handleForwardedSelectorFaultFor(messageSelector);
 			}
 			if (classTag == (isForwardedObjectClassIndexPun())) {
 				classTag = handleForwardedSendFaultForTag(classTag);
 			}
-			if (lookupInMethodCacheSelclassTag(GIV(messageSelector), classTag)) {
+			if (lookupInMethodCacheSelclassTag(messageSelector, classTag)) {
 				return null;
 			}
 		}
@@ -43,17 +43,17 @@ findNewMethodInClassTag(sqInt classTagArg)
 		fieldIndex = ((usqInt)(classTag)) >> (classTableMajorIndexShift());
 
 		/* begin fetchPointer:ofObject: */
-		classTablePage = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-		if (classTablePage == GIV(nilObj)) {
-			GIV(lkupClass) = null;
+		classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+		if (classTablePage == nilObj) {
+			lkupClass = null;
 			goto l1;
 		}
 		fieldIndex = classTag & ((1U << (classTableMajorIndexShift())) - 1);
-		GIV(lkupClass) = longAt((void *)((classTablePage + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+		lkupClass = longAt((void *)((classTablePage + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
 		/* end classForClassTag: */
 l1:
-		lookupMethodInClass(GIV(lkupClass));
-		addNewMethodToCache(GIV(lkupClass));
+		lookupMethodInClass(lkupClass);
+		addNewMethodToCache(lkupClass);
 	}
 	return 0;
 }

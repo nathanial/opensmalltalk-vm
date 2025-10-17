@@ -7,8 +7,8 @@ isInRememberedSet(sqInt objOop)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
     sqInt i;
 
-	for (i = 0; i < GIV(rememberedSetSize); i += 1) {
-		if ((GIV(rememberedSet)[i]) == objOop) {
+	for (i = 0; i < rememberedSetSize; i += 1) {
+		if ((rememberedSet[i]) == objOop) {
 			return 1;
 		}
 	}

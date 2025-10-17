@@ -12,7 +12,7 @@ primitiveLogN(void)
     double doubleValue;
     sqInt rcvr;
 
-	rcvr = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer);
 
 	/* begin noFailFloatValueOf: */
 	assert(isFloatInstance(rcvr));
@@ -35,5 +35,5 @@ primitiveLogN(void)
 	aValue = floatObjectOf(log(doubleValue));
 
 	/* begin stackTopPut: */
-	longAtput(GIV(stackPointer),aValue);
+	longAtput(stackPointer,aValue);
 }

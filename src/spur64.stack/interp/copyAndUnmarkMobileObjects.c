@@ -46,25 +46,25 @@ copyAndUnmarkMobileObjects(void)
 
 	availableSpace = 0;
 	previousPin = 0;
-	assert(!((isMarked(GIV(firstFreeObject)))));
+	assert(!((isMarked(firstFreeObject))));
 	toFinger = /* startOfObject: */
-			((byteAt((void *)(GIV(firstFreeObject) + (numSlotsFieldByteOffset())))) == (numSlotsMask())
-				? GIV(firstFreeObject) - BaseHeaderSize
-				: GIV(firstFreeObject));
-	top = (GIV(savedFirstFieldsSpace).start);
+			((byteAt((void *)(firstFreeObject + (numSlotsFieldByteOffset())))) == (numSlotsMask())
+				? firstFreeObject - BaseHeaderSize
+				: firstFreeObject);
+	top = (savedFirstFieldsSpace.start);
 	startOfPreviousPin = 0;
-	finalObject = (!(GIV(lastMobileObject))
-			? GIV(nilObj)
-			: GIV(lastMobileObject));
+	finalObject = (!(lastMobileObject)
+			? nilObj
+			: lastMobileObject);
 
 	/* begin allOldSpaceEntitiesForCompactingFrom:to:do: */
-	assert(isOldObject(GIV(firstFreeObject)));
-	assert(oopisLessThanOrEqualTo(finalObject, GIV(endOfMemory)));
+	assert(isOldObject(firstFreeObject));
+	assert(oopisLessThanOrEqualTo(finalObject, endOfMemory));
 	prevPrevObj = (prevObj = null);
-	objOop = GIV(firstFreeObject);
-	limit = (oopisLessThan(finalObject, GIV(endOfMemory))
+	objOop = firstFreeObject;
+	limit = (oopisLessThan(finalObject, endOfMemory)
 				? addressAfter(finalObject)
-				: GIV(endOfMemory));
+				: endOfMemory);
 	while (1) {
 		assert((objOop % (allocationUnit())) == 0);
 		if (!(oopisLessThan(objOop, limit))) break;
@@ -72,8 +72,8 @@ copyAndUnmarkMobileObjects(void)
 
 		/* begin objectAfter:limit: */
 		followingWordAddress = addressAfter(objOop);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			nextObj = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			nextObj = endOfMemory;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
@@ -86,7 +86,7 @@ l1:
 				? toFinger <= (startOfObject(objOop))
 				: (isMarked(previousPin))
 				 && (toFinger <= startOfPreviousPin)));
-		assert(GIV(savedFirstFieldsSpaceNotInOldSpace)
+		assert(savedFirstFieldsSpaceNotInOldSpace
 		 || (toFinger < top));
 		if ((byteAt((void *)(objOop + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) {
 			if ((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) {
@@ -105,7 +105,7 @@ l1:
 				 && ((bytes + (16)) > availableSpace))) {
 					if (availableSpace > 0) {
 						/* begin addFreeChunkWithBytes:at: */
-						GIV(totalFreeOldSpace) += availableSpace;
+						totalFreeOldSpace += availableSpace;
 						freeChunkWithBytesat(availableSpace, toFinger);
 					}
 					do {
@@ -187,9 +187,9 @@ l1:
 				assert(validStorePointerUncheckedArgs(0, destObj, firstField));
 				longAtput((void *)((destObj + BaseHeaderSize) + (0U << (shiftForWord()))),firstField);
 				toFinger += bytes;
-				if (((top += BytesPerOop)) >= ((GIV(savedFirstFieldsSpace).limit))) {
-					assert(((GIV(savedFirstFieldsSpace).top)) == (top - BytesPerOop));
-					assert(nextObj == GIV(objectAfterLastMobileObject));
+				if (((top += BytesPerOop)) >= ((savedFirstFieldsSpace.limit))) {
+					assert(((savedFirstFieldsSpace.top)) == (top - BytesPerOop));
+					assert(nextObj == objectAfterLastMobileObject);
 					if (!previousPin) {
 						previousPin = nextObj;
 						startOfPreviousPin = /* startOfObject: */
@@ -201,10 +201,10 @@ l1:
 					/* Create a free object for firstFreeObject to be set to on the next pass, but
 					   do not link it into the free tree as it will be written over in that next pass. */
 					if (toFinger < startOfPreviousPin) {
-						GIV(firstFreeObject) = initFreeChunkWithBytesat(startOfPreviousPin - toFinger, toFinger);
+						firstFreeObject = initFreeChunkWithBytesat(startOfPreviousPin - toFinger, toFinger);
 					}
 					else {
-						GIV(firstFreeObject) = previousPin;
+						firstFreeObject = previousPin;
 					}
 					return 0;
 				}
@@ -214,15 +214,15 @@ l1:
 		prevObj = objOop;
 		objOop = nextObj;
 	}
-	freeFromupTonextObject(toFinger, GIV(endOfMemory), (!(previousPin)
-		? (!(GIV(objectAfterLastMobileObject))
-				? objectAfter(GIV(firstFreeObject))
-				: GIV(objectAfterLastMobileObject))
+	freeFromupTonextObject(toFinger, endOfMemory, (!(previousPin)
+		? (!(objectAfterLastMobileObject)
+				? objectAfter(firstFreeObject)
+				: objectAfterLastMobileObject)
 		: previousPin));
 
 	/* begin coalesceFrom: */
 	next = 0;
-	if (toFinger >= GIV(endOfMemory)) {
+	if (toFinger >= endOfMemory) {
 		goto l2;
 	}
 
@@ -233,7 +233,7 @@ l1:
 				: toFinger);
 	while (1) {
 		next = oldSpaceObjectAfter(obj);
-		if (!(next < GIV(endOfMemory))) break;
+		if (!(next < endOfMemory)) break;
 		if ((((longAt((void *)(obj))) & (classIndexMask())) == (isFreeObjectClassIndexPun()))
 		 && (((longAt((void *)(next))) & (classIndexMask())) == (isFreeObjectClassIndexPun()))) {
 			objBytes = bytesInBody(obj);

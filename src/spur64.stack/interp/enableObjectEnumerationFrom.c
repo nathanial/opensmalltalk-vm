@@ -24,25 +24,25 @@
 static NoDbgRegParms void
 enableObjectEnumerationFrom(sqInt initialObject)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	if (oopisLessThan(initialObject, GIV(oldSpaceStart))) {
-		if (GIV(freeStart) > (((GIV(eden)).start))) {
+	if (oopisLessThan(initialObject, oldSpaceStart)) {
+		if (freeStart > (((eden).start))) {
 			/* begin bridgeEdenAndOldSpace */
-			initSegmentBridgeWithBytesat(GIV(oldSpaceStart) - GIV(freeStart), GIV(freeStart));
-			if (GIV(pastSpaceStart) < (((GIV(eden)).start))) {
-				if ((GIV(pastSpaceStart) + BaseHeaderSize) == (((GIV(eden)).start))) {
-					hackSlimBridgeToat(objectStartingAt(((GIV(eden)).start)), GIV(pastSpaceStart));
+			initSegmentBridgeWithBytesat(oldSpaceStart - freeStart, freeStart);
+			if (pastSpaceStart < (((eden).start))) {
+				if ((pastSpaceStart + BaseHeaderSize) == (((eden).start))) {
+					hackSlimBridgeToat(objectStartingAt(((eden).start)), pastSpaceStart);
 
 					/* And carefully check the assumption */
-					assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(GIV(pastSpaceStart)), GIV(nilObj))) == (objectStartingAt(((GIV(eden)).start))));
+					assert((objectAfterMaybeSlimBridgelimit(objectInPastSpaceBefore(pastSpaceStart), nilObj)) == (objectStartingAt(((eden).start))));
 				}
 				else {
-					initSegmentBridgeWithBytesat((((GIV(eden)).start)) - GIV(pastSpaceStart), GIV(pastSpaceStart));
+					initSegmentBridgeWithBytesat((((eden).start)) - pastSpaceStart, pastSpaceStart);
 				}
 			}
 		}
 		else {
 			/* begin bridgePastSpaceAndOldSpace */
-			initSegmentBridgeWithBytesat(GIV(oldSpaceStart) - GIV(pastSpaceStart), GIV(pastSpaceStart));
+			initSegmentBridgeWithBytesat(oldSpaceStart - pastSpaceStart, pastSpaceStart);
 		}
 	}
 }

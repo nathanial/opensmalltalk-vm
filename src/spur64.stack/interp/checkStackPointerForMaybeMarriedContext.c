@@ -16,7 +16,7 @@ checkStackPointerForMaybeMarriedContext(sqInt aContext)
     sqInt sp;
     sqInt spSqInt;
 
-	if (checkIsStillMarriedContextcurrentFP(aContext, GIV(framePointer))) {
+	if (checkIsStillMarriedContextcurrentFP(aContext, framePointer)) {
 		sp = checkStackPointerIndexForFrame(frameOfMarriedContext(aContext));
 		assert((ReceiverIndex + ((sp >> 3))) < (lengthOf(aContext)));
 		return sp;

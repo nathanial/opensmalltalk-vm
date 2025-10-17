@@ -12,8 +12,8 @@ printFreeListHeads(void)
 
 	expectedMask = 0;
 	for (i = 0; i <= 0x3F /* (numFreeLists - 1) */; i += 1) {
-		printHex(GIV(freeLists)[i]);
-		if (GIV(freeLists)[i]) {
+		printHex(freeLists[i]);
+		if (freeLists[i]) {
 			expectedMask += 1ULL << i;
 		}
 		if ((i + 1) % (4)) {
@@ -27,13 +27,13 @@ printFreeListHeads(void)
 	print("mask: ");
 
 	/* printHexnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p",
-			((void *)GIV(freeListsMask)));
+			((void *)freeListsMask));
 	print(" expected: ");
 
 	/* printHexnp: */
-	fprintf(GIV(transcript),
+	fprintf(transcript,
 			"%p",
 			((void *)expectedMask));
 	cr();

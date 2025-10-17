@@ -15,15 +15,15 @@ forceInterruptCheck(void)
 
 	/* Do _not_ set stackLimit until the stack system has been initialized.
 	   stackLimit is the initialization flag for the stack system. */
-	if (!GIV(stackLimit)) {
+	if (!stackLimit) {
 		return null;
 	}
-	thePage = GIV(stackPage);
+	thePage = stackPage;
 	if ((thePage)
 	 && (thePage != 0)) {
 		(thePage->stackLimit = ((char *) (((usqInt) -1))));
 	}
-	GIV(stackLimit) = ((char *) (((usqInt) -1)));
+	stackLimit = ((char *) (((usqInt) -1)));
 	sqLowLevelMFence();
 
 	/* There is a race condition if we test the function and then dereference
@@ -33,6 +33,6 @@ forceInterruptCheck(void)
 	if (((iccFunc = interruptCheckChain))) {
 		iccFunc();
 	}
-	GIV(statForceInterruptCheck) += 1;
+	statForceInterruptCheck += 1;
 	return 0;
 }

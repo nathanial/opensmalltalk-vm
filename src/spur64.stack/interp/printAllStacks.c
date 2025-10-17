@@ -36,7 +36,7 @@ printAllStacks(void)
 	proc = activeProcess();
 	printNameOfClasscount(/* fetchClassOf: */
 		((tagBits = proc & (tagMask()))
-			? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+			? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 			: fetchClassOfNonImm(proc)), 5);
 
 	/* begin space */
@@ -45,26 +45,26 @@ printAllStacks(void)
 	print(" priority ");
 	printNum(quickFetchIntegerofObject(PriorityIndex, proc));
 	cr();
-	if (GIV(framePointer)) {
+	if (framePointer) {
 		printCallStack();
 	}
 	else {
 		printProcessStack(proc);
 	}
-	objOop = longAt((void *)(((longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+	objOop = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
 
 	/* begin fetchPointer:ofObject: */
 	schedLists = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(ProcessListsIndex) << (shiftForWord()))))));
 	linkedListClass = null;
 
 	/* then the runnable processes */
-	p = (GIV(highestRunnableProcessPriority)
-				? GIV(highestRunnableProcessPriority)
+	p = (highestRunnableProcessPriority
+				? highestRunnableProcessPriority
 				: numSlotsOf(schedLists));
 	for (pri = (p - 1); pri >= 0; pri += -1) {
 		processList = longAt((void *)((schedLists + BaseHeaderSize) + ((((usqInt)(pri) << (shiftForWord()))))));
 		if (!(isEmptyList(processList))) {
-			if (proc == GIV(nilObj)) {
+			if (proc == nilObj) {
 				proc = longAt((void *)((processList + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))));
 			}
 			cr();
@@ -77,7 +77,7 @@ printAllStacks(void)
 		}
 	}
 	if (!linkedListClass) {
-		classPointer = longAt((void *)((GIV(specialObjectsOop) + BaseHeaderSize) + ((((usqInt)(ClassSemaphore) << (shiftForWord()))))));
+		classPointer = longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassSemaphore) << (shiftForWord()))))));
 
 		/* begin superclassOf: */
 		/* begin followObjField:ofObject: */
@@ -87,7 +87,7 @@ printAllStacks(void)
 			linkedListClass = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex, classPointer, linkedListClass);
 		}
 	}
-	if (proc == GIV(nilObj)) {
+	if (proc == nilObj) {
 		cr();
 		print("Cannot find a runnable process. Cannot therefore determine class Process. Cannot therefore print suspended processes");
 		return;
@@ -97,10 +97,10 @@ printAllStacks(void)
 
 	/* Find the root of the Process hierarchy. It is the class, or superclass,
 	   of a process, that has inst size at least large enough to include myList */
-	processClass = (!(proc == GIV(nilObj))
+	processClass = (!(proc == nilObj)
 				? /* fetchClassOf: */
 					((tagBits = proc & (tagMask()))
-						? longAt((void *)((GIV(classTableFirstPage) + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
+						? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
 						: fetchClassOfNonImm(proc))
 				: 0);
 	minProcessInstSize = MyListIndex + 1;
@@ -120,11 +120,11 @@ printAllStacks(void)
 
 	/* begin allObjectsDoSafely: */
 	address = /* startAddressForBridgedHeapEnumeration */
-			(GIV(pastSpaceStart) > (((GIV(pastSpace)).start))
-				? ((GIV(pastSpace)).start)
-				: (GIV(freeStart) > (((GIV(eden)).start))
-						? ((GIV(eden)).start)
-						: GIV(oldSpaceStart)));
+			(pastSpaceStart > (((pastSpace).start))
+				? ((pastSpace).start)
+				: (freeStart > (((eden).start))
+						? ((eden).start)
+						: oldSpaceStart));
 
 	/* begin objectStartingAt: */
 	numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
@@ -138,7 +138,7 @@ printAllStacks(void)
 	enableObjectEnumerationFrom(startObject);
 	while (1) {
 		assert((objSqInt % (allocationUnit())) == 0);
-		if (!(oopisLessThan(objSqInt, GIV(endOfMemory)))) break;
+		if (!(oopisLessThan(objSqInt, endOfMemory))) break;
 		assert((long64At((void *)(objSqInt))) != 0);
 		if (((longAt((void *)(objSqInt))) & (classIndexMask())) > (lastClassIndexPun())) {
 			if ((((byteAt((void *)(objSqInt + (formatFieldByteOffset())))) & (formatMask())) <= 5 /* lastPointerFormat */)
@@ -146,7 +146,7 @@ printAllStacks(void)
 			 && ((isContext(longAt((void *)((objSqInt + BaseHeaderSize) + ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))))))
 			 && (isKindOfClass(objSqInt, processClass))))) {
 				myList = longAt((void *)((objSqInt + BaseHeaderSize) + ((((usqInt)(MyListIndex) << (shiftForWord()))))));
-				if ((myList != GIV(nilObj))
+				if ((myList != nilObj)
 				 && ((((myListClass = fetchClassOfNonImm(myList))) != linkedListClass)
 				 && (isKindOfClass(myList, linkedListClass)))) {
 					printProcessStack(objSqInt);
@@ -158,13 +158,13 @@ printAllStacks(void)
 
 		/* begin objectAfterMaybeSlimBridge:limit: */
 		followingWordAddress = addressAfter(objSqInt);
-		if (oopisGreaterThanOrEqualTo(followingWordAddress, GIV(endOfMemory))) {
-			objSqInt = GIV(endOfMemory);
+		if (oopisGreaterThanOrEqualTo(followingWordAddress, endOfMemory)) {
+			objSqInt = endOfMemory;
 			goto l1;
 		}
 		followingWord = longAt((void *)(followingWordAddress));
 		objSqInt = ((((usqInt)(followingWord)) >> (numSlotsFullShift())) == (numSlotsMask())
-					? ((oopisLessThan(objSqInt, GIV(oldSpaceStart)))
+					? ((oopisLessThan(objSqInt, oldSpaceStart))
 					 && ((followingWord & 0xFFFFFFFFFFFFFFLL) == 1)
 							? (followingWordAddress + BaseHeaderSize) + BaseHeaderSize
 							: followingWordAddress + BaseHeaderSize)

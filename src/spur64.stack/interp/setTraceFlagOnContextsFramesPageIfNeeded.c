@@ -18,7 +18,7 @@ setTraceFlagOnContextsFramesPageIfNeeded(sqInt aContext)
 		pointer = ((char *)(senderOop - (smallIntegerTag())));
 
 		/* begin stackPageFor: */
-		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(pointer, GIV(stackMemory), GIV(bytesPerPage)), GIV(pages));
+		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(pointer, stackMemory, bytesPerPage), pages);
 		assert(((((thePage->trace)) >= StackPageUnreached) && (((thePage->trace)) <= StackPageTraced)));
 		if (!((thePage->trace))) {
 			(thePage->trace = StackPageReachedButUntraced);

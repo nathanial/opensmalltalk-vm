@@ -18,8 +18,8 @@ processWeaklings(void)
 
 	assert(allWeakSurvivorsOnWeakList());
 	i = 0;
-	while (i < GIV(rememberedSetSize)) {
-		rootObj = GIV(rememberedSet)[i];
+	while (i < rememberedSetSize) {
+		rootObj = rememberedSet[i];
 
 		/* begin isWeakNonImm: */
 		format = (byteAt((void *)(rootObj + (formatFieldByteOffset())))) & (formatMask());
@@ -29,18 +29,18 @@ processWeaklings(void)
 			}
 			else {
 				setIsRememberedOfto(rootObj, 0);
-				if ((i + 1) < GIV(rememberedSetSize)) {
-					GIV(rememberedSet)[i] = (GIV(rememberedSet)[GIV(rememberedSetSize) - 1]);
+				if ((i + 1) < rememberedSetSize) {
+					rememberedSet[i] = (rememberedSet[rememberedSetSize - 1]);
 				}
-				GIV(rememberedSetSize) -= 1;
+				rememberedSetSize -= 1;
 			}
 		}
 		else {
 			i += 1;
 		}
 	}
-	if (GIV(weakList)) {
-		weakCorpse = ((((usqInt)((GIV(weakList) - 1)) << 3 /* shiftForAllocationUnit */))) + GIV(newSpaceStart);
+	if (weakList) {
+		weakCorpse = ((((usqInt)((weakList - 1)) << 3 /* shiftForAllocationUnit */))) + newSpaceStart;
 		while (weakCorpse) {
 			assert(isForwarded(weakCorpse));
 
@@ -57,7 +57,7 @@ processWeaklings(void)
 			if ((processWeakSurvivor(weakObj))
 			 && (((/* begin isOldObject: */
 				assert(isNonImmediate(weakObj)),
-			oopisGreaterThanOrEqualTo(weakObj, GIV(oldSpaceStart))))
+			oopisGreaterThanOrEqualTo(weakObj, oldSpaceStart)))
 			 && (!(((byteAt((void *)(weakObj + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift()))) != 0)))) {
 				remember(weakObj);
 			}
@@ -66,9 +66,9 @@ processWeaklings(void)
 			assert(isYoung(weakCorpse));
 			listOffset = ((((usqInt)(((long32At((void *)(weakCorpse + 4))) & (identityHashHalfWordMask()))) << (formatFieldWidthShift())))) + ((byteAt((void *)(weakCorpse + (formatFieldByteOffset())))) & (formatMask()));
 			weakCorpse = ((sqInt) ((listOffset
-		? ((((usqInt)((listOffset - 1)) << 3 /* shiftForAllocationUnit */))) + GIV(newSpaceStart)
+		? ((((usqInt)((listOffset - 1)) << 3 /* shiftForAllocationUnit */))) + newSpaceStart
 		: 0)));
 		}
-		GIV(weakList) = null;
+		weakList = null;
 	}
 }

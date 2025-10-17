@@ -41,7 +41,7 @@ marryFrameSP(char *theFP, char *theSP)
 	}
 	else {
 		numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
-		closureOrNil = GIV(nilObj);
+		closureOrNil = nilObj;
 	}
 	numStack = (((usqInt)(((theFP + FoxReceiver) - theSP))) >> (shiftForWord())) + (byteAt((theFP + FoxFrameFlags) + 1));
 	numSlots = (methodHeader & LargeContextBit
@@ -55,30 +55,30 @@ marryFrameSP(char *theFP, char *theSP)
 			theContext = null;
 			goto l1;
 		}
-		newObj = GIV(freeStart) + BaseHeaderSize;
+		newObj = freeStart + BaseHeaderSize;
 		numBytes = (BaseHeaderSize + BaseHeaderSize) + (numSlots * BytesPerOop);
 	}
 	else {
-		newObj = GIV(freeStart);
+		newObj = freeStart;
 		numBytes = BaseHeaderSize + ((numSlots < 1
 		? 8 /* allocationUnit */
 		: numSlots * BytesPerOop));
 	}
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateNewSpaceSlots:format:classIndex:");
 			theContext = 0;
 			goto l1;
 		}
 	}
 	if (numSlots >= (numSlotsMask())) {
-		longAtput((void *)(GIV(freeStart)),numSlots);
-		longAtput((void *)(GIV(freeStart) + 4),((sqInt)((usqInt)((numSlotsMask())) << (numSlotsHalfShift()))));
+		longAtput((void *)(freeStart),numSlots);
+		longAtput((void *)(freeStart + 4),((sqInt)((usqInt)((numSlotsMask())) << (numSlotsHalfShift()))));
 		long64Atput((void *)(newObj),((((((usqLong) (numSlotsMask()))) << (numSlotsFullShift()))) + ((((usqInt)((indexablePointersFormat())) << (formatShift()))))) + ClassMethodContextCompactIndex);
 	}
 	else {
@@ -88,7 +88,7 @@ marryFrameSP(char *theFP, char *theSP)
 	/* for header parsing we put a saturated slot count in the prepended overflow size word */
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	theContext = newObj;
 	/* end eeInstantiateMethodContextSlots: */
 l1:
@@ -149,8 +149,8 @@ l1:
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(theContext))
 		 && (!(isForwarded(theContext))));
-		assert(validStorePointerUncheckedArgs(ReceiverIndex + i, theContext, GIV(nilObj)));
-		longAtput((void *)((theContext + BaseHeaderSize) + ((((usqInt)((ReceiverIndex + i)) << (shiftForWord()))))),GIV(nilObj));
+		assert(validStorePointerUncheckedArgs(ReceiverIndex + i, theContext, nilObj));
+		longAtput((void *)((theContext + BaseHeaderSize) + ((((usqInt)((ReceiverIndex + i)) << (shiftForWord()))))),nilObj);
 	}
 
 	/* begin setFrameContext:to: */

@@ -40,11 +40,11 @@ identityHashOf(sqInt anOop)
 	if (!hash) {
 		/* begin newHashBitsOf: */
 		/* begin newObjectHash */
-		assert(!((GIV(lastHash) == 0)));
-		GIV(lastHash) = GIV(lastHash) ^ (((GIV(lastHash)) >> 2));
-		GIV(lastHash) = GIV(lastHash) ^ ((((GIV(lastHash) << 7))) & (identityHashHalfWordMask()));
-		GIV(lastHash) = GIV(lastHash) ^ (((GIV(lastHash)) >> 3));
-		hashUsqInt = GIV(lastHash);
+		assert(!((lastHash == 0)));
+		lastHash = lastHash ^ (((lastHash) >> 2));
+		lastHash = lastHash ^ ((((lastHash << 7))) & (identityHashHalfWordMask()));
+		lastHash = lastHash ^ (((lastHash) >> 3));
+		hashUsqInt = lastHash;
 
 		/* begin setHashBitsOf:to: */
 		long32Atput((void *)(anOop + 4),((((long32At((void *)(anOop + 4))) | (identityHashHalfWordMask())) - (identityHashHalfWordMask()))) + (hashUsqInt & (identityHashHalfWordMask())));

@@ -8,29 +8,29 @@ static NoDbgRegParms sqInt
 isValidObjStackPagemyIndex(sqInt objStackPage, sqInt myx)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
 	if (!(((longAt((void *)(objStackPage))) & (classIndexMask())) == (sixtyFourBitLongsClassIndexPun()))) {
-		GIV(objStackInvalidBecause) = "wrong class index";
-		GIV(invalidObjStackPage) = objStackPage;
+		objStackInvalidBecause = "wrong class index";
+		invalidObjStackPage = objStackPage;
 		return 0;
 	}
 	if (!(((byteAt((void *)(objStackPage + (formatFieldByteOffset())))) & (formatMask())) == (sixtyFourBitIndexableFormat()))) {
-		GIV(objStackInvalidBecause) = "wrong format";
-		GIV(invalidObjStackPage) = objStackPage;
+		objStackInvalidBecause = "wrong format";
+		invalidObjStackPage = objStackPage;
 		return 0;
 	}
 	if (!((numSlotsOfAny(objStackPage)) == ObjStackPageSlots)) {
-		GIV(objStackInvalidBecause) = "wrong num slots";
-		GIV(invalidObjStackPage) = objStackPage;
+		objStackInvalidBecause = "wrong num slots";
+		invalidObjStackPage = objStackPage;
 		return 0;
 	}
 	if (!(myx == (longAt((void *)((objStackPage + BaseHeaderSize) + ((((usqInt)(ObjStackMyx) << (shiftForWord()))))))))) {
-		GIV(objStackInvalidBecause) = "wrong myx";
-		GIV(invalidObjStackPage) = objStackPage;
+		objStackInvalidBecause = "wrong myx";
+		invalidObjStackPage = objStackPage;
 		return 0;
 	}
-	if (GIV(marking)
+	if (marking
 	 && (!(((byteAt((void *)(objStackPage + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) != 0))) {
-		GIV(objStackInvalidBecause) = "marking but page is unmarked";
-		GIV(invalidObjStackPage) = objStackPage;
+		objStackInvalidBecause = "marking but page is unmarked";
+		invalidObjStackPage = objStackPage;
 		return 0;
 	}
 	return 1;

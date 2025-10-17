@@ -5,6 +5,6 @@
 static NoDbgRegParms sqInt
 isMobile(sqInt obj)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return (oopisGreaterThanOrEqualToandLessThanOrEqualTo(obj, GIV(mobileStart), GIV(lastMobileObject)))
+	return (oopisGreaterThanOrEqualToandLessThanOrEqualTo(obj, mobileStart, lastMobileObject))
 	 && (!(((byteAt((void *)(obj + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0));
 }

@@ -5,6 +5,6 @@
 static sqInt
 savedFirstFieldsSpaceWasAllocated(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return GIV(savedFirstFieldsSpaceNotInOldSpace)
-	 && (oopisGreaterThan((GIV(savedFirstFieldsSpace).start), GIV(nilObj)));
+	return savedFirstFieldsSpaceNotInOldSpace
+	 && (oopisGreaterThan((savedFirstFieldsSpace.start), nilObj));
 }

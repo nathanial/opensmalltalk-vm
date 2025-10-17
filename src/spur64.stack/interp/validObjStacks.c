@@ -5,10 +5,10 @@
 static sqInt
 validObjStacks(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return ((GIV(markStack) == GIV(nilObj))
-	 || (isValidObjStack(GIV(markStack))))
-	 && (((GIV(weaklingStack) == GIV(nilObj))
-	 || (isValidObjStack(GIV(weaklingStack))))
-	 && ((GIV(mournQueue) == GIV(nilObj))
-	 || (isValidObjStack(GIV(mournQueue)))));
+	return ((markStack == nilObj)
+	 || (isValidObjStack(markStack)))
+	 && (((weaklingStack == nilObj)
+	 || (isValidObjStack(weaklingStack)))
+	 && ((mournQueue == nilObj)
+	 || (isValidObjStack(mournQueue))));
 }

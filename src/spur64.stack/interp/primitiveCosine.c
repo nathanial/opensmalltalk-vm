@@ -12,7 +12,7 @@ primitiveCosine(void)
     double doubleValue;
     sqInt rcvr;
 
-	rcvr = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer);
 
 	/* begin noFailFloatValueOf: */
 	assert(isFloatInstance(rcvr));
@@ -35,5 +35,5 @@ primitiveCosine(void)
 	aValue = floatObjectOf(cos(doubleValue));
 
 	/* begin stackTopPut: */
-	longAtput(GIV(stackPointer),aValue);
+	longAtput(stackPointer,aValue);
 }

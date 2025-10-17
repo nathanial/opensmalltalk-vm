@@ -10,9 +10,9 @@ printStackPages(void)
     sqInt i;
     StackPage *page;
 
-	for (i = 0; i < GIV(numStackPages); i += 1) {
+	for (i = 0; i < numStackPages; i += 1) {
 		/* begin stackPageAt: */
-		page = stackPageAtpages(i, GIV(pages));
+		page = stackPageAtpages(i, pages);
 		printStackPageuseCount(page, -1);
 		cr();
 	}

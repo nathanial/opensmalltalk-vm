@@ -12,45 +12,45 @@ primitiveMakePoint(void)
     sqInt rcvr;
     char *sp;
 
-	rcvr = longAt(GIV(stackPointer) + (1 * BytesPerWord));
-	arg = longAt(GIV(stackPointer));
+	rcvr = longAt(stackPointer + (1 * BytesPerWord));
+	arg = longAt(stackPointer);
 	if (!(/* isFloatOrInt: */
 			(((arg & (tagMask())) != 0)
 				? !(((arg & (characterTag())) != 0))
 				: ((longAt((void *)(arg))) & (classIndexMask())) == ClassFloatCompactIndex))) {
 		/* primitiveFailFor: */
-		GIV(primFailCode) = PrimErrBadArgument;
+		primFailCode = PrimErrBadArgument;
 		return;
 	}
 
 	/* begin eeInstantiatePoint */
 	/* begin eeInstantiateSmallClassIndex:format:numSlots: */
 	assert(((YIndex + 1) >= 0)
-	 && ((knownClassAtIndex(ClassPointCompactIndex)) != GIV(nilObj)));
+	 && ((knownClassAtIndex(ClassPointCompactIndex)) != nilObj));
 	assert((nonIndexablePointerFormat()) == (instSpecOfClass(knownClassAtIndex(ClassPointCompactIndex))));
 
 	/* begin allocateSmallNewSpaceSlots:format:classIndex: */
 	assert((YIndex + 1) < (numSlotsMask()));
-	newObj = GIV(freeStart);
+	newObj = freeStart;
 	numBytes = BaseHeaderSize + (((YIndex + 1) < 1
 		? 8 /* allocationUnit */
 		: (YIndex + 1) * BytesPerOop));
 	assert((numBytes % (allocationUnit())) == 0);
 	assert((newObj % (allocationUnit())) == 0);
-	if ((GIV(freeStart) + numBytes) > GIV(scavengeThreshold)) {
-		if (!GIV(needGCFlag)) {
+	if ((freeStart + numBytes) > scavengeThreshold) {
+		if (!needGCFlag) {
 			/* begin scheduleScavenge */
-			GIV(needGCFlag) = 1;
+			needGCFlag = 1;
 			forceInterruptCheck();
 		}
-		if ((GIV(freeStart) + numBytes) > (((GIV(eden)).limit))) {
+		if ((freeStart + numBytes) > (((eden).limit))) {
 			error("no room in eden for allocateSmallNewSpaceSlots:format:classIndex:");
 			pt = 0;
 			goto l1;
 		}
 	}
 	long64Atput((void *)(newObj),((((((usqLong) (YIndex + 1))) << (numSlotsFullShift()))) + ((((usqInt)((nonIndexablePointerFormat())) << (formatShift()))))) + ClassPointCompactIndex);
-	GIV(freeStart) += numBytes;
+	freeStart += numBytes;
 	pt = newObj;
 	/* end eeInstantiatePoint */
 l1:
@@ -70,6 +70,6 @@ l1:
 	longAtput((void *)((pt + BaseHeaderSize) + ((((usqInt)(YIndex) << (shiftForWord()))))),arg);
 
 	/* begin pop:thenPush: */
-	longAtput((sp = GIV(stackPointer) + (1 * BytesPerWord)),pt);
-	GIV(stackPointer) = sp;
+	longAtput((sp = stackPointer + (1 * BytesPerWord)),pt);
+	stackPointer = sp;
 }

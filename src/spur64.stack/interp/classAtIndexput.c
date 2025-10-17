@@ -12,15 +12,15 @@ classAtIndexput(sqInt classIndex, sqInt objOop)
 
 	assert((classIndex <= (tagMask()))
 	 || (classIndex >= (arrayClassIndexPun())));
-	assert((objOop == GIV(nilObj))
+	assert((objOop == nilObj)
 	 || ((((rawHashBitsOf(objOop)) == classIndex)
 	 || ((classAtIndex(rawHashBitsOf(objOop))) == objOop))
 	 && (objCouldBeClassObj(objOop))));
 	fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
 	/* begin fetchPointer:ofObject: */
-	classTablePage = longAt((void *)((GIV(hiddenRootsObj) + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-	if (classTablePage == GIV(nilObj)) {
+	classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+	if (classTablePage == nilObj) {
 		error("attempt to add class to empty page");
 	}
 	fieldIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);
@@ -28,10 +28,10 @@ classAtIndexput(sqInt classIndex, sqInt objOop)
 	/* begin storePointer:ofObject:withValue: */
 	assert(validStorePointerArgs(fieldIndex, classTablePage, objOop));
 	assert(isNonImmediate(classTablePage));
-	if (oopisGreaterThanOrEqualTo(classTablePage, GIV(oldSpaceStart))) {
+	if (oopisGreaterThanOrEqualTo(classTablePage, oldSpaceStart)) {
 		if (/* isYoung: */
 			((!(objOop & (tagMask()))))
-		 && (oopisLessThan(objOop, GIV(oldSpaceStart)))) {
+		 && (oopisLessThan(objOop, oldSpaceStart))) {
 			/* begin possibleRootStoreInto: */
 			if (!((byteAt((void *)(classTablePage + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
 				remember(classTablePage);

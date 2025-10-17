@@ -23,7 +23,7 @@ disownVM(sqInt flags)
     sqInt top;
     void *vmHandle;
 
-	assert(GIV(primFailCode) == 0);
+	assert(primFailCode == 0);
 	assert(flags != 0);
 
 	/* In the single-threaded VM here, we treat flags directly as vmHandle. See MTVM. */
@@ -37,22 +37,22 @@ disownVM(sqInt flags)
 
 	/* If DisownVMForFFICall this is from the FFI plugin and we're making a callout; remember the fact. */
 	if (((flags & DisownVMForFFICall) != 0)) {
-		assert((isOopCompiledMethod(GIV(newMethod)))
-		 && ((argumentCountOf(GIV(newMethod))) == GIV(argumentCount)));
-		return (GIV(ffiCalloutVMHandle) = vmHandle);
+		assert((isOopCompiledMethod(newMethod))
+		 && ((argumentCountOf(newMethod)) == argumentCount));
+		return (ffiCalloutVMHandle = vmHandle);
 	}
 
 	/* Otherwise this is a callback return; restore argumentCount and newMethod as per the ownVM: on callback. */
 	if (((flags & DisownVMFromCallback) != 0)) {
-		GIV(argumentCount) = ((popStack()) >> 3);
-		assert(((GIV(argumentCount) >= 0) && (GIV(argumentCount) <= (argumentCountOfMethodHeader(-1)))));
+		argumentCount = ((popStack()) >> 3);
+		assert(((argumentCount >= 0) && (argumentCount <= (argumentCountOfMethodHeader(-1)))));
 
 		/* begin popStack */
-		top = longAt(GIV(stackPointer));
-		GIV(stackPointer) += BytesPerWord;
-		GIV(newMethod) = top;
-		assert((isOopCompiledMethod(GIV(newMethod)))
-		 && ((argumentCountOf(GIV(newMethod))) == GIV(argumentCount)));
+		top = longAt(stackPointer);
+		stackPointer += BytesPerWord;
+		newMethod = top;
+		assert((isOopCompiledMethod(newMethod))
+		 && ((argumentCountOf(newMethod)) == argumentCount));
 		return null;
 	}
 	return vmHandle;

@@ -19,20 +19,20 @@ allWeakSurvivorsOnWeakList(void)
 
 	/* begin allFutureSpaceEntitiesDo: */
 	prevPrevObj = (prevObj = null);
-	address = (GIV(futureSpace).start);
+	address = (futureSpace.start);
 
 	/* begin objectStartingAt: */
 	numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));
 	objOop = (numSlots == (numSlotsMask())
 				? address + BaseHeaderSize
 				: address);
-	limit = GIV(futureSurvivorStart);
+	limit = futureSurvivorStart;
 	while (oopisLessThan(objOop, limit)) {
 		/* begin isWeakNonImm: */
 		format = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
 		if (format == (weakArrayFormat())) {
 			/* begin is:onWeaklingList: */
-			corpse = ((((usqInt)((GIV(weakList) - 1)) << 3 /* shiftForAllocationUnit */))) + GIV(newSpaceStart);
+			corpse = ((((usqInt)((weakList - 1)) << 3 /* shiftForAllocationUnit */))) + newSpaceStart;
 			while (corpse) {
 				if (objOop == (followForwarded(corpse))) {
 					goto l1;
@@ -42,7 +42,7 @@ allWeakSurvivorsOnWeakList(void)
 				assert(isYoung(corpse));
 				listOffset = ((((usqInt)(((long32At((void *)(corpse + 4))) & (identityHashHalfWordMask()))) << (formatFieldWidthShift())))) + ((byteAt((void *)(corpse + (formatFieldByteOffset())))) & (formatMask()));
 				corpse = ((sqInt) ((listOffset
-		? ((((usqInt)((listOffset - 1)) << 3 /* shiftForAllocationUnit */))) + GIV(newSpaceStart)
+		? ((((usqInt)((listOffset - 1)) << 3 /* shiftForAllocationUnit */))) + newSpaceStart
 		: 0)));
 			}
 			return 0;

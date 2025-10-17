@@ -5,7 +5,7 @@
 static double
 statAverageLivePagesWhenMapping(void)
 {   DECL_MAYBE_SQ_GLOBAL_STRUCT
-	return (GIV(statNumMaps)
-			? (((double) GIV(statPageCountWhenMappingSum) )) / GIV(statNumMaps)
+	return (statNumMaps
+			? (((double) statPageCountWhenMappingSum )) / statNumMaps
 			: 0.0);
 }

@@ -8,7 +8,7 @@ allUnscannedEphemeronsAreActive(void)
     sqInt key;
     usqInt p;
 
-	for (p = ((GIV(unscannedEphemerons).start)); p <= ((GIV(unscannedEphemerons).top)); p += BytesPerOop) {
+	for (p = ((unscannedEphemerons.start)); p <= ((unscannedEphemerons.top)); p += BytesPerOop) {
 		/* begin keyOfMaybeFiredEphemeron: */
 		assert((isNonImmediate(longAt((void *)(p))))
 		 && (isMaybeFiredEphemeron(longAt((void *)(p)))));
