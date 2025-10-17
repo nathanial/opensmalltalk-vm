@@ -27,7 +27,6 @@ static void primitiveTestDisplayDepth(void) {
   }
   if (!primFailCode) {
     /* begin pop:thenPushBool: */
-    popthenPushBool(2, /* booleanObjectOf: */
-                    (okay ? trueObj : falseObj));
+    popthenPushBool(2, booleanObjectOf(okay));
   }
 }

@@ -65,8 +65,7 @@ static void primitiveObjectPointsTo(void) {
               marriedContextpointsTostackDeltaForCurrentFrame(rcvr, thang, 2);
 
           /* begin pop:thenPushBool: */
-          popthenPushBool(2, /* booleanObjectOf: */
-                          (trueOrFalse ? trueObj : falseObj));
+          popthenPushBool(2, booleanObjectOf(trueOrFalse));
           return;
         }
       }

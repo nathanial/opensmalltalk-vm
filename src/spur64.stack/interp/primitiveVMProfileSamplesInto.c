@@ -20,8 +20,7 @@ static void primitiveVMProfileSamplesInto(void) {
   ioNewProfileStatus((&running), (&bufferSize));
   if (!argumentCount) {
     /* begin pop:thenPushBool: */
-    popthenPushBool(1, /* booleanObjectOf: */
-                    (running ? trueObj : falseObj));
+    popthenPushBool(1, booleanObjectOf(running));
     return;
   }
   if (!(argumentCount == 1)) {

@@ -9,7 +9,6 @@ static void primitiveFloatEqual(void) {
                                    longAt(stackPointer));
   if (!primFailCode) {
     /* begin pop:thenPushBool: */
-    popthenPushBool(2, /* booleanObjectOf: */
-                    (aBool ? trueObj : falseObj));
+    popthenPushBool(2, booleanObjectOf(aBool));
   }
 }

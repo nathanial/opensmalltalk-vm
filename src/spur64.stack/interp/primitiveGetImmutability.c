@@ -27,7 +27,6 @@ static void primitiveGetImmutability(void) {
   /* begin methodReturnBool: */
   assert(!((failed())));
   longAtput((sp = stackPointer + (((argumentCount + 1) - 1) *
-                                  BytesPerWord)), /* booleanObjectOf: */
-            (boolean ? trueObj : falseObj));
+                                  BytesPerWord)), booleanObjectOf(boolean));
   stackPointer = sp;
 }

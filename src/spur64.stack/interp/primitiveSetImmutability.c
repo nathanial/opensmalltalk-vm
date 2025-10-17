@@ -162,7 +162,6 @@ static void primitiveSetImmutability(void) {
   /* begin methodReturnBool: */
   assert(!((failed())));
   longAtput((sp = stackPointer + (((argumentCount + 1) - 1) *
-                                  BytesPerWord)), /* booleanObjectOf: */
-            (wasImmutable ? trueObj : falseObj));
+                                  BytesPerWord)), booleanObjectOf(wasImmutable));
   stackPointer = sp;
 }

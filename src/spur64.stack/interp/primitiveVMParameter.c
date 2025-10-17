@@ -740,8 +740,7 @@ static void primitiveVMParameter(void) {
     longAtput(
         (void *)((resultSqInt + BaseHeaderSize) + (73U << (shiftForWord()))),
         (((usqInt)((statMaxAllocSegmentTime + 500) / 1000) << 3) | 1));
-    valuePointer = /* booleanObjectOf: */
-        (primitiveDoMixedArithmetic ? trueObj : falseObj);
+    valuePointer = booleanObjectOf(primitiveDoMixedArithmetic);
 
     /* begin storePointerUnchecked:ofObject:withValue: */
     assert((isNonImmediate(resultSqInt)) && (!(isForwarded(resultSqInt))));
@@ -1114,8 +1113,7 @@ static void primitiveVMParameter(void) {
       goto l1;
       break;
     case 75:
-      result = /* booleanObjectOf: */
-          (primitiveDoMixedArithmetic ? trueObj : falseObj);
+      result = booleanObjectOf(primitiveDoMixedArithmetic);
       goto l1;
       break;
     case 76:
@@ -1441,8 +1439,7 @@ static void primitiveVMParameter(void) {
     }
     break;
   case 75:
-    resultSqInt = /* booleanObjectOf: */
-        (primitiveDoMixedArithmetic ? trueObj : falseObj);
+    resultSqInt = booleanObjectOf(primitiveDoMixedArithmetic);
 
     /* begin initPrimCall */
     primFailCode = 0;

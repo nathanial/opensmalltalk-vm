@@ -6,8 +6,7 @@ void pushBool(sqInt trueOrFalse) {
   sqInt object;
   char *sp;
 
-  object = /* booleanObjectOf: */
-      (trueOrFalse ? trueObj : falseObj);
+  object = booleanObjectOf(trueOrFalse);
 
   /* begin push: */
   longAtput((sp = stackPointer - BytesPerWord), object);

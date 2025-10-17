@@ -11,15 +11,13 @@ static void primitiveNotEqual(void) {
   integerReceiver = longAt(stackPointer + (1 * BytesPerWord));
   if ((((integerReceiver & integerArgument) & (smallIntegerTag())) != 0)) {
     /* begin pop:thenPushBool: */
-    popthenPushBool(2, /* booleanObjectOf: */
-                    (integerReceiver != integerArgument ? trueObj : falseObj));
+    popthenPushBool(2, booleanObjectOf(integerReceiver != integerArgument));
   } else {
     result = (signedMachineIntegerValueOf(integerReceiver)) !=
              (signedMachineIntegerValueOf(integerArgument));
     if (!primFailCode) {
       /* begin pop:thenPushBool: */
-      popthenPushBool(2, /* booleanObjectOf: */
-                      (result ? trueObj : falseObj));
+      popthenPushBool(2, booleanObjectOf(result));
     }
   }
 }

@@ -20,6 +20,5 @@ static void primitiveIsPinned(void) {
                  (1U << (pinnedBitByteShift()))) != 0;
 
   /* begin pop:thenPushBool: */
-  popthenPushBool(argumentCount + 1, /* booleanObjectOf: */
-                  (trueOrFalse ? trueObj : falseObj));
+  popthenPushBool(argumentCount + 1, booleanObjectOf(trueOrFalse));
 }

@@ -1417,6 +1417,7 @@ extern usqInt pcPreviousToinSqueakV3PlusClosuresOrSistaV1Method(sqInt theIP,
 static sqInt penultimateLiteralOf(sqInt aMethodOop);
 extern sqInt popStack(void);
 extern sqInt pop(sqInt nItems);
+extern sqInt booleanObjectOf(sqInt flag);
 extern void popthenPush(sqInt nItems, sqInt oop);
 extern void popthenPushBool(sqInt nItems, sqInt booleanOop);
 extern sqInt positive32BitIntegerFor(unsigned int integerValue);
@@ -3797,6 +3798,7 @@ void enableSendPrinting(void) {
 #include "interp/penultimateLiteralOf.c"
 #include "interp/pop.c"
 #include "interp/popStack.c"
+#include "interp/booleanObjectOf.c"
 #include "interp/popthenPush.c"
 #include "interp/popthenPushBool.c"
 #include "interp/positive32BitIntegerFor.c"

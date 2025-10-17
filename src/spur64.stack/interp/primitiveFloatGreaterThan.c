@@ -9,7 +9,6 @@ static void primitiveFloatGreaterThan(void) {
       longAt(stackPointer + (1 * BytesPerWord)), longAt(stackPointer));
   if (!primFailCode) {
     /* begin pop:thenPushBool: */
-    popthenPushBool(2, /* booleanObjectOf: */
-                    (aBool ? trueObj : falseObj));
+    popthenPushBool(2, booleanObjectOf(aBool));
   }
 }

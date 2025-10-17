@@ -29,8 +29,7 @@ primitiveMultipleBytecodeSetsActive(void) {
   /* begin methodReturnBool: */
   assert(!((failed())));
   longAtput((sp = stackPointer + (((argumentCount + 1) - 1) *
-                                  BytesPerWord)), /* booleanObjectOf: */
-            (multipleBytecodeSetsActive ? trueObj : falseObj));
+                                  BytesPerWord)), booleanObjectOf(multipleBytecodeSetsActive));
   stackPointer = sp;
   return 0;
 }

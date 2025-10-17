@@ -10,7 +10,6 @@ sqInt methodReturnBool(sqInt boolean) {
   assert(!((failed())));
 
   /* begin pop:thenPushBool: */
-  popthenPushBool(argumentCount + 1, /* booleanObjectOf: */
-                  (boolean ? trueObj : falseObj));
+  popthenPushBool(argumentCount + 1, booleanObjectOf(boolean));
   return 0;
 }

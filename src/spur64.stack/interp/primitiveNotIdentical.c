@@ -28,7 +28,6 @@ static void primitiveNotIdentical(void) {
     primFailCode = PrimErrBadArgument;
   } else {
     /* begin pop:thenPushBool: */
-    popthenPushBool(argumentCount + 1, /* booleanObjectOf: */
-                    (thisObject != otherObject ? trueObj : falseObj));
+    popthenPushBool(argumentCount + 1, booleanObjectOf(thisObject != otherObject));
   }
 }

@@ -72,12 +72,10 @@ l1:
       intArg = ((longAt(stackPointer)) >> 3);
 
       /* begin pop:thenPushBool: */
-      popthenPushBool(2, /* booleanObjectOf: */
-                      ((((sqInt)rcvr)) == intArg ? falseObj : trueObj));
+      popthenPushBool(2, booleanObjectOf(!((((sqInt)rcvr)) == intArg)));
     } else {
       /* begin pop:thenPushBool: */
-      popthenPushBool(2, /* booleanObjectOf: */
-                      (rcvr == arg ? falseObj : trueObj));
+      popthenPushBool(2, booleanObjectOf(!(rcvr == arg)));
     }
   }
 }

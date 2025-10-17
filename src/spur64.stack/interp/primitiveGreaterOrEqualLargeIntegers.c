@@ -14,7 +14,6 @@ primitiveGreaterOrEqualLargeIntegers(void) {
   integerRcvr = signed64BitValueOf(longAt(stackPointer + (1 * BytesPerWord)));
   if (!primFailCode) {
     /* begin pop:thenPushBool: */
-    popthenPushBool(2, /* booleanObjectOf: */
-                    (integerRcvr >= integerArg ? trueObj : falseObj));
+    popthenPushBool(2, booleanObjectOf(integerRcvr >= integerArg));
   }
 }

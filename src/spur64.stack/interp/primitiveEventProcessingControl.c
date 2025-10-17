@@ -13,8 +13,7 @@ primitiveEventProcessingControl(void) {
   enabled = inIOProcessEvents >= 0;
   if (!argumentCount) {
     /* begin pop:thenPushBool: */
-    popthenPushBool(1, /* booleanObjectOf: */
-                    (enabled ? trueObj : falseObj));
+    popthenPushBool(1, booleanObjectOf(enabled));
     return;
   }
   if (argumentCount == 1) {
@@ -33,8 +32,7 @@ primitiveEventProcessingControl(void) {
     }
 
     /* begin pop:thenPushBool: */
-    popthenPushBool(2, /* booleanObjectOf: */
-                    (enabled ? trueObj : falseObj));
+    popthenPushBool(2, booleanObjectOf(enabled));
     return;
   }
 
