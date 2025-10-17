@@ -15,18 +15,7 @@ static double loadFloatOrIntFrom(sqInt floatOrIntOop) {
 
   if ((tagBits = floatOrIntOop & (tagMask()))) {
     if (tagBits == (smallFloatTag())) {
-      /* begin smallFloatValueOf: */
-      /* begin smallFloatBitsOf: */
-      assert(isImmediateFloat(floatOrIntOop));
-      bits = ((((usqInt)floatOrIntOop))) >> (numTagBits());
-      if (bits > 1) {
-        bits += (((usqInt)((smallFloatExponentOffset()))
-                  << ((smallFloatMantissaBits()) + 1)));
-      }
-
-      /* a.k.a. ~= +/-0.0 */
-      bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-      memcpy((&value), (&bits), sizeof(value));
+      value = smallFloatValueOf(floatOrIntOop);
       return value;
     }
     if ((primitiveDoMixedArithmetic) && (tagBits == (smallIntegerTag()))) {

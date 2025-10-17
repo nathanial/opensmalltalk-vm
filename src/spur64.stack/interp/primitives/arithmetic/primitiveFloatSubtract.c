@@ -20,18 +20,7 @@ static void primitiveFloatSubtract(void) {
   /* begin loadFloatOrIntFrom: */
   if ((tagBits = rcvrOop & (tagMask()))) {
     if (tagBits == (smallFloatTag())) {
-      /* begin smallFloatValueOf: */
-      /* begin smallFloatBitsOf: */
-      assert(isImmediateFloat(rcvrOop));
-      bits = ((((usqInt)rcvrOop))) >> (numTagBits());
-      if (bits > 1) {
-        bits += (((usqInt)((smallFloatExponentOffset()))
-                  << ((smallFloatMantissaBits()) + 1)));
-      }
-
-      /* a.k.a. ~= +/-0.0 */
-      bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-      memcpy((&value), (&bits), sizeof(value));
+      value = smallFloatValueOf(rcvrOop);
       rcvr = value;
       goto l1;
     }
@@ -59,18 +48,7 @@ l1:
   /* begin loadFloatOrIntFrom: */
   if ((tagBits = argOop & (tagMask()))) {
     if (tagBits == (smallFloatTag())) {
-      /* begin smallFloatValueOf: */
-      /* begin smallFloatBitsOf: */
-      assert(isImmediateFloat(argOop));
-      bits = ((((usqInt)argOop))) >> (numTagBits());
-      if (bits > 1) {
-        bits += (((usqInt)((smallFloatExponentOffset()))
-                  << ((smallFloatMantissaBits()) + 1)));
-      }
-
-      /* a.k.a. ~= +/-0.0 */
-      bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-      memcpy((&value), (&bits), sizeof(value));
+      value = smallFloatValueOf(argOop);
       arg = value;
       goto l2;
     }

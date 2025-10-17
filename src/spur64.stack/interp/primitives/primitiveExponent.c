@@ -16,18 +16,7 @@ static void primitiveExponent(void) {
   /* begin noFailFloatValueOf: */
   assert(isFloatInstance(rcvr));
   if (rcvr & (tagMask())) {
-    /* begin smallFloatValueOf: */
-    /* begin smallFloatBitsOf: */
-    assert(isImmediateFloat(rcvr));
-    bits = ((((usqInt)rcvr))) >> (numTagBits());
-    if (bits > 1) {
-      bits += (((usqInt)((smallFloatExponentOffset()))
-                << ((smallFloatMantissaBits()) + 1)));
-    }
-
-    /* a.k.a. ~= +/-0.0 */
-    bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-    memcpy((&doubleValue), (&bits), sizeof(doubleValue));
+    doubleValue = smallFloatValueOf(rcvr);
   } else {
     fetchFloatAtinto(rcvr + BaseHeaderSize, doubleValue);
   }

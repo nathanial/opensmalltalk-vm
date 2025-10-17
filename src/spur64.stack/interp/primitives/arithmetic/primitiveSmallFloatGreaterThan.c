@@ -15,35 +15,13 @@ static void primitiveSmallFloatGreaterThan(void) {
 
   oop = longAt(stackPointer + (1 * BytesPerWord));
 
-  /* begin smallFloatValueOf: */
-  /* begin smallFloatBitsOf: */
-  assert(isImmediateFloat(oop));
-  bits = ((((usqInt)oop))) >> (numTagBits());
-  if (bits > 1) {
-    bits += (((usqInt)((smallFloatExponentOffset()))
-              << ((smallFloatMantissaBits()) + 1)));
-  }
-
-  /* a.k.a. ~= +/-0.0 */
-  bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-  memcpy((&rcvr), (&bits), sizeof(rcvr));
+  rcvr = smallFloatValueOf(oop);
   floatOrIntOop = longAt(stackPointer);
 
   /* begin loadFloatOrIntFrom: */
   if ((tagBits = floatOrIntOop & (tagMask()))) {
     if (tagBits == (smallFloatTag())) {
-      /* begin smallFloatValueOf: */
-      /* begin smallFloatBitsOf: */
-      assert(isImmediateFloat(floatOrIntOop));
-      bits = ((((usqInt)floatOrIntOop))) >> (numTagBits());
-      if (bits > 1) {
-        bits += (((usqInt)((smallFloatExponentOffset()))
-                  << ((smallFloatMantissaBits()) + 1)));
-      }
-
-      /* a.k.a. ~= +/-0.0 */
-      bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-      memcpy((&value), (&bits), sizeof(value));
+      value = smallFloatValueOf(floatOrIntOop);
       arg = value;
       goto l1;
     }

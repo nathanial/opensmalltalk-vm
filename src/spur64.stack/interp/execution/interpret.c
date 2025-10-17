@@ -4469,18 +4469,7 @@ sqInt interpret(void) {
         /* begin loadFloatOrIntFrom: */
         if ((tagBits = rcvr & (tagMask()))) {
           if (tagBits == (smallFloatTag())) {
-            /* begin smallFloatValueOf: */
-            /* begin smallFloatBitsOf: */
-            assert(isImmediateFloat(rcvr));
-            bits = ((((usqInt)rcvr))) >> (numTagBits());
-            if (bits > 1) {
-              bits += (((usqInt)((smallFloatExponentOffset()))
-                        << ((smallFloatMantissaBits()) + 1)));
-            }
-
-            /* a.k.a. ~= +/-0.0 */
-            bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-            memcpy((&value), (&bits), sizeof(value));
+            value = smallFloatValueOf(rcvr);
             rcvrDouble = value;
             goto l21;
           }
@@ -4509,18 +4498,7 @@ sqInt interpret(void) {
         /* begin loadFloatOrIntFrom: */
         if ((tagBits = arg & (tagMask()))) {
           if (tagBits == (smallFloatTag())) {
-            /* begin smallFloatValueOf: */
-            /* begin smallFloatBitsOf: */
-            assert(isImmediateFloat(arg));
-            bits = ((((usqInt)arg))) >> (numTagBits());
-            if (bits > 1) {
-              bits += (((usqInt)((smallFloatExponentOffset()))
-                        << ((smallFloatMantissaBits()) + 1)));
-            }
-
-            /* a.k.a. ~= +/-0.0 */
-            bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-            memcpy((&value), (&bits), sizeof(value));
+            value = smallFloatValueOf(arg);
             argDouble = value;
             goto l22;
           }
@@ -4606,18 +4584,7 @@ sqInt interpret(void) {
         /* begin loadFloatOrIntFrom: */
         if ((tagBits = rcvr & (tagMask()))) {
           if (tagBits == (smallFloatTag())) {
-            /* begin smallFloatValueOf: */
-            /* begin smallFloatBitsOf: */
-            assert(isImmediateFloat(rcvr));
-            bits = ((((usqInt)rcvr))) >> (numTagBits());
-            if (bits > 1) {
-              bits += (((usqInt)((smallFloatExponentOffset()))
-                        << ((smallFloatMantissaBits()) + 1)));
-            }
-
-            /* a.k.a. ~= +/-0.0 */
-            bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-            memcpy((&value), (&bits), sizeof(value));
+            value = smallFloatValueOf(rcvr);
             rcvrDouble = value;
             goto l24;
           }
@@ -4646,18 +4613,7 @@ sqInt interpret(void) {
         /* begin loadFloatOrIntFrom: */
         if ((tagBits = arg & (tagMask()))) {
           if (tagBits == (smallFloatTag())) {
-            /* begin smallFloatValueOf: */
-            /* begin smallFloatBitsOf: */
-            assert(isImmediateFloat(arg));
-            bits = ((((usqInt)arg))) >> (numTagBits());
-            if (bits > 1) {
-              bits += (((usqInt)((smallFloatExponentOffset()))
-                        << ((smallFloatMantissaBits()) + 1)));
-            }
-
-            /* a.k.a. ~= +/-0.0 */
-            bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-            memcpy((&value), (&bits), sizeof(value));
+            value = smallFloatValueOf(arg);
             argDouble = value;
             goto l25;
           }
@@ -5092,18 +5048,7 @@ sqInt interpret(void) {
         /* begin loadFloatOrIntFrom: */
         if ((tagBits = rcvr & (tagMask()))) {
           if (tagBits == (smallFloatTag())) {
-            /* begin smallFloatValueOf: */
-            /* begin smallFloatBitsOf: */
-            assert(isImmediateFloat(rcvr));
-            bits = ((((usqInt)rcvr))) >> (numTagBits());
-            if (bits > 1) {
-              bits += (((usqInt)((smallFloatExponentOffset()))
-                        << ((smallFloatMantissaBits()) + 1)));
-            }
-
-            /* a.k.a. ~= +/-0.0 */
-            bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-            memcpy((&value), (&bits), sizeof(value));
+            value = smallFloatValueOf(rcvr);
             rcvrDouble = value;
             goto l33;
           }
@@ -5132,18 +5077,7 @@ sqInt interpret(void) {
         /* begin loadFloatOrIntFrom: */
         if ((tagBits = arg & (tagMask()))) {
           if (tagBits == (smallFloatTag())) {
-            /* begin smallFloatValueOf: */
-            /* begin smallFloatBitsOf: */
-            assert(isImmediateFloat(arg));
-            bits = ((((usqInt)arg))) >> (numTagBits());
-            if (bits > 1) {
-              bits += (((usqInt)((smallFloatExponentOffset()))
-                        << ((smallFloatMantissaBits()) + 1)));
-            }
-
-            /* a.k.a. ~= +/-0.0 */
-            bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-            memcpy((&value), (&bits), sizeof(value));
+            value = smallFloatValueOf(arg);
             argDouble = value;
             goto l34;
           }
@@ -5236,18 +5170,7 @@ sqInt interpret(void) {
         /* begin loadFloatOrIntFrom: */
         if ((tagBits = rcvr & (tagMask()))) {
           if (tagBits == (smallFloatTag())) {
-            /* begin smallFloatValueOf: */
-            /* begin smallFloatBitsOf: */
-            assert(isImmediateFloat(rcvr));
-            bits = ((((usqInt)rcvr))) >> (numTagBits());
-            if (bits > 1) {
-              bits += (((usqInt)((smallFloatExponentOffset()))
-                        << ((smallFloatMantissaBits()) + 1)));
-            }
-
-            /* a.k.a. ~= +/-0.0 */
-            bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-            memcpy((&value), (&bits), sizeof(value));
+            value = smallFloatValueOf(rcvr);
             rcvrDouble = value;
             goto l36;
           }
@@ -5276,18 +5199,7 @@ sqInt interpret(void) {
         /* begin loadFloatOrIntFrom: */
         if ((tagBits = arg & (tagMask()))) {
           if (tagBits == (smallFloatTag())) {
-            /* begin smallFloatValueOf: */
-            /* begin smallFloatBitsOf: */
-            assert(isImmediateFloat(arg));
-            bits = ((((usqInt)arg))) >> (numTagBits());
-            if (bits > 1) {
-              bits += (((usqInt)((smallFloatExponentOffset()))
-                        << ((smallFloatMantissaBits()) + 1)));
-            }
-
-            /* a.k.a. ~= +/-0.0 */
-            bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-            memcpy((&value), (&bits), sizeof(value));
+            value = smallFloatValueOf(arg);
             argDouble = value;
             goto l37;
           }

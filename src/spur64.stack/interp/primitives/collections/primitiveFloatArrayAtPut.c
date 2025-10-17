@@ -84,18 +84,7 @@ static void primitiveFloatArrayAtPut(void) {
       /* begin noFailFloatValueOf: */
       assert(isFloatInstance(valueOop));
       if (valueOop & (tagMask())) {
-        /* begin smallFloatValueOf: */
-        /* begin smallFloatBitsOf: */
-        assert(isImmediateFloat(valueOop));
-        bits = ((((usqInt)valueOop))) >> (numTagBits());
-        if (bits > 1) {
-          bits += (((usqInt)((smallFloatExponentOffset()))
-                    << ((smallFloatMantissaBits()) + 1)));
-        }
-
-        /* a.k.a. ~= +/-0.0 */
-        bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-        memcpy((&result), (&bits), sizeof(result));
+        result = smallFloatValueOf(valueOop);
       } else {
         fetchFloatAtinto(valueOop + BaseHeaderSize, result);
       }
