@@ -16,16 +16,8 @@ static usqInt cloneContext(sqInt aContext) {
   usqInt sz;
   sqInt valuePointer;
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(aContext)) > (isForwardedObjectClassIndexPun()));
-  sz = (((numSlots =
-              byteAt((void *)(aContext + (numSlotsFieldByteOffset()))))) ==
-                (numSlotsMask())
-            ? ((((usqInt)(((
-                  sqInt)((usqInt)((longAt((void *)(aContext - BaseHeaderSize))))
-                         << 8)))))) >>
-                  8
-            : numSlots);
+  
+  sz = numSlotsOf(aContext);
 
   /* begin eeInstantiateMethodContextSlots: */
   /* begin allocateNewSpaceSlots:format:classIndex: */

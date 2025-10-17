@@ -12,16 +12,9 @@ static sqInt numBytesOfBitsformat(sqInt objOop, sqInt format) {
 
   assert((isPureBitsFormat(format)) && ((formatOf(objOop)) == format));
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun()));
+  
   numBytes =
-      (((numSlots = byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(objOop);
   numBytes = (numBytes << (shiftForWord()));
   if (format < (firstShortFormat())) {
     return (format <= (sixtyFourBitIndexableFormat())

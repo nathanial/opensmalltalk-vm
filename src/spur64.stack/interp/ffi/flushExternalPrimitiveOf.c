@@ -39,16 +39,8 @@ static sqInt flushExternalPrimitiveOf(sqInt methodObj) {
          ((!(lit & (tagMask())))) &&
          (((byteAt((void *)(lit + (formatFieldByteOffset())))) &
            (formatMask())) == (arrayFormat()))) &&
-        (((/* begin numSlotsOf: */
-           assert((classIndexOf(lit)) > (isForwardedObjectClassIndexPun())),
-           (((numSlots =
-                  byteAt((void *)(lit + (numSlotsFieldByteOffset()))))) ==
-                    (numSlotsMask())
-                ? ((((usqInt)((
-                      (sqInt)((usqInt)((longAt((void *)(lit - BaseHeaderSize))))
-                              << 8)))))) >>
-                      8
-                : numSlots))) == 4)) {
+        (((
+           numSlotsOf(lit))) == 4)) {
       /* begin storePointerUnchecked:ofObject:withValue: */
       assert((isNonImmediate(lit)) && (!(isForwarded(lit))));
       assert(validStorePointerUncheckedArgs(2, lit, ConstZero));

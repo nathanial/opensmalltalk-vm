@@ -51,17 +51,9 @@ static void primitiveDoNamedPrimitiveWithArgs(void) {
     return;
   }
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(argumentArray)) > (isForwardedObjectClassIndexPun()));
+  
   arraySize =
-      (((numSlots =
-             byteAt((void *)(argumentArray + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(argumentArray -
-                                                            BaseHeaderSize))))
-                                  << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(argumentArray);
   if (!(arraySize <= (LargeContextSlots - CtxtTempFrameStart))) {
     /* primitiveFailFor: */
     primFailCode = -2;
@@ -97,16 +89,8 @@ static void primitiveDoNamedPrimitiveWithArgs(void) {
   /* end isInstanceOfClassArray: */
 l2:
   if (!(isArray &&
-        ((((/* begin numSlotsOf: */
-            assert((classIndexOf(spec)) > (isForwardedObjectClassIndexPun())),
-            (((numSlots =
-                   byteAt((void *)(spec + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                            (void *)(spec - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlots))) == 4) &&
+        ((((
+            numSlotsOf(spec))) == 4) &&
          ((/* primitiveIndexOfMethod:header: */
            (((methodHeader & AlternateHeaderHasPrimFlag) != 0)
                 ? ((firstBytecode =
@@ -150,18 +134,10 @@ l2:
           (formatMask());
     assert(fmt >= (firstByteFormat()));
     moduleLength =
-        ((((/* begin numSlotsOf: */
+        ((((
             assert((classIndexOf(moduleName)) >
                    (isForwardedObjectClassIndexPun())),
-            (((numSlots = byteAt(
-                   (void *)(moduleName + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)((
-                       (sqInt)((usqInt)((longAt(
-                                   (void *)(moduleName - BaseHeaderSize))))
-                               << 8)))))) >>
-                       8
-                 : numSlots)))
+            numSlotsOf(moduleName)))
           << (shiftForWord()))) -
         (fmt & 7);
   }
@@ -183,18 +159,10 @@ l2:
         (formatMask());
   assert(fmt >= (firstByteFormat()));
   functionLength =
-      ((((/* begin numSlotsOf: */
+      ((((
           assert((classIndexOf(functionName)) >
                  (isForwardedObjectClassIndexPun())),
-          (((numSlots = byteAt(
-                 (void *)(functionName + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt(
-                                 (void *)(functionName - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots)))
+          numSlotsOf(functionName)))
         << (shiftForWord()))) -
       (fmt & 7);
   if (primFailCode) {

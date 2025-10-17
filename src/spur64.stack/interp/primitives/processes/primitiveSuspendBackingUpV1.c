@@ -36,16 +36,8 @@ static void primitiveSuspendBackingUpV1(void) {
          ((!(myList & (tagMask())))) &&
          (((byteAt((void *)(myList + (formatFieldByteOffset())))) &
            (formatMask())) <= 5 /* lastPointerFormat */)) &&
-        ((((/* begin numSlotsOf: */
-            assert((classIndexOf(myList)) > (isForwardedObjectClassIndexPun())),
-            (((numSlots =
-                   byteAt((void *)(myList + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                            (void *)(myList - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlots))) > LastLinkIndex) &&
+        ((((
+            numSlotsOf(myList))) > LastLinkIndex) &&
          ((((longAt((void *)(myContext))) & (classIndexMask())) ==
            ClassMethodContextCompactIndex) &&
           ((/* begin isResumableContext: */

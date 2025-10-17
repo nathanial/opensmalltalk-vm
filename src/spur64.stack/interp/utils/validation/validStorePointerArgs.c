@@ -8,17 +8,10 @@ static sqInt validStorePointerArgs(sqInt fieldIndex, sqInt objOop,
 
   return (fieldIndex >= 0) &&
          ((fieldIndex <
-           ((/* begin numSlotsOf: */
+           ((
              assert((classIndexOf(objOop)) >
                     (isForwardedObjectClassIndexPun())),
-             (((numSlots =
-                    byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-                      (numSlotsMask())
-                  ? ((((usqInt)(((sqInt)((usqInt)((longAt((
-                                             void *)(objOop - BaseHeaderSize))))
-                                         << 8)))))) >>
-                        8
-                  : numSlots)))) &&
+             numSlotsOf(objOop)))) &&
           (!((!((longAt((void *)(objOop))) &
                 ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))));
 }

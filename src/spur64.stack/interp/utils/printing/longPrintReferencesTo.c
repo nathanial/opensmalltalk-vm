@@ -62,18 +62,10 @@ void longPrintReferencesTo(sqInt anOop) {
               ClassMethodContextCompactIndex) {
             i = CtxtTempFrameStart + (fetchStackPointerOf(objSqInt));
           } else {
-            /* begin numSlotsOf: */
+            
             assert((classIndexOf(objSqInt)) >
                    (isForwardedObjectClassIndexPun()));
-            i = (((numSlots = byteAt(
-                       (void *)(objSqInt + (numSlotsFieldByteOffset()))))) ==
-                         (numSlotsMask())
-                     ? ((((usqInt)((
-                           (sqInt)((usqInt)((longAt(
-                                       (void *)(objSqInt - BaseHeaderSize))))
-                                   << 8)))))) >>
-                           8
-                     : numSlots);
+            i = numSlotsOf(objSqInt);
           }
         }
         while (((i -= 1)) >= 0) {

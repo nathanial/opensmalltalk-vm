@@ -2601,20 +2601,10 @@ sqInt interpret(void) {
         VM_LABEL(respondToUnknownBytecode);
         messageSelector = /* maybeSplObj: */
             (SelectorUnknownBytecode <
-                     ((/* begin numSlotsOf: */
+                     ((
                        assert((classIndexOf(specialObjectsOop)) >
                               (isForwardedObjectClassIndexPun())),
-                       (((numSlots =
-                              byteAt((void *)(specialObjectsOop +
-                                              (numSlotsFieldByteOffset()))))) ==
-                                (numSlotsMask())
-                            ? ((((usqInt)((
-                                  (sqInt)((usqInt)((longAt(
-                                              (void *)(specialObjectsOop -
-                                                       BaseHeaderSize))))
-                                          << 8)))))) >>
-                                  8
-                            : numSlots)))
+                       numSlotsOf(specialObjectsOop)))
                  ? fetchPointerofObject(SelectorUnknownBytecode,
                                         specialObjectsOop)
                  : 0);

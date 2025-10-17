@@ -41,16 +41,8 @@ primitiveCompareBytes(void) {
   fmt = (byteAt((void *)(arg1 + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
   len =
-      ((((/* begin numSlotsOf: */
-          assert((classIndexOf(arg1)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(arg1 + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt((void *)(arg1 - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots)))
+      ((((
+          numSlotsOf(arg1)))
         << (shiftForWord()))) -
       (fmt & 7);
   if (!(len == (numBytesOfBytes(arg2)))) {

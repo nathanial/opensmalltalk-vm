@@ -81,16 +81,9 @@ static void primitiveStringReplace(void) {
       goto l7;
     }
 
-    /* begin numSlotsOf: */
-    assert((classIndexOf(array)) > (isForwardedObjectClassIndexPun()));
+    
     arrayLength =
-        (((numSlots = byteAt((void *)(array + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(array - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlots);
+        numSlotsOf(array);
 
     /* begin fixedFieldsOf:format:length: */
     if ((arrayFmt >= (sixtyFourBitIndexableFormat())) ||
@@ -109,16 +102,9 @@ static void primitiveStringReplace(void) {
     /* end fixedFieldsOf:format:length: */
   l5:
 
-    /* begin numSlotsOf: */
-    assert((classIndexOf(repl)) > (isForwardedObjectClassIndexPun()));
+    
     replLength =
-        (((numSlots = byteAt((void *)(repl + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(repl - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlots);
+        numSlotsOf(repl);
 
     /* begin fixedFieldsOf:format:length: */
     if ((replFmt >= (sixtyFourBitIndexableFormat())) ||

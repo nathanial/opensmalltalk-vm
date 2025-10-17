@@ -108,17 +108,9 @@ static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop,
 
         /* contexts end at the stack pointer */
 
-        /* begin numSlotsOf: */
-        assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun()));
+        
         numMediatedSlots =
-            (((numSlots =
-                   byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                            (void *)(objOop - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlots);
+            numSlotsOf(objOop);
         goto l2;
       }
       if (fmt == (forwardedFormat())) {
@@ -144,16 +136,8 @@ static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop,
 
     /* And make sure to nil the slots beyond the top of stack... */
     toDoLimit =
-        ((/* begin numSlotsOf: */
-          assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                          (void *)(objOop - BaseHeaderSize))))
-                                      << 8)))))) >>
-                     8
-               : numSlots))) -
+        ((
+          numSlotsOf(objOop))) -
         1;
     for (iSqInt = numMediatedSlots; iSqInt <= toDoLimit; iSqInt += 1) {
       /* begin storePointerUnchecked:ofObject:withValue: */

@@ -28,16 +28,8 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
     /* begin scavengeReferentsOfPointers: */
     foundNewReferent = 0;
     toDoLimit =
-        ((/* begin numSlotsOf: */
-          assert((classIndexOf(referrer)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(referrer + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                          (void *)(referrer - BaseHeaderSize))))
-                                      << 8)))))) >>
-                     8
-               : numSlots))) -
+        ((
+          numSlotsOf(referrer))) -
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
       referent = fetchPointerofObject(i, referrer);
@@ -166,16 +158,8 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
     /* begin scavengeReferentsOfPointers: */
     foundNewReferent = 0;
     toDoLimit =
-        ((/* begin numSlotsOf: */
-          assert((classIndexOf(referrer)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(referrer + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                          (void *)(referrer - BaseHeaderSize))))
-                                      << 8)))))) >>
-                     8
-               : numSlots))) -
+        ((
+          numSlotsOf(referrer))) -
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
       referent = fetchPointerofObject(i, referrer);

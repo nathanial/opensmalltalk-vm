@@ -35,17 +35,9 @@ static void primitiveClosureValueWithArgs(void) {
 
   /* Check for enough space in thisContext to push all args */
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(argumentArray)) > (isForwardedObjectClassIndexPun()));
+  
   arraySize =
-      (((numSlots =
-             byteAt((void *)(argumentArray + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(argumentArray -
-                                                            BaseHeaderSize))))
-                                  << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(argumentArray);
   if (!(arraySize <= (LargeContextSlots - CtxtTempFrameStart))) {
     /* begin primitiveFail */
     if (!primFailCode) {
@@ -113,17 +105,10 @@ static void primitiveClosureValueWithArgs(void) {
   assert(isContext(outerContext));
   assert(isVanillaBlockClosure(blockClosure));
   numCopied =
-      ((/* begin numSlotsOf: */
+      ((
         assert((classIndexOf(blockClosure)) >
                (isForwardedObjectClassIndexPun())),
-        (((numSlots =
-               byteAt((void *)(blockClosure + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(blockClosure -
-                                                              BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlots))) -
+        numSlotsOf(blockClosure))) -
       ClosureFirstCopiedValueIndex;
   assert(closureMethod == (fetchPointerofObject(MethodIndex, outerContext)));
   assert(isOopCompiledMethod(closureMethod));

@@ -39,19 +39,10 @@ sqInt maybeSelectorOfMethod(sqInt methodObj) {
        ((!(penultimateLiteral & (tagMask())))) &&
        (((byteAt((void *)(penultimateLiteral + (formatFieldByteOffset())))) &
          (formatMask())) <= 5 /* lastPointerFormat */)) &&
-              ((((/* begin numSlotsOf: */
+              ((((
                   assert((classIndexOf(penultimateLiteral)) >
                          (isForwardedObjectClassIndexPun())),
-                  (((numSlots =
-                         byteAt((void *)(penultimateLiteral +
-                                         (numSlotsFieldByteOffset()))))) ==
-                           (numSlotsMask())
-                       ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                                  (void *)(penultimateLiteral -
-                                                           BaseHeaderSize))))
-                                              << 8)))))) >>
-                             8
-                       : numSlots))) >= 2) &&
+                  numSlotsOf(penultimateLiteral))) >= 2) &&
                (((fetchPointerofObject(0U, penultimateLiteral)) == methodObj) &&
                 (((maybeSelector =
                        fetchPointerofObject(1U, penultimateLiteral)),

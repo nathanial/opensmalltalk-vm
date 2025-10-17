@@ -85,18 +85,10 @@ static void ensureImageFormatIsUpToDate(sqInt swapBytes) {
 
           /* compiled method; start after methodHeader and literals */
           stopAddr =
-              obj + (((((/* begin numSlotsOf: */
+              obj + (((((
                          assert((classIndexOf(obj)) >
                                 (isForwardedObjectClassIndexPun())),
-                         (((numSlots = byteAt((
-                                void *)(obj + (numSlotsFieldByteOffset()))))) ==
-                                  (numSlotsMask())
-                              ? ((((usqInt)((
-                                    (sqInt)((usqInt)((longAt((
-                                                void *)(obj - BaseHeaderSize))))
-                                            << 8)))))) >>
-                                    8
-                              : numSlots)))
+                         numSlotsOf(obj)))
                        << (shiftForWord()))) +
                      BaseHeaderSize);
 

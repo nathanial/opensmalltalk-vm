@@ -49,18 +49,10 @@ static void primitiveExternalCall(void) {
             ((!(lit & (tagMask())))) &&
             (((byteAt((void *)(lit + (formatFieldByteOffset())))) &
               (formatMask())) == (arrayFormat()))) &&
-               ((((/* begin numSlotsOf: */
+               ((((
                    assert((classIndexOf(lit)) >
                           (isForwardedObjectClassIndexPun())),
-                   (((numSlots = byteAt(
-                          (void *)(lit + (numSlotsFieldByteOffset()))))) ==
-                            (numSlotsMask())
-                        ? ((((usqInt)((
-                              (sqInt)((usqInt)((longAt(
-                                          (void *)(lit - BaseHeaderSize))))
-                                      << 8)))))) >>
-                              8
-                        : numSlots))) == 4) &&
+                   numSlotsOf(lit))) == 4) &&
                 (((index = longAt((
                        void
                            *)((lit + BaseHeaderSize) +

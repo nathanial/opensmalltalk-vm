@@ -16,17 +16,9 @@ sqInt cloneObject(sqInt objOop) {
   sqInt referent;
   sqInt valuePointer;
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun()));
+  
   numSlots =
-      (((numSlotsUsqInt =
-             byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+      numSlotsOf(objOop);
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
   if (numSlots > ((1U << (fixedFieldsFieldWidth())) - 1)) {
     classIndex = (longAt((void *)(objOop))) & (classIndexMask());

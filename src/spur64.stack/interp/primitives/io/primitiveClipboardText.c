@@ -30,16 +30,8 @@ static void primitiveClipboardText(void) {
       fmt = (byteAt((void *)(s + (formatFieldByteOffset())))) & (formatMask());
       assert(fmt >= (firstByteFormat()));
       sz =
-          ((((/* begin numSlotsOf: */
-              assert((classIndexOf(s)) > (isForwardedObjectClassIndexPun())),
-              (((numSlots =
-                     byteAt((void *)(s + (numSlotsFieldByteOffset()))))) ==
-                       (numSlotsMask())
-                   ? ((((usqInt)(((
-                         sqInt)((usqInt)((longAt((void *)(s - BaseHeaderSize))))
-                                << 8)))))) >>
-                         8
-                   : numSlots)))
+          ((((
+              numSlotsOf(s)))
             << (shiftForWord()))) -
           (fmt & 7);
       clipboardWriteFromAt(sz, s + BaseHeaderSize, 0);

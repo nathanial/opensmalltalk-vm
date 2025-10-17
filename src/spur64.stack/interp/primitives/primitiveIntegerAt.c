@@ -43,16 +43,8 @@ static void primitiveIntegerAt(void) {
         (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
     assert(fmtSqInt >= (firstByteFormat()));
     numSlots =
-        ((((/* begin numSlotsOf: */
-            assert((classIndexOf(rcvr)) > (isForwardedObjectClassIndexPun())),
-            (((numSlotsUsqInt =
-                   byteAt((void *)(rcvr + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                            (void *)(rcvr - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlotsUsqInt)))
+        ((((
+            numSlotsOf(rcvr)))
           << (shiftForWord()))) -
         (fmtSqInt & 7);
     if ((((usqInt)index)) < numSlots) {
@@ -142,17 +134,9 @@ static void primitiveIntegerAt(void) {
        (fmt >= (arrayFormat())) &&
        ((fmt <= (weakArrayFormat())) ||
         (fmt >= (sixtyFourBitIndexableFormat()))))) {
-    /* begin numSlotsOf: */
-    assert((classIndexOf(rcvr)) > (isForwardedObjectClassIndexPun()));
+    
     numSlots =
-        (((numSlotsUsqInt =
-               byteAt((void *)(rcvr + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(rcvr - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlotsUsqInt);
+        numSlotsOf(rcvr);
     if (fmt == (arrayFormat())) {
       if ((((usqInt)index)) < numSlots) {
         /* begin methodReturnValue: */

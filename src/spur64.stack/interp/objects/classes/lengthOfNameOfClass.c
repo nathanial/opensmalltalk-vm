@@ -9,17 +9,9 @@ static sqInt lengthOfNameOfClass(sqInt classOop) {
   usqInt numSlotsUsqInt;
   sqInt objOop;
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(classOop)) > (isForwardedObjectClassIndexPun()));
+  
   numSlots =
-      (((numSlotsUsqInt =
-             byteAt((void *)(classOop + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(classOop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+      numSlotsOf(classOop);
   if (numSlots == metaclassNumSlots) {
     return lengthOfNameOfClass(fetchPointerofObject(thisClassIndex, classOop));
   }

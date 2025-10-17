@@ -14,17 +14,9 @@ sqInt indexOfin(sqInt anElement, sqInt anObject) {
   fmt =
       (byteAt((void *)(anObject + (formatFieldByteOffset())))) & (formatMask());
   if (fmt <= 5 /* lastPointerFormat */) {
-    /* begin numSlotsOf: */
-    assert((classIndexOf(anObject)) > (isForwardedObjectClassIndexPun()));
+    
     numSlots =
-        (((numSlotsUsqInt =
-               byteAt((void *)(anObject + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                        (void *)(anObject - BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlotsUsqInt);
+        numSlotsOf(anObject);
     for (i = 0; i <= numSlots; i += 1) {
       if (anElement == (fetchPointerofObject(i, anObject))) {
         return i;
@@ -41,18 +33,10 @@ sqInt indexOfin(sqInt anElement, sqInt anObject) {
                (formatMask());
     assert(fmtSqInt >= (firstByteFormat()));
     numSlots =
-        ((((/* begin numSlotsOf: */
+        ((((
             assert((classIndexOf(anObject)) >
                    (isForwardedObjectClassIndexPun())),
-            (((numSlotsUsqInt =
-                   byteAt((void *)(anObject + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)((
-                       (sqInt)((usqInt)((
-                                   longAt((void *)(anObject - BaseHeaderSize))))
-                               << 8)))))) >>
-                       8
-                 : numSlotsUsqInt)))
+            numSlotsOf(anObject)))
           << (shiftForWord()))) -
         (fmtSqInt & 7);
     for (i = 0; i <= numSlots; i += 1) {

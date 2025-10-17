@@ -47,18 +47,10 @@ static void primitiveExecuteMethodArgsArray(void) {
   header = fetchPointerofObject(HeaderIndex, methodArgument);
   argCnt = (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;
   if (!(argCnt ==
-        ((/* begin numSlotsOf: */
+        ((
           assert((classIndexOf(argumentArray)) >
                  (isForwardedObjectClassIndexPun())),
-          (((numSlots = byteAt(
-                 (void *)(argumentArray + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt(
-                                 (void *)(argumentArray - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots))))) {
+          numSlotsOf(argumentArray))))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadNumArgs;
     return;

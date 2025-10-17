@@ -57,17 +57,9 @@ static sqInt lookupMethodInClass(sqInt class) {
        -- raise exception #cannotInterpret:. */
 
     /* begin lookupMethodInDictionary: */
-    /* begin numSlotsOf: */
-    assert((classIndexOf(dictionary)) > (isForwardedObjectClassIndexPun()));
+    
     length =
-        (((numSlots =
-               byteAt((void *)(dictionary + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                        (void *)(dictionary - BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlots);
+        numSlotsOf(dictionary);
     mask = (length - SelectorStart) - 1;
 
     /* Use linear search on small dictionaries; its cheaper.

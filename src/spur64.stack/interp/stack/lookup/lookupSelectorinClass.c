@@ -34,17 +34,9 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
     }
 
     /* begin lookupMethodFor:InDictionary: */
-    /* begin numSlotsOf: */
-    assert((classIndexOf(dictionary)) > (isForwardedObjectClassIndexPun()));
+    
     length =
-        (((numSlots =
-               byteAt((void *)(dictionary + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                        (void *)(dictionary - BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlots);
+        numSlotsOf(dictionary);
     mask = (length - SelectorStart) - 1;
     index = SelectorStart + (mask & ((((selector & (tagMask())) != 0)
                                           ? (selector >> 3)

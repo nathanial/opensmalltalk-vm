@@ -46,17 +46,9 @@ static sqInt followForwardedObjectFieldstoDepth(sqInt objOop, sqInt depth) {
 
     /* contexts end at the stack pointer */
 
-    /* begin numSlotsOf: */
-    assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun()));
+    
     numSlots =
-        (((numSlotsUsqInt =
-               byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlotsUsqInt);
+        numSlotsOf(objOop);
     goto l2;
   }
   if (fmt == (forwardedFormat())) {

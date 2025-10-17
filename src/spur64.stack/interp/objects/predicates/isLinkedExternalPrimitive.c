@@ -34,18 +34,10 @@ static sqInt isLinkedExternalPrimitive(sqInt methodObj) {
              /* literalCountOfAlternateHeader: */
              ((header >> 3)) & AlternateHeaderNumLiteralsMask)) > 0) &&
           ((isArray((literal = fetchPointerofObject(1U, methodObj)))) &&
-           ((((/* begin numSlotsOf: */
+           ((((
                assert((classIndexOf(literal)) >
                       (isForwardedObjectClassIndexPun())),
-               (((numSlots = byteAt(
-                      (void *)(literal + (numSlotsFieldByteOffset()))))) ==
-                        (numSlotsMask())
-                    ? ((((usqInt)((
-                          (sqInt)((usqInt)((longAt(
-                                      (void *)(literal - BaseHeaderSize))))
-                                  << 8)))))) >>
-                          8
-                    : numSlots))) == 4) &&
+               numSlotsOf(literal))) == 4) &&
             (((targetFunctionIndex = fetchPointerofObject(
                    ExternalCallLiteralTargetFunctionIndex, literal)),
               ((((targetFunctionIndex) & 7) == 1)) &&

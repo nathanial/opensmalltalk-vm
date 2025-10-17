@@ -45,15 +45,8 @@ primitiveGetenv(void) {
 
   /* begin numBytesOf: */
   fmt = (byteAt((void *)(obj + (formatFieldByteOffset())))) & (formatMask());
-  assert((classIndexOf(obj)) > (isForwardedObjectClassIndexPun()));
   numBytes =
-      (((numSlots = byteAt((void *)(obj + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(obj - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(obj);
   numBytes = (numBytes << (shiftForWord()));
   if (fmt >= (firstByteFormat())) {
     sz = numBytes - (fmt & 7);

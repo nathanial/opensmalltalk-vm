@@ -11,17 +11,9 @@ static char *nameOfClasslengthInto(sqInt classOop, sqInt *lengthPtr) {
   usqInt numSlots;
   usqInt numSlotsUsqInt;
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(classOop)) > (isForwardedObjectClassIndexPun()));
+  
   numSlots =
-      (((numSlotsUsqInt =
-             byteAt((void *)(classOop + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(classOop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+      numSlotsOf(classOop);
   if (numSlots == metaclassNumSlots) {
     maybeThisClassOop = fetchPointerofObject(thisClassIndex, classOop);
     if (addressCouldBeClassObj(maybeThisClassOop)) {

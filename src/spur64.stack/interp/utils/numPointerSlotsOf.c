@@ -35,16 +35,8 @@ static usqInt numPointerSlotsOf(sqInt objOop) {
 
     /* contexts end at the stack pointer */
 
-    /* begin numSlotsOf: */
-    assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun()));
-    return (
-        ((numSlots = byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-                (numSlotsMask())
-            ? ((((usqInt)((
-                  (sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize))))
-                          << 8)))))) >>
-                  8
-            : numSlots);
+    
+    return numSlotsOf(objOop);
   }
   if (fmt == (forwardedFormat())) {
     return 1;

@@ -12,16 +12,8 @@ static sqInt classNameOfIs(sqInt aClass, char *className) {
   usqInt numSlots;
   char *srcName;
 
-  if (((/* begin numSlotsOf: */
-        assert((classIndexOf(aClass)) > (isForwardedObjectClassIndexPun())),
-        (((numSlots =
-               byteAt((void *)(aClass + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(aClass - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlots))) <= classNameIndex) {
+  if (((
+        numSlotsOf(aClass))) <= classNameIndex) {
     return 0;
   }
   name = fetchPointerofObject(classNameIndex, aClass);
@@ -36,16 +28,8 @@ static sqInt classNameOfIs(sqInt aClass, char *className) {
   fmt = (byteAt((void *)(name + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
   length =
-      ((((/* begin numSlotsOf: */
-          assert((classIndexOf(name)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(name + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt((void *)(name - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots)))
+      ((((
+          numSlotsOf(name)))
         << (shiftForWord()))) -
       (fmt & 7);
   srcName = ((char *)(arrayValueOf(name)));

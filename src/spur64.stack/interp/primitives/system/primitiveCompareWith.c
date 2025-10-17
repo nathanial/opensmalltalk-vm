@@ -63,16 +63,8 @@ primitiveCompareWith(void) {
       (byteAt((void *)(string1 + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
   strLength1 =
-      ((((/* begin numSlotsOf: */
-          assert((classIndexOf(string1)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(string1 + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                          (void *)(string1 - BaseHeaderSize))))
-                                      << 8)))))) >>
-                     8
-               : numSlots)))
+      ((((
+          numSlotsOf(string1)))
         << (shiftForWord()))) -
       (fmt & 7);
 
@@ -81,16 +73,8 @@ primitiveCompareWith(void) {
       (byteAt((void *)(string2 + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
   strLength2 =
-      ((((/* begin numSlotsOf: */
-          assert((classIndexOf(string2)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(string2 + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                          (void *)(string2 - BaseHeaderSize))))
-                                      << 8)))))) >>
-                     8
-               : numSlots)))
+      ((((
+          numSlotsOf(string2)))
         << (shiftForWord()))) -
       (fmt & 7);
   if (order) {

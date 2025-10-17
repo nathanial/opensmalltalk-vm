@@ -51,17 +51,9 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
   sqInt segVersion;
   sqInt toDoLimit;
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(segmentWordArray)) > (isForwardedObjectClassIndexPun()));
+  
   segmentLimit =
-      (((numSlots = byteAt(
-             (void *)(segmentWordArray + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(segmentWordArray -
-                                                            BaseHeaderSize))))
-                                  << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(segmentWordArray);
   if ((/* objectBytesForSlots: */
        (segmentLimit ? ((segmentLimit << (shiftForWord()))) +
                            ((segmentLimit >= (numSlotsMask())
@@ -114,18 +106,10 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
     hash = 0;
     scanClassTable = 0;
     toDoLimit =
-        ((/* begin numSlotsOf: */
+        ((
           assert((classIndexOf(outPointerArray)) >
                  (isForwardedObjectClassIndexPun())),
-          (((numSlots = byteAt(
-                 (void *)(outPointerArray + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt(
-                                 (void *)(outPointerArray - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots))) -
+          numSlotsOf(outPointerArray))) -
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
       oop = fetchPointerofObject(i, outPointerArray);
@@ -215,17 +199,9 @@ loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
      second pass. */
 
   /* begin mapOopsAndValidateClassRefsFrom:to:outPointers: */
-  /* begin numSlotsOf: */
-  assert((classIndexOf(outPointerArray)) > (isForwardedObjectClassIndexPun()));
+  
   numOutPointers =
-      (((numSlots = byteAt(
-             (void *)(outPointerArray + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(outPointerArray -
-                                                            BaseHeaderSize))))
-                                  << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(outPointerArray);
   numSegObjs = 0;
 
   /* begin objectStartingAt: */

@@ -40,17 +40,9 @@ static void primitiveDoPrimitiveWithArgs(void) {
     return;
   }
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(argumentArray)) > (isForwardedObjectClassIndexPun()));
+  
   arraySize =
-      (((numSlots =
-             byteAt((void *)(argumentArray + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(argumentArray -
-                                                            BaseHeaderSize))))
-                                  << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(argumentArray);
   if (!(arraySize <= (LargeContextSlots - CtxtTempFrameStart))) {
     /* primitiveFailFor: */
     primFailCode = -PrimErrLimitExceeded;

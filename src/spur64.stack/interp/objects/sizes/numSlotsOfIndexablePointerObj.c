@@ -14,15 +14,7 @@ static usqInt numSlotsOfIndexablePointerObj(sqInt objOop) {
       ClassMethodContextCompactIndex) {
     return CtxtTempFrameStart + (fetchStackPointerOf(objOop));
   } else {
-    /* begin numSlotsOf: */
-    assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun()));
-    return (
-        ((numSlots = byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-                (numSlotsMask())
-            ? ((((usqInt)((
-                  (sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize))))
-                          << 8)))))) >>
-                  8
-            : numSlots);
+    
+    return numSlotsOf(objOop);
   }
 }

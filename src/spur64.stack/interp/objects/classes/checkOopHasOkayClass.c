@@ -30,17 +30,10 @@ sqInt checkOopHasOkayClass(usqInt obj) {
   }
   if (!((((byteAt((void *)(objClass + (formatFieldByteOffset())))) &
           (formatMask())) <= 5 /* lastPointerFormat */) &&
-        (((/* begin numSlotsOf: */
+        (((
            assert((classIndexOf(objClass)) >
                   (isForwardedObjectClassIndexPun())),
-           (((numSlots =
-                  byteAt((void *)(objClass + (numSlotsFieldByteOffset()))))) ==
-                    (numSlotsMask())
-                ? ((((usqInt)(((sqInt)((usqInt)((longAt((
-                                           void *)(objClass - BaseHeaderSize))))
-                                       << 8)))))) >>
-                      8
-                : numSlots))) >= 3))) {
+           numSlotsOf(objClass))) >= 3))) {
     fprintf(
         transcript,
         "obj %p a class (behavior) must be a pointers object of size >= 3\n",

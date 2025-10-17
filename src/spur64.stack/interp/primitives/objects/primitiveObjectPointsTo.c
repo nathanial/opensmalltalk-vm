@@ -70,17 +70,9 @@ static void primitiveObjectPointsTo(void) {
       /* contexts end at the stack pointer */
       numSlots = CtxtTempFrameStart + (fetchStackPointerOf(rcvr));
     } else {
-      /* begin numSlotsOf: */
-      assert((classIndexOf(rcvr)) > (isForwardedObjectClassIndexPun()));
+      
       numSlots =
-          (((numSlotsUsqInt =
-                 byteAt((void *)(rcvr + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt((void *)(rcvr - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlotsUsqInt);
+          numSlotsOf(rcvr);
     }
   } else {
     if (fmt < (firstCompiledMethodFormat())) {

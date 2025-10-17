@@ -24,16 +24,8 @@ static sqInt getErrorObjectFromPrimFailCode(void) {
   if (primFailCode > 0) {
     table = fetchPointerofObject(PrimitiveErrorTableIndex, specialObjectsOop);
     if (primFailCode <=
-        ((/* begin numSlotsOf: */
-          assert((classIndexOf(table)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(table + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)(((
-                     sqInt)((usqInt)((longAt((void *)(table - BaseHeaderSize))))
-                            << 8)))))) >>
-                     8
-               : numSlots)))) {
+        ((
+          numSlotsOf(table)))) {
       /* begin followField:ofObject: */
       errObj = fetchPointerofObject(primFailCode - 1, table);
       if (isOopForwarded(errObj)) {
@@ -47,17 +39,9 @@ static sqInt getErrorObjectFromPrimFailCode(void) {
       if (((byteAt((void *)(errObj + (formatFieldByteOffset())))) &
            (formatMask())) == (nonIndexablePointerFormat())) {
         /* begin cloneErrorObj: */
-        /* begin numSlotsOf: */
-        assert((classIndexOf(errObj)) > (isForwardedObjectClassIndexPun()));
+        
         numSlots =
-            (((numSlotsUsqInt =
-                   byteAt((void *)(errObj + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                            (void *)(errObj - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlotsUsqInt);
+            numSlotsOf(errObj);
         classIndex = (longAt((void *)(errObj))) & (classIndexMask());
 
         /* begin eeInstantiateAnySmallClassIndex:format:numSlots: */

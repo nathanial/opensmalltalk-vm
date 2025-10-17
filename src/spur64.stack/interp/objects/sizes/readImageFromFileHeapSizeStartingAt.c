@@ -327,35 +327,15 @@ l1:
   classArrayObj = fetchPointerofObject(ClassArray, specialObjectsOop);
   classArrayClass = fetchClassOfNonImm(classArrayObj);
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(classArrayClass)) > (isForwardedObjectClassIndexPun()));
+  
 
   /* determine actual Metaclass instSize */
   metaclassNumSlots =
-      (((numSlots = byteAt(
-             (void *)(classArrayClass + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(classArrayClass -
-                                                            BaseHeaderSize))))
-                                  << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(classArrayClass);
 
   /* default */
   thisClassIndex = 5;
-  /* begin numSlotsOf: */
-  assert((classIndexOf(classArrayClass)) > (isForwardedObjectClassIndexPun()));
-  if (((numSlots =
-            byteAt((void *)(classArrayClass + (numSlotsFieldByteOffset()))))) ==
-      (numSlotsMask())) {
-    toDoLimit =
-        ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                 (void *)(classArrayClass - BaseHeaderSize))))
-                             << 8)))))) >>
-        8;
-  } else {
-    toDoLimit = numSlots;
-  }
+  toDoLimit = numSlotsOf(classArrayClass);
   for (i = (InstanceSpecificationIndex + 1); i <= toDoLimit; i += 1) {
     if ((fetchPointerofObject(i - 1, classArrayClass)) == classArrayObj) {
       thisClassIndex = i - 1;
@@ -364,19 +344,7 @@ l1:
 
   /* default */
   classNameIndex = 6;
-  /* begin numSlotsOf: */
-  assert((classIndexOf(classArrayObj)) > (isForwardedObjectClassIndexPun()));
-  if (((numSlots =
-            byteAt((void *)(classArrayObj + (numSlotsFieldByteOffset()))))) ==
-      (numSlotsMask())) {
-    toDoLimit1 =
-        ((((usqInt)((
-            (sqInt)((usqInt)((longAt((void *)(classArrayObj - BaseHeaderSize))))
-                    << 8)))))) >>
-        8;
-  } else {
-    toDoLimit1 = numSlots;
-  }
+  toDoLimit1 = numSlotsOf(classArrayObj);
   for (i = (InstanceSpecificationIndex + 1); i <= toDoLimit1; i += 1) {
     oop = fetchPointerofObject(i - 1, classArrayObj);
     if (objectequalsString(oop, "Array")) {

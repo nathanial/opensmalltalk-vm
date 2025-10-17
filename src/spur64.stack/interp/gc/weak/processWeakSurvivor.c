@@ -39,16 +39,8 @@ static sqInt processWeakSurvivor(sqInt weakObj) {
     }
   }
   toDoLimit =
-      ((/* begin numSlotsOf: */
-        assert((classIndexOf(weakObj)) > (isForwardedObjectClassIndexPun())),
-        (((numSlots =
-               byteAt((void *)(weakObj + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)(((
-                   sqInt)((usqInt)((longAt((void *)(weakObj - BaseHeaderSize))))
-                          << 8)))))) >>
-                   8
-             : numSlots))) -
+      ((
+        numSlotsOf(weakObj))) -
       1;
   for (i = numStrongSlots; i <= toDoLimit; i += 1) {
     referent = fetchPointerofObject(i, weakObj);

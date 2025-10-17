@@ -52,26 +52,10 @@ static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
          ((!(array2 & (tagMask())))) &&
          (((byteAt((void *)(array2 + (formatFieldByteOffset())))) &
            (formatMask())) == (arrayFormat()))) &&
-        (((/* begin numSlotsOf: */
-           assert((classIndexOf(array1)) > (isForwardedObjectClassIndexPun())),
-           (((numSlotsUsqInt =
-                  byteAt((void *)(array1 + (numSlotsFieldByteOffset()))))) ==
-                    (numSlotsMask())
-                ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                           (void *)(array1 - BaseHeaderSize))))
-                                       << 8)))))) >>
-                      8
-                : numSlotsUsqInt))) ==
-         ((/* begin numSlotsOf: */
-           assert((classIndexOf(array2)) > (isForwardedObjectClassIndexPun())),
-           (((numSlots =
-                  byteAt((void *)(array2 + (numSlotsFieldByteOffset()))))) ==
-                    (numSlotsMask())
-                ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                           (void *)(array2 - BaseHeaderSize))))
-                                       << 8)))))) >>
-                      8
-                : numSlots)))))) {
+        (((
+           numSlotsOf(array1))) ==
+         ((
+           numSlotsOf(array2)))))) {
     return PrimErrBadArgument;
   }
 
@@ -100,16 +84,8 @@ static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
 
     /* contexts end at the stack pointer */
     fieldOffset =
-        ((((/* begin numSlotsOf: */
-            assert((classIndexOf(array1)) > (isForwardedObjectClassIndexPun())),
-            (((numSlots =
-                   byteAt((void *)(array1 + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                            (void *)(array1 - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlots))) -
+        ((((
+            numSlotsOf(array1))) -
           1) *
          BytesPerOop) +
         BaseHeaderSize;
@@ -265,14 +241,7 @@ l6:
     /* begin innerBecomeObjectsIn:and:copyHash: */
     toDoLimit =
         ((assert((classIndexOf(array1)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(array1 + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                          (void *)(array1 - BaseHeaderSize))))
-                                      << 8)))))) >>
-                     8
-               : numSlots))) -
+          numSlotsOf(array1))) -
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
       /* begin followField:ofObject: */
@@ -301,28 +270,14 @@ l6:
 
         /* Refuse to do an in-place become on classes since their being
            forwarded is used in the flush method cache implementations. */
-        if ((((/* begin numSlotsOf: */
+        if ((((
                assert((classIndexOf(obj1)) >
                       (isForwardedObjectClassIndexPun())),
-               (((numSlotsUsqInt =
-                      byteAt((void *)(obj1 + (numSlotsFieldByteOffset()))))) ==
-                        (numSlotsMask())
-                    ? ((((usqInt)(((sqInt)((usqInt)((longAt((
-                                               void *)(obj1 - BaseHeaderSize))))
-                                           << 8)))))) >>
-                          8
-                    : numSlotsUsqInt))) ==
-             ((/* begin numSlotsOf: */
+               numSlotsOf(obj1))) ==
+             ((
                assert((classIndexOf(obj2)) >
                       (isForwardedObjectClassIndexPun())),
-               (((numSlots =
-                      byteAt((void *)(obj2 + (numSlotsFieldByteOffset()))))) ==
-                        (numSlotsMask())
-                    ? ((((usqInt)(((sqInt)((usqInt)((longAt((
-                                               void *)(obj2 - BaseHeaderSize))))
-                                           << 8)))))) >>
-                          8
-                    : numSlots)))) &&
+               numSlotsOf(obj2)))) &&
             ((o1ClassIndex + o2ClassIndex) == 0)) {
           inPlaceBecomeandcopyHashFlag(obj1, obj2, copyHashFlag);
           goto l1;
@@ -386,14 +341,7 @@ l6:
     /* begin innerBecomeObjectsIn:to:copyHash: */
     toDoLimit =
         ((assert((classIndexOf(array1)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(array1 + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                          (void *)(array1 - BaseHeaderSize))))
-                                      << 8)))))) >>
-                     8
-               : numSlots))) -
+          numSlotsOf(array1))) -
         1;
     for (i = 0; i <= toDoLimit; i += 1) {
       /* begin followField:ofObject: */

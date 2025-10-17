@@ -11,13 +11,6 @@ static sqInt signalExternalSemaphores(void) {
 
   xArray = fetchPointerofObject(ExternalObjectsArray, specialObjectsOop);
   return doSignalExternalSemaphores(
-      (/* begin numSlotsOf: */
-       assert((classIndexOf(xArray)) > (isForwardedObjectClassIndexPun())),
-       (((numSlots = byteAt((void *)(xArray + (numSlotsFieldByteOffset()))))) ==
-                (numSlotsMask())
-            ? ((((usqInt)((
-                  (sqInt)((usqInt)((longAt((void *)(xArray - BaseHeaderSize))))
-                          << 8)))))) >>
-                  8
-            : numSlots)));
+      (
+       numSlotsOf(xArray)));
 }

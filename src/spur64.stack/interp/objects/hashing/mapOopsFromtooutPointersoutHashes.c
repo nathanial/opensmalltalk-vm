@@ -42,19 +42,7 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
   /* objIndex is for debugging; it mirrors indices in the sender's
    * arrayOfObjects. */
   outIndex = (objIndex = 0);
-  /* begin numSlotsOf: */
-  assert((classIndexOf(outPointerArray)) > (isForwardedObjectClassIndexPun()));
-  if (((numSlots =
-            byteAt((void *)(outPointerArray + (numSlotsFieldByteOffset()))))) ==
-      (numSlotsMask())) {
-    numSlotsSqInt =
-        ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                 (void *)(outPointerArray - BaseHeaderSize))))
-                             << 8)))))) >>
-        8;
-  } else {
-    numSlotsSqInt = numSlots;
-  }
+  numSlotsSqInt = numSlotsOf(outPointerArray);
 
   /* begin fillObj:numSlots:with: */
   assert(oopisLessThan(
@@ -99,18 +87,10 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
       } else {
         /* begin newOutPointer:at:in:hashes: */
         if (outIndex >=
-            ((/* begin numSlotsOf: */
+            ((
               assert((classIndexOf(outPointerArray)) >
                      (isForwardedObjectClassIndexPun())),
-              (((numSlots = byteAt((void *)(outPointerArray +
-                                            (numSlotsFieldByteOffset()))))) ==
-                       (numSlotsMask())
-                   ? ((((usqInt)((
-                         (sqInt)((usqInt)((longAt((void *)(outPointerArray -
-                                                           BaseHeaderSize))))
-                                 << 8)))))) >>
-                         8
-                   : numSlots)))) {
+              numSlotsOf(outPointerArray)))) {
           outIndex = 0;
           goto l2;
         }
@@ -196,19 +176,10 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
           } else {
             /* begin newOutPointer:at:in:hashes: */
             if (outIndex >=
-                ((/* begin numSlotsOf: */
+                ((
                   assert((classIndexOf(outPointerArray)) >
                          (isForwardedObjectClassIndexPun())),
-                  (((numSlotsUsqInt =
-                         byteAt((void *)(outPointerArray +
-                                         (numSlotsFieldByteOffset()))))) ==
-                           (numSlotsMask())
-                       ? ((((usqInt)(((
-                             sqInt)((usqInt)((longAt((void *)(outPointerArray -
-                                                              BaseHeaderSize))))
-                                    << 8)))))) >>
-                             8
-                       : numSlotsUsqInt)))) {
+                  numSlotsOf(outPointerArray)))) {
               outIndex = 0;
               goto l3;
             }

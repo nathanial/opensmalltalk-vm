@@ -39,15 +39,8 @@ static void makeContextSnapshotSafe(sqInt ctxt) {
   /* Fill slots beyond top of stack with nil */
   toDoStart = (fetchStackPointerOf(ctxt)) + CtxtTempFrameStart;
   toDoLimit =
-      ((/* begin numSlotsOf: */
-        assert((classIndexOf(ctxt)) > (isForwardedObjectClassIndexPun())),
-        (((numSlots = byteAt((void *)(ctxt + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(ctxt - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlots))) -
+      ((
+        numSlotsOf(ctxt))) -
       1;
   for (i = toDoStart; i <= toDoLimit; i += 1) {
     /* begin storePointerUnchecked:ofObject:withValue: */

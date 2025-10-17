@@ -81,19 +81,11 @@ static sqInt markInactiveEphemerons(void) {
                  ((isImmediate(keyOfEphemeron(objToScan))) ||
                   (isMarked(keyOfEphemeron(objToScan)))));
           if (fmt <= 5 /* lastPointerFormat */) {
-            /* begin numSlotsOf: */
+            
             assert((classIndexOf(objToScan)) >
                    (isForwardedObjectClassIndexPun()));
             numSlots =
-                (((numSlotsUsqInt = byteAt(
-                       (void *)(objToScan + (numSlotsFieldByteOffset()))))) ==
-                         (numSlotsMask())
-                     ? ((((usqInt)((
-                           (sqInt)((usqInt)((longAt(
-                                       (void *)(objToScan - BaseHeaderSize))))
-                                   << 8)))))) >>
-                           8
-                     : numSlotsUsqInt);
+                numSlotsOf(objToScan);
             if (fmt <= (arrayFormat())) {
               numStrongSlots = numSlots;
               goto l4;

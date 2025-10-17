@@ -14,17 +14,9 @@ static sqInt cloneInOldSpaceforPinning(sqInt objOop, sqInt forPinning) {
   sqInt referent;
   sqInt valuePointer;
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun()));
+  
   numSlots =
-      (((numSlotsUsqInt =
-             byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+      numSlotsOf(objOop);
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
   if (forPinning) {
     newObj = allocateSlotsForPinningInOldSpacebytesformatclassIndex(

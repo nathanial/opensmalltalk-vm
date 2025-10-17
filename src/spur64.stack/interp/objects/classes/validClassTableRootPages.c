@@ -11,18 +11,10 @@ static sqInt validClassTableRootPages(void) {
   sqInt obj;
   sqInt toDoLimit;
 
-  if (!(((/* begin numSlotsOf: */
+  if (!(((
           assert((classIndexOf(hiddenRootsObj)) >
                  (isForwardedObjectClassIndexPun())),
-          (((numSlots = byteAt(
-                 (void *)(hiddenRootsObj + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt(
-                                 (void *)(hiddenRootsObj - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots))) == ((1U << (22 /* classIndexFieldWidth */ -
+          numSlotsOf(hiddenRootsObj))) == ((1U << (22 /* classIndexFieldWidth */ -
                                          (classTableMajorIndexShift()))) +
                                  8 /* hiddenRootSlots */))) {
     return 0;
@@ -39,16 +31,8 @@ static sqInt validClassTableRootPages(void) {
   for (i = 0; i < numClassTablePages; i += 1) {
     obj = fetchPointerofObject(i, hiddenRootsObj);
     if (!((addressCouldBeObj(obj)) &&
-          (((/* begin numSlotsOf: */
-             assert((classIndexOf(obj)) > (isForwardedObjectClassIndexPun())),
-             (((numSlots =
-                    byteAt((void *)(obj + (numSlotsFieldByteOffset()))))) ==
-                      (numSlotsMask())
-                  ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                             (void *)(obj - BaseHeaderSize))))
-                                         << 8)))))) >>
-                        8
-                  : numSlots))) == (1U << (classTableMajorIndexShift()))))) {
+          (((
+             numSlotsOf(obj))) == (1U << (classTableMajorIndexShift()))))) {
       return 0;
     }
   }

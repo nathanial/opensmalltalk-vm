@@ -47,16 +47,9 @@ static void updatePointersInsavedFirstFieldPointer(sqInt obj,
 
     /* contexts end at the stack pointer */
 
-    /* begin numSlotsOf: */
-    assert((classIndexOf(obj)) > (isForwardedObjectClassIndexPun()));
+    
     numPointerSlots =
-        (((numSlots = byteAt((void *)(obj + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(obj - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlots);
+        numSlotsOf(obj);
     goto l2;
   }
   assert(!((fmt == (forwardedFormat()))));

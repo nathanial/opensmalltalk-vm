@@ -57,17 +57,8 @@ static sqInt changeClassOfto(sqInt rcvr, sqInt argClass) {
     if (instFormat > 5 /* lastPointerFormat */) {
       return PrimErrInappropriate;
     }
-    if ((((/* begin numSlotsOf: */
-           assert((classIndexOf(rcvr)) > (isForwardedObjectClassIndexPun())),
-           (((numSlots =
-                  byteAt((void *)(rcvr + (numSlotsFieldByteOffset()))))) ==
-                    (numSlotsMask())
-                ? (instSlots = ((((usqInt)((
-                                   (sqInt)((usqInt)((longAt((
-                                               void *)(rcvr - BaseHeaderSize))))
-                                           << 8)))))) >>
-                               8)
-                : (instSlots = numSlots)))) < fixedFields) ||
+    if ((((
+           (((instSlots = numSlotsOf(rcvr)))))) < fixedFields) ||
         ((instSlots > fixedFields) &&
          (/* isFixedSizePointerFormat: */
           (classFormat <= (nonIndexablePointerFormat())) ||
@@ -87,15 +78,8 @@ static sqInt changeClassOfto(sqInt rcvr, sqInt argClass) {
 
     /* begin numBytesOf: */
     fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
-    assert((classIndexOf(rcvr)) > (isForwardedObjectClassIndexPun()));
     numBytes =
-        (((numSlots = byteAt((void *)(rcvr + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(rcvr - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlots);
+        numSlotsOf(rcvr);
     numBytes = (numBytes << (shiftForWord()));
     if (fmt >= (firstByteFormat())) {
       instBytes = numBytes - (fmt & 7);

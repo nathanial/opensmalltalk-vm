@@ -52,17 +52,9 @@ static void primitiveSlotAtPut(void) {
   fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
   index = ((index >> 3)) - 1;
   if (fmt <= 5 /* lastPointerFormat */) {
-    /* begin numSlotsOf: */
-    assert((classIndexOf(rcvr)) > (isForwardedObjectClassIndexPun()));
+    
     numSlots =
-        (((numSlotsUsqInt =
-               byteAt((void *)(rcvr + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(rcvr - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlotsUsqInt);
+        numSlotsOf(rcvr);
     if ((((usqInt)index)) < numSlots) {
       if (((longAt((void *)(rcvr))) & (classIndexMask())) ==
           ClassMethodContextCompactIndex) {
@@ -142,16 +134,8 @@ l1:
         (byteAt((void *)(rcvr + (formatFieldByteOffset())))) & (formatMask());
     assert(fmtSqInt >= (firstByteFormat()));
     numSlots =
-        ((((/* begin numSlotsOf: */
-            assert((classIndexOf(rcvr)) > (isForwardedObjectClassIndexPun())),
-            (((numSlotsUsqInt =
-                   byteAt((void *)(rcvr + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                            (void *)(rcvr - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlotsUsqInt)))
+        ((((
+            numSlotsOf(rcvr)))
           << (shiftForWord()))) -
         (fmtSqInt & 7);
     if ((((usqInt)index)) < numSlots) {

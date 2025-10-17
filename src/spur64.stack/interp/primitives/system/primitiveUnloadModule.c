@@ -40,18 +40,10 @@ static void primitiveUnloadModule(void) {
         (formatMask());
   assert(fmt >= (firstByteFormat()));
   moduleLength =
-      ((((/* begin numSlotsOf: */
+      ((((
           assert((classIndexOf(moduleName)) >
                  (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(moduleName + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((
-                                 longAt((void *)(moduleName - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots)))
+          numSlotsOf(moduleName)))
         << (shiftForWord()))) -
       (fmt & 7);
   if (!(ioUnloadModuleOfLength(oopForPointer(firstIndexableField(moduleName)),

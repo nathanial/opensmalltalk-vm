@@ -13,15 +13,8 @@ sqInt byteSizeOf(sqInt oop) {
 
   /* begin numBytesOf: */
   fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-  assert((classIndexOf(oop)) > (isForwardedObjectClassIndexPun()));
   numBytes =
-      (((numSlots = byteAt((void *)(oop + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(oop);
   numBytes = (numBytes << (shiftForWord()));
   if (fmt >= (firstByteFormat())) {
     return numBytes - (fmt & 7);

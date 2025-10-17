@@ -33,18 +33,10 @@ static sqInt lastPointerOf(sqInt objOop) {
     }
 
     /* contexts end at the stack pointer */
-    return ((((/* begin numSlotsOf: */
+    return ((((
                assert((classIndexOf(objOop)) >
                       (isForwardedObjectClassIndexPun())),
-               (((numSlots = byteAt(
-                      (void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-                        (numSlotsMask())
-                    ? ((((usqInt)((
-                          (sqInt)((usqInt)((longAt(
-                                      (void *)(objOop - BaseHeaderSize))))
-                                  << 8)))))) >>
-                          8
-                    : numSlots))) -
+               numSlotsOf(objOop))) -
              1) *
             BytesPerOop) +
            BaseHeaderSize;

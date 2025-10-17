@@ -41,18 +41,10 @@ static sqInt wakeHighestPriority(void) {
   schedLists = fetchPointerofObject(ProcessListsIndex, objOop);
   p = (highestRunnableProcessPriority
            ? highestRunnableProcessPriority
-           : (/* begin numSlotsOf: */
+           : (
               assert((classIndexOf(schedLists)) >
                      (isForwardedObjectClassIndexPun())),
-              (((numSlots = byteAt(
-                     (void *)(schedLists + (numSlotsFieldByteOffset()))))) ==
-                       (numSlotsMask())
-                   ? ((((usqInt)((
-                         (sqInt)((usqInt)((longAt(
-                                     (void *)(schedLists - BaseHeaderSize))))
-                                 << 8)))))) >>
-                         8
-                   : numSlots)));
+              numSlotsOf(schedLists)));
   while (((p -= 1)) >= 0) {
     processList = fetchPointerofObject(p, schedLists);
     while (1) {

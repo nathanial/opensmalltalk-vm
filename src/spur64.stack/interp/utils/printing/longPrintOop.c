@@ -245,16 +245,9 @@ void longPrintOop(sqInt oop) {
 
     /* contexts end at the stack pointer */
 
-    /* begin numSlotsOf: */
-    assert((classIndexOf(oop)) > (isForwardedObjectClassIndexPun()));
+    
     lastPointer =
-        (((numSlots = byteAt((void *)(oop + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlots);
+        numSlotsOf(oop);
     goto l3;
   }
   if (fmtSqInt == (forwardedFormat())) {

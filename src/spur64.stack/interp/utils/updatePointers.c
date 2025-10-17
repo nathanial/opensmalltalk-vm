@@ -128,18 +128,9 @@ static NeverInline void updatePointers(void) {
 
       /* contexts end at the stack pointer */
 
-      /* begin numSlotsOf: */
-      assert((classIndexOf(objOopSqInt)) > (isForwardedObjectClassIndexPun()));
+      
       numPointerSlots =
-          (((numSlots = byteAt(
-                 (void *)(objOopSqInt + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt(
-                                 (void *)(objOopSqInt - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots);
+          numSlotsOf(objOopSqInt);
       goto l2;
     }
     if (fmt == (forwardedFormat())) {
@@ -253,19 +244,11 @@ static NeverInline void updatePointers(void) {
 
         /* contexts end at the stack pointer */
 
-        /* begin numSlotsOf: */
+        
         assert((classIndexOf(objOopSqInt)) >
                (isForwardedObjectClassIndexPun()));
         numPointerSlots =
-            (((numSlots = byteAt(
-                   (void *)(objOopSqInt + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)((
-                       (sqInt)((usqInt)((longAt(
-                                   (void *)(objOopSqInt - BaseHeaderSize))))
-                               << 8)))))) >>
-                       8
-                 : numSlots);
+            numSlotsOf(objOopSqInt);
         goto l6;
       }
       if (fmt == (forwardedFormat())) {
@@ -392,18 +375,9 @@ l7:
 
           /* contexts end at the stack pointer */
 
-          /* begin numSlotsOf: */
-          assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun()));
+          
           numPointerSlots =
-              (((numSlotsUsqInt =
-                     byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-                       (numSlotsMask())
-                   ? ((((usqInt)((
-                         (sqInt)((usqInt)((
-                                     longAt((void *)(objOop - BaseHeaderSize))))
-                                 << 8)))))) >>
-                         8
-                   : numSlotsUsqInt);
+              numSlotsOf(objOop);
           goto l10;
         }
         if (fmt == (forwardedFormat())) {
@@ -571,19 +545,11 @@ l11:
 
             /* contexts end at the stack pointer */
 
-            /* begin numSlotsOf: */
+            
             assert((classIndexOf(objOopSqInt)) >
                    (isForwardedObjectClassIndexPun()));
             numPointerSlots =
-                (((numSlots = byteAt(
-                       (void *)(objOopSqInt + (numSlotsFieldByteOffset()))))) ==
-                         (numSlotsMask())
-                     ? ((((usqInt)((
-                           (sqInt)((usqInt)((longAt(
-                                       (void *)(objOopSqInt - BaseHeaderSize))))
-                                   << 8)))))) >>
-                           8
-                     : numSlots);
+                numSlotsOf(objOopSqInt);
             goto l14;
           }
           if (fmt == (forwardedFormat())) {

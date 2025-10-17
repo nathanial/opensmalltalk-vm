@@ -50,15 +50,8 @@ usqLong positive64BitValueOf(sqInt oop) {
   fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
   sz =
-      ((((/* begin numSlotsOf: */
-          assert((classIndexOf(oop)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots = byteAt((void *)(oop + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots)))
+      ((((
+          numSlotsOf(oop)))
         << (shiftForWord()))) -
       (fmt & 7);
   if (sz > (sizeof(sqLong))) {

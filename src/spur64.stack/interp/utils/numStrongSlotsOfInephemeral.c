@@ -21,17 +21,9 @@ static sqInt numStrongSlotsOfInephemeral(sqInt objOop) {
          ((isImmediate(keyOfEphemeron(objOop))) ||
           (isMarked(keyOfEphemeron(objOop)))));
   if (fmt <= 5 /* lastPointerFormat */) {
-    /* begin numSlotsOf: */
-    assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun()));
+    
     numSlots =
-        (((numSlotsUsqInt =
-               byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlotsUsqInt);
+        numSlotsOf(objOop);
     if (fmt <= (arrayFormat())) {
       return numSlots;
     }

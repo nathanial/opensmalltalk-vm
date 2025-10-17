@@ -243,15 +243,7 @@ l2:
           toDoLimit =
               ((assert((classIndexOf(stack)) >
                        (isForwardedObjectClassIndexPun())),
-                (((numSlots = byteAt(
-                       (void *)(stack + (numSlotsFieldByteOffset()))))) ==
-                         (numSlotsMask())
-                     ? ((((usqInt)((
-                           (sqInt)((usqInt)((longAt(
-                                       (void *)(stack - BaseHeaderSize))))
-                                   << 8)))))) >>
-                           8
-                     : numSlots))) -
+                numSlotsOf(stack))) -
               1;
           for (i = 0; i <= toDoLimit; i += 1) {
             /* begin storePointerUnchecked:ofObject:withValue: */
@@ -320,18 +312,9 @@ l2:
 
             /* contexts end at the stack pointer */
 
-            /* begin numSlotsOf: */
-            assert((classIndexOf(next)) > (isForwardedObjectClassIndexPun()));
+            
             index =
-                (((numSlotsUsqInt =
-                       byteAt((void *)(next + (numSlotsFieldByteOffset()))))) ==
-                         (numSlotsMask())
-                     ? ((((usqInt)((
-                           (sqInt)((usqInt)((
-                                       longAt((void *)(next - BaseHeaderSize))))
-                                   << 8)))))) >>
-                           8
-                     : numSlotsUsqInt);
+                numSlotsOf(next);
             goto l4;
           }
           if (fmt == (forwardedFormat())) {
@@ -364,14 +347,7 @@ l2:
       /* begin nilFieldsOf: */
       toDoLimitSqInt =
           ((assert((classIndexOf(stack)) > (isForwardedObjectClassIndexPun())),
-            (((numSlotsUsqInt =
-                   byteAt((void *)(stack + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                            (void *)(stack - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlotsUsqInt))) -
+            numSlotsOf(stack))) -
           1;
       for (iSqInt = 0; iSqInt <= toDoLimitSqInt; iSqInt += 1) {
         /* begin storePointerUnchecked:ofObject:withValue: */

@@ -57,18 +57,10 @@ static NeverInline void nilUnmarkedWeaklingSlots(void) {
       /* N.B. generateToByDoLimitExpression:negative:on: guards against
        * (unsigned)0 - 1 going +ve */
       toDoLimit =
-          ((/* begin numSlotsOf: */
+          ((
             assert((classIndexOf(weakling)) >
                    (isForwardedObjectClassIndexPun())),
-            (((numSlots =
-                   byteAt((void *)(weakling + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)((
-                       (sqInt)((usqInt)((
-                                   longAt((void *)(weakling - BaseHeaderSize))))
-                               << 8)))))) >>
-                       8
-                 : numSlots))) -
+            numSlotsOf(weakling))) -
           1;
       for (iSqInt = (numStrongSlotsOfWeakling(weakling)); iSqInt <= toDoLimit;
            iSqInt += 1) {

@@ -76,16 +76,8 @@ l1:
       /* begin numBytesOf: */
       fmt = (byteAt((void *)(bitsArray + (formatFieldByteOffset())))) &
             (formatMask());
-      assert((classIndexOf(bitsArray)) > (isForwardedObjectClassIndexPun()));
       numBytes =
-          (((numSlots =
-                 byteAt((void *)(bitsArray + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)(((sqInt)((usqInt)((longAt((
-                                          void *)(bitsArray - BaseHeaderSize))))
-                                      << 8)))))) >>
-                     8
-               : numSlots);
+          numSlotsOf(bitsArray);
       numBytes = (numBytes << (shiftForWord()));
       if (fmt >= (firstByteFormat())) {
         bitsArraySize = numBytes - (fmt & 7);

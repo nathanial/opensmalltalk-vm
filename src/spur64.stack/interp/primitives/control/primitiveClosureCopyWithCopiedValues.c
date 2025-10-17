@@ -43,17 +43,9 @@ static void primitiveClosureCopyWithCopiedValues(void) {
   copiedValues = longAt(stackPointer);
 
   /* begin closureIn:numArgs:instructionPointer:copiedValues: */
-  /* begin numSlotsOf: */
-  assert((classIndexOf(copiedValues)) > (isForwardedObjectClassIndexPun()));
+  
   numCopied =
-      (((numSlots =
-             byteAt((void *)(copiedValues + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                      (void *)(copiedValues - BaseHeaderSize))))
-                                  << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(copiedValues);
   numSlotsSqInt = ClosureFirstCopiedValueIndex + numCopied;
 
   /* begin eeInstantiateSmallClassIndex:format:numSlots: */

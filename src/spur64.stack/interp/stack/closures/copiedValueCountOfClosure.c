@@ -11,32 +11,16 @@ sqInt copiedValueCountOfClosure(sqInt closureObj) {
       ((((fetchPointerofObject(ClosureStartPCIndex, closureObj))) & 7) == 1)
           ? (/* begin copiedValueCountOfVanillaClosure: */
              assert(isVanillaBlockClosure(closureObj)),
-             ((/* begin numSlotsOf: */
+             ((
                assert((classIndexOf(closureObj)) >
                       (isForwardedObjectClassIndexPun())),
-               (((numSlots = byteAt(
-                      (void *)(closureObj + (numSlotsFieldByteOffset()))))) ==
-                        (numSlotsMask())
-                    ? ((((usqInt)((
-                          (sqInt)((usqInt)((longAt(
-                                      (void *)(closureObj - BaseHeaderSize))))
-                                  << 8)))))) >>
-                          8
-                    : numSlots))) -
+               numSlotsOf(closureObj))) -
                  ClosureFirstCopiedValueIndex)
           : (/* begin copiedValueCountOfFullClosure: */
              assert(!((isVanillaBlockClosure(closureObj)))),
-             ((/* begin numSlotsOf: */
+             ((
                assert((classIndexOf(closureObj)) >
                       (isForwardedObjectClassIndexPun())),
-               (((numSlots = byteAt(
-                      (void *)(closureObj + (numSlotsFieldByteOffset()))))) ==
-                        (numSlotsMask())
-                    ? ((((usqInt)((
-                          (sqInt)((usqInt)((longAt(
-                                      (void *)(closureObj - BaseHeaderSize))))
-                                  << 8)))))) >>
-                          8
-                    : numSlots))) -
+               numSlotsOf(closureObj))) -
                  FullClosureFirstCopiedValueIndex));
 }

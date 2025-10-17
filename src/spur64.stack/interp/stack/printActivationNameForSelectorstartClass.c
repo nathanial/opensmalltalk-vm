@@ -19,17 +19,9 @@ static void printActivationNameForSelectorstartClass(sqInt aSelector,
     do {
       classDict = fetchPointerofObject(MethodDictionaryIndex, currClass);
 
-      /* begin numSlotsOf: */
-      assert((classIndexOf(classDict)) > (isForwardedObjectClassIndexPun()));
+      
       classDictSize =
-          (((numSlots =
-                 byteAt((void *)(classDict + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)(((sqInt)((usqInt)((longAt((
-                                          void *)(classDict - BaseHeaderSize))))
-                                      << 8)))))) >>
-                     8
-               : numSlots);
+          numSlotsOf(classDict);
       i = SelectorStart;
       while (i < classDictSize) {
         if (aSelector == (fetchPointerofObject(i, classDict))) {

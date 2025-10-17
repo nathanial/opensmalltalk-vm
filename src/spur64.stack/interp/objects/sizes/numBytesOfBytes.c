@@ -12,17 +12,10 @@ static sqInt numBytesOfBytes(sqInt objOop) {
 
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
-  return ((((/* begin numSlotsOf: */
+  return ((((
              assert((classIndexOf(objOop)) >
                     (isForwardedObjectClassIndexPun())),
-             (((numSlots =
-                    byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
-                      (numSlotsMask())
-                  ? ((((usqInt)(((sqInt)((usqInt)((longAt((
-                                             void *)(objOop - BaseHeaderSize))))
-                                         << 8)))))) >>
-                        8
-                  : numSlots)))
+             numSlotsOf(objOop)))
            << (shiftForWord()))) -
          (fmt & 7);
 }

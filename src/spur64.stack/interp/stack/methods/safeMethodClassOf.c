@@ -22,16 +22,8 @@ static sqInt safeMethodClassOf(sqInt methodPointer) {
          ((!(literal & (tagMask())))) &&
          (((byteAt((void *)(literal + (formatFieldByteOffset())))) &
            (formatMask())) <= 5 /* lastPointerFormat */)) &&
-        (((/* begin numSlotsOf: */
-           assert((classIndexOf(literal)) > (isForwardedObjectClassIndexPun())),
-           (((numSlots =
-                  byteAt((void *)(literal + (numSlotsFieldByteOffset()))))) ==
-                    (numSlotsMask())
-                ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                           (void *)(literal - BaseHeaderSize))))
-                                       << 8)))))) >>
-                      8
-                : numSlots))) > ValueIndex))) {
+        (((
+           numSlotsOf(literal))) > ValueIndex))) {
     return nilObj;
   }
   maybeClass = fetchPointerofObject(ValueIndex, literal);

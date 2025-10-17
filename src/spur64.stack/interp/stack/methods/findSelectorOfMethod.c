@@ -39,17 +39,9 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
       classDict = followForwarded(classDict);
     }
 
-    /* begin numSlotsOf: */
-    assert((classIndexOf(classDict)) > (isForwardedObjectClassIndexPun()));
+    
     classDictSize =
-        (((numSlots =
-               byteAt((void *)(classDict + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                        (void *)(classDict - BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlots);
+        numSlotsOf(classDict);
     if (classDictSize > MethodArrayIndex) {
       /* begin noFixupFollowField:ofObject: */
       methodArray = fetchPointerofObject(MethodArrayIndex, classDict);

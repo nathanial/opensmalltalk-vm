@@ -30,16 +30,8 @@ static void postBecomeScanClassTable(sqInt effectsFlags) {
     page = fetchPointerofObject(i, hiddenRootsObj);
     assert(!(isForwarded(page)));
     toDoLimit =
-        ((/* begin numSlotsOf: */
-          assert((classIndexOf(page)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots =
-                 byteAt((void *)(page + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt((void *)(page - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots))) -
+        ((
+          numSlotsOf(page))) -
         1;
     for (j = 0; j <= toDoLimit; j += 1) {
       classOrNil = fetchPointerofObject(j, page);

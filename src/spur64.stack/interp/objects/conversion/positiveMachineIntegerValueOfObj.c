@@ -41,15 +41,8 @@ static usqIntptr_t positiveMachineIntegerValueOfObj(sqInt oop) {
   fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt >= (firstByteFormat()));
   bs =
-      ((((/* begin numSlotsOf: */
-          assert((classIndexOf(oop)) > (isForwardedObjectClassIndexPun())),
-          (((numSlots = byteAt((void *)(oop + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots)))
+      ((((
+          numSlotsOf(oop)))
         << (shiftForWord()))) -
       (fmt & 7);
   if (bs > (sizeof(usqIntptr_t))) {

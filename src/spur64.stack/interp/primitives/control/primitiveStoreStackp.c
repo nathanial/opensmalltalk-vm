@@ -34,16 +34,8 @@ static void primitiveStoreStackp(void) {
   if (!((!primFailCode) &&
         (((newStackp >= 0) &&
           (newStackp <=
-           (((/* begin numSlotsOf: */
-              assert((classIndexOf(ctxt)) > (isForwardedObjectClassIndexPun())),
-              (((numSlots =
-                     byteAt((void *)(ctxt + (numSlotsFieldByteOffset()))))) ==
-                       (numSlotsMask())
-                   ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                              (void *)(ctxt - BaseHeaderSize))))
-                                          << 8)))))) >>
-                         8
-                   : numSlots))) -
+           (((
+              numSlotsOf(ctxt))) -
             CtxtTempFrameStart)))))) {
     /* begin primitiveFail */
     if (!primFailCode) {

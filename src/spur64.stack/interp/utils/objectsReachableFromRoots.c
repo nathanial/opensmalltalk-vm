@@ -55,17 +55,10 @@ static NeverInline sqInt objectsReachableFromRoots(sqInt arrayOfRoots) {
             (byteAt((void *)(arrayOfRoots + (markBitsByteOffset())))) |
                 (1U << (markedBitByteShift())));
   toDoLimitSqInt =
-      ((/* begin numSlotsOf: */
+      ((
         assert((classIndexOf(arrayOfRoots)) >
                (isForwardedObjectClassIndexPun())),
-        (((numSlots =
-               byteAt((void *)(arrayOfRoots + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(arrayOfRoots -
-                                                              BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlots))) -
+        numSlotsOf(arrayOfRoots))) -
       1;
   for (iSqInt = 0; iSqInt <= toDoLimitSqInt; iSqInt += 1) {
     /* begin followField:ofObject: */
@@ -97,14 +90,7 @@ static NeverInline sqInt objectsReachableFromRoots(sqInt arrayOfRoots) {
   toDoLimitSqInt =
       ((assert((classIndexOf(arrayOfRoots)) >
                (isForwardedObjectClassIndexPun())),
-        (((numSlots =
-               byteAt((void *)(arrayOfRoots + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(arrayOfRoots -
-                                                              BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlots))) -
+        numSlotsOf(arrayOfRoots))) -
       1;
   for (iSqInt = 0; iSqInt <= toDoLimitSqInt; iSqInt += 1) {
     /* begin followField:ofObject: */

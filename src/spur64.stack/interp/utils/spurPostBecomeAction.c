@@ -78,18 +78,10 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
 
       /* Follow all links in the process list to ensure the lists are valid. */
       toDoLimit =
-          ((/* begin numSlotsOf: */
+          ((
             assert((classIndexOf(procLists)) >
                    (isForwardedObjectClassIndexPun())),
-            (((numSlots = byteAt(
-                   (void *)(procLists + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)((
-                       (sqInt)((usqInt)((longAt(
-                                   (void *)(procLists - BaseHeaderSize))))
-                               << 8)))))) >>
-                       8
-                 : numSlots))) -
+            numSlotsOf(procLists))) -
           1;
       for (iSqInt = 0; iSqInt <= toDoLimit; iSqInt += 1) {
         /* begin followObjField:ofObject: */
@@ -277,16 +269,8 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
             xArray);
       }
       toDoLimit =
-          ((/* begin numSlotsOf: */
-            assert((classIndexOf(xArray)) > (isForwardedObjectClassIndexPun())),
-            (((numSlots =
-                   byteAt((void *)(xArray + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                            (void *)(xArray - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlots))) -
+          ((
+            numSlotsOf(xArray))) -
           1;
       for (ipdelta = 0; ipdelta <= toDoLimit; ipdelta += 1) {
         /* begin followSemaphoreIn:at: */

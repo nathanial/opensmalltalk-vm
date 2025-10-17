@@ -30,18 +30,10 @@ static void primitiveBeCursor(void) {
          ((!(cursorObj & (tagMask())))) &&
          (((byteAt((void *)(cursorObj + (formatFieldByteOffset())))) &
            (formatMask())) <= 5 /* lastPointerFormat */)) &&
-        (((/* begin numSlotsOf: */
+        (((
            assert((classIndexOf(cursorObj)) >
                   (isForwardedObjectClassIndexPun())),
-           (((numSlots =
-                  byteAt((void *)(cursorObj + (numSlotsFieldByteOffset()))))) ==
-                    (numSlotsMask())
-                ? ((((usqInt)((
-                      (sqInt)((usqInt)((
-                                  longAt((void *)(cursorObj - BaseHeaderSize))))
-                              << 8)))))) >>
-                      8
-                : numSlots))) >= 5))) {
+           numSlotsOf(cursorObj))) >= 5))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadReceiver;
     return;
@@ -55,18 +47,10 @@ static void primitiveBeCursor(void) {
             ((!(offsetObj & (tagMask())))) &&
             (((byteAt((void *)(offsetObj + (formatFieldByteOffset())))) &
               (formatMask())) <= 5 /* lastPointerFormat */)) &&
-           ((((/* begin numSlotsOf: */
+           ((((
                assert((classIndexOf(offsetObj)) >
                       (isForwardedObjectClassIndexPun())),
-               (((numSlots = byteAt(
-                      (void *)(offsetObj + (numSlotsFieldByteOffset()))))) ==
-                        (numSlotsMask())
-                    ? ((((usqInt)((
-                          (sqInt)((usqInt)((longAt(
-                                      (void *)(offsetObj - BaseHeaderSize))))
-                                  << 8)))))) >>
-                          8
-                    : numSlots))) >= 2) &&
+               numSlotsOf(offsetObj))) >= 2) &&
             (((((((offsetX = fetchPointerofObject(0U, offsetObj)))) & 7) ==
                1)) &&
              ((((((offsetY = fetchPointerofObject(1U, offsetObj)))) & 7) ==
@@ -163,17 +147,10 @@ static void primitiveBeCursor(void) {
          ((!(maskObj & (tagMask())))) &&
          (((byteAt((void *)(maskObj + (formatFieldByteOffset())))) &
            (formatMask())) <= 5 /* lastPointerFormat */)) &&
-        ((((/* begin numSlotsOf: */
+        ((((
             assert((classIndexOf(maskObj)) >
                    (isForwardedObjectClassIndexPun())),
-            (((numSlots =
-                   byteAt((void *)(maskObj + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)(((sqInt)((usqInt)((longAt((
-                                            void *)(maskObj - BaseHeaderSize))))
-                                        << 8)))))) >>
-                       8
-                 : numSlots))) >= 5) &&
+            numSlotsOf(maskObj))) >= 5) &&
          (((fetchPointerofObject(1U, maskObj)) == ((((usqInt)16 << 3) | 1))) &&
           (((fetchPointerofObject(2U, maskObj)) == ((((usqInt)16 << 3) | 1))) &&
            (((fetchPointerofObject(3U, maskObj)) == ((((usqInt)1 << 3) | 1))) &&

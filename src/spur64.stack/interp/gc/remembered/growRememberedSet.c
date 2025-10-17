@@ -17,16 +17,9 @@ static void growRememberedSet(void) {
   /* Don't ruin locality in remember: */
   obj = fetchPointerofObject(RememberedSetRootIndex, hiddenRootsObj);
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(obj)) > (isForwardedObjectClassIndexPun()));
+  
   numSlots =
-      (((numSlotsUsqInt = byteAt(
-             (void *)(obj + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(obj - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+      numSlotsOf(obj);
   assert(numSlots >= 0x400);
   nSlots = numSlots * 2;
 
@@ -143,17 +136,9 @@ static void growRememberedSet(void) {
   freeObject(obj);
   rememberedSet = base;
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(newObj)) > (isForwardedObjectClassIndexPun()));
+  
   rememberedSetLimit =
-      (((numSlotsUsqInt =
-             byteAt((void *)(newObj + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(newObj - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlotsUsqInt);
+      numSlotsOf(newObj);
 
   /* begin setRememberedSetRedZone */
   fudge = ((((eden.limit)) - ((eden.start))) / BytesPerWord) / 0x400;

@@ -83,18 +83,10 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
              ((!(tempLink & (tagMask())))) &&
              (((byteAt((void *)(tempLink + (formatFieldByteOffset())))) &
                (formatMask())) <= 5 /* lastPointerFormat */)) &&
-            (((/* begin numSlotsOf: */
+            (((
                assert((classIndexOf(tempLink)) >
                       (isForwardedObjectClassIndexPun())),
-               (((numSlots = byteAt(
-                      (void *)(tempLink + (numSlotsFieldByteOffset()))))) ==
-                        (numSlotsMask())
-                    ? ((((usqInt)((
-                          (sqInt)((usqInt)((longAt(
-                                      (void *)(tempLink - BaseHeaderSize))))
-                                  << 8)))))) >>
-                          8
-                    : numSlots))) > MyListIndex))) {
+               numSlotsOf(tempLink))) > MyListIndex))) {
         return 0;
       }
 

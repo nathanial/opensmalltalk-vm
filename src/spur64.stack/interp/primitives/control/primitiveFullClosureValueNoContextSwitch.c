@@ -56,17 +56,10 @@ void primitiveFullClosureValueNoContextSwitch(void) {
          (fetchPointerofObject(FullClosureCompiledBlockIndex, blockClosure)));
   assert(!((isVanillaBlockClosure(blockClosure))));
   numCopied =
-      ((/* begin numSlotsOf: */
+      ((
         assert((classIndexOf(blockClosure)) >
                (isForwardedObjectClassIndexPun())),
-        (((numSlots =
-               byteAt((void *)(blockClosure + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(blockClosure -
-                                                              BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlots))) -
+        numSlotsOf(blockClosure))) -
       FullClosureFirstCopiedValueIndex;
 
   /* begin push: */

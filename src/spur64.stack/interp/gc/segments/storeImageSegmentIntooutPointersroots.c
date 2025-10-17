@@ -99,18 +99,10 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
         (1U << (pinnedBitByteShift()))) != 0)) {
     return PrimErrObjectIsPinned;
   }
-  if (((/* begin numSlotsOf: */
+  if (((
         assert((classIndexOf(outPointersArrayArg)) >
                (isForwardedObjectClassIndexPun())),
-        (((numSlots = byteAt(
-               (void *)(outPointersArrayArg + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)((
-                   (sqInt)((usqInt)((longAt(
-                               (void *)(outPointersArrayArg - BaseHeaderSize))))
-                           << 8)))))) >>
-                   8
-             : numSlots))) > (identityHashHalfWordMask())) {
+        numSlotsOf(outPointersArrayArg))) > (identityHashHalfWordMask())) {
     return PrimErrLimitExceeded;
   }
   runLeakCheckerFor(GCModeImageSegment);
@@ -169,17 +161,10 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
   /* if > 0, this is the index of the first non-class past the first element. */
   numClassesInSegment = (there = 0);
   toDoLimitSqInt =
-      ((/* begin numSlotsOf: */
+      ((
         assert((classIndexOf(arrayOfObjects)) >
                (isForwardedObjectClassIndexPun())),
-        (((numSlots = byteAt(
-               (void *)(arrayOfObjects + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(arrayOfObjects -
-                                                              BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlots))) -
+        numSlotsOf(arrayOfObjects))) -
       1;
   for (here = 1; here <= toDoLimitSqInt; here += 1) {
     objOopSqInt = fetchPointerofObject(here, arrayOfObjects);
@@ -259,19 +244,7 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
     }
     return PrimErrNoMemory;
   }
-  /* begin numSlotsOf: */
-  assert((classIndexOf(savedFirstFields)) > (isForwardedObjectClassIndexPun()));
-  if (((numSlots = byteAt(
-            (void *)(savedFirstFields + (numSlotsFieldByteOffset()))))) ==
-      (numSlotsMask())) {
-    numSlotsSqInt =
-        ((((usqInt)(((sqInt)((usqInt)((longAt(
-                                 (void *)(savedFirstFields - BaseHeaderSize))))
-                             << 8)))))) >>
-        8;
-  } else {
-    numSlotsSqInt = numSlots;
-  }
+  numSlotsSqInt = numSlotsOf(savedFirstFields);
 
   /* begin fillObj:numSlots:with: */
   assert(oopisLessThan(
@@ -284,19 +257,7 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
        p <= toDoLimitUsqInt; p += 8 /* allocationUnit */) {
     longAtput((void *)(p), 0);
   }
-  /* begin numSlotsOf: */
-  assert((classIndexOf(savedOutHashes)) > (isForwardedObjectClassIndexPun()));
-  if (((numSlots =
-            byteAt((void *)(savedOutHashes + (numSlotsFieldByteOffset()))))) ==
-      (numSlotsMask())) {
-    numSlotsSqInt =
-        ((((usqInt)(((
-            sqInt)((usqInt)((longAt((void *)(savedOutHashes - BaseHeaderSize))))
-                   << 8)))))) >>
-        8;
-  } else {
-    numSlotsSqInt = numSlots;
-  }
+  numSlotsSqInt = numSlotsOf(savedOutHashes);
 
   /* begin fillObj:numSlots:with: */
   assert(oopisLessThan(
@@ -327,17 +288,10 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
      objects (clones) in the segment, and the remembered bit for all classes
      (clones) in the segment. */
   toDoLimit =
-      ((/* begin numSlotsOf: */
+      ((
         assert((classIndexOf(arrayOfObjects)) >
                (isForwardedObjectClassIndexPun())),
-        (((numSlots = byteAt(
-               (void *)(arrayOfObjects + (numSlotsFieldByteOffset()))))) ==
-                 (numSlotsMask())
-             ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(arrayOfObjects -
-                                                              BaseHeaderSize))))
-                                    << 8)))))) >>
-                   8
-             : numSlots))) -
+        numSlotsOf(arrayOfObjects))) -
       1;
   for (i = 0; i <= toDoLimit; i += 1) {
     if ((i == numClassesInSegment) &&

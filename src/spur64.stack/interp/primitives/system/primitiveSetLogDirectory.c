@@ -33,16 +33,8 @@ primitiveSetLogDirectory(void) {
   /* begin numBytesOf: */
   fmt = (byteAt((void *)(stringOop + (formatFieldByteOffset())))) &
         (formatMask());
-  assert((classIndexOf(stringOop)) > (isForwardedObjectClassIndexPun()));
   numBytes =
-      (((numSlots =
-             byteAt((void *)(stringOop + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)(((
-                 sqInt)((usqInt)((longAt((void *)(stringOop - BaseHeaderSize))))
-                        << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(stringOop);
   numBytes = (numBytes << (shiftForWord()));
   if (fmt >= (firstByteFormat())) {
     sz = numBytes - (fmt & 7);

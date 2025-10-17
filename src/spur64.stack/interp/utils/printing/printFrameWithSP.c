@@ -47,18 +47,10 @@ sqInt printFrameWithSP(char *theFP, char *theSP) {
   if ((topThing >= theMethod) &&
       (topThing <=
        (theMethod +
-        (((((/* begin numSlotsOf: */
+        (((((
              assert((classIndexOf(theMethod)) >
                     (isForwardedObjectClassIndexPun())),
-             (((numSlots = byteAt(
-                    (void *)(theMethod + (numSlotsFieldByteOffset()))))) ==
-                      (numSlotsMask())
-                  ? ((((usqInt)((
-                        (sqInt)((usqInt)((longAt(
-                                    (void *)(theMethod - BaseHeaderSize))))
-                                << 8)))))) >>
-                        8
-                  : numSlots)))
+             numSlotsOf(theMethod)))
            << (shiftForWord()))) +
          BaseHeaderSize)))) {
     toDoLimit = theSP + BytesPerWord;

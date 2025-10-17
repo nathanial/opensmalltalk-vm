@@ -39,18 +39,10 @@ static void (*linkExternalCallerrInto(sqInt externalCallLiteral,
           (formatMask());
     assert(fmt >= (firstByteFormat()));
     moduleLength =
-        ((((/* begin numSlotsOf: */
+        ((((
             assert((classIndexOf(moduleName)) >
                    (isForwardedObjectClassIndexPun())),
-            (((numSlots = byteAt(
-                   (void *)(moduleName + (numSlotsFieldByteOffset()))))) ==
-                     (numSlotsMask())
-                 ? ((((usqInt)((
-                       (sqInt)((usqInt)((longAt(
-                                   (void *)(moduleName - BaseHeaderSize))))
-                               << 8)))))) >>
-                       8
-                 : numSlots)))
+            numSlotsOf(moduleName)))
           << (shiftForWord()))) -
         (fmt & 7);
   }
@@ -71,18 +63,10 @@ static void (*linkExternalCallerrInto(sqInt externalCallLiteral,
         (formatMask());
   assert(fmt >= (firstByteFormat()));
   functionLength =
-      ((((/* begin numSlotsOf: */
+      ((((
           assert((classIndexOf(functionName)) >
                  (isForwardedObjectClassIndexPun())),
-          (((numSlots = byteAt(
-                 (void *)(functionName + (numSlotsFieldByteOffset()))))) ==
-                   (numSlotsMask())
-               ? ((((usqInt)((
-                     (sqInt)((usqInt)((longAt(
-                                 (void *)(functionName - BaseHeaderSize))))
-                             << 8)))))) >>
-                     8
-               : numSlots)))
+          numSlotsOf(functionName)))
         << (shiftForWord()))) -
       (fmt & 7);
 

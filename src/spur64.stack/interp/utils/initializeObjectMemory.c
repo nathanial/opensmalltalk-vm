@@ -61,17 +61,9 @@ static void initializeObjectMemory(sqInt bytesToShift) {
       oldSpaceObjectAfter(oldSpaceObjectAfter(oldSpaceObjectAfter(firstObj))));
   nilObjPreSwizzle = oldSpaceStart - bytesToShift;
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(classTableRoot)) > (isForwardedObjectClassIndexPun()));
+  
   numClassTablePages =
-      (((numSlots =
-             byteAt((void *)(classTableRoot + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(classTableRoot -
-                                                            BaseHeaderSize))))
-                                  << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(classTableRoot);
   assert(numClassTablePages == ((classTableRootSlots()) + (hiddenRootSlots())));
   for (i = 2; i < numClassTablePages; i += 1) {
     if ((fetchPointerofObject(i, classTableRoot)) == nilObjPreSwizzle) {
@@ -377,16 +369,9 @@ l2:
   rememberedSet = firstIndexableField(obj);
   rememberedSetSize = 0;
 
-  /* begin numSlotsOf: */
-  assert((classIndexOf(obj)) > (isForwardedObjectClassIndexPun()));
+  
   rememberedSetLimit =
-      (((numSlots = byteAt((void *)(obj + (numSlotsFieldByteOffset()))))) ==
-               (numSlotsMask())
-           ? ((((usqInt)((
-                 (sqInt)((usqInt)((longAt((void *)(obj - BaseHeaderSize))))
-                         << 8)))))) >>
-                 8
-           : numSlots);
+      numSlotsOf(obj);
 
   /* begin setRememberedSetRedZone */
   fudge = ((((eden.limit)) - ((eden.start))) / BytesPerWord) / 0x400;
