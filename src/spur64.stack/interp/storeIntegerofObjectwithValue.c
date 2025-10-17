@@ -6,7 +6,7 @@
 
 sqInt
 storeIntegerofObjectwithValue(sqInt fieldIndex, sqInt objectPointer, sqInt integerValue)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if ((((((usqInt)(integerValue)) >> 60) + 1) & 15) <= 1) {
 		/* begin storePointerUnchecked:ofObject:withValue: */
 		assert((isNonImmediate(objectPointer))

@@ -11,7 +11,7 @@
 
 static NoDbgRegParms sqInt
 allInstancesOf(sqInt aClass)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt actualIndex;
     usqInt bytes;
     sqInt classIndex;

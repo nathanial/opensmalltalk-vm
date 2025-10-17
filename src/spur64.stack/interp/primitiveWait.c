@@ -4,7 +4,7 @@
 
 static void
 primitiveWait(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt activeProc;
     sqInt excessSignals;
     sqInt integerValue;

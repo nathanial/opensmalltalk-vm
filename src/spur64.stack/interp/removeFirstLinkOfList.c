@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 removeFirstLinkOfList(sqInt aList)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt first;
     sqInt last;
     sqInt next;

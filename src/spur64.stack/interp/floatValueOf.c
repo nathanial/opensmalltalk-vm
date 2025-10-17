@@ -8,7 +8,7 @@
 
 double
 floatValueOf(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqLong bits;
     double result;
     sqInt tagBits;

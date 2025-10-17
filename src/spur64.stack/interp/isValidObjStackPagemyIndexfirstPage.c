@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 isValidObjStackPagemyIndexfirstPage(sqInt objStackPage, sqInt myx, sqInt isFirstPage)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt freeOrNextPage;
     sqInt index;
     char *ns;

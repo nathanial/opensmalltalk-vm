@@ -4,7 +4,7 @@
 
 static void
 primitiveSmallFloatFractionalPart(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt aValue;
     usqLong bits;
     double frac;

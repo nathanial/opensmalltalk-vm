@@ -9,7 +9,7 @@
 
 EXPORT(sqInt)
 primitiveMultipleBytecodeSetsActive(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *sp;
 
 	if (argumentCount > 1) {

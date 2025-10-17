@@ -7,7 +7,7 @@
 
 static void
 collapseSegmentsPostSwizzle(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     SpurSegmentInfo *cascade0;
 
 	canSwizzle = 0;

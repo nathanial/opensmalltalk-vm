@@ -4,7 +4,7 @@
 
 static sqInt
 firstAccessibleObject(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt savedTenuringThreshold;
 
 	assert(nilObj == oldSpaceStart);

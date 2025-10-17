@@ -4,7 +4,7 @@
 
 sqInt
 findClassOfMethodforReceiver(sqInt meth, sqInt rcvr)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt rclass;
     sqInt tagBits;
 

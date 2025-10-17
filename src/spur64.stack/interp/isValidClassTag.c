@@ -4,7 +4,7 @@
 
 sqInt
 isValidClassTag(sqInt classIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classOrNil;
     sqInt classTablePage;
     sqInt fieldIndex;

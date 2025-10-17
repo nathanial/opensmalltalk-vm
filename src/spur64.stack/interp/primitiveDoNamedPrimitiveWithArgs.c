@@ -9,7 +9,7 @@
 
 static void
 primitiveDoNamedPrimitiveWithArgs(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     void (*addr)(void);
     sqInt argumentArray;
     usqInt arraySize;

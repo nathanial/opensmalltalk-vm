@@ -10,7 +10,7 @@
 
 static void
 primitiveExecuteMethodArgsArray(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt argCnt;
     sqInt argumentArray;
     usqInt firstBytecode;

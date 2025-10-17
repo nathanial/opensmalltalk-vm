@@ -6,7 +6,7 @@
 
 EXPORT(sqInt)
 primitiveGetenv(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *dstPtr;
     sqInt fmt;
     char *key;

@@ -6,7 +6,7 @@
 
 void
 shortPrintFramesOnStackPageListInUse(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     StackPage *page;
 
 	page = mostRecentlyUsedPage;

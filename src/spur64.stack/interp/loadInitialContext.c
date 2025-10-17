@@ -4,7 +4,7 @@
 
 void
 loadInitialContext(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt activeContext;
     sqInt activeProc;
     sqInt obj;

@@ -9,7 +9,7 @@
 
 static void
 primitivePin(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt boolean;
     sqInt obj;
     char *sp;

@@ -10,7 +10,7 @@
 
 static sqInt
 imageSegmentVersion(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt wholeWord;
 
 	/* first data word, 'does' */

@@ -6,7 +6,7 @@
 
 EXPORT(sqInt)
 primitiveIsBigEnder(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *sp;
 
 	/* begin pop:thenPushBool: */

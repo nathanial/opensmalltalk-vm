@@ -6,7 +6,7 @@
 
 static NoDbgRegParms int
 shrinkObjectMemory(usqInt delta)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt address;
     usqInt chunkBytes;
     usqInt currentEnd;

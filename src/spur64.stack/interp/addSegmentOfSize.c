@@ -4,7 +4,7 @@
 
 static NoDbgRegParms SpurSegmentInfo *
 addSegmentOfSize(sqInt ammount)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt allocatedSize;
     sqInt i;
     sqInt idx;

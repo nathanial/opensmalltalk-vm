@@ -15,7 +15,7 @@
 
 static NoDbgRegParms sqInt
 copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop, sqInt segAddr, sqInt endSeg, sqInt savedFirstFields, sqInt i)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt bodySize;
     usqInt contextSize;
     sqInt contextSizeSqInt;

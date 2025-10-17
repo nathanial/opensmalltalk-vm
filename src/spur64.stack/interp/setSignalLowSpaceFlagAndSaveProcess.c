@@ -13,7 +13,7 @@
 
 static void
 setSignalLowSpaceFlagAndSaveProcess(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt activeProc;
     sqInt lastSavedProcess;
     sqInt objOop;

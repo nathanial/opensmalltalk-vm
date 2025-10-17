@@ -8,7 +8,7 @@
 
 static void
 primitiveYield(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt activeProc;
     sqInt oop;
     sqInt priority;

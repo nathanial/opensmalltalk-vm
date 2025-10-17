@@ -6,7 +6,7 @@
 
 sqInt
 isMemberOf(sqInt oop, char *className)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt oopClass;
     sqInt tagBits;
 

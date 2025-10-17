@@ -6,7 +6,7 @@
 
 sqInt
 primitiveFailForOSError(sqLong osErrorCode)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	secondaryErrorCode = osErrorCode;
 	return (primFailCode = PrimErrOSError);
 }

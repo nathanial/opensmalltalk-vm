@@ -7,7 +7,7 @@
 
 EXPORT(sqInt)
 primitiveHeartbeatFrequency(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     unsigned int integerValue;
     sqInt oop;
     sqInt reset;

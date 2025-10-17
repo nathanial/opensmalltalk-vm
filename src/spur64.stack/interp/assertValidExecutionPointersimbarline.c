@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 assertValidExecutionPointersimbarline(usqInt lip, char *lfp, char *lsp, sqInt inInterpreter, sqInt ln)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	assertl(inInterpreter, ln);
 	assertl(stackPage == (mostRecentlyUsedPage), ln);
 

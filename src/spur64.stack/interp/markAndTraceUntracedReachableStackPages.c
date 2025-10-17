@@ -6,7 +6,7 @@
 
 static void
 markAndTraceUntracedReachableStackPages(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt foundToBeTracedPage;
     sqInt i;
     StackPage *thePage;

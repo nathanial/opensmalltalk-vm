@@ -6,7 +6,7 @@
 
 sqInt
 isYoung(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return ((!(oop & (tagMask()))))
 	 && (oopisLessThan(oop, oldSpaceStart));
 }

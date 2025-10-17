@@ -16,7 +16,7 @@
 
 static void
 primitiveSlotAt(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fmt;
     sqInt fmtSqInt;
     sqInt index;

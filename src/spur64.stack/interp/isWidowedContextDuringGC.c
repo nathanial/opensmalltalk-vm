@@ -23,7 +23,7 @@
 
 static NoDbgRegParms sqInt
 isWidowedContextDuringGC(sqInt aOnceMarriedContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt anInteger;
     char *maybeFrame;
     sqInt maybeFrameCtxt;

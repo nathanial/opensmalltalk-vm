@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 printCallStackOfcurrentFP(sqInt aContext, char *currFP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ctxt;
     sqInt senderOop;
     char *theFP;

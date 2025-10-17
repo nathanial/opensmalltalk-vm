@@ -6,7 +6,7 @@
 
 static NoDbgRegParms void
 scavengingGCTenuringIf(sqInt tenuringCriterion)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     sqInt n;
     sqInt probe;

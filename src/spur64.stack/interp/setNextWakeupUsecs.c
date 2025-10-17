@@ -4,6 +4,6 @@
 
 void
 setNextWakeupUsecs(usqLong value)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	nextWakeupUsecs = value;
 }

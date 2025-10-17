@@ -6,7 +6,7 @@
 
 sqInt
 isKindOfClass(sqInt oop, sqInt aClass)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt objOop;
     sqInt oopClass;
     sqInt tagBits;

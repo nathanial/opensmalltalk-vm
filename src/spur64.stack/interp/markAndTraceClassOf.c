@@ -13,7 +13,7 @@
 
 static NoDbgRegParms void
 markAndTraceClassOf(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classIndex;
     sqInt classObj;
     sqInt classTablePage;

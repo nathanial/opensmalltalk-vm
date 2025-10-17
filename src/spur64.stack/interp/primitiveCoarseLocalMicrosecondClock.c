@@ -14,7 +14,7 @@
 
 static void
 primitiveCoarseLocalMicrosecondClock(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt oop;
     char *sp;
 

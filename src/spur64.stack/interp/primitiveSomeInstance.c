@@ -4,7 +4,7 @@
 
 static void
 primitiveSomeInstance(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt class;
     sqInt instance;
     char *sp;

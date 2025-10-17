@@ -41,7 +41,7 @@
 
 static void
 primitiveArrayBecome(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arg;
     sqInt ec;
     sqInt rcvr;

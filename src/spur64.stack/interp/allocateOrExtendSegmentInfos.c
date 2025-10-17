@@ -6,7 +6,7 @@
 
 static void
 allocateOrExtendSegmentInfos(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt newNumSegs;
 
 	if (!numSegInfos) {

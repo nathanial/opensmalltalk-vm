@@ -7,7 +7,7 @@
 
 static void
 primitiveBitOr(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt integerArgumentValue;
     usqInt integerReceiverValue;
     sqInt oop;

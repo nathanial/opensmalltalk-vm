@@ -9,7 +9,7 @@
 
 static void
 primitiveClone(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt newCopy;
     sqInt rcvr;
     char *sp;

@@ -4,6 +4,6 @@
 
 static int
 slidingCompactionInProgress(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return gcPhaseInProgress == SlidingCompactionInProgress;
 }

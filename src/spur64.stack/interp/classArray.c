@@ -4,6 +4,6 @@
 
 sqInt
 classArray(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassArray) << (shiftForWord()))))));
 }

@@ -14,7 +14,7 @@
 
 static NoDbgRegParms sqInt
 saneFunctionPointerForFailureOfPrimIndex(sqInt primIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     void (*basePrimitive)(void);
 
 	/* begin functionPointerFor:inClass: */

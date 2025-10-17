@@ -9,7 +9,7 @@
 
 static NoDbgRegParms void
 putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt firstLink;
     sqInt objOop;
     sqInt oop;

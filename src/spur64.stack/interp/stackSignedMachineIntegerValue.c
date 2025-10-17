@@ -6,7 +6,7 @@
 
 sqIntptr_t
 stackSignedMachineIntegerValue(sqInt offset)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt integerPointer;
 
 	integerPointer = longAt(stackPointer + (offset * BytesPerWord));

@@ -15,7 +15,7 @@
 
 sqInt
 primitiveFailForFFIExceptionat(usqLong exceptionCode, usqInt pc)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt i;
     sqInt methodHeader;
     usqInt numArgs;

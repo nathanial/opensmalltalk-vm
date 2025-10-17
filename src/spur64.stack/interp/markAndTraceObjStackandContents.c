@@ -9,7 +9,7 @@
 
 static NoDbgRegParms void
 markAndTraceObjStackandContents(sqInt stackOrNil, sqInt markAndTraceContents)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt field;
     sqInt index;
 

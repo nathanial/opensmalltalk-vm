@@ -7,7 +7,7 @@
 
 sqInt
 signed64BitIntegerFor(sqLong integerValue)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt largeClass;
     usqLong magnitude;
     usqInt newLargeInteger;

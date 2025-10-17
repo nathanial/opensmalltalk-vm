@@ -4,7 +4,7 @@
 
 static NoDbgRegParms const char *
 validFreeTreeChunkparent(sqInt chunk, sqInt parent)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     const char *reason;
 
 	if (!chunk) {

@@ -10,7 +10,7 @@
 
 sqInt
 copyBits(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     void *fn;
 
 	fn = ioLoadFunctionFrom("copyBits", "BitBltPlugin");

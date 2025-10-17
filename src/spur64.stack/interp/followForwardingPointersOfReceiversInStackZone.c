@@ -20,7 +20,7 @@
 
 static void
 followForwardingPointersOfReceiversInStackZone(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt aValue;
     char *callerFP;
     sqInt delta;

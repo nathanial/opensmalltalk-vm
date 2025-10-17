@@ -26,7 +26,7 @@
 
 static NoDbgRegParms void
 initializeStacknumSlotspageSize(char *theStackPages, sqInt stackSlots, sqInt slotsPerPage)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt count;
     sqInt index;
     sqInt numPages;

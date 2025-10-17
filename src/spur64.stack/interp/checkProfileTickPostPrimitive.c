@@ -10,7 +10,7 @@
 
 static NoDbgRegParms NeverInline void
 checkProfileTickPostPrimitive(sqInt aPrimitiveMethod)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt objOop;
 
 	if (deferProfileCheckForVNCS) {

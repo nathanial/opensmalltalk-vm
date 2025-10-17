@@ -6,7 +6,7 @@
 
 int
 isYoungObject(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	assert(isNonImmediate(objOop));
 	return oopisLessThan(objOop, oldSpaceStart);
 }

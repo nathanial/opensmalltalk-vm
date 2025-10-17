@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 checkOkayStackZone(sqInt writeBack)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     sqInt ok;
     StackPage *thePage;

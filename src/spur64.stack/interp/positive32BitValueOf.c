@@ -9,7 +9,7 @@
 
 unsigned int
 positive32BitValueOf(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt value64;
 
 	if ((((oop) & 7) == 1)) {

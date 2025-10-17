@@ -6,7 +6,7 @@
 
 static NeverInline void
 prepareForSnapshot(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt cameFrom;
     SpurSegmentInfo *cascade0;
     usqInt chunkBytes;

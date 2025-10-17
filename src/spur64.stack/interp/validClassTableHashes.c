@@ -9,7 +9,7 @@
 
 static sqInt
 validClassTableHashes(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classOrNilSqInt;
     sqInt hash;
     sqInt i;

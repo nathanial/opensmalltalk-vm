@@ -7,7 +7,7 @@
 
 static NoDbgRegParms sqInt
 classForClassTag(sqInt classIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classTablePage;
     sqInt fieldIndex;
 

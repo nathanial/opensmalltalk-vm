@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 printCantBeObjecton(sqInt oop, FILE *aStream)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (!(oop & 7 /* (allocationUnit - 1) */)) {
 		if ((/* isInNewSpace: */
 			(oopisLessThan(oop, oldSpaceStart))

@@ -8,7 +8,7 @@
 
 static void
 primitiveSignalAtMilliseconds(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqLong deltaMsecs;
     sqLong limit;
     sqLong msecs;

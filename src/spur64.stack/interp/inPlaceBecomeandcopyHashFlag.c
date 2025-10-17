@@ -7,7 +7,7 @@
 
 static NoDbgRegParms NeverInline void
 inPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fmt;
     sqLong hashBits;
     sqLong header1;

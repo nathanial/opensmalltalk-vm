@@ -10,7 +10,7 @@
 
 sqInt
 primitiveFail(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (!primFailCode) {
 		primFailCode = 1;
 	}

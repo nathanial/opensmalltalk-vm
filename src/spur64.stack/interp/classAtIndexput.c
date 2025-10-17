@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 classAtIndexput(sqInt classIndex, sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classTablePage;
     sqInt fieldIndex;
 

@@ -4,7 +4,7 @@
 
 static void
 primitiveFullClosureValue(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt blockClosure;
     sqInt closureMethod;
     sqInt i;

@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 checkOopIntegritynamed(sqInt obj, char *name)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if ((oopisLessThan(obj, endOfMemory))
 	 && ((heapMapAtWord(pointerForOop(obj))) != 0)) {
 		return 1;

@@ -9,7 +9,7 @@
 
 static void
 primitiveSignalAtBytesLeft(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt bytes;
 
 	bytes = longAt(stackPointer);

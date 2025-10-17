@@ -11,7 +11,7 @@
 
 static NoDbgRegParms SpurSegmentInfo *
 nextNonEmptySegmentAfter(sqInt i)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt nextx;
 
 	nextx = i;

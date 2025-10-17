@@ -4,7 +4,7 @@
 
 static void
 primitiveNew(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt obj;
     sqInt reasonCode;
     char *sp;

@@ -12,7 +12,7 @@
 
 static NoDbgRegParms sqInt
 ensureRoomOnObjStackAt(sqInt objStackRootIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt freeOrNewPage;
     sqInt stackOrNil;
 

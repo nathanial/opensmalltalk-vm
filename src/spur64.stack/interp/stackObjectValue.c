@@ -7,7 +7,7 @@
 
 sqInt
 stackObjectValue(sqInt offset)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt oop;
 
 	oop = longAt(stackPointer + (offset * BytesPerWord));

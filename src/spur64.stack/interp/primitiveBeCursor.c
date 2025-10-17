@@ -8,7 +8,7 @@
 
 static void
 primitiveBeCursor(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt cursorBitsObj;
     sqInt cursorObj;
     sqInt depth;

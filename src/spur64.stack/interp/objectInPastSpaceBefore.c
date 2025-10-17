@@ -7,7 +7,7 @@
 
 static NoDbgRegParms sqInt
 objectInPastSpaceBefore(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt address;
     sqInt followingWord;
     usqInt followingWordAddress;

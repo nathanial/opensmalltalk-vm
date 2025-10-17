@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 printStringOf(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt cnt;
     sqInt code;
     sqInt fmt;

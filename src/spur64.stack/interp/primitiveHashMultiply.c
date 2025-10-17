@@ -8,7 +8,7 @@
 
 static void
 primitiveHashMultiply(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ccIndex;
     sqInt ok;
     char *sp;

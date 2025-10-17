@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 shortPrintFrameAndCallers(char *theFP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (!(/* couldBeFramePointer: */
 			(((((usqInt)theFP)) & (BytesPerWord - 1)) == 0)
 		 && ((((((usqInt)theFP)) >= (((usqInt)stackMemory))) && ((((usqInt)theFP)) <= (((usqInt)pages))))))) {

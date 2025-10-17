@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 printCallStackFP(char *theFP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt context;
 
 	context = shortReversePrintFrameAndCallers(theFP);

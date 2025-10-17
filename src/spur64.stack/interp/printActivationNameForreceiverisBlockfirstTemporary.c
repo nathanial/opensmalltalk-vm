@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 printActivationNameForreceiverisBlockfirstTemporary(sqInt aMethod, sqInt anObject, sqInt isBlock, sqInt maybeMessage)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classObj;
     sqInt homeMethod;
     sqInt methClass;

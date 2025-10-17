@@ -9,7 +9,7 @@
 
 sqInt
 identityHashOf(sqInt anOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt hash;
     usqInt hashUsqInt;
 

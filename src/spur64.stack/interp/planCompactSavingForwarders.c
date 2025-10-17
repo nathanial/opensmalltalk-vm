@@ -19,7 +19,7 @@
 
 static NeverInline sqInt
 planCompactSavingForwarders(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt availableSpace;
     usqInt bytes;
     sqInt eventualLocation;

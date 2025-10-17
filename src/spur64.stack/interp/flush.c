@@ -4,6 +4,6 @@
 
 void
 flush(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	fflush(transcript);
 }

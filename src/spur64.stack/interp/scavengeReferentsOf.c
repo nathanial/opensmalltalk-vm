@@ -14,7 +14,7 @@
 
 static NoDbgRegParms sqInt
 scavengeReferentsOf(sqInt referrer)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt foundNewReferent;
     sqInt i;
     usqInt numSlots;

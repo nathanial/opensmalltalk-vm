@@ -9,7 +9,7 @@
 
 static NoDbgRegParms void
 updateStateOfSpouseContextForFrameWithSP(char *theFP, char *theSP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fieldIndex;
     sqInt i;
     char *pointer;

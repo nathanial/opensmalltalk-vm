@@ -12,7 +12,7 @@
 
 sqInt
 loadBitBltFrom(sqInt bb)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     void *fn;
 
 	fn = ioLoadFunctionFrom("loadBitBltFrom", "BitBltPlugin");

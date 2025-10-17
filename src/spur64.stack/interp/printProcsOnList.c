@@ -6,7 +6,7 @@
 
 sqInt
 printProcsOnList(sqInt procList)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt firstProc;
     sqInt proc;
 

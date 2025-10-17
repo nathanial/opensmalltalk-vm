@@ -8,7 +8,7 @@
 
 static NoDbgRegParms usqInt
 stackPointerIndexForFrame(char *theFP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     StackPage *thePage;
     char *theSP;
 

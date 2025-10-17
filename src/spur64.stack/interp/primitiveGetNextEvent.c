@@ -6,7 +6,7 @@
 
 static void
 primitiveGetNextEvent(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arg;
     sqIntptr_t eventTypeIs;
     static char * eventTypeNames[] = {

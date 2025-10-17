@@ -11,7 +11,7 @@
 
 static void
 primitiveShortAtPut(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt index;
     sqInt rcvr;
     char *sp;

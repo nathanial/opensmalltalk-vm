@@ -4,7 +4,7 @@
 
 static void
 checkSegments(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
 
 	assert(numSegments >= 1);

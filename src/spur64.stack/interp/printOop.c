@@ -6,7 +6,7 @@
 
 void
 printOop(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt byte;
     sqInt bytecodesPerLine;
     char *className;

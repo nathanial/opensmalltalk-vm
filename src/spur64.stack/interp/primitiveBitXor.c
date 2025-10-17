@@ -4,7 +4,7 @@
 
 static void
 primitiveBitXor(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt integerArgument;
     usqInt integerArgumentValue;
     sqInt integerReceiver;

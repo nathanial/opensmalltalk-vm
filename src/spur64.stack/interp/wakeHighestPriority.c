@@ -11,7 +11,7 @@
 
 static sqInt
 wakeHighestPriority(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ctxt;
     usqInt numSlots;
     sqInt objOop;

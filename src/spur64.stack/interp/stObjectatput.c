@@ -6,7 +6,7 @@
 
 sqInt
 stObjectatput(sqInt array, sqInt index, sqInt value)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt class;
     sqInt fieldIndex;
     sqInt fixedFields;

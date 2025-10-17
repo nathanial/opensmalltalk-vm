@@ -12,7 +12,7 @@
 
 static sqInt
 getErrorObjectFromPrimFailCode(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classIndex;
     sqInt clone;
     sqInt errObj;

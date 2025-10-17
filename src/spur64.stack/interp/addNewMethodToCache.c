@@ -15,7 +15,7 @@
 
 static NoDbgRegParms void
 addNewMethodToCache(sqInt classObj)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classTag;
     sqInt err;
     usqInt firstBytecode;

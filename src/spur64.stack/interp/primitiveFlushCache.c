@@ -8,7 +8,7 @@
 
 static void
 primitiveFlushCache(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	/* begin flushMethodCache */
 	memset(methodCache, 0, MethodCacheSize * (sizeof(methodCache[0])));
 

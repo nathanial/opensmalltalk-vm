@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 shortPrintOop(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *className;
     sqInt length;
 

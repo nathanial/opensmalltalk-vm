@@ -10,7 +10,7 @@
 
 static NoDbgRegParms usqIntptr_t
 positiveMachineIntegerValueOfObj(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt bs;
     sqInt ccIndex;
     sqInt fmt;

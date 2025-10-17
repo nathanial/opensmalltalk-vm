@@ -4,7 +4,7 @@
 
 static void
 primitivePerformInSuperclass(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arg;
     sqInt argumentArray;
     usqInt arraySize;

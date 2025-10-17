@@ -9,7 +9,7 @@
 
 EXPORT(sqInt)
 primitiveScreenDepth(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt depth;
     char *sp;
 

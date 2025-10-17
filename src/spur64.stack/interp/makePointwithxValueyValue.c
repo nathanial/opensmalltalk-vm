@@ -7,7 +7,7 @@
 
 usqInt
 makePointwithxValueyValue(sqInt xValue, sqInt yValue)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt newObj;
     usqInt numBytes;
     usqInt pointResult;

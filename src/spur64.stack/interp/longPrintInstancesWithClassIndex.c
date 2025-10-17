@@ -9,7 +9,7 @@
 
 void
 longPrintInstancesWithClassIndex(sqInt classIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt followingWord;
     usqInt followingWordAddress;
     usqInt numSlots;

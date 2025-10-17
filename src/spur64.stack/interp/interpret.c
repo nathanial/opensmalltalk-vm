@@ -17,7 +17,7 @@
 
 sqInt
 interpret(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt currentBytecode;
     sqInt extA;
     sqInt extB;

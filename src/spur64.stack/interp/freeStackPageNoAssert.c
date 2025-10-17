@@ -11,7 +11,7 @@
 
 static NoDbgRegParms sqInt
 freeStackPageNoAssert(StackPage *aPage)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     StackPage *prev;
     StackPage *self_in_CogStackPage;
 

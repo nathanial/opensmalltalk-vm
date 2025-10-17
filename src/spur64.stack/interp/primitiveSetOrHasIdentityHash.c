@@ -4,7 +4,7 @@
 
 static void
 primitiveSetOrHasIdentityHash(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt hasHash;
     sqInt hash;
     sqInt isReceiverAClass;

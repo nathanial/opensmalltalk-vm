@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 removeProcessfromList(sqInt aProcess, sqInt aList)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt firstLink;
     sqInt lastLink;
     sqInt nextLink;

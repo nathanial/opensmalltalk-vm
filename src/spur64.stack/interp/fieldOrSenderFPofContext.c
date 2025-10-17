@@ -7,7 +7,7 @@
 
 static NoDbgRegParms sqInt
 fieldOrSenderFPofContext(sqInt index, sqInt contextObj)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt senderOop;
     char *spouseFP;
     sqInt tempIndex;

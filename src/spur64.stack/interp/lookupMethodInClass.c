@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 lookupMethodInClass(sqInt class)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt currentClass;
     sqInt dictionary;
     sqInt found;

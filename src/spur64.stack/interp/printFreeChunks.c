@@ -9,7 +9,7 @@
 
 void
 printFreeChunks(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt followingWord;
     usqInt followingWordAddress;
     usqInt numSlots;

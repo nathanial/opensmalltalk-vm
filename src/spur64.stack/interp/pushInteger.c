@@ -4,7 +4,7 @@
 
 sqInt
 pushInteger(sqInt integerValue)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *sp;
 
 	/* begin push: */

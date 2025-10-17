@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 markAndTraceStackPage(StackPage *thePage)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *callerFP;
     char *frameRcvrOffset;
     sqInt oop;

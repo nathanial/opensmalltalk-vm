@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 unlinkFreeChunkchunkBytes(sqInt freeChunk, sqInt chunkBytes)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt index;
     sqInt lilliputian;
     sqInt next;

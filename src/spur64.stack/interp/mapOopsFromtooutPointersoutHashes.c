@@ -19,7 +19,7 @@
 
 static NoDbgRegParms sqInt
 mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr, sqInt outPointerArray, sqInt savedOutHashes)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt followingWord;
     usqInt followingWordAddress;
     sqInt hash;

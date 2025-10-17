@@ -6,7 +6,7 @@
 
 static void
 freeUntracedStackPages(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     StackPage *thePage;
 

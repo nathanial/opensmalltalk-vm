@@ -12,7 +12,7 @@
 
 sqInt
 copyBitsFromtoat(sqInt x0, sqInt x1, sqInt y)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     void *fn;
 
 	fn = ioLoadFunctionFrom("copyBitsFromtoat", "BitBltPlugin");

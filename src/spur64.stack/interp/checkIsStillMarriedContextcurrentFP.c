@@ -7,7 +7,7 @@
 
 static NoDbgRegParms sqInt
 checkIsStillMarriedContextcurrentFP(sqInt aContext, char *currentFP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *limitFP;
     char *maybeFP;
     sqInt maybeFrameCtxt;

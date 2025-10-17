@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 existInstancesInNewSpaceOf(sqInt classObj)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classIndex;
     sqInt followingWord;
     usqInt followingWordAddress;

@@ -12,7 +12,7 @@
 
 static NoDbgRegParms sqInt
 checkStackPointerIndexForFrame(char *theFP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *aFrame;
     char *prevFrame;
     char *startFrame;

@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 findHomeForContext(sqInt aContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt closureOrNil;
 
 	if (!(/* isContext: */

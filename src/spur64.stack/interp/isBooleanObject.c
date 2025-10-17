@@ -4,7 +4,7 @@
 
 sqInt
 isBooleanObject(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return (oop == trueObj)
 	 || (oop == falseObj);
 }

@@ -7,7 +7,7 @@
 
 static void
 primitiveExitCriticalSection(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt criticalSection;
     sqInt owningProcess;
     sqInt owningProcessIndex;

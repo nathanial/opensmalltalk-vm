@@ -8,7 +8,7 @@
 
 static NeverInline sqInt
 writeImageFileIO(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt bytesWritten;
     sqImageFile f;
     sqInt headerSize;

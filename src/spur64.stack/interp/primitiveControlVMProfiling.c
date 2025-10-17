@@ -9,7 +9,7 @@
 
 static void
 primitiveControlVMProfiling(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt bufferSize;
     sqInt numSamples;
     sqInt onOffBar;

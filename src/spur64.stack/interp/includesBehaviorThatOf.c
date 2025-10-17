@@ -8,7 +8,7 @@
 
 sqInt
 includesBehaviorThatOf(sqInt aClass, sqInt aSuperclass)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt objOop;
     sqInt theClass;
 

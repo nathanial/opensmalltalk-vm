@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 printOopShortInner(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqLong bits;
     sqInt classLookupKey;
     sqInt classOop;

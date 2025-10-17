@@ -8,7 +8,7 @@
 
 sqInt
 remapObj(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt resolvedObj;
 
 	/* begin slidingCompactionRemapObj: */

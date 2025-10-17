@@ -6,7 +6,7 @@
 
 void
 printCallStack(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *fp;
 
 	if ((fp = framePointer)) {

@@ -10,7 +10,7 @@
 
 static sqInt
 markInactiveEphemerons(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt contextSize;
     sqInt ephemeron;
     sqInt field;

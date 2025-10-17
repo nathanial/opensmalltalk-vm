@@ -8,7 +8,7 @@
 
 void
 findString(char *aCString)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt aCStringStrlen;
     sqInt address;
     sqInt classIndex;

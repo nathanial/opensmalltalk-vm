@@ -6,7 +6,7 @@
 
 sqInt
 indexOfin(sqInt anElement, sqInt anObject)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fmt;
     sqInt fmtSqInt;
     sqInt i;

@@ -8,7 +8,7 @@
 
 static void
 primitiveClipboardText(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fmt;
     usqInt numSlots;
     sqInt s;

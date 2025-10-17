@@ -14,7 +14,7 @@
 
 static NoDbgRegParms sqInt
 isScavengeSurvivor(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt target;
 
 	if (((oop & (tagMask())) != 0)) {

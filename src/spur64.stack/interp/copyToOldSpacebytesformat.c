@@ -7,7 +7,7 @@
 
 static NoDbgRegParms NeverInline sqInt
 copyToOldSpacebytesformat(sqInt survivor, sqInt bytesInObject, sqInt formatOfSurvivor)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt field;
     sqInt newOop;
     sqInt newStart;

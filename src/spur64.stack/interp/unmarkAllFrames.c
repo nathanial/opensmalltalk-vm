@@ -4,7 +4,7 @@
 
 static void
 unmarkAllFrames(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt flags;
     sqInt i;
     char *theFP;

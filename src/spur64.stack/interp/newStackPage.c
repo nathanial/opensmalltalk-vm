@@ -10,7 +10,7 @@
 
 static StackPage *
 newStackPage(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     StackPage *lruOrFree;
 
 	lruOrFree = (mostRecentlyUsedPage->nextPage);

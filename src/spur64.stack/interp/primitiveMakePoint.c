@@ -4,7 +4,7 @@
 
 static void
 primitiveMakePoint(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arg;
     usqInt newObj;
     usqInt numBytes;

@@ -6,6 +6,6 @@
 
 sqInt
 statNumGCs(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return (statScavenges + statIncrGCs) + statFullGCs;
 }

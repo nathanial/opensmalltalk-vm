@@ -6,7 +6,7 @@
 
 static NeverInline void
 writeScavengeLog(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     static char *policyNames[] = {"", "by age", "by class", "to shrink rt", "don't tenure", "mark on tenure"};
 
 	/* log data collected by logStartScavenge */

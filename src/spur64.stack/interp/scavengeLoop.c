@@ -36,7 +36,7 @@
 
 static void
 scavengeLoop(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt firstTime;
     sqInt i;
     sqInt previousFutureSurvivorStart;

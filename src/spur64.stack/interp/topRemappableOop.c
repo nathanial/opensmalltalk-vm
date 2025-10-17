@@ -8,6 +8,6 @@
 
 sqInt
 topRemappableOop(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return remapBuffer[remapBufferCount];
 }

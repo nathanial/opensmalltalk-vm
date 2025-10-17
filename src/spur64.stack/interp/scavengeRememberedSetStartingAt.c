@@ -12,7 +12,7 @@
 
 static NoDbgRegParms void
 scavengeRememberedSetStartingAt(sqInt n)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt destIndex;
     sqInt referrer;
     sqInt sourceIndex;

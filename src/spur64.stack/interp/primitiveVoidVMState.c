@@ -6,7 +6,7 @@
 
 static void
 primitiveVoidVMState(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt activeContext;
     char *sp;
 

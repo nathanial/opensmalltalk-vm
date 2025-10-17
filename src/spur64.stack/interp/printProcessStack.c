@@ -6,7 +6,7 @@
 
 void
 printProcessStack(sqInt aProcess)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ctx;
     sqInt tagBits;
 

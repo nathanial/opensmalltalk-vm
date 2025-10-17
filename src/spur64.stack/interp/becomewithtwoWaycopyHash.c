@@ -16,7 +16,7 @@
 
 static NoDbgRegParms sqInt
 becomewithtwoWaycopyHash(sqInt array1, sqInt array2, sqInt twoWayFlag, sqInt copyHashFlag)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt contextSize;
     sqInt ec;
     sqInt fieldOffset;

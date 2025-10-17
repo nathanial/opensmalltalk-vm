@@ -7,7 +7,7 @@
 
 static sqInt
 externalQuickPrimitiveResponse(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt localPrimIndex;
     sqInt oop;
     char *sp;

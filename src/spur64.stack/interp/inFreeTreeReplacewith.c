@@ -7,7 +7,7 @@
 
 static NoDbgRegParms void
 inFreeTreeReplacewith(sqInt treeNode, sqInt newNode)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fieldIndex;
     sqInt i;
     sqInt relative;

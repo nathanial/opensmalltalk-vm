@@ -4,7 +4,7 @@
 
 static sqInt
 divorceAllFrames(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt activeContext;
     StackPage *aPage;
     sqInt i;

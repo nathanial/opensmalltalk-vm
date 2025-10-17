@@ -7,7 +7,7 @@
 
 static NoDbgRegParms sqInt
 synchronousSignal(sqInt aSemaphore)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ctxt;
     sqInt excessSignals;
     sqInt integerValue;

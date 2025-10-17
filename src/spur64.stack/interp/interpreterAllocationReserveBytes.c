@@ -10,7 +10,7 @@
 
 static NeverInline sqInt
 interpreterAllocationReserveBytes(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt maxFramesPerPage;
     sqInt maxUsedBytesPerPage;
 

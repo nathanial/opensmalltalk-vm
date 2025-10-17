@@ -12,7 +12,7 @@
 
 static NoDbgRegParms void
 updatePointersInsavedFirstFieldPointer(sqInt obj, sqInt firstFieldPtr)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt contextSize;
     sqInt fmt;
     sqInt fwd;

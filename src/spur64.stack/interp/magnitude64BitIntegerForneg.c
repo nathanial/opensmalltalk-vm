@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 magnitude64BitIntegerForneg(usqLong magnitude, sqInt isNegative)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     int isSmall;
     int largeClassIndex;
     usqInt newLargeInteger;

@@ -8,7 +8,7 @@
 
 static NoDbgRegParms void
 adjustSegmentSwizzlesBy(sqInt firstSegmentShift)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     sqInt oldBaseAddr;
     SpurSegmentInfo *segInfo;

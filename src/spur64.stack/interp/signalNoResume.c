@@ -8,7 +8,7 @@
 
 int
 signalNoResume(sqInt aSemaphore)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     int empty;
 
 	/* begin isEmptyList: */

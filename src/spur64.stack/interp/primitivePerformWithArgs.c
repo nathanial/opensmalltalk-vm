@@ -4,7 +4,7 @@
 
 static void
 primitivePerformWithArgs(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt actualReceiver;
     sqInt arg;
     sqInt argumentArray;

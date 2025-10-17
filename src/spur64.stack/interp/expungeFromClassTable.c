@@ -6,7 +6,7 @@
 
 static NoDbgRegParms void
 expungeFromClassTable(sqInt aBehavior)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classIndex;
     sqInt classTablePage;
     sqInt majorIndex;

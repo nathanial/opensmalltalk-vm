@@ -8,7 +8,7 @@
 
 static NoDbgRegParms void *
 firstGapOfSizeAtLeast(sqInt size)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt address;
     sqInt bridge;
     sqInt i;

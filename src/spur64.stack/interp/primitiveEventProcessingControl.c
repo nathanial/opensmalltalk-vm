@@ -8,7 +8,7 @@
 
 EXPORT(void)
 primitiveEventProcessingControl(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     int enabled;
     char *sp;
 

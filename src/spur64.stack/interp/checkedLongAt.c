@@ -6,7 +6,7 @@
 
 sqInt
 checkedLongAt(sqInt byteAddress)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (!(isInMemory(byteAddress))) {
 		warning("checkedLongAt bad address");
 

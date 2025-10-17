@@ -4,7 +4,7 @@
 
 sqInt
 methodPrimitiveIndex(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt firstBytecode;
     sqInt methodHeader;
 

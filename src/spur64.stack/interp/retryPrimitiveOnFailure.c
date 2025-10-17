@@ -18,7 +18,7 @@
 
 static sqInt
 retryPrimitiveOnFailure(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt accessorDepth;
     sqInt canRetry;
     usqInt firstBytecode;

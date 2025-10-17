@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 sizeOfObjStack(sqInt objStack)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt objStackPage;
     sqInt total;
 

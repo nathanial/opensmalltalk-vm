@@ -6,7 +6,7 @@
 
 static NoDbgRegParms void
 unlinkSolitaryFreeTreeNode(sqInt freeTreeNode)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fieldIndex;
     sqInt larger;
     sqInt parent;

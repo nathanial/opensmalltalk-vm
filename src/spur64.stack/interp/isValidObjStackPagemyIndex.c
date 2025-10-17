@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 isValidObjStackPagemyIndex(sqInt objStackPage, sqInt myx)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (!(((longAt((void *)(objStackPage))) & (classIndexMask())) == (sixtyFourBitLongsClassIndexPun()))) {
 		objStackInvalidBecause = "wrong class index";
 		invalidObjStackPage = objStackPage;

@@ -7,7 +7,7 @@
 
 static NoDbgRegParms sqInt
 fieldofFrame(sqInt index, char *theFP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *callerFP;
     usqInt frameNumArgs;
 

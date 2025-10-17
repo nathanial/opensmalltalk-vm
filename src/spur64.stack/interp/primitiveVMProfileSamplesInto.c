@@ -10,7 +10,7 @@
 
 static void
 primitiveVMProfileSamplesInto(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     long bufferSize;
     sqInt numSamples;
     sqInt running;

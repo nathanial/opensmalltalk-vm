@@ -6,7 +6,7 @@
 
 sqInt
 booleanValueOf(sqInt obj)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (obj == trueObj) {
 		return 1;
 	}

@@ -8,7 +8,7 @@
 
 static sqInt
 scavengeUnfiredEphemeronsOnEphemeronList(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt corpseOffset;
     sqInt ephemeron;
     usqInt ephemeronCorpse;

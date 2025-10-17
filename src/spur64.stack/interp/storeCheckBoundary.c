@@ -6,6 +6,6 @@
 
 usqInt
 storeCheckBoundary(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return oldSpaceStart;
 }

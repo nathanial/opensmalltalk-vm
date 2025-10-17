@@ -7,7 +7,7 @@
 
 sqInt
 positive64BitIntegerFor(usqLong integerValue)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt newLargeInteger;
     usqInt newObj;
     usqInt numBytes;

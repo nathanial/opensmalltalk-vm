@@ -7,7 +7,7 @@
 
 void
 printHeaderOf(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt n;
 
 	/* printHexnp: */

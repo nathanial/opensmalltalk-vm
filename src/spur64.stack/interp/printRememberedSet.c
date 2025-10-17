@@ -7,7 +7,7 @@
 
 void
 printRememberedSet(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
 
 	for (i = 0; i < rememberedSetSize; i += 1) {

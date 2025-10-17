@@ -8,7 +8,7 @@
 
 sqInt
 doSignalSemaphoreWithIndex(sqInt index)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt sema;
     sqInt xArray;
 

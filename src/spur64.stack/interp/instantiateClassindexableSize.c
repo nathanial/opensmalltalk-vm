@@ -6,7 +6,7 @@
 
 sqInt
 instantiateClassindexableSize(sqInt classObj, usqInt nElements)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classFormat;
     sqInt classIndex;
     sqInt err;

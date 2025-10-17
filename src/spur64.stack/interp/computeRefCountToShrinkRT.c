@@ -37,7 +37,7 @@
 
 static NeverInline void
 computeRefCountToShrinkRT(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt count;
     sqInt elephant;
     sqInt entirePopulation;

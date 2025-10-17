@@ -18,7 +18,7 @@
 
 static void
 primitiveChangeClass(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arg;
     sqInt argClass;
     sqInt err;

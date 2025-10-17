@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 useSegmentForSavedFirstFieldsSpace(sqInt spaceEstimate)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt allocatedSize;
     sqInt roundedSize;
     void *segAddress;

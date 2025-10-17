@@ -8,7 +8,7 @@
 
 static void
 primitiveSetFullScreen(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt argOop;
 
 	argOop = longAt(stackPointer);

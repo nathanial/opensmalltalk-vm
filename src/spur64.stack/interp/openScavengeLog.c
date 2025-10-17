@@ -4,6 +4,6 @@
 
 void
 openScavengeLog(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	scavengeLog = fopen("scavenge.log", "a+");
 }

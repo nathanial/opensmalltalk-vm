@@ -8,7 +8,7 @@
 
 static void
 primitiveBytesLeft(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt aBool;
     sqInt chunk;
     sqInt freeChunk;

@@ -13,7 +13,7 @@
 
 static NoDbgRegParms NeverInline void
 markObjects(sqInt objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classIndex;
     sqInt classOrNil;
     sqInt classTablePage;

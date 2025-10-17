@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 divorceFramesIn(StackPage *aStackPage)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt calleeContext;
     char *calleeFP;
     sqInt theContext;

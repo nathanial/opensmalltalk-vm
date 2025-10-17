@@ -11,7 +11,7 @@
 
 static NoDbgRegParms NeverInline void
 addToEphemeronList(sqInt ephemeronCorpse)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ephemeronListOffset;
 
 	assert(!(isScavengeSurvivor(keyOfEphemeron(followForwarded(ephemeronCorpse)))));

@@ -14,7 +14,7 @@
 
 static NoDbgRegParms sqInt
 checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs, sqInt classIndicesShouldBeValid)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt chunkBytes;
     sqInt classIndex;
     sqInt classIndexSqInt;

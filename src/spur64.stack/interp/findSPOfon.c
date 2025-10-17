@@ -8,7 +8,7 @@
 
 static NoDbgRegParms char *
 findSPOfon(char *theFP, StackPage *thePage)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *aFrame;
     char *prevFrame;
     char *startFrame;

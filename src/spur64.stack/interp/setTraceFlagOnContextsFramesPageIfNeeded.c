@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 setTraceFlagOnContextsFramesPageIfNeeded(sqInt aContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     void *pointer;
     sqInt senderOop;
     StackPage *thePage;

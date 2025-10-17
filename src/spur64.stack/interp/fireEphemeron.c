@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 fireEphemeron(sqInt ephemeron)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	queueMourner(ephemeron);
 
 	/* begin setFormatOf:to: */

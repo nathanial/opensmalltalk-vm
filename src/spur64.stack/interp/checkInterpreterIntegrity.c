@@ -9,7 +9,7 @@
 
 static sqInt
 checkInterpreterIntegrity(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt flags;
 
 	flags = 0;

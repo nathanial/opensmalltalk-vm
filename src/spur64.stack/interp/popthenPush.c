@@ -6,7 +6,7 @@
 
 void
 popthenPush(sqInt nItems, sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *sp;
 
 	longAtput((sp = stackPointer + ((nItems - 1) * BytesPerWord)),oop);

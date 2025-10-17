@@ -10,7 +10,7 @@
 
 static void
 markWeaklingsAndMarkAndFireEphemerons(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ephemeron;
     sqInt field;
     sqInt i;

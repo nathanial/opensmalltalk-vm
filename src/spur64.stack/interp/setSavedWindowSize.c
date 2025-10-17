@@ -4,6 +4,6 @@
 
 void
 setSavedWindowSize(sqInt value)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	savedWindowSize = value;
 }

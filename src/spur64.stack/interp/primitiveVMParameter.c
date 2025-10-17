@@ -109,7 +109,7 @@
 
 static void
 primitiveVMParameter(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     double aProportion;
     sqIntptr_t arg;
     sqInt argOop;

@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 cloneInOldSpaceforPinning(sqInt objOop, sqInt forPinning)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fmt;
     sqInt hash;
     sqInt hasYoung;

@@ -6,7 +6,7 @@
 
 usqIntptr_t
 stackPositiveMachineIntegerValue(sqInt offset)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt integerPointer;
     sqInt value;
 

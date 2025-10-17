@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 isValidObjStackAt(sqInt objStackRootIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt stackOrNil;
 
 	stackOrNil = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(objStackRootIndex) << (shiftForWord()))))));

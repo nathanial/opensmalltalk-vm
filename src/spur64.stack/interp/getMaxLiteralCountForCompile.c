@@ -6,6 +6,6 @@
 
 static sqInt
 getMaxLiteralCountForCompile(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return nilObj;
 }

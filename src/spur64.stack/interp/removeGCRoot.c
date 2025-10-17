@@ -6,7 +6,7 @@
 
 sqInt
 removeGCRoot(sqInt *varLoc)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     int i;
 
 	for (i = 1; i <= extraRootCount; i++) {

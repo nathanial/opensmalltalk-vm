@@ -8,7 +8,7 @@
 
 static void
 primitiveUtcAndTimezoneOffset(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt resultArray;
     char *sp;
     sqInt valuePointer;

@@ -9,7 +9,7 @@
 
 static NoDbgRegParms void
 reverseDisplayFromto(sqInt startIndex, sqInt endIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt primFailCodeValue;
     sqInt ptr;
     sqInt reversed;

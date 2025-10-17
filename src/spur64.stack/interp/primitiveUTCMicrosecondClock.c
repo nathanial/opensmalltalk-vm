@@ -11,7 +11,7 @@
 
 static void
 primitiveUTCMicrosecondClock(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt oop;
     char *sp;
 

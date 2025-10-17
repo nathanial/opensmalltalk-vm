@@ -10,7 +10,7 @@
 
 static NoDbgRegParms NeverInline void
 reapAndResetErrorCodeToheader(char *theSP, sqInt methodHeader)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt initialPC;
 
 	assert(primFailCode != 0);

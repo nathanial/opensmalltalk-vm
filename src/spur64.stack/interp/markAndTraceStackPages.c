@@ -19,7 +19,7 @@
 
 static NoDbgRegParms sqInt
 markAndTraceStackPages(sqInt fullGCFlag)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt context;
     sqInt i;
     void *pointer;

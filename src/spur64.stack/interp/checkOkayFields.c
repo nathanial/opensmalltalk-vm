@@ -7,7 +7,7 @@
 
 static NoDbgRegParms sqInt
 checkOkayFields(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fieldOop;
     sqInt hasYoung;
     sqInt i;

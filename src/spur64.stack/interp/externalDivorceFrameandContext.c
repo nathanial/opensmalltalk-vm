@@ -8,7 +8,7 @@
 
 static NoDbgRegParms void
 externalDivorceFrameandContext(char *theFP, sqInt ctxt)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt callerCtx;
     char *callerFP;
     char *callerFP1;

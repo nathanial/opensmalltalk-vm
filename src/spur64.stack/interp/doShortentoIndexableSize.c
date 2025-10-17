@@ -14,7 +14,7 @@
 
 static NoDbgRegParms sqInt
 doShortentoIndexableSize(sqInt objOop, sqInt indexableSize)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt bytesBefore;
     sqInt classIndex;
     sqInt copy;

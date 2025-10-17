@@ -18,7 +18,7 @@
 
 SpurSegmentInfo *
 segmentContainingObj(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt high;
     sqInt low;
     sqInt mid;

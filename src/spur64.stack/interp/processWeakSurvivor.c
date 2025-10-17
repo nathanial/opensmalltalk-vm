@@ -9,7 +9,7 @@
 
 static NoDbgRegParms sqInt
 processWeakSurvivor(sqInt weakObj)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classFormat;
     sqInt classPointer;
     sqInt hasYoungReferents;

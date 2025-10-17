@@ -6,7 +6,7 @@
 
 EXPORT(sqInt)
 primitiveBytecodeSetsAvailable(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt encoderNames;
     usqInt newObj;
     usqInt numBytes;

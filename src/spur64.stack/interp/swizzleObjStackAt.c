@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 swizzleObjStackAt(sqInt objStackRootIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt field;
     sqInt firstPage;
     sqInt index;

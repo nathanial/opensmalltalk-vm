@@ -7,7 +7,7 @@
 
 static NoDbgRegParms sqInt
 safeMethodClassOf(sqInt methodPointer)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt literal;
     sqInt maybeClass;
     usqInt numSlots;

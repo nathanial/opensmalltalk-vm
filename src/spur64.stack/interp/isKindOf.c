@@ -6,7 +6,7 @@
 
 sqInt
 isKindOf(sqInt oop, char *className)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt objOop;
     sqInt oopClass;
     sqInt tagBits;

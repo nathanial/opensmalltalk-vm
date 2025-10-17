@@ -6,7 +6,7 @@
 
 sqInt
 checkOkayInterpreterObjects(sqInt writeBack)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     int i;
     sqInt ok;
     sqInt oop;

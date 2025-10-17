@@ -9,7 +9,7 @@
 
 static sqInt
 totalFreeListBytes(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt bytesInChunk;
     sqInt cameFrom;
     sqInt i;

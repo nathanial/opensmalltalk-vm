@@ -4,7 +4,7 @@
 
 static void
 primitiveHighBit(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt highestBitZeroBased;
     sqInt integerReceiverOop;
     sqInt leadingZeroCount;

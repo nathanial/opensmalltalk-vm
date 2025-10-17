@@ -6,7 +6,7 @@
 
 void
 printBogons(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	/* begin printTheBogons: */
 	print("bogon ");
 

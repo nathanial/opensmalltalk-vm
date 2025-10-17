@@ -4,6 +4,6 @@
 
 static usqInt
 newSpaceCapacity(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return ((eden.limit)) - (((((futureSpace.start)) < ((pastSpace.start))) ? ((futureSpace.start)) : ((pastSpace.start))));
 }

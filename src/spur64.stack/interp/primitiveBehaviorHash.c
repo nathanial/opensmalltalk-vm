@@ -9,7 +9,7 @@
 
 static void
 primitiveBehaviorHash(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt err;
     sqInt hash;
     sqInt hashOrError;

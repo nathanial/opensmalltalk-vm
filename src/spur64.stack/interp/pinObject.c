@@ -9,7 +9,7 @@
 
 sqInt
 pinObject(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     sqInt oldClone;
     sqInt referent;

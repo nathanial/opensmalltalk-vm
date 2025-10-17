@@ -7,7 +7,7 @@
 
 static NoDbgRegParms char *
 externalEnsureIsBaseFrame(char *aFramePtr)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     int onCurrent;
     char *theFP;
     StackPage *thePage;

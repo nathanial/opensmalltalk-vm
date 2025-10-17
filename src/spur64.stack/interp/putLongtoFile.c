@@ -10,7 +10,7 @@
 
 static NoDbgRegParms void
 putLongtoFile(sqInt aLong, sqImageFile aFile)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt objectsWritten;
 
 	objectsWritten = sqImageFileWrite((&aLong), sizeof(sqInt), 1, aFile);

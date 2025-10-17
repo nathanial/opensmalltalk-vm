@@ -6,7 +6,7 @@
 
 sqInt
 printFreeList(sqInt chunkOrIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt freeChunk;
 
 	if ((chunkOrIndex >= 0)

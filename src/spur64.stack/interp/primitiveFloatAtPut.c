@@ -8,7 +8,7 @@
 
 static void
 primitiveFloatAtPut(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt index;
     sqInt oopToStore;
     sqInt rcvr;

@@ -7,7 +7,7 @@
 
 static void
 primitiveContextSize(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt class;
     sqInt fixedFields;
     usqLong fmt;

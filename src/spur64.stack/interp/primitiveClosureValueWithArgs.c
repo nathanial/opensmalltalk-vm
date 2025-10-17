@@ -4,7 +4,7 @@
 
 static void
 primitiveClosureValueWithArgs(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt argumentArray;
     usqInt arraySize;
     sqInt blockClosure;

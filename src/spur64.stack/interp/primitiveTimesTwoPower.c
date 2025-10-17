@@ -10,7 +10,7 @@
 
 static void
 primitiveTimesTwoPower(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt aFloatOop;
     sqInt arg;
     usqLong bits;

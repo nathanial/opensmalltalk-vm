@@ -6,7 +6,7 @@
 
 void
 printEntity(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt n;
     sqInt printFlags;
 

@@ -7,7 +7,7 @@
 
 static NoDbgRegParms void
 addLastLinktoList(sqInt proc, sqInt aList)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt lastLink;
 
 	assert(!((isForwarded(proc))));

@@ -6,7 +6,7 @@
 
 static void
 primitiveTruncated(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqLong bits;
     double doubleValue;
     sqInt rcvr;

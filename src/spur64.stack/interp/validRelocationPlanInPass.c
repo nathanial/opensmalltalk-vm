@@ -9,7 +9,7 @@
 
 static NoDbgRegParms sqInt
 validRelocationPlanInPass(sqInt onePass)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt destination;
     sqInt followingWord;
     usqInt followingWordAddress;

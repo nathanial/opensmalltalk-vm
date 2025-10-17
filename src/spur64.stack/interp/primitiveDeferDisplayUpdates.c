@@ -11,7 +11,7 @@
 
 static void
 primitiveDeferDisplayUpdates(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt flag;
 
 	if (cannotDeferDisplayUpdates) {

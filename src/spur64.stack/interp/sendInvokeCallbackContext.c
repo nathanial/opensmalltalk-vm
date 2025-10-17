@@ -23,7 +23,7 @@
 
 sqInt
 sendInvokeCallbackContext(VMCallbackContext *vmCallbackContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classTag;
     usqInt i;
     sqInt methodHeader;

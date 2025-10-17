@@ -36,7 +36,7 @@
 
 static void
 primitiveScanCharacters(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ascii;
     sqInt glyphIndex;
     sqInt kernDelta;

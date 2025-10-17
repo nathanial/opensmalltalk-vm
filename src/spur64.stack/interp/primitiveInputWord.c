@@ -8,7 +8,7 @@
 
 static void
 primitiveInputWord(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *sp;
 
 	/* begin pop:thenPushInteger: */

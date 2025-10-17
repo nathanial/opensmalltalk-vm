@@ -10,7 +10,7 @@
 
 static NoDbgRegParms void
 hackSlimBridgeToat(sqInt objOop, sqInt startAddress)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	assert(oopisLessThan(startAddress, objOop));
 	assert(oopisLessThanOrEqualTo(objOop, oldSpaceStart));
 	assert(((startAddress + (allocationUnit())) == objOop)

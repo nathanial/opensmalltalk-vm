@@ -13,7 +13,7 @@
 
 static NoDbgRegParms NeverInline void
 outOfPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt clone1;
     sqInt clone2;
     sqInt hash;

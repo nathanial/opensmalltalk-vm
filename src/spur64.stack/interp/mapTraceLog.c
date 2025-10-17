@@ -8,7 +8,7 @@
 
 static void
 mapTraceLog(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     sqInt intOrClass;
     sqInt limit;

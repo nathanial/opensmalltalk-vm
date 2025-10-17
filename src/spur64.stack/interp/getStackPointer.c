@@ -6,6 +6,6 @@
 
 sqInt *
 getStackPointer(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return ((sqInt *) stackPointer);
 }

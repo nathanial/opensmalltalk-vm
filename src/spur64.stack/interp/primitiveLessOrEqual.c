@@ -4,7 +4,7 @@
 
 static void
 primitiveLessOrEqual(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt integerArgument;
     sqInt integerReceiver;
     char *sp;

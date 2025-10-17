@@ -8,7 +8,7 @@
 
 static void
 primitiveObjectAtPut(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fieldIndex;
     sqInt index;
     sqInt newValue;

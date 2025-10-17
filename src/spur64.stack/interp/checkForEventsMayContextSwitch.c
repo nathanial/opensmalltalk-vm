@@ -7,7 +7,7 @@
 
 static NoDbgRegParms sqInt
 checkForEventsMayContextSwitch(sqInt mayContextSwitch)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt heapSizePostGC;
     usqLong now;
     sqInt nowSqInt;

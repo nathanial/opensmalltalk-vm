@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 relocateObjStackForPlanningCompactorandContents(sqInt objStack, sqInt relocateContents)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt finishIndex;
     sqInt freeList;
     sqInt fwd;

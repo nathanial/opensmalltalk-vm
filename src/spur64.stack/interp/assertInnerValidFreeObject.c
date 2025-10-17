@@ -9,7 +9,7 @@
 
 static NoDbgRegParms NeverInline sqInt
 assertInnerValidFreeObject(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt cameFrom;
     sqInt chunk;
     sqInt chunkBytes;

@@ -16,7 +16,7 @@
 
 static NoDbgRegParms sqInt
 objectsAccessibleFromRoots(sqInt arrayOfRootsArg)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arrayOfObjects;
     sqInt arrayOfRoots;
 

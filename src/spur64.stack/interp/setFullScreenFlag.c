@@ -4,6 +4,6 @@
 
 void
 setFullScreenFlag(sqInt value)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	fullScreenFlag = value;
 }

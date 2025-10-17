@@ -8,7 +8,7 @@
 
 EXPORT(sqInt)
 primitiveProfileSemaphore(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt sema;
 
 	if (!(argumentCount == 1)) {

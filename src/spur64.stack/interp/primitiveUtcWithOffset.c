@@ -10,7 +10,7 @@
 
 EXPORT(sqInt)
 primitiveUtcWithOffset(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     static usqLong epochDelta = 2177452800000000ULL;
     sqInt resultArray;
     char *sp;

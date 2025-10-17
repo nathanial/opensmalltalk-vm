@@ -6,7 +6,7 @@
 
 EXPORT(void)
 primitiveSubtractLargeIntegers(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqLong a;
     sqInt aIsNegative;
     usqLong b;

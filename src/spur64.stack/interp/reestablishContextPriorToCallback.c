@@ -9,7 +9,7 @@
 
 sqInt
 reestablishContextPriorToCallback(sqInt callbackContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt calloutContext;
     sqInt senderOop;
     char *sp;

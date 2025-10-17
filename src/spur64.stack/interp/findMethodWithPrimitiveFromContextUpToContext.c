@@ -13,7 +13,7 @@
 
 static NoDbgRegParms sqInt
 findMethodWithPrimitiveFromContextUpToContext(sqInt primitive, sqInt senderContext, sqInt homeContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt objOop;
     sqInt senderContextSqInt;
     sqInt senderOop;

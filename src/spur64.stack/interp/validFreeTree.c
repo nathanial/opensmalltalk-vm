@@ -6,6 +6,6 @@
 
 int
 validFreeTree(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return !(validFreeTreeChunkparent(freeLists[0], 0));
 }

@@ -8,7 +8,7 @@
 
 sqInt
 homeMethodOf(sqInt aMethodOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt lastLiteral;
     sqInt methodChain;
 

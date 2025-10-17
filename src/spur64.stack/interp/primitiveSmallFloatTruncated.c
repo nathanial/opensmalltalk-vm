@@ -4,7 +4,7 @@
 
 static void
 primitiveSmallFloatTruncated(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqLong bits;
     sqInt oop;
     double rcvr;

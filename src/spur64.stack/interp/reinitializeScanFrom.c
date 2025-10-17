@@ -9,7 +9,7 @@
 
 static NoDbgRegParms void
 reinitializeScanFrom(sqInt initialObject)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt followingWord;
     usqInt followingWordAddress;
     sqInt objOop;

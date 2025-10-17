@@ -7,7 +7,7 @@
 
 sqInt
 remember(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	assert(isNonImmediate(objOop));
 	assert(!((isYoungObject(objOop))));
 	assert(!((isRemembered(objOop))));

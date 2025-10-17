@@ -19,7 +19,7 @@
 
 static NeverInline sqInt
 copyAndUnmarkMobileObjects(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt availableSpace;
     usqInt bytes;
     sqInt destObj;

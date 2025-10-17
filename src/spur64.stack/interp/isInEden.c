@@ -4,6 +4,6 @@
 
 static NoDbgRegParms sqInt
 isInEden(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return oopisGreaterThanOrEqualToandLessThan(objOop, ((eden).start), freeStart);
 }

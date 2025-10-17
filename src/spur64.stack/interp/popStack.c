@@ -6,7 +6,7 @@
 
 sqInt
 popStack(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt top;
 
 	top = longAt(stackPointer);

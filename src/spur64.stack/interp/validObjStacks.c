@@ -4,7 +4,7 @@
 
 static sqInt
 validObjStacks(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return ((markStack == nilObj)
 	 || (isValidObjStack(markStack)))
 	 && (((weaklingStack == nilObj)

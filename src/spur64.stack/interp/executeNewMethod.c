@@ -8,7 +8,7 @@
 
 static sqInt
 executeNewMethod(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt i;
     sqInt methodHeader;
     usqInt numArgs;

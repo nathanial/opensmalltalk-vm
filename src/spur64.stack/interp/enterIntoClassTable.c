@@ -7,7 +7,7 @@
 
 static NoDbgRegParms sqInt
 enterIntoClassTable(sqInt aBehavior)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     sqInt initialMajorIndex;
     sqInt majorIndex;

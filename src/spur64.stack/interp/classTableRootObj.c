@@ -6,6 +6,6 @@
 
 sqInt
 classTableRootObj(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return hiddenRootsObj;
 }

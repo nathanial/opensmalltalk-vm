@@ -9,7 +9,7 @@
 
 EXPORT(sqInt)
 primitiveGetLogDirectory(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     char *ptr;
     char *sp;

@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 lengthOfNameOfClass(sqInt classOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fmt;
     usqInt numSlots;
     usqInt numSlots1;

@@ -8,6 +8,6 @@
 
 sqInt
 failed(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return primFailCode;
 }

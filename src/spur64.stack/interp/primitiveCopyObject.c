@@ -12,7 +12,7 @@
 
 static void
 primitiveCopyObject(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arg;
     sqInt fmt;
     sqInt i;

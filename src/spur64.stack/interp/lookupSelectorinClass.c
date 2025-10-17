@@ -7,7 +7,7 @@
 
 sqInt
 lookupSelectorinClass(sqInt selector, sqInt class)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt currentClass;
     sqInt dictionary;
     usqInt index;

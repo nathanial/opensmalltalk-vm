@@ -7,7 +7,7 @@
 
 sqInt
 stringForCString(const char *aCString)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt formatField;
     sqInt len;
     usqInt newObj;

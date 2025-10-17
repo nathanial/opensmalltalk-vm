@@ -9,7 +9,7 @@
 
 static NoDbgRegParms sqInt
 fetchPointerofMarriedContext(sqInt offset, sqInt aContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *callerFP;
     usqInt frameNumArgs;
     sqInt senderOop;

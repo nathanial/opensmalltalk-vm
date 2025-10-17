@@ -8,7 +8,7 @@
 
 static NoDbgRegParms StackPage *
 makeBaseFrameFor(sqInt aContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt header;
     sqInt i;
     sqInt maybeClosure;

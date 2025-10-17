@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 printStackPageuseCount(StackPage *page, sqInt n)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	print("page ");
 	printHexPtrnp(page);
 	print(" (");

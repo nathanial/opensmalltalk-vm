@@ -8,7 +8,7 @@
 
 static NoDbgRegParms void
 putShorttoFile(short aShort, sqImageFile aFile)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt objectsWritten;
 
 	objectsWritten = sqImageFileWrite((&aShort), sizeof(short), 1, aFile);

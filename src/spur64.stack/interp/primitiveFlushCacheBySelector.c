@@ -8,7 +8,7 @@
 
 static void
 primitiveFlushCacheBySelector(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     sqInt probe;
     sqInt selector;

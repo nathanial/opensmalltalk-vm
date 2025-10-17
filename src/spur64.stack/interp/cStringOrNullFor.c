@@ -9,7 +9,7 @@
 
 char *
 cStringOrNullFor(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ccIndex;
     char *cString;
     sqInt fmt;

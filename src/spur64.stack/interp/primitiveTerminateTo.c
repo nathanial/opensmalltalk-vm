@@ -11,7 +11,7 @@
 
 static void
 primitiveTerminateTo(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt aContextOrNil;
     char *callerFP;
     char *callerFP1;

@@ -10,7 +10,7 @@
 
 void *
 fetchArrayofObject(sqInt fieldIndex, sqInt objectPointer)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arrayOop;
 
 	arrayOop = longAt((void *)((objectPointer + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));

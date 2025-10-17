@@ -10,7 +10,7 @@
 
 static sqInt
 allObjects(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt bytes;
     sqInt count;
     sqInt followingWord;

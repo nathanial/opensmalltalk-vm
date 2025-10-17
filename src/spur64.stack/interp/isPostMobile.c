@@ -6,6 +6,6 @@
 
 static NoDbgRegParms sqInt
 isPostMobile(sqInt obj)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return oopisGreaterThanOrEqualToandLessThanOrEqualTo(obj, mobileStart, lastMobileObject);
 }

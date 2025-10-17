@@ -10,7 +10,7 @@
 
 static usqLong
 currentAllocatedBytes(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt use;
 
 	use = ((/* begin totalOldSpaceCapacity */

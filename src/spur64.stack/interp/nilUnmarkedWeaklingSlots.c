@@ -9,7 +9,7 @@
 
 static NeverInline void
 nilUnmarkedWeaklingSlots(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt anyUnmarked;
     sqInt i;
     sqInt iSqInt;

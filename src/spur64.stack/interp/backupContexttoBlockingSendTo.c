@@ -11,7 +11,7 @@
 
 static NoDbgRegParms void
 backupContexttoBlockingSendTo(sqInt suspendedContext, sqInt conditionVariable)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt pc;
     sqInt senderOop;
     sqInt sp;

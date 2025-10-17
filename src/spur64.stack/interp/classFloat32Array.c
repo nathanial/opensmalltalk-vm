@@ -4,6 +4,6 @@
 
 sqInt
 classFloat32Array(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return nilObj;
 }

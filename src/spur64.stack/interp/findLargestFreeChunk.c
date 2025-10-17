@@ -6,7 +6,7 @@
 
 static sqInt
 findLargestFreeChunk(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt childNode;
     sqInt treeNode;
 

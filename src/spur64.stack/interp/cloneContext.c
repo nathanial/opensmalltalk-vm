@@ -4,7 +4,7 @@
 
 static NoDbgRegParms usqInt
 cloneContext(sqInt aContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt cloned;
     sqInt fieldIndex;
     usqInt frameNumArgs;

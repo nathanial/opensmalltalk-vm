@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 allocateSlotsInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt totalBytes, sqInt formatField, sqInt classIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt chunk;
 
 	if ((chunk = allocateOldSpaceChunkOfBytes(totalBytes))) {

@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 printFrameThingandFrameat(char *name, char *theFP, char *address)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt it;
 
 	it = longAt(address);

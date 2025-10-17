@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 printFrameFlagsForFP(char *theFP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *address;
     sqInt it;
 

@@ -6,7 +6,7 @@
 
 static void
 primitiveSpecialObjectsOop(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *sp;
 
 	/* begin pop:thenPush: */

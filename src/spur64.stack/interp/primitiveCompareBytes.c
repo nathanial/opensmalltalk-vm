@@ -6,7 +6,7 @@
 
 EXPORT(sqInt)
 primitiveCompareBytes(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arg1;
     sqInt arg2;
     sqInt fmt;

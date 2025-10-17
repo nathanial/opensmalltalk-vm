@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 isValidSegmentBridge(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return ((addressCouldBeObj(objOop))
 	 || (objOop == endOfMemory))
 	 && ((((longAt((void *)(objOop))) & (classIndexMask())) == (segmentBridgePun()))

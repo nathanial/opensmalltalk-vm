@@ -4,7 +4,7 @@
 
 static void
 primitivePerform(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     usqInt iUsqInt;
     sqInt lookupClassTag;

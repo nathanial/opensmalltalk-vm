@@ -15,7 +15,7 @@
 
 static NoDbgRegParms sqInt
 instructionPointerForFramecurrentFPcurrentIP(char *spouseFP, char *currentFP, sqInt instrPtr)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *callerFP;
     char *fp;
     char *theFPAbove;

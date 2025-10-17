@@ -8,7 +8,7 @@
 
 EXPORT(sqInt)
 primitivePathToUsing(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt contextSize;
     sqInt current;
     sqInt err;

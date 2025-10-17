@@ -6,7 +6,7 @@
 
 void
 printMethodDictionary(sqInt dictionary)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt index;
     sqInt meth;
     sqInt methodArray;

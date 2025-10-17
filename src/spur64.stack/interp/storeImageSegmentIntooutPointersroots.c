@@ -45,7 +45,7 @@
 
 static NoDbgRegParms sqInt
 storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg, sqInt outPointersArrayArg, sqInt arrayOfRootsArg)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arrayOfObjects;
     sqInt arrayOfRoots;
     sqInt delta;

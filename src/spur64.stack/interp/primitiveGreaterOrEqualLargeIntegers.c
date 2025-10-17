@@ -6,7 +6,7 @@
 
 EXPORT(void)
 primitiveGreaterOrEqualLargeIntegers(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqLong integerArg;
     sqLong integerRcvr;
     char *sp;

@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext, sqInt anOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     int onCurrentPage;
     sqInt senderOop;
     char *theFP;

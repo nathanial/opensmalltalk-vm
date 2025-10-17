@@ -6,7 +6,7 @@
 
 sqInt
 printFrameWithSP(char *theFP, char *theSP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *addr;
     usqInt i;
     usqInt numArgs;

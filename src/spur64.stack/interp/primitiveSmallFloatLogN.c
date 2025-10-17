@@ -6,7 +6,7 @@
 
 static void
 primitiveSmallFloatLogN(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt aValue;
     usqLong bits;
     sqInt oop;

@@ -6,7 +6,7 @@
 
 void
 printOopsFromto(sqInt startAddress, sqInt endAddress)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt firstNonEntity;
     sqInt inEmptySpace;
     sqInt lastNonEntity;

@@ -12,7 +12,7 @@
 
 static NoDbgRegParms sqInt
 readHeapFromImageFiledataBytes(sqImageFile f, sqInt numBytes)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt bridge;
     sqInt bridgehead;
     usqInt bridgeSpan;

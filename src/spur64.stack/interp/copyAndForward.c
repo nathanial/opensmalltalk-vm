@@ -9,7 +9,7 @@
 
 static NoDbgRegParms sqInt
 copyAndForward(sqInt survivor)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt bytesInObj;
     sqInt format;
     sqInt newLocation;

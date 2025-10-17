@@ -6,7 +6,7 @@
 
 void
 printStackReferencesTo(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *callerFP;
     sqInt i;
     char *theFP;

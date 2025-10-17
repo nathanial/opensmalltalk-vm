@@ -11,7 +11,7 @@
 
 static void
 primitiveTestAndSetOwnershipOfCriticalSection(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt activeProc;
     sqInt criticalSection;
     sqInt objOop;

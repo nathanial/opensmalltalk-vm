@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 bridgeAt(sqInt segIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt address;
     usqInt numSlots;
 

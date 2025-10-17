@@ -4,6 +4,6 @@
 
 sqInt
 getSavedWindowSize(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return savedWindowSize;
 }

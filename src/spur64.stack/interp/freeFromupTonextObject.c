@@ -8,7 +8,7 @@
 
 static NoDbgRegParms void
 freeFromupTonextObject(usqInt initialToFinger, usqInt limit, sqInt nextObject)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt numSlots;
     sqInt obj;
     usqInt objStart;

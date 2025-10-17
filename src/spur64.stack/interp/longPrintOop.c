@@ -6,7 +6,7 @@
 
 void
 longPrintOop(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt aClass;
     int byte;
     char *className;

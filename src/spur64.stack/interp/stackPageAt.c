@@ -7,6 +7,6 @@
 
 static NoDbgRegParms StackPage *
 stackPageAt(sqInt index)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return stackPageAtpages(index, pages);
 }

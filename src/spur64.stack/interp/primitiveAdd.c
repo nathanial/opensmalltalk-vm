@@ -4,7 +4,7 @@
 
 static void
 primitiveAdd(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt integerResult;
     char *sp;
 

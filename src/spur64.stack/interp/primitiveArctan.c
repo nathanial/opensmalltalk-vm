@@ -6,7 +6,7 @@
 
 static void
 primitiveArctan(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt aValue;
     usqLong bits;
     double doubleValue;

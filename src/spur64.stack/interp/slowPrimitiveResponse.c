@@ -7,7 +7,7 @@
 
 static int
 slowPrimitiveResponse(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	assert(!(isOopForwarded(stackValue(argumentCount))));
 	assert((remapBufferCount) == 0);
 

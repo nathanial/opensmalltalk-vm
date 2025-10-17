@@ -2,7 +2,7 @@
 
 static void
 primitiveGetImmutability(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt boolean;
     sqInt rcvr;
     char *sp;

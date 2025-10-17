@@ -10,7 +10,7 @@
 
 void
 printHex(usqInt n)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	fprintf(transcript,
 			"%16p" /* pst: */,
 			((void *)n));

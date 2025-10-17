@@ -10,7 +10,7 @@
 
 static void
 primitiveExecuteMethod(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt firstBytecode;
     usqInt i;
     sqInt methodArgument;

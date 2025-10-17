@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 scanForFirstFreeAndFirstMobileObjectFrom(sqInt initialObject)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt firstFree;
     sqInt followingWord;
     usqInt followingWordAddress;

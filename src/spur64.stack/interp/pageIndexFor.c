@@ -8,6 +8,6 @@
 
 static NoDbgRegParms sqInt
 pageIndexFor(void *pointer)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return pageIndexForstackMemorybytesPerPage(pointer, stackMemory, bytesPerPage);
 }

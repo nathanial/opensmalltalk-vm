@@ -4,7 +4,7 @@
 
 static sqInt
 allUnscannedEphemeronsAreActive(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt key;
     usqInt p;
 

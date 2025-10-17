@@ -22,7 +22,7 @@
 
 static NoDbgRegParms NeverInline sqInt
 loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classIndex;
     sqInt classOop;
     sqInt classRef;

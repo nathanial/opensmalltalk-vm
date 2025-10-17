@@ -9,7 +9,7 @@
 
 EXPORT(sqInt)
 primitiveDisablePowerManager(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt integer;
     sqInt integerPointer;
 

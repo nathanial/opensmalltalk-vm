@@ -16,7 +16,7 @@
 
 static NoDbgRegParms sqInt
 markStackPageNextMostRecentlyUsed(StackPage *page)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	assert(page != mostRecentlyUsedPage);
 	if (((page->nextPage)) == mostRecentlyUsedPage) {
 		return null;

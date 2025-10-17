@@ -6,7 +6,7 @@
 
 sqInt
 fetchIntegerofObject(sqInt fieldIndex, sqInt objectPointer)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt intOop;
 
 	intOop = longAt((void *)((objectPointer + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));

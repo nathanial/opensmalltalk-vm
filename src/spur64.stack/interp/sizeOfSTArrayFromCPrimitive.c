@@ -11,7 +11,7 @@
 
 sqInt
 sizeOfSTArrayFromCPrimitive(void *cPtr)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fmt;
     usqInt numSlots;
     usqInt numSlotsUsqInt;

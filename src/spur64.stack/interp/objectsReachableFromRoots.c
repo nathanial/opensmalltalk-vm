@@ -14,7 +14,7 @@
 
 static NoDbgRegParms NeverInline sqInt
 objectsReachableFromRoots(sqInt arrayOfRoots)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt count;
     sqInt delta;
     sqInt followingWord;

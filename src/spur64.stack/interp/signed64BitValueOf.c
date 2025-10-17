@@ -9,7 +9,7 @@
 
 sqLong
 signed64BitValueOf(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ccIndex;
     sqInt fmt;
     usqLong magnitude;

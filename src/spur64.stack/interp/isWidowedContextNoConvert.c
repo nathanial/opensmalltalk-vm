@@ -11,7 +11,7 @@
 
 static NoDbgRegParms sqInt
 isWidowedContextNoConvert(sqInt aOnceMarriedContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt anInteger;
     sqInt senderOop;
     char *shouldBeFrameCallerField;

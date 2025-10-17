@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 topOfObjStack(sqInt objStack)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt topx;
 
 	eassert(isValidObjStackPagemyIndexfirstPage(objStack, fetchPointerofObject(ObjStackMyx, objStack), objStack == (fetchPointerofObject(fetchPointerofObject(ObjStackMyx, objStack), hiddenRootsObj))));

@@ -9,7 +9,7 @@
 
 sqInt
 returnAsThroughCallbackContext(sqInt returnTypeOop, VMCallbackContext *vmCallbackContext, sqInt callbackMethodContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt calloutMethodContext;
     sqInt methodHeader;
     sqInt senderOop;

@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 isValidObjStack(sqInt objStack)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (!((addressCouldBeObj(objStack))
 		 && ((numSlotsOfAny(objStack)) == ObjStackPageSlots))) {
 		objStackInvalidBecause = "first page not obj or wrong size";

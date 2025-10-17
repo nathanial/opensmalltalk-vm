@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 printContextCallStackOf(sqInt aContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ctxt;
 
 	ctxt = aContext;

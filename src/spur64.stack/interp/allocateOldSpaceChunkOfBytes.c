@@ -11,7 +11,7 @@
 
 static NoDbgRegParms sqInt
 allocateOldSpaceChunkOfBytes(usqInt chunkBytes)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt child;
     usqInt childBytes;
     sqInt chunk;

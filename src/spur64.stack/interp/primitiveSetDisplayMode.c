@@ -7,7 +7,7 @@
 
 static void
 primitiveSetDisplayMode(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt d;
     sqInt fsFlag;
     sqInt h;

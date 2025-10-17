@@ -4,6 +4,6 @@
 
 static NoDbgRegParms sqInt
 isInFutureSpace(sqInt address)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return oopisGreaterThanOrEqualToandLessThan(address, ((futureSpace).start), futureSurvivorStart);
 }

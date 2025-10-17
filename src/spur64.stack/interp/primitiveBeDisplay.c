@@ -8,7 +8,7 @@
 
 static void
 primitiveBeDisplay(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt bitsOop;
     void *bitsOrHandle;
     sqInt depthOop;

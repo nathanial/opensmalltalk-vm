@@ -7,7 +7,7 @@
 
 static void
 primitiveConstantFill(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt end;
     usqLong fillValue;
     sqInt format;

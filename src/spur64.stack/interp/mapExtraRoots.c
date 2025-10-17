@@ -4,7 +4,7 @@
 
 static void
 mapExtraRoots(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     sqInt oop;
 

@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 okayOop(sqInt signedOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classIndex;
     sqInt fmt;
     usqInt oop;

@@ -6,7 +6,7 @@
 
 static void
 primitiveSmallFloatTimesTwoPower(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arg;
     sqInt rcvr;
     sqInt result;

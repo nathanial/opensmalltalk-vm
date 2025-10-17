@@ -10,7 +10,7 @@
 
 NeverInline void
 markAndTrace(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt contextSize;
     sqInt field;
     sqInt fmt;

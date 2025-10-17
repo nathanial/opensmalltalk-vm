@@ -12,7 +12,7 @@
 
 static NoDbgRegParms sqInt
 resumepreemptedYieldingIffrom(sqInt aProcess, sqInt yieldImplicitly, sqInt sourceCode)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt activePriority;
     sqInt activeProc;
     sqInt newPriority;

@@ -4,6 +4,6 @@
 
 static int
 noUnscannedEphemerons(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return ((unscannedEphemerons.top)) < ((unscannedEphemerons.start));
 }

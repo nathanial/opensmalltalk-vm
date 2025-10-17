@@ -4,7 +4,7 @@
 
 static void
 primitiveAsCharacter(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt characterCode;
     sqInt characterObject;
     char *sp;

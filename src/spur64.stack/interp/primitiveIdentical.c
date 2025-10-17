@@ -7,7 +7,7 @@
 
 static void
 primitiveIdentical(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt otherObject;
     char *sp;
     sqInt thisObject;

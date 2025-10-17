@@ -6,7 +6,7 @@
 
 void
 printFreeListHeads(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt expectedMask;
     sqInt i;
 

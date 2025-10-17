@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 findClassContainingMethodstartingAt(sqInt meth, sqInt classObj)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classDict;
     usqInt classDictSize;
     sqInt currClass;

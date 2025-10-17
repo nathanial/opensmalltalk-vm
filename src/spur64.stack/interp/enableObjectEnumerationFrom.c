@@ -23,7 +23,7 @@
 
 static NoDbgRegParms void
 enableObjectEnumerationFrom(sqInt initialObject)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (oopisLessThan(initialObject, oldSpaceStart)) {
 		if (freeStart > (((eden).start))) {
 			/* begin bridgeEdenAndOldSpace */

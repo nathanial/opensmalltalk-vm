@@ -9,7 +9,7 @@
 
 static NoDbgRegParms void
 addFreeSubTree(sqInt freeTree)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt bytesInArg;
     usqInt bytesInNode;
     sqInt subNode;

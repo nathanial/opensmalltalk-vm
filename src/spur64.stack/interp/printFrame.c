@@ -6,7 +6,7 @@
 
 sqInt
 printFrame(char *theFP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *aFrame;
     char *frameAbove;
     char *prevFrame;

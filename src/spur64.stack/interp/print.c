@@ -4,7 +4,7 @@
 
 void
 print(char *s)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	fprintf(transcript,
 			"%s",
 			s);

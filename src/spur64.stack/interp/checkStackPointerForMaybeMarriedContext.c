@@ -10,7 +10,7 @@
 
 static NoDbgRegParms sqInt
 checkStackPointerForMaybeMarriedContext(sqInt aContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt header;
     sqInt methodPointer;
     sqInt sp;

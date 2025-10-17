@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 printPrimLogEntryAthasParameter(sqInt i, sqInt hasParameter)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *className;
     sqInt entryOop;
     sqInt length;

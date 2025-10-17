@@ -8,7 +8,7 @@
 
 static NeverInline void
 updatePointers(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt address;
     sqInt availableSpace;
     usqInt bytes;

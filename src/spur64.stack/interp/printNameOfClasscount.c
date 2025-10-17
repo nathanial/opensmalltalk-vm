@@ -8,7 +8,7 @@
 
 static NoDbgRegParms void
 printNameOfClasscount(sqInt classOop, sqInt cnt)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt numSlots;
 
 	if (!classNameIndex) {

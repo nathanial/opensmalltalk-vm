@@ -6,7 +6,7 @@
 
 static sqInt
 segmentOverlap(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt endi;
     usqInt endj;
     sqInt i;

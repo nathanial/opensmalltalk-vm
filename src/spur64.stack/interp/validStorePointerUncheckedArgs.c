@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 validStorePointerUncheckedArgs(sqInt fieldIndex, sqInt objOop, sqInt valuePointer)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt numSlots;
 
 	return (fieldIndex >= 0)

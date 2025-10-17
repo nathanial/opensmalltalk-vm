@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 printActivationNameForSelectorstartClass(sqInt aSelector, sqInt startClass)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classDict;
     usqInt classDictSize;
     sqInt currClass;

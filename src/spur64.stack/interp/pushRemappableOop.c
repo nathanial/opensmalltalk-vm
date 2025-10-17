@@ -11,7 +11,7 @@
 
 void
 pushRemappableOop(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	assert(addressCouldBeOop(oop));
 	remapBuffer[(remapBufferCount += 1)] = oop;
 	if (!(remapBufferCount <= RemapBufferSize)) {

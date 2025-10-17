@@ -25,7 +25,7 @@
 
 static void
 primitiveLoadImageSegment(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt outPointerArray;
     sqInt result;
     sqInt segmentWordArray;

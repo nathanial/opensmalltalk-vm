@@ -4,6 +4,6 @@
 
 static float
 getHeapGrowthToSizeGCRatio(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return heapGrowthToSizeGCRatio;
 }

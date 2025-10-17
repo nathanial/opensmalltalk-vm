@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 instantiateClass(sqInt classObj)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classFormat;
     sqInt classIndex;
     sqInt err;

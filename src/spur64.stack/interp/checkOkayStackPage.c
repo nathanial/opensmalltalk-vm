@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 checkOkayStackPage(StackPage *thePage)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *callerFP;
     char *frameRcvrOffset;
     sqInt ok;

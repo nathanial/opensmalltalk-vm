@@ -9,7 +9,7 @@
 
 sqInt
 checkOkayOop(usqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classIndex;
     sqInt fmt;
     usqLong unusedBits;

@@ -9,7 +9,7 @@
 
 static NoDbgRegParms double
 loadFloatOrIntFrom(sqInt floatOrIntOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqLong bits;
     double result;
     sqInt tagBits;

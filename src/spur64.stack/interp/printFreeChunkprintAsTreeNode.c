@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 printFreeChunkprintAsTreeNode(sqInt freeChunk, sqInt printAsTreeNode)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt n;
     usqInt numBytes;
 

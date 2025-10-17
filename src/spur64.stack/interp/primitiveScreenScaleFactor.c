@@ -8,7 +8,7 @@
 
 EXPORT(sqInt)
 primitiveScreenScaleFactor(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     double factor;
     char *sp;
 

@@ -7,7 +7,7 @@
 
 static void
 primitiveContextAtPut(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt aContext;
     sqInt class;
     sqInt fieldIndex;

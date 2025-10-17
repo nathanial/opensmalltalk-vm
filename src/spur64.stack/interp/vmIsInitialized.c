@@ -10,6 +10,6 @@
 
 int
 vmIsInitialized(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return !!pages;
 }

@@ -9,7 +9,7 @@
 
 static NoDbgRegParms sqInt
 marriedContextpointsTostackDeltaForCurrentFrame(sqInt spouseContext, sqInt anOop, sqInt stackDeltaForCurrentFrame)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *rcvrOffset;
     sqInt senderOop;
     char *theFP;

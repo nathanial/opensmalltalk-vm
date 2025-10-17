@@ -6,7 +6,7 @@
 
 sqInt
 printCallStackOf(sqInt aContextOrProcessOrFrame)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt context;
 
 	if (/* couldBeFramePointer: */

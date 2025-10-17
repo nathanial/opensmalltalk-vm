@@ -7,7 +7,7 @@
 
 static NoDbgRegParms sqInt
 handleForwardedSendFaultForTag(sqInt classTag)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt rcvr;
     sqInt referent;
     sqInt tagBits;

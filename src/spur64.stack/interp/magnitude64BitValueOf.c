@@ -9,7 +9,7 @@
 
 static NoDbgRegParms usqLong
 magnitude64BitValueOf(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ccIndex;
     sqInt fmt;
     usqInt numSlots;

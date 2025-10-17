@@ -4,7 +4,7 @@
 
 static void
 primitiveSizeInBytes(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqLong byteSize;
     sqInt oop;
     char *sp;

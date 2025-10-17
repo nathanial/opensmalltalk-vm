@@ -4,7 +4,7 @@
 
 static void
 growRememberedSet(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt *base;
     sqInt fudge;
     sqInt i;

@@ -14,7 +14,7 @@
 
 sqInt
 maybeSelectorOfMethod(sqInt methodObj)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt maybeSelector;
     usqInt numSlots;
     sqInt penultimateLiteral;

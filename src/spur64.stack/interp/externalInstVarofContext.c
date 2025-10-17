@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 externalInstVarofContext(sqInt offset, sqInt aContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	assert(isContext(aContext));
 	assert(offset <= (ReceiverIndex + (checkStackPointerForMaybeMarriedContext(aContext))));
 

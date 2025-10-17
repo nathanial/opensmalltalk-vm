@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 asciiOfCharacter(sqInt characterObj)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (((characterObj & (characterTag())) != 0)) {
 		return characterObj - ((characterTag()) - (smallIntegerTag()));
 	}

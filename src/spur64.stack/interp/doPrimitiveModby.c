@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 doPrimitiveModby(sqInt rcvr, sqInt arg)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt integerArg;
     sqInt integerRcvr;
     sqInt integerResult;

@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 updateDisplayLeftTopRightBottom(sqInt l, sqInt t, sqInt r, sqInt b)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt bottom;
     sqInt left;
     sqInt right;

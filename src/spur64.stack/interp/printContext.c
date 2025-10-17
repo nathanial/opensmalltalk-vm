@@ -6,7 +6,7 @@
 
 void
 printContext(sqInt aContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     sqInt ip;
     sqInt sender;

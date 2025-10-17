@@ -7,7 +7,7 @@
 
 void
 beRootIfOld(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	/* begin isOldObject: */
 	assert(isNonImmediate(oop));
 	if (oopisGreaterThanOrEqualTo(oop, oldSpaceStart)) {

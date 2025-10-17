@@ -6,7 +6,7 @@
 
 sqInt
 printStackCallStackOf(sqInt aContextOrProcessOrFrame)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt context;
     sqInt senderOop;
     char *theFP;

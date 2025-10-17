@@ -14,7 +14,7 @@
 
 sqInt
 maybeMethodClassOfseemsToBeInstantiating(sqInt methodObj, sqInt format)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt instSpec;
     sqInt literal;
     sqInt maybeClassObj;

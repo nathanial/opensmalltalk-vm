@@ -4,7 +4,7 @@
 
 static NoDbgRegParms NeverInline sqInt
 fetchClassOfNonImm(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classIndex;
     sqInt classTablePage;
     sqInt fieldIndex;

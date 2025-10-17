@@ -10,7 +10,7 @@
 
 static NoDbgRegParms sqInt
 transferTofrom(sqInt newProcOrNil, sqInt sourceCode)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt activeContext;
     StackPage *lastUsedPage;
     sqInt methodHeader;

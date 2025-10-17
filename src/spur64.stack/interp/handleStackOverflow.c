@@ -7,7 +7,7 @@
 
 static NeverInline void
 handleStackOverflow(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *callerFP;
     char *callerFP1;
     StackPage *newPage;

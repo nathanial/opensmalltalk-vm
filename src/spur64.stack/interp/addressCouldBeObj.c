@@ -4,7 +4,7 @@
 
 sqInt
 addressCouldBeObj(sqInt address)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return ((address & (BaseHeaderSize - 1)) == 0)
 	 && ((oopisGreaterThanOrEqualTo(address, oldSpaceStart)
 			? oopisLessThan(address, endOfMemory)

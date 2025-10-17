@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 snapshot(sqInt embedded)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt activeContext;
     sqInt activeProc;
     usqInt i;

@@ -8,7 +8,7 @@
 
 static void
 primitiveFloatAt(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqLong bits;
     sqInt fieldIndex;
     sqInt index;

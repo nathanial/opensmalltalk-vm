@@ -4,7 +4,7 @@
 
 static NeverInline void
 initializeNewSpaceVariables(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	freeStart = ((eden).start);
 	pastSpaceStart = ((pastSpace).start);
 	scavengeThreshold = ((((eden).limit)) - ((((eden.limit)) - ((eden.start))) / 64)) - (interpreterAllocationReserveBytes());

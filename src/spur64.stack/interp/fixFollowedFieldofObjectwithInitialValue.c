@@ -8,7 +8,7 @@
 
 static NoDbgRegParms NeverInline sqInt
 fixFollowedFieldofObjectwithInitialValue(sqInt fieldIndex, sqInt anObject, sqInt initialValue)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt objOop;
 
 	assert(isOopForwarded(initialValue));

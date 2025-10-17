@@ -6,6 +6,6 @@
 
 double
 stackFloatValue(sqInt offset)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return floatValueOf(longAt(stackPointer + (offset * BytesPerWord)));
 }

@@ -8,7 +8,7 @@
 
 static void
 mapPrimTraceLog(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt entryOop;
     sqInt i;
     sqInt remainder;

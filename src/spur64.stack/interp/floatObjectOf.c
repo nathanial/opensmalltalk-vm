@@ -4,7 +4,7 @@
 
 sqInt
 floatObjectOf(double aFloat)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt newFloatObj;
     usqInt newObj;
     usqInt numBytes;

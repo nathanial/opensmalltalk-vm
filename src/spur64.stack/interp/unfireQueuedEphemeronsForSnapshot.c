@@ -10,7 +10,7 @@
 
 static void
 unfireQueuedEphemeronsForSnapshot(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt iSqInt;
     sqInt mourner;
     sqInt numOnThisPage;

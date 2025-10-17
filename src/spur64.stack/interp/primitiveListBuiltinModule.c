@@ -6,7 +6,7 @@
 
 static void
 primitiveListBuiltinModule(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt index;
     sqInt integerPointer;
     char *moduleName;

@@ -6,7 +6,7 @@
 
 void
 printMethodCacheFor(sqInt thing)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqIntptr_t c;
     int i;
     sqIntptr_t m;

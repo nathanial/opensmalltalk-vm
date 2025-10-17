@@ -13,7 +13,7 @@
 
 static NoDbgRegParms sqInt
 addToFreeListbytes(sqInt freeChunk, sqInt chunkBytes)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt child;
     usqInt childBytes;
     sqInt index;

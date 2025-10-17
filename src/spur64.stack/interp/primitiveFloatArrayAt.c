@@ -8,7 +8,7 @@
 
 static void
 primitiveFloatArrayAt(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     float aFloat;
     sqLong doubleBits;
     sqInt fmt;

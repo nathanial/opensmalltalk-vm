@@ -38,7 +38,7 @@
 
 static void
 primitiveExternalCall(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     void (*addr)(void);
     sqInt index;
     sqInt lit;

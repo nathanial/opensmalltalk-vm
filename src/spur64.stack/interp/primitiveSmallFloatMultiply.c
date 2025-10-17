@@ -4,7 +4,7 @@
 
 static void
 primitiveSmallFloatMultiply(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     double arg;
     usqLong bits;
     sqInt floatOrIntOop;

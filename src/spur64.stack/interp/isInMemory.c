@@ -6,7 +6,7 @@
 
 sqInt
 isInMemory(sqInt address)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt addressUsqInt;
     sqInt i;
 

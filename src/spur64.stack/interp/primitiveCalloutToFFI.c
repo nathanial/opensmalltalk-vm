@@ -15,7 +15,7 @@
 
 static void
 primitiveCalloutToFFI(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     void (*primitiveCallout)(void);
 
 	/* begin functionForPrimitiveCallout */

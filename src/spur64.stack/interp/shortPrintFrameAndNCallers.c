@@ -6,7 +6,7 @@
 
 void
 shortPrintFrameAndNCallers(char *theFP, sqInt n)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if ((n != 0)
 	 && (/* couldBeFramePointer: */
 		(((((usqInt)theFP)) & (BytesPerWord - 1)) == 0)

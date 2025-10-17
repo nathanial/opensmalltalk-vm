@@ -18,7 +18,7 @@
 
 EXPORT(sqInt)
 primitiveProfileStart(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt deltaTicks;
 
 	deltaTicks = longAt(stackPointer);

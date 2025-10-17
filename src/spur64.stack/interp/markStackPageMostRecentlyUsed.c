@@ -11,7 +11,7 @@
 
 static NoDbgRegParms sqInt
 markStackPageMostRecentlyUsed(StackPage *page)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (page == mostRecentlyUsedPage) {
 		return null;
 	}

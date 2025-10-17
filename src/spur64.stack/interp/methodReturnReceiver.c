@@ -6,7 +6,7 @@
 
 sqInt
 methodReturnReceiver(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	assert(!((failed())));
 
 	/* begin pop: */

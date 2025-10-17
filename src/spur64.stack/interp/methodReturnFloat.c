@@ -6,7 +6,7 @@
 
 sqInt
 methodReturnFloat(double aFloat)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *sp;
 
 	assert(!((failed())));

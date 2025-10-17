@@ -19,7 +19,7 @@
 
 static void
 primitiveAdoptInstance(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arg;
     sqInt err;
     sqInt rcvr;

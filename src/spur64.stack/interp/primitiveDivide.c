@@ -4,7 +4,7 @@
 
 static void
 primitiveDivide(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt integerArgument;
     sqInt integerPointer;
     sqInt integerReceiver;

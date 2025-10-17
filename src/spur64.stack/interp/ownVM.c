@@ -17,7 +17,7 @@
 
 sqInt
 ownVM(void *vmHandle)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt flags;
     char *sp;
 

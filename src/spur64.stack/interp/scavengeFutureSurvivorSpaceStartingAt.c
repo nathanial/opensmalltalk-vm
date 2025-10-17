@@ -7,7 +7,7 @@
 
 static NoDbgRegParms void
 scavengeFutureSurvivorSpaceStartingAt(sqInt initialAddress)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt numSlots;
     sqInt obj;
     usqInt ptr;

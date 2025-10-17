@@ -9,7 +9,7 @@
 
 static void
 primitiveScreenSize(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt newObj;
     usqInt numBytes;
     sqInt oop;

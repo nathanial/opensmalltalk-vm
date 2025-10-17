@@ -4,7 +4,7 @@
 
 sqInt
 findSelectorOfMethod(sqInt aMethodOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classDict;
     usqInt classDictSize;
     sqInt classObj;

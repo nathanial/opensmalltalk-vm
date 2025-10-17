@@ -10,7 +10,7 @@
 
 static NoDbgRegParms NeverInline void
 addToWeakList(sqInt weakCorpse)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt weakListOffset;
 
 	weakListOffset = (!(weakList)

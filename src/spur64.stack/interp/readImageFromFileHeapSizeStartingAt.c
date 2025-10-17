@@ -4,7 +4,7 @@
 
 size_t
 readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize, squeakFileOffsetType imageOffset)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt allocationReserve;
     sqInt anObject;
     sqInt bit;

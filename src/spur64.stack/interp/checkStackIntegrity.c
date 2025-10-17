@@ -10,7 +10,7 @@
 
 static sqInt
 checkStackIntegrity(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *callerFP;
     char *frameRcvrOffset;
     sqInt i;

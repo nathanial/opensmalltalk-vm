@@ -10,7 +10,7 @@
 
 static NoDbgRegParms void
 pruneStackstackp(sqInt stack, sqInt stackp)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *callerFP;
     sqInt finger;
     char *fp;

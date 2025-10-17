@@ -9,7 +9,7 @@
 
 void
 dumpPrimTraceLogOn(FILE *aStdioStream)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     FILE *savedTranscript;
 
 	/* begin withRedirectedOutputTo:do: */

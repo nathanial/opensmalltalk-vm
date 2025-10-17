@@ -11,7 +11,7 @@
 
 static sqInt
 pageListIsWellFormed(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt count;
     sqInt limit;
     sqInt ok;

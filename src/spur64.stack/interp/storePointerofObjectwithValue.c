@@ -7,7 +7,7 @@
 
 sqInt
 storePointerofObjectwithValue(sqInt fieldIndex, sqInt objOop, sqInt valuePointer)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	assert(validStorePointerArgs(fieldIndex, objOop, valuePointer));
 
 	/* begin isOldObject: */

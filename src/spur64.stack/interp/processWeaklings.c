@@ -8,7 +8,7 @@
 
 static void
 processWeaklings(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt format;
     sqInt i;
     sqInt listOffset;

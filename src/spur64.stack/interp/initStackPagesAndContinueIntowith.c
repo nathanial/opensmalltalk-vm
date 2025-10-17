@@ -16,7 +16,7 @@
 
 void
 initStackPagesAndContinueIntowith(void (*continuation)(void *), void *argument)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt stackPageBytes;
     usqIntptr_t stackZoneBytes;
     void *theStackMemory;

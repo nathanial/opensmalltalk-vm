@@ -14,7 +14,7 @@
 
 static NoDbgRegParms void
 postBecomeScanClassTable(sqInt effectsFlags)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classOrNil;
     sqInt i;
     sqInt j;

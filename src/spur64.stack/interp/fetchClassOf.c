@@ -4,7 +4,7 @@
 
 sqInt
 fetchClassOf(sqInt oop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt tagBits;
 
 	return ((tagBits = oop & (tagMask()))

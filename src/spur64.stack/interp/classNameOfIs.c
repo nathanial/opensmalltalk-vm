@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 classNameOfIs(sqInt aClass, char *className)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fmt;
     sqInt i;
     sqInt length;

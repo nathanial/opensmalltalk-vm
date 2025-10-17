@@ -11,7 +11,7 @@
 
 static void
 primitiveObjectPointsTo(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqLong fmt;
     sqLong header;
     sqInt i;

@@ -6,7 +6,7 @@
 
 static sqInt
 signalExternalSemaphores(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt numSlots;
     sqInt xArray;
 

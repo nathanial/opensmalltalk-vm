@@ -10,7 +10,7 @@
 
 EXPORT(sqInt)
 primitiveCrashVM(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt crashInThisThread;
 
 	if (((((longAt(stackPointer))) & 7) == 1)) {

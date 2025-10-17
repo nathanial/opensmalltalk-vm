@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 swizzleObj(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
 
 	assert(canSwizzle);

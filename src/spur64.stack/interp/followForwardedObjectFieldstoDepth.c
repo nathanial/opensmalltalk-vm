@@ -9,7 +9,7 @@
 
 static NoDbgRegParms sqInt
 followForwardedObjectFieldstoDepth(sqInt objOop, sqInt depth)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt contextSize;
     sqInt fmt;
     sqInt found;

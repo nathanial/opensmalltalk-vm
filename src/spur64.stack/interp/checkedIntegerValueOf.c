@@ -9,7 +9,7 @@
 
 sqInt
 checkedIntegerValueOf(sqInt intOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if ((((intOop) & 7) == 1)) {
 		return (intOop >> 3);
 	}

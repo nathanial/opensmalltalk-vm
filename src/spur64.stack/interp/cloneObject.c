@@ -4,7 +4,7 @@
 
 sqInt
 cloneObject(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classIndex;
     sqInt fmt;
     sqInt hasYoung;

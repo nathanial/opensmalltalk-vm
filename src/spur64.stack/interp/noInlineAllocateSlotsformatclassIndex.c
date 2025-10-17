@@ -9,7 +9,7 @@
 
 static NoDbgRegParms NeverInline sqInt
 noInlineAllocateSlotsformatclassIndex(sqInt numSlots, sqInt formatField, sqInt classIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt newObj;
     usqInt numBytes;
 

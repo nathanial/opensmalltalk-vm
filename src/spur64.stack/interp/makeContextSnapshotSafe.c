@@ -8,7 +8,7 @@
 
 static NoDbgRegParms void
 makeContextSnapshotSafe(sqInt ctxt)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     usqInt numSlots;
     sqInt toDoLimit;

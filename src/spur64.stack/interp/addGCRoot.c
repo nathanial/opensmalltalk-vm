@@ -6,7 +6,7 @@
 
 sqInt
 addGCRoot(sqInt *varLoc)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (extraRootCount >= ExtraRootsSize) {
 		return 0;
 	}

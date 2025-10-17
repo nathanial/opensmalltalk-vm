@@ -11,7 +11,7 @@
 
 static NoDbgRegParms char *
 storeSenderOfFramewithValue(char *theFP, sqInt anOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *callerFP;
     StackPage *newPage;
     int onCurrentPage;

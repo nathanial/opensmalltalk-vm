@@ -8,7 +8,7 @@
 
 static void
 primitiveNewWithArg(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt instSpec;
     sqInt obj;
     sqInt reasonCode;

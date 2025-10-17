@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 shortPrintFrame(char *theFP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt frameNumArgs;
     sqInt rcvr;
 

@@ -6,7 +6,7 @@
 
 static NoDbgRegParms void
 queueMourner(sqInt anEphemeronOrWeakArray)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt format;
     sqInt objStack;
 

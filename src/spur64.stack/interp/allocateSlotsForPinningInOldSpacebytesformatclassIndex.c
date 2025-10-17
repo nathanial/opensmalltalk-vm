@@ -9,7 +9,7 @@
 
 static NoDbgRegParms sqInt
 allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots, usqInt totalBytes, sqInt formatField, sqInt classIndex)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt acceptedChunk;
     sqInt acceptedNode;
     sqInt child;

@@ -10,7 +10,7 @@
 
 static void
 primitiveFindNextUnwindContext(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt calleeContext;
     sqInt handlerOrNilOrZero;
     sqInt senderContext;

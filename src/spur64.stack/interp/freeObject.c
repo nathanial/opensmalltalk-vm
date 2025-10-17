@@ -6,7 +6,7 @@
 
 sqInt
 freeObject(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt bytes;
     usqInt chunkBytes;
     sqInt index;

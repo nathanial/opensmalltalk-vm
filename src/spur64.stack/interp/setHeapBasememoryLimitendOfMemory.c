@@ -21,7 +21,7 @@
 
 static NoDbgRegParms NeverInline sqInt
 setHeapBasememoryLimitendOfMemory(sqInt baseOfHeap, sqInt memLimit, sqInt memEnd)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt actualEdenBytes;
     sqInt oldStart;
     sqInt reserve;

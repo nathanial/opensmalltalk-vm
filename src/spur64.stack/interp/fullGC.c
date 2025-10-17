@@ -9,7 +9,7 @@
 
 NeverInline usqLong
 fullGC(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt address;
     usqLong compactionStartUsecs;
     usqLong gcMarkEndUsecs;

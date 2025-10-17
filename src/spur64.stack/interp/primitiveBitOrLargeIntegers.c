@@ -6,7 +6,7 @@
 
 EXPORT(void)
 primitiveBitOrLargeIntegers(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqLong integerArg;
     usqLong integerRcvr;
     sqInt oopResult;

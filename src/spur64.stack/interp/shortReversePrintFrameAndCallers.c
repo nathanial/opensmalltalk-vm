@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 shortReversePrintFrameAndCallers(char *aFramePointer)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt caller;
     char *callerFP;
     char *theFP;

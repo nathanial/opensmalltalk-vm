@@ -4,7 +4,7 @@
 
 static void
 primitiveClosureCopyWithCopiedValues(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt context;
     sqInt copiedValues;
     sqInt fieldIndex;

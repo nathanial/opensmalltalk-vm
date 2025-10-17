@@ -2,7 +2,7 @@
 
 static void
 primitiveSetImmutability(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt format;
     sqInt processLists;
     sqInt rcvr;

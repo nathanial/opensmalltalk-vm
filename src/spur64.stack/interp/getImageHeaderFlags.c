@@ -6,7 +6,7 @@
 
 static sqInt
 getImageHeaderFlags(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return ((((((fullScreenFlag + ((VMBIGENDIAN
 		? 0
 		: 2))) + ((preemptionYields

@@ -6,7 +6,7 @@
 
 static void
 primitiveSomeObject(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt object;
     char *sp;
 

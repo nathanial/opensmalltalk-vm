@@ -8,7 +8,7 @@
 
 static NoDbgRegParms void
 marryContextInNewStackPageAndInitializeInterpreterRegisters(sqInt aContext)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt aMethodObj;
     sqInt methodHeader;
     StackPage *newPage;

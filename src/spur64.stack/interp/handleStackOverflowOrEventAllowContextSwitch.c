@@ -9,7 +9,7 @@
 
 static NoDbgRegParms sqInt
 handleStackOverflowOrEventAllowContextSwitch(sqInt mayContextSwitch)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	/* begin checkForStackOverflow */
 	/* begin externalWriteBackHeadFramePointers */
 	assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));

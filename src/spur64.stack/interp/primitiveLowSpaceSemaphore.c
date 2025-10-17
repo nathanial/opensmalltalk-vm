@@ -7,7 +7,7 @@
 
 static void
 primitiveLowSpaceSemaphore(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arg;
 
 	arg = longAt(stackPointer);

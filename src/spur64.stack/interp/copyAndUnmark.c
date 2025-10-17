@@ -8,7 +8,7 @@
 
 static NoDbgRegParms NeverInline void
 copyAndUnmark(sqInt firstPass)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classIndex;
     sqInt finalPass;
     sqInt followingWord;

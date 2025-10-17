@@ -6,7 +6,7 @@
 
 static NoDbgRegParms sqInt
 returnrestoringObjectsInupTosavedFirstFields(sqInt errCode, sqInt reachableObjectsArray, sqInt limitOrTag, sqInt savedFirstFields)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     usqInt numSlots;
     usqInt numSlotsUsqInt;

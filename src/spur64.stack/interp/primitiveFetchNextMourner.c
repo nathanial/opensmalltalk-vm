@@ -4,7 +4,7 @@
 
 static void
 primitiveFetchNextMourner(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt mourner;
     char *sp;
 

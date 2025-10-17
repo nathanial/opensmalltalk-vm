@@ -8,7 +8,7 @@
 
 static NoDbgRegParms sqInt
 handleForwardedSelectorFaultFor(sqInt selectorOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt referent;
 
 	assert(isOopForwarded(selectorOop));

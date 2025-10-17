@@ -4,7 +4,7 @@
 
 static NeverInline void
 mapStackPages(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     char *callerFP;
     sqInt i;
     sqInt numLivePages;

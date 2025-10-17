@@ -6,7 +6,7 @@
 
 static void
 primitiveQuo(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt integerArg;
     sqInt integerPointer;
     sqInt integerRcvr;

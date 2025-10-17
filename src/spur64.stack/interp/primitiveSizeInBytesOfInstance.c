@@ -8,7 +8,7 @@
 
 static void
 primitiveSizeInBytesOfInstance(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt byteSize;
     sqInt classFormat;
     int err;

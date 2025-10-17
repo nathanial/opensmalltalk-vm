@@ -7,7 +7,7 @@
 
 EXPORT(void)
 primitiveCompareWith(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt c1;
     sqInt c2;
     sqInt fmt;

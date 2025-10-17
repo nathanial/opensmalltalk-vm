@@ -10,7 +10,7 @@
 
 static NoDbgRegParms void
 putWord32toFile(int aWord32, sqImageFile aFile)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt objectsWritten;
 
 	objectsWritten = sqImageFileWrite((&aWord32), 4, 1, aFile);

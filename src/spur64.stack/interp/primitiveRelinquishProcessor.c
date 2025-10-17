@@ -8,7 +8,7 @@
 
 static void
 primitiveRelinquishProcessor(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt integerPointer;
     sqInt microSecs;
 

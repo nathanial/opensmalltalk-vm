@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 isonObjStack(sqInt oop, sqInt objStack)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt index;
     sqInt nextPage;
 

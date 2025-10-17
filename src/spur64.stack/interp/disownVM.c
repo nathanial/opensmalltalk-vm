@@ -19,7 +19,7 @@
 
 void *
 disownVM(sqInt flags)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt top;
     void *vmHandle;
 

@@ -7,7 +7,7 @@
 
 static NoDbgRegParms char *
 nameOfClasslengthInto(sqInt classOop, sqInt *lengthPtr)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt maybeNameOop;
     sqInt maybeThisClassOop;
     usqInt numSlots;

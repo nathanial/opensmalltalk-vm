@@ -10,7 +10,7 @@
 
 static NoDbgRegParms sqInt
 findNewMethodInClassTag(sqInt classTagArg)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classTablePage;
     sqInt classTag;
     sqInt fieldIndex;

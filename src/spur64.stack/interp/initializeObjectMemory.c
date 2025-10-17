@@ -14,7 +14,7 @@
 
 static NoDbgRegParms void
 initializeObjectMemory(sqInt bytesToShift)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt anOop;
     sqInt cameFrom;
     usqInt chunkBytes;

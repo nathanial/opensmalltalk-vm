@@ -7,7 +7,7 @@
 
 static void
 clearLeakMapAndMapAccessibleFreeSpace(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt followingWord;
     usqInt followingWordAddress;
     sqInt objOopSqInt;

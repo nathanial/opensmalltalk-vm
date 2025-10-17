@@ -10,7 +10,7 @@
 
 static NoDbgRegParms sqInt
 ifCurrentStackPageHasValidHeadPointers(StackPage *thePage)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (thePage == stackPage) {
 		if (/* addressIsInPage: */
 			(((thePage->lastAddress)) < framePointer)

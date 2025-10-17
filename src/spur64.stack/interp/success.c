@@ -12,7 +12,7 @@
 
 sqInt
 success(sqInt successBoolean)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (!successBoolean) {
 		if (!primFailCode) {
 			primFailCode = 1;

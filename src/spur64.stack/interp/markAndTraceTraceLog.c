@@ -9,7 +9,7 @@
 
 static void
 markAndTraceTraceLog(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
     sqInt limit;
     sqInt oop;

@@ -6,7 +6,7 @@
 
 static void
 primitiveClearVMProfile(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	ioClearProfile();
 
 	/* begin pop: */

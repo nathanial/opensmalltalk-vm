@@ -8,7 +8,7 @@
 
 static NoDbgRegParms usqInt
 marryFrameSP(char *theFP, char *theSP)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt closureOrNil;
     sqInt i;
     sqInt methodHeader;

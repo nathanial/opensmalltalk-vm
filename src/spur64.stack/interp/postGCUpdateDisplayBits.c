@@ -8,7 +8,7 @@
 
 static sqInt
 postGCUpdateDisplayBits(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     void *bitsNow;
     sqInt bitsOop;
     sqInt displayObj;

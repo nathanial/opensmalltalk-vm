@@ -6,7 +6,7 @@
 
 sqInt
 pop(sqInt nItems)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	stackPointer += nItems * BytesPerWord;
 	return null;
 }

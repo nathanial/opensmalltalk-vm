@@ -13,7 +13,7 @@
 
 sqInt
 oldSpaceObjectAfter(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt followingWord;
     usqInt followingWordAddress;
 

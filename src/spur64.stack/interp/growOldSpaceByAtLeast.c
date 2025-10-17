@@ -7,7 +7,7 @@
 
 static NoDbgRegParms usqInt
 growOldSpaceByAtLeast(sqInt minAmmount)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt address;
     sqInt ammount;
     sqInt bytes;

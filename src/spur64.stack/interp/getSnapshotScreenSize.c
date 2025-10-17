@@ -7,7 +7,7 @@
 
 static sqInt
 getSnapshotScreenSize(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt screenSize;
 
 	screenSize = ioScreenSize();

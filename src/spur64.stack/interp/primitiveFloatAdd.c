@@ -4,7 +4,7 @@
 
 static void
 primitiveFloatAdd(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     double arg;
     sqInt argOop;
     usqLong bits;

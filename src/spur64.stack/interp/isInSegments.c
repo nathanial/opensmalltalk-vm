@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 isInSegments(usqInt address)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt i;
 
 	for (i = 0; i < numSegments; i += 1) {

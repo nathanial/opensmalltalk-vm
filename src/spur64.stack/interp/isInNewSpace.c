@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 isInNewSpace(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return (oopisLessThan(objOop, oldSpaceStart))
 	 && (oopisGreaterThanOrEqualTo(objOop, newSpaceStart));
 }

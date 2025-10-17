@@ -4,7 +4,7 @@
 
 static NoDbgRegParms int
 primitiveFloatEqualtoArg(sqInt rcvrOop, sqInt argOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     double arg;
     usqLong bits;
     double rcvr;

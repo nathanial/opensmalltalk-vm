@@ -17,7 +17,7 @@
 
 EXPORT(void)
 primitiveSuspendBackingUpV2(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt myContext;
     sqInt myList;
     usqInt numSlots;

@@ -6,7 +6,7 @@
 
 static NoDbgRegParms void
 ensureImageFormatIsUpToDate(sqInt swapBytes)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt addr;
     sqInt address;
     sqInt classIndex;

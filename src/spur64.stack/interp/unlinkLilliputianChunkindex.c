@@ -4,7 +4,7 @@
 
 static NoDbgRegParms NeverInline sqInt
 unlinkLilliputianChunkindex(sqInt freeChunk, sqInt index)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt next;
     sqInt nextSqInt;
     sqInt node;

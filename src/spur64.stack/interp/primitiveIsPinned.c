@@ -6,7 +6,7 @@
 
 static void
 primitiveIsPinned(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt obj;
     char *sp;
     sqInt trueOrFalse;

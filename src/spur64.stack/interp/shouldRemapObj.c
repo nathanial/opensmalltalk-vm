@@ -13,7 +13,7 @@
 
 sqInt
 shouldRemapObj(sqInt objOop)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	return /* slidingCompactionShouldRemapObj: */
 		((!((longAt((void *)(objOop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))
 	 || ((gcPhaseInProgress > 0)

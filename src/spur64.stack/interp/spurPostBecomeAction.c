@@ -26,7 +26,7 @@
 
 static NoDbgRegParms void
 spurPostBecomeAction(sqInt theBecomeEffectsFlags)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqIntptr_t c;
     sqInt first;
     int i;

@@ -9,7 +9,7 @@
 
 static NoDbgRegParms void
 createActualMessageTo(sqInt lookupClass)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqInt argumentArray;
     sqInt i;
     usqInt message;

@@ -4,7 +4,7 @@
 
 sqInt
 findClassNamed(char *aString)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classOrNil;
     sqInt i;
     sqInt ignored;

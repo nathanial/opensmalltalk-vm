@@ -9,7 +9,7 @@
 
 static NoDbgRegParms sqInt
 lookupInMethodCacheSelclassTag(sqInt selector, sqInt classTag)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt hash;
     usqInt probe;
 

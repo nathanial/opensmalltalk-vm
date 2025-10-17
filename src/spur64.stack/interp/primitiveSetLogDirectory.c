@@ -6,7 +6,7 @@
 
 EXPORT(sqInt)
 primitiveSetLogDirectory(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt fmt;
     usqInt numBytes;
     usqInt numSlots;

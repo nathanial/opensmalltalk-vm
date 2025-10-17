@@ -8,7 +8,7 @@
 
 static void
 primitiveFormPrint(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt bitsArray;
     sqInt bitsArraySize;
     sqInt depth;

@@ -4,7 +4,7 @@
 
 static void
 primitiveIntegerAt(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt classFormat;
     sqInt classPointer;
     sqInt fmt;

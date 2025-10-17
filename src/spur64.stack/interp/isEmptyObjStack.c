@@ -4,7 +4,7 @@
 
 static NoDbgRegParms sqInt
 isEmptyObjStack(sqInt objStack)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
 	if (objStack == nilObj) {
 		return 1;
 	}

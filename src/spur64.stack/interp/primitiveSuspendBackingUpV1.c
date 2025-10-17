@@ -16,7 +16,7 @@
 
 static void
 primitiveSuspendBackingUpV1(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt myContext;
     sqInt myList;
     usqInt numSlots;

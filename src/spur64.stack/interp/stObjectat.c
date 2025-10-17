@@ -6,7 +6,7 @@
 
 sqInt
 stObjectat(sqInt array, sqInt index)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt class;
     sqInt fixedFields;
     usqLong fmt;

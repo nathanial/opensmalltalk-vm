@@ -4,7 +4,7 @@
 
 static NoDbgRegParms void
 printLogEntryAt(sqInt i)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt intOrClass;
     sqInt selectorMethodOrProcess;
     sqInt source;

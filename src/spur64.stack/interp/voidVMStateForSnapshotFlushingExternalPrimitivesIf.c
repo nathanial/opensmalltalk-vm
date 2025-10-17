@@ -13,7 +13,7 @@
 
 static NoDbgRegParms sqInt
 voidVMStateForSnapshotFlushingExternalPrimitivesIf(sqInt flushExtPrims)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt activeContext;
     sqInt address;
     sqInt classIndex;

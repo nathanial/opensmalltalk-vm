@@ -8,7 +8,7 @@
 
 static void
 primitiveSignalAtUTCMicroseconds(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt sema;
     usqLong usecs;
     sqInt usecsObj;

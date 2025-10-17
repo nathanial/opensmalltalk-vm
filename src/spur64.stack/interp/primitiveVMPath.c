@@ -6,7 +6,7 @@
 
 static void
 primitiveVMPath(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt s;
     char *sp;
     sqInt sz;

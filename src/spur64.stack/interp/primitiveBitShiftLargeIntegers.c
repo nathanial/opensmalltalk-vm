@@ -6,7 +6,7 @@
 
 EXPORT(void)
 primitiveBitShiftLargeIntegers(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     usqLong a;
     sqInt aIsNegative;
     sqInt integerPointer;

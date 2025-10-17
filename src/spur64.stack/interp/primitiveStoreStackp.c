@@ -7,7 +7,7 @@
 
 static void
 primitiveStoreStackp(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt ctxt;
     sqInt i;
     sqInt integerPointer;

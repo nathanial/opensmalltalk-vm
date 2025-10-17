@@ -8,7 +8,7 @@
 
 static NoDbgRegParms void
 doScavenge(sqInt tenuringCriterion)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     float fractionSurvived;
     sqInt oldStart;
     SpurNewSpaceSpace temp;

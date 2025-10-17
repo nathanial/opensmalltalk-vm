@@ -14,7 +14,7 @@
 
 static void
 primitiveObjectsAccessibleFromRoots(void)
-{   DECL_MAYBE_SQ_GLOBAL_STRUCT
+{
     sqInt arrayOfRoots;
     sqInt result;
     char *sp;
