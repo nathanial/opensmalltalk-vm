@@ -37,9 +37,7 @@ char *__interpBuildInfo = __buildInfo;
 #pragma auto_inline(off)
 sqInt warnpid, erroronwarn;
 #include "interp/warning.c"
-
 #include "interp/warningat.c"
-
 #include "interp/warninginat.c"
 
 #pragma auto_inline(on)
@@ -2515,425 +2513,117 @@ volatile int sendTrace;
 
 
 #include "interp/interpret.c"
-
-
-
 #include "interp/addressIsInPage.c"
-
-
 #include "interp/isFree.c"
-
-
-
 #include "interp/freeStackPageNoAssert.c"
-
-
-
 #include "interp/freeStackPage.c"
-
-
-
 #include "interp/markStackPageMostRecentlyUsed.c"
-
-
-
 #include "interp/markStackPageNextMostRecentlyUsed.c"
-
-
-
 #include "interp/newStackPage.c"
-
-
-
 #include "interp/pageListIsWellFormed.c"
-
-
-
 #include "interp/stackPageAt.c"
-
-
-
 #include "interp/stackPageFor.c"
-
-
 #include "interp/statAverageLivePagesWhenMapping.c"
-
-
-
 #include "interp/vmIsInitialized.c"
-
-
-
 #include "interp/cStringOrNullFor.c"
-
-
-
 #include "interp/failed.c"
-
-
-
 #include "interp/identityHashOf.c"
-
-
-
 #include "interp/isNegativeIntegerValueOf.c"
-
-
-
 #include "interp/isPositiveMachineIntegerObject.c"
-
-
-
 #include "interp/magnitude64BitIntegerForneg.c"
-
-
-
 #include "interp/magnitude64BitValueOf.c"
-
-
-
 #include "interp/positive32BitValueOf.c"
-
-
-
 #include "interp/positive64BitValueOf.c"
-
-
-
 #include "interp/positiveMachineIntegerValueOfObj.c"
-
-
-
 #include "interp/positiveMachineIntegerValueOf.c"
-
-
 #include "interp/primitiveAdd.c"
-
-
-
 #include "interp/primitiveAddLargeIntegers.c"
-
-
-
 #include "interp/primitiveAdoptInstance.c"
-
-
-
 #include "interp/primitiveAllInstances.c"
-
-
-
 #include "interp/primitiveAllObjects.c"
-
-
-
 #include "interp/primitiveArctan.c"
-
-
-
 #include "interp/primitiveArrayBecome.c"
-
-
-
 #include "interp/primitiveArrayBecomeOneWay.c"
-
-
-
 #include "interp/primitiveArrayBecomeOneWayCopyHashArg.c"
-
-
-
 #include "interp/primitiveArrayBecomeOneWayNoCopyHash.c"
-
-
 #include "interp/primitiveAsCharacter.c"
-
-
-
 #include "interp/primitiveAsFloat.c"
-
-
 #include "interp/primitiveAt.c"
-
-
 #include "interp/primitiveAtPut.c"
-
-
-
 #include "interp/primitiveBeCursor.c"
-
-
-
 #include "interp/primitiveBeDisplay.c"
-
-
-
 #include "interp/primitiveBeep.c"
-
-
-
 #include "interp/primitiveBehaviorHash.c"
-
-
-
 #include "interp/primitiveBitAnd.c"
-
-
-
 #include "interp/primitiveBitAndLargeIntegers.c"
-
-
-
 #include "interp/primitiveBitOr.c"
-
-
-
 #include "interp/primitiveBitOrLargeIntegers.c"
-
-
-
 #include "interp/primitiveBitShift.c"
-
-
-
 #include "interp/primitiveBitShiftLargeIntegers.c"
-
-
 #include "interp/primitiveBitXor.c"
-
-
-
 #include "interp/primitiveBitXorLargeIntegers.c"
-
-
-
 #include "interp/primitiveBytecodeSetsAvailable.c"
-
-
-
 #include "interp/primitiveBytesLeft.c"
-
-
-
 #include "interp/primitiveCalloutToFFI.c"
-
-
-
 #include "interp/primitiveChangeClass.c"
-
-
 #include "interp/primitiveClass.c"
-
-
-
 #include "interp/primitiveClearVMProfile.c"
-
-
-
 #include "interp/primitiveClipboardText.c"
-
-
-
 #include "interp/primitiveClockLogAddresses.c"
-
-
 #include "interp/primitiveClosureValue.c"
-
-
-
 #include "interp/primitiveClosureValueNoContextSwitch.c"
-
-
 #include "interp/primitiveClosureValueWithArgs.c"
-
-
-
 #include "interp/primitiveCoarseLocalMicrosecondClock.c"
-
-
-
 #include "interp/primitiveCoarseUTCMicrosecondClock.c"
-
-
-
 #include "interp/primitiveCompareBytes.c"
-
-
-
 #include "interp/primitiveCompareWith.c"
-
-
-
 #include "interp/primitiveConstantFill.c"
-
-
-
 #include "interp/primitiveControlVMProfiling.c"
-
-
-
 #include "interp/primitiveCopyObject.c"
-
-
-
 #include "interp/primitiveCosine.c"
-
-
-
 #include "interp/primitiveCrashVM.c"
-
-
-
 #include "interp/primitiveDisablePowerManager.c"
-
-
 #include "interp/primitiveDiv.c"
-
-
 #include "interp/primitiveDivide.c"
-
-
-
 #include "interp/primitiveDivideLargeIntegers.c"
-
-
-
 #include "interp/primitiveDivLargeIntegers.c"
-
-
-
 #include "interp/primitiveEnterCriticalSection.c"
-
-
 #include "interp/primitiveEqual.c"
-
-
-
 #include "interp/primitiveEqualLargeIntegers.c"
-
-
-
 #include "interp/primitiveExitCriticalSection.c"
-
-
 #include "interp/primitiveExitToDebugger.c"
-
-
-
 #include "interp/primitiveExp.c"
-
-
-
 #include "interp/primitiveExponent.c"
-
-
-
 #include "interp/primitiveFail.c"
-
-
-
 #include "interp/primitiveFailForFFIExceptionat.c"
-
-
-
 #include "interp/primitiveFailForOSError.c"
-
-
-
 #include "interp/primitiveFailFor.c"
-
-
-
 #include "interp/primitiveFailForwithSecondary.c"
-
-
 #include "interp/primitiveFailureCode.c"
-
-
 #include "interp/primitiveFetchNextMourner.c"
-
-
 #include "interp/primitiveFloatAdd.c"
-
-
-
 #include "interp/primitiveFloatArrayAt.c"
-
-
-
 #include "interp/primitiveFloatArrayAtPut.c"
-
-
-
 #include "interp/primitiveFloatAt.c"
-
-
-
 #include "interp/primitiveFloatAtPut.c"
-
-
 #include "interp/primitiveFloatDivide.c"
-
-
 #include "interp/primitiveFloatEqual.c"
-
-
 #include "interp/primitiveFloatGreaterOrEqual.c"
-
-
 #include "interp/primitiveFloatGreaterThan.c"
-
-
 #include "interp/primitiveFloatLessOrEqual.c"
-
-
 #include "interp/primitiveFloatLessThan.c"
-
-
 #include "interp/primitiveFloatMultiply.c"
-
-
 #include "interp/primitiveFloatNotEqual.c"
-
-
 #include "interp/primitiveFloatSubtract.c"
-
-
-
 #include "interp/primitiveFlushCache.c"
-
-
-
 #include "interp/primitiveFlushExternalPrimitives.c"
-
-
-
 #include "interp/primitiveForceDisplayUpdate.c"
-
-
-
 #include "interp/primitiveFormPrint.c"
-
-
-
 #include "interp/primitiveFractionalPart.c"
-
-
 #include "interp/primitiveFullClosureValue.c"
-
-
-
 #include "interp/primitiveFullClosureValueNoContextSwitch.c"
-
-
 #include "interp/primitiveFullClosureValueWithArgs.c"
-
-
-
 #include "interp/primitiveGetAttribute.c"
-
-
-
 #include "interp/primitiveGetenv.c"
 
 
@@ -2944,296 +2634,83 @@ volatile int sendTrace;
 #endif
 
 #include "interp/primitiveGetLogDirectory.c"
-
-
-
 #include "interp/primitiveGetNextEvent.c"
-
-
 #include "interp/primitiveGreaterOrEqual.c"
-
-
-
 #include "interp/primitiveGreaterOrEqualLargeIntegers.c"
-
-
 #include "interp/primitiveGreaterThan.c"
-
-
-
 #include "interp/primitiveGreaterThanLargeIntegers.c"
-
-
 #include "interp/primitiveGrowMemoryByAtLeast.c"
-
-
-
 #include "interp/primitiveHashMultiply.c"
-
-
-
 #include "interp/primitiveHeartbeatFrequency.c"
-
-
 #include "interp/primitiveHighBit.c"
-
-
-
 #include "interp/primitiveHighResClock.c"
-
-
-
 #include "interp/primitiveIdentical.c"
-
-
 #include "interp/primitiveIdentityHash.c"
-
-
-
 #include "interp/primitiveImageFormatVersion.c"
-
-
-
 #include "interp/primitiveImageName.c"
-
-
-
 #include "interp/primitiveImmediateAsInteger.c"
-
-
-
 #include "interp/primitiveInputSemaphore.c"
-
-
-
 #include "interp/primitiveInputWord.c"
-
-
 #include "interp/primitiveIntegerAt.c"
-
-
 #include "interp/primitiveIntegerAtPut.c"
-
-
-
 #include "interp/primitiveInterruptChecksPerMSec.c"
-
-
-
 #include "interp/primitiveInterruptSemaphore.c"
-
-
-
 #include "interp/primitiveInvokeObjectAsMethod.c"
-
-
-
 #include "interp/primitiveIsBigEnder.c"
-
-
-
 #include "interp/primitiveIsPinned.c"
-
-
 #include "interp/primitiveLessOrEqual.c"
-
-
-
 #include "interp/primitiveLessOrEqualLargeIntegers.c"
-
-
 #include "interp/primitiveLessThan.c"
-
-
-
 #include "interp/primitiveLessThanLargeIntegers.c"
-
-
-
 #include "interp/primitiveListBuiltinModule.c"
-
-
-
 #include "interp/primitiveListExternalModule.c"
-
-
-
 #include "interp/primitiveLoadImageSegment.c"
-
-
-
 #include "interp/primitiveLocalMicrosecondClock.c"
-
-
-
 #include "interp/primitiveLogN.c"
-
-
-
 #include "interp/primitiveLowSpaceSemaphore.c"
-
-
 #include "interp/primitiveMakePoint.c"
-
-
 #include "interp/primitiveMaxIdentityHash.c"
-
-
-
 #include "interp/primitiveMethod.c"
-
-
-
 #include "interp/primitiveMillisecondClock.c"
-
-
-
 #include "interp/primitiveMillisecondClockMask.c"
-
-
 #include "interp/primitiveMod.c"
-
-
-
 #include "interp/primitiveModLargeIntegers.c"
-
-
-
 #include "interp/primitiveMultipleBytecodeSetsActive.c"
-
-
 #include "interp/primitiveMultiply.c"
-
-
-
 #include "interp/primitiveMultiplyLargeIntegers.c"
-
-
 #include "interp/primitiveNew.c"
-
-
 #include "interp/primitiveNewMethod.c"
-
-
-
 #include "interp/primitiveNewWithArg.c"
-
-
 #include "interp/primitiveNextInstance.c"
-
-
-
 #include "interp/primitiveNextObject.c"
-
-
-
 #include "interp/primitiveNoop.c"
-
-
 #include "interp/primitiveNotEqual.c"
-
-
-
 #include "interp/primitiveNotEqualLargeIntegers.c"
-
-
-
 #include "interp/primitiveNotIdentical.c"
-
-
-
 #include "interp/primitiveObjectAt.c"
-
-
-
 #include "interp/primitiveObjectAtPut.c"
-
-
-
 #include "interp/primitiveObjectsAccessibleFromRoots.c"
-
-
-
 #include "interp/primitivePathToUsing.c"
-
-
 #include "interp/primitivePerformInSuperclass.c"
-
-
 #include "interp/primitivePerformWithArgs.c"
-
-
 #include "interp/primitivePinnedNew.c"
-
-
-
 #include "interp/primitivePinnedNewWithArg.c"
-
-
-
 #include "interp/primitiveProfilePrimitive.c"
-
-
-
 #include "interp/primitiveProfileSample.c"
-
-
-
 #include "interp/primitiveProfileSemaphore.c"
-
-
-
 #include "interp/primitiveProfileStart.c"
-
-
 #include "interp/primitiveQuit.c"
-
-
-
 #include "interp/primitiveQuo.c"
-
-
-
 #include "interp/primitiveQuoLargeIntegers.c"
-
-
-
 #include "interp/primitiveRelinquishProcessor.c"
-
-
-
 #include "interp/primitiveRemLargeIntegers.c"
-
-
-
 #include "interp/primitiveResume.c"
-
-
-
 #include "interp/primitiveScanCharacters.c"
-
-
-
 #include "interp/primitiveScreenDepth.c"
-
-
-
 #include "interp/primitiveScreenScaleFactor.c"
-
-
-
 #include "interp/primitiveScreenSize.c"
-
-
-
 #include "interp/primitiveSecondsClock.c"
-
-
-
 #include "interp/primitiveSetDisplayMode.c"
-
-
-
 #include "interp/primitiveSetFullScreen.c"
 
 
@@ -3244,166 +2721,51 @@ volatile int sendTrace;
 #endif
 
 #include "interp/primitiveSetInterruptKey.c"
-
-
-
 #include "interp/primitiveSetLogDirectory.c"
-
-
 #include "interp/primitiveSetOrHasIdentityHash.c"
-
-
-
 #include "interp/primitiveShortAt.c"
-
-
-
 #include "interp/primitiveShortAtPut.c"
-
-
-
 #include "interp/primitiveShowDisplayRect.c"
-
-
-
 #include "interp/primitiveSignal.c"
-
-
-
 #include "interp/primitiveSignalAtBytesLeft.c"
-
-
-
 #include "interp/primitiveSine.c"
-
-
 #include "interp/primitiveSize.c"
-
-
 #include "interp/primitiveSizeInBytes.c"
-
-
-
 #include "interp/primitiveSizeInBytesOfInstance.c"
-
-
 #include "interp/primitiveSmallFloatAdd.c"
-
-
 #include "interp/primitiveSmallFloatArctan.c"
-
-
 #include "interp/primitiveSmallFloatCosine.c"
-
-
 #include "interp/primitiveSmallFloatDivide.c"
-
-
 #include "interp/primitiveSmallFloatEqual.c"
-
-
-
 #include "interp/primitiveSmallFloatExp.c"
-
-
-
 #include "interp/primitiveSmallFloatExponent.c"
-
-
 #include "interp/primitiveSmallFloatFractionalPart.c"
-
-
 #include "interp/primitiveSmallFloatGreaterOrEqual.c"
-
-
 #include "interp/primitiveSmallFloatGreaterThan.c"
-
-
 #include "interp/primitiveSmallFloatLessOrEqual.c"
-
-
 #include "interp/primitiveSmallFloatLessThan.c"
-
-
-
 #include "interp/primitiveSmallFloatLogN.c"
-
-
 #include "interp/primitiveSmallFloatMultiply.c"
-
-
 #include "interp/primitiveSmallFloatNotEqual.c"
-
-
 #include "interp/primitiveSmallFloatSine.c"
-
-
 #include "interp/primitiveSmallFloatSquareRoot.c"
-
-
 #include "interp/primitiveSmallFloatSubtract.c"
-
-
-
 #include "interp/primitiveSmallFloatTimesTwoPower.c"
-
-
 #include "interp/primitiveSmallFloatTruncated.c"
-
-
-
 #include "interp/primitiveSnapshot.c"
-
-
-
 #include "interp/primitiveSnapshotEmbedded.c"
-
-
 #include "interp/primitiveSomeInstance.c"
-
-
-
 #include "interp/primitiveSomeObject.c"
-
-
-
 #include "interp/primitiveSpecialObjectsOop.c"
-
-
-
 #include "interp/primitiveSquareRoot.c"
-
-
-
 #include "interp/primitiveStoreImageSegment.c"
-
-
 #include "interp/primitiveStringAt.c"
-
-
 #include "interp/primitiveStringAtPut.c"
-
-
-
 #include "interp/primitiveStringReplace.c"
-
-
 #include "interp/primitiveSubtract.c"
-
-
-
 #include "interp/primitiveSubtractLargeIntegers.c"
-
-
-
 #include "interp/primitiveSuspend.c"
-
-
-
 #include "interp/primitiveTestAndSetOwnershipOfCriticalSection.c"
-
-
-
 #include "interp/primitiveTestDisplayDepth.c"
 
 
@@ -3469,810 +2831,226 @@ primitiveTestShortenIndexableSize(void)
 #endif
 
 #include "interp/primitiveTimesTwoPower.c"
-
-
-
 #include "interp/primitiveTruncated.c"
-
-
-
 #include "interp/primitiveUninitializedNewWithArg.c"
-
-
-
 #include "interp/primitiveUpdateTimezone.c"
-
-
-
 #include "interp/primitiveUTCMicrosecondClock.c"
-
-
-
 #include "interp/primitiveUtcAndTimezoneOffset.c"
-
-
-
 #include "interp/primitiveUtcWithOffset.c"
-
-
-
 #include "interp/primitiveVMPath.c"
-
-
-
 #include "interp/primitiveVMProfileSamplesInto.c"
-
-
 #include "interp/primitiveWait.c"
-
-
-
 #include "interp/primitiveYield.c"
-
-
-
 #include "interp/signalNoResume.c"
-
-
-
 #include "interp/signed32BitValueOf.c"
-
-
-
 #include "interp/signed64BitValueOf.c"
-
-
-
 #include "interp/signedMachineIntegerValueOfObj.c"
-
-
-
 #include "interp/signedMachineIntegerValueOf.c"
-
-
-
 #include "interp/sizeOfAlienData.c"
-
-
-
 #include "interp/startOfAlienData.c"
-
-
-
 #include "interp/success.c"
-
-
-
 #include "interp/initializeStacknumSlotspageSize.c"
-
-
-
 #include "interp/pageIndexFor.c"
-
-
-
 #include "interp/whereIsMaybeStackThing.c"
-
-
-
 #include "interp/addressAfter.c"
-
-
-
 #include "interp/allocateSlotsForPinningInOldSpacebytesformatclassIndex.c"
-
-
-
 #include "interp/byteSwapped.c"
-
-
-
 #include "interp/bytesInBody.c"
-
-
-
 #include "interp/defaultEdenBytes.c"
-
-
-
 #include "interp/fetchClassTagOf.c"
-
-
 #include "interp/floatObjectOf.c"
-
-
-
 #include "interp/floatValueBitsOf.c"
-
-
-
 #include "interp/floatValueOf.c"
-
-
-
 #include "interp/hackSlimBridgeToat.c"
-
-
-
 #include "interp/headerIndicatesAlternateBytecodeSet.c"
-
-
-
 #include "interp/initFreeChunkWithBytesat.c"
-
-
-
 #include "interp/initSegmentBridgeWithBytesat.c"
-
-
-
 #include "interp/instantiateClassindexableSize.c"
-
-
-
 #include "interp/integerObjectOf.c"
-
-
-
 #include "interp/integerValueOf.c"
-
-
 #include "interp/isFloatInstance.c"
-
-
 #include "interp/isImmediateFloat.c"
-
-
 #include "interp/isIntegerObject.c"
-
-
-
 #include "interp/isIntegerValue.c"
-
-
-
 #include "interp/isLilliputianSize.c"
-
-
 #include "interp/isSmallFloatValueBits.c"
-
-
 #include "interp/isSmallFloatValue.c"
-
-
-
 #include "interp/isWordsNonImm.c"
-
-
-
 #include "interp/lengthOfformat.c"
-
-
-
 #include "interp/loadFloatOrIntFrom.c"
-
-
-
 #include "interp/maxSlotsForAlloc.c"
-
-
-
 #include "interp/noFailFloatValueOf.c"
-
-
-
 #include "interp/numFreeLists.c"
-
-
-
 #include "interp/objectAfterMaybeSlimBridgelimit.c"
-
-
-
 #include "interp/smallFloatValueOf.c"
-
-
-
 #include "interp/smallObjectBytesForSlots.c"
-
-
 #include "interp/wordIndexableFormat.c"
-
-
 #include "interp/wordSizeClassIndexPun.c"
-
-
-
 #include "interp/addToEphemeronList.c"
-
-
-
 #include "interp/addToWeakList.c"
-
-
 #include "interp/allNewSpaceObjectsHaveZeroRTRefCount.c"
-
-
 #include "interp/allWeakSurvivorsOnWeakList.c"
-
-
-
 #include "interp/computeRefCountToShrinkRT.c"
-
-
-
 #include "interp/copyAndForwardMourner.c"
-
-
-
 #include "interp/copyAndForward.c"
-
-
-
 #include "interp/copyToOldSpacebytesformat.c"
-
-
 #include "interp/firstCorpse.c"
-
-
 #include "interp/growRememberedSet.c"
-
-
 #include "interp/isInRememberedSet.c"
-
-
-
 #include "interp/isMaybeOldScavengeSurvivor.c"
-
-
-
 #include "interp/isScavengeSurvivor.c"
-
-
 #include "interp/newSpaceCapacity.c"
-
-
-
 #include "interp/noUnfiredEphemeronsAtEndOfRememberedSet.c"
-
-
 #include "interp/openScavengeLog.c"
-
-
-
 #include "interp/printRememberedSet.c"
-
-
-
 #include "interp/processEphemerons.c"
-
-
-
 #include "interp/processWeaklings.c"
-
-
-
 #include "interp/processWeakSurvivor.c"
-
-
-
 #include "interp/remember.c"
-
-
-
 #include "interp/scavengeFutureSurvivorSpaceStartingAt.c"
-
-
-
 #include "interp/scavengeLoop.c"
-
-
-
 #include "interp/scavengeReferentsOf.c"
-
-
-
 #include "interp/scavengeRememberedSetStartingAt.c"
-
-
-
 #include "interp/scavengerTenuringThreshold.c"
-
-
-
 #include "interp/scavengeUnfiredEphemeronsOnEphemeronList.c"
-
-
-
 #include "interp/writeScavengeLog.c"
-
-
-
 #include "interp/accessibleObjectAfter.c"
-
-
-
 #include "interp/activeAndDeferredScan.c"
-
-
-
 #include "interp/addFreeSubTree.c"
-
-
-
 #include "interp/addGCRoot.c"
-
-
-
 #include "interp/addressCouldBeClassObj.c"
-
-
 #include "interp/addressCouldBeObj.c"
-
-
-
 #include "interp/addressCouldBeOop.c"
-
-
-
 #include "interp/addToFreeListbytes.c"
-
-
-
 #include "interp/allInstancesOf.c"
-
-
-
 #include "interp/allObjects.c"
-
-
 #include "interp/allObjectsUnmarked.c"
-
-
 #include "interp/allOldMarkedWeakObjectsOnWeaklingStack.c"
-
-
-
 #include "interp/allocateLargestFreeChunk.c"
-
-
-
 #include "interp/allocateOldSpaceChunkOfBytes.c"
-
-
 #include "interp/allocatePinnedSlots.c"
-
-
-
 #include "interp/allocateSlotsInOldSpacebytesformatclassIndex.c"
-
-
-
 #include "interp/allocationUnit.c"
-
-
-
 #include "interp/allStrongSlotsOfWeaklingAreMarked.c"
-
-
 #include "interp/allUnscannedEphemeronsAreActive.c"
-
-
-
 #include "interp/assertInnerValidFreeObject.c"
-
-
-
 #include "interp/becomeEffectFlagsFor.c"
-
-
 #include "interp/becomewith.c"
-
-
-
 #include "interp/becomewithtwoWaycopyHash.c"
-
-
-
 #include "interp/beRootIfOld.c"
-
-
 #include "interp/bitsSetInFreeSpaceMaskForAllFreeLists.c"
-
-
 #include "interp/bridgeSize.c"
-
-
 #include "interp/byteFormatForNumBytes.c"
-
-
 #include "interp/byteFormatMask.c"
-
-
 #include "interp/byteSizeOf.c"
-
-
-
 #include "interp/bytesPerElement.c"
-
-
-
 #include "interp/changeClassOfto.c"
-
-
 #include "interp/characterObjectOf.c"
-
-
-
 #include "interp/characterValueOf.c"
-
-
-
 #include "interp/checkedLongAt.c"
-
-
-
 #include "interp/checkHeapFreeSpaceIntegrity.c"
-
-
-
 #include "interp/checkHeapIntegrityclassIndicesShouldBeValid.c"
-
-
-
 #include "interp/checkOkayOop.c"
-
-
-
 #include "interp/checkOopHasOkayClass.c"
-
-
 #include "interp/checkOopIntegritynamed.c"
-
-
 #include "interp/checkOopIntegritynamedindex.c"
-
-
 #include "interp/classAlien.c"
-
-
 #include "interp/classArray.c"
-
-
 #include "interp/classAtIndex.c"
-
-
-
 #include "interp/classAtIndexput.c"
-
-
 #include "interp/classBitmap.c"
-
-
-
 #include "interp/classByteArray.c"
-
-
 #include "interp/classCharacter.c"
-
-
 #include "interp/classDoubleByteArray.c"
-
-
 #include "interp/classDoubleWordArray.c"
-
-
 #include "interp/classExternalAddress.c"
-
-
 #include "interp/classExternalData.c"
-
-
 #include "interp/classExternalFunction.c"
-
-
 #include "interp/classExternalLibrary.c"
-
-
 #include "interp/classExternalStructure.c"
-
-
 #include "interp/classFloat.c"
-
-
 #include "interp/classFloat32Array.c"
-
-
 #include "interp/classFloat64Array.c"
-
-
-
 #include "interp/classForClassTag.c"
-
-
-
 #include "interp/classFormatFromInstFormat.c"
-
-
-
 #include "interp/classIndexFieldWidth.c"
-
-
-
 #include "interp/classIndexOf.c"
-
-
 #include "interp/classLargeNegativeInteger.c"
-
-
 #include "interp/classLargePositiveInteger.c"
-
-
 #include "interp/classOrNilAtIndex.c"
-
-
 #include "interp/classPoint.c"
-
-
 #include "interp/classSemaphore.c"
-
-
 #include "interp/classSmallInteger.c"
-
-
 #include "interp/classString.c"
-
-
-
 #include "interp/classTableMinorIndexMask.c"
-
-
-
 #include "interp/classTablePageSize.c"
-
-
-
 #include "interp/classTableRootObj.c"
-
-
-
 #include "interp/classTableRootSlots.c"
-
-
-
 #include "interp/classTagForClass.c"
-
-
 #include "interp/classUnsafeAlien.c"
-
-
 #include "interp/classWordArray.c"
-
-
-
 #include "interp/clearLeakMapAndMapAccessibleFreeSpace.c"
-
-
-
 #include "interp/clearLeakMapAndMapAccessibleObjects.c"
-
-
 #include "interp/cloneInOldSpaceforPinning.c"
-
-
 #include "interp/cloneObject.c"
-
-
-
 #include "interp/copyObjtoAddrstopAtsavedFirstFieldsindex.c"
-
-
-
 #include "interp/countMarkedAndUnmarkdObjects.c"
-
-
-
 #include "interp/currentAllocatedBytes.c"
-
-
 #include "interp/displayObject.c"
-
-
-
 #include "interp/doScavenge.c"
-
-
-
 #include "interp/doShortentoIndexableSize.c"
-
-
-
 #include "interp/eeInstantiateClassIndexformatnumSlots.c"
-
-
-
 #include "interp/eek.c"
-
-
-
 #include "interp/enableObjectEnumerationFrom.c"
-
-
 #include "interp/ensureBehaviorHash.c"
-
-
-
 #include "interp/ensureRoomOnObjStackAt.c"
-
-
-
 #include "interp/enterIntoClassTable.c"
-
-
 #include "interp/existInstancesInNewSpaceOf.c"
-
-
-
 #include "interp/expungeFromClassTable.c"
-
-
 #include "interp/falseObject.c"
-
-
 #include "interp/fetchByteofObject.c"
-
-
 #include "interp/fetchClassOfNonImm.c"
-
-
 #include "interp/fetchClassOf.c"
-
-
-
 #include "interp/fetchClassTagOfNonImm.c"
-
-
-
 #include "interp/fetchLong32ofObject.c"
-
-
 #include "interp/fetchPointerofFreeChunk.c"
-
-
 #include "interp/fetchPointerofObject.c"
-
-
 #include "interp/findClassNamed.c"
-
-
-
 #include "interp/findLargestFreeChunk.c"
-
-
-
 #include "interp/findStringBeginningWith.c"
-
-
-
 #include "interp/findString.c"
-
-
 #include "interp/fireEphemeron.c"
-
-
 #include "interp/firstAccessibleObject.c"
-
-
-
 #include "interp/firstFixedFieldOfMaybeImmediate.c"
-
-
 #include "interp/firstFixedField.c"
-
-
-
 #include "interp/firstIndexableField.c"
-
-
-
 #include "interp/firstStringyFakeFormat.c"
-
-
 #include "interp/fixedFieldsOfClassFormatMask.c"
-
-
 #include "interp/fixedFieldsOfClassFormat.c"
-
-
 #include "interp/fixedFieldsOfformatlength.c"
-
-
-
 #include "interp/fixFollowedFieldofObjectwithInitialValue.c"
-
-
-
 #include "interp/followFieldofObject.c"
-
-
-
 #include "interp/followForwardedObjectFieldstoDepth.c"
-
-
-
 #include "interp/followForwarded.c"
-
-
 #include "interp/followMaybeForwarded.c"
-
-
-
 #include "interp/followObjFieldofObject.c"
-
-
 #include "interp/formatOfClass.c"
-
-
-
 #include "interp/formatOf.c"
-
-
-
 #include "interp/forwardersIn.c"
-
-
-
 #include "interp/freeChunkNextIndex.c"
-
-
-
 #include "interp/freeChunkParentIndex.c"
-
-
-
 #include "interp/freeChunkPrevIndex.c"
-
-
 #include "interp/freeChunkWithBytesat.c"
-
-
-
 #include "interp/freeObject.c"
-
-
-
 #include "interp/fullGC.c"
-
-
 #include "interp/getHeapGrowthToSizeGCRatio.c"
-
-
 #include "interp/goodContextSize.c"
-
-
-
 #include "interp/growOldSpaceByAtLeast.c"
-
-
 #include "interp/hasPointerFieldsNonImm.c"
-
-
-
 #include "interp/headerForSlotsformatclassIndex.c"
-
-
-
 #include "interp/headerForSlotshashformatclassIndex.c"
-
-
-
 #include "interp/hiddenRootSlots.c"
-
-
 #include "interp/hiddenRootsObject.c"
-
-
-
 #include "interp/imageSegmentVersion.c"
 
 
@@ -4288,583 +3066,165 @@ primitiveTestShortenIndexableSize(void)
 
 
 #include "interp/inFreeTreeReplacewith.c"
-
-
 #include "interp/initialInstanceOf.c"
-
-
 #include "interp/initializeNewSpaceVariables.c"
-
-
-
 #include "interp/initializeObjectMemory.c"
-
-
-
 #include "interp/inOrderPrintFreeTreeprintList.c"
-
-
-
 #include "interp/inPlaceBecomeandcopyHashFlag.c"
-
-
-
 #include "interp/instanceSizeOf.c"
-
-
 #include "interp/instantiateClass.c"
-
-
 #include "interp/instSpecOfClassFormat.c"
-
-
-
 #include "interp/instSpecOfClass.c"
-
-
 #include "interp/invalidCompactClassError.c"
-
-
-
 #include "interp/isArray.c"
-
-
-
 #include "interp/isBridgeOrEnumerableObjectNoAssert.c"
-
-
-
 #include "interp/isBytes.c"
-
-
 #include "interp/isCharacterObject.c"
-
-
 #include "interp/isCharacterValue.c"
-
-
 #include "interp/isCompiledMethodFormat.c"
-
-
-
 #include "interp/isCompiledMethod.c"
-
-
 #include "interp/isContextHeader.c"
-
-
 #include "interp/isContextNonImm.c"
-
-
 #include "interp/isContext.c"
-
-
-
 #include "interp/isCopiedIntoSegment.c"
-
-
 #include "interp/isEmptyObjStack.c"
-
-
-
 #include "interp/isEnumerableObjectNoAssert.c"
-
-
 #include "interp/isEphemeronFormat.c"
-
-
 #include "interp/isEphemeron.c"
-
-
 #include "interp/isFixedSizePointerFormat.c"
-
-
 #include "interp/isForwardedClassTag.c"
-
-
-
 #include "interp/isForwarded.c"
-
-
 #include "interp/isFreeObject.c"
-
-
 #include "interp/isFreeOop.c"
-
-
 #include "interp/isImmediate.c"
-
-
 #include "interp/isInClassTable.c"
-
-
 #include "interp/isIndexable.c"
-
-
 #include "interp/isInEden.c"
-
-
 #include "interp/isInFutureSpace.c"
-
-
-
 #include "interp/isInMemory.c"
-
-
 #include "interp/isInNewSpace.c"
-
-
 #include "interp/isInOldSpace.c"
-
-
 #include "interp/isInPastSpace.c"
-
-
 #include "interp/isLargeFreeObject.c"
-
-
-
 #include "interp/isLong64s.c"
-
-
 #include "interp/isMarked.c"
-
-
 #include "interp/isMaybeFiredEphemeron.c"
-
-
 #include "interp/isNonImmediate.c"
-
-
 #include "interp/isObjEphemeron.c"
-
-
 #include "interp/isObjImmutable.c"
-
-
-
 #include "interp/isOldObject.c"
-
-
-
 #include "interp/isOopCompiledMethod.c"
-
-
 #include "interp/isOopForwarded.c"
-
-
 #include "interp/isOopImmutable.c"
-
-
 #include "interp/isOopMutable.c"
-
-
 #include "interp/isPinned.c"
-
-
-
 #include "interp/isPointers.c"
-
-
-
 #include "interp/isPureBitsFormat.c"
-
-
-
 #include "interp/isPureBitsNonImm.c"
-
-
-
 #include "interp/isReallyYoungObject.c"
-
-
 #include "interp/isRemembered.c"
-
-
-
 #include "interp/isSegmentBridge.c"
-
-
-
 #include "interp/isShorts.c"
-
-
-
 #include "interp/isUnambiguouslyForwarder.c"
-
-
-
 #include "interp/isUnmarked.c"
-
-
 #include "interp/isValidClassTag.c"
-
-
-
 #include "interp/isValidObjStackAt.c"
-
-
-
 #include "interp/isValidObjStackPagemyIndex.c"
-
-
-
 #include "interp/isValidObjStackPagemyIndexfirstPage.c"
-
-
-
 #include "interp/isValidObjStack.c"
-
-
 #include "interp/isWeakNonImm.c"
-
-
-
 #include "interp/isWeak.c"
-
-
-
 #include "interp/isWordsOrBytesNonImm.c"
-
-
-
 #include "interp/isWordsOrBytes.c"
-
-
-
 #include "interp/isWordsOrShorts.c"
-
-
-
 #include "interp/isWords.c"
-
-
-
 #include "interp/isYoungObject.c"
-
-
-
 #include "interp/isYoung.c"
-
-
-
 #include "interp/isinstanceOfcompactClassIndex.c"
-
-
 #include "interp/isonObjStack.c"
-
-
-
 #include "interp/keyOfEphemeron.c"
-
-
 #include "interp/knownClassAtIndex.c"
-
-
 #include "interp/lastPointerFormat.c"
-
-
-
 #include "interp/lastPointerOfWhileSwizzling.c"
-
-
-
 #include "interp/lastPointerOf.c"
-
-
 #include "interp/leakCheckFullGC.c"
-
-
 #include "interp/leakCheckNewSpaceGC.c"
-
-
-
 #include "interp/lengthOfMaybeImmediate.c"
-
-
-
 #include "interp/lengthOf.c"
-
-
 #include "interp/literalCountOfMethodHeader.c"
-
-
 #include "interp/literalCountOf.c"
-
-
-
 #include "interp/loadImageSegmentFromoutPointers.c"
-
-
-
 #include "interp/longPrintInstancesOf.c"
-
-
-
 #include "interp/longPrintInstancesWithClassIndex.c"
-
-
-
 #include "interp/longPrintReferencesTo.c"
-
-
 #include "interp/mapExtraRoots.c"
-
-
 #include "interp/mapMournQueue.c"
-
-
-
 #include "interp/mapOopsFromtooutPointersoutHashes.c"
-
-
-
 #include "interp/markAndTraceClassOf.c"
-
-
-
 #include "interp/markAndTraceObjStackandContents.c"
-
-
-
 #include "interp/markAndTrace.c"
-
-
-
 #include "interp/markInactiveEphemerons.c"
-
-
-
 #include "interp/markObjects.c"
-
-
-
 #include "interp/markWeaklingsAndMarkAndFireEphemerons.c"
-
-
 #include "interp/maxIdentityHash.c"
-
-
-
 #include "interp/maxSlotsForNewSpaceAlloc.c"
-
-
-
 #include "interp/maybeMethodClassOfseemsToBeInstantiating.c"
-
-
-
 #include "interp/methodHeaderOf.c"
-
-
-
 #include "interp/minSlotsForShortening.c"
-
-
 #include "interp/newSpaceIsEmpty.c"
-
-
 #include "interp/nilObject.c"
-
-
-
 #include "interp/nilUnmarkedWeaklingSlots.c"
-
-
 #include "interp/noCheckClassAtIndex.c"
-
-
-
 #include "interp/noCheckPushonObjStack.c"
-
-
-
 #include "interp/noFixupFollowFieldofObject.c"
-
-
-
 #include "interp/noInlineAllocateSlotsformatclassIndex.c"
-
-
 #include "interp/noUnscannedEphemerons.c"
-
-
-
 #include "interp/numBytesOfBitsformat.c"
-
-
-
 #include "interp/numBytesOfBytes.c"
-
-
-
 #include "interp/numBytesOf.c"
-
-
-
 #include "interp/numPointerSlotsOf.c"
-
-
 #include "interp/numSlotsForBytes.c"
-
-
-
 #include "interp/numSlotsOfAny.c"
-
-
-
 #include "interp/numSlotsOfIndexablePointerObj.c"
-
-
-
 #include "interp/numSlotsOf.c"
-
-
-
 #include "interp/numStrongSlotsOfInephemeral.c"
-
-
-
 #include "interp/numStrongSlotsOfWeakling.c"
-
-
-
 #include "interp/objCouldBeClassObj.c"
-
-
-
 #include "interp/objectAfter.c"
-
-
-
 #include "interp/objectBefore.c"
-
-
-
 #include "interp/objectInPastSpaceBefore.c"
-
-
-
 #include "interp/objectStartingAt.c"
-
-
-
 #include "interp/objectsAccessibleFromRoots.c"
-
-
-
 #include "interp/objectsReachableFromRoots.c"
-
-
-
 #include "interp/okayOop.c"
-
-
-
 #include "interp/oldSpaceObjectAfter.c"
-
-
-
 #include "interp/outOfPlaceBecomeandcopyHashFlag.c"
-
-
-
 #include "interp/pinObject.c"
-
-
 #include "interp/popObjStack.c"
-
-
-
 #include "interp/popRemappableOop.c"
-
-
-
 #include "interp/postBecomeScanClassTable.c"
-
-
 #include "interp/primitiveErrorTable.c"
-
-
-
 #include "interp/printActivationsOf.c"
-
-
-
 #include "interp/printBogons.c"
-
-
 #include "interp/printBridgeon.c"
-
-
 #include "interp/printCantBeObjecton.c"
-
-
-
 #include "interp/printContextReferencesTo.c"
-
-
-
 #include "interp/printEntity.c"
-
-
-
 #include "interp/printEphemerons.c"
-
-
-
 #include "interp/printForwarders.c"
-
-
 #include "interp/printForwarderon.c"
-
-
-
 #include "interp/printFreeChunks.c"
-
-
-
 #include "interp/printFreeChunk.c"
-
-
 #include "interp/printFreeChunkprintAsTreeNode.c"
-
-
-
 #include "interp/printFreeListHeads.c"
-
-
-
 #include "interp/printFreeList.c"
-
-
 #include "interp/printFreeObjecton.c"
-
-
-
 #include "interp/printFreeTree.c"
-
-
-
 #include "interp/printFreeTreeChunk.c"
-
-
-
 #include "interp/printHeaderOf.c"
-
-
 #include "interp/printImmediateObjecton.c"
-
-
-
 #include "interp/printInstancesOf.c"
-
-
-
 #include "interp/printInstancesWithClassIndex.c"
-
-
-
 #include "interp/printInvalidClassTableEntries.c"
 
 
@@ -4881,52 +3241,18 @@ printMarkedOops(void)
 #endif
 
 #include "interp/printMethodImplementorsOf.c"
-
-
-
 #include "interp/printMethodReferencesTo.c"
-
-
 #include "interp/printNonPointerDataOfon.c"
-
-
-
 #include "interp/printObjectsFromto.c"
-
-
-
 #include "interp/printObjectsWithHash.c"
-
-
 #include "interp/printObjStackAndContents.c"
-
-
 #include "interp/printObjStackPagemyIndexpageTypeprintContents.c"
-
-
 #include "interp/printObjStackPagemyIndextag.c"
-
-
-
 #include "interp/printObjStack.c"
-
-
-
 #include "interp/printOopsExcept.c"
-
-
-
 #include "interp/printOopsFromto.c"
-
-
-
 #include "interp/printOopsSuchThat.c"
-
-
-
 #include "interp/printReferencesTo.c"
-
-
 #include "interp/printStringDataOfon.c"
 
 
@@ -4945,445 +3271,125 @@ printUnmarkedOops(void)
 
 
 #include "interp/pushOnUnscannedEphemeronsStack.c"
-
-
-
 #include "interp/pushRemappableOop.c"
-
-
-
 #include "interp/queueMourner.c"
-
-
 #include "interp/rawHashBitsOf.c"
-
-
-
 #include "interp/refireQueuedEphemeronsPostSnapshot.c"
-
-
-
 #include "interp/relocateObjStackForPlanningCompactorandContents.c"
-
-
-
 #include "interp/removeGCRoot.c"
-
-
-
 #include "interp/returnrestoringObjectsInsavedFirstFieldsandsavedHashes.c"
-
-
-
 #include "interp/returnrestoringObjectsInupTosavedFirstFields.c"
-
-
-
 #include "interp/reverseBytesIn32BitWordsIn.c"
-
-
-
 #include "interp/runLeakCheckerForFreeSpaceignoring.c"
-
-
 #include "interp/runLeakCheckerFor.c"
-
-
 #include "interp/runLeakCheckerForexcludeUnmarkedObjsclassIndicesShouldBeValid.c"
-
-
 #include "interp/safePrintStringOf.c"
-
-
-
 #include "interp/scavengingGCTenuringIf.c"
-
-
-
 #include "interp/setHeapBasememoryLimitendOfMemory.c"
-
-
 #include "interp/setIsPinnedOfto.c"
-
-
 #include "interp/setIsRememberedOfto.c"
-
-
-
 #include "interp/shortentoIndexableSize.c"
-
-
-
 #include "interp/shortPrintObjectsFromto.c"
-
-
-
 #include "interp/shouldRemapOop.c"
-
-
 #include "interp/sizeOfObjStack.c"
-
-
 #include "interp/slidingCompactionInProgress.c"
-
-
-
 #include "interp/slotSizeOf.c"
-
-
-
 #include "interp/splObj.c"
-
-
-
 #include "interp/startOfObject.c"
-
-
-
 #include "interp/statNumGCs.c"
-
-
-
 #include "interp/storeCheckBoundary.c"
-
-
-
 #include "interp/storeImageSegmentIntooutPointersroots.c"
-
-
 #include "interp/storeLong32ofObjectwithValue.c"
-
-
 #include "interp/storePointerUncheckedofObjectwithValue.c"
-
-
-
 #include "interp/storePointerofObjectwithValue.c"
-
-
-
 #include "interp/stringForCString.c"
-
-
-
 #include "interp/swizzleObjStackAt.c"
-
-
-
 #include "interp/tenuringIncrementalGC.c"
-
-
-
 #include "interp/topOfObjStack.c"
-
-
-
 #include "interp/topRemappableOop.c"
-
-
-
 #include "interp/totalFreeListBytes.c"
-
-
 #include "interp/trueObject.c"
-
-
-
 #include "interp/unfireQueuedEphemeronsForSnapshot.c"
-
-
-
 #include "interp/unlinkFreeChunkchunkBytes.c"
-
-
 #include "interp/unlinkLilliputianChunkindex.c"
-
-
-
 #include "interp/unlinkSolitaryFreeTreeNode.c"
-
-
 #include "interp/unpinObject.c"
-
-
 #include "interp/updateListStartingAt.c"
-
-
-
 #include "interp/validClassTableHashes.c"
-
-
-
 #include "interp/validClassTableRootPages.c"
-
-
-
 #include "interp/validFreeTree.c"
-
-
 #include "interp/validFreeTreeChunk.c"
-
-
 #include "interp/validFreeTreeChunkparent.c"
-
-
 #include "interp/validObjStacks.c"
-
-
-
 #include "interp/validPostBecomeArrayContents.c"
-
-
 #include "interp/validStorePointerArgs.c"
-
-
 #include "interp/validStorePointerUncheckedArgs.c"
-
-
-
 #include "interp/vmEndianness.c"
-
-
 #include "interp/whereIsMaybeHeapThing.c"
-
-
-
 #include "interp/compact.c"
-
-
-
 #include "interp/copyAndUnmarkMobileObjects.c"
-
-
-
 #include "interp/copyAndUnmark.c"
-
-
 #include "interp/endCompaction.c"
-
-
-
 #include "interp/freeFromupTonextObject.c"
-
-
 #include "interp/isMobile.c"
-
-
-
 #include "interp/isPostMobile.c"
-
-
-
 #include "interp/planCompactSavingForwarders.c"
-
-
-
 #include "interp/reinitializeScanFrom.c"
-
-
-
 #include "interp/remapObj.c"
-
-
 #include "interp/savedFirstFieldsSpaceWasAllocated.c"
-
-
-
 #include "interp/scanForFirstFreeAndFirstMobileObjectFrom.c"
-
-
-
 #include "interp/shouldRemapObj.c"
-
-
-
 #include "interp/unmarkObjectsFromFirstFreeObject.c"
-
-
-
 #include "interp/updatePointers.c"
-
-
-
 #include "interp/updatePointersInsavedFirstFieldPointer.c"
-
-
-
 #include "interp/useSegmentForSavedFirstFieldsSpace.c"
-
-
-
 #include "interp/validRelocationPlanInPass.c"
-
-
 #include "interp/segLimit.c"
-
-
 #include "interp/addSegmentOfSize.c"
-
-
-
 #include "interp/adjustSegmentSwizzlesBy.c"
-
-
 #include "interp/allBridgesMarked.c"
-
-
-
 #include "interp/allocateOrExtendSegmentInfos.c"
-
-
 #include "interp/bridgeAt.c"
-
-
 #include "interp/bridgeFor.c"
-
-
-
 #include "interp/bridgeFromto.c"
-
-
 #include "interp/checkSegments.c"
-
-
-
 #include "interp/collapseSegmentsPostSwizzle.c"
-
-
-
 #include "interp/firstGapOfSizeAtLeast.c"
-
-
 #include "interp/isEmptySegment.c"
-
-
 #include "interp/isInSegments.c"
-
-
-
 #include "interp/isValidSegmentBridge.c"
-
-
-
 #include "interp/nextNonEmptySegmentAfter.c"
-
-
-
 #include "interp/prepareForSnapshot.c"
-
-
-
 #include "interp/readHeapFromImageFiledataBytes.c"
-
-
-
 #include "interp/restorePostSnapshot.c"
-
-
-
 #include "interp/segmentContainingObj.c"
-
-
-
 #include "interp/segmentOverlap.c"
-
-
-
 #include "interp/shrinkObjectMemory.c"
-
-
 #include "interp/swizzleObj.c"
-
-
-
 #include "interp/totalBytesInSegments.c"
-
-
 #include "interp/writeImageSegmentsToFile.c"
-
-
-
 #include "interp/writeSegmentnextSegmenttoFile.c"
-
-
 #include "interp/accessorDepthForExternalPrimitiveMethod.c"
-
-
 #include "interp/accessorDepthForPrimitiveMethod.c"
-
-
-
 #include "interp/activeProcess.c"
-
-
-
 #include "interp/addIdleUsecs.c"
-
-
-
 #include "interp/addLastLinktoList.c"
-
-
-
 #include "interp/addNewMethodToCache.c"
-
-
 #include "interp/allOnesAsCharStar.c"
-
-
-
 #include "interp/argumentCountOfClosure.c"
-
-
 #include "interp/argumentCountOfMethodHeader.c"
-
-
 #include "interp/argumentCountOf.c"
-
-
-
 #include "interp/arrayValueOf.c"
-
-
-
 #include "interp/asciiOfCharacter.c"
-
-
 #include "interp/assertValidExecutionPointers.c"
-
-
 #include "interp/assertValidExecutionPointersimbarline.c"
-
-
-
 #include "interp/backupContexttoBlockingSendTo.c"
-
-
-
 #include "interp/booleanValueOf.c"
-
-
-
 #include "interp/callbackEnter.c"
-
-
-
 #include "interp/callbackLeave.c"
-
-
-
 #include "interp/canContextSwitchIfActivatingheader.c"
-
-
-
 #include "interp/characterForAscii.c"
-
-
-
 #include "interp/checkAllAccessibleObjectsOkay.c"
-
-
-
 #include "interp/checkCodeIntegrity.c"
 
 
@@ -5418,94 +3424,28 @@ checkDeliveryOfLongRunningPrimitiveSignal(void)
 #endif
 
 #include "interp/checkedIntegerValueOf.c"
-
-
-
 #include "interp/checkForEventsMayContextSwitch.c"
-
-
-
 #include "interp/checkImageHeaderFromBytesAndSize.c"
-
-
-
 #include "interp/checkImageVersionFromstartingAtassignRawVersion.c"
-
-
-
 #include "interp/checkInterpreterIntegrity.c"
-
-
-
 #include "interp/checkIsStillMarriedContextcurrentFP.c"
-
-
-
 #include "interp/checkLogIntegrity.c"
-
-
-
 #include "interp/checkOkayFields.c"
-
-
-
 #include "interp/checkOkayInterpreterObjects.c"
-
-
 #include "interp/checkOkayStackPage.c"
-
-
-
 #include "interp/checkOkayStackZone.c"
-
-
-
 #include "interp/checkProfileTickPostPrimitive.c"
-
-
-
 #include "interp/checkStackIntegrity.c"
-
-
-
 #include "interp/checkStackPointerForMaybeMarriedContext.c"
-
-
-
 #include "interp/checkStackPointerIndexForFrame.c"
-
-
-
 #include "interp/classNameOfIs.c"
-
-
 #include "interp/clearTraceLog.c"
-
-
-
 #include "interp/contexthasValidInversePCMappingOfin.c"
-
-
-
 #include "interp/copiedValueCountOfClosure.c"
-
-
-
 #include "interp/copyBits.c"
-
-
-
 #include "interp/copyBitsFromtoat.c"
-
-
 #include "interp/couldBeProcess.c"
-
-
-
 #include "interp/createActualMessageTo.c"
-
-
-
 #include "interp/defaultNumStackPages.c"
 
 
@@ -5519,42 +3459,15 @@ disableSendPrinting(void)
 #endif
 
 #include "interp/disownVM.c"
-
-
 #include "interp/divorceAllFrames.c"
-
-
 #include "interp/divorceFramesIn.c"
-
-
-
 #include "interp/doPrimitiveDivby.c"
-
-
 #include "interp/doPrimitiveModby.c"
-
-
-
 #include "interp/doSignalSemaphoreWithIndex.c"
-
-
-
 #include "interp/dummyReferToProxy.c"
-
-
-
 #include "interp/dumpPrimTraceLog.c"
-
-
-
 #include "interp/dumpPrimTraceLogOn.c"
-
-
-
 #include "interp/dumpTraceLog.c"
-
-
-
 #include "interp/eekcr.c"
 
 
@@ -5568,1105 +3481,301 @@ enableSendPrinting(void)
 #endif
 
 #include "interp/ensureCallerContext.c"
-
-
-
 #include "interp/ensureImageFormatIsUpToDate.c"
-
-
-
 #include "interp/enterSmalltalkExecutiveImplementation.c"
-
-
-
 #include "interp/executeNewMethod.c"
-
-
-
 #include "interp/externalDivorceFrameandContext.c"
-
-
-
 #include "interp/externalEnsureIsBaseFrame.c"
-
-
-
 #include "interp/externalInstVarofContext.c"
-
-
 #include "interp/externalInstVarofContextput.c"
-
-
-
 #include "interp/externalQuickPrimitiveResponse.c"
-
-
-
 #include "interp/fetchArrayofObject.c"
-
-
-
 #include "interp/fetchFloatofObject.c"
-
-
-
 #include "interp/fetchIntegerofObject.c"
-
-
-
 #include "interp/fetchPointerofMarriedContext.c"
-
-
-
 #include "interp/fetchStackPointerOf.c"
-
-
-
 #include "interp/fileTimesInUTC.c"
-
-
 #include "interp/findClassContainingMethodstartingAt.c"
-
-
 #include "interp/findClassOfMethodforReceiver.c"
-
-
-
 #include "interp/findFrameAboveinPage.c"
-
-
 #include "interp/findHomeForContext.c"
-
-
-
 #include "interp/findMethodWithPrimitiveFromContextUpToContext.c"
-
-
-
 #include "interp/findNewMethodInClassTag.c"
-
-
 #include "interp/findSelectorOfMethod.c"
-
-
-
 #include "interp/findSPOfon.c"
-
-
 #include "interp/flush.c"
-
-
-
 #include "interp/flushExternalPrimitiveOf.c"
-
-
-
 #include "interp/followForwardedFrameContentsstackPointer.c"
-
-
-
 #include "interp/followForwardingPointersOfReceiversInStackZone.c"
-
-
-
 #include "interp/forceInterruptCheck.c"
-
-
-
 #include "interp/forceInterruptCheckFromHeartbeat.c"
-
-
 #include "interp/frameCallerContext.c"
-
-
-
 #include "interp/frameCallerSP.c"
-
-
 #include "interp/frameContext.c"
-
-
-
 #include "interp/frameHasContext.c"
-
-
-
 #include "interp/frameIsBlockActivation.c"
-
-
-
 #include "interp/frameMethodObject.c"
-
-
 #include "interp/frameMethod.c"
-
-
-
 #include "interp/frameNumArgs.c"
-
-
 #include "interp/frameOfMarriedContext.c"
-
-
 #include "interp/framePrintDescription.c"
-
-
 #include "interp/frameReceiver.c"
-
-
-
 #include "interp/frameStackedReceiverOffset.c"
-
-
-
 #include "interp/freeUntracedStackPages.c"
-
-
-
 #include "interp/fullDisplayUpdate.c"
-
-
-
 #include "interp/getCodeCompactionCount.c"
-
-
-
 #include "interp/getCodeCompactionMSecs.c"
-
-
-
 #include "interp/getCogCodeSize.c"
-
-
-
 #include "interp/getCogVMFeatureFlags.c"
-
-
-
 #include "interp/getCurrentBytecode.c"
-
-
-
 #include "interp/getDesiredCogCodeSize.c"
-
-
-
 #include "interp/getErrorObjectFromPrimFailCode.c"
-
-
 #include "interp/getFullScreenFlag.c"
-
-
-
 #include "interp/getImageHeaderFlags.c"
-
-
 #include "interp/getInterruptKeycode.c"
-
-
 #include "interp/getInterruptPending.c"
-
-
-
 #include "interp/getMaxLiteralCountForCompile.c"
-
-
 #include "interp/getNextWakeupUsecs.c"
-
-
 #include "interp/getSavedWindowSize.c"
-
-
-
 #include "interp/getSnapshotScreenSize.c"
-
-
-
 #include "interp/getStackPointer.c"
-
-
-
 #include "interp/getThisSessionID.c"
-
-
 #include "interp/getTranscript.c"
-
-
-
 #include "interp/handleForwardedSelectorFaultFor.c"
-
-
-
 #include "interp/handleForwardedSendFaultForTag.c"
-
-
-
 #include "interp/handleSpecialSelectorSendFaultForfpsp.c"
-
-
-
 #include "interp/handleStackOverflow.c"
-
-
-
 #include "interp/handleStackOverflowOrEventAllowContextSwitch.c"
-
-
-
 #include "interp/highBit.c"
-
-
-
 #include "interp/homeMethodOf.c"
-
-
-
 #include "interp/ifCurrentStackPageHasValidHeadPointers.c"
-
-
 #include "interp/iframeMethod.c"
-
-
-
 #include "interp/ifValidWriteBackStackPointersSaveTo.c"
-
-
-
 #include "interp/includesBehaviorThatOf.c"
-
-
-
 #include "interp/initStackPagesAndContinueIntowith.c"
-
-
-
 #include "interp/instructionPointerForFramecurrentFPcurrentIP.c"
-
-
-
 #include "interp/interpreterAllocationReserveBytes.c"
-
-
-
 #include "interp/ioFilenamefromStringofLengthresolveAliases.c"
-
-
-
 #include "interp/isBaseFrame.c"
-
-
 #include "interp/isBooleanObject.c"
-
-
 #include "interp/isEmptyList.c"
-
-
 #include "interp/isFloatObject.c"
-
-
 #include "interp/isFrameonPage.c"
-
-
-
 #include "interp/isKindOfInteger.c"
-
-
 #include "interp/isLargeIntegerObject.c"
-
-
 #include "interp/isLargeNegativeIntegerObject.c"
-
-
 #include "interp/isLargePositiveIntegerObject.c"
-
-
 #include "interp/isLinkedExternalPrimitive.c"
-
-
-
 #include "interp/isLiveContext.c"
-
-
 #include "interp/isMarriedOrWidowedContext.c"
-
-
-
 #include "interp/isMetaPrimitiveIndex.c"
-
-
-
 #include "interp/isPrimitiveFunctionPointerAnIndex.c"
-
-
 #include "interp/isQuickPrimitiveIndex.c"
-
-
-
 #include "interp/isReadMediatedContextInstVarIndex.c"
-
-
 #include "interp/isSingleContext.c"
-
-
-
 #include "interp/isVanillaBlockClosure.c"
-
-
-
 #include "interp/isWidowedContextDuringGC.c"
-
-
-
 #include "interp/isWidowedContextNoConvert.c"
-
-
-
 #include "interp/isWidowedContext.c"
-
-
-
 #include "interp/isWriteMediatedContextInstVarIndex.c"
-
-
-
 #include "interp/isKindOfClass.c"
-
-
-
 #include "interp/isKindOf.c"
-
-
-
 #include "interp/isMemberOf.c"
-
-
 #include "interp/lengthOfNameOfClass.c"
-
-
 #include "interp/literalofMethod.c"
-
-
-
 #include "interp/loadBitBltFrom.c"
-
-
 #include "interp/loadInitialContext.c"
-
-
-
 #include "interp/longPrintOop.c"
-
-
-
 #include "interp/longStoreBytecodeForHeader.c"
-
-
-
 #include "interp/lookupInMethodCacheSelclassTag.c"
-
-
 #include "interp/lookupMethodInClass.c"
-
-
-
 #include "interp/lookupOrdinaryNoMNUEtcInClass.c"
-
-
-
 #include "interp/lookupSelectorinClass.c"
-
-
-
 #include "interp/makeBaseFrameFor.c"
-
-
-
 #include "interp/makeContextSnapshotSafe.c"
-
-
-
 #include "interp/makePointwithxValueyValue.c"
-
-
-
 #include "interp/mapInterpreterOops.c"
-
-
-
 #include "interp/mapPrimTraceLog.c"
-
-
 #include "interp/mapStackPages.c"
-
-
-
 #include "interp/mapTraceLog.c"
-
-
-
 #include "interp/markAndTracePrimTraceLog.c"
-
-
-
 #include "interp/markAndTraceStackPages.c"
-
-
 #include "interp/markAndTraceStackPage.c"
-
-
-
 #include "interp/markAndTraceTraceLog.c"
-
-
-
 #include "interp/markAndTraceUntracedReachableStackPages.c"
-
-
-
 #include "interp/marriedContextpointsTostackDeltaForCurrentFrame.c"
-
-
-
 #include "interp/marryContextInNewStackPageAndInitializeInterpreterRegisters.c"
-
-
-
 #include "interp/marryFrameSP.c"
-
-
-
 #include "interp/maybeLeakCheckExternalPrimCall.c"
-
-
-
 #include "interp/maybeSelectorOfMethod.c"
-
-
 #include "interp/methodArgumentCount.c"
-
-
 #include "interp/methodClassAssociationOf.c"
-
-
-
 #include "interp/methodClassOf.c"
-
-
 #include "interp/methodPrimitiveIndex.c"
-
-
-
 #include "interp/methodReturnBool.c"
-
-
-
 #include "interp/methodReturnFloat.c"
-
-
-
 #include "interp/methodReturnInteger.c"
-
-
-
 #include "interp/methodReturnReceiver.c"
-
-
-
 #include "interp/methodReturnString.c"
-
-
-
 #include "interp/methodReturnValue.c"
-
-
-
 #include "interp/methodUsesAlternateBytecodeSet.c"
-
-
-
 #include "interp/methodUsesPrimitiveErrorCode.c"
-
-
-
 #include "interp/moduleUnloaded.c"
-
-
-
 #include "interp/moveFramesInthroughtoPage.c"
-
-
-
 #include "interp/nameOfClass.c"
-
-
-
 #include "interp/nameOfClasslengthInto.c"
-
-
-
 #include "interp/noMarkedContextsOnPage.c"
-
-
-
 #include "interp/numSlotsOfMarriedContext.c"
-
-
 #include "interp/numStkPages.c"
-
-
 #include "interp/objectequalsString.c"
-
-
-
 #include "interp/ownVM.c"
-
-
 #include "interp/pcPreviousToinSqueakV3PlusClosuresOrSistaV1Method.c"
-
-
 #include "interp/penultimateLiteralOf.c"
-
-
-
 #include "interp/popStack.c"
-
-
-
 #include "interp/pop.c"
-
-
-
 #include "interp/popthenPush.c"
-
-
-
 #include "interp/positive32BitIntegerFor.c"
-
-
-
 #include "interp/positive64BitIntegerFor.c"
-
-
-
 #include "interp/postGCUpdateDisplayBits.c"
-
-
-
 #include "interp/primitiveEventProcessingControl.c"
-
-
 #include "interp/primitiveFloatEqualtoArg.c"
-
-
 #include "interp/primitiveFloatGreaterOrEqualtoArg.c"
-
-
 #include "interp/primitiveFloatGreaterthanArg.c"
-
-
 #include "interp/primitiveFloatLessOrEqualtoArg.c"
-
-
 #include "interp/primitiveFloatLessthanArg.c"
-
-
-
 #include "interp/primitiveIndexOfMethodheader.c"
-
-
 #include "interp/primitiveIndexOf.c"
-
-
 #include "interp/printActivationNameForSelectorstartClass.c"
-
-
 #include "interp/printActivationNameForreceiverisBlockfirstTemporary.c"
-
-
-
 #include "interp/printAllStacks.c"
-
-
-
 #include "interp/printAllStacksOn.c"
-
-
-
 #include "interp/printCallStack.c"
-
-
 #include "interp/printCallStackFP.c"
-
-
-
 #include "interp/printCallStackOf.c"
-
-
 #include "interp/printCallStackOfcurrentFP.c"
-
-
-
 #include "interp/printCallStackOn.c"
-
-
-
 #include "interp/printContextCallStackOf.c"
-
-
-
 #include "interp/printContext.c"
-
-
-
 #include "interp/printExternalHeadFrame.c"
-
-
 #include "interp/printFrameAndCallersSPshort.c"
-
-
 #include "interp/printFrameFlagsForFP.c"
-
-
 #include "interp/printFrameOopat.c"
-
-
-
 #include "interp/printFramesInPage.c"
-
-
-
 #include "interp/printFramesOnStackPageListInUse.c"
-
-
 #include "interp/printFrameThingandFrameat.c"
-
-
 #include "interp/printFrameThingatextraString.c"
-
-
-
 #include "interp/printFrame.c"
-
-
-
 #include "interp/printFrameWithSP.c"
-
-
-
 #include "interp/printHexPtrnp.c"
-
-
-
 #include "interp/printHex.c"
-
-
-
 #include "interp/printLikelyImplementorsOfSelector.c"
-
-
 #include "interp/printLogEntryAt.c"
-
-
-
 #include "interp/printMethodCache.c"
-
-
-
 #include "interp/printMethodCacheFor.c"
-
-
-
 #include "interp/printMethodDictionaryOf.c"
-
-
-
 #include "interp/printMethodDictionary.c"
-
-
-
 #include "interp/printNameOfClasscount.c"
-
-
 #include "interp/printNum.c"
-
-
 #include "interp/printOopShortInner.c"
-
-
-
 #include "interp/printOop.c"
-
-
-
 #include "interp/printPrimLogEntryAthasParameter.c"
-
-
-
 #include "interp/printProcessStack.c"
-
-
-
 #include "interp/printProcsOnList.c"
-
-
-
 #include "interp/printStackCallStackOf.c"
-
-
-
 #include "interp/printStackPageList.c"
-
-
-
 #include "interp/printStackPageListInUse.c"
-
-
-
 #include "interp/printStackPages.c"
-
-
-
 #include "interp/printStackPagesInUse.c"
-
-
 #include "interp/printStackPageuseCount.c"
-
-
-
 #include "interp/printStackReferencesTo.c"
-
-
 #include "interp/printStringOf.c"
-
-
 #include "interp/print.c"
-
-
 #include "interp/pushBool.c"
-
-
-
 #include "interp/pushedReceiverOrClosureOfFrame.c"
-
-
 #include "interp/pushFloat.c"
-
-
 #include "interp/pushInteger.c"
-
-
-
 #include "interp/push.c"
-
-
-
 #include "interp/putLongtoFile.c"
-
-
-
 #include "interp/putShorttoFile.c"
-
-
-
 #include "interp/putToSleepyieldingIf.c"
-
-
-
 #include "interp/putWord32toFile.c"
-
-
-
 #include "interp/quickFetchIntegerofObject.c"
-
-
-
 #include "interp/readableFormat.c"
-
-
 #include "interp/readImageFromFileHeapSizeStartingAt.c"
-
-
-
 #include "interp/reapAndResetErrorCodeToheader.c"
-
-
-
 #include "interp/reestablishContextPriorToCallback.c"
-
-
-
 #include "interp/removeFirstLinkOfList.c"
-
-
-
 #include "interp/removeProcessfromList.c"
-
-
-
 #include "interp/resumepreemptedYieldingIffrom.c"
-
-
-
 #include "interp/retryPrimitiveOnFailure.c"
-
-
-
 #include "interp/returnAsThroughCallbackContext.c"
-
-
-
 #include "interp/reverseDisplayFromto.c"
-
-
-
 #include "interp/rewriteMethodCacheEntryForExternalPrimitiveToFunction.c"
-
-
-
 #include "interp/safeMethodClassOf.c"
-
-
-
 #include "interp/saneFunctionPointerForFailureOfPrimIndex.c"
-
-
-
 #include "interp/sendInvokeCallbackContext.c"
-
-
-
 #include "interp/setBreakMNUSelector.c"
-
-
-
 #include "interp/setBreakSelector.c"
-
-
 #include "interp/setFullScreenFlag.c"
-
-
 #include "interp/setInterruptCheckChain.c"
-
-
 #include "interp/setInterruptKeycode.c"
-
-
-
 #include "interp/setInterruptPending.c"
-
-
 #include "interp/setNextWakeupUsecs.c"
-
-
 #include "interp/setSavedWindowSize.c"
-
-
-
 #include "interp/setSignalLowSpaceFlagAndSaveProcess.c"
-
-
 #include "interp/setTraceFlagOnContextsFramesPageIfNeeded.c"
-
-
 #include "interp/shortPrintContext.c"
-
-
 #include "interp/shortPrintFrameAndCallers.c"
-
-
-
 #include "interp/shortPrintFramesInPage.c"
-
-
-
 #include "interp/shortPrintFramesOnStackPageListInUse.c"
-
-
 #include "interp/shortPrintFrame.c"
-
-
-
 #include "interp/shortPrintFrameAndNCallers.c"
-
-
 #include "interp/shortPrintOop.c"
-
-
 #include "interp/shortReversePrintFrameAndCallers.c"
-
-
-
 #include "interp/showDisplayBitsLeftTopRightBottom.c"
-
-
-
 #include "interp/signalExternalSemaphores.c"
-
-
-
 #include "interp/signed32BitIntegerFor.c"
-
-
-
 #include "interp/signed64BitIntegerFor.c"
-
-
-
 #include "interp/sizeOfCallPrimitiveBytecode.c"
-
-
-
 #include "interp/sizeOfLongStoreTempBytecode.c"
-
-
-
 #include "interp/sizeOfSTArrayFromCPrimitive.c"
-
-
-
 #include "interp/slowPrimitiveResponse.c"
-
-
-
 #include "interp/snapshot.c"
-
-
 #include "interp/specialSelector.c"
-
-
-
 #include "interp/spurPostBecomeAction.c"
-
-
-
 #include "interp/stackFloatValue.c"
-
-
-
 #include "interp/stackIntegerValue.c"
-
-
-
 #include "interp/stackLimitBytes.c"
-
-
-
 #include "interp/stackLimitOffset.c"
-
-
-
 #include "interp/stackObjectValue.c"
-
-
-
 #include "interp/stackPageByteSize.c"
-
-
-
 #include "interp/stackPageHeadroom.c"
-
-
-
 #include "interp/stackPointerForMaybeMarriedContext.c"
-
-
-
 #include "interp/stackPointerIndexForFrame.c"
-
-
-
 #include "interp/stackPositiveMachineIntegerValue.c"
-
-
-
 #include "interp/stackSignedMachineIntegerValue.c"
-
-
 #include "interp/stackTop.c"
-
-
-
 #include "interp/stackValue.c"
-
-
-
 #include "interp/startPCOfMethod.c"
-
-
-
 #include "interp/stObjectat.c"
-
-
-
 #include "interp/stObjectatput.c"
-
-
-
 #include "interp/storeIntegerofObjectwithValue.c"
-
-
-
 #include "interp/storeSenderOfFramewithValue.c"
-
-
-
 #include "interp/stSizeOf.c"
-
-
-
 #include "interp/superclassOf.c"
-
-
-
 #include "interp/synchronousSignal.c"
-
-
 #include "interp/tempCountOf.c"
-
-
 #include "interp/temporaryCountOfMethodHeader.c"
-
-
-
 #include "interp/temporaryin.c"
-
-
-
 #include "interp/temporaryinput.c"
-
-
-
 #include "interp/transferTofrom.c"
-
-
 #include "interp/ultimateLiteralOf.c"
-
-
-
 #include "interp/unfollowFirstLiteralOfMaybeCalloutMethodprimitiveIndex.c"
-
-
-
 #include "interp/updateDisplayLeftTopRightBottom.c"
-
-
-
 #include "interp/updateStateOfSpouseContextForFrameWithSP.c"
-
-
-
 #include "interp/validInstructionPointerinFrame.c"
-
-
-
 #include "interp/validInstructionPointerinMethodframePointer.c"
-
-
-
 #include "interp/validStackPageBaseFrames.c"
-
-
-
 #include "interp/validStackPageBaseFrame.c"
 
 
@@ -6689,54 +3798,18 @@ voidLongRunningPrimitive(char *reason)
 #endif
 
 #include "interp/voidVMStateForSnapshotFlushingExternalPrimitivesIf.c"
-
-
-
 #include "interp/wakeHighestPriority.c"
-
-
-
 #include "interp/whereIs.c"
-
-
-
 #include "interp/writeImageFileIO.c"
-
-
 #include "interp/cloneContext.c"
-
-
-
 #include "interp/fieldOrSenderFPofContext.c"
-
-
-
 #include "interp/fieldofFrame.c"
-
-
 #include "interp/isAppropriateForCopyObject.c"
-
-
-
 #include "interp/linkExternalCallerrInto.c"
-
-
-
 #include "interp/primitiveClone.c"
-
-
 #include "interp/primitiveClosureCopyWithCopiedValues.c"
-
-
-
 #include "interp/primitiveContextAt.c"
-
-
-
 #include "interp/primitiveContextAtPut.c"
-
-
-
 #include "interp/primitiveContextSize.c"
 
 
@@ -6780,59 +3853,19 @@ primitiveContextXray(void)
 #endif
 
 #include "interp/primitiveDeferDisplayUpdates.c"
-
-
-
 #include "interp/primitiveDoNamedPrimitiveWithArgs.c"
-
-
-
 #include "interp/primitiveDoPrimitiveWithArgs.c"
-
-
-
 #include "interp/primitiveExecuteMethod.c"
-
-
-
 #include "interp/primitiveExecuteMethodArgsArray.c"
-
-
-
 #include "interp/primitiveExternalCall.c"
-
-
-
 #include "interp/primitiveFindHandlerContext.c"
-
-
-
 #include "interp/primitiveFindNextUnwindContext.c"
-
-
-
 #include "interp/primitiveFlushCacheByMethod.c"
-
-
-
 #include "interp/primitiveFlushCacheBySelector.c"
-
-
-
 #include "interp/primitiveFullGC.c"
-
-
 #include "interp/primitiveGetSetFFIExceptionHandling.c"
-
-
-
 #include "interp/primitiveIncrementalGC.c"
-
-
-
 #include "interp/primitiveInstVarAt.c"
-
-
 #include "interp/primitiveInstVarAtPut.c"
 
 
@@ -6948,74 +3981,23 @@ primitiveLongRunningPrimitiveSemaphore(void)
 #endif
 
 #include "interp/primitiveObjectPointsTo.c"
-
-
 #include "interp/primitivePerform.c"
-
-
-
 #include "interp/primitivePin.c"
-
-
-
 #include "interp/primitiveSetGCSemaphore.c"
-
-
-
 #include "interp/primitiveSignalAtMilliseconds.c"
-
-
-
 #include "interp/primitiveSignalAtUTCMicroseconds.c"
-
-
-
 #include "interp/primitiveSlotAt.c"
-
-
-
 #include "interp/primitiveSlotAtPut.c"
-
-
-
 #include "interp/primitiveStoreStackp.c"
-
-
-
 #include "interp/primitiveSuspendBackingUpV1.c"
-
-
-
 #include "interp/primitiveSuspendBackingUpV2.c"
-
-
-
 #include "interp/primitiveTerminateTo.c"
-
-
-
 #include "interp/primitiveUnloadModule.c"
-
-
-
 #include "interp/primitiveVMParameter.c"
-
-
-
 #include "interp/primitiveVoidReceiver.c"
-
-
-
 #include "interp/primitiveVoidVMState.c"
-
-
-
 #include "interp/pruneStackstackp.c"
-
-
 #include "interp/unmarkAfterPathTo.c"
-
-
 #include "interp/unmarkAllFrames.c"
 
 
