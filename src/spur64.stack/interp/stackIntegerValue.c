@@ -2,24 +2,21 @@
 
 /*	In the StackInterpreter stacks grow down. */
 
-	/* StackInterpreter>>#stackIntegerValue: */
+/* StackInterpreter>>#stackIntegerValue: */
 
-sqInt
-stackIntegerValue(sqInt offset)
-{
-    sqInt integerPointer;
+sqInt stackIntegerValue(sqInt offset) {
+  sqInt integerPointer;
 
-	integerPointer = longAt(stackPointer + (offset * BytesPerWord));
+  integerPointer = longAt(stackPointer + (offset * BytesPerWord));
 
-	/* begin checkedIntegerValueOf: */
-	if ((((integerPointer) & 7) == 1)) {
-		return (integerPointer >> 3);
-	}
-	else {
-		/* begin primitiveFail */
-		if (!primFailCode) {
-			primFailCode = 1;
-		}
-		return 0;
-	}
+  /* begin checkedIntegerValueOf: */
+  if ((((integerPointer) & 7) == 1)) {
+    return (integerPointer >> 3);
+  } else {
+    /* begin primitiveFail */
+    if (!primFailCode) {
+      primFailCode = 1;
+    }
+    return 0;
+  }
 }

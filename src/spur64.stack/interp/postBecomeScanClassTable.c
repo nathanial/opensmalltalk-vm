@@ -1,88 +1,110 @@
 /* Extracted from interp.c:42461 (function postBecomeScanClassTable). */
 
-/*	Scan the class table post-become (iff an active class object was becommed)
-	to ensure no
-	forwarding pointers, and no unhashed classes exist in the class table.
-	
-	Note that one-way become can cause duplications in the class table.
-	So if pointer objects have been becommed, scan all pages in the class
-	table and eliminate ay entries that have a zero hash.
-	doBecome:and:copyHash: has
-	already ensured that any becomed class has been stored at the right index. */
+/*	Scan the class table post-become (iff an active class object was
+   becommed) to ensure no forwarding pointers, and no unhashed classes exist in
+   the class table.
 
-	/* SpurMemoryManager>>#postBecomeScanClassTable: */
+        Note that one-way become can cause duplications in the class table.
+        So if pointer objects have been becommed, scan all pages in the class
+        table and eliminate ay entries that have a zero hash.
+        doBecome:and:copyHash: has
+        already ensured that any becomed class has been stored at the right
+   index. */
 
-static NoDbgRegParms void
-postBecomeScanClassTable(sqInt effectsFlags)
-{
-    sqInt classOrNil;
-    sqInt i;
-    sqInt j;
-    usqInt numSlots;
-    sqInt page;
-    sqInt referent;
-    sqInt toDoLimit;
+/* SpurMemoryManager>>#postBecomeScanClassTable: */
 
-	assert(validClassTableRootPages());
-	if (!(((effectsFlags & BecamePointerObjectFlag) != 0))) {
-		return;
-	}
-	for (i = 0; i < numClassTablePages; i += 1) {
-		page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
-		assert(!(isForwarded(page)));
-		toDoLimit = ((/* begin numSlotsOf: */
-	assert((classIndexOf(page)) > (isForwardedObjectClassIndexPun())),
-(((numSlots = byteAt((void *)(page + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
-			? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(page - BaseHeaderSize)))) << 8)))))) >> 8
-			: numSlots))) - 1;
-		for (j = 0; j <= toDoLimit; j += 1) {
-			classOrNil = longAt((void *)((page + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))));
-			if (classOrNil != nilObj) {
-				if ((!((longAt((void *)(classOrNil))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-					/* begin followForwarded: */
-					assert(isUnambiguouslyForwarder(classOrNil));
-					referent = longAt((void *)((classOrNil + BaseHeaderSize) + (0U << (shiftForWord()))));
-					while (/* isOopForwarded: */
-						((!(referent & (tagMask()))))
-					 && ((!((longAt((void *)(referent))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
-						referent = longAt((void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-					}
-					classOrNil = referent;
+static NoDbgRegParms void postBecomeScanClassTable(sqInt effectsFlags) {
+  sqInt classOrNil;
+  sqInt i;
+  sqInt j;
+  usqInt numSlots;
+  sqInt page;
+  sqInt referent;
+  sqInt toDoLimit;
 
-					/* begin storePointer:ofObject:withValue: */
-					assert(validStorePointerArgs(j, page, classOrNil));
-					assert(isNonImmediate(page));
-					if (oopisGreaterThanOrEqualTo(page, oldSpaceStart)) {
-						if (/* isYoung: */
-							((!(classOrNil & (tagMask()))))
-						 && (oopisLessThan(classOrNil, oldSpaceStart))) {
-							/* begin possibleRootStoreInto: */
-							if (!((byteAt((void *)(page + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-								remember(page);
-							}
-						}
-					}
+  assert(validClassTableRootPages());
+  if (!(((effectsFlags & BecamePointerObjectFlag) != 0))) {
+    return;
+  }
+  for (i = 0; i < numClassTablePages; i += 1) {
+    page = longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
+                           ((((usqInt)(i) << (shiftForWord()))))));
+    assert(!(isForwarded(page)));
+    toDoLimit =
+        ((/* begin numSlotsOf: */
+          assert((classIndexOf(page)) > (isForwardedObjectClassIndexPun())),
+          (((numSlots =
+                 byteAt((void *)(page + (numSlotsFieldByteOffset()))))) ==
+                   (numSlotsMask())
+               ? ((((usqInt)((
+                     (sqInt)((usqInt)((longAt((void *)(page - BaseHeaderSize))))
+                             << 8)))))) >>
+                     8
+               : numSlots))) -
+        1;
+    for (j = 0; j <= toDoLimit; j += 1) {
+      classOrNil = longAt((void *)((page + BaseHeaderSize) +
+                                   ((((usqInt)(j) << (shiftForWord()))))));
+      if (classOrNil != nilObj) {
+        if ((!((longAt((void *)(classOrNil))) &
+               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
+          /* begin followForwarded: */
+          assert(isUnambiguouslyForwarder(classOrNil));
+          referent = longAt((void *)((classOrNil + BaseHeaderSize) +
+                                     (0U << (shiftForWord()))));
+          while (/* isOopForwarded: */
+                 ((!(referent & (tagMask())))) &&
+                 ((!((longAt((void *)(referent))) &
+                     ((classIndexMask()) -
+                      (isForwardedObjectClassIndexPun())))))) {
+            referent = longAt((void *)((referent + BaseHeaderSize) +
+                                       (0U << (shiftForWord()))));
+          }
+          classOrNil = referent;
 
-					/* most stores into young objects */
-					longAtput((void *)((page + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))),classOrNil);
-				}
-				if (!((long32At((void *)(classOrNil + 4))) & (identityHashHalfWordMask()))) {
-					/* begin storePointerUnchecked:ofObject:withValue: */
-					assert((isNonImmediate(page))
-					 && (!(isForwarded(page))));
-					assert(validStorePointerUncheckedArgs(j, page, nilObj));
-					longAtput((void *)((page + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))),nilObj);
+          /* begin storePointer:ofObject:withValue: */
+          assert(validStorePointerArgs(j, page, classOrNil));
+          assert(isNonImmediate(page));
+          if (oopisGreaterThanOrEqualTo(page, oldSpaceStart)) {
+            if (/* isYoung: */
+                ((!(classOrNil & (tagMask())))) &&
+                (oopisLessThan(classOrNil, oldSpaceStart))) {
+              /* begin possibleRootStoreInto: */
+              if (!((byteAt((void *)(page + (formatFieldByteOffset())))) &
+                    (1U << (rememberedBitByteShift())))) {
+                remember(page);
+              }
+            }
+          }
 
-					/* If the removed class is before the classTableIndex, set the
-					   classTableIndex to point to the empty slot so as to reuse it asap. */
-					if ((((((usqInt)(i) << (classTableMajorIndexShift())))) + j) < classTableIndex) {
-						classTableIndex = ((((usqInt)(i) << (classTableMajorIndexShift())))) + j;
-					}
-				}
-			}
-		}
-	}
+          /* most stores into young objects */
+          longAtput((void *)((page + BaseHeaderSize) +
+                             ((((usqInt)(j) << (shiftForWord()))))),
+                    classOrNil);
+        }
+        if (!((long32At((void *)(classOrNil + 4))) &
+              (identityHashHalfWordMask()))) {
+          /* begin storePointerUnchecked:ofObject:withValue: */
+          assert((isNonImmediate(page)) && (!(isForwarded(page))));
+          assert(validStorePointerUncheckedArgs(j, page, nilObj));
+          longAtput((void *)((page + BaseHeaderSize) +
+                             ((((usqInt)(j) << (shiftForWord()))))),
+                    nilObj);
 
-	/* classTableIndex must never index the first page, which is reserved for classes known to the VM. */
-	assert(classTableIndex >= (1U << (classTableMajorIndexShift())));
+          /* If the removed class is before the classTableIndex, set the
+             classTableIndex to point to the empty slot so as to reuse it asap.
+           */
+          if ((((((usqInt)(i) << (classTableMajorIndexShift())))) + j) <
+              classTableIndex) {
+            classTableIndex =
+                ((((usqInt)(i) << (classTableMajorIndexShift())))) + j;
+          }
+        }
+      }
+    }
+  }
+
+  /* classTableIndex must never index the first page, which is reserved for
+   * classes known to the VM. */
+  assert(classTableIndex >= (1U << (classTableMajorIndexShift())));
 }

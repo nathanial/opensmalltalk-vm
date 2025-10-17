@@ -2,10 +2,8 @@
 
 /*	In Spur an object's classIndex is the tag in all method caches. */
 
-	/* SpurMemoryManager>>#fetchClassTagOfNonImm: */
+/* SpurMemoryManager>>#fetchClassTagOfNonImm: */
 
-static NoDbgRegParms sqInt
-fetchClassTagOfNonImm(sqInt obj)
-{
-	return (longAt((void *)(obj))) & (classIndexMask());
+static NoDbgRegParms sqInt fetchClassTagOfNonImm(sqInt obj) {
+  return (longAt((void *)(obj))) & (classIndexMask());
 }

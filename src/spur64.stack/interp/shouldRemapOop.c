@@ -1,13 +1,10 @@
 /* Extracted from interp.c:45592 (function shouldRemapOop). */
 
 /*	Answer if the oop should be scavenged.. The method is called
-	shouldRemapOop: for compatibility with ObjectMemory. */
+        shouldRemapOop: for compatibility with ObjectMemory. */
 
-	/* SpurMemoryManager>>#shouldRemapOop: */
+/* SpurMemoryManager>>#shouldRemapOop: */
 
-sqInt
-shouldRemapOop(sqInt oop)
-{
-	return ((!(oop & (tagMask()))))
-	 && (shouldRemapObj(oop));
+sqInt shouldRemapOop(sqInt oop) {
+  return ((!(oop & (tagMask())))) && (shouldRemapObj(oop));
 }

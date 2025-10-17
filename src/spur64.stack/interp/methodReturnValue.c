@@ -1,19 +1,18 @@
 /* Extracted from interp.c:57879 (function methodReturnValue). */
 
 /*	Sets the return value for a method. In the CoInterpreter we replace the
-	cumbersome primResult machinery. */
+        cumbersome primResult machinery. */
 
-	/* StackInterpreter>>#methodReturnValue: */
+/* StackInterpreter>>#methodReturnValue: */
 
-sqInt
-methodReturnValue(sqInt oop)
-{
-    char *sp;
+sqInt methodReturnValue(sqInt oop) {
+  char *sp;
 
-	assert(!((failed())));
+  assert(!((failed())));
 
-	/* begin pop:thenPush: */
-	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),oop);
-	stackPointer = sp;
-	return 0;
+  /* begin pop:thenPush: */
+  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+            oop);
+  stackPointer = sp;
+  return 0;
 }

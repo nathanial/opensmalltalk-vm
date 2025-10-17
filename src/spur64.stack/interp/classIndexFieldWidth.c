@@ -2,10 +2,6 @@
 
 /*	22-bit class mask => ~ 4M classes */
 
-	/* SpurMemoryManager>>#classIndexFieldWidth */
+/* SpurMemoryManager>>#classIndexFieldWidth */
 
-static sqInt
-classIndexFieldWidth(void)
-{
-	return 22;
-}
+static sqInt classIndexFieldWidth(void) { return 22; }

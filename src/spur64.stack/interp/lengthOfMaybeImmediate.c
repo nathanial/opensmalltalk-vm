@@ -2,43 +2,45 @@
 
 /*	for the message send breakpoint; selectors can be immediates. */
 
-	/* SpurMemoryManager>>#lengthOfMaybeImmediate: */
+/* SpurMemoryManager>>#lengthOfMaybeImmediate: */
 
-static NoDbgRegParms sqInt
-lengthOfMaybeImmediate(sqInt oop)
-{
-    sqInt fmt;
-    usqInt numSlots;
-    usqInt numSlotsUsqInt;
+static NoDbgRegParms sqInt lengthOfMaybeImmediate(sqInt oop) {
+  sqInt fmt;
+  usqInt numSlots;
+  usqInt numSlotsUsqInt;
 
-	if (((oop & (tagMask())) != 0)) {
-		return 0;
-	}
+  if (((oop & (tagMask())) != 0)) {
+    return 0;
+  }
 
-	/* begin lengthOf: */
-	fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-	numSlotsUsqInt = byteAt((void *)(oop + (numSlotsFieldByteOffset())));
-	numSlots = (numSlotsUsqInt == (numSlotsMask())
-				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize)))) << 8)))))) >> 8
-				: numSlotsUsqInt);
-	if (fmt <= (ephemeronFormat())) {
-		return numSlots;
-	}
-	if (fmt >= (firstByteFormat())) {
-		return ((numSlots << (shiftForWord()))) - (fmt & 7);
-	}
+  /* begin lengthOf: */
+  fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
+  numSlotsUsqInt = byteAt((void *)(oop + (numSlotsFieldByteOffset())));
+  numSlots =
+      (numSlotsUsqInt == (numSlotsMask())
+           ? ((((usqInt)((
+                 (sqInt)((usqInt)((longAt((void *)(oop - BaseHeaderSize))))
+                         << 8)))))) >>
+                 8
+           : numSlotsUsqInt);
+  if (fmt <= (ephemeronFormat())) {
+    return numSlots;
+  }
+  if (fmt >= (firstByteFormat())) {
+    return ((numSlots << (shiftForWord()))) - (fmt & 7);
+  }
 
-	/* bytes, including CompiledMethod */
-	if (fmt >= (firstShortFormat())) {
-		return ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-	}
-	if (fmt >= (firstLongFormat())) {
-		return ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-	}
-	if (fmt == (sixtyFourBitIndexableFormat())) {
-		return numSlots;
-	}
+  /* bytes, including CompiledMethod */
+  if (fmt >= (firstShortFormat())) {
+    return ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
+  }
+  if (fmt >= (firstLongFormat())) {
+    return ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
+  }
+  if (fmt == (sixtyFourBitIndexableFormat())) {
+    return numSlots;
+  }
 
-	/* fmt = self forwardedFormat */
-	return 0;
+  /* fmt = self forwardedFormat */
+  return 0;
 }

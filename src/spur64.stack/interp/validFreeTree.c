@@ -2,10 +2,6 @@
 
 /*	useful for debugging */
 
-	/* SpurMemoryManager>>#validFreeTree */
+/* SpurMemoryManager>>#validFreeTree */
 
-int
-validFreeTree(void)
-{
-	return !(validFreeTreeChunkparent(freeLists[0], 0));
-}
+int validFreeTree(void) { return !(validFreeTreeChunkparent(freeLists[0], 0)); }

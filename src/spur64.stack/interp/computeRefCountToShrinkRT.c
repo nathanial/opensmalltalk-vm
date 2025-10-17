@@ -1,113 +1,118 @@
 /* Extracted from interp.c:27909 (function computeRefCountToShrinkRT). */
 
 /*	Some time in every scavenger's life there may come a time when someone
-	writes code that stresses
-	the remembered table. One might conclude that if the remembered table is
-	full, then the right thing
-	to do is simply to tenure everything, emptying the remembered table. But
-	in some circumstances this
-	can be counter-productive, and result in the same situation arising soon
-	after tenuring everything.
-	Instead, we can try and selectively prune the remembered table, tenuring
-	only those objects that
-	are referenced by many objects in the remembered table. That's what this
-	algorithm does. It
-	reference counts young objects referenced from the remembered set, and
-	then sets a threshold
-	used to tenure objects oft referenced from the remembered set, thereby
-	allowing the remembered
-	set to shrink, while not tenuring everything.
-	
-	Once in a network monitoring application in a galaxy not dissimilar from
-	the one this code inhabits,
-	a tree of nodes referring to large integers was in precisely this
-	situation. The nodes were old, and
-	the integers were in new space. Some of the nodes referred to shared
-	numbers, some their own
-	unique numbers. The numbers were updated frequently. Were new space simply
-	tenured when the
-	remembered table was full, the remembered table would soon fill up as new
-	numbers were computed.
-	Only by selectively pruning the remembered table of nodes that shared
-	data, was a balance achieved
-	whereby the remembered table population was kept small, and tenuring rates
-	were low. */
+        writes code that stresses
+        the remembered table. One might conclude that if the remembered table is
+        full, then the right thing
+        to do is simply to tenure everything, emptying the remembered table. But
+        in some circumstances this
+        can be counter-productive, and result in the same situation arising soon
+        after tenuring everything.
+        Instead, we can try and selectively prune the remembered table, tenuring
+        only those objects that
+        are referenced by many objects in the remembered table. That's what this
+        algorithm does. It
+        reference counts young objects referenced from the remembered set, and
+        then sets a threshold
+        used to tenure objects oft referenced from the remembered set, thereby
+        allowing the remembered
+        set to shrink, while not tenuring everything.
 
-	/* SpurGenerationScavenger>>#computeRefCountToShrinkRT */
+        Once in a network monitoring application in a galaxy not dissimilar from
+        the one this code inhabits,
+        a tree of nodes referring to large integers was in precisely this
+        situation. The nodes were old, and
+        the integers were in new space. Some of the nodes referred to shared
+        numbers, some their own
+        unique numbers. The numbers were updated frequently. Were new space
+   simply tenured when the remembered table was full, the remembered table would
+   soon fill up as new numbers were computed. Only by selectively pruning the
+   remembered table of nodes that shared data, was a balance achieved whereby
+   the remembered table population was kept small, and tenuring rates were low.
+ */
 
-static NeverInline void
-computeRefCountToShrinkRT(void)
-{
-    sqInt count;
-    sqInt elephant;
-    sqInt entirePopulation;
-    int i;
-    sqInt iSqInt;
-    sqInt j;
-    long population[MaxRTRefCount + 1];
-    sqInt refCount;
-    sqInt referent;
-    sqInt referentSqInt;
-    sqInt toDoLimit;
+/* SpurGenerationScavenger>>#computeRefCountToShrinkRT */
 
-	memset(population, 0, (sizeof(long)) * (MaxRTRefCount + 1));
-	assert(allNewSpaceObjectsHaveZeroRTRefCount());
+static NeverInline void computeRefCountToShrinkRT(void) {
+  sqInt count;
+  sqInt elephant;
+  sqInt entirePopulation;
+  int i;
+  sqInt iSqInt;
+  sqInt j;
+  long population[MaxRTRefCount + 1];
+  sqInt refCount;
+  sqInt referent;
+  sqInt referentSqInt;
+  sqInt toDoLimit;
 
-	/* begin referenceCountRememberedReferents: */
-	for (iSqInt = 0; iSqInt < rememberedSetSize; iSqInt += 1) {
-		elephant = rememberedSet[iSqInt];
-		if ((!((longAt((void *)(elephant))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-			/* begin followForwarded: */
-			assert(isUnambiguouslyForwarder(elephant));
-			referentSqInt = longAt((void *)((elephant + BaseHeaderSize) + (0U << (shiftForWord()))));
-			while (/* isOopForwarded: */
-				((!(referentSqInt & (tagMask()))))
-			 && ((!((longAt((void *)(referentSqInt))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
-				referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) + (0U << (shiftForWord()))));
-			}
-			elephant = referentSqInt;
-			if (((elephant & (tagMask())) != 0)) {
-				elephant = nilObj;
-			}
+  memset(population, 0, (sizeof(long)) * (MaxRTRefCount + 1));
+  assert(allNewSpaceObjectsHaveZeroRTRefCount());
 
-			/* take care if elephant forwarded to an immediate */
-			rememberedSet[iSqInt] = elephant;
-		}
-		toDoLimit = (numPointerSlotsOf(elephant)) - 1;
-		for (j = 0; j <= toDoLimit; j += 1) {
-			referent = longAt((void *)((elephant + BaseHeaderSize) + ((((usqInt)(j) << (shiftForWord()))))));
-			if (/* isReallyYoung: */
-				((!(referent & (tagMask()))))
-			 && ((/* begin isReallyYoungObject: *//* begin isYoungObject: */
-				assert(isNonImmediate(referent)),
-			oopisLessThan(referent, oldSpaceStart)))) {
-				refCount = ((usqInt)((byteAt((void *)(referent + (formatFieldByteOffset())))))) >> (rememberedBitByteShift());
-				if (refCount < MaxRTRefCount) {
-					if (refCount > 0) {
-						population[refCount] = ((population[refCount]) - 1);
-					}
-					refCount += 1;
+  /* begin referenceCountRememberedReferents: */
+  for (iSqInt = 0; iSqInt < rememberedSetSize; iSqInt += 1) {
+    elephant = rememberedSet[iSqInt];
+    if ((!((longAt((void *)(elephant))) &
+           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
+      /* begin followForwarded: */
+      assert(isUnambiguouslyForwarder(elephant));
+      referentSqInt = longAt(
+          (void *)((elephant + BaseHeaderSize) + (0U << (shiftForWord()))));
+      while (/* isOopForwarded: */
+             ((!(referentSqInt & (tagMask())))) &&
+             ((!((longAt((void *)(referentSqInt))) &
+                 ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+        referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
+                                        (0U << (shiftForWord()))));
+      }
+      elephant = referentSqInt;
+      if (((elephant & (tagMask())) != 0)) {
+        elephant = nilObj;
+      }
 
-					/* begin rtRefCountOf:put: */
-					assert(isYoungObject(referent));
-					byteAtput((void *)(referent + (formatFieldByteOffset())),((byteAt((void *)(referent + (formatFieldByteOffset())))) & (formatMask())) + ((((usqInt)(refCount) << (rememberedBitByteShift())))));
-					population[refCount] = ((population[refCount]) + 1);
-				}
-			}
-		}
-	}
+      /* take care if elephant forwarded to an immediate */
+      rememberedSet[iSqInt] = elephant;
+    }
+    toDoLimit = (numPointerSlotsOf(elephant)) - 1;
+    for (j = 0; j <= toDoLimit; j += 1) {
+      referent = longAt((void *)((elephant + BaseHeaderSize) +
+                                 ((((usqInt)(j) << (shiftForWord()))))));
+      if (/* isReallyYoung: */
+          ((!(referent & (tagMask())))) &&
+          ((/* begin isReallyYoungObject: */ /* begin isYoungObject: */
+            assert(isNonImmediate(referent)),
+            oopisLessThan(referent, oldSpaceStart)))) {
+        refCount = ((usqInt)((byteAt(
+                       (void *)(referent + (formatFieldByteOffset())))))) >>
+                   (rememberedBitByteShift());
+        if (refCount < MaxRTRefCount) {
+          if (refCount > 0) {
+            population[refCount] = ((population[refCount]) - 1);
+          }
+          refCount += 1;
 
-	/* begin setRefCountToShrinkRT: */
-	assert((population[0]) == 0);
-	entirePopulation = 0;
-	for (j = 1; j <= MaxRTRefCount; j += 1) {
-		entirePopulation += population[j];
-	}
-	count = 0;
-	i = MaxRTRefCount + 1;
-	while ((count < (entirePopulation / 2))
-	 && (((i -= 1)) >= 0)) {
-		count += population[i];
-	}
-	refCountToShrinkRT = ((i < 0) ? 0 : i);
+          /* begin rtRefCountOf:put: */
+          assert(isYoungObject(referent));
+          byteAtput((void *)(referent + (formatFieldByteOffset())),
+                    ((byteAt((void *)(referent + (formatFieldByteOffset())))) &
+                     (formatMask())) +
+                        ((((usqInt)(refCount) << (rememberedBitByteShift())))));
+          population[refCount] = ((population[refCount]) + 1);
+        }
+      }
+    }
+  }
+
+  /* begin setRefCountToShrinkRT: */
+  assert((population[0]) == 0);
+  entirePopulation = 0;
+  for (j = 1; j <= MaxRTRefCount; j += 1) {
+    entirePopulation += population[j];
+  }
+  count = 0;
+  i = MaxRTRefCount + 1;
+  while ((count < (entirePopulation / 2)) && (((i -= 1)) >= 0)) {
+    count += population[i];
+  }
+  refCountToShrinkRT = ((i < 0) ? 0 : i);
 }

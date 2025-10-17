@@ -2,10 +2,6 @@
 
 /*	make the basic beep noise */
 
-	/* InterpreterPrimitives>>#primitiveBeep */
+/* InterpreterPrimitives>>#primitiveBeep */
 
-static void
-primitiveBeep(void)
-{
-	ioBeep();
-}
+static void primitiveBeep(void) { ioBeep(); }

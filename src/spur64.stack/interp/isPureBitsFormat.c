@@ -2,11 +2,9 @@
 
 /*	the inverse of isAnyPointerFormat: */
 
-	/* SpurMemoryManager>>#isPureBitsFormat: */
+/* SpurMemoryManager>>#isPureBitsFormat: */
 
-static NoDbgRegParms sqInt
-isPureBitsFormat(sqInt format)
-{
-	return (format >= (sixtyFourBitIndexableFormat()))
-	 && (format < (firstCompiledMethodFormat()));
+static NoDbgRegParms sqInt isPureBitsFormat(sqInt format) {
+  return (format >= (sixtyFourBitIndexableFormat())) &&
+         (format < (firstCompiledMethodFormat()));
 }

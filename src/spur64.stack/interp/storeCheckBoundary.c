@@ -2,10 +2,6 @@
 
 /*	A renaming for the Cogit, which can't make sense of oldSpaceStart */
 
-	/* SpurMemoryManager>>#storeCheckBoundary */
+/* SpurMemoryManager>>#storeCheckBoundary */
 
-usqInt
-storeCheckBoundary(void)
-{
-	return oldSpaceStart;
-}
+usqInt storeCheckBoundary(void) { return oldSpaceStart; }

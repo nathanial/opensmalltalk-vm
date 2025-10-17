@@ -1,13 +1,11 @@
 /* Extracted from interp.c:62991 (function setInterruptCheckChain). */
 
-	/* StackInterpreter>>#setInterruptCheckChain: */
+/* StackInterpreter>>#setInterruptCheckChain: */
 
-void *
-setInterruptCheckChain(void (*aFunction)())
-{
-    void (*prevFunction)();
+void *setInterruptCheckChain(void (*aFunction)()) {
+  void (*prevFunction)();
 
-	prevFunction = interruptCheckChain;
-	interruptCheckChain = aFunction;
-	return prevFunction;
+  prevFunction = interruptCheckChain;
+  interruptCheckChain = aFunction;
+  return prevFunction;
 }

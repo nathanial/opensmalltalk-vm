@@ -2,10 +2,9 @@
 
 /*	For asserts */
 
-	/* SpurPlanningCompactor>>#isPostMobile: */
+/* SpurPlanningCompactor>>#isPostMobile: */
 
-static NoDbgRegParms sqInt
-isPostMobile(sqInt obj)
-{
-	return oopisGreaterThanOrEqualToandLessThanOrEqualTo(obj, mobileStart, lastMobileObject);
+static NoDbgRegParms sqInt isPostMobile(sqInt obj) {
+  return oopisGreaterThanOrEqualToandLessThanOrEqualTo(obj, mobileStart,
+                                                       lastMobileObject);
 }

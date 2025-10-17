@@ -1,16 +1,15 @@
 /* Extracted from interp.c:50125 (function argumentCountOf). */
 
-	/* StackInterpreter>>#argumentCountOf: */
+/* StackInterpreter>>#argumentCountOf: */
 
-usqInt
-argumentCountOf(sqInt methodPointer)
-{
-    sqInt header;
+usqInt argumentCountOf(sqInt methodPointer) {
+  sqInt header;
 
-	/* begin methodHeaderOf: */
-	assert(isCompiledMethod(methodPointer));
-	header = longAt((void *)((methodPointer + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  /* begin methodHeaderOf: */
+  assert(isCompiledMethod(methodPointer));
+  header = longAt((void *)((methodPointer + BaseHeaderSize) +
+                           ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 
-	/* begin argumentCountOfMethodHeader: */
-	return (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;
+  /* begin argumentCountOfMethodHeader: */
+  return (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;
 }

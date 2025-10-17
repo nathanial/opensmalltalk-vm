@@ -1,50 +1,58 @@
 /* Extracted from interp.c:66113 (function fieldofFrame). */
 
 /*	Arrange to answer naked frame pointers for unmarried
-	senders to avoid reifying contexts in the search. */
+        senders to avoid reifying contexts in the search. */
 
-	/* StackInterpreterPrimitives>>#field:ofFrame: */
+/* StackInterpreterPrimitives>>#field:ofFrame: */
 
-static NoDbgRegParms sqInt
-fieldofFrame(sqInt index, char *theFP)
-{
-    char *callerFP;
-    usqInt frameNumArgs;
+static NoDbgRegParms sqInt fieldofFrame(sqInt index, char *theFP) {
+  char *callerFP;
+  usqInt frameNumArgs;
 
-	switch (index) {
-	case SenderIndex:
-		callerFP = ((char *)(longAt(theFP + FoxSavedFP)));
-		return (callerFP
-				? (byteAt((callerFP + FoxFrameFlags) + 2)
-						? (assert(checkIsStillMarriedContextcurrentFP(frameContext(callerFP), null)),
-						/* frameContext: */
-							longAt(callerFP + FoxThisContext))
-						: ((sqInt)callerFP))
-				: (/* begin frameCallerContext: */
-					assert(isBaseFrame(theFP)),
-				longAt(theFP + FoxCallerContext)));
+  switch (index) {
+  case SenderIndex:
+    callerFP = ((char *)(longAt(theFP + FoxSavedFP)));
+    return (callerFP ? (byteAt((callerFP + FoxFrameFlags) + 2)
+                            ? (assert(checkIsStillMarriedContextcurrentFP(
+                                   frameContext(callerFP), null)),
+                               /* frameContext: */
+                               longAt(callerFP + FoxThisContext))
+                            : ((sqInt)callerFP))
+                     : (/* begin frameCallerContext: */
+                        assert(isBaseFrame(theFP)),
+                        longAt(theFP + FoxCallerContext)));
 
-	case StackPointerIndex:
-	case InstructionPointerIndex:
-		return ConstZero;
+  case StackPointerIndex:
+  case InstructionPointerIndex:
+    return ConstZero;
 
-	case MethodIndex:
-		return longAt(theFP + FoxMethod);
+  case MethodIndex:
+    return longAt(theFP + FoxMethod);
 
-	case ClosureIndex:
-		return (byteAt((theFP + FoxFrameFlags) + 3)
-				? longAt(theFP + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1))) << (shiftForWord()))))))
-				: nilObj);
+  case ClosureIndex:
+    return (
+        byteAt((theFP + FoxFrameFlags) + 3)
+            ? longAt(theFP + ((FoxCallerSavedIP + BytesPerWord) +
+                              ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1)))
+                                 << (shiftForWord()))))))
+            : nilObj);
 
-	case ReceiverIndex:
-		return longAt(theFP + FoxReceiver);
+  case ReceiverIndex:
+    return longAt(theFP + FoxReceiver);
 
-	default:
-		assert((((index - CtxtTempFrameStart) >= 0) && ((index - CtxtTempFrameStart) <= (stackPointerIndexForFrame(theFP)))));
-		return /* temporary:in: */
-			((index - CtxtTempFrameStart) < ((frameNumArgs = byteAt((theFP + FoxFrameFlags) + 1)))
-				? longAt((theFP + FoxCallerSavedIP) + ((frameNumArgs - (index - CtxtTempFrameStart)) * BytesPerWord))
-				: longAt(((theFP + FoxReceiver) - BytesPerWord) + ((frameNumArgs - (index - CtxtTempFrameStart)) * BytesPerWord)));
-	}
-	return 0;
+  default:
+    assert(
+        (((index - CtxtTempFrameStart) >= 0) &&
+         ((index - CtxtTempFrameStart) <= (stackPointerIndexForFrame(theFP)))));
+    return /* temporary:in: */
+        ((index - CtxtTempFrameStart) <
+                 ((frameNumArgs = byteAt((theFP + FoxFrameFlags) + 1)))
+             ? longAt((theFP + FoxCallerSavedIP) +
+                      ((frameNumArgs - (index - CtxtTempFrameStart)) *
+                       BytesPerWord))
+             : longAt(((theFP + FoxReceiver) - BytesPerWord) +
+                      ((frameNumArgs - (index - CtxtTempFrameStart)) *
+                       BytesPerWord)));
+  }
+  return 0;
 }

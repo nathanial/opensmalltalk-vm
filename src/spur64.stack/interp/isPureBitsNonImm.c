@@ -1,19 +1,18 @@
 /* Extracted from interp.c:37579 (function isPureBitsNonImm). */
 
 /*	Answer if the argument contains only indexable words (no oops). See
-	comment in formatOf:
+        comment in formatOf:
  */
 
-	/* SpurMemoryManager>>#isPureBitsNonImm: */
+/* SpurMemoryManager>>#isPureBitsNonImm: */
 
-static NoDbgRegParms sqInt
-isPureBitsNonImm(sqInt objOop)
-{
-    sqInt format;
+static NoDbgRegParms sqInt isPureBitsNonImm(sqInt objOop) {
+  sqInt format;
 
-	format = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
+  format =
+      (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
 
-	/* begin isPureBitsFormat: */
-	return (format >= (sixtyFourBitIndexableFormat()))
-	 && (format < (firstCompiledMethodFormat()));
+  /* begin isPureBitsFormat: */
+  return (format >= (sixtyFourBitIndexableFormat())) &&
+         (format < (firstCompiledMethodFormat()));
 }

@@ -1,9 +1,5 @@
 /* Extracted from interp.c:31789 (function byteFormatMask). */
 
-	/* SpurMemoryManager>>#byteFormatMask */
+/* SpurMemoryManager>>#byteFormatMask */
 
-static sqInt
-byteFormatMask(void)
-{
-	return 24;
-}
+static sqInt byteFormatMask(void) { return 24; }

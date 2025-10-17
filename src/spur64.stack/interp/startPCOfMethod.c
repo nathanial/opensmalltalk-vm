@@ -2,10 +2,8 @@
 
 /*	Zero-relative version of CompiledMethod>>startpc. */
 
-	/* StackInterpreter>>#startPCOfMethod: */
+/* StackInterpreter>>#startPCOfMethod: */
 
-usqInt
-startPCOfMethod(sqInt aCompiledMethod)
-{
-	return ((literalCountOf(aCompiledMethod)) + LiteralStart) * BytesPerOop;
+usqInt startPCOfMethod(sqInt aCompiledMethod) {
+  return ((literalCountOf(aCompiledMethod)) + LiteralStart) * BytesPerOop;
 }

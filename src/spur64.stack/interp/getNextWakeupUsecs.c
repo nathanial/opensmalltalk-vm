@@ -1,9 +1,5 @@
 /* Extracted from interp.c:54367 (function getNextWakeupUsecs). */
 
-	/* StackInterpreter>>#getNextWakeupUsecs */
+/* StackInterpreter>>#getNextWakeupUsecs */
 
-usqLong
-getNextWakeupUsecs(void)
-{
-	return nextWakeupUsecs;
-}
+usqLong getNextWakeupUsecs(void) { return nextWakeupUsecs; }

@@ -1,9 +1,8 @@
 /* Extracted from interp.c:33418 (function classUnsafeAlien). */
 
-	/* SpurMemoryManager>>#classUnsafeAlien */
+/* SpurMemoryManager>>#classUnsafeAlien */
 
-sqInt
-classUnsafeAlien(void)
-{
-	return longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassUnsafeAlien) << (shiftForWord()))))));
+sqInt classUnsafeAlien(void) {
+  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
+                         ((((usqInt)(ClassUnsafeAlien) << (shiftForWord()))))));
 }

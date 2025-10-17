@@ -1,9 +1,5 @@
 /* Extracted from interp.c:15394 (function primitiveFailureCode). */
 
-	/* InterpreterPrimitives>>#primitiveFailureCode */
+/* InterpreterPrimitives>>#primitiveFailureCode */
 
-sqInt
-primitiveFailureCode(void)
-{
-	return primFailCode;
-}
+sqInt primitiveFailureCode(void) { return primFailCode; }

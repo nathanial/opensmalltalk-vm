@@ -1,9 +1,5 @@
 /* Extracted from interp.c:57698 (function methodArgumentCount). */
 
-	/* StackInterpreter>>#methodArgumentCount */
+/* StackInterpreter>>#methodArgumentCount */
 
-sqInt
-methodArgumentCount(void)
-{
-	return argumentCount;
-}
+sqInt methodArgumentCount(void) { return argumentCount; }

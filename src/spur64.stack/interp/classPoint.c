@@ -1,9 +1,8 @@
 /* Extracted from interp.c:33321 (function classPoint). */
 
-	/* SpurMemoryManager>>#classPoint */
+/* SpurMemoryManager>>#classPoint */
 
-sqInt
-classPoint(void)
-{
-	return longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassPoint) << (shiftForWord()))))));
+sqInt classPoint(void) {
+  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
+                         ((((usqInt)(ClassPoint) << (shiftForWord()))))));
 }

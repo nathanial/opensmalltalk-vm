@@ -1,9 +1,9 @@
 /* Extracted from interp.c:33156 (function classExternalStructure). */
 
-	/* SpurMemoryManager>>#classExternalStructure */
+/* SpurMemoryManager>>#classExternalStructure */
 
-sqInt
-classExternalStructure(void)
-{
-	return longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassExternalStructure) << (shiftForWord()))))));
+sqInt classExternalStructure(void) {
+  return longAt(
+      (void *)((specialObjectsOop + BaseHeaderSize) +
+               ((((usqInt)(ClassExternalStructure) << (shiftForWord()))))));
 }

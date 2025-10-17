@@ -1,9 +1,5 @@
 /* Extracted from interp.c:50096 (function allOnesAsCharStar). */
 
-	/* StackInterpreter>>#allOnesAsCharStar */
+/* StackInterpreter>>#allOnesAsCharStar */
 
-static char *
-allOnesAsCharStar(void)
-{
-	return ((char *) (((usqInt) -1)));
-}
+static char *allOnesAsCharStar(void) { return ((char *)(((usqInt)-1))); }

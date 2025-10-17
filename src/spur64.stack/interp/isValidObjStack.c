@@ -2,16 +2,18 @@
 
 /*	Answer if the obj stack at objStackRootIndex is valid. */
 
-	/* SpurMemoryManager>>#isValidObjStack: */
+/* SpurMemoryManager>>#isValidObjStack: */
 
-static NoDbgRegParms sqInt
-isValidObjStack(sqInt objStack)
-{
-	if (!((addressCouldBeObj(objStack))
-		 && ((numSlotsOfAny(objStack)) == ObjStackPageSlots))) {
-		objStackInvalidBecause = "first page not obj or wrong size";
-		invalidObjStackPage = objStack;
-		return 0;
-	}
-	return isValidObjStackPagemyIndexfirstPage(objStack, longAt((void *)((objStack + BaseHeaderSize) + ((((usqInt)(ObjStackMyx) << (shiftForWord())))))), 1);
+static NoDbgRegParms sqInt isValidObjStack(sqInt objStack) {
+  if (!((addressCouldBeObj(objStack)) &&
+        ((numSlotsOfAny(objStack)) == ObjStackPageSlots))) {
+    objStackInvalidBecause = "first page not obj or wrong size";
+    invalidObjStackPage = objStack;
+    return 0;
+  }
+  return isValidObjStackPagemyIndexfirstPage(
+      objStack,
+      longAt((void *)((objStack + BaseHeaderSize) +
+                      ((((usqInt)(ObjStackMyx) << (shiftForWord())))))),
+      1);
 }

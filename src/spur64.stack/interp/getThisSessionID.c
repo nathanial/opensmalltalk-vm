@@ -2,10 +2,6 @@
 
 /*	return the global session ID value */
 
-	/* StackInterpreter>>#getThisSessionID */
+/* StackInterpreter>>#getThisSessionID */
 
-sqInt
-getThisSessionID(void)
-{
-	return globalSessionID;
-}
+sqInt getThisSessionID(void) { return globalSessionID; }

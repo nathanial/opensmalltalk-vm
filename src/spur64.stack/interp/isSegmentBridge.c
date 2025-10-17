@@ -2,10 +2,9 @@
 
 /*	Maybe this should be in SpurSegmentManager only */
 
-	/* SpurMemoryManager>>#isSegmentBridge: */
+/* SpurMemoryManager>>#isSegmentBridge: */
 
-static NoDbgRegParms int
-isSegmentBridge(sqInt objOop)
-{
-	return ((longAt((void *)(objOop))) & (classIndexMask())) == (segmentBridgePun());
+static NoDbgRegParms int isSegmentBridge(sqInt objOop) {
+  return ((longAt((void *)(objOop))) & (classIndexMask())) ==
+         (segmentBridgePun());
 }

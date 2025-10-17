@@ -2,16 +2,14 @@
 
 /*	<InterpreterStackPage> */
 /*	MRUP-->used page<->used page<->used page<->used page<--LRUP
-	^ <-next-prev-> ^
-	| |
-	v <-prev-next-> v
-	free page<->free page<->free page<->free page */
+        ^ <-next-prev-> ^
+        | |
+        v <-prev-next-> v
+        free page<->free page<->free page<->free page */
 
-	/* CogStackPages>>#freeStackPage: */
+/* CogStackPages>>#freeStackPage: */
 
-static NoDbgRegParms void
-freeStackPage(StackPage *aPage)
-{
-	freeStackPageNoAssert(aPage);
-	assert(pageListIsWellFormed());
+static NoDbgRegParms void freeStackPage(StackPage *aPage) {
+  freeStackPageNoAssert(aPage);
+  assert(pageListIsWellFormed());
 }

@@ -2,14 +2,12 @@
 
 /*	Add the given variable location to the extra roots table. */
 
-	/* SpurMemoryManager>>#addGCRoot: */
+/* SpurMemoryManager>>#addGCRoot: */
 
-sqInt
-addGCRoot(sqInt *varLoc)
-{
-	if (extraRootCount >= ExtraRootsSize) {
-		return 0;
-	}
-	extraRoots[(extraRootCount += 1)] = varLoc;
-	return 1;
+sqInt addGCRoot(sqInt *varLoc) {
+  if (extraRootCount >= ExtraRootsSize) {
+    return 0;
+  }
+  extraRoots[(extraRootCount += 1)] = varLoc;
+  return 1;
 }

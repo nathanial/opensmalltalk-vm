@@ -2,18 +2,16 @@
 
 /*	In the StackInterpreter stacks grow down. */
 
-	/* StackInterpreter>>#stackSignedMachineIntegerValue: */
+/* StackInterpreter>>#stackSignedMachineIntegerValue: */
 
-sqIntptr_t
-stackSignedMachineIntegerValue(sqInt offset)
-{
-    sqInt integerPointer;
+sqIntptr_t stackSignedMachineIntegerValue(sqInt offset) {
+  sqInt integerPointer;
 
-	integerPointer = longAt(stackPointer + (offset * BytesPerWord));
+  integerPointer = longAt(stackPointer + (offset * BytesPerWord));
 
-	/* begin signedMachineIntegerValueOf: */
-	if ((((integerPointer) & 7) == 1)) {
-		return (integerPointer >> 3);
-	}
-	return signedMachineIntegerValueOfObj(integerPointer);
+  /* begin signedMachineIntegerValueOf: */
+  if ((((integerPointer) & 7) == 1)) {
+    return (integerPointer >> 3);
+  }
+  return signedMachineIntegerValueOfObj(integerPointer);
 }

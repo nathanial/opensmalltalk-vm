@@ -2,21 +2,19 @@
 
 /*	useful for VM debugging */
 
-	/* StackInterpreter>>#printFramesOnStackPageListInUse */
+/* StackInterpreter>>#printFramesOnStackPageListInUse */
 
-void
-printFramesOnStackPageListInUse(void)
-{
-    StackPage *page;
+void printFramesOnStackPageListInUse(void) {
+  StackPage *page;
 
-	page = mostRecentlyUsedPage;
-	do {
-		if (!(isFree(page))) {
-			print("page ");
-			printHexPtrnp(page);
-			cr();
-			printFramesInPage(page);
-			cr();
-		}
-	} while(((page = (page->prevPage))) != (mostRecentlyUsedPage));
+  page = mostRecentlyUsedPage;
+  do {
+    if (!(isFree(page))) {
+      print("page ");
+      printHexPtrnp(page);
+      cr();
+      printFramesInPage(page);
+      cr();
+    }
+  } while (((page = (page->prevPage))) != (mostRecentlyUsedPage));
 }

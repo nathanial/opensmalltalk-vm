@@ -1,9 +1,5 @@
 /* Extracted from interp.c:58155 (function numStkPages). */
 
-	/* StackInterpreter>>#numStkPages */
+/* StackInterpreter>>#numStkPages */
 
-static sqInt
-numStkPages(void)
-{
-	return numStackPages;
-}
+static sqInt numStkPages(void) { return numStackPages; }

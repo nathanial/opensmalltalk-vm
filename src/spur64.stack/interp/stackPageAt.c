@@ -1,12 +1,10 @@
 /* Extracted from interp.c:11003 (function stackPageAt). */
 
 /*	Answer the page for a page index.
-	N.B. This is a zero-relative index. */
+        N.B. This is a zero-relative index. */
 
-	/* CogStackPages>>#stackPageAt: */
+/* CogStackPages>>#stackPageAt: */
 
-static NoDbgRegParms StackPage *
-stackPageAt(sqInt index)
-{
-	return stackPageAtpages(index, pages);
+static NoDbgRegParms StackPage *stackPageAt(sqInt index) {
+  return stackPageAtpages(index, pages);
 }

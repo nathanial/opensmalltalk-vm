@@ -1,22 +1,19 @@
 /* Extracted from interp.c:57780 (function methodReturnBool). */
 
 /*	Sets the return value for a method. In the CoInterpreter we replace the
-	cumbersome primResult machinery. */
+        cumbersome primResult machinery. */
 
-	/* StackInterpreter>>#methodReturnBool: */
+/* StackInterpreter>>#methodReturnBool: */
 
-sqInt
-methodReturnBool(sqInt boolean)
-{
-    char *sp;
+sqInt methodReturnBool(sqInt boolean) {
+  char *sp;
 
-	assert(!((failed())));
+  assert(!((failed())));
 
-	/* begin pop:thenPushBool: */
-	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),/* booleanObjectOf: */
-		(boolean
-			? trueObj
-			: falseObj));
-	stackPointer = sp;
-	return 0;
+  /* begin pop:thenPushBool: */
+  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) *
+                                  BytesPerWord)), /* booleanObjectOf: */
+            (boolean ? trueObj : falseObj));
+  stackPointer = sp;
+  return 0;
 }

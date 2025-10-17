@@ -2,12 +2,9 @@
 
 /*	Answer the object the ephemeron guards. This is its first element. */
 
-	/* SpurMemoryManager>>#keyOfEphemeron: */
+/* SpurMemoryManager>>#keyOfEphemeron: */
 
-static NoDbgRegParms sqInt
-keyOfEphemeron(sqInt objOop)
-{
-	assert((isNonImmediate(objOop))
-	 && (isObjEphemeron(objOop)));
-	return longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+static NoDbgRegParms sqInt keyOfEphemeron(sqInt objOop) {
+  assert((isNonImmediate(objOop)) && (isObjEphemeron(objOop)));
+  return longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
 }

@@ -2,17 +2,17 @@
 
 /*	A negative header selects the alternate bytecode set. */
 
-	/* StackInterpreter>>#methodUsesAlternateBytecodeSet: */
+/* StackInterpreter>>#methodUsesAlternateBytecodeSet: */
 
-int
-methodUsesAlternateBytecodeSet(sqInt aMethodObj)
-{
-    sqInt methodHeader;
+int methodUsesAlternateBytecodeSet(sqInt aMethodObj) {
+  sqInt methodHeader;
 
-	/* begin methodHeaderOf: */
-	assert(isCompiledMethod(aMethodObj));
-	methodHeader = longAt((void *)((aMethodObj + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+  /* begin methodHeaderOf: */
+  assert(isCompiledMethod(aMethodObj));
+  methodHeader =
+      longAt((void *)((aMethodObj + BaseHeaderSize) +
+                      ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 
-	/* begin headerIndicatesAlternateBytecodeSet: */
-	return (((sqLong) methodHeader)) < 0;
+  /* begin headerIndicatesAlternateBytecodeSet: */
+  return (((sqLong)methodHeader)) < 0;
 }

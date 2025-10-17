@@ -2,9 +2,6 @@
 
 /*	For breakpointing the end of a leak check print message */
 
-	/* SpurMemoryManager>>#eek */
+/* SpurMemoryManager>>#eek */
 
-NeverInline void
-eek(void)
-{
-}
+NeverInline void eek(void) {}

@@ -2,10 +2,8 @@
 
 /*	<Integer> */
 
-	/* StackInterpreter>>#frameIsBlockActivation: */
+/* StackInterpreter>>#frameIsBlockActivation: */
 
-static NoDbgRegParms int
-frameIsBlockActivation(char *theFP)
-{
-	return (byteAt((theFP + FoxFrameFlags) + 3)) != 0;
+static NoDbgRegParms int frameIsBlockActivation(char *theFP) {
+  return (byteAt((theFP + FoxFrameFlags) + 3)) != 0;
 }

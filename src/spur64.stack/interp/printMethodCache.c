@@ -2,10 +2,6 @@
 
 /*	useful for VM debugging */
 
-	/* StackInterpreter>>#printMethodCache */
+/* StackInterpreter>>#printMethodCache */
 
-void
-printMethodCache(void)
-{
-	printMethodCacheFor(-1);
-}
+void printMethodCache(void) { printMethodCacheFor(-1); }

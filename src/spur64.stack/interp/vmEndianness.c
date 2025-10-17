@@ -2,10 +2,6 @@
 
 /*	1 = big, 0 = little */
 
-	/* SpurMemoryManager>>#vmEndianness */
+/* SpurMemoryManager>>#vmEndianness */
 
-sqInt
-vmEndianness(void)
-{
-	return VMBIGENDIAN;
-}
+sqInt vmEndianness(void) { return VMBIGENDIAN; }

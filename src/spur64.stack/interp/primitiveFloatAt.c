@@ -1,91 +1,85 @@
 /* Extracted from interp.c:15785 (function primitiveFloatAt). */
 
 /*	Provide platform-independent access to 32-bit words comprising
-	a Float. Map index 1 onto the most significant word and index 2
-	onto the least significant word. */
+        a Float. Map index 1 onto the most significant word and index 2
+        onto the least significant word. */
 
-	/* InterpreterPrimitives>>#primitiveFloatAt */
+/* InterpreterPrimitives>>#primitiveFloatAt */
 
-static void
-primitiveFloatAt(void)
-{
-    usqLong bits;
-    sqInt fieldIndex;
-    sqInt index;
-    unsigned int integerValue;
-    sqInt rcvr;
-    usqInt result;
-    char *sp;
+static void primitiveFloatAt(void) {
+  usqLong bits;
+  sqInt fieldIndex;
+  sqInt index;
+  unsigned int integerValue;
+  sqInt rcvr;
+  usqInt result;
+  char *sp;
 
-	rcvr = longAt(stackPointer + (1 * BytesPerWord));
-	index = longAt(stackPointer);
-	if (index == ConstOne) {
-		fieldIndex = (VMBIGENDIAN
-					? 0
-					: 1);
+  rcvr = longAt(stackPointer + (1 * BytesPerWord));
+  index = longAt(stackPointer);
+  if (index == ConstOne) {
+    fieldIndex = (VMBIGENDIAN ? 0 : 1);
 
-		/* begin fetchLong32:ofFloatObject: */
-		if (!(((rcvr & (smallFloatTag())) != 0))) {
-			integerValue = ((unsigned int) (long32At((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(fieldIndex) << 2)))))));
-			goto l1;
-		}
+    /* begin fetchLong32:ofFloatObject: */
+    if (!(((rcvr & (smallFloatTag())) != 0))) {
+      integerValue = ((unsigned int)(long32At((
+          void *)((rcvr + BaseHeaderSize) + ((((usqInt)(fieldIndex) << 2)))))));
+      goto l1;
+    }
 
-		/* begin smallFloatBitsOf: */
-		assert(isImmediateFloat(rcvr));
-		bits = ((((usqInt)rcvr))) >> (numTagBits());
-		if (bits > 1) {
-			bits += (((usqInt)((smallFloatExponentOffset())) << ((smallFloatMantissaBits()) + 1)));
-		}
+    /* begin smallFloatBitsOf: */
+    assert(isImmediateFloat(rcvr));
+    bits = ((((usqInt)rcvr))) >> (numTagBits());
+    if (bits > 1) {
+      bits += (((usqInt)((smallFloatExponentOffset()))
+                << ((smallFloatMantissaBits()) + 1)));
+    }
 
-		/* a.k.a. ~= +/-0.0 */
-		bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-		integerValue = ((unsigned int) ((fieldIndex
-		? (bits) >> 32
-		: bits & 0xFFFFFFFFU)));
-		/* end fetchLong32:ofFloatObject: */
-l1:
+    /* a.k.a. ~= +/-0.0 */
+    bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
+    integerValue =
+        ((unsigned int)((fieldIndex ? (bits) >> 32 : bits & 0xFFFFFFFFU)));
+    /* end fetchLong32:ofFloatObject: */
+  l1:
 
-		/* begin positive32BitIntegerFor: */
-		result = ((((((usqInt)integerValue)) & 0xFFFFFFFFU) << 3) | 1);
-		longAtput((sp = stackPointer + (1 * BytesPerWord)),result);
-		stackPointer = sp;
-		return;
-	}
-	if (index == ConstTwo) {
-		fieldIndex = (VMBIGENDIAN
-					? 1
-					: 0);
+    /* begin positive32BitIntegerFor: */
+    result = ((((((usqInt)integerValue)) & 0xFFFFFFFFU) << 3) | 1);
+    longAtput((sp = stackPointer + (1 * BytesPerWord)), result);
+    stackPointer = sp;
+    return;
+  }
+  if (index == ConstTwo) {
+    fieldIndex = (VMBIGENDIAN ? 1 : 0);
 
-		/* begin fetchLong32:ofFloatObject: */
-		if (!(((rcvr & (smallFloatTag())) != 0))) {
-			integerValue = ((unsigned int) (long32At((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(fieldIndex) << 2)))))));
-			goto l2;
-		}
+    /* begin fetchLong32:ofFloatObject: */
+    if (!(((rcvr & (smallFloatTag())) != 0))) {
+      integerValue = ((unsigned int)(long32At((
+          void *)((rcvr + BaseHeaderSize) + ((((usqInt)(fieldIndex) << 2)))))));
+      goto l2;
+    }
 
-		/* begin smallFloatBitsOf: */
-		assert(isImmediateFloat(rcvr));
-		bits = ((((usqInt)rcvr))) >> (numTagBits());
-		if (bits > 1) {
-			bits += (((usqInt)((smallFloatExponentOffset())) << ((smallFloatMantissaBits()) + 1)));
-		}
+    /* begin smallFloatBitsOf: */
+    assert(isImmediateFloat(rcvr));
+    bits = ((((usqInt)rcvr))) >> (numTagBits());
+    if (bits > 1) {
+      bits += (((usqInt)((smallFloatExponentOffset()))
+                << ((smallFloatMantissaBits()) + 1)));
+    }
 
-		/* a.k.a. ~= +/-0.0 */
-		bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
-		integerValue = ((unsigned int) ((fieldIndex
-		? (bits) >> 32
-		: bits & 0xFFFFFFFFU)));
-		/* end fetchLong32:ofFloatObject: */
-l2:
+    /* a.k.a. ~= +/-0.0 */
+    bits = ((bits << 0x3F)) + (((((usqInt)bits))) >> 1);
+    integerValue =
+        ((unsigned int)((fieldIndex ? (bits) >> 32 : bits & 0xFFFFFFFFU)));
+    /* end fetchLong32:ofFloatObject: */
+  l2:
 
-		/* begin positive32BitIntegerFor: */
-		result = ((((((usqInt)integerValue)) & 0xFFFFFFFFU) << 3) | 1);
-		longAtput((sp = stackPointer + (1 * BytesPerWord)),result);
-		stackPointer = sp;
-		return;
-	}
+    /* begin positive32BitIntegerFor: */
+    result = ((((((usqInt)integerValue)) & 0xFFFFFFFFU) << 3) | 1);
+    longAtput((sp = stackPointer + (1 * BytesPerWord)), result);
+    stackPointer = sp;
+    return;
+  }
 
-	/* primitiveFailFor: */
-	primFailCode = ((((index) & 7) == 1)
-				? PrimErrBadIndex
-				: PrimErrBadArgument);
+  /* primitiveFailFor: */
+  primFailCode = ((((index) & 7) == 1) ? PrimErrBadIndex : PrimErrBadArgument);
 }

@@ -1,47 +1,53 @@
 /* Extracted from interp.c:15094 (function primitiveExitCriticalSection). */
 
 /*	Exit the critical section.
-	This may change the active process as a result. */
+        This may change the active process as a result. */
 
-	/* InterpreterPrimitives>>#primitiveExitCriticalSection */
+/* InterpreterPrimitives>>#primitiveExitCriticalSection */
 
-static void
-primitiveExitCriticalSection(void)
-{
-    sqInt criticalSection;
-    sqInt owningProcess;
-    sqInt owningProcessIndex;
+static void primitiveExitCriticalSection(void) {
+  sqInt criticalSection;
+  sqInt owningProcess;
+  sqInt owningProcessIndex;
 
-	/* rcvr */
-	criticalSection = longAt(stackPointer);
+  /* rcvr */
+  criticalSection = longAt(stackPointer);
 
-	/* CriticalSections are laid out like Semaphores */
-	owningProcessIndex = ExcessSignalsIndex;
+  /* CriticalSections are laid out like Semaphores */
+  owningProcessIndex = ExcessSignalsIndex;
 
-	/* begin isEmptyList: */
-	assert(!(isForwarded(criticalSection)));
-	if ((longAt((void *)((criticalSection + BaseHeaderSize) + ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) == nilObj) {
-		/* begin storePointerUnchecked:ofObject:withValue: */
-		assert((isNonImmediate(criticalSection))
-		 && (!(isForwarded(criticalSection))));
-		assert(validStorePointerUncheckedArgs(owningProcessIndex, criticalSection, nilObj));
-		longAtput((void *)((criticalSection + BaseHeaderSize) + ((((usqInt)(owningProcessIndex) << (shiftForWord()))))),nilObj);
-	}
-	else {
-		owningProcess = removeFirstLinkOfList(criticalSection);
+  /* begin isEmptyList: */
+  assert(!(isForwarded(criticalSection)));
+  if ((longAt((void *)((criticalSection + BaseHeaderSize) +
+                       ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))))) ==
+      nilObj) {
+    /* begin storePointerUnchecked:ofObject:withValue: */
+    assert((isNonImmediate(criticalSection)) &&
+           (!(isForwarded(criticalSection))));
+    assert(validStorePointerUncheckedArgs(owningProcessIndex, criticalSection,
+                                          nilObj));
+    longAtput((void *)((criticalSection + BaseHeaderSize) +
+                       ((((usqInt)(owningProcessIndex) << (shiftForWord()))))),
+              nilObj);
+  } else {
+    owningProcess = removeFirstLinkOfList(criticalSection);
 
-		/* store check unnecessary because criticalSection referred to owningProcess
-		   via its FirstLinkIndex slot before owningProcess was removed. */
+    /* store check unnecessary because criticalSection referred to owningProcess
+       via its FirstLinkIndex slot before owningProcess was removed. */
 
-		/* begin storePointerUnchecked:ofObject:withValue: */
-		assert((isNonImmediate(criticalSection))
-		 && (!(isForwarded(criticalSection))));
-		assert(validStorePointerUncheckedArgs(owningProcessIndex, criticalSection, owningProcess));
-		longAtput((void *)((criticalSection + BaseHeaderSize) + ((((usqInt)(owningProcessIndex) << (shiftForWord()))))),owningProcess);
+    /* begin storePointerUnchecked:ofObject:withValue: */
+    assert((isNonImmediate(criticalSection)) &&
+           (!(isForwarded(criticalSection))));
+    assert(validStorePointerUncheckedArgs(owningProcessIndex, criticalSection,
+                                          owningProcess));
+    longAtput((void *)((criticalSection + BaseHeaderSize) +
+                       ((((usqInt)(owningProcessIndex) << (shiftForWord()))))),
+              owningProcess);
 
-		/* Note that resume: isn't fair; it won't suspend the active process.
-		   For fairness we must do the equivalent of a primitiveYield, but that
-		   may break old code, so we stick with unfair resume:. */
-		resumepreemptedYieldingIffrom(owningProcess, preemptionYields, CSExitCriticalSection);
-	}
+    /* Note that resume: isn't fair; it won't suspend the active process.
+       For fairness we must do the equivalent of a primitiveYield, but that
+       may break old code, so we stick with unfair resume:. */
+    resumepreemptedYieldingIffrom(owningProcess, preemptionYields,
+                                  CSExitCriticalSection);
+  }
 }

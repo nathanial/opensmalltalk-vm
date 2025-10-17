@@ -2,15 +2,15 @@
 
 /*	for Cogit */
 
-	/* StackInterpreter>>#argumentCountOfClosure: */
+/* StackInterpreter>>#argumentCountOfClosure: */
 
-sqInt
-argumentCountOfClosure(sqInt closurePointer)
-{
-    sqInt oop;
+sqInt argumentCountOfClosure(sqInt closurePointer) {
+  sqInt oop;
 
-	/* begin quickFetchInteger:ofObject: */
-	oop = longAt((void *)((closurePointer + BaseHeaderSize) + ((((usqInt)(ClosureNumArgsIndex) << (shiftForWord()))))));
-	assert((((oop) & 7) == 1));
-	return (oop >> 3);
+  /* begin quickFetchInteger:ofObject: */
+  oop =
+      longAt((void *)((closurePointer + BaseHeaderSize) +
+                      ((((usqInt)(ClosureNumArgsIndex) << (shiftForWord()))))));
+  assert((((oop) & 7) == 1));
+  return (oop >> 3);
 }

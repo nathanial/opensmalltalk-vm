@@ -1,28 +1,29 @@
 /* Extracted from interp.c:35761 (function forwardersIn). */
 
-/*	Answer if anObject is itself forwarded, or is a pointer object containing
-	any references to forwarded objects.
+/*	Answer if anObject is itself forwarded, or is a pointer object
+   containing any references to forwarded objects.
  */
 
-	/* SpurMemoryManager>>#forwardersIn: */
+/* SpurMemoryManager>>#forwardersIn: */
 
-static NoDbgRegParms sqInt
-forwardersIn(sqInt anObject)
-{
-    sqInt i;
-    sqInt oop;
-    sqInt toDoLimit;
+static NoDbgRegParms sqInt forwardersIn(sqInt anObject) {
+  sqInt i;
+  sqInt oop;
+  sqInt toDoLimit;
 
-	if ((!((longAt((void *)(anObject))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-		return 1;
-	}
-	toDoLimit = (numPointerSlotsOf(anObject)) - 1;
-	for (i = 0; i <= toDoLimit; i += 1) {
-		oop = longAt((void *)((anObject + BaseHeaderSize) + ((((usqInt)(i) << (shiftForWord()))))));
-		if (((!(oop & (tagMask()))))
-		 && ((!((longAt((void *)(oop))) & ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
-			return 1;
-		}
-	}
-	return 0;
+  if ((!((longAt((void *)(anObject))) &
+         ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
+    return 1;
+  }
+  toDoLimit = (numPointerSlotsOf(anObject)) - 1;
+  for (i = 0; i <= toDoLimit; i += 1) {
+    oop = longAt((void *)((anObject + BaseHeaderSize) +
+                          ((((usqInt)(i) << (shiftForWord()))))));
+    if (((!(oop & (tagMask())))) &&
+        ((!((longAt((void *)(oop))) &
+            ((classIndexMask()) - (isForwardedObjectClassIndexPun())))))) {
+      return 1;
+    }
+  }
+  return 0;
 }

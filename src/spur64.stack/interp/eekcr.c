@@ -2,10 +2,6 @@
 
 /*	For marking the end of a leak check print message */
 
-	/* StackInterpreter>>#eekcr */
+/* StackInterpreter>>#eekcr */
 
-NeverInline void
-eekcr(void)
-{
-	cr();
-}
+NeverInline void eekcr(void) { cr(); }

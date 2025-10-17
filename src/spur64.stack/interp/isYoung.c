@@ -2,11 +2,8 @@
 
 /*	Answer if oop is young. */
 
-	/* SpurMemoryManager>>#isYoung: */
+/* SpurMemoryManager>>#isYoung: */
 
-sqInt
-isYoung(sqInt oop)
-{
-	return ((!(oop & (tagMask()))))
-	 && (oopisLessThan(oop, oldSpaceStart));
+sqInt isYoung(sqInt oop) {
+  return ((!(oop & (tagMask())))) && (oopisLessThan(oop, oldSpaceStart));
 }

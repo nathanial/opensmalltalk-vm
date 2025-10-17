@@ -2,18 +2,16 @@
 
 /*	useful for VM debugging */
 
-	/* StackInterpreter>>#whereIs: */
+/* StackInterpreter>>#whereIs: */
 
-char *
-whereIs(sqInt anOop)
-{
-    char *where;
+char *whereIs(sqInt anOop) {
+  char *where;
 
-	if ((where = whereIsMaybeHeapThing(anOop))) {
-		return where;
-	}
-	if ((where = whereIsMaybeStackThing(anOop))) {
-		return where;
-	}
-	return " is no where obvious";
+  if ((where = whereIsMaybeHeapThing(anOop))) {
+    return where;
+  }
+  if ((where = whereIsMaybeStackThing(anOop))) {
+    return where;
+  }
+  return " is no where obvious";
 }

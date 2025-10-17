@@ -2,11 +2,9 @@
 
 /*	Answer if obj is old. Require that obj is non-immediate. */
 
-	/* SpurMemoryManager>>#isOldObject: */
+/* SpurMemoryManager>>#isOldObject: */
 
-static NoDbgRegParms int
-isOldObject(sqInt objOop)
-{
-	assert(isNonImmediate(objOop));
-	return oopisGreaterThanOrEqualTo(objOop, oldSpaceStart);
+static NoDbgRegParms int isOldObject(sqInt objOop) {
+  assert(isNonImmediate(objOop));
+  return oopisGreaterThanOrEqualTo(objOop, oldSpaceStart);
 }

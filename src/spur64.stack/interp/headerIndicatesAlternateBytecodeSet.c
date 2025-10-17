@@ -1,11 +1,10 @@
-/* Extracted from interp.c:27084 (function headerIndicatesAlternateBytecodeSet). */
+/* Extracted from interp.c:27084 (function headerIndicatesAlternateBytecodeSet).
+ */
 
 /*	A negative header selects the alternate bytecode set. */
 
-	/* Spur64BitMemoryManager>>#headerIndicatesAlternateBytecodeSet: */
+/* Spur64BitMemoryManager>>#headerIndicatesAlternateBytecodeSet: */
 
-int
-headerIndicatesAlternateBytecodeSet(sqInt methodHeader)
-{
-	return (((sqLong) methodHeader)) < 0;
+int headerIndicatesAlternateBytecodeSet(sqInt methodHeader) {
+  return (((sqLong)methodHeader)) < 0;
 }

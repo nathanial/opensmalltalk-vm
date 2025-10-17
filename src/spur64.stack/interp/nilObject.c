@@ -1,9 +1,5 @@
 /* Extracted from interp.c:40767 (function nilObject). */
 
-	/* SpurMemoryManager>>#nilObject */
+/* SpurMemoryManager>>#nilObject */
 
-sqInt
-nilObject(void)
-{
-	return nilObj;
-}
+sqInt nilObject(void) { return nilObj; }

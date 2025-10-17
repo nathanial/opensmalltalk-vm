@@ -2,11 +2,9 @@
 
 /*	Re-enter the interpreter to execute a (non-Alien) callback. */
 
-	/* StackInterpreter>>#callbackEnter: */
+/* StackInterpreter>>#callbackEnter: */
 
-sqInt
-callbackEnter(sqInt *callbackID)
-{
-	warning("callbackEnter: is obsolete");
-	return 0;
+sqInt callbackEnter(sqInt *callbackID) {
+  warning("callbackEnter: is obsolete");
+  return 0;
 }

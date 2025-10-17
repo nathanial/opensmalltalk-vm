@@ -2,10 +2,8 @@
 
 /*	useful for VM debugging */
 
-	/* StackInterpreter>>#printFramesInPage: */
+/* StackInterpreter>>#printFramesInPage: */
 
-void
-printFramesInPage(StackPage *thePage)
-{
-	printFrameAndCallersSPshort((thePage->headFP), (thePage->headSP), 0);
+void printFramesInPage(StackPage *thePage) {
+  printFrameAndCallersSPshort((thePage->headFP), (thePage->headSP), 0);
 }

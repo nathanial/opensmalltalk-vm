@@ -2,17 +2,15 @@
 
 /*	useful for VM debugging */
 
-	/* StackInterpreter>>#printCallStack */
+/* StackInterpreter>>#printCallStack */
 
-void
-printCallStack(void)
-{
-    char *fp;
+void printCallStack(void) {
+  char *fp;
 
-	if ((fp = framePointer)) {
-		printCallStackFP(fp);
-	}
-	else {
-		printCallStackOf(fetchPointerofObject(SuspendedContextIndex, activeProcess()));
-	}
+  if ((fp = framePointer)) {
+    printCallStackFP(fp);
+  } else {
+    printCallStackOf(
+        fetchPointerofObject(SuspendedContextIndex, activeProcess()));
+  }
 }

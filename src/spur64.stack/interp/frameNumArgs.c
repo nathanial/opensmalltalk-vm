@@ -2,10 +2,8 @@
 
 /*	See encodeFrameFieldHasContext:numArgs: */
 
-	/* StackInterpreter>>#frameNumArgs: */
+/* StackInterpreter>>#frameNumArgs: */
 
-static NoDbgRegParms usqInt
-frameNumArgs(char *theFP)
-{
-	return byteAt((theFP + FoxFrameFlags) + 1);
+static NoDbgRegParms usqInt frameNumArgs(char *theFP) {
+  return byteAt((theFP + FoxFrameFlags) + 1);
 }

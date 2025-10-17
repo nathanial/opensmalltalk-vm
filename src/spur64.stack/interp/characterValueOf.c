@@ -2,10 +2,8 @@
 
 /*	Immediate characters are unsigned */
 
-	/* SpurMemoryManager>>#characterValueOf: */
+/* SpurMemoryManager>>#characterValueOf: */
 
-usqInt
-characterValueOf(sqInt oop)
-{
-	return ((((usqInt)oop))) >> (numTagBits());
+usqInt characterValueOf(sqInt oop) {
+  return ((((usqInt)oop))) >> (numTagBits());
 }

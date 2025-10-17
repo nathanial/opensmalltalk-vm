@@ -2,10 +2,9 @@
 
 /*	Return one of the objects in the specialObjectsArray */
 
-	/* SpurMemoryManager>>#splObj: */
+/* SpurMemoryManager>>#splObj: */
 
-sqInt
-splObj(sqInt index)
-{
-	return longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(index) << (shiftForWord()))))));
+sqInt splObj(sqInt index) {
+  return longAt((void *)((specialObjectsOop + BaseHeaderSize) +
+                         ((((usqInt)(index) << (shiftForWord()))))));
 }

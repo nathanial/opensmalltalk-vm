@@ -2,10 +2,8 @@
 
 /*	See encodeFrameFieldHasContext:numArgs: */
 
-	/* StackInterpreter>>#frameHasContext: */
+/* StackInterpreter>>#frameHasContext: */
 
-static NoDbgRegParms int
-frameHasContext(char *theFP)
-{
-	return (byteAt((theFP + FoxFrameFlags) + 2)) != 0;
+static NoDbgRegParms int frameHasContext(char *theFP) {
+  return (byteAt((theFP + FoxFrameFlags) + 2)) != 0;
 }

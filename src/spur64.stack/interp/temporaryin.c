@@ -2,14 +2,14 @@
 
 /*	See StackInterpreter class>>initializeFrameIndices */
 
-	/* StackInterpreter>>#temporary:in: */
+/* StackInterpreter>>#temporary:in: */
 
-static NoDbgRegParms sqInt
-temporaryin(sqInt offset, char *theFP)
-{
-    usqInt frameNumArgs;
+static NoDbgRegParms sqInt temporaryin(sqInt offset, char *theFP) {
+  usqInt frameNumArgs;
 
-	return (offset < ((frameNumArgs = byteAt((theFP + FoxFrameFlags) + 1)))
-			? longAt((theFP + FoxCallerSavedIP) + ((frameNumArgs - offset) * BytesPerWord))
-			: longAt(((theFP + FoxReceiver) - BytesPerWord) + ((frameNumArgs - offset) * BytesPerWord)));
+  return (offset < ((frameNumArgs = byteAt((theFP + FoxFrameFlags) + 1)))
+              ? longAt((theFP + FoxCallerSavedIP) +
+                       ((frameNumArgs - offset) * BytesPerWord))
+              : longAt(((theFP + FoxReceiver) - BytesPerWord) +
+                       ((frameNumArgs - offset) * BytesPerWord)));
 }

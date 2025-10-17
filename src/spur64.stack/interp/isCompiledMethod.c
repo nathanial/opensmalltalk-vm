@@ -2,10 +2,9 @@
 
 /*	Answer whether the argument object is of compiled method format */
 
-	/* SpurMemoryManager>>#isCompiledMethod: */
+/* SpurMemoryManager>>#isCompiledMethod: */
 
-int
-isCompiledMethod(sqInt objOop)
-{
-	return ((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat());
+int isCompiledMethod(sqInt objOop) {
+  return ((byteAt((void *)(objOop + (formatFieldByteOffset())))) &
+          (formatMask())) >= (firstCompiledMethodFormat());
 }

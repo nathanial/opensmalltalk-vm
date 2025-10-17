@@ -1,9 +1,5 @@
 /* Extracted from interp.c:54419 (function getTranscript). */
 
-	/* StackInterpreter>>#getTranscript */
+/* StackInterpreter>>#getTranscript */
 
-FILE *
-getTranscript(void)
-{
-	return transcript;
-}
+FILE *getTranscript(void) { return transcript; }

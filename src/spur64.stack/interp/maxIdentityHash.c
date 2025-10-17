@@ -1,9 +1,5 @@
 /* Extracted from interp.c:40667 (function maxIdentityHash). */
 
-	/* SpurMemoryManager>>#maxIdentityHash */
+/* SpurMemoryManager>>#maxIdentityHash */
 
-sqInt
-maxIdentityHash(void)
-{
-	return identityHashHalfWordMask();
-}
+sqInt maxIdentityHash(void) { return identityHashHalfWordMask(); }

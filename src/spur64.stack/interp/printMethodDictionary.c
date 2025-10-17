@@ -2,31 +2,34 @@
 
 /*	useful for VM debugging */
 
-	/* StackInterpreter>>#printMethodDictionary: */
+/* StackInterpreter>>#printMethodDictionary: */
 
-void
-printMethodDictionary(sqInt dictionary)
-{
-    sqInt index;
-    sqInt meth;
-    sqInt methodArray;
-    sqInt selector;
-    sqInt toDoLimit;
+void printMethodDictionary(sqInt dictionary) {
+  sqInt index;
+  sqInt meth;
+  sqInt methodArray;
+  sqInt selector;
+  sqInt toDoLimit;
 
-	methodArray = longAt((void *)((dictionary + BaseHeaderSize) + ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
-	toDoLimit = (numSlotsOf(dictionary)) - 1;
-	for (index = SelectorStart; index <= toDoLimit; index += 1) {
-		selector = longAt((void *)((dictionary + BaseHeaderSize) + ((((usqInt)(index) << (shiftForWord()))))));
-		if (selector != nilObj) {
-			meth = longAt((void *)((methodArray + BaseHeaderSize) + ((((usqInt)((index - SelectorStart)) << (shiftForWord()))))));
-			printOopShortInner(selector);
-			print(" => ");
-			printOopShortInner(meth);
-			print(" (");
-			printHex(selector);
-			print(" => ");
-			printHex(meth);
-			print(")\n");
-		}
-	}
+  methodArray =
+      longAt((void *)((dictionary + BaseHeaderSize) +
+                      ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
+  toDoLimit = (numSlotsOf(dictionary)) - 1;
+  for (index = SelectorStart; index <= toDoLimit; index += 1) {
+    selector = longAt((void *)((dictionary + BaseHeaderSize) +
+                               ((((usqInt)(index) << (shiftForWord()))))));
+    if (selector != nilObj) {
+      meth = longAt((
+          void *)((methodArray + BaseHeaderSize) +
+                  ((((usqInt)((index - SelectorStart)) << (shiftForWord()))))));
+      printOopShortInner(selector);
+      print(" => ");
+      printOopShortInner(meth);
+      print(" (");
+      printHex(selector);
+      print(" => ");
+      printHex(meth);
+      print(")\n");
+    }
+  }
 }

@@ -1,36 +1,47 @@
 /* Extracted from interp.c:58050 (function nameOfClass). */
 
 /*	Brain-damaged nameOfClass: for C VM. Does *not* answer Foo class for
-	metaclasses. Use e.g. classIsMeta: to avoid being fooled. */
+        metaclasses. Use e.g. classIsMeta: to avoid being fooled. */
 
-	/* StackInterpreter>>#nameOfClass: */
+/* StackInterpreter>>#nameOfClass: */
 
-static NoDbgRegParms char *
-nameOfClass(sqInt classOop)
-{
-    sqInt maybeNameOop;
-    sqInt maybeThisClassOop;
-    usqInt numSlots;
-    usqInt numSlotsUsqInt;
+static NoDbgRegParms char *nameOfClass(sqInt classOop) {
+  sqInt maybeNameOop;
+  sqInt maybeThisClassOop;
+  usqInt numSlots;
+  usqInt numSlotsUsqInt;
 
-	/* begin numSlotsOf: */
-	assert((classIndexOf(classOop)) > (isForwardedObjectClassIndexPun()));
-	numSlots = (((numSlotsUsqInt = byteAt((void *)(classOop + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
-				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(classOop - BaseHeaderSize)))) << 8)))))) >> 8
-				: numSlotsUsqInt);
-	if (numSlots == metaclassNumSlots) {
-		maybeThisClassOop = longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(thisClassIndex) << (shiftForWord()))))));
-		if (addressCouldBeClassObj(maybeThisClassOop)) {
-			return nameOfClass(longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(thisClassIndex) << (shiftForWord())))))));
-		}
-		return "bad class";
-	}
-	if (!((numSlots > classNameIndex)
-		 && (((maybeNameOop = longAt((void *)((classOop + BaseHeaderSize) + ((((usqInt)(classNameIndex) << (shiftForWord()))))))),
-		/* isBytes: */
-			((!(maybeNameOop & (tagMask()))))
-			 && (((byteAt((void *)(maybeNameOop + (formatFieldByteOffset())))) & (formatMask())) >= (firstByteFormat())))))) {
-		return "bad class";
-	}
-	return firstIndexableField(maybeNameOop);
+  /* begin numSlotsOf: */
+  assert((classIndexOf(classOop)) > (isForwardedObjectClassIndexPun()));
+  numSlots =
+      (((numSlotsUsqInt =
+             byteAt((void *)(classOop + (numSlotsFieldByteOffset()))))) ==
+               (numSlotsMask())
+           ? ((((usqInt)((
+                 (sqInt)((usqInt)((longAt((void *)(classOop - BaseHeaderSize))))
+                         << 8)))))) >>
+                 8
+           : numSlotsUsqInt);
+  if (numSlots == metaclassNumSlots) {
+    maybeThisClassOop =
+        longAt((void *)((classOop + BaseHeaderSize) +
+                        ((((usqInt)(thisClassIndex) << (shiftForWord()))))));
+    if (addressCouldBeClassObj(maybeThisClassOop)) {
+      return nameOfClass(
+          longAt((void *)((classOop + BaseHeaderSize) +
+                          ((((usqInt)(thisClassIndex) << (shiftForWord())))))));
+    }
+    return "bad class";
+  }
+  if (!((numSlots > classNameIndex) &&
+        (((maybeNameOop = longAt(
+               (void *)((classOop + BaseHeaderSize) +
+                        ((((usqInt)(classNameIndex) << (shiftForWord()))))))),
+          /* isBytes: */
+          ((!(maybeNameOop & (tagMask())))) &&
+              (((byteAt((void *)(maybeNameOop + (formatFieldByteOffset())))) &
+                (formatMask())) >= (firstByteFormat())))))) {
+    return "bad class";
+  }
+  return firstIndexableField(maybeNameOop);
 }

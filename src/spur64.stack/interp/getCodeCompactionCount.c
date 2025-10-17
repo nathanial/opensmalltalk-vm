@@ -2,10 +2,6 @@
 
 /*	This is nil in the StackVM */
 
-	/* StackInterpreter>>#getCodeCompactionCount */
+/* StackInterpreter>>#getCodeCompactionCount */
 
-static sqInt
-getCodeCompactionCount(void)
-{
-	return nilObj;
-}
+static sqInt getCodeCompactionCount(void) { return nilObj; }

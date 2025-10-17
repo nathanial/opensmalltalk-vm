@@ -1,122 +1,134 @@
 /* Extracted from interp.c:67189 (function primitiveContextSize). */
 
 /*	Special version of primitiveSize for accessing contexts.
-	Written to be varargs for use from mirror primitives. */
+        Written to be varargs for use from mirror primitives. */
 
-	/* StackInterpreterPrimitives>>#primitiveContextSize */
+/* StackInterpreterPrimitives>>#primitiveContextSize */
 
-static void
-primitiveContextSize(void)
-{
-    sqInt class;
-    sqInt fixedFields;
-    usqLong fmt;
-    sqLong hdr;
-    usqInt numSlots;
-    usqInt numSlotsUsqInt;
-    sqInt rcvr;
-    char *sp;
-    sqInt spSqInt;
-    usqInt spUsqInt;
-    sqInt sz;
-    sqInt totalLength;
+static void primitiveContextSize(void) {
+  sqInt class;
+  sqInt fixedFields;
+  usqLong fmt;
+  sqLong hdr;
+  usqInt numSlots;
+  usqInt numSlotsUsqInt;
+  sqInt rcvr;
+  char *sp;
+  sqInt spSqInt;
+  usqInt spUsqInt;
+  sqInt sz;
+  sqInt totalLength;
 
-	rcvr = longAt(stackPointer);
-	hdr = long64At((void *)(rcvr));
-	fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
+  rcvr = longAt(stackPointer);
+  hdr = long64At((void *)(rcvr));
+  fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
 
-	/* begin lengthOf:baseHeader:format: */
-	/* begin lengthOf:format: */
-	/* begin numSlotsOfAny: */
-	numSlotsUsqInt = byteAt((void *)(rcvr + (numSlotsFieldByteOffset())));
-	numSlots = (numSlotsUsqInt == (numSlotsMask())
-				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(rcvr - BaseHeaderSize)))) << 8)))))) >> 8
-				: numSlotsUsqInt);
-	if (fmt <= (ephemeronFormat())) {
-		totalLength = numSlots;
-		goto l2;
-	}
-	if (fmt >= (firstByteFormat())) {
-		totalLength = ((numSlots << (shiftForWord()))) - (fmt & 7);
-		goto l2;
-	}
+  /* begin lengthOf:baseHeader:format: */
+  /* begin lengthOf:format: */
+  /* begin numSlotsOfAny: */
+  numSlotsUsqInt = byteAt((void *)(rcvr + (numSlotsFieldByteOffset())));
+  numSlots =
+      (numSlotsUsqInt == (numSlotsMask())
+           ? ((((usqInt)((
+                 (sqInt)((usqInt)((longAt((void *)(rcvr - BaseHeaderSize))))
+                         << 8)))))) >>
+                 8
+           : numSlotsUsqInt);
+  if (fmt <= (ephemeronFormat())) {
+    totalLength = numSlots;
+    goto l2;
+  }
+  if (fmt >= (firstByteFormat())) {
+    totalLength = ((numSlots << (shiftForWord()))) - (fmt & 7);
+    goto l2;
+  }
 
-	/* bytes, including CompiledMethod */
-	if (fmt >= (firstShortFormat())) {
-		totalLength = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-		goto l2;
-	}
-	if (fmt >= (firstLongFormat())) {
-		totalLength = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-		goto l2;
-	}
-	if (fmt == (sixtyFourBitIndexableFormat())) {
-		totalLength = numSlots;
-		goto l2;
-	}
+  /* bytes, including CompiledMethod */
+  if (fmt >= (firstShortFormat())) {
+    totalLength = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
+    goto l2;
+  }
+  if (fmt >= (firstLongFormat())) {
+    totalLength = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
+    goto l2;
+  }
+  if (fmt == (sixtyFourBitIndexableFormat())) {
+    totalLength = numSlots;
+    goto l2;
+  }
 
-	/* fmt = self forwardedFormat */
-	totalLength = 0;
-	/* end lengthOf:baseHeader:format: */
+  /* fmt = self forwardedFormat */
+  totalLength = 0;
+  /* end lengthOf:baseHeader:format: */
 l2:
 
-	/* begin fixedFieldsOf:format:length: */
-	if ((fmt >= (sixtyFourBitIndexableFormat()))
-	 || (fmt == (arrayFormat()))) {
-		fixedFields = 0;
-		goto l1;
-	}
-	if (fmt < (arrayFormat())) {
-		fixedFields = totalLength;
-		goto l1;
-	}
-	class = fetchClassOfNonImm(rcvr);
-	fixedFields = (((longAt((void *)((class + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3)) & ((1U << (fixedFieldsFieldWidth())) - 1);
-	/* end fixedFieldsOf:format:length: */
+  /* begin fixedFieldsOf:format:length: */
+  if ((fmt >= (sixtyFourBitIndexableFormat())) || (fmt == (arrayFormat()))) {
+    fixedFields = 0;
+    goto l1;
+  }
+  if (fmt < (arrayFormat())) {
+    fixedFields = totalLength;
+    goto l1;
+  }
+  class = fetchClassOfNonImm(rcvr);
+  fixedFields = (((longAt((void *)((class + BaseHeaderSize) +
+                                   ((((usqInt)(InstanceSpecificationIndex)
+                                      << (shiftForWord()))))))) >>
+                  3)) &
+                ((1U << (fixedFieldsFieldWidth())) - 1);
+  /* end fixedFieldsOf:format:length: */
 l1:
-	if ((hdr & (classIndexMask())) == ClassMethodContextCompactIndex) {
-		/* begin externalWriteBackHeadFramePointers */
-		assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
-		assert(stackPage == (mostRecentlyUsedPage));
-		assert(!((isFree(stackPage))));
+  if ((hdr & (classIndexMask())) == ClassMethodContextCompactIndex) {
+    /* begin externalWriteBackHeadFramePointers */
+    assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
+    assert(stackPage == (mostRecentlyUsedPage));
+    assert(!((isFree(stackPage))));
 
-		/* begin setHeadFP:andSP:inPage: */
-		assert(stackPointer < framePointer);
-		assert((stackPointer < ((stackPage->baseAddress)))
-		 && (stackPointer > (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-		assert((framePointer < ((stackPage->baseAddress)))
-		 && (framePointer > (((stackPage->realStackLimit)) - ((LargeContextSlots * BytesPerOop) / 2))));
-		(stackPage->headFP = framePointer);
-		(stackPage->headSP = stackPointer);
-		assert(pageListIsWellFormed());
+    /* begin setHeadFP:andSP:inPage: */
+    assert(stackPointer < framePointer);
+    assert((stackPointer < ((stackPage->baseAddress))) &&
+           (stackPointer > (((stackPage->realStackLimit)) -
+                            (LargeContextSlots * BytesPerOop))));
+    assert((framePointer < ((stackPage->baseAddress))) &&
+           (framePointer > (((stackPage->realStackLimit)) -
+                            ((LargeContextSlots * BytesPerOop) / 2))));
+    (stackPage->headFP = framePointer);
+    (stackPage->headSP = stackPointer);
+    assert(pageListIsWellFormed());
 
-		/* begin stackPointerForMaybeMarriedContext: */
-		if (/* isStillMarriedContext: */
-			(((((longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1))
-		 && (!(isWidowedContext(rcvr)))) {
-			spUsqInt = stackPointerIndexForFrame(frameOfMarriedContext(rcvr));
-			assert((ReceiverIndex + ((spUsqInt >> 3))) < (lengthOf(rcvr)));
-			sz = spUsqInt;
-			goto l3;
-		}
+    /* begin stackPointerForMaybeMarriedContext: */
+    if (/* isStillMarriedContext: */
+        (((((longAt(
+               (void *)((rcvr + BaseHeaderSize) +
+                        ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+           7) == 1)) &&
+        (!(isWidowedContext(rcvr)))) {
+      spUsqInt = stackPointerIndexForFrame(frameOfMarriedContext(rcvr));
+      assert((ReceiverIndex + ((spUsqInt >> 3))) < (lengthOf(rcvr)));
+      sz = spUsqInt;
+      goto l3;
+    }
 
-		/* begin fetchStackPointerOf: */
-		spSqInt = longAt((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
-		if (!((((spSqInt) & 7) == 1))) {
-			sz = 0;
-			goto l3;
-		}
-		assert((ReceiverIndex + ((spSqInt >> 3))) < (lengthOf(rcvr)));
-		sz = (spSqInt >> 3);
-		/* end stackPointerForMaybeMarriedContext: */
-l3:;
-	}
-	else {
-		sz = totalLength - fixedFields;
-	}
+    /* begin fetchStackPointerOf: */
+    spSqInt =
+        longAt((void *)((rcvr + BaseHeaderSize) +
+                        ((((usqInt)(StackPointerIndex) << (shiftForWord()))))));
+    if (!((((spSqInt) & 7) == 1))) {
+      sz = 0;
+      goto l3;
+    }
+    assert((ReceiverIndex + ((spSqInt >> 3))) < (lengthOf(rcvr)));
+    sz = (spSqInt >> 3);
+    /* end stackPointerForMaybeMarriedContext: */
+  l3:;
+  } else {
+    sz = totalLength - fixedFields;
+  }
 
-	/* begin methodReturnInteger: */
-	assert(!((failed())));
-	longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),(((usqInt)sz << 3) | 1));
-	stackPointer = sp;
+  /* begin methodReturnInteger: */
+  assert(!((failed())));
+  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+            (((usqInt)sz << 3) | 1));
+  stackPointer = sp;
 }

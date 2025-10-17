@@ -2,10 +2,8 @@
 
 /*	In the StackInterpreter stacks grow down. */
 
-	/* StackInterpreter>>#stackValue: */
+/* StackInterpreter>>#stackValue: */
 
-sqInt
-stackValue(sqInt offset)
-{
-	return longAt(stackPointer + (offset * BytesPerWord));
+sqInt stackValue(sqInt offset) {
+  return longAt(stackPointer + (offset * BytesPerWord));
 }

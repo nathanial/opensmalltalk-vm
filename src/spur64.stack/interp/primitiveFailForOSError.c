@@ -2,11 +2,9 @@
 
 /*	Set PrimErrOSError primitive failure and associated osErrorCode. */
 
-	/* InterpreterPrimitives>>#primitiveFailForOSError: */
+/* InterpreterPrimitives>>#primitiveFailForOSError: */
 
-sqInt
-primitiveFailForOSError(sqLong osErrorCode)
-{
-	secondaryErrorCode = osErrorCode;
-	return (primFailCode = PrimErrOSError);
+sqInt primitiveFailForOSError(sqLong osErrorCode) {
+  secondaryErrorCode = osErrorCode;
+  return (primFailCode = PrimErrOSError);
 }

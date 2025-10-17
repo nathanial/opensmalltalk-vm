@@ -1,13 +1,11 @@
 /* Extracted from interp.c:54952 (function isBaseFrame). */
 
 /*	A base frame (first frame in a stack page) is so marked by having a null
-	saved fp.
+        saved fp.
  */
 
-	/* StackInterpreter>>#isBaseFrame: */
+/* StackInterpreter>>#isBaseFrame: */
 
-static NoDbgRegParms int
-isBaseFrame(char *theFP)
-{
-	return (longAt(theFP + FoxSavedFP)) == 0;
+static NoDbgRegParms int isBaseFrame(char *theFP) {
+  return (longAt(theFP + FoxSavedFP)) == 0;
 }

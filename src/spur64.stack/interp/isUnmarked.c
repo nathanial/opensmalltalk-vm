@@ -2,10 +2,9 @@
 
 /*	For debugging using printOopsSuchThat: */
 
-	/* SpurMemoryManager>>#isUnmarked: */
+/* SpurMemoryManager>>#isUnmarked: */
 
-int
-isUnmarked(sqInt objOop)
-{
-	return !(((byteAt((void *)(objOop + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) != 0);
+int isUnmarked(sqInt objOop) {
+  return !(((byteAt((void *)(objOop + (markBitsByteOffset())))) &
+            (1U << (markedBitByteShift()))) != 0);
 }

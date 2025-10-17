@@ -1,9 +1,7 @@
 /* Extracted from interp.c:37199 (function isContextHeader). */
 
-	/* SpurMemoryManager>>#isContextHeader: */
+/* SpurMemoryManager>>#isContextHeader: */
 
-static NoDbgRegParms int
-isContextHeader(sqInt aHeader)
-{
-	return (aHeader & (classIndexMask())) == ClassMethodContextCompactIndex;
+static NoDbgRegParms int isContextHeader(sqInt aHeader) {
+  return (aHeader & (classIndexMask())) == ClassMethodContextCompactIndex;
 }

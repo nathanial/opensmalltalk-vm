@@ -2,17 +2,15 @@
 
 /*	useful for VM debugging */
 
-	/* StackInterpreter>>#printStackPageList */
+/* StackInterpreter>>#printStackPageList */
 
-void
-printStackPageList(void)
-{
-    StackPage *page;
+void printStackPageList(void) {
+  StackPage *page;
 
-	page = mostRecentlyUsedPage;
-	do {
-		/* begin printStackPage: */
-		printStackPageuseCount(page, -1);
-		cr();
-	} while(((page = (page->prevPage))) != (mostRecentlyUsedPage));
+  page = mostRecentlyUsedPage;
+  do {
+    /* begin printStackPage: */
+    printStackPageuseCount(page, -1);
+    cr();
+  } while (((page = (page->prevPage))) != (mostRecentlyUsedPage));
 }

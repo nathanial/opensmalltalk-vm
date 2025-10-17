@@ -2,15 +2,12 @@
 
 /*	useful for VM debugging */
 
-	/* StackInterpreter>>#setBreakMNUSelector: */
+/* StackInterpreter>>#setBreakMNUSelector: */
 
-void
-setBreakMNUSelector(char *aString)
-{
-	if ((breakSelector = aString)) {
-		breakSelectorLength = -(strlen(aString));
-	}
-	else {
-		breakSelectorLength = MinSmallInteger;
-	}
+void setBreakMNUSelector(char *aString) {
+  if ((breakSelector = aString)) {
+    breakSelectorLength = -(strlen(aString));
+  } else {
+    breakSelectorLength = MinSmallInteger;
+  }
 }

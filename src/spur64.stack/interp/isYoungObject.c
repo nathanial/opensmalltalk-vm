@@ -2,11 +2,9 @@
 
 /*	Answer if obj is young. Require that obj is non-immediate. */
 
-	/* SpurMemoryManager>>#isYoungObject: */
+/* SpurMemoryManager>>#isYoungObject: */
 
-int
-isYoungObject(sqInt objOop)
-{
-	assert(isNonImmediate(objOop));
-	return oopisLessThan(objOop, oldSpaceStart);
+int isYoungObject(sqInt objOop) {
+  assert(isNonImmediate(objOop));
+  return oopisLessThan(objOop, oldSpaceStart);
 }

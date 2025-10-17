@@ -1,15 +1,13 @@
 /* Extracted from interp.c:36130 (function hasPointerFieldsNonImm). */
 
-	/* SpurMemoryManager>>#hasPointerFieldsNonImm: */
+/* SpurMemoryManager>>#hasPointerFieldsNonImm: */
 
-static NoDbgRegParms sqInt
-hasPointerFieldsNonImm(sqInt oop)
-{
-    sqInt format;
+static NoDbgRegParms sqInt hasPointerFieldsNonImm(sqInt oop) {
+  sqInt format;
 
-	format = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
+  format = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
 
-	/* begin isAnyPointerFormat: */
-	return (format <= 5 /* lastPointerFormat */)
-	 || (format >= (firstCompiledMethodFormat()));
+  /* begin isAnyPointerFormat: */
+  return (format <= 5 /* lastPointerFormat */) ||
+         (format >= (firstCompiledMethodFormat()));
 }

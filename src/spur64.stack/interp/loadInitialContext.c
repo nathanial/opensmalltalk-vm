@@ -1,26 +1,40 @@
 /* Extracted from interp.c:55602 (function loadInitialContext). */
 
-	/* StackInterpreter>>#loadInitialContext */
+/* StackInterpreter>>#loadInitialContext */
 
-void
-loadInitialContext(void)
-{
-    sqInt activeContext;
-    sqInt activeProc;
-    sqInt obj;
-    sqInt objOop;
+void loadInitialContext(void) {
+  sqInt activeContext;
+  sqInt activeProc;
+  sqInt obj;
+  sqInt objOop;
 
-	runLeakCheckerFor(GCModeFull);
+  runLeakCheckerFor(GCModeFull);
 
-	/* primitiveSuspend needs to know the class of LinkedList */
+  /* primitiveSuspend needs to know the class of LinkedList */
 
-	/* begin getClassTagOfLinkedList */
-	objOop = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
-	objOop = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(ProcessListsIndex) << (shiftForWord()))))));
-	obj = longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-	classLinkedListClassTag = (longAt((void *)(obj))) & (classIndexMask());
-	objOop = longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(SchedulerAssociation) << (shiftForWord()))))))) + BaseHeaderSize) + ((((usqInt)(ValueIndex) << (shiftForWord()))))));
-	activeProc = longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
-	activeContext = longAt((void *)((activeProc + BaseHeaderSize) + ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))));
-	marryContextInNewStackPageAndInitializeInterpreterRegisters(activeContext);
+  /* begin getClassTagOfLinkedList */
+  objOop =
+      longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
+                                        ((((usqInt)(SchedulerAssociation)
+                                           << (shiftForWord()))))))) +
+                       BaseHeaderSize) +
+                      ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+  objOop =
+      longAt((void *)((objOop + BaseHeaderSize) +
+                      ((((usqInt)(ProcessListsIndex) << (shiftForWord()))))));
+  obj = longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
+  classLinkedListClassTag = (longAt((void *)(obj))) & (classIndexMask());
+  objOop =
+      longAt((void *)(((longAt((void *)((specialObjectsOop + BaseHeaderSize) +
+                                        ((((usqInt)(SchedulerAssociation)
+                                           << (shiftForWord()))))))) +
+                       BaseHeaderSize) +
+                      ((((usqInt)(ValueIndex) << (shiftForWord()))))));
+  activeProc =
+      longAt((void *)((objOop + BaseHeaderSize) +
+                      ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))));
+  activeContext = longAt(
+      (void *)((activeProc + BaseHeaderSize) +
+               ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))));
+  marryContextInNewStackPageAndInitializeInterpreterRegisters(activeContext);
 }

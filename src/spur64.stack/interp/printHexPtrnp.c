@@ -2,12 +2,8 @@
 
 /*	Print p in hex, unpadded, in the form 0x1234 (C)/16r1234 (here) */
 
-	/* StackInterpreter>>#printHexPtrnp: */
+/* StackInterpreter>>#printHexPtrnp: */
 
-static NoDbgRegParms sqInt
-printHexPtrnp(void *p)
-{
-	return fprintf(transcript,
-			"%p",
-			p);
+static NoDbgRegParms sqInt printHexPtrnp(void *p) {
+  return fprintf(transcript, "%p", p);
 }

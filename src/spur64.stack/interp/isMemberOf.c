@@ -2,17 +2,16 @@
 
 /*	Support for external primitives */
 
-	/* StackInterpreter>>#is:MemberOf: */
+/* StackInterpreter>>#is:MemberOf: */
 
-sqInt
-isMemberOf(sqInt oop, char *className)
-{
-    sqInt oopClass;
-    sqInt tagBits;
+sqInt isMemberOf(sqInt oop, char *className) {
+  sqInt oopClass;
+  sqInt tagBits;
 
-	oopClass = /* fetchClassOf: */
-			((tagBits = oop & (tagMask()))
-				? longAt((void *)((classTableFirstPage + BaseHeaderSize) + ((((usqInt)(tagBits) << (shiftForWord()))))))
-				: fetchClassOfNonImm(oop));
-	return classNameOfIs(oopClass, className);
+  oopClass = /* fetchClassOf: */
+      ((tagBits = oop & (tagMask()))
+           ? longAt((void *)((classTableFirstPage + BaseHeaderSize) +
+                             ((((usqInt)(tagBits) << (shiftForWord()))))))
+           : fetchClassOfNonImm(oop));
+  return classNameOfIs(oopClass, className);
 }

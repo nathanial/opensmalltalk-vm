@@ -2,11 +2,9 @@
 
 /*	Answer if maybeClassObj looks like a class object */
 
-	/* SpurMemoryManager>>#addressCouldBeClassObj: */
+/* SpurMemoryManager>>#addressCouldBeClassObj: */
 
-static NoDbgRegParms sqInt
-addressCouldBeClassObj(sqInt maybeClassObj)
-{
-	return (addressCouldBeObj(maybeClassObj))
-	 && (objCouldBeClassObj(maybeClassObj));
+static NoDbgRegParms sqInt addressCouldBeClassObj(sqInt maybeClassObj) {
+  return (addressCouldBeObj(maybeClassObj)) &&
+         (objCouldBeClassObj(maybeClassObj));
 }

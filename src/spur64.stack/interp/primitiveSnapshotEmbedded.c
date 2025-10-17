@@ -2,10 +2,6 @@
 
 /*	save an embedded snapshot */
 
-	/* InterpreterPrimitives>>#primitiveSnapshotEmbedded */
+/* InterpreterPrimitives>>#primitiveSnapshotEmbedded */
 
-static void
-primitiveSnapshotEmbedded(void)
-{
-	snapshot(1);
-}
+static void primitiveSnapshotEmbedded(void) { snapshot(1); }

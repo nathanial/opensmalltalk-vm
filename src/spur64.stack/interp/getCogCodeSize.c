@@ -2,10 +2,6 @@
 
 /*	This is nil in the StackVM */
 
-	/* StackInterpreter>>#getCogCodeSize */
+/* StackInterpreter>>#getCogCodeSize */
 
-static sqInt
-getCogCodeSize(void)
-{
-	return nilObj;
-}
+static sqInt getCogCodeSize(void) { return nilObj; }

@@ -2,10 +2,6 @@
 
 /*	For Alien FFI */
 
-	/* StackInterpreter>>#getStackPointer */
+/* StackInterpreter>>#getStackPointer */
 
-sqInt *
-getStackPointer(void)
-{
-	return ((sqInt *) stackPointer);
-}
+sqInt *getStackPointer(void) { return ((sqInt *)stackPointer); }

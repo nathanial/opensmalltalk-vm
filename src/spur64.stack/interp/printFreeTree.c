@@ -2,10 +2,6 @@
 
 /*	useful for VM debugging */
 
-	/* SpurMemoryManager>>#printFreeTree */
+/* SpurMemoryManager>>#printFreeTree */
 
-void
-printFreeTree(void)
-{
-	printFreeTreeChunk(freeLists[0]);
-}
+void printFreeTree(void) { printFreeTreeChunk(freeLists[0]); }

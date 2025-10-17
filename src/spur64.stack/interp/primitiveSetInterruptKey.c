@@ -1,35 +1,31 @@
 /* Extracted from interp.c:22203 (function primitiveSetInterruptKey). */
 
- /* IMMUTABILITY */
-
+/* IMMUTABILITY */
 
 /*	Set the user interrupt keycode. The keycode is an integer whose encoding
-	is described in the comment for primitiveKbdNext.
+        is described in the comment for primitiveKbdNext.
  */
 
-	/* InterpreterPrimitives>>#primitiveSetInterruptKey */
+/* InterpreterPrimitives>>#primitiveSetInterruptKey */
 
-static void
-primitiveSetInterruptKey(void)
-{
-    sqInt integerPointer;
-    sqInt keycode;
+static void primitiveSetInterruptKey(void) {
+  sqInt integerPointer;
+  sqInt keycode;
 
-	/* begin stackIntegerValue: */
-	integerPointer = longAt(stackPointer);
-	if ((((integerPointer) & 7) == 1)) {
-		keycode = (integerPointer >> 3);
-	}
-	else {
-		/* begin primitiveFail */
-		if (!primFailCode) {
-			primFailCode = 1;
-		}
-		keycode = 0;
-	}
-	if (!primFailCode) {
-		/* begin setInterruptKeycode: */
-		interruptKeycode = keycode;
-		stackPointer += argumentCount * BytesPerWord;
-	}
+  /* begin stackIntegerValue: */
+  integerPointer = longAt(stackPointer);
+  if ((((integerPointer) & 7) == 1)) {
+    keycode = (integerPointer >> 3);
+  } else {
+    /* begin primitiveFail */
+    if (!primFailCode) {
+      primFailCode = 1;
+    }
+    keycode = 0;
+  }
+  if (!primFailCode) {
+    /* begin setInterruptKeycode: */
+    interruptKeycode = keycode;
+    stackPointer += argumentCount * BytesPerWord;
+  }
 }

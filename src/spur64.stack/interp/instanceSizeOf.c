@@ -1,14 +1,16 @@
 /* Extracted from interp.c:36996 (function instanceSizeOf). */
 
-/*	Answer the number of slots in a class. For example the instanceSizeOf: 
-	ClassPoint is 2, for the x & y slots. The instance size of non-pointer
-	classes is 0. */
+/*	Answer the number of slots in a class. For example the instanceSizeOf:
+        ClassPoint is 2, for the x & y slots. The instance size of non-pointer
+        classes is 0. */
 
-	/* SpurMemoryManager>>#instanceSizeOf: */
+/* SpurMemoryManager>>#instanceSizeOf: */
 
-sqInt
-instanceSizeOf(sqInt classObj)
-{
-	assert(addressCouldBeClassObj(classObj));
-	return (((longAt((void *)((classObj + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3)) & ((1U << (fixedFieldsFieldWidth())) - 1);
+sqInt instanceSizeOf(sqInt classObj) {
+  assert(addressCouldBeClassObj(classObj));
+  return (((longAt((void *)((classObj + BaseHeaderSize) +
+                            ((((usqInt)(InstanceSpecificationIndex)
+                               << (shiftForWord()))))))) >>
+           3)) &
+         ((1U << (fixedFieldsFieldWidth())) - 1);
 }

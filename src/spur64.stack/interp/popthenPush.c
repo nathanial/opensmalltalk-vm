@@ -2,13 +2,11 @@
 
 /*	In the StackInterpreter stacks grow down. */
 
-	/* StackInterpreter>>#pop:thenPush: */
+/* StackInterpreter>>#pop:thenPush: */
 
-void
-popthenPush(sqInt nItems, sqInt oop)
-{
-    char *sp;
+void popthenPush(sqInt nItems, sqInt oop) {
+  char *sp;
 
-	longAtput((sp = stackPointer + ((nItems - 1) * BytesPerWord)),oop);
-	stackPointer = sp;
+  longAtput((sp = stackPointer + ((nItems - 1) * BytesPerWord)), oop);
+  stackPointer = sp;
 }

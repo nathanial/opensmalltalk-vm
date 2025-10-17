@@ -2,22 +2,19 @@
 
 /*	Free any untraced stack pages. */
 
-	/* StackInterpreter>>#freeUntracedStackPages */
+/* StackInterpreter>>#freeUntracedStackPages */
 
-static void
-freeUntracedStackPages(void)
-{
-    sqInt i;
-    StackPage *thePage;
+static void freeUntracedStackPages(void) {
+  sqInt i;
+  StackPage *thePage;
 
-	for (i = 0; i < numStackPages; i += 1) {
-		/* begin stackPageAt: */
-		thePage = stackPageAtpages(i, pages);
-		if ((!(isFree(thePage)))
-		 && (((thePage->trace)) == StackPageUnreached)) {
-			assert(noMarkedContextsOnPage(thePage));
-			freeStackPage(thePage);
-		}
-		assert(((thePage->trace = StackPageTraceInvalid)) != 0);
-	}
+  for (i = 0; i < numStackPages; i += 1) {
+    /* begin stackPageAt: */
+    thePage = stackPageAtpages(i, pages);
+    if ((!(isFree(thePage))) && (((thePage->trace)) == StackPageUnreached)) {
+      assert(noMarkedContextsOnPage(thePage));
+      freeStackPage(thePage);
+    }
+    assert(((thePage->trace = StackPageTraceInvalid)) != 0);
+  }
 }

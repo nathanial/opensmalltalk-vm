@@ -2,10 +2,6 @@
 
 /*	Part of InterpreterProxy's 1.14 API */
 
-	/* SpurMemoryManager>>#statNumGCs */
+/* SpurMemoryManager>>#statNumGCs */
 
-sqInt
-statNumGCs(void)
-{
-	return (statScavenges + statIncrGCs) + statFullGCs;
-}
+sqInt statNumGCs(void) { return (statScavenges + statIncrGCs) + statFullGCs; }

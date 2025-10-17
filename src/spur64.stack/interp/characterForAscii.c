@@ -2,10 +2,8 @@
 
 /*	Above ObjectMemory, arg must lie in range 0-255! */
 
-	/* StackInterpreter>>#characterForAscii: */
+/* StackInterpreter>>#characterForAscii: */
 
-sqInt
-characterForAscii(sqInt ascii)
-{
-	return ((((usqInt)(ascii) << (numTagBits())))) + (characterTag());
+sqInt characterForAscii(sqInt ascii) {
+  return ((((usqInt)(ascii) << (numTagBits())))) + (characterTag());
 }

@@ -1,77 +1,87 @@
-/* Extracted from interp.c:57343 (function marriedContextpointsTostackDeltaForCurrentFrame). */
+/* Extracted from interp.c:57343 (function
+ * marriedContextpointsTostackDeltaForCurrentFrame). */
 
 /*	This is a helper for primitiveObjectPointsTo so it *does not* check the
-	frameContext field because that is an implicit self-reference not present
-	in the state .
+        frameContext field because that is an implicit self-reference not
+   present in the state .
  */
 
-	/* StackInterpreter>>#marriedContext:pointsTo:stackDeltaForCurrentFrame: */
+/* StackInterpreter>>#marriedContext:pointsTo:stackDeltaForCurrentFrame: */
 
-static NoDbgRegParms sqInt
-marriedContextpointsTostackDeltaForCurrentFrame(sqInt spouseContext, sqInt anOop, sqInt stackDeltaForCurrentFrame)
-{
-    char *rcvrOffset;
-    sqInt senderOop;
-    char *theFP;
-    StackPage *thePage;
-    char *theSP;
+static NoDbgRegParms sqInt marriedContextpointsTostackDeltaForCurrentFrame(
+    sqInt spouseContext, sqInt anOop, sqInt stackDeltaForCurrentFrame) {
+  char *rcvrOffset;
+  sqInt senderOop;
+  char *theFP;
+  StackPage *thePage;
+  char *theSP;
 
-	/* begin frameOfMarriedContext: */
-	senderOop = longAt((void *)((spouseContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));
-	assert((((senderOop) & 7) == 1));
-	theFP = ((char *)(senderOop - (smallIntegerTag())));
-	if (theFP == framePointer) {
-		theSP = stackPointer + (stackDeltaForCurrentFrame * BytesPerWord);
-	}
-	else {
-		/* begin stackPageFor: */
-		thePage = stackPageAtpages(pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage), pages);
-		theSP = findSPOfon(theFP, thePage);
-	}
-	if ((((anOop) & 7) == 1)) {
-		if ((anOop == ((((usqInt)((((usqInt)(((theFP + FoxReceiver) - theSP))) >> (shiftForWord())) + (byteAt((theFP + FoxFrameFlags) + 1))) << 3) | 1)))
-		 || (anOop == (externalInstVarofContext(InstructionPointerIndex, spouseContext)))) {
-			return 1;
-		}
-	}
-	else {
-		if (anOop == (longAt(theFP + FoxMethod))) {
-			return 1;
-		}
-		if (longAt(theFP + FoxSavedFP)) {
-			if (((byteAt(((((char *)(longAt(theFP + FoxSavedFP)))) + FoxFrameFlags) + 2)) != 0)
-			 && (anOop == (longAt((((char *)(longAt(theFP + FoxSavedFP)))) + FoxThisContext)))) {
-				return 1;
-			}
-		}
-		else {
-			if (anOop == ((/* begin frameCallerContext: */
-				assert(isBaseFrame(theFP)),
-			longAt(theFP + FoxCallerContext)))) {
-				return 1;
-			}
-		}
-	}
+  /* begin frameOfMarriedContext: */
+  senderOop = longAt((void *)((spouseContext + BaseHeaderSize) +
+                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  assert((((senderOop) & 7) == 1));
+  theFP = ((char *)(senderOop - (smallIntegerTag())));
+  if (theFP == framePointer) {
+    theSP = stackPointer + (stackDeltaForCurrentFrame * BytesPerWord);
+  } else {
+    /* begin stackPageFor: */
+    thePage = stackPageAtpages(
+        pageIndexForstackMemorybytesPerPage(theFP, stackMemory, bytesPerPage),
+        pages);
+    theSP = findSPOfon(theFP, thePage);
+  }
+  if ((((anOop) & 7) == 1)) {
+    if ((anOop == ((((usqInt)((((usqInt)(((theFP + FoxReceiver) - theSP))) >>
+                               (shiftForWord())) +
+                              (byteAt((theFP + FoxFrameFlags) + 1)))
+                     << 3) |
+                    1))) ||
+        (anOop ==
+         (externalInstVarofContext(InstructionPointerIndex, spouseContext)))) {
+      return 1;
+    }
+  } else {
+    if (anOop == (longAt(theFP + FoxMethod))) {
+      return 1;
+    }
+    if (longAt(theFP + FoxSavedFP)) {
+      if (((byteAt(((((char *)(longAt(theFP + FoxSavedFP)))) + FoxFrameFlags) +
+                   2)) != 0) &&
+          (anOop == (longAt((((char *)(longAt(theFP + FoxSavedFP)))) +
+                            FoxThisContext)))) {
+        return 1;
+      }
+    } else {
+      if (anOop ==
+          ((/* begin frameCallerContext: */
+            assert(isBaseFrame(theFP)), longAt(theFP + FoxCallerContext)))) {
+        return 1;
+      }
+    }
+  }
 
-	/* Check stack and instruction pointer fields.
-	   Check method and sender fields, avoiding unnecessarily reifying sender context.
-	   Now check receiver, temps and stack contents */
-	rcvrOffset = theFP + FoxReceiver;
-	while (theSP <= rcvrOffset) {
-		if (anOop == (longAt(theSP))) {
-			return 1;
-		}
-		theSP += BytesPerWord;
-	}
+  /* Check stack and instruction pointer fields.
+     Check method and sender fields, avoiding unnecessarily reifying sender
+     context. Now check receiver, temps and stack contents */
+  rcvrOffset = theFP + FoxReceiver;
+  while (theSP <= rcvrOffset) {
+    if (anOop == (longAt(theSP))) {
+      return 1;
+    }
+    theSP += BytesPerWord;
+  }
 
-	/* Finally check stacked receiver (closure field or duplicate of receiver) and arguments */
-	theSP = (theFP + FoxCallerSavedIP) + BytesPerWord;
-	rcvrOffset = theFP + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1))) << (shiftForWord())))));
-	while (theSP <= rcvrOffset) {
-		if (anOop == (longAt(theSP))) {
-			return 1;
-		}
-		theSP += BytesPerWord;
-	}
-	return 0;
+  /* Finally check stacked receiver (closure field or duplicate of receiver) and
+   * arguments */
+  theSP = (theFP + FoxCallerSavedIP) + BytesPerWord;
+  rcvrOffset = theFP + ((FoxCallerSavedIP + BytesPerWord) +
+                        ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1)))
+                           << (shiftForWord())))));
+  while (theSP <= rcvrOffset) {
+    if (anOop == (longAt(theSP))) {
+      return 1;
+    }
+    theSP += BytesPerWord;
+  }
+  return 0;
 }

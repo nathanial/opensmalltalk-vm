@@ -2,11 +2,9 @@
 
 /*	In the StackInterpreter stacks grow down. */
 
-	/* StackInterpreter>>#pop: */
+/* StackInterpreter>>#pop: */
 
-sqInt
-pop(sqInt nItems)
-{
-	stackPointer += nItems * BytesPerWord;
-	return null;
+sqInt pop(sqInt nItems) {
+  stackPointer += nItems * BytesPerWord;
+  return null;
 }

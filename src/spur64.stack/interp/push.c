@@ -2,13 +2,11 @@
 
 /*	In the StackInterpreter stacks grow down. */
 
-	/* StackInterpreter>>#push: */
+/* StackInterpreter>>#push: */
 
-void
-push(sqInt object)
-{
-    char *sp;
+void push(sqInt object) {
+  char *sp;
 
-	longAtput((sp = stackPointer - BytesPerWord),object);
-	stackPointer = sp;
+  longAtput((sp = stackPointer - BytesPerWord), object);
+  stackPointer = sp;
 }

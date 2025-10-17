@@ -2,10 +2,6 @@
 
 /*	For Cogit & bootstrap */
 
-	/* SpurMemoryManager>>#classTableRootObj */
+/* SpurMemoryManager>>#classTableRootObj */
 
-sqInt
-classTableRootObj(void)
-{
-	return hiddenRootsObj;
-}
+sqInt classTableRootObj(void) { return hiddenRootsObj; }

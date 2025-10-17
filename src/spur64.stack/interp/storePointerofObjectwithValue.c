@@ -3,26 +3,28 @@
 /*	Note must check here for stores of young objects into old ones. */
 /*	See SistaCogit */
 
-	/* SpurMemoryManager>>#storePointer:ofObject:withValue: */
+/* SpurMemoryManager>>#storePointer:ofObject:withValue: */
 
-sqInt
-storePointerofObjectwithValue(sqInt fieldIndex, sqInt objOop, sqInt valuePointer)
-{
-	assert(validStorePointerArgs(fieldIndex, objOop, valuePointer));
+sqInt storePointerofObjectwithValue(sqInt fieldIndex, sqInt objOop,
+                                    sqInt valuePointer) {
+  assert(validStorePointerArgs(fieldIndex, objOop, valuePointer));
 
-	/* begin isOldObject: */
-	assert(isNonImmediate(objOop));
-	if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
-		if (/* isYoung: */
-			((!(valuePointer & (tagMask()))))
-		 && (oopisLessThan(valuePointer, oldSpaceStart))) {
-			/* begin possibleRootStoreInto: */
-			if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (rememberedBitByteShift())))) {
-				remember(objOop);
-			}
-		}
-	}
+  /* begin isOldObject: */
+  assert(isNonImmediate(objOop));
+  if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
+    if (/* isYoung: */
+        ((!(valuePointer & (tagMask())))) &&
+        (oopisLessThan(valuePointer, oldSpaceStart))) {
+      /* begin possibleRootStoreInto: */
+      if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) &
+            (1U << (rememberedBitByteShift())))) {
+        remember(objOop);
+      }
+    }
+  }
 
-	/* most stores into young objects */
-	return longAtput((void *)((objOop + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))),valuePointer);
+  /* most stores into young objects */
+  return longAtput((void *)((objOop + BaseHeaderSize) +
+                            ((((usqInt)(fieldIndex) << (shiftForWord()))))),
+                   valuePointer);
 }

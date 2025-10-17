@@ -2,10 +2,6 @@
 
 /*	for organizing the tree of large free chunks. */
 
-	/* SpurMemoryManager>>#freeChunkParentIndex */
+/* SpurMemoryManager>>#freeChunkParentIndex */
 
-static sqInt
-freeChunkParentIndex(void)
-{
-	return 2;
-}
+static sqInt freeChunkParentIndex(void) { return 2; }

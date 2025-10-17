@@ -2,17 +2,18 @@
 
 /*	useful for debugging */
 
-	/* SpurMemoryManager>>#printObjStack: */
+/* SpurMemoryManager>>#printObjStack: */
 
-void
-printObjStack(sqInt objStack)
-{
-	/* begin printObjStack:printContents: */
-	if (objStack == nilObj) {
-		print("nil");
-		cr();
-	}
-	else {
-		printObjStackPagemyIndexpageTypeprintContents(objStack, longAt((void *)((objStack + BaseHeaderSize) + ((((usqInt)(ObjStackMyx) << (shiftForWord())))))), ObjStackMyx, 0);
-	}
+void printObjStack(sqInt objStack) {
+  /* begin printObjStack:printContents: */
+  if (objStack == nilObj) {
+    print("nil");
+    cr();
+  } else {
+    printObjStackPagemyIndexpageTypeprintContents(
+        objStack,
+        longAt((void *)((objStack + BaseHeaderSize) +
+                        ((((usqInt)(ObjStackMyx) << (shiftForWord())))))),
+        ObjStackMyx, 0);
+  }
 }

@@ -2,10 +2,8 @@
 
 /*	Homonym of frameMethod: for compatibility with CoInterpreter */
 
-	/* StackInterpreter>>#frameMethodObject: */
+/* StackInterpreter>>#frameMethodObject: */
 
-static NoDbgRegParms sqInt
-frameMethodObject(char *theFP)
-{
-	return longAt(theFP + FoxMethod);
+static NoDbgRegParms sqInt frameMethodObject(char *theFP) {
+  return longAt(theFP + FoxMethod);
 }

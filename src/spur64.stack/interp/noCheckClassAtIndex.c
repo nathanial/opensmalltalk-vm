@@ -1,22 +1,23 @@
 /* Extracted from interp.c:40903 (function noCheckClassAtIndex). */
 
-	/* SpurMemoryManager>>#noCheckClassAtIndex: */
+/* SpurMemoryManager>>#noCheckClassAtIndex: */
 
-static NoDbgRegParms sqInt
-noCheckClassAtIndex(sqInt classIndex)
-{
-    sqInt classTablePage;
-    sqInt fieldIndex;
+static NoDbgRegParms sqInt noCheckClassAtIndex(sqInt classIndex) {
+  sqInt classTablePage;
+  sqInt fieldIndex;
 
-	fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
+  fieldIndex = ((usqInt)(classIndex)) >> (classTableMajorIndexShift());
 
-	/* begin fetchPointer:ofObject: */
-	classTablePage = longAt((void *)((hiddenRootsObj + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-	if (classTablePage == nilObj) {
-		return null;
-	}
-	fieldIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);
+  /* begin fetchPointer:ofObject: */
+  classTablePage =
+      longAt((void *)((hiddenRootsObj + BaseHeaderSize) +
+                      ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  if (classTablePage == nilObj) {
+    return null;
+  }
+  fieldIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);
 
-	/* begin fetchPointer:ofObject: */
-	return longAt((void *)((classTablePage + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+  /* begin fetchPointer:ofObject: */
+  return longAt((void *)((classTablePage + BaseHeaderSize) +
+                         ((((usqInt)(fieldIndex) << (shiftForWord()))))));
 }

@@ -1,9 +1,8 @@
 /* Extracted from interp.c:35076 (function fetchPointerofObject). */
 
-	/* SpurMemoryManager>>#fetchPointer:ofObject: */
+/* SpurMemoryManager>>#fetchPointer:ofObject: */
 
-sqInt
-fetchPointerofObject(sqInt fieldIndex, sqInt objOop)
-{
-	return longAt((void *)((objOop + BaseHeaderSize) + ((((usqInt)(fieldIndex) << (shiftForWord()))))));
+sqInt fetchPointerofObject(sqInt fieldIndex, sqInt objOop) {
+  return longAt((void *)((objOop + BaseHeaderSize) +
+                         ((((usqInt)(fieldIndex) << (shiftForWord()))))));
 }

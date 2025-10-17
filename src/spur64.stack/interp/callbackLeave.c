@@ -2,11 +2,9 @@
 
 /*	Leave from a previous callback */
 
-	/* StackInterpreter>>#callbackLeave: */
+/* StackInterpreter>>#callbackLeave: */
 
-sqInt
-callbackLeave(sqInt cbID)
-{
-	warning("callbackLeave: is obsolete");
-	return 0;
+sqInt callbackLeave(sqInt cbID) {
+  warning("callbackLeave: is obsolete");
+  return 0;
 }

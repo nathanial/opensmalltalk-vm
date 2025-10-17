@@ -1,13 +1,9 @@
 /* Extracted from interp.c:52096 (function dummyReferToProxy). */
 
 /*	Presumably this exists to squash C compiler warnings about unused
-	variables... 
+        variables...
  */
 
-	/* StackInterpreter>>#dummyReferToProxy */
+/* StackInterpreter>>#dummyReferToProxy */
 
-struct VirtualMachine * *
-dummyReferToProxy(void)
-{
-	return (&interpreterProxy);
-}
+struct VirtualMachine **dummyReferToProxy(void) { return (&interpreterProxy); }

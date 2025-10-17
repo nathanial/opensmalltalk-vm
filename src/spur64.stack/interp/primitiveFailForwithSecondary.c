@@ -2,11 +2,9 @@
 
 /*	Set primFailCode primitive failure and associated secondaryErrorCode. */
 
-	/* InterpreterPrimitives>>#primitiveFailFor:withSecondary: */
+/* InterpreterPrimitives>>#primitiveFailFor:withSecondary: */
 
-sqInt
-primitiveFailForwithSecondary(sqInt reasonCode, sqLong extraErrorCode)
-{
-	secondaryErrorCode = extraErrorCode;
-	return (primFailCode = reasonCode);
+sqInt primitiveFailForwithSecondary(sqInt reasonCode, sqLong extraErrorCode) {
+  secondaryErrorCode = extraErrorCode;
+  return (primFailCode = reasonCode);
 }

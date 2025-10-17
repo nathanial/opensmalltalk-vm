@@ -2,10 +2,6 @@
 
 /*	This is a no-op in the StackVM */
 
-	/* StackInterpreter>>#checkCodeIntegrity: */
+/* StackInterpreter>>#checkCodeIntegrity: */
 
-static NoDbgRegParms sqInt
-checkCodeIntegrity(sqInt fullGCFlag)
-{
-	return 1;
-}
+static NoDbgRegParms sqInt checkCodeIntegrity(sqInt fullGCFlag) { return 1; }

@@ -2,16 +2,18 @@
 
 /*	Answer the number of strong pointer fields in the given weakling. */
 
-	/* SpurMemoryManager>>#numStrongSlotsOfWeakling: */
+/* SpurMemoryManager>>#numStrongSlotsOfWeakling: */
 
-static NoDbgRegParms sqInt
-numStrongSlotsOfWeakling(sqInt objOop)
-{
-    sqInt objOopSqInt;
+static NoDbgRegParms sqInt numStrongSlotsOfWeakling(sqInt objOop) {
+  sqInt objOopSqInt;
 
-	assert((formatOf(objOop)) == (weakArrayFormat()));
-	objOopSqInt = fetchClassOfNonImm(objOop);
+  assert((formatOf(objOop)) == (weakArrayFormat()));
+  objOopSqInt = fetchClassOfNonImm(objOop);
 
-	/* begin fixedFieldsOfClass: */
-	return (((longAt((void *)((objOopSqInt + BaseHeaderSize) + ((((usqInt)(InstanceSpecificationIndex) << (shiftForWord()))))))) >> 3)) & ((1U << (fixedFieldsFieldWidth())) - 1);
+  /* begin fixedFieldsOfClass: */
+  return (((longAt((void *)((objOopSqInt + BaseHeaderSize) +
+                            ((((usqInt)(InstanceSpecificationIndex)
+                               << (shiftForWord()))))))) >>
+           3)) &
+         ((1U << (fixedFieldsFieldWidth())) - 1);
 }

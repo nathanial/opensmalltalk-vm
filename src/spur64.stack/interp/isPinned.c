@@ -1,9 +1,8 @@
 /* Extracted from interp.c:37543 (function isPinned). */
 
-	/* SpurMemoryManager>>#isPinned: */
+/* SpurMemoryManager>>#isPinned: */
 
-int
-isPinned(sqInt objOop)
-{
-	return ((byteAt((void *)(objOop + (formatFieldByteOffset())))) & (1U << (pinnedBitByteShift()))) != 0;
+int isPinned(sqInt objOop) {
+  return ((byteAt((void *)(objOop + (formatFieldByteOffset())))) &
+          (1U << (pinnedBitByteShift()))) != 0;
 }

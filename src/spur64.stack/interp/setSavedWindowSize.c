@@ -1,9 +1,5 @@
 /* Extracted from interp.c:63032 (function setSavedWindowSize). */
 
-	/* StackInterpreter>>#setSavedWindowSize: */
+/* StackInterpreter>>#setSavedWindowSize: */
 
-void
-setSavedWindowSize(sqInt value)
-{
-	savedWindowSize = value;
-}
+void setSavedWindowSize(sqInt value) { savedWindowSize = value; }

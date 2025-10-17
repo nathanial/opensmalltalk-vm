@@ -2,16 +2,14 @@
 
 /*	Returns an integer object */
 
-	/* StackInterpreter>>#asciiOfCharacter: */
+/* StackInterpreter>>#asciiOfCharacter: */
 
-static NoDbgRegParms sqInt
-asciiOfCharacter(sqInt characterObj)
-{
-	if (((characterObj & (characterTag())) != 0)) {
-		return characterObj - ((characterTag()) - (smallIntegerTag()));
-	}
+static NoDbgRegParms sqInt asciiOfCharacter(sqInt characterObj) {
+  if (((characterObj & (characterTag())) != 0)) {
+    return characterObj - ((characterTag()) - (smallIntegerTag()));
+  }
 
-	/* primitiveFailFor: */
-	primFailCode = PrimErrBadArgument;
-	return ConstZero;
+  /* primitiveFailFor: */
+  primFailCode = PrimErrBadArgument;
+  return ConstZero;
 }

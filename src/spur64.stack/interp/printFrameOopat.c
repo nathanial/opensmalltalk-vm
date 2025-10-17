@@ -1,22 +1,15 @@
 /* Extracted from interp.c:59733 (function printFrameOopat). */
 
-	/* StackInterpreter>>#printFrameOop:at: */
+/* StackInterpreter>>#printFrameOop:at: */
 
-static NoDbgRegParms void
-printFrameOopat(char *name, char *address)
-{
-    sqInt it;
+static NoDbgRegParms void printFrameOopat(char *name, char *address) {
+  sqInt it;
 
-	it = longAt(address);
+  it = longAt(address);
 
-	/* begin printFrameAddress: */
-	fprintf(transcript,
-			"%16p:",
-			((void *)address));
-	fprintf(transcript,
-			"%12s: %16p\t=" /* pst: */,
-			name,
-			((void *)it));
-	printOopShortInner(it);
-	cr();
+  /* begin printFrameAddress: */
+  fprintf(transcript, "%16p:", ((void *)address));
+  fprintf(transcript, "%12s: %16p\t=" /* pst: */, name, ((void *)it));
+  printOopShortInner(it);
+  cr();
 }

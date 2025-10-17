@@ -2,10 +2,6 @@
 
 /*	This is nil in the StackVM */
 
-	/* StackInterpreter>>#getMaxLiteralCountForCompile */
+/* StackInterpreter>>#getMaxLiteralCountForCompile */
 
-static sqInt
-getMaxLiteralCountForCompile(void)
-{
-	return nilObj;
-}
+static sqInt getMaxLiteralCountForCompile(void) { return nilObj; }

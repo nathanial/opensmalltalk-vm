@@ -2,18 +2,16 @@
 
 /*	useful for VM debugging */
 
-	/* StackInterpreter>>#printStackPages */
+/* StackInterpreter>>#printStackPages */
 
-void
-printStackPages(void)
-{
-    sqInt i;
-    StackPage *page;
+void printStackPages(void) {
+  sqInt i;
+  StackPage *page;
 
-	for (i = 0; i < numStackPages; i += 1) {
-		/* begin stackPageAt: */
-		page = stackPageAtpages(i, pages);
-		printStackPageuseCount(page, -1);
-		cr();
-	}
+  for (i = 0; i < numStackPages; i += 1) {
+    /* begin stackPageAt: */
+    page = stackPageAtpages(i, pages);
+    printStackPageuseCount(page, -1);
+    cr();
+  }
 }

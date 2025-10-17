@@ -1,9 +1,7 @@
 /* Extracted from interp.c:35370 (function firstFixedField). */
 
-	/* SpurMemoryManager>>#firstFixedField: */
+/* SpurMemoryManager>>#firstFixedField: */
 
-void *
-firstFixedField(sqInt objOop)
-{
-	return pointerForOop(objOop + BaseHeaderSize);
+void *firstFixedField(sqInt objOop) {
+  return pointerForOop(objOop + BaseHeaderSize);
 }

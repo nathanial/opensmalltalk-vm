@@ -2,15 +2,14 @@
 
 /*	Answer if running on a big endian machine. */
 
-	/* InterpreterPrimitives>>#primitiveIsBigEnder */
+/* InterpreterPrimitives>>#primitiveIsBigEnder */
 
 EXPORT(sqInt)
-primitiveIsBigEnder(void)
-{
-    char *sp;
+primitiveIsBigEnder(void) {
+  char *sp;
 
-	/* begin pop:thenPushBool: */
-	longAtput((sp = stackPointer),falseObj);
-	stackPointer = sp;
-	return 0;
+  /* begin pop:thenPushBool: */
+  longAtput((sp = stackPointer), falseObj);
+  stackPointer = sp;
+  return 0;
 }

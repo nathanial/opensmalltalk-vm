@@ -1,37 +1,40 @@
 /* Extracted from interp.c:41095 (function numBytesOf). */
 
 /*	Answer the number of indexable bytes in the given non-immediate object.
-	Does not adjust the size of contexts by stackPointer. */
+        Does not adjust the size of contexts by stackPointer. */
 
-	/* SpurMemoryManager>>#numBytesOf: */
+/* SpurMemoryManager>>#numBytesOf: */
 
-sqInt
-numBytesOf(sqInt objOop)
-{
-    sqInt fmt;
-    usqInt numBytes;
-    usqInt numSlots;
+sqInt numBytesOf(sqInt objOop) {
+  sqInt fmt;
+  usqInt numBytes;
+  usqInt numSlots;
 
-	fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
+  fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
 
-	/* begin numSlotsOf: */
-	assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun()));
-	numBytes = (((numSlots = byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) == (numSlotsMask())
-				? ((((usqInt)(((sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize)))) << 8)))))) >> 8
-				: numSlots);
-	numBytes = (numBytes << (shiftForWord()));
-	if (fmt >= (firstByteFormat())) {
-		return numBytes - (fmt & 7);
-	}
+  /* begin numSlotsOf: */
+  assert((classIndexOf(objOop)) > (isForwardedObjectClassIndexPun()));
+  numBytes =
+      (((numSlots = byteAt((void *)(objOop + (numSlotsFieldByteOffset()))))) ==
+               (numSlotsMask())
+           ? ((((usqInt)((
+                 (sqInt)((usqInt)((longAt((void *)(objOop - BaseHeaderSize))))
+                         << 8)))))) >>
+                 8
+           : numSlots);
+  numBytes = (numBytes << (shiftForWord()));
+  if (fmt >= (firstByteFormat())) {
+    return numBytes - (fmt & 7);
+  }
 
-	/* bytes (the common case), including CompiledMethod */
-	if (fmt <= (sixtyFourBitIndexableFormat())) {
-		return numBytes;
-	}
-	if (fmt >= (firstShortFormat())) {
-		return numBytes - (((fmt & 3) << 1));
-	}
+  /* bytes (the common case), including CompiledMethod */
+  if (fmt <= (sixtyFourBitIndexableFormat())) {
+    return numBytes;
+  }
+  if (fmt >= (firstShortFormat())) {
+    return numBytes - (((fmt & 3) << 1));
+  }
 
-	/* fmt >= self firstLongFormat */
-	return numBytes - (((fmt & 1) << 2));
+  /* fmt >= self firstLongFormat */
+  return numBytes - (((fmt & 1) << 2));
 }

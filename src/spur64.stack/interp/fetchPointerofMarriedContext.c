@@ -1,74 +1,87 @@
 /* Extracted from interp.c:53004 (function fetchPointerofMarriedContext). */
 
 /*	Fetch a slot from a married context. Compute the value
-	of the relevant inst var from the spouse frame's state.
-	
-	This method assumes frame pointers have been written back. */
+        of the relevant inst var from the spouse frame's state.
 
-	/* StackInterpreter>>#fetchPointer:ofMarriedContext: */
+        This method assumes frame pointers have been written back. */
 
-static NoDbgRegParms sqInt
-fetchPointerofMarriedContext(sqInt offset, sqInt aContext)
-{
-    char *callerFP;
-    usqInt frameNumArgs;
-    sqInt senderOop;
-    char *spouseFP;
+/* StackInterpreter>>#fetchPointer:ofMarriedContext: */
 
-	assert(isContext(aContext));
-	assert((((stackPage->headFP)) == framePointer)
-	 && (((stackPage->headSP)) == stackPointer));
-	assert(checkIsStillMarriedContextcurrentFP(aContext, framePointer));
+static NoDbgRegParms sqInt fetchPointerofMarriedContext(sqInt offset,
+                                                        sqInt aContext) {
+  char *callerFP;
+  usqInt frameNumArgs;
+  sqInt senderOop;
+  char *spouseFP;
 
-	/* method, closureOrNil & receiver need no special handling; only
-	   sender, pc & stackp have to be computed for married contexts. */
-	if (offset <= ReceiverIndex) {
-		if (!(offset <= StackPointerIndex)) {
-			return longAt((void *)((aContext + BaseHeaderSize) + ((((usqInt)(offset) << (shiftForWord()))))));
-		}
+  assert(isContext(aContext));
+  assert((((stackPage->headFP)) == framePointer) &&
+         (((stackPage->headSP)) == stackPointer));
+  assert(checkIsStillMarriedContextcurrentFP(aContext, framePointer));
 
-		/* begin frameOfMarriedContext: */
-		senderOop = longAt((void *)((aContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));
-		assert((((senderOop) & 7) == 1));
-		spouseFP = ((char *)(senderOop - (smallIntegerTag())));
-		if (!offset) {
-			/* begin ensureCallerContext: */
-			callerFP = ((char *)(longAt(spouseFP + FoxSavedFP)));
-			if (!callerFP) {
-				/* begin frameCallerContext: */
-				assert(isBaseFrame(spouseFP));
-				return longAt(spouseFP + FoxCallerContext);
-			}
+  /* method, closureOrNil & receiver need no special handling; only
+     sender, pc & stackp have to be computed for married contexts. */
+  if (offset <= ReceiverIndex) {
+    if (!(offset <= StackPointerIndex)) {
+      return longAt((void *)((aContext + BaseHeaderSize) +
+                             ((((usqInt)(offset) << (shiftForWord()))))));
+    }
 
-			/* base frame, context in saved ip slot (or base of stack in Cog) */
+    /* begin frameOfMarriedContext: */
+    senderOop =
+        longAt((void *)((aContext + BaseHeaderSize) +
+                        ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+    assert((((senderOop) & 7) == 1));
+    spouseFP = ((char *)(senderOop - (smallIntegerTag())));
+    if (!offset) {
+      /* begin ensureCallerContext: */
+      callerFP = ((char *)(longAt(spouseFP + FoxSavedFP)));
+      if (!callerFP) {
+        /* begin frameCallerContext: */
+        assert(isBaseFrame(spouseFP));
+        return longAt(spouseFP + FoxCallerContext);
+      }
 
-			/* begin ensureFrameIsMarried:SP: */
-			if (byteAt((callerFP + FoxFrameFlags) + 2)) {
-				assert(isContext(frameContext(callerFP)));
-				return longAt(callerFP + FoxThisContext);
-			}
-			return marryFrameSP(
-				callerFP,
-				(/* begin frameCallerStackPointer: */
-					assert(!(isBaseFrame(spouseFP))),
-				(spouseFP + ((FoxCallerSavedIP + BytesPerWord) + ((((usqInt)((byteAt((spouseFP + FoxFrameFlags) + 1))) << (shiftForWord())))))) + BytesPerWord));
-		}
-		if (offset == StackPointerIndex) {
-			return (((stackPointerIndexForFrame(spouseFP)) << 3) | 1);
-		}
-		if (offset == InstructionPointerIndex) {
-			return instructionPointerForFramecurrentFPcurrentIP(spouseFP, framePointer, instructionPointer);
-		}
-	}
+      /* base frame, context in saved ip slot (or base of stack in Cog) */
 
-	/* begin frameOfMarriedContext: */
-	senderOop = longAt((void *)((aContext + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));
-	assert((((senderOop) & 7) == 1));
-	spouseFP = ((char *)(senderOop - (smallIntegerTag())));
-	return ((((offset - ReceiverIndex) >= 1) && ((offset - ReceiverIndex) <= (stackPointerIndexForFrame(spouseFP))))
-			? /* temporary:in: */
-				((offset - (ReceiverIndex + 1)) < ((frameNumArgs = byteAt((spouseFP + FoxFrameFlags) + 1)))
-					? longAt((spouseFP + FoxCallerSavedIP) + ((frameNumArgs - (offset - (ReceiverIndex + 1))) * BytesPerWord))
-					: longAt(((spouseFP + FoxReceiver) - BytesPerWord) + ((frameNumArgs - (offset - (ReceiverIndex + 1))) * BytesPerWord)))
-			: nilObj);
+      /* begin ensureFrameIsMarried:SP: */
+      if (byteAt((callerFP + FoxFrameFlags) + 2)) {
+        assert(isContext(frameContext(callerFP)));
+        return longAt(callerFP + FoxThisContext);
+      }
+      return marryFrameSP(
+          callerFP,
+          (/* begin frameCallerStackPointer: */
+           assert(!(isBaseFrame(spouseFP))),
+           (spouseFP + ((FoxCallerSavedIP + BytesPerWord) +
+                        ((((usqInt)((byteAt((spouseFP + FoxFrameFlags) + 1)))
+                           << (shiftForWord())))))) +
+               BytesPerWord));
+    }
+    if (offset == StackPointerIndex) {
+      return (((stackPointerIndexForFrame(spouseFP)) << 3) | 1);
+    }
+    if (offset == InstructionPointerIndex) {
+      return instructionPointerForFramecurrentFPcurrentIP(
+          spouseFP, framePointer, instructionPointer);
+    }
+  }
+
+  /* begin frameOfMarriedContext: */
+  senderOop = longAt((void *)((aContext + BaseHeaderSize) +
+                              ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  assert((((senderOop) & 7) == 1));
+  spouseFP = ((char *)(senderOop - (smallIntegerTag())));
+  return ((((offset - ReceiverIndex) >= 1) &&
+           ((offset - ReceiverIndex) <= (stackPointerIndexForFrame(spouseFP))))
+              ? /* temporary:in: */
+              ((offset - (ReceiverIndex + 1)) <
+                       ((frameNumArgs = byteAt((spouseFP + FoxFrameFlags) + 1)))
+                   ? longAt((spouseFP + FoxCallerSavedIP) +
+                            ((frameNumArgs - (offset - (ReceiverIndex + 1))) *
+                             BytesPerWord))
+                   : longAt(((spouseFP + FoxReceiver) - BytesPerWord) +
+                            ((frameNumArgs - (offset - (ReceiverIndex + 1))) *
+                             BytesPerWord)))
+              : nilObj);
 }

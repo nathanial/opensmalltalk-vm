@@ -1,16 +1,14 @@
 /* Extracted from interp.c:26411 (function whereIsMaybeStackThing). */
 
-/*	If anOop is an address within the stack zone answer a string stating that,
-	otherwise answer nil.
+/*	If anOop is an address within the stack zone answer a string stating
+   that, otherwise answer nil.
  */
 
-	/* InterpreterStackPages>>#whereIsMaybeStackThing: */
+/* InterpreterStackPages>>#whereIsMaybeStackThing: */
 
-static NoDbgRegParms char *
-whereIsMaybeStackThing(sqInt anOop)
-{
-	if (oopisGreaterThanOrEqualToandLessThan(anOop, stackMemory, pages)) {
-		return " is in the stack zone";
-	}
-	return null;
+static NoDbgRegParms char *whereIsMaybeStackThing(sqInt anOop) {
+  if (oopisGreaterThanOrEqualToandLessThan(anOop, stackMemory, pages)) {
+    return " is in the stack zone";
+  }
+  return null;
 }

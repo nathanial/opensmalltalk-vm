@@ -2,14 +2,12 @@
 
 /*	In the StackInterpreter stacks grow down. */
 
-	/* StackInterpreter>>#popStack */
+/* StackInterpreter>>#popStack */
 
-sqInt
-popStack(void)
-{
-    sqInt top;
+sqInt popStack(void) {
+  sqInt top;
 
-	top = longAt(stackPointer);
-	stackPointer += BytesPerWord;
-	return top;
+  top = longAt(stackPointer);
+  stackPointer += BytesPerWord;
+  return top;
 }

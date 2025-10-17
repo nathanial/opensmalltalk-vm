@@ -2,19 +2,17 @@
 
 /*	Return the first object in the heap. */
 
-	/* InterpreterPrimitives>>#primitiveSomeObject */
+/* InterpreterPrimitives>>#primitiveSomeObject */
 
-static void
-primitiveSomeObject(void)
-{
-    sqInt object;
-    char *sp;
+static void primitiveSomeObject(void) {
+  sqInt object;
+  char *sp;
 
-	/* begin pop: */
-	stackPointer += (argumentCount + 1) * BytesPerWord;
-	object = firstAccessibleObject();
+  /* begin pop: */
+  stackPointer += (argumentCount + 1) * BytesPerWord;
+  object = firstAccessibleObject();
 
-	/* begin push: */
-	longAtput((sp = stackPointer - BytesPerWord),object);
-	stackPointer = sp;
+  /* begin push: */
+  longAtput((sp = stackPointer - BytesPerWord), object);
+  stackPointer = sp;
 }

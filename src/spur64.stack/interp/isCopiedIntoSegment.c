@@ -2,10 +2,9 @@
 
 /*	This is part of storeImageSegmentInto:outPointers:roots:. */
 
-	/* SpurMemoryManager>>#isCopiedIntoSegment: */
+/* SpurMemoryManager>>#isCopiedIntoSegment: */
 
-static NoDbgRegParms int
-isCopiedIntoSegment(sqInt anObjectInTheHeap)
-{
-	return ((byteAt((void *)(anObjectInTheHeap + (markBitsByteOffset())))) & (1U << (markedBitByteShift()))) != 0;
+static NoDbgRegParms int isCopiedIntoSegment(sqInt anObjectInTheHeap) {
+  return ((byteAt((void *)(anObjectInTheHeap + (markBitsByteOffset())))) &
+          (1U << (markedBitByteShift()))) != 0;
 }

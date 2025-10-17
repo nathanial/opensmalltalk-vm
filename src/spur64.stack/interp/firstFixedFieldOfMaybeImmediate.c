@@ -2,12 +2,9 @@
 
 /*	for the message send breakpoint; selectors can be immediates. */
 
-	/* SpurMemoryManager>>#firstFixedFieldOfMaybeImmediate: */
+/* SpurMemoryManager>>#firstFixedFieldOfMaybeImmediate: */
 
-static NoDbgRegParms void *
-firstFixedFieldOfMaybeImmediate(sqInt oop)
-{
-	return (((oop & (tagMask())) != 0)
-			? ((void *)oop)
-			: pointerForOop(oop + BaseHeaderSize));
+static NoDbgRegParms void *firstFixedFieldOfMaybeImmediate(sqInt oop) {
+  return (((oop & (tagMask())) != 0) ? ((void *)oop)
+                                     : pointerForOop(oop + BaseHeaderSize));
 }

@@ -1,9 +1,5 @@
 /* Extracted from interp.c:54350 (function getInterruptPending). */
 
-	/* StackInterpreter>>#getInterruptPending */
+/* StackInterpreter>>#getInterruptPending */
 
-sqInt
-getInterruptPending(void)
-{
-	return interruptPending;
-}
+sqInt getInterruptPending(void) { return interruptPending; }

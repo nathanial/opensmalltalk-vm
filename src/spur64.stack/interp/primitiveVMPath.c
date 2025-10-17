@@ -2,20 +2,21 @@
 
 /*	Return a string containing the path name of VM's directory. */
 
-	/* InterpreterPrimitives>>#primitiveVMPath */
+/* InterpreterPrimitives>>#primitiveVMPath */
 
-static void
-primitiveVMPath(void)
-{
-    sqInt s;
-    char *sp;
-    sqInt sz;
+static void primitiveVMPath(void) {
+  sqInt s;
+  char *sp;
+  sqInt sz;
 
-	sz = vmPathSize();
-	s = instantiateClassindexableSize(longAt((void *)((specialObjectsOop + BaseHeaderSize) + ((((usqInt)(ClassByteString) << (shiftForWord())))))), sz);
-	vmPathGetLength(s + BaseHeaderSize, sz);
+  sz = vmPathSize();
+  s = instantiateClassindexableSize(
+      longAt((void *)((specialObjectsOop + BaseHeaderSize) +
+                      ((((usqInt)(ClassByteString) << (shiftForWord())))))),
+      sz);
+  vmPathGetLength(s + BaseHeaderSize, sz);
 
-	/* begin pop:thenPush: */
-	longAtput((sp = stackPointer),s);
-	stackPointer = sp;
+  /* begin pop:thenPush: */
+  longAtput((sp = stackPointer), s);
+  stackPointer = sp;
 }

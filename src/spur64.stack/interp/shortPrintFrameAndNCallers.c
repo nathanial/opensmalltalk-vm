@@ -2,16 +2,14 @@
 
 /*	useful for VM debugging */
 
-	/* StackInterpreter>>#shortPrintFrame:AndNCallers: */
+/* StackInterpreter>>#shortPrintFrame:AndNCallers: */
 
-void
-shortPrintFrameAndNCallers(char *theFP, sqInt n)
-{
-	if ((n != 0)
-	 && (/* couldBeFramePointer: */
-		(((((usqInt)theFP)) & (BytesPerWord - 1)) == 0)
-	 && ((((((usqInt)theFP)) >= (((usqInt)stackMemory))) && ((((usqInt)theFP)) <= (((usqInt)pages))))))) {
-		shortPrintFrame(theFP);
-		shortPrintFrameAndNCallers(((char *)(longAt(theFP + FoxSavedFP))), n - 1);
-	}
+void shortPrintFrameAndNCallers(char *theFP, sqInt n) {
+  if ((n != 0) && (/* couldBeFramePointer: */
+                   (((((usqInt)theFP)) & (BytesPerWord - 1)) == 0) &&
+                   ((((((usqInt)theFP)) >= (((usqInt)stackMemory))) &&
+                     ((((usqInt)theFP)) <= (((usqInt)pages))))))) {
+    shortPrintFrame(theFP);
+    shortPrintFrameAndNCallers(((char *)(longAt(theFP + FoxSavedFP))), n - 1);
+  }
 }

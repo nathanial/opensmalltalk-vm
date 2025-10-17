@@ -2,13 +2,11 @@
 
 /*	Primitive. Void the VM profile histograms. */
 
-	/* InterpreterPrimitives>>#primitiveClearVMProfile */
+/* InterpreterPrimitives>>#primitiveClearVMProfile */
 
-static void
-primitiveClearVMProfile(void)
-{
-	ioClearProfile();
+static void primitiveClearVMProfile(void) {
+  ioClearProfile();
 
-	/* begin pop: */
-	stackPointer += argumentCount * BytesPerWord;
+  /* begin pop: */
+  stackPointer += argumentCount * BytesPerWord;
 }

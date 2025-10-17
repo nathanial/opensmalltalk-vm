@@ -2,10 +2,10 @@
 
 /*	useful for VM debugging */
 
-	/* StackInterpreter>>#printMethodDictionaryOf: */
+/* StackInterpreter>>#printMethodDictionaryOf: */
 
-void
-printMethodDictionaryOf(sqInt behavior)
-{
-	printMethodDictionary(longAt((void *)((behavior + BaseHeaderSize) + ((((usqInt)(MethodDictionaryIndex) << (shiftForWord())))))));
+void printMethodDictionaryOf(sqInt behavior) {
+  printMethodDictionary(longAt(
+      (void *)((behavior + BaseHeaderSize) +
+               ((((usqInt)(MethodDictionaryIndex) << (shiftForWord())))))));
 }

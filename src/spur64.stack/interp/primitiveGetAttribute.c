@@ -1,31 +1,29 @@
 /* Extracted from interp.c:17102 (function primitiveGetAttribute). */
 
 /*	Fetch the system attribute with the given integer ID. The result is a
-	string, or nil if the attribute is not defined.
+        string, or nil if the attribute is not defined.
  */
 
-	/* InterpreterPrimitives>>#primitiveGetAttribute */
+/* InterpreterPrimitives>>#primitiveGetAttribute */
 
-static void
-primitiveGetAttribute(void)
-{
-    sqInt attr;
-    const char *attributeString;
-    char *sp;
+static void primitiveGetAttribute(void) {
+  sqInt attr;
+  const char *attributeString;
+  char *sp;
 
-	attr = longAt(stackPointer);
-	if (!((((attr) & 7) == 1))) {
-		/* primitiveFailFor: */
-		primFailCode = PrimErrBadArgument;
-		return;
-	}
-	if ((attributeString = getAttributeString((attr >> 3)))) {
-		methodReturnString(attributeString);
-	}
-	else {
-		/* begin methodReturnValue: */
-		assert(!((failed())));
-		longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),nilObj);
-		stackPointer = sp;
-	}
+  attr = longAt(stackPointer);
+  if (!((((attr) & 7) == 1))) {
+    /* primitiveFailFor: */
+    primFailCode = PrimErrBadArgument;
+    return;
+  }
+  if ((attributeString = getAttributeString((attr >> 3)))) {
+    methodReturnString(attributeString);
+  } else {
+    /* begin methodReturnValue: */
+    assert(!((failed())));
+    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+              nilObj);
+    stackPointer = sp;
+  }
 }

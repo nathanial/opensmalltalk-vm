@@ -2,14 +2,12 @@
 
 /*	Return the oop of the SpecialObjectsArray. */
 
-	/* InterpreterPrimitives>>#primitiveSpecialObjectsOop */
+/* InterpreterPrimitives>>#primitiveSpecialObjectsOop */
 
-static void
-primitiveSpecialObjectsOop(void)
-{
-    char *sp;
+static void primitiveSpecialObjectsOop(void) {
+  char *sp;
 
-	/* begin pop:thenPush: */
-	longAtput((sp = stackPointer),specialObjectsOop);
-	stackPointer = sp;
+  /* begin pop:thenPush: */
+  longAtput((sp = stackPointer), specialObjectsOop);
+  stackPointer = sp;
 }

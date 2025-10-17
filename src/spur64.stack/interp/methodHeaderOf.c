@@ -2,11 +2,10 @@
 
 /*	Answer the method header of a CompiledMethod object. */
 
-	/* SpurMemoryManager>>#methodHeaderOf: */
+/* SpurMemoryManager>>#methodHeaderOf: */
 
-static NoDbgRegParms sqInt
-methodHeaderOf(sqInt methodObj)
-{
-	assert(isCompiledMethod(methodObj));
-	return longAt((void *)((methodObj + BaseHeaderSize) + ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
+static NoDbgRegParms sqInt methodHeaderOf(sqInt methodObj) {
+  assert(isCompiledMethod(methodObj));
+  return longAt((void *)((methodObj + BaseHeaderSize) +
+                         ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
 }

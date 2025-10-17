@@ -2,11 +2,10 @@
 
 /*	Answer whether the oop is an object of compiled method format */
 
-	/* SpurMemoryManager>>#isOopCompiledMethod: */
+/* SpurMemoryManager>>#isOopCompiledMethod: */
 
-sqInt
-isOopCompiledMethod(sqInt oop)
-{
-	return ((!(oop & (tagMask()))))
-	 && (((byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask())) >= (firstCompiledMethodFormat()));
+sqInt isOopCompiledMethod(sqInt oop) {
+  return ((!(oop & (tagMask())))) &&
+         (((byteAt((void *)(oop + (formatFieldByteOffset())))) &
+           (formatMask())) >= (firstCompiledMethodFormat()));
 }

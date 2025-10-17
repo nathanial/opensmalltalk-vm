@@ -1,19 +1,15 @@
 /* Extracted from interp.c:61182 (function pushBool). */
 
-	/* StackInterpreter>>#pushBool: */
+/* StackInterpreter>>#pushBool: */
 
-void
-pushBool(sqInt trueOrFalse)
-{
-    sqInt object;
-    char *sp;
+void pushBool(sqInt trueOrFalse) {
+  sqInt object;
+  char *sp;
 
-	object = /* booleanObjectOf: */
-			(trueOrFalse
-				? trueObj
-				: falseObj);
+  object = /* booleanObjectOf: */
+      (trueOrFalse ? trueObj : falseObj);
 
-	/* begin push: */
-	longAtput((sp = stackPointer - BytesPerWord),object);
-	stackPointer = sp;
+  /* begin push: */
+  longAtput((sp = stackPointer - BytesPerWord), object);
+  stackPointer = sp;
 }

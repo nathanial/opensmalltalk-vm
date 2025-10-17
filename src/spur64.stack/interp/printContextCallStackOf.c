@@ -2,18 +2,20 @@
 
 /*	Print the call stack of aContext until it links to a frame. */
 
-	/* StackInterpreter>>#printContextCallStackOf: */
+/* StackInterpreter>>#printContextCallStackOf: */
 
-static NoDbgRegParms sqInt
-printContextCallStackOf(sqInt aContext)
-{
-    sqInt ctxt;
+static NoDbgRegParms sqInt printContextCallStackOf(sqInt aContext) {
+  sqInt ctxt;
 
-	ctxt = aContext;
-	while (!((ctxt == nilObj)
-	 || (((((longAt((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord())))))))) & 7) == 1)))) {
-		shortPrintContext(ctxt);
-		ctxt = longAt((void *)((ctxt + BaseHeaderSize) + ((((usqInt)(SenderIndex) << (shiftForWord()))))));
-	}
-	return ctxt;
+  ctxt = aContext;
+  while (!(
+      (ctxt == nilObj) ||
+      (((((longAt((void *)((ctxt + BaseHeaderSize) +
+                           ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &
+         7) == 1)))) {
+    shortPrintContext(ctxt);
+    ctxt = longAt((void *)((ctxt + BaseHeaderSize) +
+                           ((((usqInt)(SenderIndex) << (shiftForWord()))))));
+  }
+  return ctxt;
 }

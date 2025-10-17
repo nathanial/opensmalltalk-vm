@@ -2,10 +2,6 @@
 
 /*	Return the method an external primitive was defined in */
 
-	/* InterpreterPrimitives>>#primitiveMethod */
+/* InterpreterPrimitives>>#primitiveMethod */
 
-usqInt
-primitiveMethod(void)
-{
-	return newMethod;
-}
+usqInt primitiveMethod(void) { return newMethod; }
