@@ -9,7 +9,7 @@
 
 /* CogStackPages>>#freeStackPage: */
 
-static NoDbgRegParms void freeStackPage(StackPage *aPage) {
+static void freeStackPage(StackPage *aPage) {
   freeStackPageNoAssert(aPage);
   assert(pageListIsWellFormed());
 }

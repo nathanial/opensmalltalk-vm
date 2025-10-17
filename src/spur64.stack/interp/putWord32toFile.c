@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#putWord32:toFile: */
 
-static NoDbgRegParms void putWord32toFile(int aWord32, sqImageFile aFile) {
+static void putWord32toFile(int aWord32, sqImageFile aFile) {
   sqInt objectsWritten;
 
   objectsWritten = sqImageFileWrite((&aWord32), 4, 1, aFile);

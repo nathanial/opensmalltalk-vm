@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#reapAndResetErrorCodeTo:header: */
 
-static NoDbgRegParms NeverInline void
+static NeverInline void
 reapAndResetErrorCodeToheader(char *theSP, sqInt methodHeader) {
   usqInt initialPC;
 

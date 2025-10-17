@@ -3,7 +3,7 @@
 
 /* StackInterpreter>>#findClassContainingMethod:startingAt: */
 
-static NoDbgRegParms sqInt findClassContainingMethodstartingAt(sqInt meth,
+static sqInt findClassContainingMethodstartingAt(sqInt meth,
                                                                sqInt classObj) {
   sqInt classDict;
   usqInt classDictSize;

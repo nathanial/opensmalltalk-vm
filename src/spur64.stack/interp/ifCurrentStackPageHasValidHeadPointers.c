@@ -9,7 +9,7 @@
 
 /* StackInterpreter>>#ifCurrentStackPageHasValidHeadPointers: */
 
-static NoDbgRegParms sqInt
+static sqInt
 ifCurrentStackPageHasValidHeadPointers(StackPage *thePage) {
   if (thePage == stackPage) {
     if (/* addressIsInPage: */

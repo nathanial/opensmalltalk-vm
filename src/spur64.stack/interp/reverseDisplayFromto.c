@@ -7,7 +7,7 @@
 
 /* StackInterpreter>>#reverseDisplayFrom:to: */
 
-static NoDbgRegParms void reverseDisplayFromto(sqInt startIndex,
+static void reverseDisplayFromto(sqInt startIndex,
                                                sqInt endIndex) {
   sqInt primFailCodeValue;
   sqInt ptr;

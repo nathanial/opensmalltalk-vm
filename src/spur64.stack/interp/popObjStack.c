@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#popObjStack: */
 
-static NoDbgRegParms sqInt popObjStack(sqInt objStack) {
+static sqInt popObjStack(sqInt objStack) {
   sqInt myx;
   sqInt nextPage;
   sqInt top;

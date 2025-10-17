@@ -6,7 +6,7 @@
 
 /* SpurSegmentManager>>#isValidSegmentBridge: */
 
-static NoDbgRegParms sqInt isValidSegmentBridge(sqInt objOop) {
+static sqInt isValidSegmentBridge(sqInt objOop) {
   return ((addressCouldBeObj(objOop)) || (objOop == endOfMemory)) &&
          ((((longAt((void *)(objOop))) & (classIndexMask())) ==
            (segmentBridgePun())) &&

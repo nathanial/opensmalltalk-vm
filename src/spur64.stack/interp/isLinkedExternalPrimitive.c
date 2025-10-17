@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#isLinkedExternalPrimitive: */
 
-static NoDbgRegParms sqInt isLinkedExternalPrimitive(sqInt methodObj) {
+static sqInt isLinkedExternalPrimitive(sqInt methodObj) {
   usqInt firstBytecode;
   sqInt header;
   sqInt literal;

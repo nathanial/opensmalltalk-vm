@@ -2,6 +2,6 @@
 
 /* StackInterpreter>>#printNum: */
 
-static NoDbgRegParms void printNum(sqInt n) {
+static void printNum(sqInt n) {
   fprintf(transcript, "%" PRIdSQINT "", ((sqInt)n));
 }

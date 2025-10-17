@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#setIsPinnedOf:to: */
 
-static NoDbgRegParms void setIsPinnedOfto(sqInt objOop, sqInt aBoolean) {
+static void setIsPinnedOfto(sqInt objOop, sqInt aBoolean) {
   assert((isOldObject(objOop)) && (!(isFreeObject(objOop))));
   byteAtput((void *)(objOop + (formatFieldByteOffset())),
             (aBoolean ? (byteAt((void *)(objOop + (formatFieldByteOffset())))) |

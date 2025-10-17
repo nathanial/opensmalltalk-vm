@@ -4,4 +4,4 @@
 
 /* StackInterpreter>>#checkCodeIntegrity: */
 
-static NoDbgRegParms sqInt checkCodeIntegrity(sqInt fullGCFlag) { return 1; }
+static sqInt checkCodeIntegrity(sqInt fullGCFlag) { return 1; }

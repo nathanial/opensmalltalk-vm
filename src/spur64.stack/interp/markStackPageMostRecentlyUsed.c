@@ -9,7 +9,7 @@
 
 /* CogStackPages>>#markStackPageMostRecentlyUsed: */
 
-static NoDbgRegParms sqInt markStackPageMostRecentlyUsed(StackPage *page) {
+static sqInt markStackPageMostRecentlyUsed(StackPage *page) {
   if (page == mostRecentlyUsedPage) {
     return null;
   }

@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#isFrame:onPage: */
 
-static NoDbgRegParms sqInt isFrameonPage(char *aFrame, StackPage *aPage) {
+static sqInt isFrameonPage(char *aFrame, StackPage *aPage) {
   char *prevFP;
   char *theFP;
 

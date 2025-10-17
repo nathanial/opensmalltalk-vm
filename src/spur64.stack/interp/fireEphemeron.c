@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#fireEphemeron: */
 
-static NoDbgRegParms void fireEphemeron(sqInt ephemeron) {
+static void fireEphemeron(sqInt ephemeron) {
   queueMourner(ephemeron);
 
   /* begin setFormatOf:to: */

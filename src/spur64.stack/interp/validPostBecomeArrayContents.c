@@ -5,6 +5,6 @@
 
 /* SpurMemoryManager>>#validPostBecomeArrayContents: */
 
-static NoDbgRegParms sqInt validPostBecomeArrayContents(sqInt anArray) {
+static sqInt validPostBecomeArrayContents(sqInt anArray) {
   return 1;
 }

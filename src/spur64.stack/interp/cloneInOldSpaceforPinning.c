@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#cloneInOldSpace:forPinning: */
 
-static NoDbgRegParms sqInt cloneInOldSpaceforPinning(sqInt objOop,
+static sqInt cloneInOldSpaceforPinning(sqInt objOop,
                                                      sqInt forPinning) {
   sqInt fmt;
   sqInt hash;

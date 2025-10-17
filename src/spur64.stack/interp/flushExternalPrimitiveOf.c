@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#flushExternalPrimitiveOf: */
 
-static NoDbgRegParms sqInt flushExternalPrimitiveOf(sqInt methodObj) {
+static sqInt flushExternalPrimitiveOf(sqInt methodObj) {
   usqInt firstBytecode;
   sqInt header;
   sqInt lit;

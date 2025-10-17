@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isFreeObject: */
 
-static NoDbgRegParms int isFreeObject(sqInt objOop) {
+static int isFreeObject(sqInt objOop) {
   return ((longAt((void *)(objOop))) & (classIndexMask())) ==
          (isFreeObjectClassIndexPun());
 }

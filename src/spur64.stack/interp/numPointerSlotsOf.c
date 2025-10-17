@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#numPointerSlotsOf: */
 
-static NoDbgRegParms usqInt numPointerSlotsOf(sqInt objOop) {
+static usqInt numPointerSlotsOf(sqInt objOop) {
   sqInt contextSize;
   sqInt fmt;
   sqInt header;

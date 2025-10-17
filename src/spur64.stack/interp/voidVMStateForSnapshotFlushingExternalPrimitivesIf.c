@@ -11,7 +11,7 @@
 
 /* StackInterpreter>>#voidVMStateForSnapshotFlushingExternalPrimitivesIf: */
 
-static NoDbgRegParms sqInt
+static sqInt
 voidVMStateForSnapshotFlushingExternalPrimitivesIf(sqInt flushExtPrims) {
   sqInt activeContext;
   sqInt address;

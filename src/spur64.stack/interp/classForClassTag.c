@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#classForClassTag: */
 
-static NoDbgRegParms sqInt classForClassTag(sqInt classIndex) {
+static sqInt classForClassTag(sqInt classIndex) {
   sqInt classTablePage;
   sqInt fieldIndex;
 

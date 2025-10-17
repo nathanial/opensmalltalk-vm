@@ -28,7 +28,7 @@
 
 /* SpurMemoryManager>>#formatOf: */
 
-static NoDbgRegParms sqInt formatOf(sqInt objOop) {
+static sqInt formatOf(sqInt objOop) {
   return (byteAt((void *)(objOop + (formatFieldByteOffset())))) &
          (formatMask());
 }

@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#nameOfClass:lengthInto: */
 
-static NoDbgRegParms char *nameOfClasslengthInto(sqInt classOop,
+static char *nameOfClasslengthInto(sqInt classOop,
                                                  sqInt *lengthPtr) {
   sqInt maybeNameOop;
   sqInt maybeThisClassOop;

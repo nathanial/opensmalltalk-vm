@@ -10,7 +10,7 @@
 
 /* SpurGenerationScavenger>>#scavengeRememberedSetStartingAt: */
 
-static NoDbgRegParms void scavengeRememberedSetStartingAt(sqInt n) {
+static void scavengeRememberedSetStartingAt(sqInt n) {
   sqInt destIndex;
   sqInt referrer;
   sqInt sourceIndex;

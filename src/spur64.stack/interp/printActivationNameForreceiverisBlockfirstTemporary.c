@@ -3,7 +3,7 @@
 
 /* StackInterpreter>>#printActivationNameFor:receiver:isBlock:firstTemporary: */
 
-static NoDbgRegParms void printActivationNameForreceiverisBlockfirstTemporary(
+static void printActivationNameForreceiverisBlockfirstTemporary(
     sqInt aMethod, sqInt anObject, sqInt isBlock, sqInt maybeMessage) {
   sqInt classObj;
   sqInt homeMethod;

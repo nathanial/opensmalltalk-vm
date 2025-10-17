@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#printFrameOop:at: */
 
-static NoDbgRegParms void printFrameOopat(char *name, char *address) {
+static void printFrameOopat(char *name, char *address) {
   sqInt it;
 
   it = longAt(address);

@@ -12,7 +12,7 @@
 
 /* StackInterpreter>>#isMetaPrimitiveIndex: */
 
-static NoDbgRegParms sqInt isMetaPrimitiveIndex(sqInt primIndex) {
+static sqInt isMetaPrimitiveIndex(sqInt primIndex) {
   return (primIndex == PrimNumberDoPrimitive) ||
          (primIndex == PrimNumberDoExternalCall);
 }

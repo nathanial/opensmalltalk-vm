@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#penultimateLiteralOf: */
 
-static NoDbgRegParms sqInt penultimateLiteralOf(sqInt aMethodOop) {
+static sqInt penultimateLiteralOf(sqInt aMethodOop) {
   sqInt offset;
 
   assert(isOopCompiledMethod(aMethodOop));

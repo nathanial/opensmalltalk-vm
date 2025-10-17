@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#firstFixedFieldOfMaybeImmediate: */
 
-static NoDbgRegParms void *firstFixedFieldOfMaybeImmediate(sqInt oop) {
+static void *firstFixedFieldOfMaybeImmediate(sqInt oop) {
   return (((oop & (tagMask())) != 0) ? ((void *)oop)
                                      : pointerForOop(oop + BaseHeaderSize));
 }

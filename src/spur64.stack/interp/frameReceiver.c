@@ -2,6 +2,6 @@
 
 /* StackInterpreter>>#frameReceiver: */
 
-static NoDbgRegParms sqInt frameReceiver(char *theFP) {
+static sqInt frameReceiver(char *theFP) {
   return longAt(theFP + FoxReceiver);
 }

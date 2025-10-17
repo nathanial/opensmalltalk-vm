@@ -7,7 +7,7 @@
 
 /* StackInterpreter>>#handleSpecialSelectorSendFaultFor:fp:sp: */
 
-static NoDbgRegParms sqInt handleSpecialSelectorSendFaultForfpsp(sqInt obj,
+static sqInt handleSpecialSelectorSendFaultForfpsp(sqInt obj,
                                                                  char *theFP,
                                                                  char *theSP) {
   sqInt rcvr;

@@ -7,7 +7,7 @@
 
 /* SpurMemoryManager>>#isWordsOrBytesNonImm: */
 
-static NoDbgRegParms sqInt isWordsOrBytesNonImm(sqInt objOop) {
+static sqInt isWordsOrBytesNonImm(sqInt objOop) {
   sqInt format;
 
   format =

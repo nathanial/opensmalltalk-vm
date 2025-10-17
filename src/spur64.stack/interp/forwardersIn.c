@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#forwardersIn: */
 
-static NoDbgRegParms sqInt forwardersIn(sqInt anObject) {
+static sqInt forwardersIn(sqInt anObject) {
   sqInt i;
   sqInt oop;
   sqInt toDoLimit;

@@ -6,7 +6,7 @@
 
 /* SpurSegmentManager>>#writeSegment:nextSegment:toFile: */
 
-static NoDbgRegParms sqInt writeSegmentnextSegmenttoFile(
+static sqInt writeSegmentnextSegmenttoFile(
     SpurSegmentInfo *segment, SpurSegmentInfo *nextSegment,
     sqImageFile aBinaryStream) {
   usqLong firstSavedBridgeWord;

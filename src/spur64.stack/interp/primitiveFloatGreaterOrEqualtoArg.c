@@ -3,7 +3,7 @@
 
 /* StackInterpreter>>#primitiveFloatGreaterOrEqual:toArg: */
 
-static NoDbgRegParms int primitiveFloatGreaterOrEqualtoArg(sqInt rcvrOop,
+static int primitiveFloatGreaterOrEqualtoArg(sqInt rcvrOop,
                                                            sqInt argOop) {
   double arg;
   usqLong bits;

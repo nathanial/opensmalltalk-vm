@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isRemembered: */
 
-static NoDbgRegParms int isRemembered(sqInt objOop) {
+static int isRemembered(sqInt objOop) {
   return ((byteAt((void *)(objOop + (formatFieldByteOffset())))) &
           (1U << (rememberedBitByteShift()))) != 0;
 }

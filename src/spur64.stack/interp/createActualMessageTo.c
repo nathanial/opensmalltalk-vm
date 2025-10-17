@@ -7,7 +7,7 @@
 
 /* StackInterpreter>>#createActualMessageTo: */
 
-static NoDbgRegParms void createActualMessageTo(sqInt lookupClass) {
+static void createActualMessageTo(sqInt lookupClass) {
   usqInt argumentArray;
   sqInt i;
   usqInt message;

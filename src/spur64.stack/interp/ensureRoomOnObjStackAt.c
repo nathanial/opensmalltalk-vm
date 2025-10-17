@@ -10,7 +10,7 @@
 
 /* SpurMemoryManager>>#ensureRoomOnObjStackAt: */
 
-static NoDbgRegParms sqInt ensureRoomOnObjStackAt(sqInt objStackRootIndex) {
+static sqInt ensureRoomOnObjStackAt(sqInt objStackRootIndex) {
   sqInt freeOrNewPage;
   sqInt stackOrNil;
 

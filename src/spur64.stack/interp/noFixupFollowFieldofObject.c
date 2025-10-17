@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#noFixupFollowField:ofObject: */
 
-static NoDbgRegParms sqInt noFixupFollowFieldofObject(sqInt fieldIndex,
+static sqInt noFixupFollowFieldofObject(sqInt fieldIndex,
                                                       sqInt anObject) {
   sqInt objOop;
   sqInt referent;

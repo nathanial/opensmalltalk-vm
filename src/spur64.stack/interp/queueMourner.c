@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#queueMourner: */
 
-static NoDbgRegParms void queueMourner(sqInt anEphemeronOrWeakArray) {
+static void queueMourner(sqInt anEphemeronOrWeakArray) {
   sqInt format;
   sqInt objStack;
 

@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#topOfObjStack: */
 
-static NoDbgRegParms sqInt topOfObjStack(sqInt objStack) {
+static sqInt topOfObjStack(sqInt objStack) {
   sqInt topx;
 
   eassert(isValidObjStackPagemyIndexfirstPage(

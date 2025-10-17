@@ -7,7 +7,7 @@
 
 /* StackInterpreter>>#fetchPointer:ofMarriedContext: */
 
-static NoDbgRegParms sqInt fetchPointerofMarriedContext(sqInt offset,
+static sqInt fetchPointerofMarriedContext(sqInt offset,
                                                         sqInt aContext) {
   char *callerFP;
   usqInt frameNumArgs;

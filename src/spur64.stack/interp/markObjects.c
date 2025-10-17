@@ -11,7 +11,7 @@
 
 /* SpurMemoryManager>>#markObjects: */
 
-static NoDbgRegParms NeverInline void
+static NeverInline void
 markObjects(sqInt objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged) {
   sqInt classIndex;
   sqInt classOrNil;

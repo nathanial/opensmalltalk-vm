@@ -4,7 +4,7 @@
 
 /* Spur64BitMemoryManager>>#addressAfter: */
 
-static NoDbgRegParms usqInt addressAfter(sqInt objOop) {
+static usqInt addressAfter(sqInt objOop) {
   usqInt numSlots;
 
   numSlots = byteAt((void *)(objOop + (numSlotsFieldByteOffset())));

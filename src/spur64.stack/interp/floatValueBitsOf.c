@@ -4,7 +4,7 @@
 
 /* Spur64BitMemoryManager>>#floatValueBitsOf: */
 
-static NoDbgRegParms sqLong floatValueBitsOf(sqInt floatOop) {
+static sqLong floatValueBitsOf(sqInt floatOop) {
   usqLong rot;
 
   assert(isFloatInstance(floatOop));

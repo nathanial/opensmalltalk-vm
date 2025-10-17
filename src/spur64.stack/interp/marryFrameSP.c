@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#marryFrame:SP: */
 
-static NoDbgRegParms usqInt marryFrameSP(char *theFP, char *theSP) {
+static usqInt marryFrameSP(char *theFP, char *theSP) {
   sqInt closureOrNil;
   sqInt i;
   sqInt methodHeader;

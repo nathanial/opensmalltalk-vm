@@ -5,7 +5,7 @@
 
 /* InterpreterPrimitives>>#isNegativeIntegerValueOf: */
 
-static NoDbgRegParms sqInt isNegativeIntegerValueOf(sqInt oop) {
+static sqInt isNegativeIntegerValueOf(sqInt oop) {
   sqInt ccIndex;
   int ok;
   sqInt smallInt;

@@ -9,7 +9,7 @@
 
 /* StackInterpreter>>#rewriteMethodCacheEntryForExternalPrimitiveToFunction: */
 
-static NoDbgRegParms void rewriteMethodCacheEntryForExternalPrimitiveToFunction(
+static void rewriteMethodCacheEntryForExternalPrimitiveToFunction(
     void (*localPrimAddress)()) {
   if ((methodCache[lastMethodCacheProbeWrite + MethodCacheMethod]) ==
       newMethod) {

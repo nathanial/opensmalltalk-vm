@@ -8,7 +8,7 @@
 
 /* SpurMemoryManager>>#addFreeSubTree: */
 
-static NoDbgRegParms void addFreeSubTree(sqInt freeTree) {
+static void addFreeSubTree(sqInt freeTree) {
   usqInt bytesInArg;
   usqInt bytesInNode;
   sqInt subNode;

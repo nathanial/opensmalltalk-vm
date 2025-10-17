@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#classNameOf:Is: */
 
-static NoDbgRegParms sqInt classNameOfIs(sqInt aClass, char *className) {
+static sqInt classNameOfIs(sqInt aClass, char *className) {
   sqInt fmt;
   sqInt i;
   sqInt length;

@@ -7,7 +7,7 @@
 
 /* SpurPlanningCompactor>>#scanForFirstFreeAndFirstMobileObjectFrom: */
 
-static NoDbgRegParms sqInt
+static sqInt
 scanForFirstFreeAndFirstMobileObjectFrom(sqInt initialObject) {
   sqInt firstFree;
   sqInt followingWord;

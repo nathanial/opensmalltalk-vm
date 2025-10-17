@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#makeBaseFrameFor: */
 
-static NoDbgRegParms StackPage *makeBaseFrameFor(sqInt aContext) {
+static StackPage *makeBaseFrameFor(sqInt aContext) {
   sqInt header;
   sqInt i;
   sqInt maybeClosure;

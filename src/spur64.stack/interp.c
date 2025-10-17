@@ -316,43 +316,37 @@ typedef struct _StackPage {
 
 /*** Function Prototypes ***/
 
-#if !PRODUCTION && defined(PlatformNoDbgRegParms)
-#define NoDbgRegParms PlatformNoDbgRegParms
-#endif
 
-#if !defined(NoDbgRegParms)
-#define NoDbgRegParms /*empty*/
-#endif
 
 #if !defined(NeverInline)
 #define NeverInline /*empty*/
 #endif
 
 extern sqInt interpret(void);
-static NoDbgRegParms sqInt addressIsInPage(StackPage *self_in_CogStackPage,
+static sqInt addressIsInPage(StackPage *self_in_CogStackPage,
                                            char *address);
-static NoDbgRegParms int isFree(StackPage *self_in_CogStackPage);
-static NoDbgRegParms sqInt freeStackPageNoAssert(StackPage *aPage);
-static NoDbgRegParms void freeStackPage(StackPage *aPage);
-static NoDbgRegParms sqInt markStackPageMostRecentlyUsed(StackPage *page);
-static NoDbgRegParms sqInt markStackPageNextMostRecentlyUsed(StackPage *page);
+static int isFree(StackPage *self_in_CogStackPage);
+static sqInt freeStackPageNoAssert(StackPage *aPage);
+static void freeStackPage(StackPage *aPage);
+static sqInt markStackPageMostRecentlyUsed(StackPage *page);
+static sqInt markStackPageNextMostRecentlyUsed(StackPage *page);
 static StackPage *newStackPage(void);
 static sqInt pageListIsWellFormed(void);
-static NoDbgRegParms StackPage *stackPageAt(sqInt index);
-static NoDbgRegParms StackPage *stackPageFor(void *pointer);
+static StackPage *stackPageAt(sqInt index);
+static StackPage *stackPageFor(void *pointer);
 static double statAverageLivePagesWhenMapping(void);
 extern int vmIsInitialized(void);
 extern char *cStringOrNullFor(sqInt oop);
 extern sqInt failed(void);
 extern sqInt identityHashOf(sqInt anOop);
-static NoDbgRegParms sqInt isNegativeIntegerValueOf(sqInt oop);
+static sqInt isNegativeIntegerValueOf(sqInt oop);
 extern sqInt isPositiveMachineIntegerObject(sqInt oop);
-static NoDbgRegParms sqInt magnitude64BitIntegerForneg(usqLong magnitude,
+static sqInt magnitude64BitIntegerForneg(usqLong magnitude,
                                                        sqInt isNegative);
-static NoDbgRegParms usqLong magnitude64BitValueOf(sqInt oop);
+static usqLong magnitude64BitValueOf(sqInt oop);
 extern unsigned int positive32BitValueOf(sqInt oop);
 extern usqLong positive64BitValueOf(sqInt oop);
-static NoDbgRegParms usqIntptr_t positiveMachineIntegerValueOfObj(sqInt oop);
+static usqIntptr_t positiveMachineIntegerValueOfObj(sqInt oop);
 extern usqIntptr_t positiveMachineIntegerValueOf(sqInt oop);
 static void primitiveAdd(void);
 EXPORT(void) primitiveAddLargeIntegers(void);
@@ -597,137 +591,137 @@ static void primitiveYield(void);
 extern int signalNoResume(sqInt aSemaphore);
 extern int signed32BitValueOf(sqInt oop);
 extern sqLong signed64BitValueOf(sqInt oop);
-static NoDbgRegParms sqIntptr_t signedMachineIntegerValueOfObj(sqInt oop);
+static sqIntptr_t signedMachineIntegerValueOfObj(sqInt oop);
 extern sqIntptr_t signedMachineIntegerValueOf(sqInt oop);
 extern usqInt sizeOfAlienData(sqInt oop);
 extern void *startOfAlienData(sqInt oop);
 extern sqInt success(sqInt successBoolean);
-static NoDbgRegParms void initializeStacknumSlotspageSize(char *theStackPages,
+static void initializeStacknumSlotspageSize(char *theStackPages,
                                                           sqInt stackSlots,
                                                           sqInt slotsPerPage);
-static NoDbgRegParms sqInt pageIndexFor(void *pointer);
-static NoDbgRegParms char *whereIsMaybeStackThing(sqInt anOop);
-static NoDbgRegParms usqInt addressAfter(sqInt objOop);
-static NoDbgRegParms sqInt
+static sqInt pageIndexFor(void *pointer);
+static char *whereIsMaybeStackThing(sqInt anOop);
+static usqInt addressAfter(sqInt objOop);
+static sqInt
 allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots,
                                                        usqInt totalBytes,
                                                        sqInt formatField,
                                                        sqInt classIndex);
 extern sqInt byteSwapped(sqInt w);
-static NoDbgRegParms usqInt bytesInBody(sqInt objOop);
+static usqInt bytesInBody(sqInt objOop);
 static int defaultEdenBytes(void);
 extern sqInt fetchClassTagOf(sqInt oop);
 extern sqInt floatObjectOf(double aFloat);
-static NoDbgRegParms sqLong floatValueBitsOf(sqInt floatOop);
+static sqLong floatValueBitsOf(sqInt floatOop);
 extern double floatValueOf(sqInt oop);
-static NoDbgRegParms void hackSlimBridgeToat(sqInt objOop, sqInt startAddress);
+static void hackSlimBridgeToat(sqInt objOop, sqInt startAddress);
 extern int headerIndicatesAlternateBytecodeSet(sqInt methodHeader);
-static NoDbgRegParms sqInt initFreeChunkWithBytesat(usqLong numBytes,
+static sqInt initFreeChunkWithBytesat(usqLong numBytes,
                                                     sqInt address);
-static NoDbgRegParms void initSegmentBridgeWithBytesat(usqLong numBytes,
+static void initSegmentBridgeWithBytesat(usqLong numBytes,
                                                        sqInt address);
 extern sqInt instantiateClassindexableSize(sqInt classObj, usqInt nElements);
 extern sqInt integerObjectOf(sqInt value);
 extern sqInt integerValueOf(sqInt oop);
-static NoDbgRegParms int isFloatInstance(sqInt oop);
-static NoDbgRegParms int isImmediateFloat(sqInt oop);
+static int isFloatInstance(sqInt oop);
+static int isImmediateFloat(sqInt oop);
 extern int isIntegerObject(sqInt oop);
 extern int isIntegerValue(sqInt intValue);
-static NoDbgRegParms int isLilliputianSize(sqInt chunkBytes);
-static NoDbgRegParms int isSmallFloatValueBits(usqLong rawFloatBits);
-static NoDbgRegParms int isSmallFloatValue(double aFloat);
-static NoDbgRegParms int isWordsNonImm(sqInt objOop);
-static NoDbgRegParms sqInt lengthOfformat(sqInt objOop, sqInt fmt);
-static NoDbgRegParms double loadFloatOrIntFrom(sqInt floatOrIntOop);
+static int isLilliputianSize(sqInt chunkBytes);
+static int isSmallFloatValueBits(usqLong rawFloatBits);
+static int isSmallFloatValue(double aFloat);
+static int isWordsNonImm(sqInt objOop);
+static sqInt lengthOfformat(sqInt objOop, sqInt fmt);
+static double loadFloatOrIntFrom(sqInt floatOrIntOop);
 static sqInt maxSlotsForAlloc(void);
 extern double noFailFloatValueOf(sqInt aFloatOop);
 static sqInt numFreeLists(void);
-static NoDbgRegParms sqInt objectAfterMaybeSlimBridgelimit(sqInt objOop,
+static sqInt objectAfterMaybeSlimBridgelimit(sqInt objOop,
                                                            sqInt limit);
-static NoDbgRegParms double smallFloatValueOf(sqInt oop);
+static double smallFloatValueOf(sqInt oop);
 extern usqInt smallObjectBytesForSlots(sqInt numSlots);
 static sqInt wordIndexableFormat(void);
 static sqInt wordSizeClassIndexPun(void);
-static NoDbgRegParms NeverInline void addToEphemeronList(sqInt ephemeronCorpse);
-static NoDbgRegParms NeverInline void addToWeakList(sqInt weakCorpse);
+static NeverInline void addToEphemeronList(sqInt ephemeronCorpse);
+static NeverInline void addToWeakList(sqInt weakCorpse);
 static sqInt allNewSpaceObjectsHaveZeroRTRefCount(void);
 static sqInt allWeakSurvivorsOnWeakList(void);
 static NeverInline void computeRefCountToShrinkRT(void);
-static NoDbgRegParms sqInt copyAndForwardMourner(sqInt mourner);
-static NoDbgRegParms sqInt copyAndForward(sqInt survivor);
-static NoDbgRegParms NeverInline sqInt copyToOldSpacebytesformat(
+static sqInt copyAndForwardMourner(sqInt mourner);
+static sqInt copyAndForward(sqInt survivor);
+static NeverInline sqInt copyToOldSpacebytesformat(
     sqInt survivor, sqInt bytesInObject, sqInt formatOfSurvivor);
-static NoDbgRegParms usqInt firstCorpse(sqInt headOfCorpseList);
+static usqInt firstCorpse(sqInt headOfCorpseList);
 static void growRememberedSet(void);
-static NoDbgRegParms sqInt isInRememberedSet(sqInt objOop);
-static NoDbgRegParms sqInt isMaybeOldScavengeSurvivor(sqInt oop);
-static NoDbgRegParms sqInt isScavengeSurvivor(sqInt oop);
+static sqInt isInRememberedSet(sqInt objOop);
+static sqInt isMaybeOldScavengeSurvivor(sqInt oop);
+static sqInt isScavengeSurvivor(sqInt oop);
 static usqInt newSpaceCapacity(void);
 static sqInt noUnfiredEphemeronsAtEndOfRememberedSet(void);
 extern void openScavengeLog(void);
 extern void printRememberedSet(void);
 static void processEphemerons(void);
 static void processWeaklings(void);
-static NoDbgRegParms sqInt processWeakSurvivor(sqInt weakObj);
+static sqInt processWeakSurvivor(sqInt weakObj);
 extern sqInt remember(sqInt objOop);
-static NoDbgRegParms void
+static void
 scavengeFutureSurvivorSpaceStartingAt(sqInt initialAddress);
 static void scavengeLoop(void);
-static NoDbgRegParms sqInt scavengeReferentsOf(sqInt referrer);
-static NoDbgRegParms void scavengeRememberedSetStartingAt(sqInt n);
+static sqInt scavengeReferentsOf(sqInt referrer);
+static void scavengeRememberedSetStartingAt(sqInt n);
 static float scavengerTenuringThreshold(void);
 static sqInt scavengeUnfiredEphemeronsOnEphemeronList(void);
 static NeverInline void writeScavengeLog(void);
-static NoDbgRegParms sqInt accessibleObjectAfter(sqInt objOop);
-static NoDbgRegParms NeverInline sqInt activeAndDeferredScan(sqInt anEphemeron);
-static NoDbgRegParms void addFreeSubTree(sqInt freeTree);
+static sqInt accessibleObjectAfter(sqInt objOop);
+static NeverInline sqInt activeAndDeferredScan(sqInt anEphemeron);
+static void addFreeSubTree(sqInt freeTree);
 extern sqInt addGCRoot(sqInt *varLoc);
-static NoDbgRegParms sqInt addressCouldBeClassObj(sqInt maybeClassObj);
+static sqInt addressCouldBeClassObj(sqInt maybeClassObj);
 extern sqInt addressCouldBeObj(sqInt address);
 extern sqInt addressCouldBeOop(sqInt address);
-static NoDbgRegParms sqInt addToFreeListbytes(sqInt freeChunk,
+static sqInt addToFreeListbytes(sqInt freeChunk,
                                               sqInt chunkBytes);
-static NoDbgRegParms sqInt allInstancesOf(sqInt aClass);
+static sqInt allInstancesOf(sqInt aClass);
 static sqInt allObjects(void);
 static sqInt allObjectsUnmarked(void);
 static sqInt allOldMarkedWeakObjectsOnWeaklingStack(void);
 static sqInt allocateLargestFreeChunk(void);
-static NoDbgRegParms sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes);
+static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes);
 extern sqInt allocatePinnedSlots(sqInt nSlots);
-static NoDbgRegParms sqInt allocateSlotsInOldSpacebytesformatclassIndex(
+static sqInt allocateSlotsInOldSpacebytesformatclassIndex(
     sqInt numSlots, usqInt totalBytes, sqInt formatField, sqInt classIndex);
 static sqInt allocationUnit(void);
-static NoDbgRegParms sqInt allStrongSlotsOfWeaklingAreMarked(sqInt aWeakling);
+static sqInt allStrongSlotsOfWeaklingAreMarked(sqInt aWeakling);
 static sqInt allUnscannedEphemeronsAreActive(void);
-static NoDbgRegParms NeverInline sqInt assertInnerValidFreeObject(sqInt objOop);
-static NoDbgRegParms sqInt becomeEffectFlagsFor(sqInt objOop);
+static NeverInline sqInt assertInnerValidFreeObject(sqInt objOop);
+static sqInt becomeEffectFlagsFor(sqInt objOop);
 extern sqInt becomewith(sqInt array1, sqInt array2);
-static NoDbgRegParms sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
+static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
                                                     sqInt twoWayFlag,
                                                     sqInt copyHashFlag);
 extern void beRootIfOld(sqInt oop);
 static sqInt bitsSetInFreeSpaceMaskForAllFreeLists(void);
 static sqInt bridgeSize(void);
-static NoDbgRegParms sqInt byteFormatForNumBytes(sqInt numBytes);
+static sqInt byteFormatForNumBytes(sqInt numBytes);
 static sqInt byteFormatMask(void);
 extern sqInt byteSizeOf(sqInt oop);
 extern unsigned char bytesPerElement(sqInt oop);
-static NoDbgRegParms sqInt changeClassOfto(sqInt rcvr, sqInt argClass);
+static sqInt changeClassOfto(sqInt rcvr, sqInt argClass);
 extern sqInt characterObjectOf(sqInt characterCode);
 extern usqInt characterValueOf(sqInt oop);
 extern sqInt checkedLongAt(sqInt byteAddress);
 static sqInt checkHeapFreeSpaceIntegrity(void);
-static NoDbgRegParms sqInt checkHeapIntegrityclassIndicesShouldBeValid(
+static sqInt checkHeapIntegrityclassIndicesShouldBeValid(
     sqInt excludeUnmarkedObjs, sqInt classIndicesShouldBeValid);
 extern sqInt checkOkayOop(usqInt oop);
 extern sqInt checkOopHasOkayClass(usqInt obj);
-static NoDbgRegParms sqInt checkOopIntegritynamed(sqInt obj, char *name);
-static NoDbgRegParms sqInt checkOopIntegritynamedindex(sqInt obj, char *name,
+static sqInt checkOopIntegritynamed(sqInt obj, char *name);
+static sqInt checkOopIntegritynamedindex(sqInt obj, char *name,
                                                        sqInt i);
 extern sqInt classAlien(void);
 extern sqInt classArray(void);
 extern sqInt classAtIndex(sqInt classIndex);
-static NoDbgRegParms sqInt classAtIndexput(sqInt classIndex, sqInt objOop);
+static sqInt classAtIndexput(sqInt classIndex, sqInt objOop);
 extern sqInt classBitmap(void);
 extern sqInt classByteArray(void);
 extern sqInt classCharacter(void);
@@ -741,8 +735,8 @@ extern sqInt classExternalStructure(void);
 extern sqInt classFloat(void);
 extern sqInt classFloat32Array(void);
 extern sqInt classFloat64Array(void);
-static NoDbgRegParms sqInt classForClassTag(sqInt classIndex);
-static NoDbgRegParms sqInt classFormatFromInstFormat(sqInt instFormat);
+static sqInt classForClassTag(sqInt classIndex);
+static sqInt classFormatFromInstFormat(sqInt instFormat);
 static sqInt classIndexFieldWidth(void);
 extern sqInt classIndexOf(sqInt objOop);
 extern sqInt classLargeNegativeInteger(void);
@@ -761,76 +755,76 @@ extern sqInt classUnsafeAlien(void);
 extern sqInt classWordArray(void);
 static void clearLeakMapAndMapAccessibleFreeSpace(void);
 static void clearLeakMapAndMapAccessibleObjects(void);
-static NoDbgRegParms sqInt cloneInOldSpaceforPinning(sqInt objOop,
+static sqInt cloneInOldSpaceforPinning(sqInt objOop,
                                                      sqInt forPinning);
 extern sqInt cloneObject(sqInt objOop);
-static NoDbgRegParms sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(
+static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(
     sqInt objOop, sqInt segAddr, sqInt endSeg, sqInt savedFirstFields, sqInt i);
 extern void countMarkedAndUnmarkdObjects(sqInt printFlags);
 static usqLong currentAllocatedBytes(void);
 extern sqInt displayObject(void);
-static NoDbgRegParms void doScavenge(sqInt tenuringCriterion);
-static NoDbgRegParms sqInt doShortentoIndexableSize(sqInt objOop,
+static void doScavenge(sqInt tenuringCriterion);
+static sqInt doShortentoIndexableSize(sqInt objOop,
                                                     sqInt indexableSize);
 extern usqInt eeInstantiateClassIndexformatnumSlots(sqInt knownClassIndex,
                                                     sqInt objFormat,
                                                     sqInt numSlots);
 extern NeverInline void eek(void);
-static NoDbgRegParms void enableObjectEnumerationFrom(sqInt initialObject);
-static NoDbgRegParms sqInt ensureBehaviorHash(sqInt aBehavior);
-static NoDbgRegParms sqInt ensureRoomOnObjStackAt(sqInt objStackRootIndex);
-static NoDbgRegParms sqInt enterIntoClassTable(sqInt aBehavior);
-static NoDbgRegParms sqInt existInstancesInNewSpaceOf(sqInt classObj);
-static NoDbgRegParms void expungeFromClassTable(sqInt aBehavior);
+static void enableObjectEnumerationFrom(sqInt initialObject);
+static sqInt ensureBehaviorHash(sqInt aBehavior);
+static sqInt ensureRoomOnObjStackAt(sqInt objStackRootIndex);
+static sqInt enterIntoClassTable(sqInt aBehavior);
+static sqInt existInstancesInNewSpaceOf(sqInt classObj);
+static void expungeFromClassTable(sqInt aBehavior);
 extern sqInt falseObject(void);
 extern sqInt fetchByteofObject(sqInt byteIndex, sqInt objOop);
-static NoDbgRegParms NeverInline sqInt fetchClassOfNonImm(sqInt objOop);
+static NeverInline sqInt fetchClassOfNonImm(sqInt objOop);
 extern sqInt fetchClassOf(sqInt oop);
-static NoDbgRegParms sqInt fetchClassTagOfNonImm(sqInt obj);
+static sqInt fetchClassTagOfNonImm(sqInt obj);
 extern sqInt fetchLong32ofObject(sqInt fieldIndex, sqInt oop);
-static NoDbgRegParms sqInt fetchPointerofFreeChunk(sqInt fieldIndex,
+static sqInt fetchPointerofFreeChunk(sqInt fieldIndex,
                                                    sqInt objOop);
 extern sqInt fetchPointerofObject(sqInt fieldIndex, sqInt objOop);
 extern sqInt findClassNamed(char *aString);
 static sqInt findLargestFreeChunk(void);
 extern void findStringBeginningWith(char *aCString);
 extern void findString(char *aCString);
-static NoDbgRegParms void fireEphemeron(sqInt ephemeron);
+static void fireEphemeron(sqInt ephemeron);
 static sqInt firstAccessibleObject(void);
-static NoDbgRegParms void *firstFixedFieldOfMaybeImmediate(sqInt oop);
+static void *firstFixedFieldOfMaybeImmediate(sqInt oop);
 extern void *firstFixedField(sqInt objOop);
 extern void *firstIndexableField(sqInt objOop);
 static sqInt firstStringyFakeFormat(void);
 extern sqInt fixedFieldsOfClassFormatMask(void);
 extern sqInt fixedFieldsOfClassFormat(sqInt classFormat);
-static NoDbgRegParms sqInt fixedFieldsOfformatlength(sqInt objOop, sqInt fmt,
+static sqInt fixedFieldsOfformatlength(sqInt objOop, sqInt fmt,
                                                      sqInt wordLength);
-static NoDbgRegParms NeverInline sqInt fixFollowedFieldofObjectwithInitialValue(
+static NeverInline sqInt fixFollowedFieldofObjectwithInitialValue(
     sqInt fieldIndex, sqInt anObject, sqInt initialValue);
-static NoDbgRegParms sqInt followFieldofObject(sqInt fieldIndex,
+static sqInt followFieldofObject(sqInt fieldIndex,
                                                sqInt anObject);
-static NoDbgRegParms sqInt followForwardedObjectFieldstoDepth(sqInt objOop,
+static sqInt followForwardedObjectFieldstoDepth(sqInt objOop,
                                                               sqInt depth);
 extern sqInt followForwarded(sqInt objOop);
-static NoDbgRegParms sqInt followMaybeForwarded(sqInt objOop);
-static NoDbgRegParms sqInt followObjFieldofObject(sqInt fieldIndex,
+static sqInt followMaybeForwarded(sqInt objOop);
+static sqInt followObjFieldofObject(sqInt fieldIndex,
                                                   sqInt anObject);
 extern sqInt formatOfClass(sqInt classPointer);
-static NoDbgRegParms sqInt formatOf(sqInt objOop);
-static NoDbgRegParms sqInt forwardersIn(sqInt anObject);
+static sqInt formatOf(sqInt objOop);
+static sqInt forwardersIn(sqInt anObject);
 static sqInt freeChunkNextIndex(void);
 static sqInt freeChunkParentIndex(void);
 static sqInt freeChunkPrevIndex(void);
-static NoDbgRegParms sqInt freeChunkWithBytesat(sqInt bytes, sqInt address);
+static sqInt freeChunkWithBytesat(sqInt bytes, sqInt address);
 extern sqInt freeObject(sqInt objOop);
 extern NeverInline usqLong fullGC(void);
 static float getHeapGrowthToSizeGCRatio(void);
-static NoDbgRegParms sqInt goodContextSize(sqInt oop);
-static NoDbgRegParms usqInt growOldSpaceByAtLeast(sqInt minAmmount);
-static NoDbgRegParms sqInt hasPointerFieldsNonImm(sqInt oop);
+static sqInt goodContextSize(sqInt oop);
+static usqInt growOldSpaceByAtLeast(sqInt minAmmount);
+static sqInt hasPointerFieldsNonImm(sqInt oop);
 extern usqLong headerForSlotsformatclassIndex(sqInt numSlots, sqInt formatField,
                                               sqInt classIndex);
-static NoDbgRegParms usqLong headerForSlotshashformatclassIndex(
+static usqLong headerForSlotshashformatclassIndex(
     sqInt numSlots, sqInt hash, sqInt formatField, sqInt classIndex);
 static sqInt hiddenRootSlots(void);
 static sqInt hiddenRootsObject(void);
@@ -839,178 +833,178 @@ static sqInt imageSegmentVersion(void);
 extern sqInt immutableBitMask(void);
 #endif /* IMMUTABILITY */
 extern sqInt indexOfin(sqInt anElement, sqInt anObject);
-static NoDbgRegParms void inFreeTreeReplacewith(sqInt treeNode, sqInt newNode);
-static NoDbgRegParms sqInt initialInstanceOf(sqInt classObj);
+static void inFreeTreeReplacewith(sqInt treeNode, sqInt newNode);
+static sqInt initialInstanceOf(sqInt classObj);
 static NeverInline void initializeNewSpaceVariables(void);
-static NoDbgRegParms void initializeObjectMemory(sqInt bytesToShift);
+static void initializeObjectMemory(sqInt bytesToShift);
 extern void inOrderPrintFreeTreeprintList(sqInt freeChunk, sqInt printNextList);
-static NoDbgRegParms NeverInline void
+static NeverInline void
 inPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag);
 extern sqInt instanceSizeOf(sqInt classObj);
-static NoDbgRegParms sqInt instantiateClass(sqInt classObj);
+static sqInt instantiateClass(sqInt classObj);
 extern sqInt instSpecOfClassFormat(sqInt classFormat);
-static NoDbgRegParms sqInt instSpecOfClass(sqInt classPointer);
-static NoDbgRegParms void invalidCompactClassError(const char *className);
+static sqInt instSpecOfClass(sqInt classPointer);
+static void invalidCompactClassError(const char *className);
 extern sqInt isArray(sqInt oop);
-static NoDbgRegParms int isBridgeOrEnumerableObjectNoAssert(sqInt objOop);
+static int isBridgeOrEnumerableObjectNoAssert(sqInt objOop);
 extern sqInt isBytes(sqInt oop);
 extern int isCharacterObject(sqInt oop);
 extern int isCharacterValue(sqInt anInteger);
-static NoDbgRegParms int isCompiledMethodFormat(sqInt format);
+static int isCompiledMethodFormat(sqInt format);
 extern int isCompiledMethod(sqInt objOop);
-static NoDbgRegParms int isContextHeader(sqInt aHeader);
-static NoDbgRegParms int isContextNonImm(sqInt oop);
-static NoDbgRegParms sqInt isContext(sqInt oop);
-static NoDbgRegParms int isCopiedIntoSegment(sqInt anObjectInTheHeap);
-static NoDbgRegParms sqInt isEmptyObjStack(sqInt objStack);
-static NoDbgRegParms sqInt isEnumerableObjectNoAssert(sqInt objOop);
-static NoDbgRegParms int isEphemeronFormat(sqInt format);
-static NoDbgRegParms int isEphemeron(sqInt objOop);
+static int isContextHeader(sqInt aHeader);
+static int isContextNonImm(sqInt oop);
+static sqInt isContext(sqInt oop);
+static int isCopiedIntoSegment(sqInt anObjectInTheHeap);
+static sqInt isEmptyObjStack(sqInt objStack);
+static sqInt isEnumerableObjectNoAssert(sqInt objOop);
+static int isEphemeronFormat(sqInt format);
+static int isEphemeron(sqInt objOop);
 extern sqInt isFixedSizePointerFormat(sqInt format);
-static NoDbgRegParms int isForwardedClassTag(sqInt classIndex);
+static int isForwardedClassTag(sqInt classIndex);
 extern int isForwarded(sqInt objOop);
-static NoDbgRegParms int isFreeObject(sqInt objOop);
-static NoDbgRegParms sqInt isFreeOop(sqInt oop);
+static int isFreeObject(sqInt objOop);
+static sqInt isFreeOop(sqInt oop);
 extern int isImmediate(sqInt oop);
-static NoDbgRegParms sqInt isInClassTable(sqInt objOop);
+static sqInt isInClassTable(sqInt objOop);
 extern sqInt isIndexable(sqInt objOop);
-static NoDbgRegParms sqInt isInEden(sqInt objOop);
-static NoDbgRegParms sqInt isInFutureSpace(sqInt address);
+static sqInt isInEden(sqInt objOop);
+static sqInt isInFutureSpace(sqInt address);
 extern sqInt isInMemory(sqInt address);
-static NoDbgRegParms sqInt isInNewSpace(sqInt objOop);
+static sqInt isInNewSpace(sqInt objOop);
 extern sqInt isInOldSpace(sqInt address);
-static NoDbgRegParms sqInt isInPastSpace(sqInt address);
-static NoDbgRegParms int isLargeFreeObject(sqInt objOop);
+static sqInt isInPastSpace(sqInt address);
+static int isLargeFreeObject(sqInt objOop);
 extern sqInt isLong64s(sqInt oop);
 extern int isMarked(sqInt objOop);
-static NoDbgRegParms sqInt isMaybeFiredEphemeron(sqInt objOop);
+static sqInt isMaybeFiredEphemeron(sqInt objOop);
 extern int isNonImmediate(sqInt oop);
-static NoDbgRegParms int isObjEphemeron(sqInt objOop);
-static NoDbgRegParms sqInt isObjImmutable(sqInt anOop);
-static NoDbgRegParms int isOldObject(sqInt objOop);
+static int isObjEphemeron(sqInt objOop);
+static sqInt isObjImmutable(sqInt anOop);
+static int isOldObject(sqInt objOop);
 extern sqInt isOopCompiledMethod(sqInt oop);
 extern sqInt isOopForwarded(sqInt oop);
 extern sqInt isOopImmutable(sqInt oop);
 extern sqInt isOopMutable(sqInt oop);
 extern int isPinned(sqInt objOop);
 extern sqInt isPointers(sqInt oop);
-static NoDbgRegParms sqInt isPureBitsFormat(sqInt format);
-static NoDbgRegParms sqInt isPureBitsNonImm(sqInt objOop);
+static sqInt isPureBitsFormat(sqInt format);
+static sqInt isPureBitsNonImm(sqInt objOop);
 extern int isReallyYoungObject(sqInt obj);
-static NoDbgRegParms int isRemembered(sqInt objOop);
-static NoDbgRegParms int isSegmentBridge(sqInt objOop);
+static int isRemembered(sqInt objOop);
+static int isSegmentBridge(sqInt objOop);
 extern sqInt isShorts(sqInt oop);
-static NoDbgRegParms int isUnambiguouslyForwarder(sqInt objOop);
+static int isUnambiguouslyForwarder(sqInt objOop);
 extern int isUnmarked(sqInt objOop);
 extern sqInt isValidClassTag(sqInt classIndex);
-static NoDbgRegParms sqInt isValidObjStackAt(sqInt objStackRootIndex);
-static NoDbgRegParms sqInt isValidObjStackPagemyIndex(sqInt objStackPage,
+static sqInt isValidObjStackAt(sqInt objStackRootIndex);
+static sqInt isValidObjStackPagemyIndex(sqInt objStackPage,
                                                       sqInt myx);
-static NoDbgRegParms sqInt isValidObjStackPagemyIndexfirstPage(
+static sqInt isValidObjStackPagemyIndexfirstPage(
     sqInt objStackPage, sqInt myx, sqInt isFirstPage);
-static NoDbgRegParms sqInt isValidObjStack(sqInt objStack);
-static NoDbgRegParms int isWeakNonImm(sqInt objOop);
+static sqInt isValidObjStack(sqInt objStack);
+static int isWeakNonImm(sqInt objOop);
 extern sqInt isWeak(sqInt oop);
-static NoDbgRegParms sqInt isWordsOrBytesNonImm(sqInt objOop);
+static sqInt isWordsOrBytesNonImm(sqInt objOop);
 extern sqInt isWordsOrBytes(sqInt oop);
 extern sqInt isWordsOrShorts(sqInt oop);
 extern sqInt isWords(sqInt oop);
 extern int isYoungObject(sqInt objOop);
 extern sqInt isYoung(sqInt oop);
-static NoDbgRegParms sqInt isinstanceOfcompactClassIndex(
+static sqInt isinstanceOfcompactClassIndex(
     sqInt oop, sqInt classOop, sqInt compactClassIndex);
-static NoDbgRegParms sqInt isonObjStack(sqInt oop, sqInt objStack);
-static NoDbgRegParms sqInt keyOfEphemeron(sqInt objOop);
-static NoDbgRegParms sqInt knownClassAtIndex(sqInt classIndex);
+static sqInt isonObjStack(sqInt oop, sqInt objStack);
+static sqInt keyOfEphemeron(sqInt objOop);
+static sqInt knownClassAtIndex(sqInt classIndex);
 static sqInt lastPointerFormat(void);
-static NoDbgRegParms sqInt lastPointerOfWhileSwizzling(sqInt objOop);
-static NoDbgRegParms sqInt lastPointerOf(sqInt objOop);
+static sqInt lastPointerOfWhileSwizzling(sqInt objOop);
+static sqInt lastPointerOf(sqInt objOop);
 extern int leakCheckFullGC(void);
 extern int leakCheckNewSpaceGC(void);
-static NoDbgRegParms sqInt lengthOfMaybeImmediate(sqInt oop);
-static NoDbgRegParms sqInt lengthOf(sqInt objOop);
+static sqInt lengthOfMaybeImmediate(sqInt oop);
+static sqInt lengthOf(sqInt objOop);
 extern usqInt literalCountOfMethodHeader(sqInt header);
 extern usqInt literalCountOf(sqInt methodPointer);
-static NoDbgRegParms NeverInline sqInt
+static NeverInline sqInt
 loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray);
 extern void longPrintInstancesOf(sqInt aClassOop);
 extern void longPrintInstancesWithClassIndex(sqInt classIndex);
 extern void longPrintReferencesTo(sqInt anOop);
 static void mapExtraRoots(void);
 static NeverInline void mapMournQueue(void);
-static NoDbgRegParms sqInt mapOopsFromtooutPointersoutHashes(
+static sqInt mapOopsFromtooutPointersoutHashes(
     sqInt segStart, sqInt segAddr, sqInt outPointerArray, sqInt savedOutHashes);
-static NoDbgRegParms void markAndTraceClassOf(sqInt objOop);
-static NoDbgRegParms void
+static void markAndTraceClassOf(sqInt objOop);
+static void
 markAndTraceObjStackandContents(sqInt stackOrNil, sqInt markAndTraceContents);
 extern NeverInline void markAndTrace(sqInt objOop);
 static sqInt markInactiveEphemerons(void);
-static NoDbgRegParms NeverInline void
+static NeverInline void
 markObjects(sqInt objectsShouldBeUnmarkedAndUnmarkedClassesShouldBeExpunged);
 static void markWeaklingsAndMarkAndFireEphemerons(void);
 extern sqInt maxIdentityHash(void);
 extern sqInt maxSlotsForNewSpaceAlloc(void);
 extern sqInt maybeMethodClassOfseemsToBeInstantiating(sqInt methodObj,
                                                       sqInt format);
-static NoDbgRegParms sqInt methodHeaderOf(sqInt methodObj);
+static sqInt methodHeaderOf(sqInt methodObj);
 extern sqInt minSlotsForShortening(void);
 static sqInt newSpaceIsEmpty(void);
 extern sqInt nilObject(void);
 static NeverInline void nilUnmarkedWeaklingSlots(void);
-static NoDbgRegParms sqInt noCheckClassAtIndex(sqInt classIndex);
-static NoDbgRegParms sqInt noCheckPushonObjStack(sqInt objOop, sqInt objStack);
-static NoDbgRegParms sqInt noFixupFollowFieldofObject(sqInt fieldIndex,
+static sqInt noCheckClassAtIndex(sqInt classIndex);
+static sqInt noCheckPushonObjStack(sqInt objOop, sqInt objStack);
+static sqInt noFixupFollowFieldofObject(sqInt fieldIndex,
                                                       sqInt anObject);
-static NoDbgRegParms NeverInline sqInt noInlineAllocateSlotsformatclassIndex(
+static NeverInline sqInt noInlineAllocateSlotsformatclassIndex(
     sqInt numSlots, sqInt formatField, sqInt classIndex);
 static int noUnscannedEphemerons(void);
-static NoDbgRegParms sqInt numBytesOfBitsformat(sqInt objOop, sqInt format);
-static NoDbgRegParms sqInt numBytesOfBytes(sqInt objOop);
+static sqInt numBytesOfBitsformat(sqInt objOop, sqInt format);
+static sqInt numBytesOfBytes(sqInt objOop);
 extern sqInt numBytesOf(sqInt objOop);
-static NoDbgRegParms usqInt numPointerSlotsOf(sqInt objOop);
-static NoDbgRegParms sqInt numSlotsForBytes(sqInt numBytes);
-static NoDbgRegParms usqInt numSlotsOfAny(sqInt objOop);
-static NoDbgRegParms usqInt numSlotsOfIndexablePointerObj(sqInt objOop);
+static usqInt numPointerSlotsOf(sqInt objOop);
+static sqInt numSlotsForBytes(sqInt numBytes);
+static usqInt numSlotsOfAny(sqInt objOop);
+static usqInt numSlotsOfIndexablePointerObj(sqInt objOop);
 extern usqInt numSlotsOf(sqInt objOop);
-static NoDbgRegParms sqInt numStrongSlotsOfInephemeral(sqInt objOop);
-static NoDbgRegParms sqInt numStrongSlotsOfWeakling(sqInt objOop);
+static sqInt numStrongSlotsOfInephemeral(sqInt objOop);
+static sqInt numStrongSlotsOfWeakling(sqInt objOop);
 extern sqInt objCouldBeClassObj(sqInt objOop);
 extern sqInt objectAfter(sqInt objOop);
 extern sqInt objectBefore(sqInt objOop);
-static NoDbgRegParms sqInt objectInPastSpaceBefore(sqInt objOop);
-static NoDbgRegParms sqInt objectStartingAt(sqInt address);
-static NoDbgRegParms sqInt objectsAccessibleFromRoots(sqInt arrayOfRootsArg);
-static NoDbgRegParms NeverInline sqInt
+static sqInt objectInPastSpaceBefore(sqInt objOop);
+static sqInt objectStartingAt(sqInt address);
+static sqInt objectsAccessibleFromRoots(sqInt arrayOfRootsArg);
+static NeverInline sqInt
 objectsReachableFromRoots(sqInt arrayOfRoots);
-static NoDbgRegParms sqInt okayOop(sqInt signedOop);
+static sqInt okayOop(sqInt signedOop);
 extern sqInt oldSpaceObjectAfter(sqInt objOop);
-static NoDbgRegParms NeverInline void
+static NeverInline void
 outOfPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag);
 extern sqInt pinObject(sqInt objOop);
-static NoDbgRegParms sqInt popObjStack(sqInt objStack);
+static sqInt popObjStack(sqInt objStack);
 extern sqInt popRemappableOop(void);
-static NoDbgRegParms void postBecomeScanClassTable(sqInt effectsFlags);
+static void postBecomeScanClassTable(sqInt effectsFlags);
 extern sqInt primitiveErrorTable(void);
 extern void printActivationsOf(sqInt aMethodObj);
 extern void printBogons(void);
-static NoDbgRegParms void printBridgeon(sqInt oop, FILE *aStream);
-static NoDbgRegParms void printCantBeObjecton(sqInt oop, FILE *aStream);
+static void printBridgeon(sqInt oop, FILE *aStream);
+static void printCantBeObjecton(sqInt oop, FILE *aStream);
 extern void printContextReferencesTo(sqInt anOop);
 extern void printEntity(sqInt oop);
 extern void printEphemerons(void);
 extern void printForwarders(void);
-static NoDbgRegParms void printForwarderon(sqInt oop, FILE *aStream);
+static void printForwarderon(sqInt oop, FILE *aStream);
 extern void printFreeChunks(void);
 extern void printFreeChunk(sqInt freeChunk);
-static NoDbgRegParms void printFreeChunkprintAsTreeNode(sqInt freeChunk,
+static void printFreeChunkprintAsTreeNode(sqInt freeChunk,
                                                         sqInt printAsTreeNode);
 extern void printFreeListHeads(void);
 extern sqInt printFreeList(sqInt chunkOrIndex);
-static NoDbgRegParms void printFreeObjecton(sqInt oop, FILE *aStream);
+static void printFreeObjecton(sqInt oop, FILE *aStream);
 extern void printFreeTree(void);
-static NoDbgRegParms void printFreeTreeChunk(sqInt chunkOrZero);
+static void printFreeTreeChunk(sqInt chunkOrZero);
 extern void printHeaderOf(sqInt objOop);
-static NoDbgRegParms void printImmediateObjecton(sqInt oop, FILE *aStream);
+static void printImmediateObjecton(sqInt oop, FILE *aStream);
 extern void printInstancesOf(sqInt aClassOop);
 extern void printInstancesWithClassIndex(sqInt classIndex);
 extern void printInvalidClassTableEntries(void);
@@ -1019,64 +1013,64 @@ extern void printMarkedOops(void);
 #endif /* LLDB */
 extern void printMethodImplementorsOf(sqInt anOop);
 extern void printMethodReferencesTo(sqInt anOop);
-static NoDbgRegParms void printNonPointerDataOfon(sqInt oop, FILE *aStream);
+static void printNonPointerDataOfon(sqInt oop, FILE *aStream);
 extern void printObjectsFromto(sqInt startAddress, sqInt endAddress);
 extern void printObjectsWithHash(sqInt hash);
 extern void printObjStackAndContents(sqInt objStack);
-static NoDbgRegParms void printObjStackPagemyIndexpageTypeprintContents(
+static void printObjStackPagemyIndexpageTypeprintContents(
     sqInt objStackPage, sqInt myx, sqInt pageType, sqInt printContents);
-static NoDbgRegParms void
+static void
 printObjStackPagemyIndextag(sqInt objStackPage, sqInt myx, char *pageType);
 extern void printObjStack(sqInt objStack);
 extern NeverInline void printOopsExcept(sqInt (*function)(sqInt));
 extern void printOopsFromto(sqInt startAddress, sqInt endAddress);
 extern NeverInline void printOopsSuchThat(sqInt (*function)(sqInt));
 extern void printReferencesTo(sqInt anOop);
-static NoDbgRegParms void printStringDataOfon(sqInt oop, FILE *aStream);
+static void printStringDataOfon(sqInt oop, FILE *aStream);
 #if LLDB
 extern void printUnmarkedOops(void);
 #endif /* LLDB */
 extern void printWeaklings(void);
-static NoDbgRegParms sqInt pushOnUnscannedEphemeronsStack(sqInt anEphemeron);
+static sqInt pushOnUnscannedEphemeronsStack(sqInt anEphemeron);
 extern void pushRemappableOop(sqInt oop);
-static NoDbgRegParms void queueMourner(sqInt anEphemeronOrWeakArray);
+static void queueMourner(sqInt anEphemeronOrWeakArray);
 extern sqInt rawHashBitsOf(sqInt objOop);
 static void refireQueuedEphemeronsPostSnapshot(void);
-static NoDbgRegParms sqInt relocateObjStackForPlanningCompactorandContents(
+static sqInt relocateObjStackForPlanningCompactorandContents(
     sqInt objStack, sqInt relocateContents);
 extern sqInt removeGCRoot(sqInt *varLoc);
-static NoDbgRegParms sqInt
+static sqInt
 returnrestoringObjectsInsavedFirstFieldsandsavedHashes(
     sqInt errCode, sqInt reachableObjectsArray, sqInt savedFirstFields,
     sqInt outPointersArray, sqInt savedHashes);
-static NoDbgRegParms sqInt returnrestoringObjectsInupTosavedFirstFields(
+static sqInt returnrestoringObjectsInupTosavedFirstFields(
     sqInt errCode, sqInt reachableObjectsArray, sqInt limitOrTag,
     sqInt savedFirstFields);
-static NoDbgRegParms NeverInline void
+static NeverInline void
 reverseBytesIn32BitWordsIn(sqInt segmentWordArray);
-static NoDbgRegParms void runLeakCheckerForFreeSpaceignoring(sqInt gcModes,
+static void runLeakCheckerForFreeSpaceignoring(sqInt gcModes,
                                                              sqInt anOopOrNil);
-static NoDbgRegParms void runLeakCheckerFor(sqInt gcModes);
-static NoDbgRegParms void
+static void runLeakCheckerFor(sqInt gcModes);
+static void
 runLeakCheckerForexcludeUnmarkedObjsclassIndicesShouldBeValid(
     sqInt gcModes, sqInt excludeUnmarkedObjs, sqInt classIndicesShouldBeValid);
-static NoDbgRegParms void safePrintStringOf(sqInt oop);
-static NoDbgRegParms void scavengingGCTenuringIf(sqInt tenuringCriterion);
-static NoDbgRegParms NeverInline sqInt setHeapBasememoryLimitendOfMemory(
+static void safePrintStringOf(sqInt oop);
+static void scavengingGCTenuringIf(sqInt tenuringCriterion);
+static NeverInline sqInt setHeapBasememoryLimitendOfMemory(
     sqInt baseOfHeap, sqInt memLimit, sqInt memEnd);
-static NoDbgRegParms void setIsPinnedOfto(sqInt objOop, sqInt aBoolean);
-static NoDbgRegParms void setIsRememberedOfto(sqInt objOop, sqInt aBoolean);
+static void setIsPinnedOfto(sqInt objOop, sqInt aBoolean);
+static void setIsRememberedOfto(sqInt objOop, sqInt aBoolean);
 extern sqInt shortentoIndexableSize(sqInt objOop, sqInt indexableSize);
 extern void shortPrintObjectsFromto(sqInt startAddress, sqInt endAddress);
 extern sqInt shouldRemapOop(sqInt oop);
-static NoDbgRegParms sqInt sizeOfObjStack(sqInt objStack);
+static sqInt sizeOfObjStack(sqInt objStack);
 static int slidingCompactionInProgress(void);
 extern sqInt slotSizeOf(sqInt oop);
 extern sqInt splObj(sqInt index);
-static NoDbgRegParms usqInt startOfObject(sqInt objOop);
+static usqInt startOfObject(sqInt objOop);
 extern sqInt statNumGCs(void);
 extern usqInt storeCheckBoundary(void);
-static NoDbgRegParms sqInt storeImageSegmentIntooutPointersroots(
+static sqInt storeImageSegmentIntooutPointersroots(
     sqInt segmentWordArrayArg, sqInt outPointersArrayArg,
     sqInt arrayOfRootsArg);
 extern sqInt storeLong32ofObjectwithValue(sqInt fieldIndex, sqInt obj,
@@ -1087,104 +1081,104 @@ extern sqInt storePointerUncheckedofObjectwithValue(sqInt fieldIndex,
 extern sqInt storePointerofObjectwithValue(sqInt fieldIndex, sqInt objOop,
                                            sqInt valuePointer);
 extern sqInt stringForCString(const char *aCString);
-static NoDbgRegParms sqInt swizzleObjStackAt(sqInt objStackRootIndex);
+static sqInt swizzleObjStackAt(sqInt objStackRootIndex);
 extern void tenuringIncrementalGC(void);
-static NoDbgRegParms sqInt topOfObjStack(sqInt objStack);
+static sqInt topOfObjStack(sqInt objStack);
 extern sqInt topRemappableOop(void);
 static sqInt totalFreeListBytes(void);
 extern sqInt trueObject(void);
 static void unfireQueuedEphemeronsForSnapshot(void);
-static NoDbgRegParms sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk,
+static sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk,
                                                      sqInt chunkBytes);
-static NoDbgRegParms NeverInline sqInt
+static NeverInline sqInt
 unlinkLilliputianChunkindex(sqInt freeChunk, sqInt index);
-static NoDbgRegParms void unlinkSolitaryFreeTreeNode(sqInt freeTreeNode);
+static void unlinkSolitaryFreeTreeNode(sqInt freeTreeNode);
 extern sqInt unpinObject(sqInt objOop);
-static NoDbgRegParms void updateListStartingAt(sqInt freeNode);
+static void updateListStartingAt(sqInt freeNode);
 static sqInt validClassTableHashes(void);
 static sqInt validClassTableRootPages(void);
 extern int validFreeTree(void);
-static NoDbgRegParms sqInt validFreeTreeChunk(sqInt chunk);
-static NoDbgRegParms const char *validFreeTreeChunkparent(sqInt chunk,
+static sqInt validFreeTreeChunk(sqInt chunk);
+static const char *validFreeTreeChunkparent(sqInt chunk,
                                                           sqInt parent);
 static sqInt validObjStacks(void);
-static NoDbgRegParms sqInt validPostBecomeArrayContents(sqInt anArray);
-static NoDbgRegParms sqInt validStorePointerArgs(sqInt fieldIndex, sqInt objOop,
+static sqInt validPostBecomeArrayContents(sqInt anArray);
+static sqInt validStorePointerArgs(sqInt fieldIndex, sqInt objOop,
                                                  sqInt valuePointer);
-static NoDbgRegParms sqInt validStorePointerUncheckedArgs(sqInt fieldIndex,
+static sqInt validStorePointerUncheckedArgs(sqInt fieldIndex,
                                                           sqInt objOop,
                                                           sqInt valuePointer);
 extern sqInt vmEndianness(void);
-static NoDbgRegParms char *whereIsMaybeHeapThing(sqInt anOop);
+static char *whereIsMaybeHeapThing(sqInt anOop);
 static NeverInline void compact(void);
 static NeverInline sqInt copyAndUnmarkMobileObjects(void);
-static NoDbgRegParms NeverInline void copyAndUnmark(sqInt firstPass);
+static NeverInline void copyAndUnmark(sqInt firstPass);
 static void endCompaction(void);
-static NoDbgRegParms void
+static void
 freeFromupTonextObject(usqInt initialToFinger, usqInt limit, sqInt nextObject);
-static NoDbgRegParms sqInt isMobile(sqInt obj);
-static NoDbgRegParms sqInt isPostMobile(sqInt obj);
+static sqInt isMobile(sqInt obj);
+static sqInt isPostMobile(sqInt obj);
 static NeverInline sqInt planCompactSavingForwarders(void);
-static NoDbgRegParms void reinitializeScanFrom(sqInt initialObject);
+static void reinitializeScanFrom(sqInt initialObject);
 extern sqInt remapObj(sqInt objOop);
 static sqInt savedFirstFieldsSpaceWasAllocated(void);
-static NoDbgRegParms sqInt
+static sqInt
 scanForFirstFreeAndFirstMobileObjectFrom(sqInt initialObject);
 extern sqInt shouldRemapObj(sqInt objOop);
 static void unmarkObjectsFromFirstFreeObject(void);
 static NeverInline void updatePointers(void);
-static NoDbgRegParms void
+static void
 updatePointersInsavedFirstFieldPointer(sqInt obj, sqInt firstFieldPtr);
-static NoDbgRegParms sqInt
+static sqInt
 useSegmentForSavedFirstFieldsSpace(sqInt spaceEstimate);
-static NoDbgRegParms sqInt validRelocationPlanInPass(sqInt onePass);
-static NoDbgRegParms usqInt segLimit(SpurSegmentInfo *self_in_SpurSegmentInfo);
-static NoDbgRegParms SpurSegmentInfo *addSegmentOfSize(sqInt ammount);
-static NoDbgRegParms void adjustSegmentSwizzlesBy(sqInt firstSegmentShift);
+static sqInt validRelocationPlanInPass(sqInt onePass);
+static usqInt segLimit(SpurSegmentInfo *self_in_SpurSegmentInfo);
+static SpurSegmentInfo *addSegmentOfSize(sqInt ammount);
+static void adjustSegmentSwizzlesBy(sqInt firstSegmentShift);
 static sqInt allBridgesMarked(void);
 static void allocateOrExtendSegmentInfos(void);
-static NoDbgRegParms sqInt bridgeAt(sqInt segIndex);
-static NoDbgRegParms sqInt bridgeFor(SpurSegmentInfo *aSegment);
-static NoDbgRegParms void bridgeFromto(SpurSegmentInfo *aSegment,
+static sqInt bridgeAt(sqInt segIndex);
+static sqInt bridgeFor(SpurSegmentInfo *aSegment);
+static void bridgeFromto(SpurSegmentInfo *aSegment,
                                        SpurSegmentInfo *nextSegmentOrNil);
 static void checkSegments(void);
 static void collapseSegmentsPostSwizzle(void);
-static NoDbgRegParms void *firstGapOfSizeAtLeast(sqInt size);
-static NoDbgRegParms sqInt isEmptySegment(SpurSegmentInfo *seg);
-static NoDbgRegParms sqInt isInSegments(usqInt address);
-static NoDbgRegParms sqInt isValidSegmentBridge(sqInt objOop);
-static NoDbgRegParms SpurSegmentInfo *nextNonEmptySegmentAfter(sqInt i);
+static void *firstGapOfSizeAtLeast(sqInt size);
+static sqInt isEmptySegment(SpurSegmentInfo *seg);
+static sqInt isInSegments(usqInt address);
+static sqInt isValidSegmentBridge(sqInt objOop);
+static SpurSegmentInfo *nextNonEmptySegmentAfter(sqInt i);
 static NeverInline void prepareForSnapshot(void);
-static NoDbgRegParms sqInt readHeapFromImageFiledataBytes(sqImageFile f,
+static sqInt readHeapFromImageFiledataBytes(sqImageFile f,
                                                           sqInt numBytes);
 static void restorePostSnapshot(void);
 extern SpurSegmentInfo *segmentContainingObj(sqInt objOop);
 static sqInt segmentOverlap(void);
-static NoDbgRegParms int shrinkObjectMemory(usqInt delta);
-static NoDbgRegParms sqInt swizzleObj(sqInt objOop);
+static int shrinkObjectMemory(usqInt delta);
+static sqInt swizzleObj(sqInt objOop);
 static usqInt totalBytesInSegments(void);
-static NoDbgRegParms sqInt writeImageSegmentsToFile(sqImageFile aBinaryStream);
-static NoDbgRegParms sqInt writeSegmentnextSegmenttoFile(
+static sqInt writeImageSegmentsToFile(sqImageFile aBinaryStream);
+static sqInt writeSegmentnextSegmenttoFile(
     SpurSegmentInfo *segment, SpurSegmentInfo *nextSegment,
     sqImageFile aBinaryStream);
-static NoDbgRegParms sqInt
+static sqInt
 accessorDepthForExternalPrimitiveMethod(sqInt methodObj);
 extern signed char accessorDepthForPrimitiveMethod(sqInt aMethodObj);
 extern sqInt activeProcess(void);
 extern void addIdleUsecs(sqInt idleUsecs);
-static NoDbgRegParms void addLastLinktoList(sqInt proc, sqInt aList);
-static NoDbgRegParms void addNewMethodToCache(sqInt classObj);
+static void addLastLinktoList(sqInt proc, sqInt aList);
+static void addNewMethodToCache(sqInt classObj);
 static char *allOnesAsCharStar(void);
 extern sqInt argumentCountOfClosure(sqInt closurePointer);
 extern usqInt argumentCountOfMethodHeader(sqInt header);
 extern usqInt argumentCountOf(sqInt methodPointer);
 extern void *arrayValueOf(sqInt arrayOop);
-static NoDbgRegParms sqInt asciiOfCharacter(sqInt characterObj);
+static sqInt asciiOfCharacter(sqInt characterObj);
 extern void assertValidExecutionPointers(usqInt lip, char *lifp, char *lisp);
-static NoDbgRegParms void
+static void
 assertValidExecutionPointersimbarline(usqInt lip, char *lfp, char *lsp,
                                       sqInt inInterpreter, sqInt ln);
-static NoDbgRegParms void
+static void
 backupContexttoBlockingSendTo(sqInt suspendedContext, sqInt conditionVariable);
 extern sqInt booleanValueOf(sqInt obj);
 extern sqInt callbackEnter(sqInt *callbackID);
@@ -1193,49 +1187,49 @@ extern sqInt canContextSwitchIfActivatingheader(sqInt theMethod,
                                                 sqInt methodHeader);
 extern sqInt characterForAscii(sqInt ascii);
 extern sqInt checkAllAccessibleObjectsOkay(void);
-static NoDbgRegParms sqInt checkCodeIntegrity(sqInt fullGCFlag);
+static sqInt checkCodeIntegrity(sqInt fullGCFlag);
 #if LRPCheck
 static NeverInline sqInt checkDeliveryOfLongRunningPrimitiveSignal(void);
 #endif /* LRPCheck */
 extern sqInt checkedIntegerValueOf(sqInt intOop);
-static NoDbgRegParms sqInt
+static sqInt
 checkForEventsMayContextSwitch(sqInt mayContextSwitch);
 extern sqInt checkImageHeaderFromBytesAndSize(char *bytes, sqInt totalSize);
-static NoDbgRegParms sqInt checkImageVersionFromstartingAtassignRawVersion(
+static sqInt checkImageVersionFromstartingAtassignRawVersion(
     sqImageFile f, squeakFileOffsetType imageOffset, sqInt *rawVersionPtr);
 static sqInt checkInterpreterIntegrity(void);
-static NoDbgRegParms sqInt checkIsStillMarriedContextcurrentFP(sqInt aContext,
+static sqInt checkIsStillMarriedContextcurrentFP(sqInt aContext,
                                                                char *currentFP);
 static sqInt checkLogIntegrity(void);
-static NoDbgRegParms sqInt checkOkayFields(sqInt oop);
+static sqInt checkOkayFields(sqInt oop);
 extern sqInt checkOkayInterpreterObjects(sqInt writeBack);
-static NoDbgRegParms sqInt checkOkayStackPage(StackPage *thePage);
-static NoDbgRegParms sqInt checkOkayStackZone(sqInt writeBack);
-static NoDbgRegParms NeverInline void
+static sqInt checkOkayStackPage(StackPage *thePage);
+static sqInt checkOkayStackZone(sqInt writeBack);
+static NeverInline void
 checkProfileTickPostPrimitive(sqInt aPrimitiveMethod);
 static sqInt checkStackIntegrity(void);
-static NoDbgRegParms sqInt
+static sqInt
 checkStackPointerForMaybeMarriedContext(sqInt aContext);
-static NoDbgRegParms sqInt checkStackPointerIndexForFrame(char *theFP);
-static NoDbgRegParms sqInt classNameOfIs(sqInt aClass, char *className);
+static sqInt checkStackPointerIndexForFrame(char *theFP);
+static sqInt classNameOfIs(sqInt aClass, char *className);
 extern void clearTraceLog(void);
-static NoDbgRegParms sqInt contexthasValidInversePCMappingOfin(sqInt aContext,
+static sqInt contexthasValidInversePCMappingOfin(sqInt aContext,
                                                                sqInt theIP,
                                                                char *theFP);
 extern sqInt copiedValueCountOfClosure(sqInt closureObj);
 extern sqInt copyBits(void);
 extern sqInt copyBitsFromtoat(sqInt x0, sqInt x1, sqInt y);
-static NoDbgRegParms NeverInline sqInt couldBeProcess(sqInt oop);
-static NoDbgRegParms void createActualMessageTo(sqInt lookupClass);
+static NeverInline sqInt couldBeProcess(sqInt oop);
+static void createActualMessageTo(sqInt lookupClass);
 static sqInt defaultNumStackPages(void);
 #if SEND_PRINTING
 extern void disableSendPrinting(void);
 #endif /* SEND_PRINTING */
 extern void *disownVM(sqInt flags);
 static sqInt divorceAllFrames(void);
-static NoDbgRegParms void divorceFramesIn(StackPage *aStackPage);
-static NoDbgRegParms sqInt doPrimitiveDivby(sqInt rcvr, sqInt arg);
-static NoDbgRegParms sqInt doPrimitiveModby(sqInt rcvr, sqInt arg);
+static void divorceFramesIn(StackPage *aStackPage);
+static sqInt doPrimitiveDivby(sqInt rcvr, sqInt arg);
+static sqInt doPrimitiveModby(sqInt rcvr, sqInt arg);
 extern sqInt doSignalSemaphoreWithIndex(sqInt index);
 extern struct VirtualMachine **dummyReferToProxy(void);
 extern void dumpPrimTraceLog(void);
@@ -1245,55 +1239,55 @@ extern NeverInline void eekcr(void);
 #if SEND_PRINTING
 extern void enableSendPrinting(void);
 #endif /* SEND_PRINTING */
-static NoDbgRegParms sqInt ensureCallerContext(char *theFP);
-static NoDbgRegParms void ensureImageFormatIsUpToDate(sqInt swapBytes);
+static sqInt ensureCallerContext(char *theFP);
+static void ensureImageFormatIsUpToDate(sqInt swapBytes);
 static sqInt enterSmalltalkExecutiveImplementation(void);
 static sqInt executeNewMethod(void);
-static NoDbgRegParms void externalDivorceFrameandContext(char *theFP,
+static void externalDivorceFrameandContext(char *theFP,
                                                          sqInt ctxt);
-static NoDbgRegParms char *externalEnsureIsBaseFrame(char *aFramePtr);
-static NoDbgRegParms sqInt externalInstVarofContext(sqInt offset,
+static char *externalEnsureIsBaseFrame(char *aFramePtr);
+static sqInt externalInstVarofContext(sqInt offset,
                                                     sqInt aContext);
-static NoDbgRegParms sqInt externalInstVarofContextput(
+static sqInt externalInstVarofContextput(
     sqInt index, sqInt maybeMarriedContext, sqInt anOop);
 static sqInt externalQuickPrimitiveResponse(void);
 extern void *fetchArrayofObject(sqInt fieldIndex, sqInt objectPointer);
 extern double fetchFloatofObject(sqInt fieldIndex, sqInt objectPointer);
 extern sqInt fetchIntegerofObject(sqInt fieldIndex, sqInt objectPointer);
-static NoDbgRegParms sqInt fetchPointerofMarriedContext(sqInt offset,
+static sqInt fetchPointerofMarriedContext(sqInt offset,
                                                         sqInt aContext);
-static NoDbgRegParms sqInt fetchStackPointerOf(sqInt aContext);
+static sqInt fetchStackPointerOf(sqInt aContext);
 extern int fileTimesInUTC(void);
-static NoDbgRegParms sqInt findClassContainingMethodstartingAt(sqInt meth,
+static sqInt findClassContainingMethodstartingAt(sqInt meth,
                                                                sqInt classObj);
 extern sqInt findClassOfMethodforReceiver(sqInt meth, sqInt rcvr);
-static NoDbgRegParms char *findFrameAboveinPage(char *theFP,
+static char *findFrameAboveinPage(char *theFP,
                                                 StackPage *thePage);
-static NoDbgRegParms sqInt findHomeForContext(sqInt aContext);
-static NoDbgRegParms sqInt findMethodWithPrimitiveFromContextUpToContext(
+static sqInt findHomeForContext(sqInt aContext);
+static sqInt findMethodWithPrimitiveFromContextUpToContext(
     sqInt primitive, sqInt senderContext, sqInt homeContext);
-static NoDbgRegParms sqInt findNewMethodInClassTag(sqInt classTagArg);
+static sqInt findNewMethodInClassTag(sqInt classTagArg);
 extern sqInt findSelectorOfMethod(sqInt aMethodOop);
-static NoDbgRegParms char *findSPOfon(char *theFP, StackPage *thePage);
+static char *findSPOfon(char *theFP, StackPage *thePage);
 extern void flush(void);
-static NoDbgRegParms sqInt flushExternalPrimitiveOf(sqInt methodObj);
-static NoDbgRegParms void followForwardedFrameContentsstackPointer(char *theFP,
+static sqInt flushExternalPrimitiveOf(sqInt methodObj);
+static void followForwardedFrameContentsstackPointer(char *theFP,
                                                                    char *theSP);
 static void followForwardingPointersOfReceiversInStackZone(void);
 extern sqInt forceInterruptCheck(void);
 extern void forceInterruptCheckFromHeartbeat(void);
-static NoDbgRegParms sqInt frameCallerContext(char *theFP);
-static NoDbgRegParms char *frameCallerSP(char *theFP);
-static NoDbgRegParms sqInt frameContext(char *theFP);
-static NoDbgRegParms int frameHasContext(char *theFP);
-static NoDbgRegParms int frameIsBlockActivation(char *theFP);
-static NoDbgRegParms sqInt frameMethodObject(char *theFP);
-static NoDbgRegParms sqInt frameMethod(char *theFP);
-static NoDbgRegParms usqInt frameNumArgs(char *theFP);
-static NoDbgRegParms char *frameOfMarriedContext(sqInt aContext);
-static NoDbgRegParms void framePrintDescription(sqInt it);
-static NoDbgRegParms sqInt frameReceiver(char *theFP);
-static NoDbgRegParms sqInt frameStackedReceiverOffset(char *theFP);
+static sqInt frameCallerContext(char *theFP);
+static char *frameCallerSP(char *theFP);
+static sqInt frameContext(char *theFP);
+static int frameHasContext(char *theFP);
+static int frameIsBlockActivation(char *theFP);
+static sqInt frameMethodObject(char *theFP);
+static sqInt frameMethod(char *theFP);
+static usqInt frameNumArgs(char *theFP);
+static char *frameOfMarriedContext(sqInt aContext);
+static void framePrintDescription(sqInt it);
+static sqInt frameReceiver(char *theFP);
+static sqInt frameStackedReceiverOffset(char *theFP);
 static void freeUntracedStackPages(void);
 extern sqInt fullDisplayUpdate(void);
 static sqInt getCodeCompactionCount(void);
@@ -1314,86 +1308,86 @@ static sqInt getSnapshotScreenSize(void);
 extern sqInt *getStackPointer(void);
 extern sqInt getThisSessionID(void);
 extern FILE *getTranscript(void);
-static NoDbgRegParms sqInt handleForwardedSelectorFaultFor(sqInt selectorOop);
-static NoDbgRegParms sqInt handleForwardedSendFaultForTag(sqInt classTag);
-static NoDbgRegParms sqInt handleSpecialSelectorSendFaultForfpsp(sqInt obj,
+static sqInt handleForwardedSelectorFaultFor(sqInt selectorOop);
+static sqInt handleForwardedSendFaultForTag(sqInt classTag);
+static sqInt handleSpecialSelectorSendFaultForfpsp(sqInt obj,
                                                                  char *theFP,
                                                                  char *theSP);
 static NeverInline void handleStackOverflow(void);
-static NoDbgRegParms sqInt
+static sqInt
 handleStackOverflowOrEventAllowContextSwitch(sqInt mayContextSwitch);
 extern sqInt highBit(usqInt anUnsignedValue);
 extern sqInt homeMethodOf(sqInt aMethodOop);
-static NoDbgRegParms sqInt
+static sqInt
 ifCurrentStackPageHasValidHeadPointers(StackPage *thePage);
-static NoDbgRegParms usqInt iframeMethod(char *theFP);
+static usqInt iframeMethod(char *theFP);
 extern void ifValidWriteBackStackPointersSaveTo(void *theCFP, void *theCSP,
                                                 char **savedFPP,
                                                 char **savedSPP);
 extern sqInt includesBehaviorThatOf(sqInt aClass, sqInt aSuperclass);
 extern void initStackPagesAndContinueIntowith(void (*continuation)(void *),
                                               void *argument);
-static NoDbgRegParms sqInt instructionPointerForFramecurrentFPcurrentIP(
+static sqInt instructionPointerForFramecurrentFPcurrentIP(
     char *spouseFP, char *currentFP, sqInt instrPtr);
 static NeverInline sqInt interpreterAllocationReserveBytes(void);
 extern void ioFilenamefromStringofLengthresolveAliases(char *aCharBuffer,
                                                        char *aFilenameString,
                                                        sqInt filenameLength,
                                                        sqInt aBoolean);
-static NoDbgRegParms int isBaseFrame(char *theFP);
+static int isBaseFrame(char *theFP);
 extern sqInt isBooleanObject(sqInt oop);
-static NoDbgRegParms int isEmptyList(sqInt aLinkedList);
+static int isEmptyList(sqInt aLinkedList);
 extern int isFloatObject(sqInt oop);
-static NoDbgRegParms sqInt isFrameonPage(char *aFrame, StackPage *aPage);
+static sqInt isFrameonPage(char *aFrame, StackPage *aPage);
 extern sqInt isKindOfInteger(sqInt oop);
 extern sqInt isLargeIntegerObject(sqInt oop);
 extern sqInt isLargeNegativeIntegerObject(sqInt oop);
 extern sqInt isLargePositiveIntegerObject(sqInt oop);
-static NoDbgRegParms sqInt isLinkedExternalPrimitive(sqInt methodObj);
-static NoDbgRegParms sqInt isLiveContext(sqInt oop);
-static NoDbgRegParms int isMarriedOrWidowedContext(sqInt aContext);
-static NoDbgRegParms sqInt isMetaPrimitiveIndex(sqInt primIndex);
+static sqInt isLinkedExternalPrimitive(sqInt methodObj);
+static sqInt isLiveContext(sqInt oop);
+static int isMarriedOrWidowedContext(sqInt aContext);
+static sqInt isMetaPrimitiveIndex(sqInt primIndex);
 static int isPrimitiveFunctionPointerAnIndex(void);
 extern int isQuickPrimitiveIndex(sqInt anInteger);
 extern int isReadMediatedContextInstVarIndex(sqInt index);
-static NoDbgRegParms int isSingleContext(sqInt aContext);
-static NoDbgRegParms int isVanillaBlockClosure(sqInt aClosure);
-static NoDbgRegParms sqInt isWidowedContextDuringGC(sqInt aOnceMarriedContext);
-static NoDbgRegParms sqInt isWidowedContextNoConvert(sqInt aOnceMarriedContext);
-static NoDbgRegParms sqInt isWidowedContext(sqInt aOnceMarriedContext);
+static int isSingleContext(sqInt aContext);
+static int isVanillaBlockClosure(sqInt aClosure);
+static sqInt isWidowedContextDuringGC(sqInt aOnceMarriedContext);
+static sqInt isWidowedContextNoConvert(sqInt aOnceMarriedContext);
+static sqInt isWidowedContext(sqInt aOnceMarriedContext);
 extern int isWriteMediatedContextInstVarIndex(sqInt index);
 extern sqInt isKindOfClass(sqInt oop, sqInt aClass);
 extern sqInt isKindOf(sqInt oop, char *className);
 extern sqInt isMemberOf(sqInt oop, char *className);
-static NoDbgRegParms sqInt lengthOfNameOfClass(sqInt classOop);
+static sqInt lengthOfNameOfClass(sqInt classOop);
 extern sqInt literalofMethod(sqInt offset, sqInt methodPointer);
 extern sqInt loadBitBltFrom(sqInt bb);
 extern void loadInitialContext(void);
 extern void longPrintOop(sqInt oop);
 extern sqInt longStoreBytecodeForHeader(sqInt methodHeader);
-static NoDbgRegParms sqInt lookupInMethodCacheSelclassTag(sqInt selector,
+static sqInt lookupInMethodCacheSelclassTag(sqInt selector,
                                                           sqInt classTag);
-static NoDbgRegParms sqInt lookupMethodInClass(sqInt class);
-static NoDbgRegParms sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class);
+static sqInt lookupMethodInClass(sqInt class);
+static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class);
 extern sqInt lookupSelectorinClass(sqInt selector, sqInt class);
-static NoDbgRegParms StackPage *makeBaseFrameFor(sqInt aContext);
-static NoDbgRegParms void makeContextSnapshotSafe(sqInt ctxt);
+static StackPage *makeBaseFrameFor(sqInt aContext);
+static void makeContextSnapshotSafe(sqInt ctxt);
 extern usqInt makePointwithxValueyValue(sqInt xValue, sqInt yValue);
 static void mapInterpreterOops(void);
 static void mapPrimTraceLog(void);
 static NeverInline void mapStackPages(void);
 static void mapTraceLog(void);
 static void markAndTracePrimTraceLog(void);
-static NoDbgRegParms sqInt markAndTraceStackPages(sqInt fullGCFlag);
-static NoDbgRegParms void markAndTraceStackPage(StackPage *thePage);
+static sqInt markAndTraceStackPages(sqInt fullGCFlag);
+static void markAndTraceStackPage(StackPage *thePage);
 static void markAndTraceTraceLog(void);
 static void markAndTraceUntracedReachableStackPages(void);
-static NoDbgRegParms sqInt marriedContextpointsTostackDeltaForCurrentFrame(
+static sqInt marriedContextpointsTostackDeltaForCurrentFrame(
     sqInt spouseContext, sqInt anOop, sqInt stackDeltaForCurrentFrame);
-static NoDbgRegParms void
+static void
 marryContextInNewStackPageAndInitializeInterpreterRegisters(sqInt aContext);
-static NoDbgRegParms usqInt marryFrameSP(char *theFP, char *theSP);
-static NoDbgRegParms sqInt maybeLeakCheckExternalPrimCall(sqInt aMethodObj);
+static usqInt marryFrameSP(char *theFP, char *theSP);
+static sqInt maybeLeakCheckExternalPrimCall(sqInt aMethodObj);
 extern sqInt maybeSelectorOfMethod(sqInt methodObj);
 extern sqInt methodArgumentCount(void);
 extern sqInt methodClassAssociationOf(sqInt methodPointer);
@@ -1406,21 +1400,21 @@ extern sqInt methodReturnReceiver(void);
 extern NeverInline sqInt methodReturnString(const char *aCString);
 extern sqInt methodReturnValue(sqInt oop);
 extern int methodUsesAlternateBytecodeSet(sqInt aMethodObj);
-static NoDbgRegParms sqInt methodUsesPrimitiveErrorCode(sqInt aMethodObj);
+static sqInt methodUsesPrimitiveErrorCode(sqInt aMethodObj);
 EXPORT(void) moduleUnloaded(char *aModuleName);
-static NoDbgRegParms char *
+static char *
 moveFramesInthroughtoPage(StackPage *oldPage, char *theFP, StackPage *newPage);
-static NoDbgRegParms char *nameOfClass(sqInt classOop);
-static NoDbgRegParms char *nameOfClasslengthInto(sqInt classOop,
+static char *nameOfClass(sqInt classOop);
+static char *nameOfClasslengthInto(sqInt classOop,
                                                  sqInt *lengthPtr);
-static NoDbgRegParms sqInt noMarkedContextsOnPage(StackPage *thePage);
-static NoDbgRegParms usqInt numSlotsOfMarriedContext(sqInt aContext);
+static sqInt noMarkedContextsOnPage(StackPage *thePage);
+static usqInt numSlotsOfMarriedContext(sqInt aContext);
 static sqInt numStkPages(void);
-static NoDbgRegParms sqInt objectequalsString(sqInt anOop, char *aCString);
+static sqInt objectequalsString(sqInt anOop, char *aCString);
 extern sqInt ownVM(void *vmHandle);
 extern usqInt pcPreviousToinSqueakV3PlusClosuresOrSistaV1Method(sqInt theIP,
                                                                 sqInt aMethod);
-static NoDbgRegParms sqInt penultimateLiteralOf(sqInt aMethodOop);
+static sqInt penultimateLiteralOf(sqInt aMethodOop);
 extern sqInt popStack(void);
 extern sqInt pop(sqInt nItems);
 extern void popthenPush(sqInt nItems, sqInt oop);
@@ -1428,56 +1422,56 @@ extern sqInt positive32BitIntegerFor(unsigned int integerValue);
 extern sqInt positive64BitIntegerFor(usqLong integerValue);
 static sqInt postGCUpdateDisplayBits(void);
 EXPORT(void) primitiveEventProcessingControl(void);
-static NoDbgRegParms int primitiveFloatEqualtoArg(sqInt rcvrOop, sqInt argOop);
-static NoDbgRegParms int primitiveFloatGreaterOrEqualtoArg(sqInt rcvrOop,
+static int primitiveFloatEqualtoArg(sqInt rcvrOop, sqInt argOop);
+static int primitiveFloatGreaterOrEqualtoArg(sqInt rcvrOop,
                                                            sqInt argOop);
-static NoDbgRegParms int primitiveFloatGreaterthanArg(sqInt rcvrOop,
+static int primitiveFloatGreaterthanArg(sqInt rcvrOop,
                                                       sqInt argOop);
-static NoDbgRegParms int primitiveFloatLessOrEqualtoArg(sqInt rcvrOop,
+static int primitiveFloatLessOrEqualtoArg(sqInt rcvrOop,
                                                         sqInt argOop);
-static NoDbgRegParms int primitiveFloatLessthanArg(sqInt rcvrOop, sqInt argOop);
+static int primitiveFloatLessthanArg(sqInt rcvrOop, sqInt argOop);
 extern sqInt primitiveIndexOfMethodheader(sqInt theMethod, sqInt methodHeader);
 extern sqInt primitiveIndexOf(sqInt methodPointer);
-static NoDbgRegParms void
+static void
 printActivationNameForSelectorstartClass(sqInt aSelector, sqInt startClass);
-static NoDbgRegParms void printActivationNameForreceiverisBlockfirstTemporary(
+static void printActivationNameForreceiverisBlockfirstTemporary(
     sqInt aMethod, sqInt anObject, sqInt isBlock, sqInt maybeMessage);
 extern void printAllStacks(void);
 extern void printAllStacksOn(FILE *aStdioStream);
 extern void printCallStack(void);
-static NoDbgRegParms sqInt printCallStackFP(char *theFP);
+static sqInt printCallStackFP(char *theFP);
 extern sqInt printCallStackOf(sqInt aContextOrProcessOrFrame);
-static NoDbgRegParms sqInt printCallStackOfcurrentFP(sqInt aContext,
+static sqInt printCallStackOfcurrentFP(sqInt aContext,
                                                      char *currFP);
 extern void printCallStackOn(FILE *aStdioStream);
-static NoDbgRegParms sqInt printContextCallStackOf(sqInt aContext);
+static sqInt printContextCallStackOf(sqInt aContext);
 extern void printContext(sqInt aContext);
 extern void printExternalHeadFrame(void);
-static NoDbgRegParms sqInt printFrameAndCallersSPshort(char *theFP, char *theSP,
+static sqInt printFrameAndCallersSPshort(char *theFP, char *theSP,
                                                        sqInt printShort);
-static NoDbgRegParms void printFrameFlagsForFP(char *theFP);
-static NoDbgRegParms void printFrameOopat(char *name, char *address);
+static void printFrameFlagsForFP(char *theFP);
+static void printFrameOopat(char *name, char *address);
 extern void printFramesInPage(StackPage *thePage);
 extern void printFramesOnStackPageListInUse(void);
-static NoDbgRegParms void printFrameThingandFrameat(char *name, char *theFP,
+static void printFrameThingandFrameat(char *name, char *theFP,
                                                     char *address);
-static NoDbgRegParms void
+static void
 printFrameThingatextraString(char *name, char *address, char *extraStringOrNil);
 extern sqInt printFrame(char *theFP);
 extern sqInt printFrameWithSP(char *theFP, char *theSP);
-static NoDbgRegParms sqInt printHexPtrnp(void *p);
+static sqInt printHexPtrnp(void *p);
 extern void printHex(usqInt n);
 extern void printLikelyImplementorsOfSelector(sqInt selector);
-static NoDbgRegParms void printLogEntryAt(sqInt i);
+static void printLogEntryAt(sqInt i);
 extern void printMethodCache(void);
 extern void printMethodCacheFor(sqInt thing);
 extern void printMethodDictionaryOf(sqInt behavior);
 extern void printMethodDictionary(sqInt dictionary);
-static NoDbgRegParms void printNameOfClasscount(sqInt classOop, sqInt cnt);
-static NoDbgRegParms void printNum(sqInt n);
-static NoDbgRegParms void printOopShortInner(sqInt oop);
+static void printNameOfClasscount(sqInt classOop, sqInt cnt);
+static void printNum(sqInt n);
+static void printOopShortInner(sqInt oop);
 extern void printOop(sqInt oop);
-static NoDbgRegParms sqInt printPrimLogEntryAthasParameter(sqInt i,
+static sqInt printPrimLogEntryAthasParameter(sqInt i,
                                                            sqInt hasParameter);
 extern void printProcessStack(sqInt aProcess);
 extern sqInt printProcsOnList(sqInt procList);
@@ -1486,32 +1480,32 @@ extern void printStackPageList(void);
 extern void printStackPageListInUse(void);
 extern void printStackPages(void);
 extern void printStackPagesInUse(void);
-static NoDbgRegParms void printStackPageuseCount(StackPage *page, sqInt n);
+static void printStackPageuseCount(StackPage *page, sqInt n);
 extern void printStackReferencesTo(sqInt oop);
-static NoDbgRegParms void printStringOf(sqInt oop);
+static void printStringOf(sqInt oop);
 extern void print(char *s);
 extern void pushBool(sqInt trueOrFalse);
-static NoDbgRegParms sqInt pushedReceiverOrClosureOfFrame(char *theFP);
+static sqInt pushedReceiverOrClosureOfFrame(char *theFP);
 extern void pushFloat(double f);
 extern sqInt pushInteger(sqInt integerValue);
 extern void push(sqInt object);
-static NoDbgRegParms void putLongtoFile(sqInt aLong, sqImageFile aFile);
-static NoDbgRegParms void putShorttoFile(short aShort, sqImageFile aFile);
-static NoDbgRegParms void putToSleepyieldingIf(sqInt aProcess,
+static void putLongtoFile(sqInt aLong, sqImageFile aFile);
+static void putShorttoFile(short aShort, sqImageFile aFile);
+static void putToSleepyieldingIf(sqInt aProcess,
                                                sqInt yieldImplicitly);
-static NoDbgRegParms void putWord32toFile(int aWord32, sqImageFile aFile);
-static NoDbgRegParms sqInt quickFetchIntegerofObject(sqInt fieldIndex,
+static void putWord32toFile(int aWord32, sqImageFile aFile);
+static sqInt quickFetchIntegerofObject(sqInt fieldIndex,
                                                      sqInt objectPointer);
 extern sqInt readableFormat(sqInt imageVersion);
 extern size_t
 readImageFromFileHeapSizeStartingAt(sqImageFile f, usqInt desiredHeapSize,
                                     squeakFileOffsetType imageOffset);
-static NoDbgRegParms NeverInline void
+static NeverInline void
 reapAndResetErrorCodeToheader(char *theSP, sqInt methodHeader);
 extern sqInt reestablishContextPriorToCallback(sqInt callbackContext);
-static NoDbgRegParms sqInt removeFirstLinkOfList(sqInt aList);
-static NoDbgRegParms sqInt removeProcessfromList(sqInt aProcess, sqInt aList);
-static NoDbgRegParms sqInt resumepreemptedYieldingIffrom(sqInt aProcess,
+static sqInt removeFirstLinkOfList(sqInt aList);
+static sqInt removeProcessfromList(sqInt aProcess, sqInt aList);
+static sqInt resumepreemptedYieldingIffrom(sqInt aProcess,
                                                          sqInt yieldImplicitly,
                                                          sqInt sourceCode);
 static sqInt retryPrimitiveOnFailure(void);
@@ -1519,12 +1513,12 @@ extern sqInt
 returnAsThroughCallbackContext(sqInt returnTypeOop,
                                VMCallbackContext *vmCallbackContext,
                                sqInt callbackMethodContext);
-static NoDbgRegParms void reverseDisplayFromto(sqInt startIndex,
+static void reverseDisplayFromto(sqInt startIndex,
                                                sqInt endIndex);
-static NoDbgRegParms void rewriteMethodCacheEntryForExternalPrimitiveToFunction(
+static void rewriteMethodCacheEntryForExternalPrimitiveToFunction(
     void (*localPrimAddress)());
-static NoDbgRegParms sqInt safeMethodClassOf(sqInt methodPointer);
-static NoDbgRegParms sqInt
+static sqInt safeMethodClassOf(sqInt methodPointer);
+static sqInt
 saneFunctionPointerForFailureOfPrimIndex(sqInt primIndex);
 extern sqInt sendInvokeCallbackContext(VMCallbackContext *vmCallbackContext);
 extern void setBreakMNUSelector(char *aString);
@@ -1536,16 +1530,16 @@ extern void setInterruptPending(sqInt value);
 extern void setNextWakeupUsecs(usqLong value);
 extern void setSavedWindowSize(sqInt value);
 static void setSignalLowSpaceFlagAndSaveProcess(void);
-static NoDbgRegParms void
+static void
 setTraceFlagOnContextsFramesPageIfNeeded(sqInt aContext);
-static NoDbgRegParms sqInt shortPrintContext(sqInt aContext);
-static NoDbgRegParms sqInt shortPrintFrameAndCallers(char *theFP);
+static sqInt shortPrintContext(sqInt aContext);
+static sqInt shortPrintFrameAndCallers(char *theFP);
 extern void shortPrintFramesInPage(StackPage *thePage);
 extern void shortPrintFramesOnStackPageListInUse(void);
-static NoDbgRegParms sqInt shortPrintFrame(char *theFP);
+static sqInt shortPrintFrame(char *theFP);
 extern void shortPrintFrameAndNCallers(char *theFP, sqInt n);
-static NoDbgRegParms void shortPrintOop(sqInt oop);
-static NoDbgRegParms sqInt
+static void shortPrintOop(sqInt oop);
+static sqInt
 shortReversePrintFrameAndCallers(char *aFramePointer);
 extern sqInt showDisplayBitsLeftTopRightBottom(sqInt aForm, sqInt l, sqInt t,
                                                sqInt r, sqInt b);
@@ -1556,9 +1550,9 @@ extern sqInt sizeOfCallPrimitiveBytecode(sqInt methodHeader);
 extern sqInt sizeOfLongStoreTempBytecode(sqInt methodHeader);
 extern sqInt sizeOfSTArrayFromCPrimitive(void *cPtr);
 static int slowPrimitiveResponse(void);
-static NoDbgRegParms sqInt snapshot(sqInt embedded);
+static sqInt snapshot(sqInt embedded);
 extern sqInt specialSelector(sqInt index);
-static NoDbgRegParms void spurPostBecomeAction(sqInt theBecomeEffectsFlags);
+static void spurPostBecomeAction(sqInt theBecomeEffectsFlags);
 extern double stackFloatValue(sqInt offset);
 extern sqInt stackIntegerValue(sqInt offset);
 static sqInt stackLimitBytes(void);
@@ -1566,8 +1560,8 @@ static sqInt stackLimitOffset(void);
 extern sqInt stackObjectValue(sqInt offset);
 static sqInt stackPageByteSize(void);
 static sqInt stackPageHeadroom(void);
-static NoDbgRegParms sqInt stackPointerForMaybeMarriedContext(sqInt aContext);
-static NoDbgRegParms usqInt stackPointerIndexForFrame(char *theFP);
+static sqInt stackPointerForMaybeMarriedContext(sqInt aContext);
+static usqInt stackPointerIndexForFrame(char *theFP);
 extern usqIntptr_t stackPositiveMachineIntegerValue(sqInt offset);
 extern sqIntptr_t stackSignedMachineIntegerValue(sqInt offset);
 extern sqInt stackTop(void);
@@ -1578,46 +1572,46 @@ extern sqInt stObjectatput(sqInt array, sqInt index, sqInt value);
 extern sqInt storeIntegerofObjectwithValue(sqInt fieldIndex,
                                            sqInt objectPointer,
                                            sqInt integerValue);
-static NoDbgRegParms char *storeSenderOfFramewithValue(char *theFP,
+static char *storeSenderOfFramewithValue(char *theFP,
                                                        sqInt anOop);
 extern sqInt stSizeOf(sqInt oop);
 extern sqInt superclassOf(sqInt classPointer);
-static NoDbgRegParms sqInt synchronousSignal(sqInt aSemaphore);
+static sqInt synchronousSignal(sqInt aSemaphore);
 extern usqInt tempCountOf(sqInt methodPointer);
 extern usqInt temporaryCountOfMethodHeader(sqInt header);
-static NoDbgRegParms sqInt temporaryin(sqInt offset, char *theFP);
-static NoDbgRegParms sqInt temporaryinput(sqInt offset, char *theFP,
+static sqInt temporaryin(sqInt offset, char *theFP);
+static sqInt temporaryinput(sqInt offset, char *theFP,
                                           sqInt valueOop);
-static NoDbgRegParms sqInt transferTofrom(sqInt newProcOrNil, sqInt sourceCode);
+static sqInt transferTofrom(sqInt newProcOrNil, sqInt sourceCode);
 extern sqInt ultimateLiteralOf(sqInt aMethodOop);
-static NoDbgRegParms sqInt
+static sqInt
 unfollowFirstLiteralOfMaybeCalloutMethodprimitiveIndex(sqInt methodObj,
                                                        sqInt primIndex);
-static NoDbgRegParms sqInt updateDisplayLeftTopRightBottom(sqInt l, sqInt t,
+static sqInt updateDisplayLeftTopRightBottom(sqInt l, sqInt t,
                                                            sqInt r, sqInt b);
-static NoDbgRegParms void updateStateOfSpouseContextForFrameWithSP(char *theFP,
+static void updateStateOfSpouseContextForFrameWithSP(char *theFP,
                                                                    char *theSP);
-static NoDbgRegParms sqInt validInstructionPointerinFrame(usqInt anInstrPointer,
+static sqInt validInstructionPointerinFrame(usqInt anInstrPointer,
                                                           char *fp);
 extern sqInt validInstructionPointerinMethodframePointer(usqInt theInstrPointer,
                                                          usqInt aMethod,
                                                          char *fp);
 static sqInt validStackPageBaseFrames(void);
-static NoDbgRegParms sqInt validStackPageBaseFrame(StackPage *aPage);
+static sqInt validStackPageBaseFrame(StackPage *aPage);
 #if LRPCheck
-static NoDbgRegParms NeverInline void voidLongRunningPrimitive(char *reason);
+static NeverInline void voidLongRunningPrimitive(char *reason);
 #endif /* LRPCheck */
-static NoDbgRegParms sqInt
+static sqInt
 voidVMStateForSnapshotFlushingExternalPrimitivesIf(sqInt flushExtPrims);
 static sqInt wakeHighestPriority(void);
 extern char *whereIs(sqInt anOop);
 static NeverInline sqInt writeImageFileIO(void);
-static NoDbgRegParms usqInt cloneContext(sqInt aContext);
-static NoDbgRegParms sqInt fieldOrSenderFPofContext(sqInt index,
+static usqInt cloneContext(sqInt aContext);
+static sqInt fieldOrSenderFPofContext(sqInt index,
                                                     sqInt contextObj);
-static NoDbgRegParms sqInt fieldofFrame(sqInt index, char *theFP);
-static NoDbgRegParms sqInt isAppropriateForCopyObject(sqInt oop);
-static NoDbgRegParms void (*linkExternalCallerrInto(sqInt externalCallLiteral,
+static sqInt fieldofFrame(sqInt index, char *theFP);
+static sqInt isAppropriateForCopyObject(sqInt oop);
+static void (*linkExternalCallerrInto(sqInt externalCallLiteral,
                                                     sqInt *failPtr))(void);
 static void primitiveClone(void);
 static void primitiveClosureCopyWithCopiedValues(void);
@@ -1664,7 +1658,7 @@ static void primitiveUnloadModule(void);
 static void primitiveVMParameter(void);
 EXPORT(void) primitiveVoidReceiver(void);
 static void primitiveVoidVMState(void);
-static NoDbgRegParms void pruneStackstackp(sqInt stack, sqInt stackp);
+static void pruneStackstackp(sqInt stack, sqInt stackp);
 static void unmarkAfterPathTo(void);
 static void unmarkAllFrames(void);
 
@@ -3954,7 +3948,7 @@ void enableSendPrinting(void) {
 
 /* StackInterpreter>>#voidLongRunningPrimitive: */
 #if LRPCheck
-static NoDbgRegParms NeverInline void voidLongRunningPrimitive(char *reason) {
+static NeverInline void voidLongRunningPrimitive(char *reason) {
   DECL_MAYBE_SQ_GLOBAL_STRUCT
   GIV(longRunningPrimitiveCheckMethod) = null;
   GIV(longRunningPrimitiveStartUsecs) =

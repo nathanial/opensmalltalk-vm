@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#noCheckPush:onObjStack: */
 
-static NoDbgRegParms sqInt noCheckPushonObjStack(sqInt objOop, sqInt objStack) {
+static sqInt noCheckPushonObjStack(sqInt objOop, sqInt objStack) {
   sqInt topx;
 
   eassert(isValidObjStack(objStack));

@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#growOldSpaceByAtLeast: */
 
-static NoDbgRegParms usqInt growOldSpaceByAtLeast(sqInt minAmmount) {
+static usqInt growOldSpaceByAtLeast(sqInt minAmmount) {
   sqInt address;
   sqInt ammount;
   sqInt bytes;

@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#printNonPointerDataOf:on: */
 
-static NoDbgRegParms void printNonPointerDataOfon(sqInt oop, FILE *aStream) {
+static void printNonPointerDataOfon(sqInt oop, FILE *aStream) {
   sqInt elementsPerLine;
   sqInt format;
   sqInt index;

@@ -14,7 +14,7 @@
 
 /* SpurMemoryManager>>#objectsAccessibleFromRoots: */
 
-static NoDbgRegParms sqInt objectsAccessibleFromRoots(sqInt arrayOfRootsArg) {
+static sqInt objectsAccessibleFromRoots(sqInt arrayOfRootsArg) {
   sqInt arrayOfObjects;
   sqInt arrayOfRoots;
 

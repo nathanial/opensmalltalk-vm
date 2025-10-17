@@ -16,7 +16,7 @@
 
 /* CogStackPages>>#markStackPageNextMostRecentlyUsed: */
 
-static NoDbgRegParms sqInt markStackPageNextMostRecentlyUsed(StackPage *page) {
+static sqInt markStackPageNextMostRecentlyUsed(StackPage *page) {
   assert(page != mostRecentlyUsedPage);
   if (((page->nextPage)) == mostRecentlyUsedPage) {
     return null;

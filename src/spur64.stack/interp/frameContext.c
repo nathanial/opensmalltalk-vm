@@ -2,6 +2,6 @@
 
 /* StackInterpreter>>#frameContext: */
 
-static NoDbgRegParms sqInt frameContext(char *theFP) {
+static sqInt frameContext(char *theFP) {
   return longAt(theFP + FoxThisContext);
 }

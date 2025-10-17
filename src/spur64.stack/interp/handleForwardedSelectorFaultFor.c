@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#handleForwardedSelectorFaultFor: */
 
-static NoDbgRegParms sqInt handleForwardedSelectorFaultFor(sqInt selectorOop) {
+static sqInt handleForwardedSelectorFaultFor(sqInt selectorOop) {
   sqInt referent;
 
   assert(isOopForwarded(selectorOop));

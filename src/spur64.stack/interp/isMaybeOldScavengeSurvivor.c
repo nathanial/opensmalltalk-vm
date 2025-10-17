@@ -6,7 +6,7 @@
 
 /* SpurGenerationScavenger>>#isMaybeOldScavengeSurvivor: */
 
-static NoDbgRegParms sqInt isMaybeOldScavengeSurvivor(sqInt oop) {
+static sqInt isMaybeOldScavengeSurvivor(sqInt oop) {
   sqInt target;
 
   if (((oop & (tagMask())) != 0)) {

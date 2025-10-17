@@ -6,6 +6,6 @@
 
 /* StackInterpreter>>#isBaseFrame: */
 
-static NoDbgRegParms int isBaseFrame(char *theFP) {
+static int isBaseFrame(char *theFP) {
   return (longAt(theFP + FoxSavedFP)) == 0;
 }

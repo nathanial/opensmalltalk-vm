@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#reverseBytesIn32BitWordsIn: */
 
-static NoDbgRegParms NeverInline void
+static NeverInline void
 reverseBytesIn32BitWordsIn(sqInt segmentWordArray) {
   sqInt addr;
   sqInt stopAddr;

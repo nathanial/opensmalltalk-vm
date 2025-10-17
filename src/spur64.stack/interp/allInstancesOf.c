@@ -9,7 +9,7 @@
 
 /* SpurMemoryManager>>#allInstancesOf: */
 
-static NoDbgRegParms sqInt allInstancesOf(sqInt aClass) {
+static sqInt allInstancesOf(sqInt aClass) {
   sqInt actualIndex;
   usqInt bytes;
   sqInt classIndex;

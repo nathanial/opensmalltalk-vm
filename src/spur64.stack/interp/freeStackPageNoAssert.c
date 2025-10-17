@@ -9,7 +9,7 @@
 
 /* CogStackPages>>#freeStackPageNoAssert: */
 
-static NoDbgRegParms sqInt freeStackPageNoAssert(StackPage *aPage) {
+static sqInt freeStackPageNoAssert(StackPage *aPage) {
   StackPage *prev;
   StackPage *self_in_CogStackPage;
 

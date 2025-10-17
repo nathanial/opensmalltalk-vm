@@ -9,7 +9,7 @@
 
 /* SpurMemoryManager>>#runLeakCheckerForFreeSpace:ignoring: */
 
-static NoDbgRegParms void runLeakCheckerForFreeSpaceignoring(sqInt gcModes,
+static void runLeakCheckerForFreeSpaceignoring(sqInt gcModes,
                                                              sqInt anOopOrNil) {
   if (((gcModes & GCCheckFreeSpace) != 0)) {
     reverseDisplayFromto(16, 19);

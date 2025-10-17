@@ -5,6 +5,6 @@
 
 /* CogStackPages>>#stackPageAt: */
 
-static NoDbgRegParms StackPage *stackPageAt(sqInt index) {
+static StackPage *stackPageAt(sqInt index) {
   return stackPageAtpages(index, pages);
 }

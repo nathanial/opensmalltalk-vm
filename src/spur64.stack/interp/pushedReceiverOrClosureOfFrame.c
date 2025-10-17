@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#pushedReceiverOrClosureOfFrame: */
 
-static NoDbgRegParms sqInt pushedReceiverOrClosureOfFrame(char *theFP) {
+static sqInt pushedReceiverOrClosureOfFrame(char *theFP) {
   return longAt(theFP + ((FoxCallerSavedIP + BytesPerWord) +
                          ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1)))
                             << (shiftForWord()))))));

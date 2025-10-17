@@ -6,7 +6,7 @@
 
 /* SpurSegmentManager>>#firstGapOfSizeAtLeast: */
 
-static NoDbgRegParms void *firstGapOfSizeAtLeast(sqInt size) {
+static void *firstGapOfSizeAtLeast(sqInt size) {
   sqInt address;
   sqInt bridge;
   sqInt i;

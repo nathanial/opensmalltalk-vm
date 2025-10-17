@@ -2,7 +2,7 @@
 
 /* SpurSegmentManager>>#writeImageSegmentsToFile: */
 
-static NoDbgRegParms sqInt writeImageSegmentsToFile(sqImageFile aBinaryStream) {
+static sqInt writeImageSegmentsToFile(sqImageFile aBinaryStream) {
   sqInt i;
   sqInt total;
 

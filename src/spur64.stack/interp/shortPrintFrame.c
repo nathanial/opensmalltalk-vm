@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#shortPrintFrame: */
 
-static NoDbgRegParms sqInt shortPrintFrame(char *theFP) {
+static sqInt shortPrintFrame(char *theFP) {
   usqInt frameNumArgs;
   sqInt rcvr;
 

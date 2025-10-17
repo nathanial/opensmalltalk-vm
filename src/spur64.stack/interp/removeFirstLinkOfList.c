@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#removeFirstLinkOfList: */
 
-static NoDbgRegParms sqInt removeFirstLinkOfList(sqInt aList) {
+static sqInt removeFirstLinkOfList(sqInt aList) {
   sqInt first;
   sqInt last;
   sqInt next;

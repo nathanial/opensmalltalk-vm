@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#shortReversePrintFrameAndCallers: */
 
-static NoDbgRegParms sqInt
+static sqInt
 shortReversePrintFrameAndCallers(char *aFramePointer) {
   sqInt caller;
   char *callerFP;

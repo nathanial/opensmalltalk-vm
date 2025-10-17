@@ -36,7 +36,7 @@
 
 /* Spur64BitMemoryManager>>#objectAfterMaybeSlimBridge:limit: */
 
-static NoDbgRegParms sqInt objectAfterMaybeSlimBridgelimit(sqInt objOop,
+static sqInt objectAfterMaybeSlimBridgelimit(sqInt objOop,
                                                            sqInt limit) {
   sqInt followingWord;
   usqInt followingWordAddress;

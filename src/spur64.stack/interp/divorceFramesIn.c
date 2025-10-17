@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#divorceFramesIn: */
 
-static NoDbgRegParms void divorceFramesIn(StackPage *aStackPage) {
+static void divorceFramesIn(StackPage *aStackPage) {
   sqInt calleeContext;
   char *calleeFP;
   sqInt theContext;

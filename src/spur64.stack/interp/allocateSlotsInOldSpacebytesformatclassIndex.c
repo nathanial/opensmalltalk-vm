@@ -7,7 +7,7 @@
 
 /* SpurMemoryManager>>#allocateSlotsInOldSpace:bytes:format:classIndex: */
 
-static NoDbgRegParms sqInt allocateSlotsInOldSpacebytesformatclassIndex(
+static sqInt allocateSlotsInOldSpacebytesformatclassIndex(
     sqInt numSlots, usqInt totalBytes, sqInt formatField, sqInt classIndex) {
   sqInt chunk;
 

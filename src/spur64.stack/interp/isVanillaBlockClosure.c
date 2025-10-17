@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#isVanillaBlockClosure: */
 
-static NoDbgRegParms int isVanillaBlockClosure(sqInt aClosure) {
+static int isVanillaBlockClosure(sqInt aClosure) {
   assert((isPointers(aClosure)) &&
          ((numSlotsOf(aClosure)) >= ClosureFirstCopiedValueIndex));
   return ((((longAt((void *)((aClosure + BaseHeaderSize) +

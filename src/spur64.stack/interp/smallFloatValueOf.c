@@ -12,7 +12,7 @@
 
 /* Spur64BitMemoryManager>>#smallFloatValueOf: */
 
-static NoDbgRegParms double smallFloatValueOf(sqInt oop) {
+static double smallFloatValueOf(sqInt oop) {
   usqLong bits;
   double value;
 

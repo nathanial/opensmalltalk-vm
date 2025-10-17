@@ -12,7 +12,7 @@
 
 /* SpurGenerationScavenger>>#scavengeReferentsOf: */
 
-static NoDbgRegParms sqInt scavengeReferentsOf(sqInt referrer) {
+static sqInt scavengeReferentsOf(sqInt referrer) {
   sqInt foundNewReferent;
   sqInt i;
   usqInt numSlots;

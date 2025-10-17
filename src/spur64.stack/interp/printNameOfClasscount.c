@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#printNameOfClass:count: */
 
-static NoDbgRegParms void printNameOfClasscount(sqInt classOop, sqInt cnt) {
+static void printNameOfClasscount(sqInt classOop, sqInt cnt) {
   usqInt numSlots;
 
   if (!classNameIndex) {

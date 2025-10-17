@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#fetchPointer:ofFreeChunk: */
 
-static NoDbgRegParms sqInt fetchPointerofFreeChunk(sqInt fieldIndex,
+static sqInt fetchPointerofFreeChunk(sqInt fieldIndex,
                                                    sqInt objOop) {
   return longAt((void *)((objOop + BaseHeaderSize) +
                          ((((usqInt)(fieldIndex) << (shiftForWord()))))));

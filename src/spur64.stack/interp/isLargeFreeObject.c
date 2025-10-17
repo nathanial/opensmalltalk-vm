@@ -2,6 +2,6 @@
 
 /* SpurMemoryManager>>#isLargeFreeObject: */
 
-static NoDbgRegParms int isLargeFreeObject(sqInt objOop) {
+static int isLargeFreeObject(sqInt objOop) {
   return (bytesInBody(objOop)) >= 0x200 /* (numFreeLists * #allocationUnit) */;
 }

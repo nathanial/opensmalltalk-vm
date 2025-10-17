@@ -12,7 +12,7 @@
 
 /* SpurMemoryManager>>#objectsReachableFromRoots: */
 
-static NoDbgRegParms NeverInline sqInt
+static NeverInline sqInt
 objectsReachableFromRoots(sqInt arrayOfRoots) {
   sqInt count;
   sqInt delta;

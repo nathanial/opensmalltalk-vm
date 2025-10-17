@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#printFrameAndCallers:SP:short: */
 
-static NoDbgRegParms sqInt printFrameAndCallersSPshort(char *theFP, char *theSP,
+static sqInt printFrameAndCallersSPshort(char *theFP, char *theSP,
                                                        sqInt printShort) {
   if (!(/* couldBeFramePointer: */
         (((((usqInt)theFP)) & (BytesPerWord - 1)) == 0) &&

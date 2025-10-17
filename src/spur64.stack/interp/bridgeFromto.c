@@ -5,7 +5,7 @@
 
 /* SpurSegmentManager>>#bridgeFrom:to: */
 
-static NoDbgRegParms void bridgeFromto(SpurSegmentInfo *aSegment,
+static void bridgeFromto(SpurSegmentInfo *aSegment,
                                        SpurSegmentInfo *nextSegmentOrNil) {
   sqInt bridgeSpan;
   sqInt clifton;

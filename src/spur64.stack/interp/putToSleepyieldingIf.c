@@ -7,7 +7,7 @@
 
 /* StackInterpreter>>#putToSleep:yieldingIf: */
 
-static NoDbgRegParms void putToSleepyieldingIf(sqInt aProcess,
+static void putToSleepyieldingIf(sqInt aProcess,
                                                sqInt yieldImplicitly) {
   sqInt firstLink;
   sqInt objOop;

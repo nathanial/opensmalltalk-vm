@@ -3,7 +3,7 @@
 
 /* StackInterpreter>>#assertValidExecutionPointe:r:s:imbar:line: */
 
-static NoDbgRegParms void
+static void
 assertValidExecutionPointersimbarline(usqInt lip, char *lfp, char *lsp,
                                       sqInt inInterpreter, sqInt ln) {
   assertl(inInterpreter, ln);

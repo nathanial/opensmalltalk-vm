@@ -13,7 +13,7 @@
 
 /* SpurMemoryManager>>#postBecomeScanClassTable: */
 
-static NoDbgRegParms void postBecomeScanClassTable(sqInt effectsFlags) {
+static void postBecomeScanClassTable(sqInt effectsFlags) {
   sqInt classOrNil;
   sqInt i;
   sqInt j;

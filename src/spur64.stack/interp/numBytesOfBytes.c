@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#numBytesOfBytes: */
 
-static NoDbgRegParms sqInt numBytesOfBytes(sqInt objOop) {
+static sqInt numBytesOfBytes(sqInt objOop) {
   sqInt fmt;
   usqInt numSlots;
 

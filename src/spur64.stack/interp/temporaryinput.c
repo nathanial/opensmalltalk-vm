@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#temporary:in:put: */
 
-static NoDbgRegParms sqInt temporaryinput(sqInt offset, char *theFP,
+static sqInt temporaryinput(sqInt offset, char *theFP,
                                           sqInt valueOop) {
   usqInt frameNumArgs;
 

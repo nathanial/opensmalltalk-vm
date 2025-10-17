@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#updateDisplayLeft:Top:Right:Bottom: */
 
-static NoDbgRegParms sqInt updateDisplayLeftTopRightBottom(sqInt l, sqInt t,
+static sqInt updateDisplayLeftTopRightBottom(sqInt l, sqInt t,
                                                            sqInt r, sqInt b) {
   sqInt bottom;
   sqInt left;

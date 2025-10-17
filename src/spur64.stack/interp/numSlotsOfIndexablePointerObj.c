@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#numSlotsOfIndexablePointerObj: */
 
-static NoDbgRegParms usqInt numSlotsOfIndexablePointerObj(sqInt objOop) {
+static usqInt numSlotsOfIndexablePointerObj(sqInt objOop) {
   usqInt numSlots;
 
   assert((formatOf(objOop)) == (indexablePointersFormat()));

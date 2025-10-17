@@ -2,7 +2,7 @@
 
 /* SpurSegmentManager>>#swizzleObj: */
 
-static NoDbgRegParms sqInt swizzleObj(sqInt objOop) {
+static sqInt swizzleObj(sqInt objOop) {
   sqInt i;
 
   assert(canSwizzle);

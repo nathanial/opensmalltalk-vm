@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#updateListStartingAt: */
 
-static NoDbgRegParms void updateListStartingAt(sqInt freeNode) {
+static void updateListStartingAt(sqInt freeNode) {
   sqInt obj;
   sqInt prev;
 

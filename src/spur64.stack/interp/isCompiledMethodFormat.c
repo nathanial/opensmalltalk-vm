@@ -2,6 +2,6 @@
 
 /* SpurMemoryManager>>#isCompiledMethodFormat: */
 
-static NoDbgRegParms int isCompiledMethodFormat(sqInt format) {
+static int isCompiledMethodFormat(sqInt format) {
   return format >= (firstCompiledMethodFormat());
 }

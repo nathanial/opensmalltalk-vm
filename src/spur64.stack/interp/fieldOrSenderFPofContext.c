@@ -5,7 +5,7 @@
 
 /* StackInterpreterPrimitives>>#fieldOrSenderFP:ofContext: */
 
-static NoDbgRegParms sqInt fieldOrSenderFPofContext(sqInt index,
+static sqInt fieldOrSenderFPofContext(sqInt index,
                                                     sqInt contextObj) {
   sqInt senderOop;
   char *spouseFP;

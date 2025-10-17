@@ -10,7 +10,7 @@
 
 /* StackInterpreter>>#checkImageVersionFrom:startingAt:assignRawVersion: */
 
-static NoDbgRegParms sqInt checkImageVersionFromstartingAtassignRawVersion(
+static sqInt checkImageVersionFromstartingAtassignRawVersion(
     sqImageFile f, squeakFileOffsetType imageOffset, sqInt *rawVersionPtr) {
   sqInt version;
   int w;

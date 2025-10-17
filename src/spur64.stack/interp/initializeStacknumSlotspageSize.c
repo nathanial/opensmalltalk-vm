@@ -24,7 +24,7 @@
 
 /* InterpreterStackPages>>#initializeStack:numSlots:pageSize: */
 
-static NoDbgRegParms void initializeStacknumSlotspageSize(char *theStackPages,
+static void initializeStacknumSlotspageSize(char *theStackPages,
                                                           sqInt stackSlots,
                                                           sqInt slotsPerPage) {
   sqInt count;

@@ -11,7 +11,7 @@
 
 /* SpurMemoryManager>>#doShorten:toIndexableSize: */
 
-static NoDbgRegParms sqInt doShortentoIndexableSize(sqInt objOop,
+static sqInt doShortentoIndexableSize(sqInt objOop,
                                                     sqInt indexableSize) {
   usqInt bytesBefore;
   sqInt classIndex;

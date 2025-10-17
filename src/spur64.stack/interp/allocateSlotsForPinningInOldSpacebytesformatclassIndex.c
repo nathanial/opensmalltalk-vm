@@ -8,7 +8,7 @@
 /* Spur64BitMemoryManager>>#allocateSlotsForPinningInOldSpace:bytes:format:classIndex:
  */
 
-static NoDbgRegParms sqInt
+static sqInt
 allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots,
                                                        usqInt totalBytes,
                                                        sqInt formatField,

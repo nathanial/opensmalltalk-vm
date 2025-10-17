@@ -4,6 +4,6 @@
 
 /* SpurMemoryManager>>#fetchClassTagOfNonImm: */
 
-static NoDbgRegParms sqInt fetchClassTagOfNonImm(sqInt obj) {
+static sqInt fetchClassTagOfNonImm(sqInt obj) {
   return (longAt((void *)(obj))) & (classIndexMask());
 }

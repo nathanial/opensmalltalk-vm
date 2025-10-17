@@ -17,7 +17,7 @@
 
 /* StackInterpreter>>#markAndTraceStackPages: */
 
-static NoDbgRegParms sqInt markAndTraceStackPages(sqInt fullGCFlag) {
+static sqInt markAndTraceStackPages(sqInt fullGCFlag) {
   sqInt context;
   sqInt i;
   void *pointer;

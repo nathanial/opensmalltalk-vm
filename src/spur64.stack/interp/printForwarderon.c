@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#printForwarder:on: */
 
-static NoDbgRegParms void printForwarderon(sqInt oop, FILE *aStream) {
+static void printForwarderon(sqInt oop, FILE *aStream) {
   fprintf(
       aStream,
       "%p is a forwarded hdr%d slot size %" PRIuSQINT " object to %p\n",

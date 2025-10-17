@@ -7,7 +7,7 @@
 
 /* StackInterpreter>>#validInstructionPointer:inFrame: */
 
-static NoDbgRegParms sqInt validInstructionPointerinFrame(usqInt anInstrPointer,
+static sqInt validInstructionPointerinFrame(usqInt anInstrPointer,
                                                           char *fp) {
   return /* validInstructionPointer:inMethod:framePointer: */
       (anInstrPointer >=

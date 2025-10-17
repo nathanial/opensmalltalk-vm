@@ -7,7 +7,7 @@
 
 /* InterpreterPrimitives>>#signedMachineIntegerValueOfObj: */
 
-static NoDbgRegParms sqIntptr_t signedMachineIntegerValueOfObj(sqInt oop) {
+static sqIntptr_t signedMachineIntegerValueOfObj(sqInt oop) {
   sqInt bs;
   sqInt ccIndex;
   sqInt fmt;

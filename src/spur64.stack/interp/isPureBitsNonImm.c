@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#isPureBitsNonImm: */
 
-static NoDbgRegParms sqInt isPureBitsNonImm(sqInt objOop) {
+static sqInt isPureBitsNonImm(sqInt objOop) {
   sqInt format;
 
   format =

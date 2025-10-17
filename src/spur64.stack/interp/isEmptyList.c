@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#isEmptyList: */
 
-static NoDbgRegParms int isEmptyList(sqInt aLinkedList) {
+static int isEmptyList(sqInt aLinkedList) {
   assert(!(isForwarded(aLinkedList)));
   return (longAt(
              (void *)((aLinkedList + BaseHeaderSize) +

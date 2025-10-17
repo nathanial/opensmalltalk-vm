@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#checkForEventsMayContextSwitch: */
 
-static NoDbgRegParms sqInt
+static sqInt
 checkForEventsMayContextSwitch(sqInt mayContextSwitch) {
   sqInt heapSizePostGC;
   usqLong now;

@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#isEnumerableObjectNoAssert: */
 
-static NoDbgRegParms sqInt isEnumerableObjectNoAssert(sqInt objOop) {
+static sqInt isEnumerableObjectNoAssert(sqInt objOop) {
   sqInt classIndex;
 
   classIndex = (longAt((void *)(objOop))) & (classIndexMask());

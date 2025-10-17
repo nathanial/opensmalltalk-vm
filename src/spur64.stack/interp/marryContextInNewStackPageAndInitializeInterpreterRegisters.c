@@ -8,7 +8,7 @@
 /* StackInterpreter>>#marryContextInNewStackPageAndInitializeInterpreterRegisters:
  */
 
-static NoDbgRegParms void
+static void
 marryContextInNewStackPageAndInitializeInterpreterRegisters(sqInt aContext) {
   sqInt aMethodObj;
   sqInt methodHeader;

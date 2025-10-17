@@ -7,7 +7,7 @@
 
 /* SpurGenerationScavenger>>#copyAndForwardMourner: */
 
-static NoDbgRegParms sqInt copyAndForwardMourner(sqInt mourner) {
+static sqInt copyAndForwardMourner(sqInt mourner) {
   usqInt bytesInObj;
   sqInt format;
   sqInt newLocation;

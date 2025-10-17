@@ -7,7 +7,7 @@
 
 /* SpurMemoryManager>>#relocateObjStackForPlanningCompactor:andContents: */
 
-static NoDbgRegParms sqInt relocateObjStackForPlanningCompactorandContents(
+static sqInt relocateObjStackForPlanningCompactorandContents(
     sqInt objStack, sqInt relocateContents) {
   sqInt finishIndex;
   sqInt freeList;

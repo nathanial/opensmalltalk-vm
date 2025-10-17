@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#externalEnsureIsBaseFrame: */
 
-static NoDbgRegParms char *externalEnsureIsBaseFrame(char *aFramePtr) {
+static char *externalEnsureIsBaseFrame(char *aFramePtr) {
   int onCurrent;
   char *theFP;
   StackPage *thePage;

@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#isValidObjStackAt: */
 
-static NoDbgRegParms sqInt isValidObjStackAt(sqInt objStackRootIndex) {
+static sqInt isValidObjStackAt(sqInt objStackRootIndex) {
   sqInt stackOrNil;
 
   stackOrNil =

@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#shortPrintOop: */
 
-static NoDbgRegParms void shortPrintOop(sqInt oop) {
+static void shortPrintOop(sqInt oop) {
   char *className;
   sqInt length;
 

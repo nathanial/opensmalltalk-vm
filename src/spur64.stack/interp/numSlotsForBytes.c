@@ -2,6 +2,6 @@
 
 /* SpurMemoryManager>>#numSlotsForBytes: */
 
-static NoDbgRegParms sqInt numSlotsForBytes(sqInt numBytes) {
+static sqInt numSlotsForBytes(sqInt numBytes) {
   return (numBytes + (BytesPerWord - 1)) / BytesPerWord;
 }

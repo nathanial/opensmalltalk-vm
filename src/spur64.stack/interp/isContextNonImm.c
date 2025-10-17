@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isContextNonImm: */
 
-static NoDbgRegParms int isContextNonImm(sqInt oop) {
+static int isContextNonImm(sqInt oop) {
   return ((longAt((void *)(oop))) & (classIndexMask())) ==
          ClassMethodContextCompactIndex;
 }

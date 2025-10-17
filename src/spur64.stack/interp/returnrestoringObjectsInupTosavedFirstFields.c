@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#return:restoringObjectsIn:upTo:savedFirstFields: */
 
-static NoDbgRegParms sqInt returnrestoringObjectsInupTosavedFirstFields(
+static sqInt returnrestoringObjectsInupTosavedFirstFields(
     sqInt errCode, sqInt reachableObjectsArray, sqInt limitOrTag,
     sqInt savedFirstFields) {
   sqInt i;

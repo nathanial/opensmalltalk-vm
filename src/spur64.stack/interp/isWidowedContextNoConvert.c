@@ -9,7 +9,7 @@
 
 /* StackInterpreter>>#isWidowedContextNoConvert: */
 
-static NoDbgRegParms sqInt
+static sqInt
 isWidowedContextNoConvert(sqInt aOnceMarriedContext) {
   sqInt anInteger;
   sqInt senderOop;

@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#asciiOfCharacter: */
 
-static NoDbgRegParms sqInt asciiOfCharacter(sqInt characterObj) {
+static sqInt asciiOfCharacter(sqInt characterObj) {
   if (((characterObj & (characterTag())) != 0)) {
     return characterObj - ((characterTag()) - (smallIntegerTag()));
   }

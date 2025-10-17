@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#lengthOfNameOfClass: */
 
-static NoDbgRegParms sqInt lengthOfNameOfClass(sqInt classOop) {
+static sqInt lengthOfNameOfClass(sqInt classOop) {
   sqInt fmt;
   usqInt numSlots;
   usqInt numSlots1;

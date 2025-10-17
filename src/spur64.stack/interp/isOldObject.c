@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#isOldObject: */
 
-static NoDbgRegParms int isOldObject(sqInt objOop) {
+static int isOldObject(sqInt objOop) {
   assert(isNonImmediate(objOop));
   return oopisGreaterThanOrEqualTo(objOop, oldSpaceStart);
 }

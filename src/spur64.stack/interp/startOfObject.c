@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#startOfObject: */
 
-static NoDbgRegParms usqInt startOfObject(sqInt objOop) {
+static usqInt startOfObject(sqInt objOop) {
   return ((byteAt((void *)(objOop + (numSlotsFieldByteOffset())))) ==
                   (numSlotsMask())
               ? objOop - BaseHeaderSize

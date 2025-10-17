@@ -8,7 +8,7 @@
 
 /* SpurGenerationScavenger>>#addToWeakList: */
 
-static NoDbgRegParms NeverInline void addToWeakList(sqInt weakCorpse) {
+static NeverInline void addToWeakList(sqInt weakCorpse) {
   sqInt weakListOffset;
 
   weakListOffset = (!(weakList) ? 0 : weakList);

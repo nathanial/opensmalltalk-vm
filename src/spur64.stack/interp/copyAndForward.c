@@ -7,7 +7,7 @@
 
 /* SpurGenerationScavenger>>#copyAndForward: */
 
-static NoDbgRegParms sqInt copyAndForward(sqInt survivor) {
+static sqInt copyAndForward(sqInt survivor) {
   usqInt bytesInObj;
   sqInt format;
   sqInt newLocation;

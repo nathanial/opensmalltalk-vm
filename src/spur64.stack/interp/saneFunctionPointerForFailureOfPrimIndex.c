@@ -11,7 +11,7 @@
 
 /* StackInterpreter>>#saneFunctionPointerForFailureOfPrimIndex: */
 
-static NoDbgRegParms sqInt
+static sqInt
 saneFunctionPointerForFailureOfPrimIndex(sqInt primIndex) {
   void (*basePrimitive)(void);
 

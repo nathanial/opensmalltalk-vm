@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#printLogEntryAt: */
 
-static NoDbgRegParms void printLogEntryAt(sqInt i) {
+static void printLogEntryAt(sqInt i) {
   sqInt intOrClass;
   sqInt selectorMethodOrProcess;
   sqInt source;

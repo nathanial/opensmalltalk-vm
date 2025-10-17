@@ -8,7 +8,7 @@
 
 /* SpurPlanningCompactor>>#validRelocationPlanInPass: */
 
-static NoDbgRegParms sqInt validRelocationPlanInPass(sqInt onePass) {
+static sqInt validRelocationPlanInPass(sqInt onePass) {
   usqInt destination;
   sqInt followingWord;
   usqInt followingWordAddress;

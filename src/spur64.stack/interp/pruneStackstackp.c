@@ -8,7 +8,7 @@
 
 /* StackInterpreterPrimitives>>#pruneStack:stackp: */
 
-static NoDbgRegParms void pruneStackstackp(sqInt stack, sqInt stackp) {
+static void pruneStackstackp(sqInt stack, sqInt stackp) {
   char *callerFP;
   sqInt finger;
   char *fp;

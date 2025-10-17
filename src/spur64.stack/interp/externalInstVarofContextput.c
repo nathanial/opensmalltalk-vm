@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#externalInstVar:ofContext:put: */
 
-static NoDbgRegParms sqInt externalInstVarofContextput(
+static sqInt externalInstVarofContextput(
     sqInt index, sqInt maybeMarriedContext, sqInt anOop) {
   int onCurrentPage;
   sqInt senderOop;

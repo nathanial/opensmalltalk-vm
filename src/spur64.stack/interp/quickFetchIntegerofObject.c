@@ -7,7 +7,7 @@
 
 /* StackInterpreter>>#quickFetchInteger:ofObject: */
 
-static NoDbgRegParms sqInt quickFetchIntegerofObject(sqInt fieldIndex,
+static sqInt quickFetchIntegerofObject(sqInt fieldIndex,
                                                      sqInt objectPointer) {
   sqInt oop;
 

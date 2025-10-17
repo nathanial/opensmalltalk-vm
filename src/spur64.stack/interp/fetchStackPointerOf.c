@@ -7,7 +7,7 @@
 
 /* StackInterpreter>>#fetchStackPointerOf: */
 
-static NoDbgRegParms sqInt fetchStackPointerOf(sqInt aContext) {
+static sqInt fetchStackPointerOf(sqInt aContext) {
   sqInt sp;
 
   sp = longAt((void *)((aContext + BaseHeaderSize) +

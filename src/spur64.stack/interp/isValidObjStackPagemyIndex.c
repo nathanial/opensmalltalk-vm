@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#isValidObjStackPage:myIndex: */
 
-static NoDbgRegParms sqInt isValidObjStackPagemyIndex(sqInt objStackPage,
+static sqInt isValidObjStackPagemyIndex(sqInt objStackPage,
                                                       sqInt myx) {
   if (!(((longAt((void *)(objStackPage))) & (classIndexMask())) ==
         (sixtyFourBitLongsClassIndexPun()))) {

@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#initialInstanceOf: */
 
-static NoDbgRegParms sqInt initialInstanceOf(sqInt classObj) {
+static sqInt initialInstanceOf(sqInt classObj) {
   sqInt classIndex;
   sqInt classIndexSqInt;
   sqInt followingWord;

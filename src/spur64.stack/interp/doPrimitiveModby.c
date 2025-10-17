@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#doPrimitiveMod:by: */
 
-static NoDbgRegParms sqInt doPrimitiveModby(sqInt rcvr, sqInt arg) {
+static sqInt doPrimitiveModby(sqInt rcvr, sqInt arg) {
   sqInt integerArg;
   sqInt integerRcvr;
   sqInt integerResult;

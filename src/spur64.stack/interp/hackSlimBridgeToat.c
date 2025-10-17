@@ -8,7 +8,7 @@
 
 /* Spur64BitMemoryManager>>#hackSlimBridgeTo:at: */
 
-static NoDbgRegParms void hackSlimBridgeToat(sqInt objOop, sqInt startAddress) {
+static void hackSlimBridgeToat(sqInt objOop, sqInt startAddress) {
   assert(oopisLessThan(startAddress, objOop));
   assert(oopisLessThanOrEqualTo(objOop, oldSpaceStart));
   assert(

@@ -2,7 +2,7 @@
 
 /* Spur64BitMemoryManager>>#isFloatInstance: */
 
-static NoDbgRegParms int isFloatInstance(sqInt oop) {
+static int isFloatInstance(sqInt oop) {
   sqInt tagBits;
 
   return ((tagBits = oop & (tagMask()))

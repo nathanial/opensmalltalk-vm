@@ -7,7 +7,7 @@
 
 /* StackInterpreter>>#checkStackPointerForMaybeMarriedContext: */
 
-static NoDbgRegParms sqInt
+static sqInt
 checkStackPointerForMaybeMarriedContext(sqInt aContext) {
   sqInt header;
   sqInt methodPointer;

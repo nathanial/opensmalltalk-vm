@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#instSpecOfClass: */
 
-static NoDbgRegParms sqInt instSpecOfClass(sqInt classPointer) {
+static sqInt instSpecOfClass(sqInt classPointer) {
   return (((usqInt)((((longAt((void *)((classPointer + BaseHeaderSize) +
                                        ((((usqInt)(InstanceSpecificationIndex)
                                           << (shiftForWord()))))))) >>

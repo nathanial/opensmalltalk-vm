@@ -2,7 +2,7 @@
 
 /* StackInterpreterPrimitives>>#isAppropriateForCopyObject: */
 
-static NoDbgRegParms sqInt isAppropriateForCopyObject(sqInt oop) {
+static sqInt isAppropriateForCopyObject(sqInt oop) {
   if (!(((byteAt((void *)(oop + (formatFieldByteOffset())))) &
          (formatMask())) <= 5 /* lastPointerFormat */)) {
     return 0;

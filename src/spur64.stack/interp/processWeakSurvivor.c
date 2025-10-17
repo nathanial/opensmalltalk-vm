@@ -7,7 +7,7 @@
 
 /* SpurGenerationScavenger>>#processWeakSurvivor: */
 
-static NoDbgRegParms sqInt processWeakSurvivor(sqInt weakObj) {
+static sqInt processWeakSurvivor(sqInt weakObj) {
   sqInt classFormat;
   sqInt classPointer;
   sqInt hasYoungReferents;

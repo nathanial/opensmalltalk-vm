@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#unlinkSolitaryFreeTreeNode: */
 
-static NoDbgRegParms void unlinkSolitaryFreeTreeNode(sqInt freeTreeNode) {
+static void unlinkSolitaryFreeTreeNode(sqInt freeTreeNode) {
   sqInt fieldIndex;
   sqInt larger;
   sqInt parent;

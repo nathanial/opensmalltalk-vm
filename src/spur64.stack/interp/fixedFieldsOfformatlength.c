@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#fixedFieldsOf:format:length: */
 
-static NoDbgRegParms sqInt fixedFieldsOfformatlength(sqInt objOop, sqInt fmt,
+static sqInt fixedFieldsOfformatlength(sqInt objOop, sqInt fmt,
                                                      sqInt wordLength) {
   sqInt class;
 

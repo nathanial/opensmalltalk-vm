@@ -2,6 +2,6 @@
 
 /* SpurMemoryManager>>#isForwardedClassTag: */
 
-static NoDbgRegParms int isForwardedClassTag(sqInt classIndex) {
+static int isForwardedClassTag(sqInt classIndex) {
   return classIndex == (isForwardedObjectClassIndexPun());
 }

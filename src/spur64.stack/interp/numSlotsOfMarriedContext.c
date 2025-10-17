@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#numSlotsOfMarriedContext: */
 
-static NoDbgRegParms usqInt numSlotsOfMarriedContext(sqInt aContext) {
+static usqInt numSlotsOfMarriedContext(sqInt aContext) {
   usqInt contextSize;
 
   contextSize = stackPointerIndexForFrame(frameOfMarriedContext(aContext));

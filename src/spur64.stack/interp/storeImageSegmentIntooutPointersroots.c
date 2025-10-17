@@ -37,7 +37,7 @@
 
 /* SpurMemoryManager>>#storeImageSegmentInto:outPointers:roots: */
 
-static NoDbgRegParms sqInt storeImageSegmentIntooutPointersroots(
+static sqInt storeImageSegmentIntooutPointersroots(
     sqInt segmentWordArrayArg, sqInt outPointersArrayArg,
     sqInt arrayOfRootsArg) {
   sqInt arrayOfObjects;

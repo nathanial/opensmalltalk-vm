@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#followMaybeForwarded: */
 
-static NoDbgRegParms sqInt followMaybeForwarded(sqInt objOop) {
+static sqInt followMaybeForwarded(sqInt objOop) {
   return (/* isOopForwarded: */
           ((!(objOop & (tagMask())))) &&
                   ((!((longAt((void *)(objOop))) &

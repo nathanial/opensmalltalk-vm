@@ -18,7 +18,7 @@
 
 /* StackInterpreter>>#isWidowedContextDuringGC: */
 
-static NoDbgRegParms sqInt isWidowedContextDuringGC(sqInt aOnceMarriedContext) {
+static sqInt isWidowedContextDuringGC(sqInt aOnceMarriedContext) {
   sqInt anInteger;
   char *maybeFrame;
   sqInt maybeFrameCtxt;

@@ -5,7 +5,7 @@
 
 /* Spur64BitMemoryManager>>#initFreeChunkWithBytes:at: */
 
-static NoDbgRegParms sqInt initFreeChunkWithBytesat(usqLong numBytes,
+static sqInt initFreeChunkWithBytesat(usqLong numBytes,
                                                     sqInt address) {
   sqLong numSlots;
 

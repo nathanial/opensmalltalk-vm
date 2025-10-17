@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isContext: */
 
-static NoDbgRegParms sqInt isContext(sqInt oop) {
+static sqInt isContext(sqInt oop) {
   return ((!(oop & (tagMask())))) &&
          (((longAt((void *)(oop))) & (classIndexMask())) ==
           ClassMethodContextCompactIndex);

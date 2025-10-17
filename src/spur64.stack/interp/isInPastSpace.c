@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isInPastSpace: */
 
-static NoDbgRegParms sqInt isInPastSpace(sqInt address) {
+static sqInt isInPastSpace(sqInt address) {
   return oopisGreaterThanOrEqualToandLessThan(address, ((pastSpace).start),
                                               pastSpaceStart);
 }

@@ -17,7 +17,7 @@
 
 /* SpurMemoryManager>>#mapOopsFrom:to:outPointers:outHashes: */
 
-static NoDbgRegParms sqInt
+static sqInt
 mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
                                   sqInt outPointerArray, sqInt savedOutHashes) {
   sqInt followingWord;

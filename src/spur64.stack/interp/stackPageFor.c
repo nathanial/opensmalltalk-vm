@@ -4,7 +4,7 @@
 
 /* CogStackPages>>#stackPageFor: */
 
-static NoDbgRegParms StackPage *stackPageFor(void *pointer) {
+static StackPage *stackPageFor(void *pointer) {
   return stackPageAtpages(
       pageIndexForstackMemorybytesPerPage(pointer, stackMemory, bytesPerPage),
       pages);

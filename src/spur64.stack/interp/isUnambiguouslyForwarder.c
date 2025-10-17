@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#isUnambiguouslyForwarder: */
 
-static NoDbgRegParms int isUnambiguouslyForwarder(sqInt objOop) {
+static int isUnambiguouslyForwarder(sqInt objOop) {
   return ((longAt((void *)(objOop))) & (classIndexMask())) ==
          (isForwardedObjectClassIndexPun());
 }

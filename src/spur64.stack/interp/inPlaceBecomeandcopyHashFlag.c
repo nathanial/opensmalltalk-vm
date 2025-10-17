@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#inPlaceBecome:and:copyHashFlag: */
 
-static NoDbgRegParms NeverInline void
+static NeverInline void
 inPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag) {
   sqInt fmt;
   sqLong hashBits;

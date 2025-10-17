@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#printCallStackFP: */
 
-static NoDbgRegParms sqInt printCallStackFP(char *theFP) {
+static sqInt printCallStackFP(char *theFP) {
   sqInt context;
 
   context = shortReversePrintFrameAndCallers(theFP);

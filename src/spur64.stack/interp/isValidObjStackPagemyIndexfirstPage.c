@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#isValidObjStackPage:myIndex:firstPage: */
 
-static NoDbgRegParms sqInt isValidObjStackPagemyIndexfirstPage(
+static sqInt isValidObjStackPagemyIndexfirstPage(
     sqInt objStackPage, sqInt myx, sqInt isFirstPage) {
   sqInt freeOrNextPage;
   sqInt index;

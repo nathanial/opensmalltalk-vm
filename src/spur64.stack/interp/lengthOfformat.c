@@ -6,7 +6,7 @@
 
 /* Spur64BitMemoryManager>>#lengthOf:format: */
 
-static NoDbgRegParms sqInt lengthOfformat(sqInt objOop, sqInt fmt) {
+static sqInt lengthOfformat(sqInt objOop, sqInt fmt) {
   usqInt numSlots;
   usqInt numSlotsUsqInt;
 

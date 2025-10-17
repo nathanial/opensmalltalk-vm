@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#printFreeTreeChunk: */
 
-static NoDbgRegParms void printFreeTreeChunk(sqInt chunkOrZero) {
+static void printFreeTreeChunk(sqInt chunkOrZero) {
   if (chunkOrZero > 0) {
     printFreeTreeChunk(longAt(
         (void *)((chunkOrZero + BaseHeaderSize) + (3U << (shiftForWord())))));

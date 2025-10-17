@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#isValidObjStack: */
 
-static NoDbgRegParms sqInt isValidObjStack(sqInt objStack) {
+static sqInt isValidObjStack(sqInt objStack) {
   if (!((addressCouldBeObj(objStack)) &&
         ((numSlotsOfAny(objStack)) == ObjStackPageSlots))) {
     objStackInvalidBecause = "first page not obj or wrong size";

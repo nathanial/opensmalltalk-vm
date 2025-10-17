@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#followForwardedFrameContents:stackPointer: */
 
-static NoDbgRegParms void
+static void
 followForwardedFrameContentsstackPointer(char *theFP, char *theSP) {
   sqInt oop;
   char *ptr;

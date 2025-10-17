@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#whereIsMaybeHeapThing: */
 
-static NoDbgRegParms char *whereIsMaybeHeapThing(sqInt anOop) {
+static char *whereIsMaybeHeapThing(sqInt anOop) {
   if (/* isInNewSpace: */
       (oopisLessThan(anOop, oldSpaceStart)) &&
       (oopisGreaterThanOrEqualTo(anOop, newSpaceStart))) {

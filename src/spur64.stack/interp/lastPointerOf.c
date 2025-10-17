@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#lastPointerOf: */
 
-static NoDbgRegParms sqInt lastPointerOf(sqInt objOop) {
+static sqInt lastPointerOf(sqInt objOop) {
   sqInt contextSize;
   sqInt fmt;
   sqInt header;

@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#unlinkLilliputianChunk:index: */
 
-static NoDbgRegParms NeverInline sqInt
+static NeverInline sqInt
 unlinkLilliputianChunkindex(sqInt freeChunk, sqInt index) {
   sqInt next;
   sqInt nextSqInt;

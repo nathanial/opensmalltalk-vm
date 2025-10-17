@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#lookupOrdinaryNoMNUEtcInClass: */
 
-static NoDbgRegParms sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
+static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
   sqInt currentClass;
   sqInt dictionary;
   sqInt found;

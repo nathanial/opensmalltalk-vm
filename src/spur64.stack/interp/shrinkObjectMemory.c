@@ -4,7 +4,7 @@
 
 /* SpurSegmentManager>>#shrinkObjectMemory: */
 
-static NoDbgRegParms int shrinkObjectMemory(usqInt delta) {
+static int shrinkObjectMemory(usqInt delta) {
   sqInt address;
   usqInt chunkBytes;
   usqInt currentEnd;

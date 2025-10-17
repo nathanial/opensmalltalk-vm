@@ -6,7 +6,7 @@
 
 /* SpurPlanningCompactor>>#reinitializeScanFrom: */
 
-static NoDbgRegParms void reinitializeScanFrom(sqInt initialObject) {
+static void reinitializeScanFrom(sqInt initialObject) {
   sqInt followingWord;
   usqInt followingWordAddress;
   sqInt objOop;

@@ -8,7 +8,7 @@
 
 /* InterpreterPrimitives>>#positiveMachineIntegerValueOfObj: */
 
-static NoDbgRegParms usqIntptr_t positiveMachineIntegerValueOfObj(sqInt oop) {
+static usqIntptr_t positiveMachineIntegerValueOfObj(sqInt oop) {
   sqInt bs;
   sqInt ccIndex;
   sqInt fmt;

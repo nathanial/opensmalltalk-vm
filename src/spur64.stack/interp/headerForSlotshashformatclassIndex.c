@@ -21,7 +21,7 @@
 
 /* SpurMemoryManager>>#headerForSlots:hash:format:classIndex: */
 
-static NoDbgRegParms usqLong headerForSlotshashformatclassIndex(
+static usqLong headerForSlotshashformatclassIndex(
     sqInt numSlots, sqInt hash, sqInt formatField, sqInt classIndex) {
   return (((((((usqLong)numSlots)) << (numSlotsFullShift()))) +
            (((((usqLong)hash)) << (identityHashFullWordShift())))) +

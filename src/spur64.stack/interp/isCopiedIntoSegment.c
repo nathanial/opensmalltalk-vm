@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#isCopiedIntoSegment: */
 
-static NoDbgRegParms int isCopiedIntoSegment(sqInt anObjectInTheHeap) {
+static int isCopiedIntoSegment(sqInt anObjectInTheHeap) {
   return ((byteAt((void *)(anObjectInTheHeap + (markBitsByteOffset())))) &
           (1U << (markedBitByteShift()))) != 0;
 }

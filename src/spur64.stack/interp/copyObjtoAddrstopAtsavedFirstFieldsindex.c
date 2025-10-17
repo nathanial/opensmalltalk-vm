@@ -13,7 +13,7 @@
 
 /* SpurMemoryManager>>#copyObj:toAddr:stopAt:savedFirstFields:index: */
 
-static NoDbgRegParms sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(
+static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(
     sqInt objOop, sqInt segAddr, sqInt endSeg, sqInt savedFirstFields,
     sqInt i) {
   usqInt bodySize;

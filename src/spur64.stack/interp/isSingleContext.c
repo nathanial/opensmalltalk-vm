@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#isSingleContext: */
 
-static NoDbgRegParms int isSingleContext(sqInt aContext) {
+static int isSingleContext(sqInt aContext) {
   return (
       !((longAt((void *)((aContext + BaseHeaderSize) +
                          ((((usqInt)(SenderIndex) << (shiftForWord()))))))) &

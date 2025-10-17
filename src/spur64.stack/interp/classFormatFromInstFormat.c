@@ -15,7 +15,7 @@
 
 /* SpurMemoryManager>>#classFormatFromInstFormat: */
 
-static NoDbgRegParms sqInt classFormatFromInstFormat(sqInt instFormat) {
+static sqInt classFormatFromInstFormat(sqInt instFormat) {
   if (instFormat >= (firstByteFormat())) {
     return instFormat & -8;
   }

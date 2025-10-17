@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#transferTo:from: */
 
-static NoDbgRegParms sqInt transferTofrom(sqInt newProcOrNil,
+static sqInt transferTofrom(sqInt newProcOrNil,
                                           sqInt sourceCode) {
   sqInt activeContext;
   StackPage *lastUsedPage;

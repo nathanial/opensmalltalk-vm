@@ -5,7 +5,7 @@
 
 /* InterpreterPrimitives>>#magnitude64BitIntegerFor:neg: */
 
-static NoDbgRegParms sqInt magnitude64BitIntegerForneg(usqLong magnitude,
+static sqInt magnitude64BitIntegerForneg(usqLong magnitude,
                                                        sqInt isNegative) {
   int isSmall;
   int largeClassIndex;

@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#checkStackPointerIndexForFrame: */
 
-static NoDbgRegParms sqInt checkStackPointerIndexForFrame(char *theFP) {
+static sqInt checkStackPointerIndexForFrame(char *theFP) {
   char *aFrame;
   char *prevFrame;
   char *startFrame;

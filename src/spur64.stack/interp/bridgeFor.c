@@ -2,7 +2,7 @@
 
 /* SpurSegmentManager>>#bridgeFor: */
 
-static NoDbgRegParms sqInt bridgeFor(SpurSegmentInfo *aSegment) {
+static sqInt bridgeFor(SpurSegmentInfo *aSegment) {
   sqInt address;
   usqInt numSlots;
 

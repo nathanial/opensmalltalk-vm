@@ -7,7 +7,7 @@
 
 /* SpurGenerationScavenger>>#scavengeFutureSurvivorSpaceStartingAt: */
 
-static NoDbgRegParms void
+static void
 scavengeFutureSurvivorSpaceStartingAt(sqInt initialAddress) {
   usqInt numSlots;
   sqInt obj;

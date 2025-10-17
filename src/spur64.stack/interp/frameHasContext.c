@@ -4,6 +4,6 @@
 
 /* StackInterpreter>>#frameHasContext: */
 
-static NoDbgRegParms int frameHasContext(char *theFP) {
+static int frameHasContext(char *theFP) {
   return (byteAt((theFP + FoxFrameFlags) + 2)) != 0;
 }

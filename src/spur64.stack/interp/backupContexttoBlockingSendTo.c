@@ -9,7 +9,7 @@
 
 /* StackInterpreter>>#backupContext:toBlockingSendTo: */
 
-static NoDbgRegParms void
+static void
 backupContexttoBlockingSendTo(sqInt suspendedContext, sqInt conditionVariable) {
   sqInt pc;
   sqInt senderOop;

@@ -4,6 +4,6 @@
 
 /* StackInterpreter>>#printHexPtrnp: */
 
-static NoDbgRegParms sqInt printHexPtrnp(void *p) {
+static sqInt printHexPtrnp(void *p) {
   return fprintf(transcript, "%p", p);
 }

@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#storeSenderOfFrame:withValue: */
 
-static NoDbgRegParms char *storeSenderOfFramewithValue(char *theFP,
+static char *storeSenderOfFramewithValue(char *theFP,
                                                        sqInt anOop) {
   char *callerFP;
   StackPage *newPage;

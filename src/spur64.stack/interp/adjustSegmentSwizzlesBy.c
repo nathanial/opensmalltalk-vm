@@ -6,7 +6,7 @@
 
 /* SpurSegmentManager>>#adjustSegmentSwizzlesBy: */
 
-static NoDbgRegParms void adjustSegmentSwizzlesBy(sqInt firstSegmentShift) {
+static void adjustSegmentSwizzlesBy(sqInt firstSegmentShift) {
   sqInt i;
   sqInt oldBaseAddr;
   SpurSegmentInfo *segInfo;

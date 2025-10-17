@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#snapshot: */
 
-static NoDbgRegParms sqInt snapshot(sqInt embedded) {
+static sqInt snapshot(sqInt embedded) {
   sqInt activeContext;
   sqInt activeProc;
   usqInt i;

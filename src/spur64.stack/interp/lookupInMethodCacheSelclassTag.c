@@ -7,7 +7,7 @@
 
 /* StackInterpreter>>#lookupInMethodCacheSel:classTag: */
 
-static NoDbgRegParms sqInt lookupInMethodCacheSelclassTag(sqInt selector,
+static sqInt lookupInMethodCacheSelclassTag(sqInt selector,
                                                           sqInt classTag) {
   sqInt hash;
   usqInt probe;

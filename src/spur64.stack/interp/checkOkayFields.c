@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#checkOkayFields: */
 
-static NoDbgRegParms sqInt checkOkayFields(sqInt oop) {
+static sqInt checkOkayFields(sqInt oop) {
   sqInt fieldOop;
   sqInt hasYoung;
   sqInt i;

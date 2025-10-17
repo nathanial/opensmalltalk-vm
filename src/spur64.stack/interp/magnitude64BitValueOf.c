@@ -7,7 +7,7 @@
 
 /* InterpreterPrimitives>>#magnitude64BitValueOf: */
 
-static NoDbgRegParms usqLong magnitude64BitValueOf(sqInt oop) {
+static usqLong magnitude64BitValueOf(sqInt oop) {
   sqInt ccIndex;
   sqInt fmt;
   usqInt numSlots;

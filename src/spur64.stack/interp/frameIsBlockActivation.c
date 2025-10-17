@@ -4,6 +4,6 @@
 
 /* StackInterpreter>>#frameIsBlockActivation: */
 
-static NoDbgRegParms int frameIsBlockActivation(char *theFP) {
+static int frameIsBlockActivation(char *theFP) {
   return (byteAt((theFP + FoxFrameFlags) + 3)) != 0;
 }

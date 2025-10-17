@@ -3,7 +3,7 @@
 
 /* StackInterpreter>>#printActivationNameForSelector:startClass: */
 
-static NoDbgRegParms void
+static void
 printActivationNameForSelectorstartClass(sqInt aSelector, sqInt startClass) {
   sqInt classDict;
   usqInt classDictSize;

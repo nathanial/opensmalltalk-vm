@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#lengthOf: */
 
-static NoDbgRegParms sqInt lengthOf(sqInt objOop) {
+static sqInt lengthOf(sqInt objOop) {
   sqInt fmt;
   usqInt numSlots;
   usqInt numSlotsUsqInt;

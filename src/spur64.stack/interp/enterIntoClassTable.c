@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#enterIntoClassTable: */
 
-static NoDbgRegParms sqInt enterIntoClassTable(sqInt aBehavior) {
+static sqInt enterIntoClassTable(sqInt aBehavior) {
   sqInt i;
   sqInt initialMajorIndex;
   sqInt majorIndex;

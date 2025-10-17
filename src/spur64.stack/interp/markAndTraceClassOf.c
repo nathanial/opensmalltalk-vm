@@ -9,7 +9,7 @@
 
 /* SpurMemoryManager>>#markAndTraceClassOf: */
 
-static NoDbgRegParms void markAndTraceClassOf(sqInt objOop) {
+static void markAndTraceClassOf(sqInt objOop) {
   sqInt classIndex;
   sqInt classObj;
   sqInt classTablePage;

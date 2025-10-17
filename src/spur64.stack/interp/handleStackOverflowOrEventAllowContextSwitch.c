@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#handleStackOverflowOrEventAllowContextSwitch: */
 
-static NoDbgRegParms sqInt
+static sqInt
 handleStackOverflowOrEventAllowContextSwitch(sqInt mayContextSwitch) {
   /* begin checkForStackOverflow */
   /* begin externalWriteBackHeadFramePointers */

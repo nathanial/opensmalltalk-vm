@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isInNewSpace: */
 
-static NoDbgRegParms sqInt isInNewSpace(sqInt objOop) {
+static sqInt isInNewSpace(sqInt objOop) {
   return (oopisLessThan(objOop, oldSpaceStart)) &&
          (oopisGreaterThanOrEqualTo(objOop, newSpaceStart));
 }

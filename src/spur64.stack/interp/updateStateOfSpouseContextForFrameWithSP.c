@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#updateStateOfSpouseContextForFrame:WithSP: */
 
-static NoDbgRegParms void
+static void
 updateStateOfSpouseContextForFrameWithSP(char *theFP, char *theSP) {
   sqInt fieldIndex;
   sqInt i;

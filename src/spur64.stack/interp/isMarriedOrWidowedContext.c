@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#isMarriedOrWidowedContext: */
 
-static NoDbgRegParms int isMarriedOrWidowedContext(sqInt aContext) {
+static int isMarriedOrWidowedContext(sqInt aContext) {
   return (
       (((longAt((void *)((aContext + BaseHeaderSize) +
                          ((((usqInt)(SenderIndex) << (shiftForWord())))))))) &

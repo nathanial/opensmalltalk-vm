@@ -2,7 +2,7 @@
 
 /* SpurSegmentManager>>#bridgeAt: */
 
-static NoDbgRegParms sqInt bridgeAt(sqInt segIndex) {
+static sqInt bridgeAt(sqInt segIndex) {
   sqInt address;
   usqInt numSlots;
 

@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#safeMethodClassOf: */
 
-static NoDbgRegParms sqInt safeMethodClassOf(sqInt methodPointer) {
+static sqInt safeMethodClassOf(sqInt methodPointer) {
   sqInt literal;
   sqInt maybeClass;
   usqInt numSlots;

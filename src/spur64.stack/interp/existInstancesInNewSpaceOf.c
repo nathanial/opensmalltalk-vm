@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#existInstancesInNewSpaceOf: */
 
-static NoDbgRegParms sqInt existInstancesInNewSpaceOf(sqInt classObj) {
+static sqInt existInstancesInNewSpaceOf(sqInt classObj) {
   sqInt classIndex;
   sqInt followingWord;
   usqInt followingWordAddress;

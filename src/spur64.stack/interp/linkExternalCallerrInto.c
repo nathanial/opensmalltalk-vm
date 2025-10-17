@@ -4,7 +4,7 @@
 
 /* StackInterpreterPrimitives>>#linkExternalCall:errInto: */
 
-static NoDbgRegParms void (*linkExternalCallerrInto(sqInt externalCallLiteral,
+static void (*linkExternalCallerrInto(sqInt externalCallLiteral,
                                                     sqInt *failPtr))(void) {
   void (*addr)();
   sqInt fmt;

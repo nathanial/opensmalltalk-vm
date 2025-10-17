@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#okayOop: */
 
-static NoDbgRegParms sqInt okayOop(sqInt signedOop) {
+static sqInt okayOop(sqInt signedOop) {
   sqInt classIndex;
   sqInt fmt;
   usqInt oop;

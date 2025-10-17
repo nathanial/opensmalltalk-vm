@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#frameStackedReceiverOffset: */
 
-static NoDbgRegParms sqInt frameStackedReceiverOffset(char *theFP) {
+static sqInt frameStackedReceiverOffset(char *theFP) {
   return (FoxCallerSavedIP + BytesPerWord) +
          ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1)))
             << (shiftForWord()))));

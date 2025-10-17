@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#expungeFromClassTable: */
 
-static NoDbgRegParms void expungeFromClassTable(sqInt aBehavior) {
+static void expungeFromClassTable(sqInt aBehavior) {
   sqInt classIndex;
   sqInt classTablePage;
   sqInt majorIndex;

@@ -6,7 +6,7 @@
 
 /* InterpreterStackPages>>#pageIndexFor: */
 
-static NoDbgRegParms sqInt pageIndexFor(void *pointer) {
+static sqInt pageIndexFor(void *pointer) {
   return pageIndexForstackMemorybytesPerPage(pointer, stackMemory,
                                              bytesPerPage);
 }

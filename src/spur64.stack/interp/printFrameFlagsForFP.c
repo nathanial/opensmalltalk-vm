@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#printFrameFlagsForFP: */
 
-static NoDbgRegParms void printFrameFlagsForFP(char *theFP) {
+static void printFrameFlagsForFP(char *theFP) {
   char *address;
   sqInt it;
 

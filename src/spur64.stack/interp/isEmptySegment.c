@@ -2,7 +2,7 @@
 
 /* SpurSegmentManager>>#isEmptySegment: */
 
-static NoDbgRegParms sqInt isEmptySegment(SpurSegmentInfo *seg) {
+static sqInt isEmptySegment(SpurSegmentInfo *seg) {
   sqInt address;
   sqInt firstObj;
   usqInt numSlots;

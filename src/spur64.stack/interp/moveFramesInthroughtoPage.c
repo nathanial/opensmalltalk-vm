@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#moveFramesIn:through:toPage: */
 
-static NoDbgRegParms char *
+static char *
 moveFramesInthroughtoPage(StackPage *oldPage, char *theFP, StackPage *newPage) {
   char *callerFP;
   sqInt callerIP;

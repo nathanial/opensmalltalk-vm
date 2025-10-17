@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#printContextCallStackOf: */
 
-static NoDbgRegParms sqInt printContextCallStackOf(sqInt aContext) {
+static sqInt printContextCallStackOf(sqInt aContext) {
   sqInt ctxt;
 
   ctxt = aContext;

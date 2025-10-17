@@ -9,7 +9,7 @@
 
 /* StackInterpreter>>#isWidowedContext: */
 
-static NoDbgRegParms sqInt isWidowedContext(sqInt aOnceMarriedContext) {
+static sqInt isWidowedContext(sqInt aOnceMarriedContext) {
   sqInt anInteger;
   sqInt senderOop;
   char *shouldBeFrameCallerField;

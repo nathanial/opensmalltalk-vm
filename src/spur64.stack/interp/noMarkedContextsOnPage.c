@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#noMarkedContextsOnPage: */
 
-static NoDbgRegParms sqInt noMarkedContextsOnPage(StackPage *thePage) {
+static sqInt noMarkedContextsOnPage(StackPage *thePage) {
   char *theFP;
 
   assert(!(isFree(thePage)));

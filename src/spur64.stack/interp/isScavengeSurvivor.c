@@ -12,7 +12,7 @@
 
 /* SpurGenerationScavenger>>#isScavengeSurvivor: */
 
-static NoDbgRegParms sqInt isScavengeSurvivor(sqInt oop) {
+static sqInt isScavengeSurvivor(sqInt oop) {
   sqInt target;
 
   if (((oop & (tagMask())) != 0)) {

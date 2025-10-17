@@ -7,7 +7,7 @@
 
 /* SpurMemoryManager>>#pushOnUnscannedEphemeronsStack: */
 
-static NoDbgRegParms sqInt pushOnUnscannedEphemeronsStack(sqInt anEphemeron) {
+static sqInt pushOnUnscannedEphemeronsStack(sqInt anEphemeron) {
   assert(isEphemeron(anEphemeron));
   if (((unscannedEphemerons.top)) > ((unscannedEphemerons.limit))) {
     return 0;

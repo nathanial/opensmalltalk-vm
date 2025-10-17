@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#freeChunkWithBytes:at: */
 
-static NoDbgRegParms sqInt freeChunkWithBytesat(sqInt bytes, sqInt address) {
+static sqInt freeChunkWithBytesat(sqInt bytes, sqInt address) {
   sqInt freeChunk;
 
   assert(isInOldSpace(address));

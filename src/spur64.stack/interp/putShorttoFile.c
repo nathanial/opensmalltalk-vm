@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#putShort:toFile: */
 
-static NoDbgRegParms void putShorttoFile(short aShort, sqImageFile aFile) {
+static void putShorttoFile(short aShort, sqImageFile aFile) {
   sqInt objectsWritten;
 
   objectsWritten = sqImageFileWrite((&aShort), sizeof(short), 1, aFile);

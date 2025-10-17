@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#markAndTraceStackPage: */
 
-static NoDbgRegParms void markAndTraceStackPage(StackPage *thePage) {
+static void markAndTraceStackPage(StackPage *thePage) {
   char *callerFP;
   char *frameRcvrOffset;
   sqInt oop;

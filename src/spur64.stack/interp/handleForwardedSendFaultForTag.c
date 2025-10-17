@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#handleForwardedSendFaultForTag: */
 
-static NoDbgRegParms sqInt handleForwardedSendFaultForTag(sqInt classTag) {
+static sqInt handleForwardedSendFaultForTag(sqInt classTag) {
   sqInt rcvr;
   sqInt referent;
   sqInt tagBits;

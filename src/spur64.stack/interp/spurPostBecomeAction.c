@@ -20,7 +20,7 @@
 
 /* StackInterpreter>>#spurPostBecomeAction: */
 
-static NoDbgRegParms void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
+static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
   sqIntptr_t c;
   sqInt first;
   int i;

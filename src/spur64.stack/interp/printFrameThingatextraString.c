@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#printFrameThing:at:extraString: */
 
-static NoDbgRegParms void printFrameThingatextraString(char *name,
+static void printFrameThingatextraString(char *name,
                                                        char *address,
                                                        char *extraStringOrNil) {
   sqInt it;

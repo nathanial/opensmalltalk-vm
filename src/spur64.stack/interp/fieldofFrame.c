@@ -5,7 +5,7 @@
 
 /* StackInterpreterPrimitives>>#field:ofFrame: */
 
-static NoDbgRegParms sqInt fieldofFrame(sqInt index, char *theFP) {
+static sqInt fieldofFrame(sqInt index, char *theFP) {
   char *callerFP;
   usqInt frameNumArgs;
 

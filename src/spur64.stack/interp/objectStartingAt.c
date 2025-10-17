@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#objectStartingAt: */
 
-static NoDbgRegParms sqInt objectStartingAt(sqInt address) {
+static sqInt objectStartingAt(sqInt address) {
   usqInt numSlots;
 
   numSlots = byteAt((void *)(address + (numSlotsFieldByteOffset())));

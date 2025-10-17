@@ -6,7 +6,7 @@
 
 /* Spur64BitMemoryManager>>#bytesInBody: */
 
-static NoDbgRegParms usqInt bytesInBody(sqInt objOop) {
+static usqInt bytesInBody(sqInt objOop) {
   usqLong header;
   usqLong headerNumSlots;
   usqInt numSlots;

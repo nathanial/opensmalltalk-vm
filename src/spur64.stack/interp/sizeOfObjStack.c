@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#sizeOfObjStack: */
 
-static NoDbgRegParms sqInt sizeOfObjStack(sqInt objStack) {
+static sqInt sizeOfObjStack(sqInt objStack) {
   sqInt objStackPage;
   sqInt total;
 

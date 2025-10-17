@@ -2,7 +2,7 @@
 
 /* StackInterpreterPrimitives>>#cloneContext: */
 
-static NoDbgRegParms usqInt cloneContext(sqInt aContext) {
+static usqInt cloneContext(sqInt aContext) {
   usqInt cloned;
   sqInt fieldIndex;
   usqInt frameNumArgs;

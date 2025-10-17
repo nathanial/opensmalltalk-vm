@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#goodContextSize: */
 
-static NoDbgRegParms sqInt goodContextSize(sqInt oop) {
+static sqInt goodContextSize(sqInt oop) {
   usqInt numSlots;
   usqInt numSlotsUsqInt;
 

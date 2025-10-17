@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#printStringDataOf:on: */
 
-static NoDbgRegParms void printStringDataOfon(sqInt oop, FILE *aStream) {
+static void printStringDataOfon(sqInt oop, FILE *aStream) {
   char *buffer;
   sqInt byte;
   sqInt i;

@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#checkOkayStackZone: */
 
-static NoDbgRegParms sqInt checkOkayStackZone(sqInt writeBack) {
+static sqInt checkOkayStackZone(sqInt writeBack) {
   sqInt i;
   sqInt ok;
   StackPage *thePage;

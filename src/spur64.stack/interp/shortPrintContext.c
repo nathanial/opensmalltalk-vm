@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#shortPrintContext: */
 
-static NoDbgRegParms sqInt shortPrintContext(sqInt aContext) {
+static sqInt shortPrintContext(sqInt aContext) {
   sqInt home;
   sqInt rcvr;
   sqInt senderOop;

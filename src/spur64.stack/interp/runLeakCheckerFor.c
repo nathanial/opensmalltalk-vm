@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#runLeakCheckerFor: */
 
-static NoDbgRegParms void runLeakCheckerFor(sqInt gcModes) {
+static void runLeakCheckerFor(sqInt gcModes) {
   /* begin
    * inLineRunLeakCheckerFor:excludeUnmarkedObjs:classIndicesShouldBeValid: */
   if (((gcModes & checkForLeaks) != 0)) {

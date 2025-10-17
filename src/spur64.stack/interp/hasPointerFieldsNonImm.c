@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#hasPointerFieldsNonImm: */
 
-static NoDbgRegParms sqInt hasPointerFieldsNonImm(sqInt oop) {
+static sqInt hasPointerFieldsNonImm(sqInt oop) {
   sqInt format;
 
   format = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());

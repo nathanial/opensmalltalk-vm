@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isWeakNonImm: */
 
-static NoDbgRegParms int isWeakNonImm(sqInt objOop) {
+static int isWeakNonImm(sqInt objOop) {
   sqInt format;
 
   format =

@@ -6,7 +6,7 @@
 
 /* Spur64BitMemoryManager>>#initSegmentBridgeWithBytes:at: */
 
-static NoDbgRegParms void initSegmentBridgeWithBytesat(usqLong numBytes,
+static void initSegmentBridgeWithBytesat(usqLong numBytes,
                                                        sqInt address) {
   sqLong numSlots;
 

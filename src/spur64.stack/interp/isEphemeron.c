@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isEphemeron: */
 
-static NoDbgRegParms int isEphemeron(sqInt objOop) {
+static int isEphemeron(sqInt objOop) {
   sqInt format;
 
   assert(isNonImmediate(objOop));

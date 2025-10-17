@@ -4,7 +4,7 @@
 
 /* SpurPlanningCompactor>>#isPostMobile: */
 
-static NoDbgRegParms sqInt isPostMobile(sqInt obj) {
+static sqInt isPostMobile(sqInt obj) {
   return oopisGreaterThanOrEqualToandLessThanOrEqualTo(obj, mobileStart,
                                                        lastMobileObject);
 }

@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#stackPointerForMaybeMarriedContext: */
 
-static NoDbgRegParms sqInt stackPointerForMaybeMarriedContext(sqInt aContext) {
+static sqInt stackPointerForMaybeMarriedContext(sqInt aContext) {
   usqInt sp;
   sqInt spSqInt;
 

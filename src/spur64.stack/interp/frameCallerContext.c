@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#frameCallerContext: */
 
-static NoDbgRegParms sqInt frameCallerContext(char *theFP) {
+static sqInt frameCallerContext(char *theFP) {
   assert(isBaseFrame(theFP));
   return longAt(theFP + FoxCallerContext);
 }

@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#numStrongSlotsOfInephemeral: */
 
-static NoDbgRegParms sqInt numStrongSlotsOfInephemeral(sqInt objOop) {
+static sqInt numStrongSlotsOfInephemeral(sqInt objOop) {
   sqInt contextSize;
   sqInt fmt;
   sqInt header;

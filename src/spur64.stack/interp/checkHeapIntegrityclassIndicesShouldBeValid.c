@@ -12,7 +12,7 @@
 
 /* SpurMemoryManager>>#checkHeapIntegrity:classIndicesShouldBeValid: */
 
-static NoDbgRegParms sqInt checkHeapIntegrityclassIndicesShouldBeValid(
+static sqInt checkHeapIntegrityclassIndicesShouldBeValid(
     sqInt excludeUnmarkedObjs, sqInt classIndicesShouldBeValid) {
   sqInt chunkBytes;
   sqInt classIndex;

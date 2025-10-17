@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#externalInstVar:ofContext: */
 
-static NoDbgRegParms sqInt externalInstVarofContext(sqInt offset,
+static sqInt externalInstVarofContext(sqInt offset,
                                                     sqInt aContext) {
   assert(isContext(aContext));
   assert(offset <=

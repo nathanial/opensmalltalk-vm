@@ -2,6 +2,6 @@
 
 /* SpurMemoryManager>>#isEphemeronFormat: */
 
-static NoDbgRegParms int isEphemeronFormat(sqInt format) {
+static int isEphemeronFormat(sqInt format) {
   return format == (ephemeronFormat());
 }

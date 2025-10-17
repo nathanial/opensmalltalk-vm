@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#swizzleObjStackAt: */
 
-static NoDbgRegParms sqInt swizzleObjStackAt(sqInt objStackRootIndex) {
+static sqInt swizzleObjStackAt(sqInt objStackRootIndex) {
   sqInt field;
   sqInt firstPage;
   sqInt index;

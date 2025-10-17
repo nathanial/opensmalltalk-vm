@@ -4,6 +4,6 @@
 
 /* StackInterpreter>>#frameNumArgs: */
 
-static NoDbgRegParms usqInt frameNumArgs(char *theFP) {
+static usqInt frameNumArgs(char *theFP) {
   return byteAt((theFP + FoxFrameFlags) + 1);
 }

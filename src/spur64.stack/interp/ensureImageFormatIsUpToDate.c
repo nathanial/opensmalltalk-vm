@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#ensureImageFormatIsUpToDate: */
 
-static NoDbgRegParms void ensureImageFormatIsUpToDate(sqInt swapBytes) {
+static void ensureImageFormatIsUpToDate(sqInt swapBytes) {
   sqInt addr;
   sqInt address;
   sqInt classIndex;

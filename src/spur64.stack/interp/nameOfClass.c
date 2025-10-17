@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#nameOfClass: */
 
-static NoDbgRegParms char *nameOfClass(sqInt classOop) {
+static char *nameOfClass(sqInt classOop) {
   sqInt maybeNameOop;
   sqInt maybeThisClassOop;
   usqInt numSlots;

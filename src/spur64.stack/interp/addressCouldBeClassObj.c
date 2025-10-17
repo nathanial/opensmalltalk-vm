@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#addressCouldBeClassObj: */
 
-static NoDbgRegParms sqInt addressCouldBeClassObj(sqInt maybeClassObj) {
+static sqInt addressCouldBeClassObj(sqInt maybeClassObj) {
   return (addressCouldBeObj(maybeClassObj)) &&
          (objCouldBeClassObj(maybeClassObj));
 }

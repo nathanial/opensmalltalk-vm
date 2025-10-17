@@ -2,7 +2,7 @@
 
 /* SpurGenerationScavenger>>#isInRememberedSet: */
 
-static NoDbgRegParms sqInt isInRememberedSet(sqInt objOop) {
+static sqInt isInRememberedSet(sqInt objOop) {
   sqInt i;
 
   for (i = 0; i < rememberedSetSize; i += 1) {

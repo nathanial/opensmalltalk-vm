@@ -17,7 +17,7 @@
 
 /* SpurMemoryManager>>#setHeapBase:memoryLimit:endOfMemory: */
 
-static NoDbgRegParms NeverInline sqInt setHeapBasememoryLimitendOfMemory(
+static NeverInline sqInt setHeapBasememoryLimitendOfMemory(
     sqInt baseOfHeap, sqInt memLimit, sqInt memEnd) {
   sqInt actualEdenBytes;
   sqInt oldStart;

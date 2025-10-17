@@ -13,7 +13,7 @@
 
 /* StackInterpreter>>#addNewMethodToCache: */
 
-static NoDbgRegParms void addNewMethodToCache(sqInt classObj) {
+static void addNewMethodToCache(sqInt classObj) {
   sqInt classTag;
   sqInt err;
   usqInt firstBytecode;

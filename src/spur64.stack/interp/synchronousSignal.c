@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#synchronousSignal: */
 
-static NoDbgRegParms sqInt synchronousSignal(sqInt aSemaphore) {
+static sqInt synchronousSignal(sqInt aSemaphore) {
   sqInt ctxt;
   sqInt excessSignals;
   sqInt integerValue;

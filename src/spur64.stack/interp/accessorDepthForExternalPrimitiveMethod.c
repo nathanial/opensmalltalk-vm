@@ -3,7 +3,7 @@
 
 /* StackInterpreter>>#accessorDepthForExternalPrimitiveMethod: */
 
-static NoDbgRegParms sqInt
+static sqInt
 accessorDepthForExternalPrimitiveMethod(sqInt methodObj) {
   sqInt flags;
   sqInt lit;

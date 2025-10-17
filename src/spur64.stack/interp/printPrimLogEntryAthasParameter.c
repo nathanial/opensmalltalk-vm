@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#printPrimLogEntryAt:hasParameter: */
 
-static NoDbgRegParms sqInt printPrimLogEntryAthasParameter(sqInt i,
+static sqInt printPrimLogEntryAthasParameter(sqInt i,
                                                            sqInt hasParameter) {
   char *className;
   sqInt entryOop;

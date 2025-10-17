@@ -7,7 +7,7 @@
 
 /* SpurMemoryManager>>#is:instanceOf:compactClassIndex: */
 
-static NoDbgRegParms sqInt isinstanceOfcompactClassIndex(
+static sqInt isinstanceOfcompactClassIndex(
     sqInt oop, sqInt classOop, sqInt compactClassIndex) {
   sqInt ccIndex;
 

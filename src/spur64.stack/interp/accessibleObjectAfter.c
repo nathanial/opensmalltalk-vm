@@ -14,7 +14,7 @@
 
 /* SpurMemoryManager>>#accessibleObjectAfter: */
 
-static NoDbgRegParms sqInt accessibleObjectAfter(sqInt objOop) {
+static sqInt accessibleObjectAfter(sqInt objOop) {
   sqInt address;
   sqInt followingWord;
   usqInt followingWordAddress;

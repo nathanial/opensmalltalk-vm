@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#printStackPage:useCount: */
 
-static NoDbgRegParms void printStackPageuseCount(StackPage *page, sqInt n) {
+static void printStackPageuseCount(StackPage *page, sqInt n) {
   print("page ");
   printHexPtrnp(page);
   print(" (");

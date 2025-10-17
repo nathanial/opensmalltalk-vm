@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#frameOfMarriedContext: */
 
-static NoDbgRegParms char *frameOfMarriedContext(sqInt aContext) {
+static char *frameOfMarriedContext(sqInt aContext) {
   sqInt senderOop;
 
   senderOop = longAt((void *)((aContext + BaseHeaderSize) +

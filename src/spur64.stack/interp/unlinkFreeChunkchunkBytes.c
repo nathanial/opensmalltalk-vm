@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#unlinkFreeChunk:chunkBytes: */
 
-static NoDbgRegParms sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk,
+static sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk,
                                                      sqInt chunkBytes) {
   sqInt index;
   sqInt lilliputian;

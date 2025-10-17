@@ -6,7 +6,7 @@
 
 /* SpurPlanningCompactor>>#freeFrom:upTo:nextObject: */
 
-static NoDbgRegParms void
+static void
 freeFromupTonextObject(usqInt initialToFinger, usqInt limit, sqInt nextObject) {
   usqInt numSlots;
   sqInt obj;

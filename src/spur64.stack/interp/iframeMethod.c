@@ -2,6 +2,6 @@
 
 /* StackInterpreter>>#iframeMethod: */
 
-static NoDbgRegParms usqInt iframeMethod(char *theFP) {
+static usqInt iframeMethod(char *theFP) {
   return longAt(theFP + FoxMethod);
 }

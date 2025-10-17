@@ -2,6 +2,6 @@
 
 /* StackInterpreter>>#frameMethod: */
 
-static NoDbgRegParms sqInt frameMethod(char *theFP) {
+static sqInt frameMethod(char *theFP) {
   return longAt(theFP + FoxMethod);
 }

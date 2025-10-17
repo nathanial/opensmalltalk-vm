@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#findNewMethodInClassTag: */
 
-static NoDbgRegParms sqInt findNewMethodInClassTag(sqInt classTagArg) {
+static sqInt findNewMethodInClassTag(sqInt classTagArg) {
   sqInt classTablePage;
   sqInt classTag;
   sqInt fieldIndex;

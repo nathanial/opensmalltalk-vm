@@ -2,7 +2,7 @@
 
 /* Spur64BitMemoryManager>>#isSmallFloatValue: */
 
-static NoDbgRegParms int isSmallFloatValue(double aFloat) {
+static int isSmallFloatValue(double aFloat) {
   usqInt exponent;
   usqLong rawFloat;
 

@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#addLastLink:toList: */
 
-static NoDbgRegParms void addLastLinktoList(sqInt proc, sqInt aList) {
+static void addLastLinktoList(sqInt proc, sqInt aList) {
   sqInt lastLink;
 
   assert(!((isForwarded(proc))));

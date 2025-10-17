@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#externalDivorceFrame:andContext: */
 
-static NoDbgRegParms void externalDivorceFrameandContext(char *theFP,
+static void externalDivorceFrameandContext(char *theFP,
                                                          sqInt ctxt) {
   sqInt callerCtx;
   char *callerFP;

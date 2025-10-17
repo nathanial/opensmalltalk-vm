@@ -17,7 +17,7 @@
 
 /* SpurMemoryManager>>#enableObjectEnumerationFrom: */
 
-static NoDbgRegParms void enableObjectEnumerationFrom(sqInt initialObject) {
+static void enableObjectEnumerationFrom(sqInt initialObject) {
   if (oopisLessThan(initialObject, oldSpaceStart)) {
     if (freeStart > (((eden).start))) {
       /* begin bridgeEdenAndOldSpace */

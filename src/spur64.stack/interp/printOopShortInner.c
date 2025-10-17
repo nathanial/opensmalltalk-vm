@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#printOopShortInner: */
 
-static NoDbgRegParms void printOopShortInner(sqInt oop) {
+static void printOopShortInner(sqInt oop) {
   usqLong bits;
   sqInt classLookupKey;
   sqInt classOop;

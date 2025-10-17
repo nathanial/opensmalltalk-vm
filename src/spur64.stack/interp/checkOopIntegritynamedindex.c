@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#checkOopIntegrity:named:index: */
 
-static NoDbgRegParms sqInt checkOopIntegritynamedindex(sqInt obj, char *name,
+static sqInt checkOopIntegritynamedindex(sqInt obj, char *name,
                                                        sqInt i) {
   if ((oopisLessThan(obj, endOfMemory)) &&
       ((heapMapAtWord(pointerForOop(obj))) != 0)) {

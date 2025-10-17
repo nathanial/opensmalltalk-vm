@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#fetchClassOfNonImm: */
 
-static NoDbgRegParms NeverInline sqInt fetchClassOfNonImm(sqInt objOop) {
+static NeverInline sqInt fetchClassOfNonImm(sqInt objOop) {
   sqInt classIndex;
   sqInt classTablePage;
   sqInt fieldIndex;

@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isEmptyObjStack: */
 
-static NoDbgRegParms sqInt isEmptyObjStack(sqInt objStack) {
+static sqInt isEmptyObjStack(sqInt objStack) {
   if (objStack == nilObj) {
     return 1;
   }

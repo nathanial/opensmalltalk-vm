@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#objectInPastSpaceBefore: */
 
-static NoDbgRegParms sqInt objectInPastSpaceBefore(sqInt objOop) {
+static sqInt objectInPastSpaceBefore(sqInt objOop) {
   sqInt address;
   sqInt followingWord;
   usqInt followingWordAddress;

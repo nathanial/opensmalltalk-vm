@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#findHomeForContext: */
 
-static NoDbgRegParms sqInt findHomeForContext(sqInt aContext) {
+static sqInt findHomeForContext(sqInt aContext) {
   sqInt closureOrNil;
 
   if (!(/* isContext: */

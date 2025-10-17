@@ -8,7 +8,7 @@
 
 /* SpurSegmentManager>>#nextNonEmptySegmentAfter: */
 
-static NoDbgRegParms SpurSegmentInfo *nextNonEmptySegmentAfter(sqInt i) {
+static SpurSegmentInfo *nextNonEmptySegmentAfter(sqInt i) {
   sqInt nextx;
 
   nextx = i;

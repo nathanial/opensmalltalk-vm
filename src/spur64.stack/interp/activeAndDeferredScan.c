@@ -5,7 +5,7 @@
 
 /* SpurMemoryManager>>#activeAndDeferredScan: */
 
-static NoDbgRegParms NeverInline sqInt
+static NeverInline sqInt
 activeAndDeferredScan(sqInt anEphemeron) {
   sqInt key;
 

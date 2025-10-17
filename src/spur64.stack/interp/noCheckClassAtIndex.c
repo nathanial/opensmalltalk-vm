@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#noCheckClassAtIndex: */
 
-static NoDbgRegParms sqInt noCheckClassAtIndex(sqInt classIndex) {
+static sqInt noCheckClassAtIndex(sqInt classIndex) {
   sqInt classTablePage;
   sqInt fieldIndex;
 

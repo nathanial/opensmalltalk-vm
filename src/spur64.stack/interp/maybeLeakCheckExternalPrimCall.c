@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#maybeLeakCheckExternalPrimCall: */
 
-static NoDbgRegParms sqInt maybeLeakCheckExternalPrimCall(sqInt aMethodObj) {
+static sqInt maybeLeakCheckExternalPrimCall(sqInt aMethodObj) {
   if ((((checkForLeaks & GCCheckPrimCall) != 0)) &&
       (((primitiveIndexOf(aMethodObj)) == PrimNumberExternalCall) &&
        (checkedPluginName ==

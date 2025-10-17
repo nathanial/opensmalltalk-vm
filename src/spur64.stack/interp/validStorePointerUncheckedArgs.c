@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#validStorePointerUncheckedArgs:_:_: */
 
-static NoDbgRegParms sqInt validStorePointerUncheckedArgs(sqInt fieldIndex,
+static sqInt validStorePointerUncheckedArgs(sqInt fieldIndex,
                                                           sqInt objOop,
                                                           sqInt valuePointer) {
   usqInt numSlots;

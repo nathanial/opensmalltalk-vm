@@ -6,7 +6,7 @@
 
 /* SpurPlanningCompactor>>#copyAndUnmark: */
 
-static NoDbgRegParms NeverInline void copyAndUnmark(sqInt firstPass) {
+static NeverInline void copyAndUnmark(sqInt firstPass) {
   sqInt classIndex;
   sqInt finalPass;
   sqInt followingWord;

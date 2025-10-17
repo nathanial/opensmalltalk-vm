@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#is:onObjStack: */
 
-static NoDbgRegParms sqInt isonObjStack(sqInt oop, sqInt objStack) {
+static sqInt isonObjStack(sqInt oop, sqInt objStack) {
   sqInt index;
   sqInt nextPage;
 

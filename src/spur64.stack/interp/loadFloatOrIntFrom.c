@@ -7,7 +7,7 @@
 
 /* Spur64BitMemoryManager>>#loadFloatOrIntFrom: */
 
-static NoDbgRegParms double loadFloatOrIntFrom(sqInt floatOrIntOop) {
+static double loadFloatOrIntFrom(sqInt floatOrIntOop) {
   usqLong bits;
   double result;
   sqInt tagBits;

@@ -3,7 +3,7 @@
 
 /* StackInterpreter>>#setTraceFlagOnContextsFramesPageIfNeeded: */
 
-static NoDbgRegParms void
+static void
 setTraceFlagOnContextsFramesPageIfNeeded(sqInt aContext) {
   void *pointer;
   sqInt senderOop;

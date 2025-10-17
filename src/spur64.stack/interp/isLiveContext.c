@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#isLiveContext: */
 
-static NoDbgRegParms sqInt isLiveContext(sqInt oop) {
+static sqInt isLiveContext(sqInt oop) {
   assert(!((isOopForwarded(oop))));
   if (!(/* isContext: */
         ((!(oop & (tagMask())))) &&

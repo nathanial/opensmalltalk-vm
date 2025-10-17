@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#validStackPageBaseFrame: */
 
-static NoDbgRegParms sqInt validStackPageBaseFrame(StackPage *aPage) {
+static sqInt validStackPageBaseFrame(StackPage *aPage) {
   sqInt senderContextOrNil;
 
   if (!(asserta(isBaseFrame((aPage->baseFP))))) {

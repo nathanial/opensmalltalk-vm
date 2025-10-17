@@ -2,7 +2,7 @@
 
 /* SpurPlanningCompactor>>#isMobile: */
 
-static NoDbgRegParms sqInt isMobile(sqInt obj) {
+static sqInt isMobile(sqInt obj) {
   return (oopisGreaterThanOrEqualToandLessThanOrEqualTo(obj, mobileStart,
                                                         lastMobileObject)) &&
          (!(((byteAt((void *)(obj + (formatFieldByteOffset())))) &

@@ -2,7 +2,7 @@
 
 /* SpurSegmentInfo>>#segLimit */
 
-static NoDbgRegParms usqInt segLimit(SpurSegmentInfo *self_in_SpurSegmentInfo) {
+static usqInt segLimit(SpurSegmentInfo *self_in_SpurSegmentInfo) {
   return ((self_in_SpurSegmentInfo->segSize)) +
          ((self_in_SpurSegmentInfo->segStart));
 }

@@ -7,7 +7,7 @@
 
 /* StackInterpreter>>#ensureCallerContext: */
 
-static NoDbgRegParms sqInt ensureCallerContext(char *theFP) {
+static sqInt ensureCallerContext(char *theFP) {
   char *callerFP;
 
   callerFP = ((char *)(longAt(theFP + FoxSavedFP)));

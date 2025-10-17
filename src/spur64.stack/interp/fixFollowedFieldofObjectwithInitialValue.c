@@ -7,7 +7,7 @@
 
 /* SpurMemoryManager>>#fixFollowedField:ofObject:withInitialValue: */
 
-static NoDbgRegParms NeverInline sqInt fixFollowedFieldofObjectwithInitialValue(
+static NeverInline sqInt fixFollowedFieldofObjectwithInitialValue(
     sqInt fieldIndex, sqInt anObject, sqInt initialValue) {
   sqInt objOop;
 

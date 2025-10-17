@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#checkProfileTickPostPrimitive: */
 
-static NoDbgRegParms NeverInline void
+static NeverInline void
 checkProfileTickPostPrimitive(sqInt aPrimitiveMethod) {
   sqInt objOop;
 

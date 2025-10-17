@@ -11,7 +11,7 @@
 
 /* SpurMemoryManager>>#initializeObjectMemory: */
 
-static NoDbgRegParms void initializeObjectMemory(sqInt bytesToShift) {
+static void initializeObjectMemory(sqInt bytesToShift) {
   sqInt anOop;
   sqInt cameFrom;
   usqInt chunkBytes;

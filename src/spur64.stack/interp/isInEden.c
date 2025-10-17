@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isInEden: */
 
-static NoDbgRegParms sqInt isInEden(sqInt objOop) {
+static sqInt isInEden(sqInt objOop) {
   return oopisGreaterThanOrEqualToandLessThan(objOop, ((eden).start),
                                               freeStart);
 }

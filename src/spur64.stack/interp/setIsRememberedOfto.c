@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#setIsRememberedOf:to: */
 
-static NoDbgRegParms void setIsRememberedOfto(sqInt objOop, sqInt aBoolean) {
+static void setIsRememberedOfto(sqInt objOop, sqInt aBoolean) {
   assert(!((isFreeObject(objOop))));
   byteAtput((void *)(objOop + (formatFieldByteOffset())),
             (aBoolean ? (byteAt((void *)(objOop + (formatFieldByteOffset())))) |

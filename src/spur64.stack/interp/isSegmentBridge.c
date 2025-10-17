@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#isSegmentBridge: */
 
-static NoDbgRegParms int isSegmentBridge(sqInt objOop) {
+static int isSegmentBridge(sqInt objOop) {
   return ((longAt((void *)(objOop))) & (classIndexMask())) ==
          (segmentBridgePun());
 }

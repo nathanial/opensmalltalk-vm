@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#framePrintDescription: */
 
-static NoDbgRegParms void framePrintDescription(sqInt it) {
+static void framePrintDescription(sqInt it) {
   if (it) {
     if (it == nilObj) {
       fprintf(transcript, "=nil");

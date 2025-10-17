@@ -11,7 +11,7 @@
 
 /* SpurMemoryManager>>#addToFreeList:bytes: */
 
-static NoDbgRegParms sqInt addToFreeListbytes(sqInt freeChunk,
+static sqInt addToFreeListbytes(sqInt freeChunk,
                                               sqInt chunkBytes) {
   sqInt child;
   usqInt childBytes;

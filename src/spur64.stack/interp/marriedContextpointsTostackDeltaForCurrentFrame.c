@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#marriedContext:pointsTo:stackDeltaForCurrentFrame: */
 
-static NoDbgRegParms sqInt marriedContextpointsTostackDeltaForCurrentFrame(
+static sqInt marriedContextpointsTostackDeltaForCurrentFrame(
     sqInt spouseContext, sqInt anOop, sqInt stackDeltaForCurrentFrame) {
   char *rcvrOffset;
   sqInt senderOop;

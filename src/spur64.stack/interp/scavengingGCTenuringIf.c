@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#scavengingGCTenuringIf: */
 
-static NoDbgRegParms void scavengingGCTenuringIf(sqInt tenuringCriterion) {
+static void scavengingGCTenuringIf(sqInt tenuringCriterion) {
   sqInt i;
   sqInt n;
   sqInt probe;

@@ -11,7 +11,7 @@
 
 /* StackInterpreter>>#instructionPointerForFrame:currentFP:currentIP: */
 
-static NoDbgRegParms sqInt instructionPointerForFramecurrentFPcurrentIP(
+static sqInt instructionPointerForFramecurrentFPcurrentIP(
     char *spouseFP, char *currentFP, sqInt instrPtr) {
   char *callerFP;
   char *fp;

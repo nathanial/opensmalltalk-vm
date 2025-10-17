@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#classAtIndex:put: */
 
-static NoDbgRegParms sqInt classAtIndexput(sqInt classIndex, sqInt objOop) {
+static sqInt classAtIndexput(sqInt classIndex, sqInt objOop) {
   sqInt classTablePage;
   sqInt fieldIndex;
 

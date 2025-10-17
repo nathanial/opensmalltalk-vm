@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#inFreeTreeReplace:with: */
 
-static NoDbgRegParms void inFreeTreeReplacewith(sqInt treeNode, sqInt newNode) {
+static void inFreeTreeReplacewith(sqInt treeNode, sqInt newNode) {
   sqInt fieldIndex;
   sqInt i;
   sqInt relative;

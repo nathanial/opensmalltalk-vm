@@ -11,7 +11,7 @@
 
 /* SpurMemoryManager>>#changeClassOf:to: */
 
-static NoDbgRegParms sqInt changeClassOfto(sqInt rcvr, sqInt argClass) {
+static sqInt changeClassOfto(sqInt rcvr, sqInt argClass) {
   sqInt classFormat;
   sqInt classIndex;
   sqInt fixedFields;

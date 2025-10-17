@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#printCantBeObject:on: */
 
-static NoDbgRegParms void printCantBeObjecton(sqInt oop, FILE *aStream) {
+static void printCantBeObjecton(sqInt oop, FILE *aStream) {
   if (!(oop & 7 /* (allocationUnit - 1) */)) {
     if ((/* isInNewSpace: */
          (oopisLessThan(oop, oldSpaceStart)) &&

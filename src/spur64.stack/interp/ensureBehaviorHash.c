@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#ensureBehaviorHash: */
 
-static NoDbgRegParms sqInt ensureBehaviorHash(sqInt aBehavior) {
+static sqInt ensureBehaviorHash(sqInt aBehavior) {
   sqInt err;
   sqInt hash;
 

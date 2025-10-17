@@ -2,7 +2,7 @@
 
 /* SpurSegmentManager>>#addSegmentOfSize: */
 
-static NoDbgRegParms SpurSegmentInfo *addSegmentOfSize(sqInt ammount) {
+static SpurSegmentInfo *addSegmentOfSize(sqInt ammount) {
   usqInt allocatedSize;
   sqInt i;
   sqInt idx;

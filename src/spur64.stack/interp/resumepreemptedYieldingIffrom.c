@@ -11,7 +11,7 @@
 
 /* StackInterpreter>>#resume:preemptedYieldingIf:from: */
 
-static NoDbgRegParms sqInt resumepreemptedYieldingIffrom(sqInt aProcess,
+static sqInt resumepreemptedYieldingIffrom(sqInt aProcess,
                                                          sqInt yieldImplicitly,
                                                          sqInt sourceCode) {
   sqInt activePriority;

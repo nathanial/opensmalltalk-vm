@@ -5,7 +5,7 @@
 
 /* StackInterpreter>>#findFrameAbove:inPage: */
 
-static NoDbgRegParms char *findFrameAboveinPage(char *theFP,
+static char *findFrameAboveinPage(char *theFP,
                                                 StackPage *thePage) {
   char *callerFP;
   char *fp;

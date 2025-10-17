@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#removeProcess:fromList: */
 
-static NoDbgRegParms sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
+static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
   sqInt firstLink;
   sqInt lastLink;
   sqInt nextLink;

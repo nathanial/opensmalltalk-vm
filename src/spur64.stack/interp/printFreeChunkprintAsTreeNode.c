@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#printFreeChunk:printAsTreeNode: */
 
-static NoDbgRegParms void printFreeChunkprintAsTreeNode(sqInt freeChunk,
+static void printFreeChunkprintAsTreeNode(sqInt freeChunk,
                                                         sqInt printAsTreeNode) {
   usqInt n;
   usqInt numBytes;

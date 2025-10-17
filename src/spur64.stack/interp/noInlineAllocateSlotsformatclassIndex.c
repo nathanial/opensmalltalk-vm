@@ -8,7 +8,7 @@
 
 /* SpurMemoryManager>>#noInlineAllocateSlots:format:classIndex: */
 
-static NoDbgRegParms NeverInline sqInt noInlineAllocateSlotsformatclassIndex(
+static NeverInline sqInt noInlineAllocateSlotsformatclassIndex(
     sqInt numSlots, sqInt formatField, sqInt classIndex) {
   usqInt newObj;
   usqInt numBytes;

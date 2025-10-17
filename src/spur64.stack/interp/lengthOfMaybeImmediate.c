@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#lengthOfMaybeImmediate: */
 
-static NoDbgRegParms sqInt lengthOfMaybeImmediate(sqInt oop) {
+static sqInt lengthOfMaybeImmediate(sqInt oop) {
   sqInt fmt;
   usqInt numSlots;
   usqInt numSlotsUsqInt;

@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#stackPointerIndexForFrame: */
 
-static NoDbgRegParms usqInt stackPointerIndexForFrame(char *theFP) {
+static usqInt stackPointerIndexForFrame(char *theFP) {
   StackPage *thePage;
   char *theSP;
 

@@ -2,6 +2,6 @@
 
 /* Spur64BitMemoryManager>>#isImmediateFloat: */
 
-static NoDbgRegParms int isImmediateFloat(sqInt oop) {
+static int isImmediateFloat(sqInt oop) {
   return ((oop & (smallFloatTag())) != 0);
 }

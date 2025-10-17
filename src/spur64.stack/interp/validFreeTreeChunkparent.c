@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#validFreeTreeChunk:parent: */
 
-static NoDbgRegParms const char *validFreeTreeChunkparent(sqInt chunk,
+static const char *validFreeTreeChunkparent(sqInt chunk,
                                                           sqInt parent) {
   const char *reason;
 

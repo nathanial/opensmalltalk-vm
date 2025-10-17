@@ -13,7 +13,7 @@
 
 /* SpurMemoryManager>>#become:with:twoWay:copyHash: */
 
-static NoDbgRegParms sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
+static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
                                                     sqInt twoWayFlag,
                                                     sqInt copyHashFlag) {
   sqInt contextSize;

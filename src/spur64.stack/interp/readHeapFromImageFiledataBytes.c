@@ -8,7 +8,7 @@
 
 /* SpurSegmentManager>>#readHeapFromImageFile:dataBytes: */
 
-static NoDbgRegParms sqInt readHeapFromImageFiledataBytes(sqImageFile f,
+static sqInt readHeapFromImageFiledataBytes(sqImageFile f,
                                                           sqInt numBytes) {
   sqInt bridge;
   sqInt bridgehead;

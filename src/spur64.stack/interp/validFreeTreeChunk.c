@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#validFreeTreeChunk: */
 
-static NoDbgRegParms sqInt validFreeTreeChunk(sqInt chunk) {
+static sqInt validFreeTreeChunk(sqInt chunk) {
   if (!(segmentContainingObj(chunk))) {
     return 0;
   }

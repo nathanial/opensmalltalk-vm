@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#checkIsStillMarriedContext:currentFP: */
 
-static NoDbgRegParms sqInt
+static sqInt
 checkIsStillMarriedContextcurrentFP(sqInt aContext, char *currentFP) {
   char *limitFP;
   char *maybeFP;

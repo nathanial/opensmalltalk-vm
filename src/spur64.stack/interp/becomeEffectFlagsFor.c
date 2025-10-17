@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#becomeEffectFlagsFor: */
 
-static NoDbgRegParms sqInt becomeEffectFlagsFor(sqInt objOop) {
+static sqInt becomeEffectFlagsFor(sqInt objOop) {
   sqInt hash;
 
   hash = 0;

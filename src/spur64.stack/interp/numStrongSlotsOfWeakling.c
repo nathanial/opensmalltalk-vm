@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#numStrongSlotsOfWeakling: */
 
-static NoDbgRegParms sqInt numStrongSlotsOfWeakling(sqInt objOop) {
+static sqInt numStrongSlotsOfWeakling(sqInt objOop) {
   sqInt objOopSqInt;
 
   assert((formatOf(objOop)) == (weakArrayFormat()));

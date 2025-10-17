@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#primitiveFloatLessOrEqual:toArg: */
 
-static NoDbgRegParms int primitiveFloatLessOrEqualtoArg(sqInt rcvrOop,
+static int primitiveFloatLessOrEqualtoArg(sqInt rcvrOop,
                                                         sqInt argOop) {
   double arg;
   usqLong bits;

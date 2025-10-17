@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#doScavenge: */
 
-static NoDbgRegParms void doScavenge(sqInt tenuringCriterion) {
+static void doScavenge(sqInt tenuringCriterion) {
   float fractionSurvived;
   sqInt oldStart;
   SpurNewSpaceSpace temp;

@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#safePrintStringOf: */
 
-static NoDbgRegParms void safePrintStringOf(sqInt oop) {
+static void safePrintStringOf(sqInt oop) {
   sqInt target;
 
   if (/* isOopForwarded: */

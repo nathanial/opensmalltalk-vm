@@ -8,7 +8,7 @@
 
 /* SpurMemoryManager>>#followForwardedObjectFields:toDepth: */
 
-static NoDbgRegParms sqInt followForwardedObjectFieldstoDepth(sqInt objOop,
+static sqInt followForwardedObjectFieldstoDepth(sqInt objOop,
                                                               sqInt depth) {
   sqInt contextSize;
   sqInt fmt;

@@ -8,7 +8,7 @@
 
 /* SpurMemoryManager>>#allStrongSlotsOfWeaklingAreMarked: */
 
-static NoDbgRegParms sqInt allStrongSlotsOfWeaklingAreMarked(sqInt aWeakling) {
+static sqInt allStrongSlotsOfWeaklingAreMarked(sqInt aWeakling) {
   sqInt i;
   sqInt referent;
   sqInt toDoLimit;

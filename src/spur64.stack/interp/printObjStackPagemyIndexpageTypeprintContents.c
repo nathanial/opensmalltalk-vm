@@ -3,7 +3,7 @@
 
 /* SpurMemoryManager>>#printObjStackPage:myIndex:pageType:printContents: */
 
-static NoDbgRegParms void printObjStackPagemyIndexpageTypeprintContents(
+static void printObjStackPagemyIndexpageTypeprintContents(
     sqInt objStackPage, sqInt myx, sqInt pageType, sqInt printContents) {
   sqInt freeOrNextPage;
   sqInt index;

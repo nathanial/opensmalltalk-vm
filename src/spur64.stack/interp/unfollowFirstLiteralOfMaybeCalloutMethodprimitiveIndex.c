@@ -13,7 +13,7 @@
 /* StackInterpreter>>#unfollowFirstLiteralOfMaybeCalloutMethod:primitiveIndex:
  */
 
-static NoDbgRegParms sqInt
+static sqInt
 unfollowFirstLiteralOfMaybeCalloutMethodprimitiveIndex(sqInt methodObj,
                                                        sqInt primIndex) {
   sqInt firstLiteral;

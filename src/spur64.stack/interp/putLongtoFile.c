@@ -8,7 +8,7 @@
 
 /* StackInterpreter>>#putLong:toFile: */
 
-static NoDbgRegParms void putLongtoFile(sqInt aLong, sqImageFile aFile) {
+static void putLongtoFile(sqInt aLong, sqImageFile aFile) {
   sqInt objectsWritten;
 
   objectsWritten = sqImageFileWrite((&aLong), sizeof(sqInt), 1, aFile);

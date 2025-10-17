@@ -7,7 +7,7 @@
 
 /* SpurPlanningCompactor>>#useSegmentForSavedFirstFieldsSpace: */
 
-static NoDbgRegParms sqInt
+static sqInt
 useSegmentForSavedFirstFieldsSpace(sqInt spaceEstimate) {
   usqInt allocatedSize;
   sqInt roundedSize;

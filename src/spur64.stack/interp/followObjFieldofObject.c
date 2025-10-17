@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#followObjField:ofObject: */
 
-static NoDbgRegParms sqInt followObjFieldofObject(sqInt fieldIndex,
+static sqInt followObjFieldofObject(sqInt fieldIndex,
                                                   sqInt anObject) {
   sqInt objOop;
 

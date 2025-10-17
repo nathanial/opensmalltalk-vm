@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#validStorePointerArgs:_:_: */
 
-static NoDbgRegParms sqInt validStorePointerArgs(sqInt fieldIndex, sqInt objOop,
+static sqInt validStorePointerArgs(sqInt fieldIndex, sqInt objOop,
                                                  sqInt valuePointer) {
   usqInt numSlots;
 

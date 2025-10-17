@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#couldBeProcess: */
 
-static NoDbgRegParms NeverInline sqInt couldBeProcess(sqInt oop) {
+static NeverInline sqInt couldBeProcess(sqInt oop) {
   return (addressCouldBeObj(oop)) &&
          ((((byteAt((void *)(oop + (formatFieldByteOffset())))) &
             (formatMask())) <= 5 /* lastPointerFormat */) &&

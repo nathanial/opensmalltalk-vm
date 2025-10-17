@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#isPureBitsFormat: */
 
-static NoDbgRegParms sqInt isPureBitsFormat(sqInt format) {
+static sqInt isPureBitsFormat(sqInt format) {
   return (format >= (sixtyFourBitIndexableFormat())) &&
          (format < (firstCompiledMethodFormat()));
 }

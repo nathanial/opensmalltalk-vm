@@ -6,7 +6,7 @@
 
 /* SpurMemoryManager>>#numSlotsOfAny: */
 
-static NoDbgRegParms usqInt numSlotsOfAny(sqInt objOop) {
+static usqInt numSlotsOfAny(sqInt objOop) {
   usqInt numSlots;
 
   numSlots = byteAt((void *)(objOop + (numSlotsFieldByteOffset())));

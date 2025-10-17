@@ -7,7 +7,7 @@
 
 /* SpurMemoryManager>>#markAndTraceObjStack:andContents: */
 
-static NoDbgRegParms void
+static void
 markAndTraceObjStackandContents(sqInt stackOrNil, sqInt markAndTraceContents) {
   sqInt field;
   sqInt index;

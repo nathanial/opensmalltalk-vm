@@ -12,7 +12,7 @@
 
 /* StackInterpreter>>#findMethodWithPrimitive:FromContext:UpToContext: */
 
-static NoDbgRegParms sqInt findMethodWithPrimitiveFromContextUpToContext(
+static sqInt findMethodWithPrimitiveFromContextUpToContext(
     sqInt primitive, sqInt senderContext, sqInt homeContext) {
   sqInt objOop;
   sqInt senderContextSqInt;

@@ -4,7 +4,7 @@
 
 /* StackInterpreter>>#doPrimitiveDiv:by: */
 
-static NoDbgRegParms sqInt doPrimitiveDivby(sqInt rcvr, sqInt arg) {
+static sqInt doPrimitiveDivby(sqInt rcvr, sqInt arg) {
   sqInt integerArg;
   sqInt integerRcvr;
   sqInt posArg;

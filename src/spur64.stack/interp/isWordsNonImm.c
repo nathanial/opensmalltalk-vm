@@ -6,7 +6,7 @@
 
 /* Spur64BitMemoryManager>>#isWordsNonImm: */
 
-static NoDbgRegParms int isWordsNonImm(sqInt objOop) {
+static int isWordsNonImm(sqInt objOop) {
   return ((((byteAt((void *)(objOop + (formatFieldByteOffset())))) &
             (formatMask())) >= (firstLongFormat())) &&
           (((byteAt((void *)(objOop + (formatFieldByteOffset())))) &

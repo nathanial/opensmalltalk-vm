@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#context:hasValidInversePCMappingOf:in: */
 
-static NoDbgRegParms sqInt contexthasValidInversePCMappingOfin(sqInt aContext,
+static sqInt contexthasValidInversePCMappingOfin(sqInt aContext,
                                                                sqInt theIP,
                                                                char *theFP) {
   sqInt encodedip;

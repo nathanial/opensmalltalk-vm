@@ -9,7 +9,7 @@
 
 /* SpurMemoryManager>>#allocateOldSpaceChunkOfBytes: */
 
-static NoDbgRegParms sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
+static sqInt allocateOldSpaceChunkOfBytes(usqInt chunkBytes) {
   sqInt child;
   usqInt childBytes;
   sqInt chunk;

@@ -11,7 +11,7 @@
 
 /* SpurMemoryManager>>#outOfPlaceBecome:and:copyHashFlag: */
 
-static NoDbgRegParms NeverInline void
+static NeverInline void
 outOfPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag) {
   sqInt clone1;
   sqInt clone2;

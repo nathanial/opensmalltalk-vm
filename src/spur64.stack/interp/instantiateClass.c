@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#instantiateClass: */
 
-static NoDbgRegParms sqInt instantiateClass(sqInt classObj) {
+static sqInt instantiateClass(sqInt classObj) {
   sqInt classFormat;
   sqInt classIndex;
   sqInt err;

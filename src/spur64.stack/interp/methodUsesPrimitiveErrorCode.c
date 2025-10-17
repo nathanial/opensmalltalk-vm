@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#methodUsesPrimitiveErrorCode: */
 
-static NoDbgRegParms sqInt methodUsesPrimitiveErrorCode(sqInt aMethodObj) {
+static sqInt methodUsesPrimitiveErrorCode(sqInt aMethodObj) {
   usqInt firstBytecode;
   sqInt methodHeader;
 

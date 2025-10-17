@@ -18,7 +18,7 @@
 
 /* SpurMemoryManager>>#loadImageSegmentFrom:outPointers: */
 
-static NoDbgRegParms NeverInline sqInt
+static NeverInline sqInt
 loadImageSegmentFromoutPointers(sqInt segmentWordArray, sqInt outPointerArray) {
   sqInt classIndex;
   sqInt classOop;

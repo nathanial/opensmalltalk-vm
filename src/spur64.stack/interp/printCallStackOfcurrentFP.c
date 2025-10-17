@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#printCallStackOf:currentFP: */
 
-static NoDbgRegParms sqInt printCallStackOfcurrentFP(sqInt aContext,
+static sqInt printCallStackOfcurrentFP(sqInt aContext,
                                                      char *currFP) {
   sqInt ctxt;
   sqInt senderOop;

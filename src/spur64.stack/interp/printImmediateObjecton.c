@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#printImmediateObject:on: */
 
-static NoDbgRegParms void printImmediateObjecton(sqInt oop, FILE *aStream) {
+static void printImmediateObjecton(sqInt oop, FILE *aStream) {
   assert(isImmediate(oop));
   if ((((oop) & 7) == 1)) {
     fprintf(aStream, "%p=%" PRIdSQINT "\n", ((void *)oop),

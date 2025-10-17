@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isInFutureSpace: */
 
-static NoDbgRegParms sqInt isInFutureSpace(sqInt address) {
+static sqInt isInFutureSpace(sqInt address) {
   return oopisGreaterThanOrEqualToandLessThan(address, ((futureSpace).start),
                                               futureSurvivorStart);
 }

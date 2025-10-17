@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#printStringOf: */
 
-static NoDbgRegParms void printStringOf(sqInt oop) {
+static void printStringOf(sqInt oop) {
   sqInt cnt;
   sqInt code;
   sqInt fmt;

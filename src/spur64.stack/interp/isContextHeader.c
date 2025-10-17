@@ -2,6 +2,6 @@
 
 /* SpurMemoryManager>>#isContextHeader: */
 
-static NoDbgRegParms int isContextHeader(sqInt aHeader) {
+static int isContextHeader(sqInt aHeader) {
   return (aHeader & (classIndexMask())) == ClassMethodContextCompactIndex;
 }

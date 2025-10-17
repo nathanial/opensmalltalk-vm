@@ -6,7 +6,7 @@
 
 /* InterpreterStackPages>>#whereIsMaybeStackThing: */
 
-static NoDbgRegParms char *whereIsMaybeStackThing(sqInt anOop) {
+static char *whereIsMaybeStackThing(sqInt anOop) {
   if (oopisGreaterThanOrEqualToandLessThan(anOop, stackMemory, pages)) {
     return " is in the stack zone";
   }

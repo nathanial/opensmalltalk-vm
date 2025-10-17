@@ -9,7 +9,7 @@
 
 /* SpurGenerationScavenger>>#addToEphemeronList: */
 
-static NoDbgRegParms NeverInline void
+static NeverInline void
 addToEphemeronList(sqInt ephemeronCorpse) {
   sqInt ephemeronListOffset;
 

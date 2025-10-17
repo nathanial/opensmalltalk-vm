@@ -2,7 +2,7 @@
 
 /* SpurGenerationScavenger>>#firstCorpse: */
 
-static NoDbgRegParms usqInt firstCorpse(sqInt headOfCorpseList) {
+static usqInt firstCorpse(sqInt headOfCorpseList) {
   return ((((usqInt)((headOfCorpseList - 1))
             << 3 /* shiftForAllocationUnit */))) +
          newSpaceStart;

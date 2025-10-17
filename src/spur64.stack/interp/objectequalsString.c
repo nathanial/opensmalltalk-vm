@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#object:equalsString: */
 
-static NoDbgRegParms sqInt objectequalsString(sqInt anOop, char *aCString) {
+static sqInt objectequalsString(sqInt anOop, char *aCString) {
   sqInt len;
 
   len = strlen(aCString);

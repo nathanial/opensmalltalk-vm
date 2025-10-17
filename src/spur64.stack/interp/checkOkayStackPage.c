@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#checkOkayStackPage: */
 
-static NoDbgRegParms sqInt checkOkayStackPage(StackPage *thePage) {
+static sqInt checkOkayStackPage(StackPage *thePage) {
   char *callerFP;
   char *frameRcvrOffset;
   sqInt ok;

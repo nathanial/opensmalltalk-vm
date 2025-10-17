@@ -2,7 +2,7 @@
 
 /* SpurMemoryManager>>#isObjImmutable: */
 
-static NoDbgRegParms sqInt isObjImmutable(sqInt anOop) {
+static sqInt isObjImmutable(sqInt anOop) {
   return
 #if IMMUTABILITY
       ((((usqInt)((

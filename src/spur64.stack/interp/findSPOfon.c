@@ -6,7 +6,7 @@
 
 /* StackInterpreter>>#findSPOf:on: */
 
-static NoDbgRegParms char *findSPOfon(char *theFP, StackPage *thePage) {
+static char *findSPOfon(char *theFP, StackPage *thePage) {
   char *aFrame;
   char *prevFrame;
   char *startFrame;

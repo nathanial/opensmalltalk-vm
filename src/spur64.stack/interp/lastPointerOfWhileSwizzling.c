@@ -9,7 +9,7 @@
 
 /* SpurMemoryManager>>#lastPointerOfWhileSwizzling: */
 
-static NoDbgRegParms sqInt lastPointerOfWhileSwizzling(sqInt objOop) {
+static sqInt lastPointerOfWhileSwizzling(sqInt objOop) {
   sqInt fmt;
   sqInt header;
   usqInt numSlots;

@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#lookupMethodInClass: */
 
-static NoDbgRegParms sqInt lookupMethodInClass(sqInt class) {
+static sqInt lookupMethodInClass(sqInt class) {
   sqInt currentClass;
   sqInt dictionary;
   sqInt found;

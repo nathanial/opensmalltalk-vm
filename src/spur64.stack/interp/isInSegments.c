@@ -2,7 +2,7 @@
 
 /* SpurSegmentManager>>#isInSegments: */
 
-static NoDbgRegParms sqInt isInSegments(usqInt address) {
+static sqInt isInSegments(usqInt address) {
   sqInt i;
 
   for (i = 0; i < numSegments; i += 1) {
