@@ -9,14 +9,12 @@
 EXPORT(void)
 primitiveEventProcessingControl(void) {
   int enabled;
-  char *sp;
 
   enabled = inIOProcessEvents >= 0;
   if (!argumentCount) {
     /* begin pop:thenPushBool: */
-    longAtput((sp = stackPointer), /* booleanObjectOf: */
-              (enabled ? trueObj : falseObj));
-    stackPointer = sp;
+    popthenPushBool(1, /* booleanObjectOf: */
+                    (enabled ? trueObj : falseObj));
     return;
   }
   if (argumentCount == 1) {
@@ -35,9 +33,8 @@ primitiveEventProcessingControl(void) {
     }
 
     /* begin pop:thenPushBool: */
-    longAtput((sp = stackPointer + (1 * BytesPerWord)), /* booleanObjectOf: */
-              (enabled ? trueObj : falseObj));
-    stackPointer = sp;
+    popthenPushBool(2, /* booleanObjectOf: */
+                    (enabled ? trueObj : falseObj));
     return;
   }
 

@@ -16,7 +16,6 @@ static void primitiveObjectPointsTo(void) {
   usqInt numSlots;
   usqInt numSlotsUsqInt;
   sqInt rcvr;
-  char *sp;
   sqInt thang;
   sqInt trueOrFalse;
 
@@ -24,8 +23,7 @@ static void primitiveObjectPointsTo(void) {
   rcvr = longAt(stackPointer + (1 * BytesPerWord));
   if (((rcvr & (tagMask())) != 0)) {
     /* begin pop:thenPushBool: */
-    longAtput((sp = stackPointer + (1 * BytesPerWord)), falseObj);
-    stackPointer = sp;
+    popthenPushBool(2, falseObj);
     return;
   }
 
@@ -67,10 +65,8 @@ static void primitiveObjectPointsTo(void) {
               marriedContextpointsTostackDeltaForCurrentFrame(rcvr, thang, 2);
 
           /* begin pop:thenPushBool: */
-          longAtput(
-              (sp = stackPointer + (1 * BytesPerWord)), /* booleanObjectOf: */
-              (trueOrFalse ? trueObj : falseObj));
-          stackPointer = sp;
+          popthenPushBool(2, /* booleanObjectOf: */
+                          (trueOrFalse ? trueObj : falseObj));
           return;
         }
       }
@@ -93,8 +89,7 @@ static void primitiveObjectPointsTo(void) {
   } else {
     if (fmt < (firstCompiledMethodFormat())) {
       /* begin pop:thenPushBool: */
-      longAtput((sp = stackPointer + (1 * BytesPerWord)), falseObj);
-      stackPointer = sp;
+      popthenPushBool(2, falseObj);
       return;
     }
 
@@ -108,8 +103,7 @@ static void primitiveObjectPointsTo(void) {
                         ((((usqInt)(HeaderIndex) << (shiftForWord()))))));
     if (methodHeader == thang) {
       /* begin pop:thenPushBool: */
-      longAtput((sp = stackPointer + (1 * BytesPerWord)), trueObj);
-      stackPointer = sp;
+      popthenPushBool(2, trueObj);
       return;
     }
     numSlots = ((/* begin literalCountOfMethodHeader: */
@@ -125,13 +119,11 @@ static void primitiveObjectPointsTo(void) {
        i += BytesPerOop) {
     if ((longAt((void *)(rcvr + i))) == thang) {
       /* begin pop:thenPushBool: */
-      longAtput((sp = stackPointer + (1 * BytesPerWord)), trueObj);
-      stackPointer = sp;
+      popthenPushBool(2, trueObj);
       return;
     }
   }
 
   /* begin pop:thenPushBool: */
-  longAtput((sp = stackPointer + (1 * BytesPerWord)), falseObj);
-  stackPointer = sp;
+  popthenPushBool(2, falseObj);
 }

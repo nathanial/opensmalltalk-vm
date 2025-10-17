@@ -6,23 +6,20 @@ static void primitiveEqual(void) {
   sqInt integerArgument;
   sqInt integerReceiver;
   int result;
-  char *sp;
 
   integerArgument = longAt(stackPointer);
   integerReceiver = longAt(stackPointer + (1 * BytesPerWord));
   if ((((integerReceiver & integerArgument) & (smallIntegerTag())) != 0)) {
     /* begin pop:thenPushBool: */
-    longAtput((sp = stackPointer + (1 * BytesPerWord)), /* booleanObjectOf: */
-              (integerReceiver == integerArgument ? trueObj : falseObj));
-    stackPointer = sp;
+    popthenPushBool(2, /* booleanObjectOf: */
+                    (integerReceiver == integerArgument ? trueObj : falseObj));
   } else {
     result = (signed64BitValueOf(integerReceiver)) ==
              (signed64BitValueOf(integerArgument));
     if (!primFailCode) {
       /* begin pop:thenPushBool: */
-      longAtput((sp = stackPointer + (1 * BytesPerWord)), /* booleanObjectOf: */
-                (result ? trueObj : falseObj));
-      stackPointer = sp;
+      popthenPushBool(2, /* booleanObjectOf: */
+                      (result ? trueObj : falseObj));
     }
   }
 }

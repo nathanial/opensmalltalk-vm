@@ -6,10 +6,8 @@
 
 EXPORT(sqInt)
 primitiveIsBigEnder(void) {
-  char *sp;
 
   /* begin pop:thenPushBool: */
-  longAtput((sp = stackPointer), falseObj);
-  stackPointer = sp;
+  popthenPushBool(1, falseObj);
   return 0;
 }

@@ -20,9 +20,8 @@ static void primitiveVMProfileSamplesInto(void) {
   ioNewProfileStatus((&running), (&bufferSize));
   if (!argumentCount) {
     /* begin pop:thenPushBool: */
-    longAtput((sp = stackPointer), /* booleanObjectOf: */
-              (running ? trueObj : falseObj));
-    stackPointer = sp;
+    popthenPushBool(1, /* booleanObjectOf: */
+                    (running ? trueObj : falseObj));
     return;
   }
   if (!(argumentCount == 1)) {

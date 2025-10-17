@@ -1418,6 +1418,7 @@ static sqInt penultimateLiteralOf(sqInt aMethodOop);
 extern sqInt popStack(void);
 extern sqInt pop(sqInt nItems);
 extern void popthenPush(sqInt nItems, sqInt oop);
+extern void popthenPushBool(sqInt nItems, sqInt booleanOop);
 extern sqInt positive32BitIntegerFor(unsigned int integerValue);
 extern sqInt positive64BitIntegerFor(usqLong integerValue);
 static sqInt postGCUpdateDisplayBits(void);
@@ -3797,6 +3798,7 @@ void enableSendPrinting(void) {
 #include "interp/pop.c"
 #include "interp/popStack.c"
 #include "interp/popthenPush.c"
+#include "interp/popthenPushBool.c"
 #include "interp/positive32BitIntegerFor.c"
 #include "interp/positive64BitIntegerFor.c"
 #include "interp/postGCUpdateDisplayBits.c"

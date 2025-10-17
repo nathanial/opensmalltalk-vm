@@ -6,7 +6,6 @@
 
 static void primitiveIsPinned(void) {
   sqInt obj;
-  char *sp;
   sqInt trueOrFalse;
 
   obj = longAt(stackPointer);
@@ -21,8 +20,6 @@ static void primitiveIsPinned(void) {
                  (1U << (pinnedBitByteShift()))) != 0;
 
   /* begin pop:thenPushBool: */
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) *
-                                  BytesPerWord)), /* booleanObjectOf: */
-            (trueOrFalse ? trueObj : falseObj));
-  stackPointer = sp;
+  popthenPushBool(argumentCount + 1, /* booleanObjectOf: */
+                  (trueOrFalse ? trueObj : falseObj));
 }

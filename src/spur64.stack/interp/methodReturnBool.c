@@ -6,14 +6,11 @@
 /* StackInterpreter>>#methodReturnBool: */
 
 sqInt methodReturnBool(sqInt boolean) {
-  char *sp;
 
   assert(!((failed())));
 
   /* begin pop:thenPushBool: */
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) *
-                                  BytesPerWord)), /* booleanObjectOf: */
-            (boolean ? trueObj : falseObj));
-  stackPointer = sp;
+  popthenPushBool(argumentCount + 1, /* booleanObjectOf: */
+                  (boolean ? trueObj : falseObj));
   return 0;
 }

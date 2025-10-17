@@ -7,7 +7,6 @@
 
 static void primitiveIdentical(void) {
   sqInt otherObject;
-  char *sp;
   sqInt thisObject;
 
   thisObject = longAt(stackPointer + (1 * BytesPerWord));
@@ -25,9 +24,7 @@ static void primitiveIdentical(void) {
     primFailCode = PrimErrBadArgument;
   } else {
     /* begin pop:thenPushBool: */
-    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) *
-                                    BytesPerWord)), /* booleanObjectOf: */
-              (thisObject == otherObject ? trueObj : falseObj));
-    stackPointer = sp;
+    popthenPushBool(argumentCount + 1, /* booleanObjectOf: */
+                    (thisObject == otherObject ? trueObj : falseObj));
   }
 }

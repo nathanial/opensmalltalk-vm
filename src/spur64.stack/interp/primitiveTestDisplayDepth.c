@@ -8,7 +8,6 @@ static void primitiveTestDisplayDepth(void) {
   sqInt bitsPerPixel;
   sqInt integerPointer;
   sqInt okay;
-  char *sp;
 
   okay = 0;
 
@@ -28,8 +27,7 @@ static void primitiveTestDisplayDepth(void) {
   }
   if (!primFailCode) {
     /* begin pop:thenPushBool: */
-    longAtput((sp = stackPointer + (1 * BytesPerWord)), /* booleanObjectOf: */
-              (okay ? trueObj : falseObj));
-    stackPointer = sp;
+    popthenPushBool(2, /* booleanObjectOf: */
+                    (okay ? trueObj : falseObj));
   }
 }

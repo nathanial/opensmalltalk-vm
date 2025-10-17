@@ -10,7 +10,6 @@ static void primitiveSmallFloatNotEqual(void) {
   sqInt oop;
   double rcvr;
   double result;
-  char *sp;
   sqInt tagBits;
   double value;
 
@@ -73,14 +72,12 @@ l1:
       intArg = ((longAt(stackPointer)) >> 3);
 
       /* begin pop:thenPushBool: */
-      longAtput((sp = stackPointer + (1 * BytesPerWord)), /* booleanObjectOf: */
-                ((((sqInt)rcvr)) == intArg ? falseObj : trueObj));
-      stackPointer = sp;
+      popthenPushBool(2, /* booleanObjectOf: */
+                      ((((sqInt)rcvr)) == intArg ? falseObj : trueObj));
     } else {
       /* begin pop:thenPushBool: */
-      longAtput((sp = stackPointer + (1 * BytesPerWord)), /* booleanObjectOf: */
-                (rcvr == arg ? falseObj : trueObj));
-      stackPointer = sp;
+      popthenPushBool(2, /* booleanObjectOf: */
+                      (rcvr == arg ? falseObj : trueObj));
     }
   }
 }

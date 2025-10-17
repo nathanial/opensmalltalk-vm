@@ -11,7 +11,6 @@ static void primitiveSmallFloatGreaterOrEqual(void) {
   sqInt oop;
   double rcvr;
   double result;
-  char *sp;
   sqInt tagBits;
   double value;
 
@@ -74,14 +73,12 @@ l1:
       intArg = ((longAt(stackPointer)) >> 3);
 
       /* begin pop:thenPushBool: */
-      longAtput((sp = stackPointer + (1 * BytesPerWord)), /* booleanObjectOf: */
-                ((((sqInt)rcvr)) >= intArg ? trueObj : falseObj));
-      stackPointer = sp;
+      popthenPushBool(2, /* booleanObjectOf: */
+                      ((((sqInt)rcvr)) >= intArg ? trueObj : falseObj));
     } else {
       /* begin pop:thenPushBool: */
-      longAtput((sp = stackPointer + (1 * BytesPerWord)), /* booleanObjectOf: */
-                (rcvr >= arg ? trueObj : falseObj));
-      stackPointer = sp;
+      popthenPushBool(2, /* booleanObjectOf: */
+                      (rcvr >= arg ? trueObj : falseObj));
     }
   }
 }
