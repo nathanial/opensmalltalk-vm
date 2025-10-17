@@ -2,6 +2,4 @@
 
 /* StackInterpreter>>#frameMethod: */
 
-static sqInt frameMethod(char *theFP) {
-  return longAt(theFP + FoxMethod);
-}
+static sqInt frameMethod(char *theFP) { return longAt(theFP + FoxMethod); }

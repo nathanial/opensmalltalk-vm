@@ -2,9 +2,8 @@
 
 /* SpurMemoryManager>>#validStorePointerUncheckedArgs:_:_: */
 
-static sqInt validStorePointerUncheckedArgs(sqInt fieldIndex,
-                                                          sqInt objOop,
-                                                          sqInt valuePointer) {
+static sqInt validStorePointerUncheckedArgs(sqInt fieldIndex, sqInt objOop,
+                                            sqInt valuePointer) {
   usqInt numSlots;
 
   return (fieldIndex >= 0) &&

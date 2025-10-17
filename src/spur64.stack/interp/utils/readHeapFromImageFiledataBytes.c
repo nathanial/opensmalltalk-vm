@@ -8,8 +8,7 @@
 
 /* SpurSegmentManager>>#readHeapFromImageFile:dataBytes: */
 
-static sqInt readHeapFromImageFiledataBytes(sqImageFile f,
-                                                          sqInt numBytes) {
+static sqInt readHeapFromImageFiledataBytes(sqImageFile f, sqInt numBytes) {
   sqInt bridge;
   sqInt bridgehead;
   usqInt bridgeSpan;

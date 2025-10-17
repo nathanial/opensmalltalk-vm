@@ -5,8 +5,7 @@
 
 /* Spur64BitMemoryManager>>#initFreeChunkWithBytes:at: */
 
-static sqInt initFreeChunkWithBytesat(usqLong numBytes,
-                                                    sqInt address) {
+static sqInt initFreeChunkWithBytesat(usqLong numBytes, sqInt address) {
   sqLong numSlots;
 
   assert(((numBytes % (allocationUnit())) == 0) &&

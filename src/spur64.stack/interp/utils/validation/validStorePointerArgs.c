@@ -3,7 +3,7 @@
 /* SpurMemoryManager>>#validStorePointerArgs:_:_: */
 
 static sqInt validStorePointerArgs(sqInt fieldIndex, sqInt objOop,
-                                                 sqInt valuePointer) {
+                                   sqInt valuePointer) {
   usqInt numSlots;
 
   return (fieldIndex >= 0) &&

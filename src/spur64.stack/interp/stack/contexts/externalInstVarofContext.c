@@ -6,8 +6,7 @@
 
 /* StackInterpreter>>#externalInstVar:ofContext: */
 
-static sqInt externalInstVarofContext(sqInt offset,
-                                                    sqInt aContext) {
+static sqInt externalInstVarofContext(sqInt offset, sqInt aContext) {
   assert(isContext(aContext));
   assert(offset <=
          (ReceiverIndex + (checkStackPointerForMaybeMarriedContext(aContext))));

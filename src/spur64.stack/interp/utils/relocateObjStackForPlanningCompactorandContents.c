@@ -7,8 +7,9 @@
 
 /* SpurMemoryManager>>#relocateObjStackForPlanningCompactor:andContents: */
 
-static sqInt relocateObjStackForPlanningCompactorandContents(
-    sqInt objStack, sqInt relocateContents) {
+static sqInt
+relocateObjStackForPlanningCompactorandContents(sqInt objStack,
+                                                sqInt relocateContents) {
   sqInt finishIndex;
   sqInt freeList;
   sqInt fwd;

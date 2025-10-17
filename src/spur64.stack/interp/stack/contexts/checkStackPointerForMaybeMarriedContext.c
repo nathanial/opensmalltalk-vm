@@ -7,8 +7,7 @@
 
 /* StackInterpreter>>#checkStackPointerForMaybeMarriedContext: */
 
-static sqInt
-checkStackPointerForMaybeMarriedContext(sqInt aContext) {
+static sqInt checkStackPointerForMaybeMarriedContext(sqInt aContext) {
   sqInt header;
   sqInt methodPointer;
   sqInt sp;

@@ -37,9 +37,9 @@
 
 /* SpurMemoryManager>>#storeImageSegmentInto:outPointers:roots: */
 
-static sqInt storeImageSegmentIntooutPointersroots(
-    sqInt segmentWordArrayArg, sqInt outPointersArrayArg,
-    sqInt arrayOfRootsArg) {
+static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
+                                                   sqInt outPointersArrayArg,
+                                                   sqInt arrayOfRootsArg) {
   sqInt arrayOfObjects;
   sqInt arrayOfRoots;
   sqInt delta;

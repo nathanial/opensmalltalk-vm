@@ -3,7 +3,7 @@
 /* SpurMemoryManager>>#fixedFieldsOf:format:length: */
 
 static sqInt fixedFieldsOfformatlength(sqInt objOop, sqInt fmt,
-                                                     sqInt wordLength) {
+                                       sqInt wordLength) {
   sqInt class;
 
   /* N.B. written to fall through to fetchClassOfNonImm: et al for forwarders

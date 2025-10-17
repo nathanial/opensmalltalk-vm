@@ -5,8 +5,7 @@
 
 /* SpurMemoryManager>>#activeAndDeferredScan: */
 
-static NeverInline sqInt
-activeAndDeferredScan(sqInt anEphemeron) {
+static NeverInline sqInt activeAndDeferredScan(sqInt anEphemeron) {
   sqInt key;
 
   key = 0;

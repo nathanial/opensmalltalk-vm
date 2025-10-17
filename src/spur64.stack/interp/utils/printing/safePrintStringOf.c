@@ -5,14 +5,12 @@
 static void safePrintStringOf(sqInt oop) {
   sqInt target;
 
-  if (/* isOopForwarded: */
-      isOopForwarded(oop)) {
+  if (isOopForwarded(oop)) {
     /* begin followForwarded: */
     assert(isUnambiguouslyForwarder(oop));
     target =
         longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (/* isOopForwarded: */
-           isOopForwarded(target)) {
+    while (isOopForwarded(target)) {
       target = longAt(
           (void *)((target + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

@@ -6,8 +6,8 @@
 
 /* StackInterpreter>>#moveFramesIn:through:toPage: */
 
-static char *
-moveFramesInthroughtoPage(StackPage *oldPage, char *theFP, StackPage *newPage) {
+static char *moveFramesInthroughtoPage(StackPage *oldPage, char *theFP,
+                                       StackPage *newPage) {
   char *callerFP;
   sqInt callerIP;
   sqInt delta;

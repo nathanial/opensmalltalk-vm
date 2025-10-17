@@ -7,8 +7,7 @@
 
 /* SpurPlanningCompactor>>#useSegmentForSavedFirstFieldsSpace: */
 
-static sqInt
-useSegmentForSavedFirstFieldsSpace(sqInt spaceEstimate) {
+static sqInt useSegmentForSavedFirstFieldsSpace(sqInt spaceEstimate) {
   usqInt allocatedSize;
   sqInt roundedSize;
   void *segAddress;

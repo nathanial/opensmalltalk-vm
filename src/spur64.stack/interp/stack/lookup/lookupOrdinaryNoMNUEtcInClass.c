@@ -82,8 +82,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
         nextSelector = longAt((void *)((dictionary + BaseHeaderSize) +
                                        ((((usqInt)((index + SelectorStart))
                                           << (shiftForWord()))))));
-        if (/* isOopForwarded: */
-            isOopForwarded(nextSelector)) {
+        if (isOopForwarded(nextSelector)) {
           nextSelector = fixFollowedFieldofObjectwithInitialValue(
               index + SelectorStart, dictionary, nextSelector);
         }
@@ -103,8 +102,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
           objOopSqInt =
               longAt((void *)((methodArray + BaseHeaderSize) +
                               ((((usqInt)(index) << (shiftForWord()))))));
-          if (/* isOopForwarded: */
-              isOopForwarded(objOopSqInt)) {
+          if (isOopForwarded(objOopSqInt)) {
             objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
                 index, methodArray, objOopSqInt);
           }
@@ -136,8 +134,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
         found = 0;
         goto l1;
       }
-      if (/* isOopForwarded: */
-          isOopForwarded(nextSelector)) {
+      if (isOopForwarded(nextSelector)) {
         nextSelector = fixFollowedFieldofObjectwithInitialValue(
             index + SelectorStart, dictionary, nextSelector);
       }
@@ -157,8 +154,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
         objOopSqInt = longAt((void *)((methodArray + BaseHeaderSize) +
                                       ((((usqInt)((index - SelectorStart))
                                          << (shiftForWord()))))));
-        if (/* isOopForwarded: */
-            isOopForwarded(objOopSqInt)) {
+        if (isOopForwarded(objOopSqInt)) {
           objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
               index - SelectorStart, methodArray, objOopSqInt);
         }

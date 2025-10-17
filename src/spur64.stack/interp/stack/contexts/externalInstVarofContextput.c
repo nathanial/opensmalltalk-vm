@@ -2,8 +2,8 @@
 
 /* StackInterpreter>>#externalInstVar:ofContext:put: */
 
-static sqInt externalInstVarofContextput(
-    sqInt index, sqInt maybeMarriedContext, sqInt anOop) {
+static sqInt externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext,
+                                         sqInt anOop) {
   int onCurrentPage;
   sqInt senderOop;
   char *theFP;

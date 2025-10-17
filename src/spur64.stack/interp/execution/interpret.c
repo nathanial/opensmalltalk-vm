@@ -3334,11 +3334,9 @@ sqInt interpret(void) {
           instructionPointer = ((usqInt)localIP);
           stackPointer = localSP;
           framePointer = localFP;
-          if ((/* isOopForwarded: */
-               isOopForwarded(messageSelector)) ||
+          if ((isOopForwarded(messageSelector)) ||
               (lkupClassTag == (isForwardedObjectClassIndexPun()))) {
-            if (/* isOopForwarded: */
-                isOopForwarded(messageSelector)) {
+            if (isOopForwarded(messageSelector)) {
               messageSelector =
                   handleForwardedSelectorFaultFor(messageSelector);
             }
@@ -4006,8 +4004,7 @@ sqInt interpret(void) {
         literal = longAt((void *)((method + BaseHeaderSize) +
                                   ((((usqInt)((offset + LiteralStart))
                                      << (shiftForWord()))))));
-        if (/* isOopForwarded: */
-            isOopForwarded(literal)) {
+        if (isOopForwarded(literal)) {
           literal = fixFollowedFieldofObjectwithInitialValue(
               offset + LiteralStart, method, literal);
         }
@@ -4058,16 +4055,14 @@ sqInt interpret(void) {
            become: other) forwards the receiver self pushed on the stack. */
 
         /* begin ensureReceiverUnforwarded */
-        if (/* isOopForwarded: */
-            isOopForwarded(longAt(localSP + (argumentCount * BytesPerOop)))) {
+        if (isOopForwarded(longAt(localSP + (argumentCount * BytesPerOop)))) {
           objOop = longAt(localSP + (argumentCount * BytesPerOop));
 
           /* begin followForwarded: */
           assert(isUnambiguouslyForwarder(objOop));
           referent = longAt(
               (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referent)) {
+          while (isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }
@@ -6949,13 +6944,11 @@ sqInt interpret(void) {
 
       VM_LABEL(bytecodePrimIdentical);
       rcvr = longAt(localSP + (1 * BytesPerOop));
-      if (/* isOopForwarded: */
-          isOopForwarded(rcvr)) {
+      if (isOopForwarded(rcvr)) {
         rcvr = handleSpecialSelectorSendFaultForfpsp(rcvr, localFP, localSP);
       }
       arg = longAt(localSP);
-      if (/* isOopForwarded: */
-          isOopForwarded(arg)) {
+      if (isOopForwarded(arg)) {
         arg = handleSpecialSelectorSendFaultForfpsp(arg, localFP, localSP);
       }
 
@@ -6975,8 +6968,7 @@ sqInt interpret(void) {
 
       VM_LABEL(bytecodePrimClass);
       rcvr = longAt(localSP);
-      if (/* isOopForwarded: */
-          isOopForwarded(rcvr)) {
+      if (isOopForwarded(rcvr)) {
         rcvr = handleSpecialSelectorSendFaultForfpsp(rcvr, localFP, localSP);
       }
       aValue = /* fetchClassOf: */
@@ -6996,13 +6988,11 @@ sqInt interpret(void) {
 
       VM_LABEL(bytecodePrimNotIdentical);
       rcvr = longAt(localSP + (1 * BytesPerOop));
-      if (/* isOopForwarded: */
-          isOopForwarded(rcvr)) {
+      if (isOopForwarded(rcvr)) {
         rcvr = handleSpecialSelectorSendFaultForfpsp(rcvr, localFP, localSP);
       }
       arg = longAt(localSP);
-      if (/* isOopForwarded: */
-          isOopForwarded(arg)) {
+      if (isOopForwarded(arg)) {
         arg = handleSpecialSelectorSendFaultForfpsp(arg, localFP, localSP);
       }
 
@@ -7858,12 +7848,10 @@ sqInt interpret(void) {
       VM_LABEL(bytecodePrimIdenticalSistaV1);
       rcvr = longAt(localSP + (1 * BytesPerOop));
       arg = longAt(localSP);
-      if (/* isOopForwarded: */
-          isOopForwarded(rcvr)) {
+      if (isOopForwarded(rcvr)) {
         rcvr = handleSpecialSelectorSendFaultForfpsp(rcvr, localFP, localSP);
       }
-      if (/* isOopForwarded: */
-          isOopForwarded(arg)) {
+      if (isOopForwarded(arg)) {
         arg = handleSpecialSelectorSendFaultForfpsp(arg, localFP, localSP);
       }
 
@@ -7882,12 +7870,10 @@ sqInt interpret(void) {
       VM_LABEL(bytecodePrimNotIdenticalSistaV1);
       rcvr = longAt(localSP + (1 * BytesPerOop));
       arg = longAt(localSP);
-      if (/* isOopForwarded: */
-          isOopForwarded(rcvr)) {
+      if (isOopForwarded(rcvr)) {
         rcvr = handleSpecialSelectorSendFaultForfpsp(rcvr, localFP, localSP);
       }
-      if (/* isOopForwarded: */
-          isOopForwarded(arg)) {
+      if (isOopForwarded(arg)) {
         arg = handleSpecialSelectorSendFaultForfpsp(arg, localFP, localSP);
       }
 
@@ -8253,8 +8239,7 @@ sqInt interpret(void) {
           assert(isUnambiguouslyForwarder(class));
           referent = longAt(
               (void *)((class + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referent)) {
+          while (isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }
@@ -8297,16 +8282,14 @@ sqInt interpret(void) {
            become: other) forwards the receiver self pushed on the stack. */
 
         /* begin ensureReceiverUnforwarded */
-        if (/* isOopForwarded: */
-            isOopForwarded(longAt(localSP + (argumentCount * BytesPerOop)))) {
+        if (isOopForwarded(longAt(localSP + (argumentCount * BytesPerOop)))) {
           objOop = longAt(localSP + (argumentCount * BytesPerOop));
 
           /* begin followForwarded: */
           assert(isUnambiguouslyForwarder(objOop));
           referent = longAt(
               (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referent)) {
+          while (isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }

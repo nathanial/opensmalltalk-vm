@@ -2,8 +2,7 @@
 
 /* SpurMemoryManager>>#checkOopIntegrity:named:index: */
 
-static sqInt checkOopIntegritynamedindex(sqInt obj, char *name,
-                                                       sqInt i) {
+static sqInt checkOopIntegritynamedindex(sqInt obj, char *name, sqInt i) {
   if ((oopisLessThan(obj, endOfMemory)) &&
       ((heapMapAtWord(pointerForOop(obj))) != 0)) {
     return 1;

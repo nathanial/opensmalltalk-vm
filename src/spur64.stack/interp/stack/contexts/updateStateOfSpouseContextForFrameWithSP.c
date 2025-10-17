@@ -8,8 +8,7 @@
 
 /* StackInterpreter>>#updateStateOfSpouseContextForFrame:WithSP: */
 
-static void
-updateStateOfSpouseContextForFrameWithSP(char *theFP, char *theSP) {
+static void updateStateOfSpouseContextForFrameWithSP(char *theFP, char *theSP) {
   sqInt fieldIndex;
   sqInt i;
   char *pointer;

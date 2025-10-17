@@ -2,8 +2,7 @@
 
 /* StackInterpreter>>#primitiveFloatGreater:thanArg: */
 
-static int primitiveFloatGreaterthanArg(sqInt rcvrOop,
-                                                      sqInt argOop) {
+static int primitiveFloatGreaterthanArg(sqInt rcvrOop, sqInt argOop) {
   double arg;
   usqLong bits;
   double rcvr;

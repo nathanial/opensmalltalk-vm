@@ -6,8 +6,7 @@
 
 /* Spur64BitMemoryManager>>#initSegmentBridgeWithBytes:at: */
 
-static void initSegmentBridgeWithBytesat(usqLong numBytes,
-                                                       sqInt address) {
+static void initSegmentBridgeWithBytesat(usqLong numBytes, sqInt address) {
   sqLong numSlots;
 
   assert(((numBytes % (allocationUnit())) == 0) &&

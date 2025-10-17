@@ -3,8 +3,8 @@
 
 /* StackInterpreter>>#printActivationNameForSelector:startClass: */
 
-static void
-printActivationNameForSelectorstartClass(sqInt aSelector, sqInt startClass) {
+static void printActivationNameForSelectorstartClass(sqInt aSelector,
+                                                     sqInt startClass) {
   sqInt classDict;
   usqInt classDictSize;
   sqInt currClass;

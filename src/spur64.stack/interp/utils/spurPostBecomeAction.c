@@ -153,8 +153,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         assert(isUnambiguouslyForwarder(obj));
         referent =
             longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (/* isOopForwarded: */
-               isOopForwarded(referent)) {
+        while (isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }
@@ -193,8 +192,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         assert(isUnambiguouslyForwarder(obj));
         referent =
             longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (/* isOopForwarded: */
-               isOopForwarded(referent)) {
+        while (isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }
@@ -233,8 +231,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         assert(isUnambiguouslyForwarder(obj));
         referent =
             longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (/* isOopForwarded: */
-               isOopForwarded(referent)) {
+        while (isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }
@@ -273,8 +270,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         assert(isUnambiguouslyForwarder(obj));
         referent =
             longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (/* isOopForwarded: */
-               isOopForwarded(referent)) {
+        while (isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }
@@ -311,8 +307,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         assert(isUnambiguouslyForwarder(xArray));
         referent = longAt(
             (void *)((xArray + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (/* isOopForwarded: */
-               isOopForwarded(referent)) {
+        while (isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }
@@ -364,8 +359,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
           assert(isUnambiguouslyForwarder(obj));
           referent = longAt(
               (void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referent)) {
+          while (isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }
@@ -430,16 +424,12 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
           c = methodCache[i + MethodCacheClass];
           s = methodCache[i + MethodCacheSelector];
           m = methodCache[i + MethodCacheMethod];
-          if ((c != 0) &&
-              ((s != 0) &&
-               ((m != 0) && (/* isOopForwarded: */
-                             isOopForwarded(m))))) {
+          if ((c != 0) && ((s != 0) && ((m != 0) && (isOopForwarded(m))))) {
             /* begin followForwarded: */
             assert(isUnambiguouslyForwarder(m));
             referent = longAt(
                 (void *)((m + BaseHeaderSize) + (0U << (shiftForWord()))));
-            while (/* isOopForwarded: */
-                   isOopForwarded(referent)) {
+            while (isOopForwarded(referent)) {
               referent = longAt((void *)((referent + BaseHeaderSize) +
                                          (0U << (shiftForWord()))));
             }
@@ -465,8 +455,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
           assert(isUnambiguouslyForwarder(method));
           referent = longAt(
               (void *)((method + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referent)) {
+          while (isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }
@@ -475,14 +464,12 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
             instructionPointer = method + ipdelta;
           }
         }
-        if (/* isOopForwarded: */
-            isOopForwarded(newMethod)) {
+        if (isOopForwarded(newMethod)) {
           /* begin followForwarded: */
           assert(isUnambiguouslyForwarder(newMethod));
           referent = longAt((void *)((newMethod + BaseHeaderSize) +
                                      (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referent)) {
+          while (isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }

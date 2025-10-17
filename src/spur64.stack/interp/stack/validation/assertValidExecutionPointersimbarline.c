@@ -3,9 +3,10 @@
 
 /* StackInterpreter>>#assertValidExecutionPointe:r:s:imbar:line: */
 
-static void
-assertValidExecutionPointersimbarline(usqInt lip, char *lfp, char *lsp,
-                                      sqInt inInterpreter, sqInt ln) {
+static void assertValidExecutionPointersimbarline(usqInt lip, char *lfp,
+                                                  char *lsp,
+                                                  sqInt inInterpreter,
+                                                  sqInt ln) {
   assertl(inInterpreter, ln);
   assertl(stackPage == (mostRecentlyUsedPage), ln);
 

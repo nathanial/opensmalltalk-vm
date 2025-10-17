@@ -6,8 +6,8 @@
 
 /* StackInterpreter>>#updateDisplayLeft:Top:Right:Bottom: */
 
-static sqInt updateDisplayLeftTopRightBottom(sqInt l, sqInt t,
-                                                           sqInt r, sqInt b) {
+static sqInt updateDisplayLeftTopRightBottom(sqInt l, sqInt t, sqInt r,
+                                             sqInt b) {
   sqInt bottom;
   sqInt left;
   sqInt right;

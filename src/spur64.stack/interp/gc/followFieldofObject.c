@@ -6,14 +6,12 @@
 
 /* SpurMemoryManager>>#followField:ofObject: */
 
-static sqInt followFieldofObject(sqInt fieldIndex,
-                                               sqInt anObject) {
+static sqInt followFieldofObject(sqInt fieldIndex, sqInt anObject) {
   sqInt objOop;
 
   objOop = longAt((void *)((anObject + BaseHeaderSize) +
                            ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-  if (/* isOopForwarded: */
-      isOopForwarded(objOop)) {
+  if (isOopForwarded(objOop)) {
     objOop =
         fixFollowedFieldofObjectwithInitialValue(fieldIndex, anObject, objOop);
   }

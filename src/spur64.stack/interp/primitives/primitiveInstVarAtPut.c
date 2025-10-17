@@ -23,9 +23,7 @@ static void primitiveInstVarAtPut(void) {
   index = longAt(stackPointer + (1 * BytesPerWord));
   rcvr = longAt(stackPointer + (2 * BytesPerWord));
   if (((!(index & (smallIntegerTag())))) ||
-      ((argumentCount > 2) &&
-       (/* isOopForwarded: */
-        isOopForwarded(rcvr)))) {
+      ((argumentCount > 2) && (isOopForwarded(rcvr)))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadArgument;
     return;

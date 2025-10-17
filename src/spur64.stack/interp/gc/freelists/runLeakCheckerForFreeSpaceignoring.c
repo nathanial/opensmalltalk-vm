@@ -10,7 +10,7 @@
 /* SpurMemoryManager>>#runLeakCheckerForFreeSpace:ignoring: */
 
 static void runLeakCheckerForFreeSpaceignoring(sqInt gcModes,
-                                                             sqInt anOopOrNil) {
+                                               sqInt anOopOrNil) {
   if (((gcModes & GCCheckFreeSpace) != 0)) {
     reverseDisplayFromto(16, 19);
     clearLeakMapAndMapAccessibleFreeSpace();

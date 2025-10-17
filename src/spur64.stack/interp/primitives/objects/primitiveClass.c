@@ -9,9 +9,7 @@ static void primitiveClass(void) {
   sqInt tagBits;
 
   instance = longAt(stackPointer);
-  if ((argumentCount > 0) &&
-      (/* isOopForwarded: */
-       isOopForwarded(instance))) {
+  if ((argumentCount > 0) && (isOopForwarded(instance))) {
     /* begin primitiveFail */
     if (!primFailCode) {
       primFailCode = 1;

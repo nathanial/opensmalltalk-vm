@@ -7,8 +7,7 @@
 
 /* StackInterpreter>>#reverseDisplayFrom:to: */
 
-static void reverseDisplayFromto(sqInt startIndex,
-                                               sqInt endIndex) {
+static void reverseDisplayFromto(sqInt startIndex, sqInt endIndex) {
   sqInt primFailCodeValue;
   sqInt ptr;
   sqInt reversed;

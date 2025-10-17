@@ -12,8 +12,9 @@
 
 /* StackInterpreter>>#findMethodWithPrimitive:FromContext:UpToContext: */
 
-static sqInt findMethodWithPrimitiveFromContextUpToContext(
-    sqInt primitive, sqInt senderContext, sqInt homeContext) {
+static sqInt findMethodWithPrimitiveFromContextUpToContext(sqInt primitive,
+                                                           sqInt senderContext,
+                                                           sqInt homeContext) {
   sqInt objOop;
   sqInt senderContextSqInt;
   sqInt senderOop;

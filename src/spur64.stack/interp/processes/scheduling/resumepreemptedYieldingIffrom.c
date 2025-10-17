@@ -12,8 +12,8 @@
 /* StackInterpreter>>#resume:preemptedYieldingIf:from: */
 
 static sqInt resumepreemptedYieldingIffrom(sqInt aProcess,
-                                                         sqInt yieldImplicitly,
-                                                         sqInt sourceCode) {
+                                           sqInt yieldImplicitly,
+                                           sqInt sourceCode) {
   sqInt activePriority;
   sqInt activeProc;
   sqInt newPriority;

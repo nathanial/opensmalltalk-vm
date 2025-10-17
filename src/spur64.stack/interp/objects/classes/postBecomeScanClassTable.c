@@ -52,8 +52,7 @@ static void postBecomeScanClassTable(sqInt effectsFlags) {
           assert(isUnambiguouslyForwarder(classOrNil));
           referent = longAt((void *)((classOrNil + BaseHeaderSize) +
                                      (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referent)) {
+          while (isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }

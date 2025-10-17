@@ -4,8 +4,7 @@
 /* SpurMemoryManager>>#runLeakCheckerFor:excludeUnmarkedObjs:classIndicesShouldBeValid:
  */
 
-static void
-runLeakCheckerForexcludeUnmarkedObjsclassIndicesShouldBeValid(
+static void runLeakCheckerForexcludeUnmarkedObjsclassIndicesShouldBeValid(
     sqInt gcModes, sqInt excludeUnmarkedObjs, sqInt classIndicesShouldBeValid) {
   /* begin
    * inLineRunLeakCheckerFor:excludeUnmarkedObjs:classIndicesShouldBeValid: */

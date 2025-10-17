@@ -11,8 +11,7 @@
 
 /* SpurMemoryManager>>#doShorten:toIndexableSize: */
 
-static sqInt doShortentoIndexableSize(sqInt objOop,
-                                                    sqInt indexableSize) {
+static sqInt doShortentoIndexableSize(sqInt objOop, sqInt indexableSize) {
   usqInt bytesBefore;
   sqInt classIndex;
   sqInt copy;

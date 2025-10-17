@@ -11,8 +11,8 @@
 
 /* SpurMemoryManager>>#outOfPlaceBecome:and:copyHashFlag: */
 
-static NeverInline void
-outOfPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag) {
+static NeverInline void outOfPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2,
+                                                        sqInt copyHashFlag) {
   sqInt clone1;
   sqInt clone2;
   sqInt hash;

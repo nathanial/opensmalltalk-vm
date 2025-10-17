@@ -5,8 +5,7 @@
 
 /* StackInterpreter>>#checkForEventsMayContextSwitch: */
 
-static sqInt
-checkForEventsMayContextSwitch(sqInt mayContextSwitch) {
+static sqInt checkForEventsMayContextSwitch(sqInt mayContextSwitch) {
   sqInt heapSizePostGC;
   usqLong now;
   sqInt nowSqInt;

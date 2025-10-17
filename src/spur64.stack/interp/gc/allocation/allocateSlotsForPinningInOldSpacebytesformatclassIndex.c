@@ -8,11 +8,8 @@
 /* Spur64BitMemoryManager>>#allocateSlotsForPinningInOldSpace:bytes:format:classIndex:
  */
 
-static sqInt
-allocateSlotsForPinningInOldSpacebytesformatclassIndex(sqInt numSlots,
-                                                       usqInt totalBytes,
-                                                       sqInt formatField,
-                                                       sqInt classIndex) {
+static sqInt allocateSlotsForPinningInOldSpacebytesformatclassIndex(
+    sqInt numSlots, usqInt totalBytes, sqInt formatField, sqInt classIndex) {
   sqInt acceptedChunk;
   sqInt acceptedNode;
   sqInt child;

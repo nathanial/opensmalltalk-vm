@@ -15,15 +15,13 @@ static void primitiveNotIdentical(void) {
 
   thisObject = longAt(stackPointer + (1 * BytesPerWord));
   otherObject = longAt(stackPointer);
-  if ((/* isOopForwarded: */
-       isOopForwarded(otherObject)) ||
-      ((argumentCount > 1) &&
-       (/* isOopForwarded: */
-        isOopForwarded(thisObject)))) {
+  if ((isOopForwarded(otherObject)) ||
+      ((argumentCount > 1) && (isOopForwarded(thisObject)))) {
     /* primitiveFailFor: */
     primFailCode = PrimErrBadArgument;
   } else {
     /* begin pop:thenPushBool: */
-    popthenPushBool(argumentCount + 1, booleanObjectOf(thisObject != otherObject));
+    popthenPushBool(argumentCount + 1,
+                    booleanObjectOf(thisObject != otherObject));
   }
 }

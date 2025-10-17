@@ -3,7 +3,7 @@
 /* SpurMemoryManager>>#printFreeChunk:printAsTreeNode: */
 
 static void printFreeChunkprintAsTreeNode(sqInt freeChunk,
-                                                        sqInt printAsTreeNode) {
+                                          sqInt printAsTreeNode) {
   usqInt n;
   usqInt numBytes;
 

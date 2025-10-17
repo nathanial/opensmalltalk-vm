@@ -7,8 +7,10 @@
 
 /* SpurMemoryManager>>#allocateSlotsInOldSpace:bytes:format:classIndex: */
 
-static sqInt allocateSlotsInOldSpacebytesformatclassIndex(
-    sqInt numSlots, usqInt totalBytes, sqInt formatField, sqInt classIndex) {
+static sqInt allocateSlotsInOldSpacebytesformatclassIndex(sqInt numSlots,
+                                                          usqInt totalBytes,
+                                                          sqInt formatField,
+                                                          sqInt classIndex) {
   sqInt chunk;
 
   if ((chunk = allocateOldSpaceChunkOfBytes(totalBytes))) {

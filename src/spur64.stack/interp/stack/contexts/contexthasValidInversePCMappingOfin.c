@@ -6,9 +6,8 @@
 
 /* StackInterpreter>>#context:hasValidInversePCMappingOf:in: */
 
-static sqInt contexthasValidInversePCMappingOfin(sqInt aContext,
-                                                               sqInt theIP,
-                                                               char *theFP) {
+static sqInt contexthasValidInversePCMappingOfin(sqInt aContext, sqInt theIP,
+                                                 char *theFP) {
   sqInt encodedip;
   sqInt methodHeader;
   sqInt methodObj;

@@ -8,8 +8,7 @@
 
 /* StackInterpreter>>#transferTo:from: */
 
-static sqInt transferTofrom(sqInt newProcOrNil,
-                                          sqInt sourceCode) {
+static sqInt transferTofrom(sqInt newProcOrNil, sqInt sourceCode) {
   sqInt activeContext;
   StackPage *lastUsedPage;
   sqInt methodHeader;

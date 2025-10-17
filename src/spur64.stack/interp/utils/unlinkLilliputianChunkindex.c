@@ -2,8 +2,8 @@
 
 /* SpurMemoryManager>>#unlinkLilliputianChunk:index: */
 
-static NeverInline sqInt
-unlinkLilliputianChunkindex(sqInt freeChunk, sqInt index) {
+static NeverInline sqInt unlinkLilliputianChunkindex(sqInt freeChunk,
+                                                     sqInt index) {
   sqInt next;
   sqInt nextSqInt;
   sqInt node;

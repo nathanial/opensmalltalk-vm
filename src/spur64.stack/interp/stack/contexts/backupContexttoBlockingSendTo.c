@@ -9,8 +9,8 @@
 
 /* StackInterpreter>>#backupContext:toBlockingSendTo: */
 
-static void
-backupContexttoBlockingSendTo(sqInt suspendedContext, sqInt conditionVariable) {
+static void backupContexttoBlockingSendTo(sqInt suspendedContext,
+                                          sqInt conditionVariable) {
   sqInt pc;
   sqInt senderOop;
   sqInt sp;

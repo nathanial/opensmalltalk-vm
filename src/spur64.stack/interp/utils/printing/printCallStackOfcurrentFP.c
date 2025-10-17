@@ -2,8 +2,7 @@
 
 /* StackInterpreter>>#printCallStackOf:currentFP: */
 
-static sqInt printCallStackOfcurrentFP(sqInt aContext,
-                                                     char *currFP) {
+static sqInt printCallStackOfcurrentFP(sqInt aContext, char *currFP) {
   sqInt ctxt;
   sqInt senderOop;
   char *theFP;

@@ -136,8 +136,7 @@ static void processEphemerons(void) {
       assert(isUnambiguouslyForwarder(ephemeronCorpse));
       ephemeron = longAt((void *)((ephemeronCorpse + BaseHeaderSize) +
                                   (0U << (shiftForWord()))));
-      while (/* isOopForwarded: */
-             isOopForwarded(ephemeron)) {
+      while (isOopForwarded(ephemeron)) {
         ephemeron = longAt(
             (void *)((ephemeron + BaseHeaderSize) + (0U << (shiftForWord()))));
       }

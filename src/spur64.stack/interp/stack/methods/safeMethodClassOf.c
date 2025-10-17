@@ -17,8 +17,7 @@ static sqInt safeMethodClassOf(sqInt methodPointer) {
   literal = longAt(
       (void *)((methodPointer + BaseHeaderSize) +
                ((((usqInt)((offset + LiteralStart)) << (shiftForWord()))))));
-  if (/* isOopForwarded: */
-      isOopForwarded(literal)) {
+  if (isOopForwarded(literal)) {
     literal = followForwarded(literal);
   }
   if (!((/* isPointers: */
@@ -39,8 +38,7 @@ static sqInt safeMethodClassOf(sqInt methodPointer) {
   }
   maybeClass = longAt((void *)((literal + BaseHeaderSize) +
                                ((((usqInt)(ValueIndex) << (shiftForWord()))))));
-  if (/* isOopForwarded: */
-      isOopForwarded(maybeClass)) {
+  if (isOopForwarded(maybeClass)) {
     maybeClass = followForwarded(maybeClass);
   }
   return maybeClass;

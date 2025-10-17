@@ -2,8 +2,8 @@
 
 /* SpurMemoryManager>>#printObjStackPage:myIndex:tag: */
 
-static void
-printObjStackPagemyIndextag(sqInt objStackPage, sqInt myx, char *pageType) {
+static void printObjStackPagemyIndextag(sqInt objStackPage, sqInt myx,
+                                        char *pageType) {
   fprintf(transcript, "%s %p cx %d (%d) fmt %d (%d) sz %d (%d) myx: %d (%d%s\n",
           pageType, ((void *)objStackPage),
           ((int)((longAt((void *)(objStackPage))) & (classIndexMask()))),

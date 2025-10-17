@@ -1,7 +1,7 @@
 /* Extracted from interp.c:63404 (function signed64BitIntegerFor). */
 
 /*	Answer a Large Integer object for the given integer value. N.B. will
-   *not* cause a GC. */
+ *not* cause a GC. */
 
 /* StackInterpreter>>#signed64BitIntegerFor: */
 

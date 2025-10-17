@@ -49,8 +49,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
           assert(isUnambiguouslyForwarder(referent));
           referentSqInt = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referentSqInt)) {
+          while (isOopForwarded(referentSqInt)) {
             referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                             (0U << (shiftForWord()))));
           }
@@ -101,8 +100,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
           assert(isUnambiguouslyForwarder(referent));
           referentSqInt = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referentSqInt)) {
+          while (isOopForwarded(referentSqInt)) {
             referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                             (0U << (shiftForWord()))));
           }
@@ -152,8 +150,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
           assert(isUnambiguouslyForwarder(referent));
           referentSqInt = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referentSqInt)) {
+          while (isOopForwarded(referentSqInt)) {
             referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                             (0U << (shiftForWord()))));
           }
@@ -218,8 +215,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
           assert(isUnambiguouslyForwarder(referent));
           referentSqInt = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referentSqInt)) {
+          while (isOopForwarded(referentSqInt)) {
             referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                             (0U << (shiftForWord()))));
           }
@@ -268,8 +264,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
         assert(isUnambiguouslyForwarder(referent));
         referentSqInt = longAt(
             (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (/* isOopForwarded: */
-               isOopForwarded(referentSqInt)) {
+        while (isOopForwarded(referentSqInt)) {
           referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                           (0U << (shiftForWord()))));
         }
@@ -328,8 +323,7 @@ static sqInt scavengeReferentsOf(sqInt referrer) {
           assert(isUnambiguouslyForwarder(referent));
           referentSqInt = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referentSqInt)) {
+          while (isOopForwarded(referentSqInt)) {
             referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                             (0U << (shiftForWord()))));
           }

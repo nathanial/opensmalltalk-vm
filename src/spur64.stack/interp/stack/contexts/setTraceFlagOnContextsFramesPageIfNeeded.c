@@ -3,8 +3,7 @@
 
 /* StackInterpreter>>#setTraceFlagOnContextsFramesPageIfNeeded: */
 
-static void
-setTraceFlagOnContextsFramesPageIfNeeded(sqInt aContext) {
+static void setTraceFlagOnContextsFramesPageIfNeeded(sqInt aContext) {
   void *pointer;
   sqInt senderOop;
   StackPage *thePage;

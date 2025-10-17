@@ -11,8 +11,7 @@
 
 /* StackInterpreter>>#saneFunctionPointerForFailureOfPrimIndex: */
 
-static sqInt
-saneFunctionPointerForFailureOfPrimIndex(sqInt primIndex) {
+static sqInt saneFunctionPointerForFailureOfPrimIndex(sqInt primIndex) {
   void (*basePrimitive)(void);
 
   /* begin functionPointerFor:inClass: */

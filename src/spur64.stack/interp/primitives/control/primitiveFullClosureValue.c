@@ -95,8 +95,7 @@ static void primitiveFullClosureValue(void) {
   objOop = longAt(
       (void *)((blockClosure + BaseHeaderSize) +
                ((((usqInt)(FullClosureReceiverIndex) << (shiftForWord()))))));
-  if (/* isOopForwarded: */
-      isOopForwarded(objOop)) {
+  if (isOopForwarded(objOop)) {
     objOop = fixFollowedFieldofObjectwithInitialValue(FullClosureReceiverIndex,
                                                       blockClosure, objOop);
   }

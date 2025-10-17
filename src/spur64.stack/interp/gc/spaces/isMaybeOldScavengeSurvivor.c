@@ -18,8 +18,7 @@ static sqInt isMaybeOldScavengeSurvivor(sqInt oop) {
     assert(isUnambiguouslyForwarder(oop));
     target =
         longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (/* isOopForwarded: */
-           isOopForwarded(target)) {
+    while (isOopForwarded(target)) {
       target = longAt(
           (void *)((target + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

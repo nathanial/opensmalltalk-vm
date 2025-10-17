@@ -6,9 +6,7 @@ static void primitiveGetImmutability(void) {
   char *sp;
 
   rcvr = longAt(stackPointer);
-  if ((argumentCount > 0) &&
-      (/* isOopForwarded: */
-       isOopForwarded(rcvr))) {
+  if ((argumentCount > 0) && (isOopForwarded(rcvr))) {
     /* begin primitiveFail */
     if (!primFailCode) {
       primFailCode = 1;
@@ -24,7 +22,7 @@ static void primitiveGetImmutability(void) {
 
   /* begin methodReturnBool: */
   assert(!((failed())));
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) *
-                                  BytesPerWord)), booleanObjectOf(boolean));
+  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+            booleanObjectOf(boolean));
   stackPointer = sp;
 }

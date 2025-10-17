@@ -77,8 +77,7 @@ static sqInt wakeHighestPriority(void) {
         highestRunnableProcessPriority = p + 1;
         return proc;
       }
-      if (/* isOopForwarded: */
-          isOopForwarded(ctxt)) {
+      if (isOopForwarded(ctxt)) {
         ctxt = fixFollowedFieldofObjectwithInitialValue(SuspendedContextIndex,
                                                         proc, ctxt);
       }

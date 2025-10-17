@@ -12,8 +12,7 @@
 
 /* SpurMemoryManager>>#objectsReachableFromRoots: */
 
-static NeverInline sqInt
-objectsReachableFromRoots(sqInt arrayOfRoots) {
+static NeverInline sqInt objectsReachableFromRoots(sqInt arrayOfRoots) {
   sqInt count;
   sqInt delta;
   sqInt followingWord;
@@ -72,8 +71,7 @@ objectsReachableFromRoots(sqInt arrayOfRoots) {
     /* begin followField:ofObject: */
     oopSqInt = longAt((void *)((arrayOfRoots + BaseHeaderSize) +
                                ((((usqInt)(iSqInt) << (shiftForWord()))))));
-    if (/* isOopForwarded: */
-        isOopForwarded(oopSqInt)) {
+    if (isOopForwarded(oopSqInt)) {
       oopSqInt = fixFollowedFieldofObjectwithInitialValue(iSqInt, arrayOfRoots,
                                                           oopSqInt);
     }
@@ -113,8 +111,7 @@ objectsReachableFromRoots(sqInt arrayOfRoots) {
     /* begin followField:ofObject: */
     oopSqInt = longAt((void *)((arrayOfRoots + BaseHeaderSize) +
                                ((((usqInt)(iSqInt) << (shiftForWord()))))));
-    if (/* isOopForwarded: */
-        isOopForwarded(oopSqInt)) {
+    if (isOopForwarded(oopSqInt)) {
       oopSqInt = fixFollowedFieldofObjectwithInitialValue(iSqInt, arrayOfRoots,
                                                           oopSqInt);
     }
@@ -383,8 +380,7 @@ l3:
     assert(isUnambiguouslyForwarder(freeChunk));
     referent = longAt(
         (void *)((freeChunk + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (/* isOopForwarded: */
-           isOopForwarded(referent)) {
+    while (isOopForwarded(referent)) {
       referent = longAt(
           (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

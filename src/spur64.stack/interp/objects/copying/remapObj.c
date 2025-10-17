@@ -17,8 +17,7 @@ sqInt remapObj(sqInt objOop) {
     assert(isUnambiguouslyForwarder(objOop));
     resolvedObj =
         longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (/* isOopForwarded: */
-           isOopForwarded(resolvedObj)) {
+    while (isOopForwarded(resolvedObj)) {
       resolvedObj = longAt(
           (void *)((resolvedObj + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

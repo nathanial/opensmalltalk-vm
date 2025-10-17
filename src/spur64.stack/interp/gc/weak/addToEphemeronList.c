@@ -9,8 +9,7 @@
 
 /* SpurGenerationScavenger>>#addToEphemeronList: */
 
-static NeverInline void
-addToEphemeronList(sqInt ephemeronCorpse) {
+static NeverInline void addToEphemeronList(sqInt ephemeronCorpse) {
   sqInt ephemeronListOffset;
 
   assert(

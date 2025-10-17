@@ -5,8 +5,7 @@
 
 /* StackInterpreterPrimitives>>#fieldOrSenderFP:ofContext: */
 
-static sqInt fieldOrSenderFPofContext(sqInt index,
-                                                    sqInt contextObj) {
+static sqInt fieldOrSenderFPofContext(sqInt index, sqInt contextObj) {
   sqInt senderOop;
   char *spouseFP;
   sqInt tempIndex;

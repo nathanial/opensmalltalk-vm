@@ -2,6 +2,4 @@
 
 /* StackInterpreter>>#iframeMethod: */
 
-static usqInt iframeMethod(char *theFP) {
-  return longAt(theFP + FoxMethod);
-}
+static usqInt iframeMethod(char *theFP) { return longAt(theFP + FoxMethod); }

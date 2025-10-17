@@ -6,8 +6,8 @@
 
 /* StackInterpreter>>#checkIsStillMarriedContext:currentFP: */
 
-static sqInt
-checkIsStillMarriedContextcurrentFP(sqInt aContext, char *currentFP) {
+static sqInt checkIsStillMarriedContextcurrentFP(sqInt aContext,
+                                                 char *currentFP) {
   char *limitFP;
   char *maybeFP;
   sqInt maybeFrameCtxt;
@@ -66,8 +66,7 @@ checkIsStillMarriedContextcurrentFP(sqInt aContext, char *currentFP) {
     assert(isUnambiguouslyForwarder(maybeFrameCtxt));
     referent = longAt(
         (void *)((maybeFrameCtxt + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (/* isOopForwarded: */
-           isOopForwarded(referent)) {
+    while (isOopForwarded(referent)) {
       referent = longAt(
           (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

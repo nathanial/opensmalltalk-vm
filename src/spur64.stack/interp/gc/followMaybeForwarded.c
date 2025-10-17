@@ -3,8 +3,5 @@
 /* SpurMemoryManager>>#followMaybeForwarded: */
 
 static sqInt followMaybeForwarded(sqInt objOop) {
-  return (/* isOopForwarded: */
-          isOopForwarded(objOop))
-             ? followForwarded(objOop)
-             : objOop;
+  return (isOopForwarded(objOop)) ? followForwarded(objOop) : objOop;
 }

@@ -6,21 +6,18 @@
 
 /* SpurMemoryManager>>#noFixupFollowField:ofObject: */
 
-static sqInt noFixupFollowFieldofObject(sqInt fieldIndex,
-                                                      sqInt anObject) {
+static sqInt noFixupFollowFieldofObject(sqInt fieldIndex, sqInt anObject) {
   sqInt objOop;
   sqInt referent;
 
   objOop = longAt((void *)((anObject + BaseHeaderSize) +
                            ((((usqInt)(fieldIndex) << (shiftForWord()))))));
-  if (/* isOopForwarded: */
-      isOopForwarded(objOop)) {
+  if (isOopForwarded(objOop)) {
     /* begin followForwarded: */
     assert(isUnambiguouslyForwarder(objOop));
     referent =
         longAt((void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (/* isOopForwarded: */
-           isOopForwarded(referent)) {
+    while (isOopForwarded(referent)) {
       referent = longAt(
           (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

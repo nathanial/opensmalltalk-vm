@@ -3,7 +3,7 @@
 /* StackInterpreter>>#printFrameAndCallers:SP:short: */
 
 static sqInt printFrameAndCallersSPshort(char *theFP, char *theSP,
-                                                       sqInt printShort) {
+                                         sqInt printShort) {
   if (!(/* couldBeFramePointer: */
         (((((usqInt)theFP)) & (BytesPerWord - 1)) == 0) &&
         ((((((usqInt)theFP)) >= (((usqInt)stackMemory))) &&

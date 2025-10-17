@@ -5,8 +5,7 @@
 
 /* StackInterpreter>>#nameOfClass:lengthInto: */
 
-static char *nameOfClasslengthInto(sqInt classOop,
-                                                 sqInt *lengthPtr) {
+static char *nameOfClasslengthInto(sqInt classOop, sqInt *lengthPtr) {
   sqInt maybeNameOop;
   sqInt maybeThisClassOop;
   usqInt numSlots;

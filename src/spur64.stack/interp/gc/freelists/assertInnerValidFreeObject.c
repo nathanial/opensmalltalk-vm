@@ -7,8 +7,7 @@
 
 /* SpurMemoryManager>>#assertInnerValidFreeObject: */
 
-static NeverInline sqInt
-assertInnerValidFreeObject(sqInt objOop) {
+static NeverInline sqInt assertInnerValidFreeObject(sqInt objOop) {
   sqInt cameFrom;
   sqInt chunk;
   sqInt chunkBytes;

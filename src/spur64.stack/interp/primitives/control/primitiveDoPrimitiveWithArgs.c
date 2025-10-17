@@ -76,14 +76,12 @@ static void primitiveDoPrimitiveWithArgs(void) {
 
     /* receiver for primitive */
     rcvr = longAt(stackPointer + (2 * BytesPerWord));
-    if (/* isOopForwarded: */
-        isOopForwarded(rcvr)) {
+    if (isOopForwarded(rcvr)) {
       /* begin followForwarded: */
       assert(isUnambiguouslyForwarder(rcvr));
       referent =
           longAt((void *)((rcvr + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (/* isOopForwarded: */
-             isOopForwarded(referent)) {
+      while (isOopForwarded(referent)) {
         referent = longAt(
             (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
       }

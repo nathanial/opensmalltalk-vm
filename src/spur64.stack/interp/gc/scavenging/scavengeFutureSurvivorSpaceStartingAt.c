@@ -7,8 +7,7 @@
 
 /* SpurGenerationScavenger>>#scavengeFutureSurvivorSpaceStartingAt: */
 
-static void
-scavengeFutureSurvivorSpaceStartingAt(sqInt initialAddress) {
+static void scavengeFutureSurvivorSpaceStartingAt(sqInt initialAddress) {
   usqInt numSlots;
   sqInt obj;
   usqInt ptr;

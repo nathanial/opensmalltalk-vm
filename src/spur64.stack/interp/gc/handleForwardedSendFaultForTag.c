@@ -20,8 +20,7 @@ static sqInt handleForwardedSendFaultForTag(sqInt classTag) {
   assert(isUnambiguouslyForwarder(rcvr));
   referent =
       longAt((void *)((rcvr + BaseHeaderSize) + (0U << (shiftForWord()))));
-  while (/* isOopForwarded: */
-         isOopForwarded(referent)) {
+  while (isOopForwarded(referent)) {
     referent = longAt(
         (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
   }

@@ -11,8 +11,7 @@
 
 /* SpurMemoryManager>>#addToFreeList:bytes: */
 
-static sqInt addToFreeListbytes(sqInt freeChunk,
-                                              sqInt chunkBytes) {
+static sqInt addToFreeListbytes(sqInt freeChunk, sqInt chunkBytes) {
   sqInt child;
   usqInt childBytes;
   sqInt index;

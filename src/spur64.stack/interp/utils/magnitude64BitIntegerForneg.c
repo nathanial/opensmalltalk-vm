@@ -5,8 +5,7 @@
 
 /* InterpreterPrimitives>>#magnitude64BitIntegerFor:neg: */
 
-static sqInt magnitude64BitIntegerForneg(usqLong magnitude,
-                                                       sqInt isNegative) {
+static sqInt magnitude64BitIntegerForneg(usqLong magnitude, sqInt isNegative) {
   int isSmall;
   int largeClassIndex;
   usqInt newLargeInteger;

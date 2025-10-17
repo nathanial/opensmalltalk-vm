@@ -6,7 +6,7 @@
 /* SpurSegmentManager>>#bridgeFrom:to: */
 
 static void bridgeFromto(SpurSegmentInfo *aSegment,
-                                       SpurSegmentInfo *nextSegmentOrNil) {
+                         SpurSegmentInfo *nextSegmentOrNil) {
   sqInt bridgeSpan;
   sqInt clifton;
   usqInt segEnd;

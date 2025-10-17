@@ -3,8 +3,7 @@
 
 /* StackInterpreter>>#primitiveFloatGreaterOrEqual:toArg: */
 
-static int primitiveFloatGreaterOrEqualtoArg(sqInt rcvrOop,
-                                                           sqInt argOop) {
+static int primitiveFloatGreaterOrEqualtoArg(sqInt rcvrOop, sqInt argOop) {
   double arg;
   usqLong bits;
   double rcvr;

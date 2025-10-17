@@ -5,7 +5,7 @@
 /* StackInterpreterPrimitives>>#linkExternalCall:errInto: */
 
 static void (*linkExternalCallerrInto(sqInt externalCallLiteral,
-                                                    sqInt *failPtr))(void) {
+                                      sqInt *failPtr))(void) {
   void (*addr)();
   sqInt fmt;
   void *functionAddress;

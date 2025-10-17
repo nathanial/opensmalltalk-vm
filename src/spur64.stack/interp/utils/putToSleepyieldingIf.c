@@ -7,8 +7,7 @@
 
 /* StackInterpreter>>#putToSleep:yieldingIf: */
 
-static void putToSleepyieldingIf(sqInt aProcess,
-                                               sqInt yieldImplicitly) {
+static void putToSleepyieldingIf(sqInt aProcess, sqInt yieldImplicitly) {
   sqInt firstLink;
   sqInt objOop;
   sqInt oop;

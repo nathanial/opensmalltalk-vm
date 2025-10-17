@@ -7,8 +7,8 @@
 
 /* SpurMemoryManager>>#is:instanceOf:compactClassIndex: */
 
-static sqInt isinstanceOfcompactClassIndex(
-    sqInt oop, sqInt classOop, sqInt compactClassIndex) {
+static sqInt isinstanceOfcompactClassIndex(sqInt oop, sqInt classOop,
+                                           sqInt compactClassIndex) {
   sqInt ccIndex;
 
   if (((oop & (tagMask())) != 0)) {

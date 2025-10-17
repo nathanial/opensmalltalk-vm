@@ -21,8 +21,7 @@ sqInt methodClassOf(sqInt methodPointer) {
   literal = longAt(
       (void *)((methodPointer + BaseHeaderSize) +
                ((((usqInt)((offset + LiteralStart)) << (shiftForWord()))))));
-  if (/* isOopForwarded: */
-      isOopForwarded(literal)) {
+  if (isOopForwarded(literal)) {
     literal = fixFollowedFieldofObjectwithInitialValue(offset + LiteralStart,
                                                        methodPointer, literal);
   }

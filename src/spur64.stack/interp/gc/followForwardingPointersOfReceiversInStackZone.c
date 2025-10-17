@@ -66,8 +66,7 @@ static void followForwardingPointersOfReceiversInStackZone(void) {
         assert(addressIsInPage(thePage, theFP));
         assert((!theIPPtr) || (addressIsInPage(thePage, ((void *)theIPPtr))));
         oop = longAt(theFP + FoxReceiver);
-        if (/* isOopForwarded: */
-            isOopForwarded(oop)) {
+        if (isOopForwarded(oop)) {
           longAtput(theFP + FoxReceiver, followForwarded(oop));
         }
         if (((byteAt((theFP + FoxFrameFlags) + 2)) != 0) &&
@@ -83,8 +82,7 @@ static void followForwardingPointersOfReceiversInStackZone(void) {
           assert(isUnambiguouslyForwarder(oop));
           newOop = longAt(
               (void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(newOop)) {
+          while (isOopForwarded(newOop)) {
             newOop = longAt(
                 (void *)((newOop + BaseHeaderSize) + (0U << (shiftForWord()))));
           }
@@ -99,8 +97,7 @@ static void followForwardingPointersOfReceiversInStackZone(void) {
                  ((((usqInt)((byteAt((theFP + FoxFrameFlags) + 1)))
                     << (shiftForWord()))));
         oop = longAt(theFP + offset);
-        if (/* isOopForwarded: */
-            isOopForwarded(oop)) {
+        if (isOopForwarded(oop)) {
           longAtput(theFP + offset, followForwarded(oop));
         }
         if (!(((callerFP = ((char *)(longAt(theFP + FoxSavedFP))))) != 0))
@@ -121,8 +118,7 @@ static void followForwardingPointersOfReceiversInStackZone(void) {
         assert(isUnambiguouslyForwarder(oop));
         referent =
             longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (/* isOopForwarded: */
-               isOopForwarded(referent)) {
+        while (isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }

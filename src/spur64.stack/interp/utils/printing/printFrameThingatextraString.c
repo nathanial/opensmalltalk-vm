@@ -2,9 +2,8 @@
 
 /* StackInterpreter>>#printFrameThing:at:extraString: */
 
-static void printFrameThingatextraString(char *name,
-                                                       char *address,
-                                                       char *extraStringOrNil) {
+static void printFrameThingatextraString(char *name, char *address,
+                                         char *extraStringOrNil) {
   sqInt it;
 
   it = longAt(address);

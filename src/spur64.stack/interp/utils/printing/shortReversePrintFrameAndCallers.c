@@ -2,8 +2,7 @@
 
 /* StackInterpreter>>#shortReversePrintFrameAndCallers: */
 
-static sqInt
-shortReversePrintFrameAndCallers(char *aFramePointer) {
+static sqInt shortReversePrintFrameAndCallers(char *aFramePointer) {
   sqInt caller;
   char *callerFP;
   char *theFP;

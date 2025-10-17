@@ -18,8 +18,8 @@ static void primitiveSetOrHasIdentityHash(void) {
 
     /* begin methodReturnBool: */
     assert(!((failed())));
-    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) *
-                                    BytesPerWord)), booleanObjectOf(hasHash));
+    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+              booleanObjectOf(hasHash));
     stackPointer = sp;
     return;
   }

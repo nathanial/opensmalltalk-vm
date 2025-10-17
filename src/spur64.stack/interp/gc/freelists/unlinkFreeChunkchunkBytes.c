@@ -6,8 +6,7 @@
 
 /* SpurMemoryManager>>#unlinkFreeChunk:chunkBytes: */
 
-static sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk,
-                                                     sqInt chunkBytes) {
+static sqInt unlinkFreeChunkchunkBytes(sqInt freeChunk, sqInt chunkBytes) {
   sqInt index;
   sqInt lilliputian;
   sqInt next;

@@ -15,11 +15,9 @@ static sqInt findNewMethodInClassTag(sqInt classTagArg) {
 
   if (!(lookupInMethodCacheSelclassTag(messageSelector, classTagArg))) {
     classTag = classTagArg;
-    if ((/* isOopForwarded: */
-         isOopForwarded(messageSelector)) ||
+    if ((isOopForwarded(messageSelector)) ||
         (classTag == (isForwardedObjectClassIndexPun()))) {
-      if (/* isOopForwarded: */
-          isOopForwarded(messageSelector)) {
+      if (isOopForwarded(messageSelector)) {
         messageSelector = handleForwardedSelectorFaultFor(messageSelector);
       }
       if (classTag == (isForwardedObjectClassIndexPun())) {

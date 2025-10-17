@@ -7,8 +7,7 @@
 
 /* SpurPlanningCompactor>>#scanForFirstFreeAndFirstMobileObjectFrom: */
 
-static sqInt
-scanForFirstFreeAndFirstMobileObjectFrom(sqInt initialObject) {
+static sqInt scanForFirstFreeAndFirstMobileObjectFrom(sqInt initialObject) {
   sqInt firstFree;
   sqInt followingWord;
   usqInt followingWordAddress;

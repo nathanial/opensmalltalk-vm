@@ -7,8 +7,7 @@
 
 /* StackInterpreter>>#lookupInMethodCacheSel:classTag: */
 
-static sqInt lookupInMethodCacheSelclassTag(sqInt selector,
-                                                          sqInt classTag) {
+static sqInt lookupInMethodCacheSelclassTag(sqInt selector, sqInt classTag) {
   sqInt hash;
   usqInt probe;
 

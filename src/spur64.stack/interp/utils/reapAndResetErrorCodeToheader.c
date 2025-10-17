@@ -8,8 +8,8 @@
 
 /* StackInterpreter>>#reapAndResetErrorCodeTo:header: */
 
-static NeverInline void
-reapAndResetErrorCodeToheader(char *theSP, sqInt methodHeader) {
+static NeverInline void reapAndResetErrorCodeToheader(char *theSP,
+                                                      sqInt methodHeader) {
   usqInt initialPC;
 
   assert(primFailCode != 0);

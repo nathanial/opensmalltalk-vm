@@ -9,8 +9,7 @@
 
 /* StackInterpreter>>#isWidowedContextNoConvert: */
 
-static sqInt
-isWidowedContextNoConvert(sqInt aOnceMarriedContext) {
+static sqInt isWidowedContextNoConvert(sqInt aOnceMarriedContext) {
   sqInt anInteger;
   sqInt senderOop;
   char *shouldBeFrameCallerField;

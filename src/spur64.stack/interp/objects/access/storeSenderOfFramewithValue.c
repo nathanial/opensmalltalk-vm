@@ -8,8 +8,7 @@
 
 /* StackInterpreter>>#storeSenderOfFrame:withValue: */
 
-static char *storeSenderOfFramewithValue(char *theFP,
-                                                       sqInt anOop) {
+static char *storeSenderOfFramewithValue(char *theFP, sqInt anOop) {
   char *callerFP;
   StackPage *newPage;
   int onCurrentPage;

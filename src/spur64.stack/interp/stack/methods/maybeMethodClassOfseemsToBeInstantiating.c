@@ -23,8 +23,7 @@ sqInt maybeMethodClassOfseemsToBeInstantiating(sqInt methodObj, sqInt format) {
   literal = longAt(
       (void *)((methodObj + BaseHeaderSize) +
                ((((usqInt)((offset + LiteralStart)) << (shiftForWord()))))));
-  if (/* isOopForwarded: */
-      isOopForwarded(literal)) {
+  if (isOopForwarded(literal)) {
     literal = fixFollowedFieldofObjectwithInitialValue(offset + LiteralStart,
                                                        methodObj, literal);
   }

@@ -2,8 +2,7 @@
 
 /* SpurMemoryManager>>#validFreeTreeChunk:parent: */
 
-static const char *validFreeTreeChunkparent(sqInt chunk,
-                                                          sqInt parent) {
+static const char *validFreeTreeChunkparent(sqInt chunk, sqInt parent) {
   const char *reason;
 
   if (!chunk) {

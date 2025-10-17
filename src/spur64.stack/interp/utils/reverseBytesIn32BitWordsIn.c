@@ -6,8 +6,7 @@
 
 /* SpurMemoryManager>>#reverseBytesIn32BitWordsIn: */
 
-static NeverInline void
-reverseBytesIn32BitWordsIn(sqInt segmentWordArray) {
+static NeverInline void reverseBytesIn32BitWordsIn(sqInt segmentWordArray) {
   sqInt addr;
   sqInt stopAddr;
 

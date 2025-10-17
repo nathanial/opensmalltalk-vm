@@ -9,8 +9,8 @@
 
 /* SpurPlanningCompactor>>#updatePointersIn:savedFirstFieldPointer: */
 
-static void
-updatePointersInsavedFirstFieldPointer(sqInt obj, sqInt firstFieldPtr) {
+static void updatePointersInsavedFirstFieldPointer(sqInt obj,
+                                                   sqInt firstFieldPtr) {
   sqInt contextSize;
   sqInt fmt;
   sqInt fwd;

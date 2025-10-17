@@ -30,8 +30,7 @@ static NeverInline void mapMournQueue(void) {
           assert(isUnambiguouslyForwarder(mourner));
           referent = longAt(
               (void *)((mourner + BaseHeaderSize) + (0U << (shiftForWord()))));
-          while (/* isOopForwarded: */
-                 isOopForwarded(referent)) {
+          while (isOopForwarded(referent)) {
             referent = longAt((void *)((referent + BaseHeaderSize) +
                                        (0U << (shiftForWord()))));
           }

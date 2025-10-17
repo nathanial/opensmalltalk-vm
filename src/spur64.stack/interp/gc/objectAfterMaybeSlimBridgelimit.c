@@ -36,8 +36,7 @@
 
 /* Spur64BitMemoryManager>>#objectAfterMaybeSlimBridge:limit: */
 
-static sqInt objectAfterMaybeSlimBridgelimit(sqInt objOop,
-                                                           sqInt limit) {
+static sqInt objectAfterMaybeSlimBridgelimit(sqInt objOop, sqInt limit) {
   sqInt followingWord;
   usqInt followingWordAddress;
 

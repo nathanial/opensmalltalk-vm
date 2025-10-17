@@ -25,8 +25,7 @@ unfollowFirstLiteralOfMaybeCalloutMethodprimitiveIndex(sqInt methodObj,
   firstLiteral =
       longAt((void *)((methodObj + BaseHeaderSize) +
                       ((((usqInt)(LiteralStart) << (shiftForWord()))))));
-  if (/* isOopForwarded: */
-      isOopForwarded(firstLiteral)) {
+  if (isOopForwarded(firstLiteral)) {
     found = 1;
     firstLiteral = fixFollowedFieldofObjectwithInitialValue(
         LiteralStart, methodObj, firstLiteral);

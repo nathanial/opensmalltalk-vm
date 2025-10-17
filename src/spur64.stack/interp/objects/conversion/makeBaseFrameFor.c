@@ -54,8 +54,7 @@ l1:
   /* begin followField:ofObject: */
   rcvr = longAt((void *)((aContext + BaseHeaderSize) +
                          ((((usqInt)(ReceiverIndex) << (shiftForWord()))))));
-  if (/* isOopForwarded: */
-      isOopForwarded(rcvr)) {
+  if (isOopForwarded(rcvr)) {
     rcvr =
         fixFollowedFieldofObjectwithInitialValue(ReceiverIndex, aContext, rcvr);
   }

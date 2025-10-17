@@ -2,8 +2,7 @@
 
 /* StackInterpreter>>#printFrameThing:andFrame:at: */
 
-static void printFrameThingandFrameat(char *name, char *theFP,
-                                                    char *address) {
+static void printFrameThingandFrameat(char *name, char *theFP, char *address) {
   sqInt it;
 
   it = longAt(address);

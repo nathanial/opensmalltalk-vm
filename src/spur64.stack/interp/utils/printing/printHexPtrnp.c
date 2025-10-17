@@ -4,6 +4,4 @@
 
 /* StackInterpreter>>#printHexPtrnp: */
 
-static sqInt printHexPtrnp(void *p) {
-  return fprintf(transcript, "%p", p);
-}
+static sqInt printHexPtrnp(void *p) { return fprintf(transcript, "%p", p); }

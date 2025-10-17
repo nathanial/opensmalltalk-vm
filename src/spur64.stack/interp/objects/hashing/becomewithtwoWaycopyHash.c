@@ -14,8 +14,7 @@
 /* SpurMemoryManager>>#become:with:twoWay:copyHash: */
 
 static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
-                                                    sqInt twoWayFlag,
-                                                    sqInt copyHashFlag) {
+                                      sqInt twoWayFlag, sqInt copyHashFlag) {
   sqInt contextSize;
   sqInt ec;
   sqInt fieldOffset;
@@ -142,14 +141,12 @@ l2:
   /* array1 is known to be the same size as array2 */
   while (fieldOffset >= BaseHeaderSize) {
     oop1 = longAt((void *)(array1 + fieldOffset));
-    if (/* isOopForwarded: */
-        isOopForwarded(oop1)) {
+    if (isOopForwarded(oop1)) {
       /* begin followForwarded: */
       assert(isUnambiguouslyForwarder(oop1));
       referent =
           longAt((void *)((oop1 + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (/* isOopForwarded: */
-             isOopForwarded(referent)) {
+      while (isOopForwarded(referent)) {
         referent = longAt(
             (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
       }
@@ -183,14 +180,12 @@ l2:
     /* end ifOopInvalidForBecome:errorCodeInto: */
   l3:
     oop2 = longAt((void *)(array2 + fieldOffset));
-    if (/* isOopForwarded: */
-        isOopForwarded(oop2)) {
+    if (isOopForwarded(oop2)) {
       /* begin followForwarded: */
       assert(isUnambiguouslyForwarder(oop2));
       referentSqInt =
           longAt((void *)((oop2 + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (/* isOopForwarded: */
-             isOopForwarded(referentSqInt)) {
+      while (isOopForwarded(referentSqInt)) {
         referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                         (0U << (shiftForWord()))));
       }
@@ -302,16 +297,14 @@ l6:
       /* begin followField:ofObject: */
       obj1 = longAt((void *)((array1 + BaseHeaderSize) +
                              ((((usqInt)(i) << (shiftForWord()))))));
-      if (/* isOopForwarded: */
-          isOopForwarded(obj1)) {
+      if (isOopForwarded(obj1)) {
         obj1 = fixFollowedFieldofObjectwithInitialValue(i, array1, obj1);
       }
 
       /* begin followField:ofObject: */
       obj2 = longAt((void *)((array2 + BaseHeaderSize) +
                              ((((usqInt)(i) << (shiftForWord()))))));
-      if (/* isOopForwarded: */
-          isOopForwarded(obj2)) {
+      if (isOopForwarded(obj2)) {
         obj2 = fixFollowedFieldofObjectwithInitialValue(i, array2, obj2);
       }
       if (obj1 != obj2) {
@@ -376,8 +369,7 @@ l6:
             assert(isUnambiguouslyForwarder(obj1));
             newObj2 = longAt(
                 (void *)((obj1 + BaseHeaderSize) + (0U << (shiftForWord()))));
-            while (/* isOopForwarded: */
-                   isOopForwarded(newObj2)) {
+            while (isOopForwarded(newObj2)) {
               newObj2 = longAt((void *)((newObj2 + BaseHeaderSize) +
                                         (0U << (shiftForWord()))));
             }
@@ -396,8 +388,7 @@ l6:
             assert(isUnambiguouslyForwarder(obj2));
             newObj1 = longAt(
                 (void *)((obj2 + BaseHeaderSize) + (0U << (shiftForWord()))));
-            while (/* isOopForwarded: */
-                   isOopForwarded(newObj1)) {
+            while (isOopForwarded(newObj1)) {
               newObj1 = longAt((void *)((newObj1 + BaseHeaderSize) +
                                         (0U << (shiftForWord()))));
             }
@@ -415,16 +406,14 @@ l6:
       l1:
         objOop = longAt((void *)((array1 + BaseHeaderSize) +
                                  ((((usqInt)(i) << (shiftForWord()))))));
-        if (/* isOopForwarded: */
-            isOopForwarded(objOop)) {
+        if (isOopForwarded(objOop)) {
           objOop = fixFollowedFieldofObjectwithInitialValue(i, array1, objOop);
         }
 
         /* begin followField:ofObject: */
         objOopSqInt = longAt((void *)((array2 + BaseHeaderSize) +
                                       ((((usqInt)(i) << (shiftForWord()))))));
-        if (/* isOopForwarded: */
-            isOopForwarded(objOopSqInt)) {
+        if (isOopForwarded(objOopSqInt)) {
           objOopSqInt =
               fixFollowedFieldofObjectwithInitialValue(i, array2, objOopSqInt);
         }
@@ -447,16 +436,14 @@ l6:
       /* begin followField:ofObject: */
       obj1 = longAt((void *)((array1 + BaseHeaderSize) +
                              ((((usqInt)(i) << (shiftForWord()))))));
-      if (/* isOopForwarded: */
-          isOopForwarded(obj1)) {
+      if (isOopForwarded(obj1)) {
         obj1 = fixFollowedFieldofObjectwithInitialValue(i, array1, obj1);
       }
 
       /* begin followField:ofObject: */
       obj2 = longAt((void *)((array2 + BaseHeaderSize) +
                              ((((usqInt)(i) << (shiftForWord()))))));
-      if (/* isOopForwarded: */
-          isOopForwarded(obj2)) {
+      if (isOopForwarded(obj2)) {
         obj2 = fixFollowedFieldofObjectwithInitialValue(i, array2, obj2);
       }
       if (obj1 != obj2) {
@@ -531,8 +518,7 @@ l6:
         /* begin followField:ofObject: */
         objOop = longAt((void *)((array1 + BaseHeaderSize) +
                                  ((((usqInt)(i) << (shiftForWord()))))));
-        if (/* isOopForwarded: */
-            isOopForwarded(objOop)) {
+        if (isOopForwarded(objOop)) {
           objOop = fixFollowedFieldofObjectwithInitialValue(i, array1, objOop);
         }
         assert(!(isOopForwarded(obj2)));
@@ -549,8 +535,7 @@ l6:
     assert(isUnambiguouslyForwarder(specialObjectsOop));
     referent = longAt((void *)((specialObjectsOop + BaseHeaderSize) +
                                (0U << (shiftForWord()))));
-    while (/* isOopForwarded: */
-           isOopForwarded(referent)) {
+    while (isOopForwarded(referent)) {
       referent = longAt(
           (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

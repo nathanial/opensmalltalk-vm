@@ -7,9 +7,8 @@
 
 /* StackInterpreter>>#handleSpecialSelectorSendFaultFor:fp:sp: */
 
-static sqInt handleSpecialSelectorSendFaultForfpsp(sqInt obj,
-                                                                 char *theFP,
-                                                                 char *theSP) {
+static sqInt handleSpecialSelectorSendFaultForfpsp(sqInt obj, char *theFP,
+                                                   char *theSP) {
   sqInt rcvr;
   sqInt referent;
 
@@ -27,8 +26,7 @@ static sqInt handleSpecialSelectorSendFaultForfpsp(sqInt obj,
   assert(isUnambiguouslyForwarder(obj));
   referent =
       longAt((void *)((obj + BaseHeaderSize) + (0U << (shiftForWord()))));
-  while (/* isOopForwarded: */
-         isOopForwarded(referent)) {
+  while (isOopForwarded(referent)) {
     referent = longAt(
         (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
   }

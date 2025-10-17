@@ -47,8 +47,7 @@ static void processWeaklings(void) {
       assert(isUnambiguouslyForwarder(weakCorpse));
       weakObj = longAt(
           (void *)((weakCorpse + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (/* isOopForwarded: */
-             isOopForwarded(weakObj)) {
+      while (isOopForwarded(weakObj)) {
         weakObj = longAt(
             (void *)((weakObj + BaseHeaderSize) + (0U << (shiftForWord()))));
       }

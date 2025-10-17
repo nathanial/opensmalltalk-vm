@@ -17,9 +17,9 @@
 
 /* SpurMemoryManager>>#mapOopsFrom:to:outPointers:outHashes: */
 
-static sqInt
-mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
-                                  sqInt outPointerArray, sqInt savedOutHashes) {
+static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
+                                               sqInt outPointerArray,
+                                               sqInt savedOutHashes) {
   sqInt followingWord;
   usqInt followingWordAddress;
   sqInt hash;

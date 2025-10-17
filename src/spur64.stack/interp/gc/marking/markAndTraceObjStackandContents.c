@@ -7,8 +7,8 @@
 
 /* SpurMemoryManager>>#markAndTraceObjStack:andContents: */
 
-static void
-markAndTraceObjStackandContents(sqInt stackOrNil, sqInt markAndTraceContents) {
+static void markAndTraceObjStackandContents(sqInt stackOrNil,
+                                            sqInt markAndTraceContents) {
   sqInt field;
   sqInt index;
 

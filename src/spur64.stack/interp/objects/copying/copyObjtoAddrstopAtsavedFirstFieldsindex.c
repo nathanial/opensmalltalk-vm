@@ -13,9 +13,11 @@
 
 /* SpurMemoryManager>>#copyObj:toAddr:stopAt:savedFirstFields:index: */
 
-static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(
-    sqInt objOop, sqInt segAddr, sqInt endSeg, sqInt savedFirstFields,
-    sqInt i) {
+static sqInt copyObjtoAddrstopAtsavedFirstFieldsindex(sqInt objOop,
+                                                      sqInt segAddr,
+                                                      sqInt endSeg,
+                                                      sqInt savedFirstFields,
+                                                      sqInt i) {
   usqInt bodySize;
   usqInt contextSize;
   sqInt contextSizeSqInt;

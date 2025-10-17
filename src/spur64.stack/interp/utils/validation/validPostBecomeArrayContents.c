@@ -5,6 +5,4 @@
 
 /* SpurMemoryManager>>#validPostBecomeArrayContents: */
 
-static sqInt validPostBecomeArrayContents(sqInt anArray) {
-  return 1;
-}
+static sqInt validPostBecomeArrayContents(sqInt anArray) { return 1; }

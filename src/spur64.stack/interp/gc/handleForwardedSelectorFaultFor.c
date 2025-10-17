@@ -22,8 +22,7 @@ static sqInt handleForwardedSelectorFaultFor(sqInt selectorOop) {
   assert(isUnambiguouslyForwarder(selectorOop));
   referent = longAt(
       (void *)((selectorOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-  while (/* isOopForwarded: */
-         isOopForwarded(referent)) {
+  while (isOopForwarded(referent)) {
     referent = longAt(
         (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
   }

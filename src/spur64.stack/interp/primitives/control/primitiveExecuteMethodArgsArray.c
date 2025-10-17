@@ -66,9 +66,7 @@ static void primitiveExecuteMethodArgsArray(void) {
   }
   if (argumentCount > 2) {
     rcvr = longAt(stackPointer + (2 * BytesPerWord));
-    if ((argumentCount > 4) ||
-        (/* isOopForwarded: */
-         isOopForwarded(rcvr))) {
+    if ((argumentCount > 4) || (isOopForwarded(rcvr))) {
       /* primitiveFailFor: */
       primFailCode = PrimErrUnsupported;
       return;

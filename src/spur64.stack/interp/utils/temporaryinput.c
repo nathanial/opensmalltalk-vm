@@ -4,8 +4,7 @@
 
 /* StackInterpreter>>#temporary:in:put: */
 
-static sqInt temporaryinput(sqInt offset, char *theFP,
-                                          sqInt valueOop) {
+static sqInt temporaryinput(sqInt offset, char *theFP, sqInt valueOop) {
   usqInt frameNumArgs;
 
   return (offset < ((frameNumArgs = byteAt((theFP + FoxFrameFlags) + 1)))

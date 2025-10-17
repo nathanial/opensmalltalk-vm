@@ -11,8 +11,9 @@
 
 /* StackInterpreter>>#instructionPointerForFrame:currentFP:currentIP: */
 
-static sqInt instructionPointerForFramecurrentFPcurrentIP(
-    char *spouseFP, char *currentFP, sqInt instrPtr) {
+static sqInt instructionPointerForFramecurrentFPcurrentIP(char *spouseFP,
+                                                          char *currentFP,
+                                                          sqInt instrPtr) {
   char *callerFP;
   char *fp;
   char *theFPAbove;

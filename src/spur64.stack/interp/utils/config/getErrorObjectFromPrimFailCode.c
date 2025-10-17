@@ -40,8 +40,7 @@ static sqInt getErrorObjectFromPrimFailCode(void) {
       errObj = longAt(
           (void *)((table + BaseHeaderSize) +
                    ((((usqInt)((primFailCode - 1)) << (shiftForWord()))))));
-      if (/* isOopForwarded: */
-          isOopForwarded(errObj)) {
+      if (isOopForwarded(errObj)) {
         errObj = fixFollowedFieldofObjectwithInitialValue(primFailCode - 1,
                                                           table, errObj);
       }

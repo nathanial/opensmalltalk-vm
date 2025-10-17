@@ -5,8 +5,8 @@
 
 /* SpurMemoryManager>>#inPlaceBecome:and:copyHashFlag: */
 
-static NeverInline void
-inPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2, sqInt copyHashFlag) {
+static NeverInline void inPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2,
+                                                     sqInt copyHashFlag) {
   sqInt fmt;
   sqLong hashBits;
   sqLong header1;

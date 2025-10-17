@@ -6,8 +6,7 @@
 
 /* SpurMemoryManager>>#followObjField:ofObject: */
 
-static sqInt followObjFieldofObject(sqInt fieldIndex,
-                                                  sqInt anObject) {
+static sqInt followObjFieldofObject(sqInt fieldIndex, sqInt anObject) {
   sqInt objOop;
 
   objOop = longAt((void *)((anObject + BaseHeaderSize) +

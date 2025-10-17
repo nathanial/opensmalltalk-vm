@@ -37,14 +37,12 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
     classDict = longAt(
         (void *)((classObj + BaseHeaderSize) +
                  ((((usqInt)(MethodDictionaryIndex) << (shiftForWord()))))));
-    if (/* isOopForwarded: */
-        isOopForwarded(classDict)) {
+    if (isOopForwarded(classDict)) {
       /* begin followForwarded: */
       assert(isUnambiguouslyForwarder(classDict));
       referent = longAt(
           (void *)((classDict + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (/* isOopForwarded: */
-             isOopForwarded(referent)) {
+      while (isOopForwarded(referent)) {
         referent = longAt(
             (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
       }
@@ -67,14 +65,12 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
       methodArray = longAt(
           (void *)((classDict + BaseHeaderSize) +
                    ((((usqInt)(MethodArrayIndex) << (shiftForWord()))))));
-      if (/* isOopForwarded: */
-          isOopForwarded(methodArray)) {
+      if (isOopForwarded(methodArray)) {
         /* begin followForwarded: */
         assert(isUnambiguouslyForwarder(methodArray));
         referent = longAt((void *)((methodArray + BaseHeaderSize) +
                                    (0U << (shiftForWord()))));
-        while (/* isOopForwarded: */
-               isOopForwarded(referent)) {
+        while (isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }
@@ -87,14 +83,12 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
           objOop = longAt((
               void *)((classDict + BaseHeaderSize) +
                       ((((usqInt)((i + SelectorStart)) << (shiftForWord()))))));
-          if (/* isOopForwarded: */
-              isOopForwarded(objOop)) {
+          if (isOopForwarded(objOop)) {
             /* begin followForwarded: */
             assert(isUnambiguouslyForwarder(objOop));
             referent = longAt(
                 (void *)((objOop + BaseHeaderSize) + (0U << (shiftForWord()))));
-            while (/* isOopForwarded: */
-                   isOopForwarded(referent)) {
+            while (isOopForwarded(referent)) {
               referent = longAt((void *)((referent + BaseHeaderSize) +
                                          (0U << (shiftForWord()))));
             }

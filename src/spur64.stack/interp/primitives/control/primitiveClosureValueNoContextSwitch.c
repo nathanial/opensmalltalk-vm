@@ -120,8 +120,7 @@ void primitiveClosureValueNoContextSwitch(void) {
   /* begin followField:ofObject: */
   objOop = longAt((void *)((outerContext + BaseHeaderSize) +
                            ((((usqInt)(ReceiverIndex) << (shiftForWord()))))));
-  if (/* isOopForwarded: */
-      isOopForwarded(objOop)) {
+  if (isOopForwarded(objOop)) {
     objOop = fixFollowedFieldofObjectwithInitialValue(ReceiverIndex,
                                                       outerContext, objOop);
   }

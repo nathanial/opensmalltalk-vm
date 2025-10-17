@@ -7,8 +7,7 @@
 
 /* StackInterpreter>>#quickFetchInteger:ofObject: */
 
-static sqInt quickFetchIntegerofObject(sqInt fieldIndex,
-                                                     sqInt objectPointer) {
+static sqInt quickFetchIntegerofObject(sqInt fieldIndex, sqInt objectPointer) {
   sqInt oop;
 
   oop = longAt((void *)((objectPointer + BaseHeaderSize) +

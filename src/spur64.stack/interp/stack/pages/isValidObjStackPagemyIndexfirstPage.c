@@ -5,8 +5,8 @@
 
 /* SpurMemoryManager>>#isValidObjStackPage:myIndex:firstPage: */
 
-static sqInt isValidObjStackPagemyIndexfirstPage(
-    sqInt objStackPage, sqInt myx, sqInt isFirstPage) {
+static sqInt isValidObjStackPagemyIndexfirstPage(sqInt objStackPage, sqInt myx,
+                                                 sqInt isFirstPage) {
   sqInt freeOrNextPage;
   sqInt index;
   char *ns;

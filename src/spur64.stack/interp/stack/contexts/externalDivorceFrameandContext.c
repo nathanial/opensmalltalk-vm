@@ -6,8 +6,7 @@
 
 /* StackInterpreter>>#externalDivorceFrame:andContext: */
 
-static void externalDivorceFrameandContext(char *theFP,
-                                                         sqInt ctxt) {
+static void externalDivorceFrameandContext(char *theFP, sqInt ctxt) {
   sqInt callerCtx;
   char *callerFP;
   char *callerFP1;

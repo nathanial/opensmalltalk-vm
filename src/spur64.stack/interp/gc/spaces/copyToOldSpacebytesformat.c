@@ -5,8 +5,9 @@
 
 /* SpurGenerationScavenger>>#copyToOldSpace:bytes:format: */
 
-static NeverInline sqInt copyToOldSpacebytesformat(
-    sqInt survivor, sqInt bytesInObject, sqInt formatOfSurvivor) {
+static NeverInline sqInt copyToOldSpacebytesformat(sqInt survivor,
+                                                   sqInt bytesInObject,
+                                                   sqInt formatOfSurvivor) {
   sqInt field;
   sqInt newOop;
   sqInt newStart;

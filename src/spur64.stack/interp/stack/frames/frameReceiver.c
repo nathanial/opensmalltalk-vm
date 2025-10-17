@@ -2,6 +2,4 @@
 
 /* StackInterpreter>>#frameReceiver: */
 
-static sqInt frameReceiver(char *theFP) {
-  return longAt(theFP + FoxReceiver);
-}
+static sqInt frameReceiver(char *theFP) { return longAt(theFP + FoxReceiver); }

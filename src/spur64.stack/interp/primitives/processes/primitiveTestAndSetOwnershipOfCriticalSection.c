@@ -22,8 +22,7 @@ static void primitiveTestAndSetOwnershipOfCriticalSection(void) {
     /* rcvr */
     criticalSection = longAt(stackPointer + (1 * BytesPerWord));
     activeProc = longAt(stackPointer);
-    if (/* isOopForwarded: */
-        isOopForwarded(activeProc)) {
+    if (isOopForwarded(activeProc)) {
       /* primitiveFailFor: */
       primFailCode = PrimErrBadArgument;
     }

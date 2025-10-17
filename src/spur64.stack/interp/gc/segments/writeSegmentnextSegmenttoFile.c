@@ -6,9 +6,9 @@
 
 /* SpurSegmentManager>>#writeSegment:nextSegment:toFile: */
 
-static sqInt writeSegmentnextSegmenttoFile(
-    SpurSegmentInfo *segment, SpurSegmentInfo *nextSegment,
-    sqImageFile aBinaryStream) {
+static sqInt writeSegmentnextSegmenttoFile(SpurSegmentInfo *segment,
+                                           SpurSegmentInfo *nextSegment,
+                                           sqImageFile aBinaryStream) {
   usqLong firstSavedBridgeWord;
   sqInt nWritten;
   sqInt pier1;

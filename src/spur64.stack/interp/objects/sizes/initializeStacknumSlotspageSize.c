@@ -25,8 +25,8 @@
 /* InterpreterStackPages>>#initializeStack:numSlots:pageSize: */
 
 static void initializeStacknumSlotspageSize(char *theStackPages,
-                                                          sqInt stackSlots,
-                                                          sqInt slotsPerPage) {
+                                            sqInt stackSlots,
+                                            sqInt slotsPerPage) {
   sqInt count;
   sqInt index;
   sqInt numPages;

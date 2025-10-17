@@ -8,8 +8,7 @@
 
 /* StackInterpreter>>#checkProfileTickPostPrimitive: */
 
-static NeverInline void
-checkProfileTickPostPrimitive(sqInt aPrimitiveMethod) {
+static NeverInline void checkProfileTickPostPrimitive(sqInt aPrimitiveMethod) {
   sqInt objOop;
 
   if (deferProfileCheckForVNCS) {

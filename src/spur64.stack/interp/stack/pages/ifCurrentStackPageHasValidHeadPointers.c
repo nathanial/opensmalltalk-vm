@@ -9,8 +9,7 @@
 
 /* StackInterpreter>>#ifCurrentStackPageHasValidHeadPointers: */
 
-static sqInt
-ifCurrentStackPageHasValidHeadPointers(StackPage *thePage) {
+static sqInt ifCurrentStackPageHasValidHeadPointers(StackPage *thePage) {
   if (thePage == stackPage) {
     if (/* addressIsInPage: */
         (((thePage->lastAddress)) < framePointer) &&

@@ -28,8 +28,8 @@ primitiveMultipleBytecodeSetsActive(void) {
 
   /* begin methodReturnBool: */
   assert(!((failed())));
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) *
-                                  BytesPerWord)), booleanObjectOf(multipleBytecodeSetsActive));
+  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+            booleanObjectOf(multipleBytecodeSetsActive));
   stackPointer = sp;
   return 0;
 }

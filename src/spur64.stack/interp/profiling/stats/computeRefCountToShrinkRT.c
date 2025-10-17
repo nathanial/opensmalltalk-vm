@@ -58,8 +58,7 @@ static NeverInline void computeRefCountToShrinkRT(void) {
       assert(isUnambiguouslyForwarder(elephant));
       referentSqInt = longAt(
           (void *)((elephant + BaseHeaderSize) + (0U << (shiftForWord()))));
-      while (/* isOopForwarded: */
-             isOopForwarded(referentSqInt)) {
+      while (isOopForwarded(referentSqInt)) {
         referentSqInt = longAt((void *)((referentSqInt + BaseHeaderSize) +
                                         (0U << (shiftForWord()))));
       }

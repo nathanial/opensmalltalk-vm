@@ -105,8 +105,7 @@ sqInt cloneObject(sqInt objOop) {
             assert(isUnambiguouslyForwarder(oop));
             referent = longAt(
                 (void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-            while (/* isOopForwarded: */
-                   isOopForwarded(referent)) {
+            while (isOopForwarded(referent)) {
               referent = longAt((void *)((referent + BaseHeaderSize) +
                                          (0U << (shiftForWord()))));
             }

@@ -64,8 +64,7 @@ static sqInt synchronousSignal(sqInt aSemaphore) {
     assert(isUnambiguouslyForwarder(ctxt));
     referent =
         longAt((void *)((ctxt + BaseHeaderSize) + (0U << (shiftForWord()))));
-    while (/* isOopForwarded: */
-           isOopForwarded(referent)) {
+    while (isOopForwarded(referent)) {
       referent = longAt(
           (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
     }

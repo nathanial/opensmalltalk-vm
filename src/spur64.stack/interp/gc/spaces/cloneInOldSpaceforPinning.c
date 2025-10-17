@@ -2,8 +2,7 @@
 
 /* SpurMemoryManager>>#cloneInOldSpace:forPinning: */
 
-static sqInt cloneInOldSpaceforPinning(sqInt objOop,
-                                                     sqInt forPinning) {
+static sqInt cloneInOldSpaceforPinning(sqInt objOop, sqInt forPinning) {
   sqInt fmt;
   sqInt hash;
   sqInt hasYoung;
@@ -61,8 +60,7 @@ static sqInt cloneInOldSpaceforPinning(sqInt objOop,
         assert(isUnambiguouslyForwarder(oop));
         referent =
             longAt((void *)((oop + BaseHeaderSize) + (0U << (shiftForWord()))));
-        while (/* isOopForwarded: */
-               isOopForwarded(referent)) {
+        while (isOopForwarded(referent)) {
           referent = longAt(
               (void *)((referent + BaseHeaderSize) + (0U << (shiftForWord()))));
         }

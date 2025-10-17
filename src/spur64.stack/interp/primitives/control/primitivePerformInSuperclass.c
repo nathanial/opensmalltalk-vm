@@ -29,8 +29,7 @@ static void primitivePerformInSuperclass(void) {
       primFailCode = PrimErrBadNumArgs;
       return;
     }
-    if (/* isOopForwarded: */
-        isOopForwarded(rcvr)) {
+    if (isOopForwarded(rcvr)) {
       /* begin primitiveFail */
       if (!primFailCode) {
         primFailCode = 1;

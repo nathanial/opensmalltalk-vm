@@ -7,8 +7,7 @@
 
 /* StackInterpreter>>#fetchPointer:ofMarriedContext: */
 
-static sqInt fetchPointerofMarriedContext(sqInt offset,
-                                                        sqInt aContext) {
+static sqInt fetchPointerofMarriedContext(sqInt offset, sqInt aContext) {
   char *callerFP;
   usqInt frameNumArgs;
   sqInt senderOop;

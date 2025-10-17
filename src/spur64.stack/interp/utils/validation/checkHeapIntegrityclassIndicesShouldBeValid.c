@@ -12,8 +12,9 @@
 
 /* SpurMemoryManager>>#checkHeapIntegrity:classIndicesShouldBeValid: */
 
-static sqInt checkHeapIntegrityclassIndicesShouldBeValid(
-    sqInt excludeUnmarkedObjs, sqInt classIndicesShouldBeValid) {
+static sqInt
+checkHeapIntegrityclassIndicesShouldBeValid(sqInt excludeUnmarkedObjs,
+                                            sqInt classIndicesShouldBeValid) {
   sqInt chunkBytes;
   sqInt classIndex;
   sqInt classIndexSqInt;

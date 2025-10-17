@@ -8,8 +8,7 @@ sqInt findClassOfMethodforReceiver(sqInt meth, sqInt rcvr) {
 
   if ((/* addressCouldBeOop: */
        (((rcvr & (tagMask())) != 0)) || (addressCouldBeObj(rcvr))) &&
-      (!(/* isOopForwarded: */
-         isOopForwarded(rcvr)))) {
+      (!(isOopForwarded(rcvr)))) {
     rclass = findClassContainingMethodstartingAt(
         meth, /* fetchClassOf: */
         ((tagBits = rcvr & (tagMask()))

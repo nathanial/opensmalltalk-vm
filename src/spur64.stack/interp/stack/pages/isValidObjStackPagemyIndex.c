@@ -4,8 +4,7 @@
 
 /* SpurMemoryManager>>#isValidObjStackPage:myIndex: */
 
-static sqInt isValidObjStackPagemyIndex(sqInt objStackPage,
-                                                      sqInt myx) {
+static sqInt isValidObjStackPagemyIndex(sqInt objStackPage, sqInt myx) {
   if (!(((longAt((void *)(objStackPage))) & (classIndexMask())) ==
         (sixtyFourBitLongsClassIndexPun()))) {
     objStackInvalidBecause = "wrong class index";

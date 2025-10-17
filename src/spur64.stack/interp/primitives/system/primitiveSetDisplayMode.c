@@ -81,7 +81,7 @@ l1:
 
   /* begin methodReturnBool: */
   assert(!((failed())));
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) *
-                                  BytesPerWord)), booleanObjectOf(okay));
+  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
+            booleanObjectOf(okay));
   stackPointer = sp;
 }

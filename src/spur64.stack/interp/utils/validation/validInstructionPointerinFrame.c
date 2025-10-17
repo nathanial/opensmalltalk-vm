@@ -7,8 +7,7 @@
 
 /* StackInterpreter>>#validInstructionPointer:inFrame: */
 
-static sqInt validInstructionPointerinFrame(usqInt anInstrPointer,
-                                                          char *fp) {
+static sqInt validInstructionPointerinFrame(usqInt anInstrPointer, char *fp) {
   return /* validInstructionPointer:inMethod:framePointer: */
       (anInstrPointer >=
        ((((longAt(fp + FoxMethod)) + (lastPointerOf(longAt(fp + FoxMethod)))) +

@@ -20,8 +20,7 @@ sqInt objCouldBeClassObj(sqInt objOop) {
             ((addressCouldBeObj(fieldOop)) &&
              ((((byteAt((void *)(fieldOop + (formatFieldByteOffset())))) &
                 (formatMask())) <= 5 /* lastPointerFormat */) ||
-              ((/* isOopForwarded: */
-                isOopForwarded(fieldOop)) &&
+              ((isOopForwarded(fieldOop)) &&
                (isPointers(followForwarded(fieldOop)))))) &&
                 (((fieldOop = longAt((void *)((objOop + BaseHeaderSize) +
                                               ((((usqInt)(MethodDictionaryIndex)
@@ -29,8 +28,7 @@ sqInt objCouldBeClassObj(sqInt objOop) {
                   ((addressCouldBeObj(fieldOop)) &&
                    ((((byteAt((void *)(fieldOop + (formatFieldByteOffset())))) &
                       (formatMask())) <= 5 /* lastPointerFormat */) ||
-                    ((/* isOopForwarded: */
-                      isOopForwarded(fieldOop)) &&
+                    ((isOopForwarded(fieldOop)) &&
                      (isPointers(followForwarded(fieldOop)))))) &&
                       (((((longAt(
                              (void *)((objOop + BaseHeaderSize) +

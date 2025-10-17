@@ -3,8 +3,7 @@
 
 /* StackInterpreter>>#accessorDepthForExternalPrimitiveMethod: */
 
-static sqInt
-accessorDepthForExternalPrimitiveMethod(sqInt methodObj) {
+static sqInt accessorDepthForExternalPrimitiveMethod(sqInt methodObj) {
   sqInt flags;
   sqInt lit;
 

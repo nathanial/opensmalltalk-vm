@@ -21,8 +21,7 @@ static void printActivationNameForreceiverisBlockfirstTemporary(
   methodSel = findSelectorOfMethod(homeMethod);
   if ((/* addressCouldBeOop: */
        (((anObject & (tagMask())) != 0)) || (addressCouldBeObj(anObject))) &&
-      ((!(/* isOopForwarded: */
-          isOopForwarded(anObject))) &&
+      ((!(isOopForwarded(anObject))) &&
        (addressCouldBeClassObj(
            (classObj = /* fetchClassOf: */
             ((tagBits = anObject & (tagMask()))
