@@ -209,6 +209,16 @@ static void * sHSAfn;
 
 /*** Methods ***/
 
+/* Extracted helper matching SocketPlugin>>#socketValueOf: */
+static SocketPtr socketValueOf(sqInt socketOop) {
+	if ((isBytes(socketOop))
+	 && ((byteSizeOf(socketOop)) == (sizeof(SQSocket)))) {
+		return ((SocketPtr)(firstIndexableField(socketOop)));
+	}
+	primitiveFailFor(PrimErrBadArgument);
+	return ((SocketPtr)null);
+}
+
 
 /*	Note: This is hardcoded so it can be run from Squeak.
 	The module name is used for validating a module *after*
@@ -733,15 +743,7 @@ primitiveSocketAbortConnection(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		sqSocketAbortConnection(s);
 	}
@@ -773,27 +775,11 @@ primitiveSocketAccept(void)
 	sendBufSize = integerValueOf(sendBufSize);
 	semaIndex = integerValueOf(semaIndex);
 
-	/* begin socketValueOf: */
-	if ((isBytes(sockHandle))
-	 && ((byteSizeOf(sockHandle)) == (sizeof(SQSocket)))) {
-		serverSocket = ((SocketPtr) (firstIndexableField(sockHandle)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		serverSocket = ((SocketPtr) null);
-	}
+	serverSocket = socketValueOf(sockHandle);
 	if (!(failed())) {
 		socketOop = instantiateClassindexableSize(classByteArray(), sizeof(SQSocket));
 
-		/* begin socketValueOf: */
-		if ((isBytes(socketOop))
-		 && ((byteSizeOf(socketOop)) == (sizeof(SQSocket)))) {
-			s = ((SocketPtr) (firstIndexableField(socketOop)));
-		}
-		else {
-			primitiveFailFor(PrimErrBadArgument);
-			s = ((SocketPtr) null);
-		}
+		s = socketValueOf(socketOop);
 		if (!(failed())) {
 			sqSocketAcceptFromRecvBytesSendBytesSemaID(s, serverSocket, recvBufSize, sendBufSize, semaIndex);
 			if (!(failed())) {
@@ -836,27 +822,11 @@ primitiveSocketAccept3Semaphores(void)
 	aReadSema = integerValueOf(aReadSema);
 	aWriteSema = integerValueOf(aWriteSema);
 
-	/* begin socketValueOf: */
-	if ((isBytes(sockHandle))
-	 && ((byteSizeOf(sockHandle)) == (sizeof(SQSocket)))) {
-		serverSocket = ((SocketPtr) (firstIndexableField(sockHandle)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		serverSocket = ((SocketPtr) null);
-	}
+	serverSocket = socketValueOf(sockHandle);
 	if (!(failed())) {
 		socketOop = instantiateClassindexableSize(classByteArray(), sizeof(SQSocket));
 
-		/* begin socketValueOf: */
-		if ((isBytes(socketOop))
-		 && ((byteSizeOf(socketOop)) == (sizeof(SQSocket)))) {
-			s = ((SocketPtr) (firstIndexableField(socketOop)));
-		}
-		else {
-			primitiveFailFor(PrimErrBadArgument);
-			s = ((SocketPtr) null);
-		}
+		s = socketValueOf(socketOop);
 		if (!(failed())) {
 			sqSocketAcceptFromRecvBytesSendBytesSemaIDReadSemaIDWriteSemaID(s, serverSocket, recvBufSize, sendBufSize, semaIndex, aReadSema, aWriteSema);
 			if (!(failed())) {
@@ -931,15 +901,7 @@ primitiveSocketBindTo(void)
 	socket = stackValue(1);
 	socketAddress = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	addrSize = byteSizeOf(socketAddress);
 	addrBase = firstIndexableField(socketAddress);
 	if (!(failed())) {
@@ -980,15 +942,7 @@ primitiveSocketBindToPort(void)
 	/* end netAddressToInt: */
 l1:
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		sqSocketBindToPort(s, addr, port);
 	}
@@ -1009,15 +963,7 @@ primitiveSocketCloseConnection(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 #    if COGMTVM
 		isSocketPinned = isPinned(socket);
@@ -1053,15 +999,7 @@ primitiveSocketConnectionStatus(void)
 	status = 0;
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		status = sqSocketConnectionStatus(s);
 	}
@@ -1084,15 +1022,7 @@ primitiveSocketConnectTo(void)
 	socket = stackValue(1);
 	socketAddress = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	addrSize = byteSizeOf(socketAddress);
 	addrBase = firstIndexableField(socketAddress);
 	if (!(failed())) {
@@ -1145,15 +1075,7 @@ l1:
 		}
 	}
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		sqSocketConnectToPort(s, addr, port);
 	}
@@ -1199,15 +1121,7 @@ primitiveSocketCreate(void)
 	}
 	socketOop = instantiateClassindexableSize(classByteArray(), sizeof(SQSocket));
 
-	/* begin socketValueOf: */
-	if ((isBytes(socketOop))
-	 && ((byteSizeOf(socketOop)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socketOop)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socketOop);
 	if (!(failed())) {
 		sqSocketCreateNetTypeSocketTypeRecvBytesSendBytesSemaID(s, netType, socketType, recvBufSize, sendBufSize, semaIndex);
 		if (!(failed())) {
@@ -1263,15 +1177,7 @@ primitiveSocketCreate3Semaphores(void)
 	}
 	socketOop = instantiateClassindexableSize(classByteArray(), sizeof(SQSocket));
 
-	/* begin socketValueOf: */
-	if ((isBytes(socketOop))
-	 && ((byteSizeOf(socketOop)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socketOop)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socketOop);
 	if (!(failed())) {
 		sqSocketCreateNetTypeSocketTypeRecvBytesSendBytesSemaIDReadSemaIDWriteSemaID(s, netType, socketType, recvBufSize, sendBufSize, semaIndex, aReadSema, aWriteSema);
 		if (!(failed())) {
@@ -1327,15 +1233,7 @@ primitiveSocketCreateRAW(void)
 	}
 	socketOop = instantiateClassindexableSize(classByteArray(), sizeof(SQSocket));
 
-	/* begin socketValueOf: */
-	if ((isBytes(socketOop))
-	 && ((byteSizeOf(socketOop)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socketOop)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socketOop);
 	if (!(failed())) {
 		sqSocketCreateRawProtoTypeRecvBytesSendBytesSemaIDReadSemaIDWriteSemaID(s, netType, protoType, recvBufSize, sendBufSize, semaIndex, aReadSema, aWriteSema);
 		if (!(failed())) {
@@ -1358,15 +1256,7 @@ primitiveSocketDestroy(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		sqSocketDestroy(s);
 	}
@@ -1386,15 +1276,7 @@ primitiveSocketError(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		_return_value = sqSocketError(s);
 		if (!(failed())) {
@@ -1419,15 +1301,7 @@ primitiveSocketGetOptions(void)
 	socket = stackValue(1);
 	optionName = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	success(isBytes(optionName));
 	if (failed()) {
 		return null;
@@ -1463,16 +1337,7 @@ primitiveSocketListenOnPort(void)
 	socket = stackValue(1);
 	port = integerValueOf(port);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
-
+	s = socketValueOf(socket);
 	/* If the security plugin can be loaded, use it to check for permission.
 	   If  not, assume it's ok */
 	if (!(failed())) {
@@ -1518,15 +1383,7 @@ primitiveSocketListenOnPortBacklog(void)
 	/* If the security plugin can be loaded, use it to check for permission.
 	   If not, assume it's ok */
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		if (sCCLOPfn) {
 			okToListen =  ((sqInt (*) (sqInt, sqInt)) sCCLOPfn)((sqInt)s, port);
@@ -1576,15 +1433,7 @@ primitiveSocketListenOnPortBacklogInterface(void)
 	/* If the security plugin can be loaded, use it to check for permission.
 	   If  not, assume it's ok */
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		if (sCCLOPfn) {
 			okToListen =  ((sqInt (*) (sqInt, sqInt)) sCCLOPfn)((sqInt)s, port);
@@ -1626,15 +1475,7 @@ primitiveSocketListenWithBacklog(void)
 	socket = stackValue(1);
 	backlogSize = integerValueOf(backlogSize);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		sqSocketListenBacklog(s, backlogSize);
 	}
@@ -1669,15 +1510,7 @@ primitiveSocketLocalAddress(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		_return_value = intToNetAddress(sqSocketLocalAddress(s));
 		if (!(failed())) {
@@ -1704,15 +1537,7 @@ primitiveSocketLocalAddressResult(void)
 	socket = stackValue(1);
 	socketAddress = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	addrSize = byteSizeOf(socketAddress);
 	addrBase = firstIndexableField(socketAddress);
 	if (!(failed())) {
@@ -1734,15 +1559,7 @@ primitiveSocketLocalAddressSize(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		size = sqSocketLocalAddressSize(s);
 		if (!(failed())) {
@@ -1766,15 +1583,7 @@ primitiveSocketLocalPort(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	port = sqSocketLocalPort(s);
 	if (!(failed())) {
 		methodReturnInteger(port);
@@ -1792,15 +1601,7 @@ primitiveSocketReceiveDataAvailable(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		_return_value = sqSocketReceiveDataAvailable(s);
 		if (!(failed())) {
@@ -1851,15 +1652,7 @@ primitiveSocketReceiveDataBufCount(void)
 		return primitiveFailFor(PrimErrBadArgument);
 	}
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		arrayBase = firstIndexableField(array);
 		bytesReceived = sqSocketReceiveDataBufCount(s, arrayBase + ((startIndex - 1) * elementSize), count * elementSize);
@@ -1901,16 +1694,7 @@ primitiveSocketReceiveUDPDataBufCount(void)
 	startIndex = integerValueOf(startIndex);
 	count = integerValueOf(count);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
-
+	s = socketValueOf(socket);
 	/* buffer can be any indexable bits object */
 	elementSize = 
 #    if SPURVM
@@ -1967,15 +1751,7 @@ primitiveSocketRemoteAddress(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		_return_value = intToNetAddress(sqSocketRemoteAddress(s));
 		if (!(failed())) {
@@ -2002,15 +1778,7 @@ primitiveSocketRemoteAddressResult(void)
 	socket = stackValue(1);
 	socketAddress = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	addrSize = byteSizeOf(socketAddress);
 	addrBase = firstIndexableField(socketAddress);
 	if (!(failed())) {
@@ -2032,15 +1800,7 @@ primitiveSocketRemoteAddressSize(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		size = sqSocketRemoteAddressSize(s);
 		if (!(failed())) {
@@ -2064,15 +1824,7 @@ primitiveSocketRemotePort(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		_return_value = sqSocketRemotePort(s);
 		if (!(failed())) {
@@ -2106,16 +1858,7 @@ primitiveSocketSendDataBufCount(void)
 	startIndex = integerValueOf(startIndex);
 	count = integerValueOf(count);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
-
+	s = socketValueOf(socket);
 	/* buffer can be any indexable bits object */
 	elementSize = 
 #    if SPURVM
@@ -2153,15 +1896,7 @@ primitiveSocketSendDone(void)
 
 	socket = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	if (!(failed())) {
 		_return_value = sqSocketSendDone(s);
 		if (!(failed())) {
@@ -2221,16 +1956,7 @@ primitiveSocketSendUDPDataBufCount(void)
 		return primitiveFailFor(PrimErrBadArgument);
 	}
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
-
+	s = socketValueOf(socket);
 	/* begin netAddressToInt: */
 	sz = byteSizeOf(((sqInt)(sqIntptr_t)((((unsigned char *) hostAddress))) - BaseHeaderSize));
 	if (!(sz == 4)) {
@@ -2275,15 +2001,7 @@ primitiveSocketSetOptions(void)
 	optionName = stackValue(1);
 	optionValue = stackValue(0);
 
-	/* begin socketValueOf: */
-	if ((isBytes(socket))
-	 && ((byteSizeOf(socket)) == (sizeof(SQSocket)))) {
-		s = ((SocketPtr) (firstIndexableField(socket)));
-	}
-	else {
-		primitiveFailFor(PrimErrBadArgument);
-		s = ((SocketPtr) null);
-	}
+	s = socketValueOf(socket);
 	success((isBytes(optionName))
 	 && (isBytes(optionValue)));
 	if (failed()) {
