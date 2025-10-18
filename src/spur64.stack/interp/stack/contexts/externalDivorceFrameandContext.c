@@ -110,25 +110,7 @@ l2:
          << 3) |
         1)));
 
-  /* begin storePointer:ofObject:withValue: */
-  assert(validStorePointerArgs(SenderIndex, ctxt, callerCtx));
-  assert(isNonImmediate(ctxt));
-  if (oopisGreaterThanOrEqualTo(ctxt, oldSpaceStart)) {
-    if (/* isYoung: */
-        ((!(callerCtx & (tagMask())))) &&
-        (oopisLessThan(callerCtx, oldSpaceStart))) {
-      /* begin possibleRootStoreInto: */
-      if (!((byteAt((void *)(ctxt + (formatFieldByteOffset())))) &
-            (1U << (rememberedBitByteShift())))) {
-        remember(ctxt);
-      }
-    }
-  }
-
-  /* most stores into young objects */
-  longAtput((void *)((ctxt + BaseHeaderSize) +
-                     ((((usqInt)(SenderIndex) << (shiftForWord()))))),
-            callerCtx);
+  storePointerofObjectwithValue(SenderIndex, ctxt, callerCtx);
   callerFP = ((char *)(longAt(theFP + FoxSavedFP)));
   if (callerFP) {
     callerIP = longAt(theFP + FoxCallerSavedIP);

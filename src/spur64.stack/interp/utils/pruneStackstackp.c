@@ -107,25 +107,7 @@ static void pruneStackstackp(sqInt stack, sqInt stackp) {
 
       /* after a GC stack may no longer be a root. */
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(finger, theStack, objOrFP));
-      assert(isNonImmediate(theStack));
-      if (oopisGreaterThanOrEqualTo(theStack, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(objOrFP & (tagMask())))) &&
-            (oopisLessThan(objOrFP, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(theStack + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(theStack);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((theStack + BaseHeaderSize) +
-                         ((((usqInt)(finger) << (shiftForWord()))))),
-                objOrFP);
+      storePointerofObjectwithValue(finger, theStack, objOrFP);
     }
   }
 

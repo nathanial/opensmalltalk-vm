@@ -44,26 +44,7 @@ static sqInt snapshot(sqInt embedded) {
       fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
   activeProc = fetchPointerofObject(ActiveProcessIndex, objOop);
 
-  /* begin storePointer:ofObject:withValue: */
-  assert(
-      validStorePointerArgs(SuspendedContextIndex, activeProc, activeContext));
-  assert(isNonImmediate(activeProc));
-  if (oopisGreaterThanOrEqualTo(activeProc, oldSpaceStart)) {
-    if (/* isYoung: */
-        ((!(activeContext & (tagMask())))) &&
-        (oopisLessThan(activeContext, oldSpaceStart))) {
-      /* begin possibleRootStoreInto: */
-      if (!((byteAt((void *)(activeProc + (formatFieldByteOffset())))) &
-            (1U << (rememberedBitByteShift())))) {
-        remember(activeProc);
-      }
-    }
-  }
-
-  /* most stores into young objects */
-  longAtput((void *)((activeProc + BaseHeaderSize) +
-                     ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))),
-            activeContext);
+  storePointerofObjectwithValue(SuspendedContextIndex, activeProc, activeContext);
   tempOop = activeContext;
 
   /* begin garbageCollectForSnapshot */

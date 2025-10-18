@@ -47,25 +47,7 @@ static sqInt popObjStack(sqInt objStack) {
     myx = fetchPointerofObject(ObjStackMyx, objStack);
 
     /* begin updateRootOfObjStackAt:with: */
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(myx, hiddenRootsObj, nextPage));
-    assert(isNonImmediate(hiddenRootsObj));
-    if (oopisGreaterThanOrEqualTo(hiddenRootsObj, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(nextPage & (tagMask())))) &&
-          (oopisLessThan(nextPage, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(hiddenRootsObj + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(hiddenRootsObj);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((hiddenRootsObj + BaseHeaderSize) +
-                       ((((usqInt)(myx) << (shiftForWord()))))),
-              nextPage);
+    storePointerofObjectwithValue(myx, hiddenRootsObj, nextPage);
     switch (myx) {
     case MarkStackRootIndex:
       markStack = nextPage;

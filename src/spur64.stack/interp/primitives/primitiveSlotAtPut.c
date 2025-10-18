@@ -58,25 +58,7 @@ static void primitiveSlotAtPut(void) {
           ClassMethodContextCompactIndex) {
         externalInstVarofContextput(index, rcvr, newValue);
       } else {
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(index, rcvr, newValue));
-        assert(isNonImmediate(rcvr));
-        if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(newValue & (tagMask())))) &&
-              (oopisLessThan(newValue, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(rcvr);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((rcvr + BaseHeaderSize) +
-                           ((((usqInt)(index) << (shiftForWord()))))),
-                  newValue);
+        storePointerofObjectwithValue(index, rcvr, newValue);
       }
 
       /* begin pop:thenPush: */

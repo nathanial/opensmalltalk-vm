@@ -146,25 +146,7 @@ static void primitiveContextAtPut(void) {
       if (fmtUsqLong <= 5 /* lastPointerFormat */) {
         fieldIndex = (index + fixedFieldsSqInt) - 1;
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(fieldIndex, aContext, value));
-        assert(isNonImmediate(aContext));
-        if (oopisGreaterThanOrEqualTo(aContext, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(value & (tagMask())))) &&
-              (oopisLessThan(value, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(aContext + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(aContext);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((aContext + BaseHeaderSize) +
-                           ((((usqInt)(fieldIndex) << (shiftForWord()))))),
-                  value);
+        storePointerofObjectwithValue(fieldIndex, aContext, value);
         goto l7;
       }
       if (fmtUsqLong >= (firstByteFormat())) {
@@ -331,25 +313,7 @@ static void primitiveContextAtPut(void) {
     if (fmt <= 5 /* lastPointerFormat */) {
       fieldIndex = (index + fixedFields) - 1;
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(fieldIndex, aContext, value));
-      assert(isNonImmediate(aContext));
-      if (oopisGreaterThanOrEqualTo(aContext, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(value & (tagMask())))) &&
-            (oopisLessThan(value, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(aContext + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(aContext);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((aContext + BaseHeaderSize) +
-                         ((((usqInt)(fieldIndex) << (shiftForWord()))))),
-                value);
+      storePointerofObjectwithValue(fieldIndex, aContext, value);
       goto l4;
     }
     if (fmt >= (firstByteFormat())) {

@@ -38,25 +38,7 @@ static void updateStateOfSpouseContextForFrameWithSP(char *theFP, char *theSP) {
     fieldIndex = ReceiverIndex + i;
     valuePointer = longAt(pointer);
 
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(fieldIndex, theContext, valuePointer));
-    assert(isNonImmediate(theContext));
-    if (oopisGreaterThanOrEqualTo(theContext, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(valuePointer & (tagMask())))) &&
-          (oopisLessThan(valuePointer, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(theContext + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(theContext);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((theContext + BaseHeaderSize) +
-                       ((((usqInt)(fieldIndex) << (shiftForWord()))))),
-              valuePointer);
+    storePointerofObjectwithValue(fieldIndex, theContext, valuePointer);
   }
 
   /* now update the non-argument stack contents. */
@@ -67,25 +49,7 @@ static void updateStateOfSpouseContextForFrameWithSP(char *theFP, char *theSP) {
     fieldIndex = ReceiverIndex + tempIndex;
     valuePointer = longAt(pointer);
 
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(fieldIndex, theContext, valuePointer));
-    assert(isNonImmediate(theContext));
-    if (oopisGreaterThanOrEqualTo(theContext, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(valuePointer & (tagMask())))) &&
-          (oopisLessThan(valuePointer, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(theContext + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(theContext);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((theContext + BaseHeaderSize) +
-                       ((((usqInt)(fieldIndex) << (shiftForWord()))))),
-              valuePointer);
+    storePointerofObjectwithValue(fieldIndex, theContext, valuePointer);
     pointer -= BytesPerWord;
   }
   assert((ReceiverIndex + tempIndex) < (lengthOf(theContext)));

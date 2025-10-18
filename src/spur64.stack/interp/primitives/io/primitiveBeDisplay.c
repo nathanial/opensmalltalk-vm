@@ -38,24 +38,7 @@ static void primitiveBeDisplay(void) {
   }
 
   /* begin splObj:put: */
-  /* begin storePointer:ofObject:withValue: */
-  assert(validStorePointerArgs(TheDisplay, specialObjectsOop, rcvr));
-  assert(isNonImmediate(specialObjectsOop));
-  if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
-    if (/* isYoung: */
-        ((!(rcvr & (tagMask())))) && (oopisLessThan(rcvr, oldSpaceStart))) {
-      /* begin possibleRootStoreInto: */
-      if (!((byteAt((void *)(specialObjectsOop + (formatFieldByteOffset())))) &
-            (1U << (rememberedBitByteShift())))) {
-        remember(specialObjectsOop);
-      }
-    }
-  }
-
-  /* most stores into young objects */
-  longAtput((void *)((specialObjectsOop + BaseHeaderSize) +
-                     ((((usqInt)(TheDisplay) << (shiftForWord()))))),
-            rcvr);
+  storePointerofObjectwithValue(TheDisplay, specialObjectsOop, rcvr);
   if (((!(bitsOop & (tagMask())))) &&
       (!(((byteAt((void *)(bitsOop + (formatFieldByteOffset())))) &
           (1U << (pinnedBitByteShift()))) != 0))) {

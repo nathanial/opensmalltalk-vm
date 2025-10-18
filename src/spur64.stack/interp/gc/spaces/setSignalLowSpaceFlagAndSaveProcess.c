@@ -37,28 +37,7 @@ static void setSignalLowSpaceFlagAndSaveProcess(void) {
     activeProc = fetchPointerofObject(ActiveProcessIndex, objOop);
 
     /* begin splObj:put: */
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(ProcessSignalingLowSpace, specialObjectsOop,
-                                 activeProc));
-    assert(isNonImmediate(specialObjectsOop));
-    if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(activeProc & (tagMask())))) &&
-          (oopisLessThan(activeProc, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt(
-                  (void *)(specialObjectsOop + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(specialObjectsOop);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput(
-        (void *)((specialObjectsOop + BaseHeaderSize) +
-                 ((((usqInt)(ProcessSignalingLowSpace) << (shiftForWord()))))),
-        activeProc);
+    storePointerofObjectwithValue(ProcessSignalingLowSpace, specialObjectsOop, activeProc);
   }
   forceInterruptCheck();
 }

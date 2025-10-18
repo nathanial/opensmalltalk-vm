@@ -399,25 +399,7 @@ static void primitiveTerminateTo(void) {
     assert((aContextOrNil == (nilObject())) || (isContext(aContextOrNil)));
     longAtput(theFP + FoxCallerContext, aContextOrNil);
   } else {
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(SenderIndex, thisCtx, aContextOrNil));
-    assert(isNonImmediate(thisCtx));
-    if (oopisGreaterThanOrEqualTo(thisCtx, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(aContextOrNil & (tagMask())))) &&
-          (oopisLessThan(aContextOrNil, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(thisCtx + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(thisCtx);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((thisCtx + BaseHeaderSize) +
-                       ((((usqInt)(SenderIndex) << (shiftForWord()))))),
-              aContextOrNil);
+    storePointerofObjectwithValue(SenderIndex, thisCtx, aContextOrNil);
   }
 
   /* begin pop: */

@@ -128,27 +128,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(TheLowSpaceSemaphore, specialObjectsOop,
-                                     obj));
-        assert(isNonImmediate(specialObjectsOop));
-        if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(obj & (tagMask())))) && (oopisLessThan(obj, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(specialObjectsOop +
-                                   (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(specialObjectsOop);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput(
-            (void *)((specialObjectsOop + BaseHeaderSize) +
-                     ((((usqInt)(TheLowSpaceSemaphore) << (shiftForWord()))))),
-            obj);
+        storePointerofObjectwithValue(TheLowSpaceSemaphore, specialObjectsOop, obj);
       }
 
       /* begin followSemaphoreIn:at: */
@@ -157,27 +137,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(TheInterruptSemaphore, specialObjectsOop,
-                                     obj));
-        assert(isNonImmediate(specialObjectsOop));
-        if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(obj & (tagMask())))) && (oopisLessThan(obj, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(specialObjectsOop +
-                                   (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(specialObjectsOop);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput(
-            (void *)((specialObjectsOop + BaseHeaderSize) +
-                     ((((usqInt)(TheInterruptSemaphore) << (shiftForWord()))))),
-            obj);
+        storePointerofObjectwithValue(TheInterruptSemaphore, specialObjectsOop, obj);
       }
 
       /* begin followSemaphoreIn:at: */
@@ -186,27 +146,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(
-            validStorePointerArgs(TheTimerSemaphore, specialObjectsOop, obj));
-        assert(isNonImmediate(specialObjectsOop));
-        if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(obj & (tagMask())))) && (oopisLessThan(obj, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(specialObjectsOop +
-                                   (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(specialObjectsOop);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput(
-            (void *)((specialObjectsOop + BaseHeaderSize) +
-                     ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))),
-            obj);
+        storePointerofObjectwithValue(TheTimerSemaphore, specialObjectsOop, obj);
       }
 
       /* begin followSemaphoreIn:at: */
@@ -215,27 +155,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(TheFinalizationSemaphore,
-                                     specialObjectsOop, obj));
-        assert(isNonImmediate(specialObjectsOop));
-        if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(obj & (tagMask())))) && (oopisLessThan(obj, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(specialObjectsOop +
-                                   (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(specialObjectsOop);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((specialObjectsOop + BaseHeaderSize) +
-                           ((((usqInt)(TheFinalizationSemaphore)
-                              << (shiftForWord()))))),
-                  obj);
+        storePointerofObjectwithValue(TheFinalizationSemaphore, specialObjectsOop, obj);
       }
       xArray = fetchPointerofObject(ExternalObjectsArray, specialObjectsOop);
       if ((!((longAt((void *)(xArray))) &
@@ -243,28 +163,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         xArray = followForwarded(xArray);
 
         /* begin splObj:put: */
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(ExternalObjectsArray, specialObjectsOop,
-                                     xArray));
-        assert(isNonImmediate(specialObjectsOop));
-        if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(xArray & (tagMask())))) &&
-              (oopisLessThan(xArray, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(specialObjectsOop +
-                                   (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(specialObjectsOop);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput(
-            (void *)((specialObjectsOop + BaseHeaderSize) +
-                     ((((usqInt)(ExternalObjectsArray) << (shiftForWord()))))),
-            xArray);
+        storePointerofObjectwithValue(ExternalObjectsArray, specialObjectsOop, xArray);
       }
       toDoLimit = ((numSlotsOf(xArray))) - 1;
       for (ipdelta = 0; ipdelta <= toDoLimit; ipdelta += 1) {
@@ -274,25 +173,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
           obj = followForwarded(obj);
 
-          /* begin storePointer:ofObject:withValue: */
-          assert(validStorePointerArgs(ipdelta, xArray, obj));
-          assert(isNonImmediate(xArray));
-          if (oopisGreaterThanOrEqualTo(xArray, oldSpaceStart)) {
-            if (/* isYoung: */
-                ((!(obj & (tagMask())))) &&
-                (oopisLessThan(obj, oldSpaceStart))) {
-              /* begin possibleRootStoreInto: */
-              if (!((byteAt((void *)(xArray + (formatFieldByteOffset())))) &
-                    (1U << (rememberedBitByteShift())))) {
-                remember(xArray);
-              }
-            }
-          }
-
-          /* most stores into young objects */
-          longAtput((void *)((xArray + BaseHeaderSize) +
-                             ((((usqInt)(ipdelta) << (shiftForWord()))))),
-                    obj);
+          storePointerofObjectwithValue(ipdelta, xArray, obj);
         }
       }
     }

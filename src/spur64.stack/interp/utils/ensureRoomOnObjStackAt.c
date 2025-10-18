@@ -82,52 +82,14 @@ static sqInt ensureRoomOnObjStackAt(sqInt objStackRootIndex) {
                        ((((usqInt)(ObjStackTopx) << (shiftForWord()))))),
               0);
 
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(objStackRootIndex, hiddenRootsObj,
-                                 freeOrNewPage));
-    assert(isNonImmediate(hiddenRootsObj));
-    if (oopisGreaterThanOrEqualTo(hiddenRootsObj, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(freeOrNewPage & (tagMask())))) &&
-          (oopisLessThan(freeOrNewPage, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(hiddenRootsObj + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(hiddenRootsObj);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((hiddenRootsObj + BaseHeaderSize) +
-                       ((((usqInt)(objStackRootIndex) << (shiftForWord()))))),
-              freeOrNewPage);
+    storePointerofObjectwithValue(objStackRootIndex, hiddenRootsObj, freeOrNewPage);
     assert(isValidObjStackAt(objStackRootIndex));
 
     /* Added a new page; now update and answer the relevant cached first page.
      */
 
     /* begin updateRootOfObjStackAt:with: */
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(objStackRootIndex, hiddenRootsObj,
-                                 freeOrNewPage));
-    assert(isNonImmediate(hiddenRootsObj));
-    if (oopisGreaterThanOrEqualTo(hiddenRootsObj, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(freeOrNewPage & (tagMask())))) &&
-          (oopisLessThan(freeOrNewPage, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(hiddenRootsObj + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(hiddenRootsObj);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((hiddenRootsObj + BaseHeaderSize) +
-                       ((((usqInt)(objStackRootIndex) << (shiftForWord()))))),
-              freeOrNewPage);
+    storePointerofObjectwithValue(objStackRootIndex, hiddenRootsObj, freeOrNewPage);
     switch (objStackRootIndex) {
     case MarkStackRootIndex:
       markStack = freeOrNewPage;

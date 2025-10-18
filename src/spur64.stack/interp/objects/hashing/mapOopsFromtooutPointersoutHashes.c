@@ -94,26 +94,7 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
 
         /* no room in outPointers; fail */
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(outIndex, outPointerArray, heapOop));
-        assert(isNonImmediate(outPointerArray));
-        if (oopisGreaterThanOrEqualTo(outPointerArray, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(heapOop & (tagMask())))) &&
-              (oopisLessThan(heapOop, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt(
-                      (void *)(outPointerArray + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(outPointerArray);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((outPointerArray + BaseHeaderSize) +
-                           ((((usqInt)(outIndex) << (shiftForWord()))))),
-                  heapOop);
+        storePointerofObjectwithValue(outIndex, outPointerArray, heapOop);
         valueWord =
             (long32At((void *)(heapOop + 4))) & (identityHashHalfWordMask());
 
@@ -181,26 +162,7 @@ static sqInt mapOopsFromtooutPointersoutHashes(sqInt segStart, sqInt segAddr,
 
             /* no room in outPointers; fail */
 
-            /* begin storePointer:ofObject:withValue: */
-            assert(validStorePointerArgs(outIndex, outPointerArray, heapOop));
-            assert(isNonImmediate(outPointerArray));
-            if (oopisGreaterThanOrEqualTo(outPointerArray, oldSpaceStart)) {
-              if (/* isYoung: */
-                  ((!(heapOop & (tagMask())))) &&
-                  (oopisLessThan(heapOop, oldSpaceStart))) {
-                /* begin possibleRootStoreInto: */
-                if (!((byteAt((void *)(outPointerArray +
-                                       (formatFieldByteOffset())))) &
-                      (1U << (rememberedBitByteShift())))) {
-                  remember(outPointerArray);
-                }
-              }
-            }
-
-            /* most stores into young objects */
-            longAtput((void *)((outPointerArray + BaseHeaderSize) +
-                               ((((usqInt)(outIndex) << (shiftForWord()))))),
-                      heapOop);
+            storePointerofObjectwithValue(outIndex, outPointerArray, heapOop);
             valueWordSqInt = (long32At((void *)(heapOop + 4))) &
                              (identityHashHalfWordMask());
 

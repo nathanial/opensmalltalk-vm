@@ -93,48 +93,12 @@ static sqInt transferTofrom(sqInt newProcOrNil, sqInt sourceCode) {
   /* end ensureFrameIsMarried:SP: */
 l1:
 
-  /* begin storePointer:ofObject:withValue: */
-  assert(validStorePointerArgs(SuspendedContextIndex, oldProc, activeContext));
-  assert(isNonImmediate(oldProc));
-  if (oopisGreaterThanOrEqualTo(oldProc, oldSpaceStart)) {
-    if (/* isYoung: */
-        ((!(activeContext & (tagMask())))) &&
-        (oopisLessThan(activeContext, oldSpaceStart))) {
-      /* begin possibleRootStoreInto: */
-      if (!((byteAt((void *)(oldProc + (formatFieldByteOffset())))) &
-            (1U << (rememberedBitByteShift())))) {
-        remember(oldProc);
-      }
-    }
-  }
-
-  /* most stores into young objects */
-  longAtput((void *)((oldProc + BaseHeaderSize) +
-                     ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))),
-            activeContext);
+  storePointerofObjectwithValue(SuspendedContextIndex, oldProc, activeContext);
   if (!newProcOrNil) {
     error("scheduler could not find a runnable process");
   }
 
-  /* begin storePointer:ofObject:withValue: */
-  assert(validStorePointerArgs(ActiveProcessIndex, sched, newProcOrNil));
-  assert(isNonImmediate(sched));
-  if (oopisGreaterThanOrEqualTo(sched, oldSpaceStart)) {
-    if (/* isYoung: */
-        ((!(newProcOrNil & (tagMask())))) &&
-        (oopisLessThan(newProcOrNil, oldSpaceStart))) {
-      /* begin possibleRootStoreInto: */
-      if (!((byteAt((void *)(sched + (formatFieldByteOffset())))) &
-            (1U << (rememberedBitByteShift())))) {
-        remember(sched);
-      }
-    }
-  }
-
-  /* most stores into young objects */
-  longAtput((void *)((sched + BaseHeaderSize) +
-                     ((((usqInt)(ActiveProcessIndex) << (shiftForWord()))))),
-            newProcOrNil);
+  storePointerofObjectwithValue(ActiveProcessIndex, sched, newProcOrNil);
 
   /* begin storePointerUnchecked:ofObject:withValue: */
   assert((isNonImmediate(newProcOrNil)) && (!(isForwarded(newProcOrNil))));

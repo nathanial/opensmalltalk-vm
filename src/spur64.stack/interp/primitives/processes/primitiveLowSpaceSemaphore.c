@@ -15,26 +15,7 @@ static void primitiveLowSpaceSemaphore(void) {
                            (rawHashBitsOf(fetchPointerofObject(
                                ClassSemaphore, specialObjectsOop)))))) {
     /* begin splObj:put: */
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(TheLowSpaceSemaphore, specialObjectsOop, arg));
-    assert(isNonImmediate(specialObjectsOop));
-    if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(arg & (tagMask())))) && (oopisLessThan(arg, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt(
-                  (void *)(specialObjectsOop + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(specialObjectsOop);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput(
-        (void *)((specialObjectsOop + BaseHeaderSize) +
-                 ((((usqInt)(TheLowSpaceSemaphore) << (shiftForWord()))))),
-        arg);
+    storePointerofObjectwithValue(TheLowSpaceSemaphore, specialObjectsOop, arg);
 
     /* begin pop: */
     stackPointer += 1 * BytesPerWord;

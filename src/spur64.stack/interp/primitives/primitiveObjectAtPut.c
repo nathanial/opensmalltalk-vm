@@ -45,25 +45,7 @@ static void primitiveObjectAtPut(void) {
   }
   fieldIndex = index - 1;
 
-  /* begin storePointer:ofObject:withValue: */
-  assert(validStorePointerArgs(fieldIndex, thisReceiver, newValue));
-  assert(isNonImmediate(thisReceiver));
-  if (oopisGreaterThanOrEqualTo(thisReceiver, oldSpaceStart)) {
-    if (/* isYoung: */
-        ((!(newValue & (tagMask())))) &&
-        (oopisLessThan(newValue, oldSpaceStart))) {
-      /* begin possibleRootStoreInto: */
-      if (!((byteAt((void *)(thisReceiver + (formatFieldByteOffset())))) &
-            (1U << (rememberedBitByteShift())))) {
-        remember(thisReceiver);
-      }
-    }
-  }
-
-  /* most stores into young objects */
-  longAtput((void *)((thisReceiver + BaseHeaderSize) +
-                     ((((usqInt)(fieldIndex) << (shiftForWord()))))),
-            newValue);
+  storePointerofObjectwithValue(fieldIndex, thisReceiver, newValue);
 
   /* begin pop:thenPush: */
   longAtput((sp = stackPointer + (2 * BytesPerWord)), newValue);

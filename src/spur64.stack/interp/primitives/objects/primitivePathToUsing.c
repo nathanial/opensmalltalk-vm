@@ -180,25 +180,7 @@ l2:
         assert(freeStartAtStart == (freeStart));
         unmarkAfterPathTo();
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(stackp, stack, current));
-        assert(isNonImmediate(stack));
-        if (oopisGreaterThanOrEqualTo(stack, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(current & (tagMask())))) &&
-              (oopisLessThan(current, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(stack + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(stack);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((stack + BaseHeaderSize) +
-                           ((((usqInt)(stackp) << (shiftForWord()))))),
-                  current);
+        storePointerofObjectwithValue(stackp, stack, current);
         pruneStackstackp(stack, stackp);
         err = 0;
         goto l5;

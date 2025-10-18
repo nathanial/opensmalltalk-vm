@@ -47,25 +47,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
                                                           aProcess, nextLink);
     }
 
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(FirstLinkIndex, aList, nextLink));
-    assert(isNonImmediate(aList));
-    if (oopisGreaterThanOrEqualTo(aList, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(nextLink & (tagMask())))) &&
-          (oopisLessThan(nextLink, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(aList + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(aList);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((aList + BaseHeaderSize) +
-                       ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))),
-              nextLink);
+    storePointerofObjectwithValue(FirstLinkIndex, aList, nextLink);
     if (aProcess == lastLink) {
       /* begin storePointerUnchecked:ofObject:withValue: */
       assert((isNonImmediate(aList)) && (!(isForwarded(aList))));
@@ -103,45 +85,9 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
     }
     nextLink = fetchPointerofObject(NextLinkIndex, aProcess);
 
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(NextLinkIndex, tempLink, nextLink));
-    assert(isNonImmediate(tempLink));
-    if (oopisGreaterThanOrEqualTo(tempLink, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(nextLink & (tagMask())))) &&
-          (oopisLessThan(nextLink, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(tempLink + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(tempLink);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((tempLink + BaseHeaderSize) +
-                       ((((usqInt)(NextLinkIndex) << (shiftForWord()))))),
-              nextLink);
+    storePointerofObjectwithValue(NextLinkIndex, tempLink, nextLink);
     if (aProcess == lastLink) {
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(LastLinkIndex, aList, tempLink));
-      assert(isNonImmediate(aList));
-      if (oopisGreaterThanOrEqualTo(aList, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(tempLink & (tagMask())))) &&
-            (oopisLessThan(tempLink, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(aList + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(aList);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((aList + BaseHeaderSize) +
-                         ((((usqInt)(LastLinkIndex) << (shiftForWord()))))),
-                tempLink);
+      storePointerofObjectwithValue(LastLinkIndex, aList, tempLink);
     }
   }
 

@@ -55,24 +55,7 @@ static sqInt enterIntoClassTable(sqInt aBehavior) {
         longAtput((void *)(p), nilObj);
       }
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(majorIndex, hiddenRootsObj, page));
-      assert(isNonImmediate(hiddenRootsObj));
-      if (oopisGreaterThanOrEqualTo(hiddenRootsObj, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(page & (tagMask())))) && (oopisLessThan(page, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(hiddenRootsObj + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(hiddenRootsObj);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((hiddenRootsObj + BaseHeaderSize) +
-                         ((((usqInt)(majorIndex) << (shiftForWord()))))),
-                page);
+      storePointerofObjectwithValue(majorIndex, hiddenRootsObj, page);
       numClassTablePages += 1;
       minorIndex = 0;
     }
@@ -86,25 +69,7 @@ static sqInt enterIntoClassTable(sqInt aBehavior) {
          * for classes known to the VM. */
         assert(classTableIndex >= (1U << (classTableMajorIndexShift())));
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(i, page, aBehavior));
-        assert(isNonImmediate(page));
-        if (oopisGreaterThanOrEqualTo(page, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(aBehavior & (tagMask())))) &&
-              (oopisLessThan(aBehavior, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(page + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(page);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((page + BaseHeaderSize) +
-                           ((((usqInt)(i) << (shiftForWord()))))),
-                  aBehavior);
+        storePointerofObjectwithValue(i, page, aBehavior);
 
         /* begin setHashBitsOf:to: */
         long32Atput((void *)(aBehavior + 4),

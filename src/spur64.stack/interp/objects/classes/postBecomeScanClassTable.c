@@ -37,25 +37,7 @@ static void postBecomeScanClassTable(sqInt effectsFlags) {
                ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
           classOrNil = followForwarded(classOrNil);
 
-          /* begin storePointer:ofObject:withValue: */
-          assert(validStorePointerArgs(j, page, classOrNil));
-          assert(isNonImmediate(page));
-          if (oopisGreaterThanOrEqualTo(page, oldSpaceStart)) {
-            if (/* isYoung: */
-                ((!(classOrNil & (tagMask())))) &&
-                (oopisLessThan(classOrNil, oldSpaceStart))) {
-              /* begin possibleRootStoreInto: */
-              if (!((byteAt((void *)(page + (formatFieldByteOffset())))) &
-                    (1U << (rememberedBitByteShift())))) {
-                remember(page);
-              }
-            }
-          }
-
-          /* most stores into young objects */
-          longAtput((void *)((page + BaseHeaderSize) +
-                             ((((usqInt)(j) << (shiftForWord()))))),
-                    classOrNil);
+          storePointerofObjectwithValue(j, page, classOrNil);
         }
         if (!((long32At((void *)(classOrNil + 4))) &
               (identityHashHalfWordMask()))) {

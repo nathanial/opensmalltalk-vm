@@ -110,25 +110,7 @@ l2:
     if (fmt <= 5 /* lastPointerFormat */) {
       fieldIndex = (index + fixedFields) - 1;
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(fieldIndex, array, value));
-      assert(isNonImmediate(array));
-      if (oopisGreaterThanOrEqualTo(array, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(value & (tagMask())))) &&
-            (oopisLessThan(value, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(array + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(array);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((array + BaseHeaderSize) +
-                         ((((usqInt)(fieldIndex) << (shiftForWord()))))),
-                value);
+      storePointerofObjectwithValue(fieldIndex, array, value);
       goto l4;
     }
     if (fmt >= (firstByteFormat())) {

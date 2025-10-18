@@ -31,24 +31,7 @@ static sqInt removeFirstLinkOfList(sqInt aList) {
   } else {
     next = fetchPointerofObject(NextLinkIndex, first);
 
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(FirstLinkIndex, aList, next));
-    assert(isNonImmediate(aList));
-    if (oopisGreaterThanOrEqualTo(aList, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(next & (tagMask())))) && (oopisLessThan(next, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(aList + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(aList);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((aList + BaseHeaderSize) +
-                       ((((usqInt)(FirstLinkIndex) << (shiftForWord()))))),
-              next);
+    storePointerofObjectwithValue(FirstLinkIndex, aList, next);
   }
 
   /* begin storePointerUnchecked:ofObject:withValue: */

@@ -44,24 +44,7 @@ static void primitiveUtcAndTimezoneOffset(void) {
             valuePointer);
   valuePointer = positive64BitIntegerFor(ioUTCMicroseconds());
 
-  /* begin storePointer:ofObject:withValue: */
-  assert(validStorePointerArgs(0, resultArray, valuePointer));
-  assert(isNonImmediate(resultArray));
-  if (oopisGreaterThanOrEqualTo(resultArray, oldSpaceStart)) {
-    if (/* isYoung: */
-        ((!(valuePointer & (tagMask())))) &&
-        (oopisLessThan(valuePointer, oldSpaceStart))) {
-      /* begin possibleRootStoreInto: */
-      if (!((byteAt((void *)(resultArray + (formatFieldByteOffset())))) &
-            (1U << (rememberedBitByteShift())))) {
-        remember(resultArray);
-      }
-    }
-  }
-
-  /* most stores into young objects */
-  longAtput((void *)((resultArray + BaseHeaderSize) + (0U << (shiftForWord()))),
-            valuePointer);
+  storePointerofObjectwithValue(0, resultArray, valuePointer);
 
   /* begin pop:thenPush: */
   longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),

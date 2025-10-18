@@ -56,25 +56,7 @@ static sqInt synchronousSignal(sqInt aSemaphore) {
          ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
     ctxt = followForwarded(ctxt);
 
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(SuspendedContextIndex, proc, ctxt));
-    assert(isNonImmediate(proc));
-    if (oopisGreaterThanOrEqualTo(proc, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(ctxt & (tagMask())))) && (oopisLessThan(ctxt, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(proc + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(proc);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput(
-        (void *)((proc + BaseHeaderSize) +
-                 ((((usqInt)(SuspendedContextIndex) << (shiftForWord()))))),
-        ctxt);
+    storePointerofObjectwithValue(SuspendedContextIndex, proc, ctxt);
   }
   return resumepreemptedYieldingIffrom(removeFirstLinkOfList(aSemaphore),
                                        preemptionYields, CSSynchronousSignal);

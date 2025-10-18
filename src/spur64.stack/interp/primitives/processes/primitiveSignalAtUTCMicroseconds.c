@@ -22,25 +22,7 @@ static void primitiveSignalAtUTCMicroseconds(void) {
          (rawHashBitsOf(
              fetchPointerofObject(ClassSemaphore, specialObjectsOop))))) {
       /* begin splObj:put: */
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(TheTimerSemaphore, specialObjectsOop, sema));
-      assert(isNonImmediate(specialObjectsOop));
-      if (oopisGreaterThanOrEqualTo(specialObjectsOop, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(sema & (tagMask())))) && (oopisLessThan(sema, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt(
-                    (void *)(specialObjectsOop + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(specialObjectsOop);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((specialObjectsOop + BaseHeaderSize) +
-                         ((((usqInt)(TheTimerSemaphore) << (shiftForWord()))))),
-                sema);
+      storePointerofObjectwithValue(TheTimerSemaphore, specialObjectsOop, sema);
       nextWakeupUsecs = usecs;
 
       /* begin pop: */

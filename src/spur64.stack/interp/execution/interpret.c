@@ -1619,24 +1619,7 @@ sqInt interpret(void) {
       }
 #endif // IMMUTABILITY
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(instVarIndex, rcvr, top));
-      assert(isNonImmediate(rcvr));
-      if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(top & (tagMask())))) && (oopisLessThan(top, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(rcvr);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((rcvr + BaseHeaderSize) +
-                         ((instVarIndex << (shiftForWord())))),
-                top);
+      storePointerofObjectwithValue(instVarIndex, rcvr, top);
       /* end storePointerImmutabilityCheck:ofObject:withValue: */
     l1:
 
@@ -2736,25 +2719,7 @@ sqInt interpret(void) {
         }
 #endif // IMMUTABILITY
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(variableIndex, objOop, value));
-        assert(isNonImmediate(objOop));
-        if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(value & (tagMask())))) &&
-              (oopisLessThan(value, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(objOop);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((objOop + BaseHeaderSize) +
-                           ((variableIndex << (shiftForWord())))),
-                  value);
+        storePointerofObjectwithValue(variableIndex, objOop, value);
         /* end storePointerImmutabilityCheck:ofObject:withValue: */
       l3:;
         break;
@@ -2807,25 +2772,7 @@ sqInt interpret(void) {
         }
 #endif // IMMUTABILITY
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(ValueIndex, litVar, value));
-        assert(isNonImmediate(litVar));
-        if (oopisGreaterThanOrEqualTo(litVar, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(value & (tagMask())))) &&
-              (oopisLessThan(value, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(litVar + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(litVar);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((litVar + BaseHeaderSize) +
-                           ((((usqInt)(ValueIndex) << (shiftForWord()))))),
-                  value);
+        storePointerofObjectwithValue(ValueIndex, litVar, value);
         /* end storePointerImmutabilityCheck:ofObject:withValue: */
       l4:;
         break;
@@ -2877,25 +2824,7 @@ sqInt interpret(void) {
         }
 #endif // IMMUTABILITY
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(variableIndex, objOop, value));
-        assert(isNonImmediate(objOop));
-        if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(value & (tagMask())))) &&
-              (oopisLessThan(value, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(objOop);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((objOop + BaseHeaderSize) +
-                           ((variableIndex << (shiftForWord())))),
-                  value);
+        storePointerofObjectwithValue(variableIndex, objOop, value);
         /* end storePointerImmutabilityCheck:ofObject:withValue: */
       l5:;
         break;
@@ -2948,25 +2877,7 @@ sqInt interpret(void) {
         }
 #endif // IMMUTABILITY
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(ValueIndex, litVar, value));
-        assert(isNonImmediate(litVar));
-        if (oopisGreaterThanOrEqualTo(litVar, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(value & (tagMask())))) &&
-              (oopisLessThan(value, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(litVar + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(litVar);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((litVar + BaseHeaderSize) +
-                           ((((usqInt)(ValueIndex) << (shiftForWord()))))),
-                  value);
+        storePointerofObjectwithValue(ValueIndex, litVar, value);
         /* end storePointerImmutabilityCheck:ofObject:withValue: */
       l6:;
         break;
@@ -3487,24 +3398,7 @@ sqInt interpret(void) {
         }
 #endif // IMMUTABILITY
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(ValueIndex, litVar, top));
-        assert(isNonImmediate(litVar));
-        if (oopisGreaterThanOrEqualTo(litVar, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(top & (tagMask())))) && (oopisLessThan(top, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(litVar + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(litVar);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((litVar + BaseHeaderSize) +
-                           ((((usqInt)(ValueIndex) << (shiftForWord()))))),
-                  top);
+        storePointerofObjectwithValue(ValueIndex, litVar, top);
         /* end storePointerImmutabilityCheck:ofObject:withValue: */
       l9:
 
@@ -3542,25 +3436,7 @@ sqInt interpret(void) {
         if (!(/* isStillMarriedContext: */
               (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)) &&
               (!(isWidowedContext(obj))))) {
-          /* begin storePointer:ofObject:withValue: */
-          assert(validStorePointerArgs(byte3, obj, top));
-          assert(isNonImmediate(obj));
-          if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
-            if (/* isYoung: */
-                ((!(top & (tagMask())))) &&
-                (oopisLessThan(top, oldSpaceStart))) {
-              /* begin possibleRootStoreInto: */
-              if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) &
-                    (1U << (rememberedBitByteShift())))) {
-                remember(obj);
-              }
-            }
-          }
-
-          /* most stores into young objects */
-          longAtput((void *)((obj + BaseHeaderSize) +
-                             ((((usqInt)(byte3) << (shiftForWord()))))),
-                    top);
+          storePointerofObjectwithValue(byte3, obj, top);
           goto l8;
         }
 
@@ -3591,24 +3467,7 @@ sqInt interpret(void) {
         framePointer = localFP;
         externalDivorceFrameandContext(theFP, obj);
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(byte3, obj, top));
-        assert(isNonImmediate(obj));
-        if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(top & (tagMask())))) && (oopisLessThan(top, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(obj);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((obj + BaseHeaderSize) +
-                           ((((usqInt)(byte3) << (shiftForWord()))))),
-                  top);
+        storePointerofObjectwithValue(byte3, obj, top);
 
         /* begin internalizeIPandSP */
         localIP = ((char *)instructionPointer);
@@ -3643,24 +3502,7 @@ sqInt interpret(void) {
         }
 #endif // IMMUTABILITY
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(byte3, obj, top));
-        assert(isNonImmediate(obj));
-        if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(top & (tagMask())))) && (oopisLessThan(top, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(obj);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((obj + BaseHeaderSize) +
-                           ((((usqInt)(byte3) << (shiftForWord()))))),
-                  top);
+        storePointerofObjectwithValue(byte3, obj, top);
         /* end storePointerImmutabilityCheck:ofObject:withValue: */
       l11:;
       }
@@ -3992,25 +3834,7 @@ sqInt interpret(void) {
                         ((frameNumArgs - tempVectorIndex) * BytesPerWord)));
       valuePointer = longAt(localSP);
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(remoteTempIndex, tempVector, valuePointer));
-      assert(isNonImmediate(tempVector));
-      if (oopisGreaterThanOrEqualTo(tempVector, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(valuePointer & (tagMask())))) &&
-            (oopisLessThan(valuePointer, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(tempVector + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(tempVector);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((tempVector + BaseHeaderSize) +
-                         ((((usqInt)(remoteTempIndex) << (shiftForWord()))))),
-                valuePointer);
+      storePointerofObjectwithValue(remoteTempIndex, tempVector, valuePointer);
     } break;
     case 142: // storeAndPopRemoteTempLongBytecode
     case 509: // 253	storeAndPopRemoteTempLongBytecode
@@ -4037,25 +3861,7 @@ sqInt interpret(void) {
                         ((frameNumArgs - tempVectorIndex) * BytesPerWord)));
       valuePointer = longAt(localSP);
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(remoteTempIndex, tempVector, valuePointer));
-      assert(isNonImmediate(tempVector));
-      if (oopisGreaterThanOrEqualTo(tempVector, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(valuePointer & (tagMask())))) &&
-            (oopisLessThan(valuePointer, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(tempVector + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(tempVector);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((tempVector + BaseHeaderSize) +
-                         ((((usqInt)(remoteTempIndex) << (shiftForWord()))))),
-                valuePointer);
+      storePointerofObjectwithValue(remoteTempIndex, tempVector, valuePointer);
 
       /* begin internalPop: */
       localSP += 1 * BytesPerOop;
@@ -6045,26 +5851,7 @@ sqInt interpret(void) {
               fixedFields = atCache[atIx + AtCacheFixedFields];
               fieldIndex = (indexSqInt + fixedFields) - 1;
 
-              /* begin storePointer:ofObject:withValue: */
-              assert(validStorePointerArgs(fieldIndex, rcvr, value));
-              assert(isNonImmediate(rcvr));
-              if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
-                if (/* isYoung: */
-                    ((!(value & (tagMask())))) &&
-                    (oopisLessThan(value, oldSpaceStart))) {
-                  /* begin possibleRootStoreInto: */
-                  if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) &
-                        (1U << (rememberedBitByteShift())))) {
-                    remember(rcvr);
-                  }
-                }
-              }
-
-              /* most stores into young objects */
-              ((void)(longAtput(
-                  (void *)((rcvr + BaseHeaderSize) +
-                           ((((usqInt)(fieldIndex) << (shiftForWord()))))),
-                  value)));
+              ((void)(storePointerofObjectwithValue(fieldIndex, rcvr, value)));
               goto l63;
             }
             if (fmtSqInt < (firstByteFormat())) {
@@ -7764,25 +7551,7 @@ sqInt interpret(void) {
         if (!(/* isStillMarriedContext: */
               (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)) &&
               (!(isWidowedContext(obj))))) {
-          /* begin storePointer:ofObject:withValue: */
-          assert(validStorePointerArgs(variableIndex, obj, value));
-          assert(isNonImmediate(obj));
-          if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
-            if (/* isYoung: */
-                ((!(value & (tagMask())))) &&
-                (oopisLessThan(value, oldSpaceStart))) {
-              /* begin possibleRootStoreInto: */
-              if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) &
-                    (1U << (rememberedBitByteShift())))) {
-                remember(obj);
-              }
-            }
-          }
-
-          /* most stores into young objects */
-          longAtput((void *)((obj + BaseHeaderSize) +
-                             ((((usqInt)(variableIndex) << (shiftForWord()))))),
-                    value);
+          storePointerofObjectwithValue(variableIndex, obj, value);
           goto l143;
         }
 
@@ -7813,25 +7582,7 @@ sqInt interpret(void) {
         framePointer = localFP;
         externalDivorceFrameandContext(theFP, obj);
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(variableIndex, obj, value));
-        assert(isNonImmediate(obj));
-        if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(value & (tagMask())))) &&
-              (oopisLessThan(value, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(obj);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((obj + BaseHeaderSize) +
-                           ((((usqInt)(variableIndex) << (shiftForWord()))))),
-                  value);
+        storePointerofObjectwithValue(variableIndex, obj, value);
 
         /* begin internalizeIPandSP */
         localIP = ((char *)instructionPointer);
@@ -7867,25 +7618,7 @@ sqInt interpret(void) {
         }
 #endif // IMMUTABILITY
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(variableIndex, obj, value));
-        assert(isNonImmediate(obj));
-        if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(value & (tagMask())))) &&
-              (oopisLessThan(value, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(obj);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((obj + BaseHeaderSize) +
-                           ((((usqInt)(variableIndex) << (shiftForWord()))))),
-                  value);
+        storePointerofObjectwithValue(variableIndex, obj, value);
         /* end storePointerImmutabilityCheck:ofObject:withValue: */
       l144:;
       }
@@ -7939,25 +7672,7 @@ sqInt interpret(void) {
       }
 #endif // IMMUTABILITY
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(ValueIndex, litVar, value));
-      assert(isNonImmediate(litVar));
-      if (oopisGreaterThanOrEqualTo(litVar, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(value & (tagMask())))) &&
-            (oopisLessThan(value, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(litVar + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(litVar);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((litVar + BaseHeaderSize) +
-                         ((((usqInt)(ValueIndex) << (shiftForWord()))))),
-                value);
+      storePointerofObjectwithValue(ValueIndex, litVar, value);
       /* end storePointerImmutabilityCheck:ofObject:withValue: */
     l145:
 
@@ -8028,25 +7743,7 @@ sqInt interpret(void) {
         if (!(/* isStillMarriedContext: */
               (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)) &&
               (!(isWidowedContext(obj))))) {
-          /* begin storePointer:ofObject:withValue: */
-          assert(validStorePointerArgs(variableIndex, obj, anObject));
-          assert(isNonImmediate(obj));
-          if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
-            if (/* isYoung: */
-                ((!(anObject & (tagMask())))) &&
-                (oopisLessThan(anObject, oldSpaceStart))) {
-              /* begin possibleRootStoreInto: */
-              if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) &
-                    (1U << (rememberedBitByteShift())))) {
-                remember(obj);
-              }
-            }
-          }
-
-          /* most stores into young objects */
-          longAtput((void *)((obj + BaseHeaderSize) +
-                             ((((usqInt)(variableIndex) << (shiftForWord()))))),
-                    anObject);
+          storePointerofObjectwithValue(variableIndex, obj, anObject);
           goto l146;
         }
 
@@ -8077,25 +7774,7 @@ sqInt interpret(void) {
         framePointer = localFP;
         externalDivorceFrameandContext(theFP, obj);
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(variableIndex, obj, anObject));
-        assert(isNonImmediate(obj));
-        if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(anObject & (tagMask())))) &&
-              (oopisLessThan(anObject, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(obj);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((obj + BaseHeaderSize) +
-                           ((((usqInt)(variableIndex) << (shiftForWord()))))),
-                  anObject);
+        storePointerofObjectwithValue(variableIndex, obj, anObject);
 
         /* begin internalizeIPandSP */
         localIP = ((char *)instructionPointer);
@@ -8131,25 +7810,7 @@ sqInt interpret(void) {
         }
 #endif // IMMUTABILITY
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(variableIndex, obj, anObject));
-        assert(isNonImmediate(obj));
-        if (oopisGreaterThanOrEqualTo(obj, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(anObject & (tagMask())))) &&
-              (oopisLessThan(anObject, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(obj + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(obj);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((obj + BaseHeaderSize) +
-                           ((((usqInt)(variableIndex) << (shiftForWord()))))),
-                  anObject);
+        storePointerofObjectwithValue(variableIndex, obj, anObject);
         /* end storePointerImmutabilityCheck:ofObject:withValue: */
       l147:;
       }
@@ -8200,25 +7861,7 @@ sqInt interpret(void) {
       }
 #endif // IMMUTABILITY
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(ValueIndex, litVar, anObject));
-      assert(isNonImmediate(litVar));
-      if (oopisGreaterThanOrEqualTo(litVar, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(anObject & (tagMask())))) &&
-            (oopisLessThan(anObject, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(litVar + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(litVar);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((litVar + BaseHeaderSize) +
-                         ((((usqInt)(ValueIndex) << (shiftForWord()))))),
-                anObject);
+      storePointerofObjectwithValue(ValueIndex, litVar, anObject);
       /* end storePointerImmutabilityCheck:ofObject:withValue: */
     l148:
 

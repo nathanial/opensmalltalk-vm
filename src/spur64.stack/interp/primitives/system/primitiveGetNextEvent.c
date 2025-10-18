@@ -70,25 +70,7 @@ static void primitiveGetNextEvent(void) {
     for (i = 1; i <= 7; i += 1) {
       value = evtBuf[i];
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(i, arg, value));
-      assert(isNonImmediate(arg));
-      if (oopisGreaterThanOrEqualTo(arg, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(value & (tagMask())))) &&
-            (oopisLessThan(value, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(arg + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(arg);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((arg + BaseHeaderSize) +
-                         ((((usqInt)(i) << (shiftForWord()))))),
-                value);
+      storePointerofObjectwithValue(i, arg, value);
     }
   } else {
     integerValue = (evtBuf[1]) & MillisecondClockMask;
@@ -131,25 +113,7 @@ static void primitiveGetNextEvent(void) {
       } else {
         value = positive64BitIntegerFor(value);
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(i, arg, value));
-        assert(isNonImmediate(arg));
-        if (oopisGreaterThanOrEqualTo(arg, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(value & (tagMask())))) &&
-              (oopisLessThan(value, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(arg + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(arg);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((arg + BaseHeaderSize) +
-                           ((((usqInt)(i) << (shiftForWord()))))),
-                  value);
+        storePointerofObjectwithValue(i, arg, value);
       }
     }
   }

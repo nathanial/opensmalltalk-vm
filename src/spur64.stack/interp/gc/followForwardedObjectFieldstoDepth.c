@@ -76,24 +76,7 @@ l2:
 
         oop = followForwarded(oop);
 
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(i, objOop, oop));
-        assert(isNonImmediate(objOop));
-        if (oopisGreaterThanOrEqualTo(objOop, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(oop & (tagMask())))) && (oopisLessThan(oop, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(objOop + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(objOop);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((objOop + BaseHeaderSize) +
-                           ((((usqInt)(i) << (shiftForWord()))))),
-                  oop);
+        storePointerofObjectwithValue(i, objOop, oop);
       }
       if ((depth > 0) &&
           ((/* hasPointerFields: */

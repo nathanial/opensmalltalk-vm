@@ -48,25 +48,7 @@ static void backupContexttoBlockingSendTo(sqInt suspendedContext,
     assert(((fetchPointerofObject(sp, suspendedContext)) == (falseObject())) ||
            ((fetchPointerofObject(sp, suspendedContext)) == conditionVariable));
 
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(sp, suspendedContext, conditionVariable));
-    assert(isNonImmediate(suspendedContext));
-    if (oopisGreaterThanOrEqualTo(suspendedContext, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(conditionVariable & (tagMask())))) &&
-          (oopisLessThan(conditionVariable, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(suspendedContext + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(suspendedContext);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((suspendedContext + BaseHeaderSize) +
-                       ((((usqInt)(sp) << (shiftForWord()))))),
-              conditionVariable);
+    storePointerofObjectwithValue(sp, suspendedContext, conditionVariable);
     return;
   }
   assert(isMarriedOrWidowedContext(suspendedContext));

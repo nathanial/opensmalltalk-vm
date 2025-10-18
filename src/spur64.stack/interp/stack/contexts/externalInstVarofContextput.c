@@ -34,25 +34,7 @@ static sqInt externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext,
         (((((fetchPointerofObject(SenderIndex, maybeMarriedContext))) & 7) ==
           1)) &&
         (!(isWidowedContext(maybeMarriedContext))))) {
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(index, maybeMarriedContext, anOop));
-    assert(isNonImmediate(maybeMarriedContext));
-    if (oopisGreaterThanOrEqualTo(maybeMarriedContext, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(anOop & (tagMask())))) && (oopisLessThan(anOop, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt(
-                  (void *)(maybeMarriedContext + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(maybeMarriedContext);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((maybeMarriedContext + BaseHeaderSize) +
-                       ((((usqInt)(index) << (shiftForWord()))))),
-              anOop);
+    storePointerofObjectwithValue(index, maybeMarriedContext, anOop);
     return null;
   }
 
@@ -70,25 +52,7 @@ static sqInt externalInstVarofContextput(sqInt index, sqInt maybeMarriedContext,
   if (index) {
     externalDivorceFrameandContext(theFP, maybeMarriedContext);
 
-    /* begin storePointer:ofObject:withValue: */
-    assert(validStorePointerArgs(index, maybeMarriedContext, anOop));
-    assert(isNonImmediate(maybeMarriedContext));
-    if (oopisGreaterThanOrEqualTo(maybeMarriedContext, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(anOop & (tagMask())))) && (oopisLessThan(anOop, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt(
-                  (void *)(maybeMarriedContext + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(maybeMarriedContext);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((maybeMarriedContext + BaseHeaderSize) +
-                       ((((usqInt)(index) << (shiftForWord()))))),
-              anOop);
+    storePointerofObjectwithValue(index, maybeMarriedContext, anOop);
   } else {
     storeSenderOfFramewithValue(theFP, anOop);
   }

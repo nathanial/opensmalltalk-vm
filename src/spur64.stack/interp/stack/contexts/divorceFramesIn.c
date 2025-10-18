@@ -54,25 +54,7 @@ static void divorceFramesIn(StackPage *aStackPage) {
     assert((frameReceiver(theFP)) ==
            (followFieldofObject(ReceiverIndex, theContext)));
     if (calleeContext) {
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(SenderIndex, calleeContext, theContext));
-      assert(isNonImmediate(calleeContext));
-      if (oopisGreaterThanOrEqualTo(calleeContext, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(theContext & (tagMask())))) &&
-            (oopisLessThan(theContext, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(calleeContext + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(calleeContext);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((calleeContext + BaseHeaderSize) +
-                         ((((usqInt)(SenderIndex) << (shiftForWord()))))),
-                theContext);
+      storePointerofObjectwithValue(SenderIndex, calleeContext, theContext);
     }
     calleeContext = theContext;
     calleeFP = theFP;
@@ -93,25 +75,7 @@ static void divorceFramesIn(StackPage *aStackPage) {
   assert(isBaseFrame(calleeFP));
   valuePointer = longAt(calleeFP + FoxCallerContext);
 
-  /* begin storePointer:ofObject:withValue: */
-  assert(validStorePointerArgs(SenderIndex, theContext, valuePointer));
-  assert(isNonImmediate(theContext));
-  if (oopisGreaterThanOrEqualTo(theContext, oldSpaceStart)) {
-    if (/* isYoung: */
-        ((!(valuePointer & (tagMask())))) &&
-        (oopisLessThan(valuePointer, oldSpaceStart))) {
-      /* begin possibleRootStoreInto: */
-      if (!((byteAt((void *)(theContext + (formatFieldByteOffset())))) &
-            (1U << (rememberedBitByteShift())))) {
-        remember(theContext);
-      }
-    }
-  }
-
-  /* most stores into young objects */
-  longAtput((void *)((theContext + BaseHeaderSize) +
-                     ((((usqInt)(SenderIndex) << (shiftForWord()))))),
-            valuePointer);
+  storePointerofObjectwithValue(SenderIndex, theContext, valuePointer);
 
   /* The page is now free; mark it so. */
   (aStackPage->baseFP = 0);

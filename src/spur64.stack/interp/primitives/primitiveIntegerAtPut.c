@@ -165,25 +165,7 @@ static void primitiveIntegerAtPut(void) {
     numSlots = numSlotsOf(rcvr);
     if (fmt == (arrayFormat())) {
       if ((((usqInt)index)) < numSlots) {
-        /* begin storePointer:ofObject:withValue: */
-        assert(validStorePointerArgs(index, rcvr, valueOop));
-        assert(isNonImmediate(rcvr));
-        if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
-          if (/* isYoung: */
-              ((!(valueOop & (tagMask())))) &&
-              (oopisLessThan(valueOop, oldSpaceStart))) {
-            /* begin possibleRootStoreInto: */
-            if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) &
-                  (1U << (rememberedBitByteShift())))) {
-              remember(rcvr);
-            }
-          }
-        }
-
-        /* most stores into young objects */
-        longAtput((void *)((rcvr + BaseHeaderSize) +
-                           ((((usqInt)(index) << (shiftForWord()))))),
-                  valueOop);
+        storePointerofObjectwithValue(index, rcvr, valueOop);
 
         /* begin methodReturnValue: */
         assert(!((failed())));
@@ -203,25 +185,7 @@ static void primitiveIntegerAtPut(void) {
     if ((((index + 1) >= numFixed) && ((index + 1) <= numSlots))) {
       fieldIndex = index + numFixed;
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(fieldIndex, rcvr, valueOop));
-      assert(isNonImmediate(rcvr));
-      if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(valueOop & (tagMask())))) &&
-            (oopisLessThan(valueOop, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(rcvr);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((rcvr + BaseHeaderSize) +
-                         ((((usqInt)(fieldIndex) << (shiftForWord()))))),
-                valueOop);
+      storePointerofObjectwithValue(fieldIndex, rcvr, valueOop);
 
       /* begin methodReturnValue: */
       assert(!((failed())));

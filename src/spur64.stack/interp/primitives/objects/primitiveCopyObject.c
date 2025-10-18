@@ -93,25 +93,7 @@ static void primitiveCopyObject(void) {
     for (i = 0; i < length; i += 1) {
       valuePointer = fetchPointerofObject(i, arg);
 
-      /* begin storePointer:ofObject:withValue: */
-      assert(validStorePointerArgs(i, rcvr, valuePointer));
-      assert(isNonImmediate(rcvr));
-      if (oopisGreaterThanOrEqualTo(rcvr, oldSpaceStart)) {
-        if (/* isYoung: */
-            ((!(valuePointer & (tagMask())))) &&
-            (oopisLessThan(valuePointer, oldSpaceStart))) {
-          /* begin possibleRootStoreInto: */
-          if (!((byteAt((void *)(rcvr + (formatFieldByteOffset())))) &
-                (1U << (rememberedBitByteShift())))) {
-            remember(rcvr);
-          }
-        }
-      }
-
-      /* most stores into young objects */
-      longAtput((void *)((rcvr + BaseHeaderSize) +
-                         ((((usqInt)(i) << (shiftForWord()))))),
-                valuePointer);
+      storePointerofObjectwithValue(i, rcvr, valuePointer);
     }
   }
 

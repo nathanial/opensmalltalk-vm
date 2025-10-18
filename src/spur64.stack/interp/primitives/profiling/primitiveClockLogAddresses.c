@@ -62,22 +62,7 @@ primitiveClockLogAddresses(void) {
   longAtput((void *)((result + BaseHeaderSize) + (0U << (shiftForWord()))),
             (((usqInt)runInNOut << 3) | 1));
 
-  /* begin storePointer:ofObject:withValue: */
-  assert(validStorePointerArgs(1, result, v1));
-  assert(isNonImmediate(result));
-  if (oopisGreaterThanOrEqualTo(result, oldSpaceStart)) {
-    if (/* isYoung: */
-        ((!(v1 & (tagMask())))) && (oopisLessThan(v1, oldSpaceStart))) {
-      /* begin possibleRootStoreInto: */
-      if (!((byteAt((void *)(result + (formatFieldByteOffset())))) &
-            (1U << (rememberedBitByteShift())))) {
-        remember(result);
-      }
-    }
-  }
-
-  /* most stores into young objects */
-  longAtput((void *)((result + BaseHeaderSize) + (1U << (shiftForWord()))), v1);
+  storePointerofObjectwithValue(1, result, v1);
 
   /* begin storePointerUnchecked:ofObject:withValue: */
   assert((isNonImmediate(result)) && (!(isForwarded(result))));
@@ -85,22 +70,7 @@ primitiveClockLogAddresses(void) {
   longAtput((void *)((result + BaseHeaderSize) + (2U << (shiftForWord()))),
             (((usqInt)uidx << 3) | 1));
 
-  /* begin storePointer:ofObject:withValue: */
-  assert(validStorePointerArgs(3, result, v2));
-  assert(isNonImmediate(result));
-  if (oopisGreaterThanOrEqualTo(result, oldSpaceStart)) {
-    if (/* isYoung: */
-        ((!(v2 & (tagMask())))) && (oopisLessThan(v2, oldSpaceStart))) {
-      /* begin possibleRootStoreInto: */
-      if (!((byteAt((void *)(result + (formatFieldByteOffset())))) &
-            (1U << (rememberedBitByteShift())))) {
-        remember(result);
-      }
-    }
-  }
-
-  /* most stores into young objects */
-  longAtput((void *)((result + BaseHeaderSize) + (3U << (shiftForWord()))), v2);
+  storePointerofObjectwithValue(3, result, v2);
 
   /* begin storePointerUnchecked:ofObject:withValue: */
   assert((isNonImmediate(result)) && (!(isForwarded(result))));

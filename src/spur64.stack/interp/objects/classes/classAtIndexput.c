@@ -21,22 +21,5 @@ static sqInt classAtIndexput(sqInt classIndex, sqInt objOop) {
   }
   fieldIndex = classIndex & ((1U << (classTableMajorIndexShift())) - 1);
 
-  /* begin storePointer:ofObject:withValue: */
-  assert(validStorePointerArgs(fieldIndex, classTablePage, objOop));
-  assert(isNonImmediate(classTablePage));
-  if (oopisGreaterThanOrEqualTo(classTablePage, oldSpaceStart)) {
-    if (/* isYoung: */
-        ((!(objOop & (tagMask())))) && (oopisLessThan(objOop, oldSpaceStart))) {
-      /* begin possibleRootStoreInto: */
-      if (!((byteAt((void *)(classTablePage + (formatFieldByteOffset())))) &
-            (1U << (rememberedBitByteShift())))) {
-        remember(classTablePage);
-      }
-    }
-  }
-
-  /* most stores into young objects */
-  return longAtput((void *)((classTablePage + BaseHeaderSize) +
-                            ((((usqInt)(fieldIndex) << (shiftForWord()))))),
-                   objOop);
+  return storePointerofObjectwithValue(fieldIndex, classTablePage, objOop);
 }

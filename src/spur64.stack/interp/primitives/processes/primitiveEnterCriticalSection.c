@@ -41,26 +41,7 @@ static void primitiveEnterCriticalSection(void) {
   owningProcessIndex = ExcessSignalsIndex;
   owningProcess = fetchPointerofObject(owningProcessIndex, criticalSection);
   if (owningProcess == nilObj) {
-    /* begin storePointer:ofObject:withValue: */
-    assert(
-        validStorePointerArgs(owningProcessIndex, criticalSection, activeProc));
-    assert(isNonImmediate(criticalSection));
-    if (oopisGreaterThanOrEqualTo(criticalSection, oldSpaceStart)) {
-      if (/* isYoung: */
-          ((!(activeProc & (tagMask())))) &&
-          (oopisLessThan(activeProc, oldSpaceStart))) {
-        /* begin possibleRootStoreInto: */
-        if (!((byteAt((void *)(criticalSection + (formatFieldByteOffset())))) &
-              (1U << (rememberedBitByteShift())))) {
-          remember(criticalSection);
-        }
-      }
-    }
-
-    /* most stores into young objects */
-    longAtput((void *)((criticalSection + BaseHeaderSize) +
-                       ((((usqInt)(owningProcessIndex) << (shiftForWord()))))),
-              activeProc);
+    storePointerofObjectwithValue(owningProcessIndex, criticalSection, activeProc);
 
     /* begin methodReturnValue: */
     assert(!((failed())));
