@@ -10,10 +10,8 @@
 char *cStringOrNullFor(sqInt oop) {
   sqInt ccIndex;
   char *cString;
-  sqInt fmt;
   sqInt isString;
   sqInt len;
-  usqInt numSlots;
   /* begin isInstanceOfClassByteString: */
   /* begin is:instanceOf:compactClassIndex: */
   if (((oop & (tagMask())) != 0)) {
@@ -35,10 +33,7 @@ l2:
     return 0;
   }
 
-  /* begin lengthOf: */
   len = lengthOf(oop);
-  /* end lengthOf: */
-l1:
   if (!len) {
     return 0;
   }

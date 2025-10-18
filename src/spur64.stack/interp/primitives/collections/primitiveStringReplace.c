@@ -179,14 +179,10 @@ static void primitiveStringReplace(void) {
   /* Array formats must be the same; but for copying, weak arrays are equivalent
      to arrays. Non-pointer array formats must match */
 
-  /* begin lengthOf:format: */
   arrayLength = lengthOfformat(array, arrayFmt);
-  /* end lengthOf:format: */
 l3:
 
-  /* begin lengthOf:format: */
   replLength = lengthOfformat(repl, replFmt);
-  /* end lengthOf:format: */
 l4:
 
   /* begin classFormatFromInstFormat: */

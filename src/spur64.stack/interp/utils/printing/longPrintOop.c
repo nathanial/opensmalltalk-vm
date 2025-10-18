@@ -66,9 +66,7 @@ void longPrintOop(sqInt oop) {
         (fmt >= (arrayFormat())) &&
         ((fmt <= (weakArrayFormat())) ||
          (fmt >= (sixtyFourBitIndexableFormat())))) {
-      /* begin lengthOf: */
       length = lengthOf(oop);
-      /* end lengthOf: */
     l1:
       fprintf(transcript, " size %" PRIdSQINT "",
               length - (fixedFieldsOfformatlength(oop, fmt, length)));
@@ -288,9 +286,7 @@ l3:
       (firstCompiledMethodFormat())) {
     lastPointer = (((literalCountOf(oop)) + LiteralStart) * BytesPerOop) + 1;
 
-    /* begin lengthOf: */
     lastIndex = lengthOf(oop);
-    /* end lengthOf: */
   l4:
     if ((lastIndex - lastPointer) > 0x100) {
       lastIndex = lastPointer + 0x100;

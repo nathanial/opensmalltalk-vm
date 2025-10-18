@@ -12,9 +12,7 @@ static void printNonPointerDataOfon(sqInt oop, FILE *aStream) {
   assert(((format >= (sixtyFourBitIndexableFormat())) &&
           (format <= ((firstCompiledMethodFormat()) - 1))));
 
-  /* begin lengthOf:format: */
   lastIndex = lengthOfformat(oop, format);
-  /* end lengthOf:format: */
 l1:
   if (!lastIndex) {
     return;

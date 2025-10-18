@@ -18,9 +18,7 @@ sqInt stSizeOf(sqInt oop) {
   hdr = long64At((void *)(oop));
   fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
 
-  /* begin lengthOf:baseHeader:format: */
   totalLength = lengthOfformat(oop, fmt);
-  /* end lengthOf:baseHeader:format: */
 l1:
   if (/* isPureBitsFormat: */
       (fmt >= (sixtyFourBitIndexableFormat())) &&

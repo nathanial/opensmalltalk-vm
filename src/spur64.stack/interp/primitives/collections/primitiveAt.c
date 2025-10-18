@@ -44,9 +44,7 @@ static void primitiveAt(void) {
   hdr = long64At((void *)(rcvr));
   fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
 
-  /* begin lengthOf:baseHeader:format: */
   totalLength = lengthOfformat(rcvr, fmt);
-  /* end lengthOf:baseHeader:format: */
 l2:
 
   /* begin fixedFieldsOf:format:length: */

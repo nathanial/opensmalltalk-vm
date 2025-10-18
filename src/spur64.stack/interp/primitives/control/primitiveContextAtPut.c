@@ -50,9 +50,7 @@ static void primitiveContextAtPut(void) {
     hdrSqLong = long64At((void *)(aContext));
     fmtUsqLong = (((usqLong)(hdrSqLong)) >> (formatShift())) & (formatMask());
 
-    /* begin lengthOf:baseHeader:format: */
     totalLengthSqInt = lengthOfformat(aContext, fmtUsqLong);
-    /* end lengthOf:baseHeader:format: */
   l6:
 
     /* begin fixedFieldsOf:format:length: */
@@ -215,9 +213,7 @@ static void primitiveContextAtPut(void) {
         (!(isWidowedContext(aContext))))) {
     fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
 
-    /* begin lengthOf:baseHeader:format: */
     totalLength = lengthOfformat(aContext, fmt);
-    /* end lengthOf:baseHeader:format: */
   l3:
 
     /* begin fixedFieldsOf:format:length: */

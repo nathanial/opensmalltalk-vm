@@ -104,9 +104,7 @@ void printOop(sqInt oop) {
       (firstCompiledMethodFormat())) {
     startIP = (((literalCountOf(oop)) + LiteralStart) * BytesPerOop) + 1;
 
-    /* begin lengthOf: */
     lastIndex = lengthOf(oop);
-    /* end lengthOf: */
   l1:
     if ((lastIndex - startIP) > 0x100) {
       lastIndex = startIP + 0x100;

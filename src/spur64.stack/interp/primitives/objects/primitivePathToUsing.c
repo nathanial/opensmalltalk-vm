@@ -70,9 +70,7 @@ primitivePathToUsing(void) {
   freeStartAtStart = freeStart;
   beRootIfOld(stack);
 
-  /* begin lengthOf: */
   stackSize = lengthOf(stack);
-  /* end lengthOf: */
 l1:
 
   /* begin mark: */
@@ -93,9 +91,7 @@ l1:
             (byteAt((void *)(current + (markBitsByteOffset())))) |
                 (1U << (markedBitByteShift())));
 
-  /* begin lengthOf: */
   index = lengthOf(current);
-  /* end lengthOf: */
 l2:
   stackp = 0;
   while (1) {

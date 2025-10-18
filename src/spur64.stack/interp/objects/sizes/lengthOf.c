@@ -11,7 +11,6 @@ static sqInt lengthOf(sqInt objOop) {
   usqInt numSlots;
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
 
-  /* begin lengthOf:format: */
   numSlots = numSlotsOfAny(objOop);
   if (fmt <= (ephemeronFormat())) {
     return numSlots;

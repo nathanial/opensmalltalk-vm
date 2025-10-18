@@ -22,9 +22,7 @@ sqInt stObjectatput(sqInt array, sqInt index, sqInt value) {
   hdr = long64At((void *)(array));
   fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
 
-  /* begin lengthOf:baseHeader:format: */
   totalLength = lengthOfformat(array, fmt);
-  /* end lengthOf:baseHeader:format: */
 l1:
 
   /* begin fixedFieldsOf:format:length: */

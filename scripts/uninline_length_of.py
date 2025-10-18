@@ -105,7 +105,7 @@ def rewrite_block(
             return block, False
         call_line = f"{indent}{result_var} = lengthOfformat({obj}, {fmt_var});\n"
 
-    return [block[0], call_line, f"{indent}{block[-1].lstrip()}"], True
+    return [call_line], True
 
 
 def process_text(text: str) -> Tuple[str, bool]:
@@ -184,4 +184,3 @@ if __name__ == "__main__":
     import sys
 
     sys.exit(main(sys.argv[1:]))
-

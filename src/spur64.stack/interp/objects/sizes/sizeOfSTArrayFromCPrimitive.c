@@ -10,8 +10,6 @@
 /* StackInterpreter>>#sizeOfSTArrayFromCPrimitive: */
 
 sqInt sizeOfSTArrayFromCPrimitive(void *cPtr) {
-  sqInt fmt;
-  usqInt numSlots;
   sqInt oop;
 
   oop = (oopForPointer(cPtr)) - BaseHeaderSize;
@@ -24,27 +22,5 @@ sqInt sizeOfSTArrayFromCPrimitive(void *cPtr) {
     return 0;
   }
 
-  /* begin lengthOf: */
-  fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-  numSlots = numSlotsOfAny(oop);
-  if (fmt <= (ephemeronFormat())) {
-    return numSlots;
-  }
-  if (fmt >= (firstByteFormat())) {
-    return ((numSlots << (shiftForWord()))) - (fmt & 7);
-  }
-
-  /* bytes, including CompiledMethod */
-  if (fmt >= (firstShortFormat())) {
-    return ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-  }
-  if (fmt >= (firstLongFormat())) {
-    return ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-  }
-  if (fmt == (sixtyFourBitIndexableFormat())) {
-    return numSlots;
-  }
-
-  /* fmt = self forwardedFormat */
-  return 0;
+  return lengthOf(oop);
 }

@@ -32,9 +32,7 @@ static void primitiveSize(void) {
     return;
   }
 
-  /* begin lengthOf:baseHeader:format: */
   totalLength = lengthOfformat(rcvr, fmt);
-  /* end lengthOf:baseHeader:format: */
 l2:
 
   /* begin fixedFieldsOf:format:length: */

@@ -4558,9 +4558,7 @@ sqInt interpret(void) {
             /* Contexts must not be put in the atCache, since their size is not
              * constant */
 
-            /* begin lengthOf:baseHeader:format: */
             totalLength = lengthOfformat(rcvr, fmt);
-            /* end lengthOf:baseHeader:format: */
           l51:
 
             /* begin fixedFieldsOf:format:length: */
@@ -4604,9 +4602,7 @@ sqInt interpret(void) {
                 goto l50;
               }
 
-              /* begin lengthOf:baseHeader:format: */
               totalLength = lengthOfformat(rcvr, fmt);
-              /* end lengthOf:baseHeader:format: */
             l47:
               fixedFields = 0;
 
@@ -4795,9 +4791,7 @@ sqInt interpret(void) {
             /* Contexts must not be put in the atCache, since their size is not
              * constant */
 
-            /* begin lengthOf:baseHeader:format: */
             totalLength = lengthOfformat(rcvr, fmt);
-            /* end lengthOf:baseHeader:format: */
           l61:
 
             /* begin fixedFieldsOf:format:length: */
@@ -4841,9 +4835,7 @@ sqInt interpret(void) {
                 goto l60;
               }
 
-              /* begin lengthOf:baseHeader:format: */
               totalLength = lengthOfformat(rcvr, fmt);
-              /* end lengthOf:baseHeader:format: */
             l57:
               fixedFields = 0;
 
@@ -5038,9 +5030,7 @@ sqInt interpret(void) {
       /* end isInstanceOfClassByteString: */
     l67:
       if (isString) {
-        /* begin lengthOf: */
         sz = lengthOf(rcvr);
-        /* end lengthOf: */
       l68:
 
         /* internalStackTopPut: */
@@ -5064,9 +5054,7 @@ sqInt interpret(void) {
       /* end isInstanceOfClassArray: */
     l69:
       if (isArray) {
-        /* begin lengthOf: */
         sz = lengthOf(rcvr);
-        /* end lengthOf: */
       l70:
 
         /* internalStackTopPut: */
