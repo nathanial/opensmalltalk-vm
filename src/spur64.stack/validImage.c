@@ -9660,42 +9660,12 @@ static NoDbgRegParms void printNonPointerDataOfon(sqInt oop, FILE *aStream) {
   sqInt format;
   sqInt index;
   sqInt lastIndex;
-  usqInt numSlots;
 
   format = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
   assert(((format >= (sixtyFourBitIndexableFormat())) &&
           (format <= ((firstCompiledMethodFormat()) - 1))));
 
-  /* begin lengthOf:format: */
-  /* don't let forwarders freak us out... */
-  numSlots = numSlotsOfAny(oop);
-  if (format <= (ephemeronFormat())) {
-    lastIndex = numSlots;
-    goto l1;
-  }
-  if (format >= (firstByteFormat())) {
-    lastIndex = ((numSlots << (shiftForWord()))) - (format & 7);
-    goto l1;
-  }
-
-  /* bytes, including CompiledMethod */
-  if (format >= (firstShortFormat())) {
-    lastIndex = ((numSlots << ((shiftForWord()) - 1))) - (format & 3);
-    goto l1;
-  }
-  if (format >= (firstLongFormat())) {
-    lastIndex = ((numSlots << ((shiftForWord()) - 2))) - (format & 1);
-    goto l1;
-  }
-  if (format == (sixtyFourBitIndexableFormat())) {
-    lastIndex = numSlots;
-    goto l1;
-  }
-
-  /* fmt = self forwardedFormat */
-  lastIndex = 0;
-  /* end lengthOf:format: */
-l1:
+  lastIndex = lengthOfformat(oop, format);
   if (!lastIndex) {
     return;
   }
@@ -10955,36 +10925,11 @@ static NoDbgRegParms usqInt sizeBitsOf(sqInt objOop) {
 
 /* SpurMemoryManager>>#slotSizeOf: */
 static NoDbgRegParms sqInt slotSizeOf(sqInt oop) {
-  sqInt fmt;
-  usqInt numSlots;
-
   if (isImmediate(oop)) {
     return 0;
   }
 
-  /* begin lengthOf: */
-  fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-  numSlots = numSlotsOfAny(oop);
-  if (fmt <= (ephemeronFormat())) {
-    return numSlots;
-  }
-  if (fmt >= (firstByteFormat())) {
-    return ((numSlots << (shiftForWord()))) - (fmt & 7);
-  }
-
-  /* bytes, including CompiledMethod */
-  if (fmt >= (firstShortFormat())) {
-    return ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-  }
-  if (fmt >= (firstLongFormat())) {
-    return ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-  }
-  if (fmt == (sixtyFourBitIndexableFormat())) {
-    return numSlots;
-  }
-
-  /* fmt = self forwardedFormat */
-  return 0;
+  return lengthOf(oop);
 }
 
 /*	Return one of the objects in the specialObjectsArray */
@@ -12743,9 +12688,7 @@ sqInt isKindOfClass(sqInt oop, sqInt aClass) {
 /* StackInterpreter>>#lengthOfNameOfClass: */
 static NoDbgRegParms sqInt lengthOfNameOfClass(sqInt classOop) {
   DECL_MAYBE_SQ_GLOBAL_STRUCT
-  sqInt fmt;
   usqInt numSlots;
-  usqInt numSlotsUsqInt;
   sqInt objOop;
 
   numSlots = numSlotsOf(classOop);
@@ -12758,29 +12701,7 @@ static NoDbgRegParms sqInt lengthOfNameOfClass(sqInt classOop) {
   }
   objOop = fetchPointerofObject(GIV(classNameIndex), classOop);
 
-  /* begin lengthOf: */
-  fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
-  numSlotsUsqInt = numSlotsOfAny(objOop);
-  if (fmt <= (ephemeronFormat())) {
-    return numSlotsUsqInt;
-  }
-  if (fmt >= (firstByteFormat())) {
-    return ((numSlotsUsqInt << (shiftForWord()))) - (fmt & 7);
-  }
-
-  /* bytes, including CompiledMethod */
-  if (fmt >= (firstShortFormat())) {
-    return ((numSlotsUsqInt << ((shiftForWord()) - 1))) - (fmt & 3);
-  }
-  if (fmt >= (firstLongFormat())) {
-    return ((numSlotsUsqInt << ((shiftForWord()) - 2))) - (fmt & 1);
-  }
-  if (fmt == (sixtyFourBitIndexableFormat())) {
-    return numSlotsUsqInt;
-  }
-
-  /* fmt = self forwardedFormat */
-  return 0;
+  return lengthOf(objOop);
 }
 
 /* StackInterpreter>>#literal:ofMethod: */
@@ -12844,37 +12765,7 @@ void longPrintOop(sqInt oop) {
     fprintf(GIV(transcript), " nbytes %" PRIdSQINT "", numBytesOf(oop));
   } else {
     if (isIndexableFormat(fmt)) {
-      /* begin lengthOf: */
-      fmtSqInt =
-          (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-      numSlots = numSlotsOfAny(oop);
-      if (fmtSqInt <= (ephemeronFormat())) {
-        length = numSlots;
-        goto l1;
-      }
-      if (fmtSqInt >= (firstByteFormat())) {
-        length = ((numSlots << (shiftForWord()))) - (fmtSqInt & 7);
-        goto l1;
-      }
-
-      /* bytes, including CompiledMethod */
-      if (fmtSqInt >= (firstShortFormat())) {
-        length = ((numSlots << ((shiftForWord()) - 1))) - (fmtSqInt & 3);
-        goto l1;
-      }
-      if (fmtSqInt >= (firstLongFormat())) {
-        length = ((numSlots << ((shiftForWord()) - 2))) - (fmtSqInt & 1);
-        goto l1;
-      }
-      if (fmtSqInt == (sixtyFourBitIndexableFormat())) {
-        length = numSlots;
-        goto l1;
-      }
-
-      /* fmt = self forwardedFormat */
-      length = 0;
-      /* end lengthOf: */
-    l1:
+      length = lengthOf(oop);
       fprintf(GIV(transcript), " size %" PRIdSQINT "",
               length - (fixedFieldsOfformatlength(oop, fmt, length)));
     }
@@ -12975,37 +12866,7 @@ l4:
   if (isCompiledMethod(oop)) {
     lastPointer = (startPCOfMethod(oop)) + 1;
 
-    /* begin lengthOf: */
-    fmtSqInt =
-        (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-    numSlots = numSlotsOfAny(oop);
-    if (fmtSqInt <= (ephemeronFormat())) {
-      lastIndex = numSlots;
-      goto l2;
-    }
-    if (fmtSqInt >= (firstByteFormat())) {
-      lastIndex = ((numSlots << (shiftForWord()))) - (fmtSqInt & 7);
-      goto l2;
-    }
-
-    /* bytes, including CompiledMethod */
-    if (fmtSqInt >= (firstShortFormat())) {
-      lastIndex = ((numSlots << ((shiftForWord()) - 1))) - (fmtSqInt & 3);
-      goto l2;
-    }
-    if (fmtSqInt >= (firstLongFormat())) {
-      lastIndex = ((numSlots << ((shiftForWord()) - 2))) - (fmtSqInt & 1);
-      goto l2;
-    }
-    if (fmtSqInt == (sixtyFourBitIndexableFormat())) {
-      lastIndex = numSlots;
-      goto l2;
-    }
-
-    /* fmt = self forwardedFormat */
-    lastIndex = 0;
-    /* end lengthOf: */
-  l2:
+    lastIndex = lengthOf(oop);
     if ((lastIndex - lastPointer) > 0x100) {
       lastIndex = lastPointer + 0x100;
     }
@@ -13759,37 +13620,7 @@ void printOop(sqInt oop) {
   if (isCompiledMethod(oop)) {
     startIP = (startPCOfMethod(oop)) + 1;
 
-    /* begin lengthOf: */
-    fmtSqInt =
-        (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-    numSlots = numSlotsOfAny(oop);
-    if (fmtSqInt <= (ephemeronFormat())) {
-      lastIndex = numSlots;
-      goto l1;
-    }
-    if (fmtSqInt >= (firstByteFormat())) {
-      lastIndex = ((numSlots << (shiftForWord()))) - (fmtSqInt & 7);
-      goto l1;
-    }
-
-    /* bytes, including CompiledMethod */
-    if (fmtSqInt >= (firstShortFormat())) {
-      lastIndex = ((numSlots << ((shiftForWord()) - 1))) - (fmtSqInt & 3);
-      goto l1;
-    }
-    if (fmtSqInt >= (firstLongFormat())) {
-      lastIndex = ((numSlots << ((shiftForWord()) - 2))) - (fmtSqInt & 1);
-      goto l1;
-    }
-    if (fmtSqInt == (sixtyFourBitIndexableFormat())) {
-      lastIndex = numSlots;
-      goto l1;
-    }
-
-    /* fmt = self forwardedFormat */
-    lastIndex = 0;
-    /* end lengthOf: */
-  l1:
+    lastIndex = lengthOf(oop);
     if ((lastIndex - startIP) > 0x100) {
       lastIndex = startIP + 0x100;
     }
