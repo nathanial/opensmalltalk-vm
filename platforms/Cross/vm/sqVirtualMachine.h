@@ -389,7 +389,7 @@ typedef struct VirtualMachine {
 
 /* InterpreterProxy methodsFor: 'stack access' */
 sqInt  pop(sqInt nItems);
-sqInt  popthenPush(sqInt nItems, sqInt oop);
+inline sqInt  popthenPush(sqInt nItems, sqInt oop);
 sqInt  push(sqInt object);
 sqInt  pushBool(sqInt trueOrFalse);
 sqInt  pushFloat(double f);
