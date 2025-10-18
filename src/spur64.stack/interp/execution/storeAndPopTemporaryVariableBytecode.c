@@ -2,7 +2,7 @@
 
 /* StackInterpreter>>#storeAndPopTemporaryVariableBytecode:index: */
 
-static sqInt storeAndPopTemporaryVariableBytecodeCommon(
+static inline sqInt storeAndPopTemporaryVariableBytecodeCommon(
     char **localIPP, sqInt bytecodeSetSelector, char *localFP, sqInt tempIndex,
     char **localSPP) {
   sqInt currentBytecode;

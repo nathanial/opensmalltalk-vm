@@ -2,6 +2,6 @@
 
 /* StackInterpreter>>#internalPush: */
 
-static void internalPush(char **localSPP, sqInt value) {
+static inline void internalPush(char **localSPP, sqInt value) {
   longAtput(((*localSPP) -= BytesPerOop), value);
 }

@@ -2,11 +2,11 @@
 
 /* StackInterpreter>>#pushLiteralVariableBytecode:literalIndex: */
 
-static sqInt pushLiteralVariableBytecodeCommon(char **localIPP,
-                                               sqInt bytecodeSetSelector,
-                                               sqInt methodOop,
-                                               sqInt literalIndex,
-                                               char **localSPP) {
+static inline sqInt pushLiteralVariableBytecodeCommon(char **localIPP,
+                                                      sqInt bytecodeSetSelector,
+                                                      sqInt methodOop,
+                                                      sqInt literalIndex,
+                                                      char **localSPP) {
   sqInt currentBytecode;
   sqInt litVar;
   sqInt literalOffset;

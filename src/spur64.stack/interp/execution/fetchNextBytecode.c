@@ -2,6 +2,6 @@
 
 /* StackInterpreter>>#fetchNextBytecode */
 
-static sqInt fetchNextBytecode(char **localIPP, sqInt bytecodeSetSelector) {
+static inline sqInt fetchNextBytecode(char **localIPP, sqInt bytecodeSetSelector) {
   return (byteAt(++(*localIPP))) + bytecodeSetSelector;
 }
