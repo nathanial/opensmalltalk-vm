@@ -249,9 +249,7 @@ void longPrintOop(sqInt oop) {
     goto l3;
   }
 
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(oop));
-  header = fetchPointerofObject(HeaderIndex, oop);
+  header = methodHeaderOf(oop);
 
   /* begin literalCountOfMethodHeader: */
   assert((((header) & 7) == 1));

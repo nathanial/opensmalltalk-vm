@@ -39,9 +39,7 @@ static void primitiveExecuteMethodArgsArray(void) {
   }
 
   /* begin argumentCountOf: */
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(methodArgument));
-  header = fetchPointerofObject(HeaderIndex, methodArgument);
+  header = methodHeaderOf(methodArgument);
   argCnt = (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;
   if (!(argCnt == ((assert((classIndexOf(argumentArray)) >
                            (isForwardedObjectClassIndexPun())),
@@ -73,9 +71,7 @@ static void primitiveExecuteMethodArgsArray(void) {
   newMethod = methodArgument;
 
   /* begin primitiveIndexOf: */
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(newMethod));
-  methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
+  methodHeader = methodHeaderOf(newMethod);
   if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
     firstBytecode =
         (newMethod + ((LiteralStart + (((methodHeader >> 3)) &
@@ -110,9 +106,7 @@ static void primitiveExecuteMethodArgsArray(void) {
 
   /* begin activateNewMethod */
   /* begin justActivateNewMethod: */
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(newMethod));
-  methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
+  methodHeader = methodHeaderOf(newMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 

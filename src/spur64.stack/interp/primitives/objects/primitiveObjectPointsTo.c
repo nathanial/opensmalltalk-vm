@@ -82,9 +82,7 @@ static void primitiveObjectPointsTo(void) {
     /* no pointers
        CompiledMethod: contains both pointers and bytes: */
 
-    /* begin methodHeaderOf: */
-    assert(isCompiledMethod(rcvr));
-    methodHeader = fetchPointerofObject(HeaderIndex, rcvr);
+    methodHeader = methodHeaderOf(rcvr);
     if (methodHeader == thang) {
       /* begin pop:thenPushBool: */
       popthenPushBool(2, trueObj);

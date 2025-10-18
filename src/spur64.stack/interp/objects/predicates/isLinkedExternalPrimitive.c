@@ -12,9 +12,7 @@ static sqInt isLinkedExternalPrimitive(sqInt methodObj) {
 
   literal = 0;
 
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(methodObj));
-  header = fetchPointerofObject(HeaderIndex, methodObj);
+  header = methodHeaderOf(methodObj);
 
   /* primitiveIndexOfMethod:header: */
   if (((header & AlternateHeaderHasPrimFlag) != 0)) {

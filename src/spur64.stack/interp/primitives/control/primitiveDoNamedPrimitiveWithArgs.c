@@ -55,9 +55,7 @@ static void primitiveDoNamedPrimitiveWithArgs(void) {
     return;
   }
 
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(methodArg));
-  methodHeader = fetchPointerofObject(HeaderIndex, methodArg);
+  methodHeader = methodHeaderOf(methodArg);
   if (!(((/* begin literalCountOfMethodHeader: */
           assert((((methodHeader) & 7) == 1)),
           /* literalCountOfAlternateHeader: */

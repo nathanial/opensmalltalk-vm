@@ -23,9 +23,7 @@ static sqInt contexthasValidInversePCMappingOfin(sqInt aContext, sqInt theIP,
        1);
   return (pc == encodedip) ||
          (((methodObj = fetchPointerofObject(MethodIndex, aContext)),
-           /* begin methodHeaderOf: */
-           assert(isCompiledMethod(methodObj)),
-           (methodHeader = fetchPointerofObject(HeaderIndex, methodObj)),
+           (methodHeader = methodHeaderOf(methodObj)),
            (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) &&
                ((((encodedip >> 3)) - ((pc >> 3))) ==
                 3 /* sizeOfCallPrimitiveBytecode: */)));

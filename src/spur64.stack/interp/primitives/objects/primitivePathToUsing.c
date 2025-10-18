@@ -290,9 +290,7 @@ l2:
             goto l4;
           }
 
-          /* begin methodHeaderOf: */
-          assert(isCompiledMethod(next));
-          header = fetchPointerofObject(HeaderIndex, next);
+          header = methodHeaderOf(next);
 
           /* begin literalCountOfMethodHeader: */
           assert((((header) & 7) == 1));

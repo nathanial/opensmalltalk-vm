@@ -5,9 +5,7 @@
 usqInt literalCountOf(sqInt methodPointer) {
   sqInt header;
 
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(methodPointer));
-  header = fetchPointerofObject(HeaderIndex, methodPointer);
+  header = methodHeaderOf(methodPointer);
 
   /* begin literalCountOfMethodHeader: */
   assert((((header) & 7) == 1));

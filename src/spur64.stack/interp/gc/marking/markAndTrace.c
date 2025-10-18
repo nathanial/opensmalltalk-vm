@@ -161,9 +161,7 @@ NeverInline void markAndTrace(sqInt objOop) {
         goto l4;
       }
 
-      /* begin methodHeaderOf: */
-      assert(isCompiledMethod(objToScan));
-      header = fetchPointerofObject(HeaderIndex, objToScan);
+      header = methodHeaderOf(objToScan);
 
       /* begin literalCountOfMethodHeader: */
       assert((((header) & 7) == 1));

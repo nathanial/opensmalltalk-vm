@@ -10,9 +10,7 @@ static sqInt methodUsesPrimitiveErrorCode(sqInt aMethodObj) {
   usqInt firstBytecode;
   sqInt methodHeader;
 
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(aMethodObj));
-  methodHeader = fetchPointerofObject(HeaderIndex, aMethodObj);
+  methodHeader = methodHeaderOf(aMethodObj);
   return ((/* primitiveIndexOfMethod:header: */
            (((methodHeader & AlternateHeaderHasPrimFlag) != 0)
                 ? ((firstBytecode =

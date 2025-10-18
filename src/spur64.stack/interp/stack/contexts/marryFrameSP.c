@@ -24,9 +24,7 @@ static usqInt marryFrameSP(char *theFP, char *theSP) {
    * pc */
   assert(addressCouldBeOop(longAt(theSP)));
 
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(longAt(theFP + FoxMethod)));
-  methodHeader = fetchPointerofObject(HeaderIndex, longAt(theFP + FoxMethod));
+  methodHeader = methodHeaderOf(longAt(theFP + FoxMethod));
 
   /* Decide how much of the stack to preserve in widowed contexts.  Preserving
      too much state will potentially hold onto garbage.  Holding onto too little

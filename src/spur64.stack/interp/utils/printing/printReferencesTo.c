@@ -86,9 +86,7 @@ void printReferencesTo(sqInt anOop) {
         goto l3;
       }
 
-      /* begin methodHeaderOf: */
-      assert(isCompiledMethod(objSqInt));
-      header = fetchPointerofObject(HeaderIndex, objSqInt);
+      header = methodHeaderOf(objSqInt);
 
       /* begin literalCountOfMethodHeader: */
       assert((((header) & 7) == 1));

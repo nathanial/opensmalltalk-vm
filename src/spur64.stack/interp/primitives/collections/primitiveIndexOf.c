@@ -6,9 +6,7 @@ sqInt primitiveIndexOf(sqInt methodPointer) {
   usqInt firstBytecode;
   sqInt methodHeader;
 
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(methodPointer));
-  methodHeader = fetchPointerofObject(HeaderIndex, methodPointer);
+  methodHeader = methodHeaderOf(methodPointer);
 
   /* begin primitiveIndexOfMethod:header: */
   return (((methodHeader & AlternateHeaderHasPrimFlag) != 0)

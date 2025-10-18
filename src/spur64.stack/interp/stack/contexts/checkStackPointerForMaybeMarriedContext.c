@@ -22,9 +22,7 @@ static sqInt checkStackPointerForMaybeMarriedContext(sqInt aContext) {
     methodPointer = fetchPointerofObject(MethodIndex, aContext);
 
     /* begin argumentCountOf: */
-    /* begin methodHeaderOf: */
-    assert(isCompiledMethod(methodPointer));
-    header = fetchPointerofObject(HeaderIndex, methodPointer);
+    header = methodHeaderOf(methodPointer);
 
     /* begin argumentCountOfMethodHeader: */
     return (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;

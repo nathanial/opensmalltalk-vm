@@ -13,9 +13,7 @@ sqInt methodPrimitiveIndex(void) {
   }
 
   /* begin primitiveIndexOf: */
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(newMethod));
-  methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
+  methodHeader = methodHeaderOf(newMethod);
 
   /* begin primitiveIndexOfMethod:header: */
   return (((methodHeader & AlternateHeaderHasPrimFlag) != 0)

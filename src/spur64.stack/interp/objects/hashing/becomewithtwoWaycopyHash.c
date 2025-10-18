@@ -87,9 +87,7 @@ static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
     goto l2;
   }
 
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(array1));
-  header = fetchPointerofObject(HeaderIndex, array1);
+  header = methodHeaderOf(array1);
   fieldOffset = (((((/* begin literalCountOfMethodHeader: */
                      assert((((header) & 7) == 1)),
                      /* literalCountOfAlternateHeader: */

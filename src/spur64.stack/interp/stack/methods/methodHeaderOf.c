@@ -4,7 +4,7 @@
 
 /* SpurMemoryManager>>#methodHeaderOf: */
 
-static sqInt methodHeaderOf(sqInt methodObj) {
+static inline sqInt methodHeaderOf(sqInt methodObj) {
   assert(isCompiledMethod(methodObj));
   return fetchPointerofObject(HeaderIndex, methodObj);
 }

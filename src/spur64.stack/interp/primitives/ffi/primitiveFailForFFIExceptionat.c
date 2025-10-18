@@ -43,9 +43,7 @@ sqInt primitiveFailForFFIExceptionat(usqLong exceptionCode, usqInt pc) {
     assert((primitiveIndexOf(newMethod)) != 0);
 
     /* begin justActivateNewMethod: */
-    /* begin methodHeaderOf: */
-    assert(isCompiledMethod(newMethod));
-    methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
+    methodHeader = methodHeaderOf(newMethod);
     numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
     numArgs = (((usqInt)(methodHeader)) >> MethodHeaderArgCountShift) & 15;
 

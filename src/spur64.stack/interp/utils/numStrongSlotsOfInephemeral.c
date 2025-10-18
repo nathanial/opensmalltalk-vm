@@ -64,9 +64,7 @@ static sqInt numStrongSlotsOfInephemeral(sqInt objOop) {
     return 0;
   }
 
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(objOop));
-  header = fetchPointerofObject(HeaderIndex, objOop);
+  header = methodHeaderOf(objOop);
 
   /* begin literalCountOfMethodHeader: */
   assert((((header) & 7) == 1));

@@ -139,9 +139,7 @@ static NeverInline void updatePointers(void) {
       goto l2;
     }
 
-    /* begin methodHeaderOf: */
-    assert(isCompiledMethod(objOopSqInt));
-    header = fetchPointerofObject(HeaderIndex, objOopSqInt);
+    header = methodHeaderOf(objOopSqInt);
 
     /* begin literalCountOfMethodHeader: */
     assert((((header) & 7) == 1));
@@ -255,9 +253,7 @@ static NeverInline void updatePointers(void) {
         goto l6;
       }
 
-      /* begin methodHeaderOf: */
-      assert(isCompiledMethod(objOopSqInt));
-      header = fetchPointerofObject(HeaderIndex, objOopSqInt);
+      header = methodHeaderOf(objOopSqInt);
 
       /* begin literalCountOfMethodHeader: */
       assert((((header) & 7) == 1));
@@ -382,9 +378,7 @@ l7:
           goto l10;
         }
 
-        /* begin methodHeaderOf: */
-        assert(isCompiledMethod(objOop));
-        header = fetchPointerofObject(HeaderIndex, objOop);
+        header = methodHeaderOf(objOop);
 
         /* begin literalCountOfMethodHeader: */
         assert((((header) & 7) == 1));
@@ -552,9 +546,7 @@ l11:
             goto l14;
           }
 
-          /* begin methodHeaderOf: */
-          assert(isCompiledMethod(objOopSqInt));
-          header = fetchPointerofObject(HeaderIndex, objOopSqInt);
+          header = methodHeaderOf(objOopSqInt);
 
           /* begin literalCountOfMethodHeader: */
           assert((((header) & 7) == 1));

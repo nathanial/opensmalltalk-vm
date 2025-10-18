@@ -13,9 +13,7 @@ static sqInt flushExternalPrimitiveOf(sqInt methodObj) {
   usqInt numSlots;
   sqInt primIdx;
 
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(methodObj));
-  header = fetchPointerofObject(HeaderIndex, methodObj);
+  header = methodHeaderOf(methodObj);
 
   /* primitiveIndexOfMethod:header: */
   if (((header & AlternateHeaderHasPrimFlag) != 0)) {

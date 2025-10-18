@@ -13,9 +13,7 @@ usqInt pcPreviousToinSqueakV3PlusClosuresOrSistaV1Method(sqInt theIP,
   usqInt thisIP;
 
   /* begin methodUsesAlternateBytecodeSet: */
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(aMethod));
-  methodHeader = fetchPointerofObject(HeaderIndex, aMethod);
+  methodHeader = methodHeaderOf(aMethod);
   if ((((sqLong)methodHeader)) < 0) {
     /* begin pcPreviousTo:inSistaV1Method: */
     thisIP =

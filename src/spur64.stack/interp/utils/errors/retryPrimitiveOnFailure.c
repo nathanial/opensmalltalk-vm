@@ -31,9 +31,7 @@ static sqInt retryPrimitiveOnFailure(void) {
   sqInt scannedStackFrame;
 
   /* begin primitiveIndexOf: */
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(newMethod));
-  methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
+  methodHeader = methodHeaderOf(newMethod);
   if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
     firstBytecode =
         (newMethod + ((LiteralStart + (((methodHeader >> 3)) &
@@ -73,9 +71,7 @@ static sqInt retryPrimitiveOnFailure(void) {
         retry = 0;
 
         /* begin primitiveIndexOf: */
-        /* begin methodHeaderOf: */
-        assert(isCompiledMethod(newMethod));
-        methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
+        methodHeader = methodHeaderOf(newMethod);
         if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
           firstBytecode =
               (newMethod + ((LiteralStart + (((methodHeader >> 3)) &

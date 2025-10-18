@@ -62,9 +62,7 @@ sqInt interpret(void) {
   assert(isOopCompiledMethod(method));
 
   /* begin methodUsesAlternateBytecodeSet: */
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(method));
-  methodHeader = fetchPointerofObject(HeaderIndex, method);
+  methodHeader = methodHeaderOf(method);
   if ((((sqLong)methodHeader)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {
@@ -1606,9 +1604,7 @@ sqInt interpret(void) {
         assert(isOopCompiledMethod(method));
 
         /* begin methodUsesAlternateBytecodeSet: */
-        /* begin methodHeaderOf: */
-        assert(isCompiledMethod(method));
-        methodHeader = fetchPointerofObject(HeaderIndex, method);
+        methodHeader = methodHeaderOf(method);
         if ((((sqLong)methodHeader)) < 0) {
           bytecodeSetSelector = 0x100;
         } else {
@@ -1781,9 +1777,7 @@ sqInt interpret(void) {
           assert(isOopCompiledMethod(method));
 
           /* begin methodUsesAlternateBytecodeSet: */
-          /* begin methodHeaderOf: */
-          assert(isCompiledMethod(method));
-          methodHeader = fetchPointerofObject(HeaderIndex, method);
+          methodHeader = methodHeaderOf(method);
           if ((((sqLong)methodHeader)) < 0) {
             bytecodeSetSelector = 0x100;
           } else {
@@ -1813,9 +1807,7 @@ sqInt interpret(void) {
         assert(isOopCompiledMethod(method));
 
         /* begin methodUsesAlternateBytecodeSet: */
-        /* begin methodHeaderOf: */
-        assert(isCompiledMethod(method));
-        methodHeader = fetchPointerofObject(HeaderIndex, method);
+        methodHeader = methodHeaderOf(method);
         if ((((sqLong)methodHeader)) < 0) {
           bytecodeSetSelector = 0x100;
         } else {
@@ -2353,9 +2345,7 @@ sqInt interpret(void) {
           /* if not primitive, or primitive failed, activate the method */
 
           /* begin internalActivateNewMethod */
-          /* begin methodHeaderOf: */
-          assert(isCompiledMethod(newMethod));
-          methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
+          methodHeader = methodHeaderOf(newMethod);
           numTemps =
               (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
           assert(argumentCount == (argumentCountOfMethodHeader(methodHeader)));
@@ -2961,9 +2951,7 @@ sqInt interpret(void) {
       sqInt header;
 
       VM_LABEL(callPrimitiveBytecode);
-      /* begin methodHeaderOf: */
-      assert(isCompiledMethod(method));
-      header = fetchPointerofObject(HeaderIndex, method);
+      header = methodHeaderOf(method);
       if ((((header & AlternateHeaderHasPrimFlag) != 0)) &&
           ((((sqInt)localIP)) ==
            (((((usqInt)(pointerForOop(method)))) +
@@ -7016,9 +7004,7 @@ sqInt interpret(void) {
       assert(isOopCompiledMethod(compiledBlock));
 
       /* begin argumentCountOf: */
-      /* begin methodHeaderOf: */
-      assert(isCompiledMethod(compiledBlock));
-      header = fetchPointerofObject(HeaderIndex, compiledBlock);
+      header = methodHeaderOf(compiledBlock);
       numArgs = (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;
       byte = byteAt(++localIP);
       numCopied = byte & (0x3F);

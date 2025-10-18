@@ -43,9 +43,7 @@ static void addNewMethodToCache(sqInt classObj) {
   hash = messageSelector ^ ((((usqInt)(classTag) << 2)));
   if (isOopCompiledMethod(newMethod)) {
     /* begin primitiveIndexOf: */
-    /* begin methodHeaderOf: */
-    assert(isCompiledMethod(newMethod));
-    methodHeader = fetchPointerofObject(HeaderIndex, newMethod);
+    methodHeader = methodHeaderOf(newMethod);
     if (((methodHeader & AlternateHeaderHasPrimFlag) != 0)) {
       firstBytecode =
           (newMethod + ((LiteralStart + (((methodHeader >> 3)) &

@@ -94,9 +94,7 @@ static void primitiveFullClosureValue(void) {
   assert(frameIsBlockActivation(framePointer));
   assert(!(frameHasContext(framePointer)));
 
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(closureMethod));
-  methodHeader = fetchPointerofObject(HeaderIndex, closureMethod);
+  methodHeader = methodHeaderOf(closureMethod);
   numTemps = (((usqInt)(methodHeader)) >> MethodHeaderTempCountShift) & 0x3F;
   for (i = ((numArgs + numCopied) + 1); i <= numTemps; i += 1) {
     /* begin push: */
@@ -117,9 +115,7 @@ static void primitiveFullClosureValue(void) {
   assert(isOopCompiledMethod(method));
 
   /* begin methodUsesAlternateBytecodeSet: */
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(method));
-  methodHeaderSqInt = fetchPointerofObject(HeaderIndex, method);
+  methodHeaderSqInt = methodHeaderOf(method);
   if ((((sqLong)methodHeaderSqInt)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {

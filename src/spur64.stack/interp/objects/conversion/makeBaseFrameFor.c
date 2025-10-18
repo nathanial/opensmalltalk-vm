@@ -68,9 +68,7 @@ l1:
     numArgs = (oop >> 3);
     longAtput(pointer, maybeClosure);
   } else {
-    /* begin methodHeaderOf: */
-    assert(isCompiledMethod(theMethod));
-    header = fetchPointerofObject(HeaderIndex, theMethod);
+    header = methodHeaderOf(theMethod);
     numArgs = (((usqInt)(header)) >> MethodHeaderArgCountShift) & 15;
 
     /* If this is a synthetic context its IP could be pointing at the

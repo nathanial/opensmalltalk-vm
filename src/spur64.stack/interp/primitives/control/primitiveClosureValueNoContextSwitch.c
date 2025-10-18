@@ -134,9 +134,7 @@ void primitiveClosureValueNoContextSwitch(void) {
   assert(isOopCompiledMethod(method));
 
   /* begin methodUsesAlternateBytecodeSet: */
-  /* begin methodHeaderOf: */
-  assert(isCompiledMethod(method));
-  methodHeader = fetchPointerofObject(HeaderIndex, method);
+  methodHeader = methodHeaderOf(method);
   if ((((sqLong)methodHeader)) < 0) {
     bytecodeSetSelector = 0x100;
   } else {
