@@ -92,112 +92,128 @@ sqInt interpret(void) {
     {
       VM_LABEL(pushReceiverVariableBytecode);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, longAt((void *)((longAt(localFP + FoxReceiver)) + BaseHeaderSize)));
+      internalPush(&localSP, longAt((void *)((longAt(localFP + FoxReceiver)) +
+                                             BaseHeaderSize)));
     } break;
     case 1:   // pushReceiverVariableBytecode
     case 257: // 1	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode1);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(1, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(1, longAt(localFP + FoxReceiver)));
     } break;
     case 2:   // pushReceiverVariableBytecode
     case 258: // 2	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode2);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(2, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(2, longAt(localFP + FoxReceiver)));
     } break;
     case 3:   // pushReceiverVariableBytecode
     case 259: // 3	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode3);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(3, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(3, longAt(localFP + FoxReceiver)));
     } break;
     case 4:   // pushReceiverVariableBytecode
     case 260: // 4	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode4);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(4, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(4, longAt(localFP + FoxReceiver)));
     } break;
     case 5:   // pushReceiverVariableBytecode
     case 261: // 5	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode5);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(5, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(5, longAt(localFP + FoxReceiver)));
     } break;
     case 6:   // pushReceiverVariableBytecode
     case 262: // 6	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode6);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(6, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(6, longAt(localFP + FoxReceiver)));
     } break;
     case 7:   // pushReceiverVariableBytecode
     case 263: // 7	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode7);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(7, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(7, longAt(localFP + FoxReceiver)));
     } break;
     case 8:   // pushReceiverVariableBytecode
     case 264: // 8	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode8);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(8, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(8, longAt(localFP + FoxReceiver)));
     } break;
     case 9:   // pushReceiverVariableBytecode
     case 265: // 9	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode9);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(9, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(9, longAt(localFP + FoxReceiver)));
     } break;
     case 10:  // pushReceiverVariableBytecode
     case 266: // 10	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode10);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(10, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(10, longAt(localFP + FoxReceiver)));
     } break;
     case 11:  // pushReceiverVariableBytecode
     case 267: // 11	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode11);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(11, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(11, longAt(localFP + FoxReceiver)));
     } break;
     case 12:  // pushReceiverVariableBytecode
     case 268: // 12	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode12);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(12, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(12, longAt(localFP + FoxReceiver)));
     } break;
     case 13:  // pushReceiverVariableBytecode
     case 269: // 13	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode13);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(13, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(13, longAt(localFP + FoxReceiver)));
     } break;
     case 14:  // pushReceiverVariableBytecode
     case 270: // 14	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode14);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(14, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(14, longAt(localFP + FoxReceiver)));
     } break;
     case 15:  // pushReceiverVariableBytecode
     case 271: // 15	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode15);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      internalPush(&localSP, fetchPointerofObject(15, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP,
+                   fetchPointerofObject(15, longAt(localFP + FoxReceiver)));
     } break;
     case 16:  // pushTemporaryVariableBytecode
     case 320: // 64	pushTemporaryVariableBytecode
@@ -1872,7 +1888,9 @@ sqInt interpret(void) {
       variableIndex = descriptor & 0x3F;
       if (!variableType) {
         /* begin pushReceiverVariable: */
-        internalPush(&localSP, fetchPointerofObject(variableIndex, longAt(localFP + FoxReceiver)));
+        internalPush(
+            &localSP,
+            fetchPointerofObject(variableIndex, longAt(localFP + FoxReceiver)));
         goto l2;
       }
       if (variableType == 1) {

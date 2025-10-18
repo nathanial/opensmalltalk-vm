@@ -15,8 +15,7 @@ static sqInt storeAndPopTemporaryVariableBytecodeCommon(
   value = longAt(*localSPP);
   if (tempIndex < frameNumArgs) {
     destinationOffset = frameNumArgs - tempIndex;
-    longAtput((localFP + FoxCallerSavedIP) +
-                  (destinationOffset * BytesPerWord),
+    longAtput((localFP + FoxCallerSavedIP) + (destinationOffset * BytesPerWord),
               value);
   } else {
     destinationOffset = frameNumArgs - tempIndex;
