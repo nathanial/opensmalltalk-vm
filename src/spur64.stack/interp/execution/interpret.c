@@ -1018,177 +1018,58 @@ sqInt interpret(void) {
     case 104: // storeAndPopTemporaryVariableBytecode
     case 464: // 208	storeAndPopTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
-
       VM_LABEL(storeAndPopTemporaryVariableBytecode);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-
-      /* temporary:in:put: */
-      if (0 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
-        longAtput((localFP + FoxCallerSavedIP) + (frameNumArgs * BytesPerWord),
-                  longAt(localSP));
-      } else {
-        longAtput(((localFP + FoxReceiver) - BytesPerWord) +
-                      (frameNumArgs * BytesPerWord),
-                  longAt(localSP));
-      }
-
-      /* begin internalPop: */
-      localSP += 1 * BytesPerOop;
+      currentBytecode = storeAndPopTemporaryVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, localFP, 0, &localSP);
     } break;
     case 105: // storeAndPopTemporaryVariableBytecode
     case 465: // 209	storeAndPopTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
-
       VM_LABEL(storeAndPopTemporaryVariableBytecode1);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-
-      /* temporary:in:put: */
-      if (1 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
-        longAtput((localFP + FoxCallerSavedIP) +
-                      ((frameNumArgs - 1) * BytesPerWord),
-                  longAt(localSP));
-      } else {
-        longAtput(((localFP + FoxReceiver) - BytesPerWord) +
-                      ((frameNumArgs - 1) * BytesPerWord),
-                  longAt(localSP));
-      }
-
-      /* begin internalPop: */
-      localSP += 1 * BytesPerOop;
+      currentBytecode = storeAndPopTemporaryVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, localFP, 1, &localSP);
     } break;
     case 106: // storeAndPopTemporaryVariableBytecode
     case 466: // 210	storeAndPopTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
-
       VM_LABEL(storeAndPopTemporaryVariableBytecode2);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-
-      /* temporary:in:put: */
-      if (2 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
-        longAtput((localFP + FoxCallerSavedIP) +
-                      ((frameNumArgs - 2) * BytesPerWord),
-                  longAt(localSP));
-      } else {
-        longAtput(((localFP + FoxReceiver) - BytesPerWord) +
-                      ((frameNumArgs - 2) * BytesPerWord),
-                  longAt(localSP));
-      }
-
-      /* begin internalPop: */
-      localSP += 1 * BytesPerOop;
+      currentBytecode = storeAndPopTemporaryVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, localFP, 2, &localSP);
     } break;
     case 107: // storeAndPopTemporaryVariableBytecode
     case 467: // 211	storeAndPopTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
-
       VM_LABEL(storeAndPopTemporaryVariableBytecode3);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-
-      /* temporary:in:put: */
-      if (3 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
-        longAtput((localFP + FoxCallerSavedIP) +
-                      ((frameNumArgs - 3) * BytesPerWord),
-                  longAt(localSP));
-      } else {
-        longAtput(((localFP + FoxReceiver) - BytesPerWord) +
-                      ((frameNumArgs - 3) * BytesPerWord),
-                  longAt(localSP));
-      }
-
-      /* begin internalPop: */
-      localSP += 1 * BytesPerOop;
+      currentBytecode = storeAndPopTemporaryVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, localFP, 3, &localSP);
     } break;
     case 108: // storeAndPopTemporaryVariableBytecode
     case 468: // 212	storeAndPopTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
-
       VM_LABEL(storeAndPopTemporaryVariableBytecode4);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-
-      /* temporary:in:put: */
-      if (4 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
-        longAtput((localFP + FoxCallerSavedIP) +
-                      ((frameNumArgs - 4) * BytesPerWord),
-                  longAt(localSP));
-      } else {
-        longAtput(((localFP + FoxReceiver) - BytesPerWord) +
-                      ((frameNumArgs - 4) * BytesPerWord),
-                  longAt(localSP));
-      }
-
-      /* begin internalPop: */
-      localSP += 1 * BytesPerOop;
+      currentBytecode = storeAndPopTemporaryVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, localFP, 4, &localSP);
     } break;
     case 109: // storeAndPopTemporaryVariableBytecode
     case 469: // 213	storeAndPopTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
-
       VM_LABEL(storeAndPopTemporaryVariableBytecode5);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-
-      /* temporary:in:put: */
-      if (5 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
-        longAtput((localFP + FoxCallerSavedIP) +
-                      ((frameNumArgs - 5) * BytesPerWord),
-                  longAt(localSP));
-      } else {
-        longAtput(((localFP + FoxReceiver) - BytesPerWord) +
-                      ((frameNumArgs - 5) * BytesPerWord),
-                  longAt(localSP));
-      }
-
-      /* begin internalPop: */
-      localSP += 1 * BytesPerOop;
+      currentBytecode = storeAndPopTemporaryVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, localFP, 5, &localSP);
     } break;
     case 110: // storeAndPopTemporaryVariableBytecode
     case 470: // 214	storeAndPopTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
-
       VM_LABEL(storeAndPopTemporaryVariableBytecode6);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-
-      /* temporary:in:put: */
-      if (6 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
-        longAtput((localFP + FoxCallerSavedIP) +
-                      ((frameNumArgs - 6) * BytesPerWord),
-                  longAt(localSP));
-      } else {
-        longAtput(((localFP + FoxReceiver) - BytesPerWord) +
-                      ((frameNumArgs - 6) * BytesPerWord),
-                  longAt(localSP));
-      }
-
-      /* begin internalPop: */
-      localSP += 1 * BytesPerOop;
+      currentBytecode = storeAndPopTemporaryVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, localFP, 6, &localSP);
     } break;
     case 111: // storeAndPopTemporaryVariableBytecode
     case 471: // 215	storeAndPopTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
-
       VM_LABEL(storeAndPopTemporaryVariableBytecode7);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-
-      /* temporary:in:put: */
-      if (7 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))) {
-        longAtput((localFP + FoxCallerSavedIP) +
-                      ((frameNumArgs - 7) * BytesPerWord),
-                  longAt(localSP));
-      } else {
-        longAtput(((localFP + FoxReceiver) - BytesPerWord) +
-                      ((frameNumArgs - 7) * BytesPerWord),
-                  longAt(localSP));
-      }
-
-      /* begin internalPop: */
-      localSP += 1 * BytesPerOop;
+      currentBytecode = storeAndPopTemporaryVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, localFP, 7, &localSP);
     } break;
     case 112: // pushReceiverBytecode
     case 332: // 76	pushReceiverBytecode
