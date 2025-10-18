@@ -1420,6 +1420,7 @@ extern sqInt pop(sqInt nItems);
 extern sqInt booleanObjectOf(sqInt flag);
 extern void popthenPush(sqInt nItems, sqInt oop);
 extern void popthenPushBool(sqInt nItems, sqInt booleanOop);
+extern void externalizeIPandSP(char *ip, char *sp, char *fp);
 extern sqInt positive32BitIntegerFor(unsigned int integerValue);
 extern sqInt positive64BitIntegerFor(usqLong integerValue);
 static sqInt postGCUpdateDisplayBits(void);
@@ -3801,6 +3802,7 @@ void enableSendPrinting(void) {
 #include "interp/objects/conversion/booleanObjectOf.c"
 #include "interp/stack/manipulation/popthenPush.c"
 #include "interp/stack/manipulation/popthenPushBool.c"
+#include "interp/stack/manipulation/externalizeIPandSP.c"
 #include "interp/objects/conversion/positive32BitIntegerFor.c"
 #include "interp/objects/conversion/positive64BitIntegerFor.c"
 #include "interp/gc/postGCUpdateDisplayBits.c"

@@ -1932,11 +1932,7 @@ sqInt interpret(void) {
         (stackPage->headSP = localSP);
         assert(pageListIsWellFormed());
 
-        /* begin externalizeIPandSP */
-        instructionPointer = ((usqInt)localIP);
-        stackPointer = localSP;
-        framePointer = localFP;
-
+        externalizeIPandSP(localIP, localSP, localFP);
         /* Since this is a block activation the closure is on the stack above
          * any args and the frame. */
         closure = longAt(localFP +
@@ -2989,10 +2985,7 @@ sqInt interpret(void) {
             goto l167;
           }
 
-          /* begin externalizeIPandSP */
-          instructionPointer = ((usqInt)localIP);
-          stackPointer = localSP;
-          framePointer = localFP;
+          externalizeIPandSP(localIP, localSP, localFP);
           if ((isOopForwarded(messageSelector)) ||
               (lkupClassTag == (isForwardedObjectClassIndexPun()))) {
             if (isOopForwarded(messageSelector)) {
@@ -3078,11 +3071,7 @@ sqInt interpret(void) {
               goto l168;
             }
 
-            /* begin externalizeIPandSP */
-            instructionPointer = ((usqInt)localIP);
-            stackPointer = localSP;
-            framePointer = localFP;
-
+            externalizeIPandSP(localIP, localSP, localFP);
             /* begin slowPrimitiveResponse */
             assert(!(isOopForwarded(stackValue(argumentCount))));
             assert((remapBufferCount) == 0);
@@ -3193,10 +3182,7 @@ sqInt interpret(void) {
           /* Now check for stack overflow or an event (interrupt, must scavenge,
            * etc). */
           if (localSP < stackLimit) {
-            /* begin externalizeIPandSP */
-            instructionPointer = ((usqInt)localIP);
-            stackPointer = localSP;
-            framePointer = localFP;
+            externalizeIPandSP(localIP, localSP, localFP);
             handleStackOverflowOrEventAllowContextSwitch(
                 canContextSwitchIfActivatingheader(newMethod, methodHeader));
 
@@ -3461,10 +3447,7 @@ sqInt interpret(void) {
           goto l8;
         }
 
-        /* begin externalizeIPandSP */
-        instructionPointer = ((usqInt)localIP);
-        stackPointer = localSP;
-        framePointer = localFP;
+        externalizeIPandSP(localIP, localSP, localFP);
         externalDivorceFrameandContext(theFP, obj);
 
         storePointerofObjectwithValue(byte3, obj, top);
@@ -4155,10 +4138,7 @@ sqInt interpret(void) {
 
       /* begin ifBackwardsCheckForEvents: */
       if ((offset < 0) && (localSP < stackLimit)) {
-        /* begin externalizeIPandSP */
-        instructionPointer = ((usqInt)localIP);
-        stackPointer = localSP;
-        framePointer = localFP;
+        externalizeIPandSP(localIP, localSP, localFP);
         checkForEventsMayContextSwitch(1);
         browserPluginReturnIfNeeded();
 
@@ -6242,11 +6222,7 @@ sqInt interpret(void) {
       /* end isInstanceOfClassBlockClosure: */
     l72:
       if (isBlock) {
-        /* begin externalizeIPandSP */
-        instructionPointer = ((usqInt)localIP);
-        stackPointer = localSP;
-        framePointer = localFP;
-
+        externalizeIPandSP(localIP, localSP, localFP);
         /* begin initPrimCall */
         primFailCode = 0;
         primitiveClosureValue();
@@ -6294,11 +6270,7 @@ sqInt interpret(void) {
       /* end isInstanceOfClassBlockClosure: */
     l74:
       if (isBlock) {
-        /* begin externalizeIPandSP */
-        instructionPointer = ((usqInt)localIP);
-        stackPointer = localSP;
-        framePointer = localFP;
-
+        externalizeIPandSP(localIP, localSP, localFP);
         /* begin initPrimCall */
         primFailCode = 0;
         primitiveClosureValue();
@@ -7426,10 +7398,7 @@ sqInt interpret(void) {
 
       /* begin ifBackwardsCheckForEvents: */
       if (((offset + bcpcDelta) < 0) && (localSP < stackLimit)) {
-        /* begin externalizeIPandSP */
-        instructionPointer = ((usqInt)localIP);
-        stackPointer = localSP;
-        framePointer = localFP;
+        externalizeIPandSP(localIP, localSP, localFP);
         checkForEventsMayContextSwitch(1);
         browserPluginReturnIfNeeded();
 
@@ -7576,10 +7545,7 @@ sqInt interpret(void) {
           goto l143;
         }
 
-        /* begin externalizeIPandSP */
-        instructionPointer = ((usqInt)localIP);
-        stackPointer = localSP;
-        framePointer = localFP;
+        externalizeIPandSP(localIP, localSP, localFP);
         externalDivorceFrameandContext(theFP, obj);
 
         storePointerofObjectwithValue(variableIndex, obj, value);
@@ -7768,10 +7734,7 @@ sqInt interpret(void) {
           goto l146;
         }
 
-        /* begin externalizeIPandSP */
-        instructionPointer = ((usqInt)localIP);
-        stackPointer = localSP;
-        framePointer = localFP;
+        externalizeIPandSP(localIP, localSP, localFP);
         externalDivorceFrameandContext(theFP, obj);
 
         storePointerofObjectwithValue(variableIndex, obj, anObject);
