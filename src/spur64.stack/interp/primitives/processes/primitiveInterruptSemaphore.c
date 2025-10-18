@@ -16,7 +16,8 @@ static void primitiveInterruptSemaphore(void) {
                            (rawHashBitsOf(fetchPointerofObject(
                                ClassSemaphore, specialObjectsOop)))))) {
     /* begin splObj:put: */
-    storePointerofObjectwithValue(TheInterruptSemaphore, specialObjectsOop, arg);
+    storePointerofObjectwithValue(TheInterruptSemaphore, specialObjectsOop,
+                                  arg);
 
     /* begin pop: */
     stackPointer += 1 * BytesPerWord;

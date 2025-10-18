@@ -128,7 +128,8 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
 
-        storePointerofObjectwithValue(TheLowSpaceSemaphore, specialObjectsOop, obj);
+        storePointerofObjectwithValue(TheLowSpaceSemaphore, specialObjectsOop,
+                                      obj);
       }
 
       /* begin followSemaphoreIn:at: */
@@ -137,7 +138,8 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
 
-        storePointerofObjectwithValue(TheInterruptSemaphore, specialObjectsOop, obj);
+        storePointerofObjectwithValue(TheInterruptSemaphore, specialObjectsOop,
+                                      obj);
       }
 
       /* begin followSemaphoreIn:at: */
@@ -146,7 +148,8 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
 
-        storePointerofObjectwithValue(TheTimerSemaphore, specialObjectsOop, obj);
+        storePointerofObjectwithValue(TheTimerSemaphore, specialObjectsOop,
+                                      obj);
       }
 
       /* begin followSemaphoreIn:at: */
@@ -155,7 +158,8 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
              ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
         obj = followForwarded(obj);
 
-        storePointerofObjectwithValue(TheFinalizationSemaphore, specialObjectsOop, obj);
+        storePointerofObjectwithValue(TheFinalizationSemaphore,
+                                      specialObjectsOop, obj);
       }
       xArray = fetchPointerofObject(ExternalObjectsArray, specialObjectsOop);
       if ((!((longAt((void *)(xArray))) &
@@ -163,7 +167,8 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
         xArray = followForwarded(xArray);
 
         /* begin splObj:put: */
-        storePointerofObjectwithValue(ExternalObjectsArray, specialObjectsOop, xArray);
+        storePointerofObjectwithValue(ExternalObjectsArray, specialObjectsOop,
+                                      xArray);
       }
       toDoLimit = ((numSlotsOf(xArray))) - 1;
       for (ipdelta = 0; ipdelta <= toDoLimit; ipdelta += 1) {

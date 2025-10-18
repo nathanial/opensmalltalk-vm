@@ -41,7 +41,8 @@ static void primitiveTestAndSetOwnershipOfCriticalSection(void) {
   owningProcessIndex = ExcessSignalsIndex;
   owningProcess = fetchPointerofObject(owningProcessIndex, criticalSection);
   if (owningProcess == nilObj) {
-    storePointerofObjectwithValue(owningProcessIndex, criticalSection, activeProc);
+    storePointerofObjectwithValue(owningProcessIndex, criticalSection,
+                                  activeProc);
 
     /* begin methodReturnValue: */
     assert(!((failed())));

@@ -37,7 +37,8 @@ static void setSignalLowSpaceFlagAndSaveProcess(void) {
     activeProc = fetchPointerofObject(ActiveProcessIndex, objOop);
 
     /* begin splObj:put: */
-    storePointerofObjectwithValue(ProcessSignalingLowSpace, specialObjectsOop, activeProc);
+    storePointerofObjectwithValue(ProcessSignalingLowSpace, specialObjectsOop,
+                                  activeProc);
   }
   forceInterruptCheck();
 }

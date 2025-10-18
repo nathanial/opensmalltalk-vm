@@ -82,14 +82,16 @@ static sqInt ensureRoomOnObjStackAt(sqInt objStackRootIndex) {
                        ((((usqInt)(ObjStackTopx) << (shiftForWord()))))),
               0);
 
-    storePointerofObjectwithValue(objStackRootIndex, hiddenRootsObj, freeOrNewPage);
+    storePointerofObjectwithValue(objStackRootIndex, hiddenRootsObj,
+                                  freeOrNewPage);
     assert(isValidObjStackAt(objStackRootIndex));
 
     /* Added a new page; now update and answer the relevant cached first page.
      */
 
     /* begin updateRootOfObjStackAt:with: */
-    storePointerofObjectwithValue(objStackRootIndex, hiddenRootsObj, freeOrNewPage);
+    storePointerofObjectwithValue(objStackRootIndex, hiddenRootsObj,
+                                  freeOrNewPage);
     switch (objStackRootIndex) {
     case MarkStackRootIndex:
       markStack = freeOrNewPage;

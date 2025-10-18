@@ -44,7 +44,8 @@ static sqInt snapshot(sqInt embedded) {
       fetchPointerofObject(SchedulerAssociation, specialObjectsOop));
   activeProc = fetchPointerofObject(ActiveProcessIndex, objOop);
 
-  storePointerofObjectwithValue(SuspendedContextIndex, activeProc, activeContext);
+  storePointerofObjectwithValue(SuspendedContextIndex, activeProc,
+                                activeContext);
   tempOop = activeContext;
 
   /* begin garbageCollectForSnapshot */
