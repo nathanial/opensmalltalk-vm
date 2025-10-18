@@ -92,129 +92,112 @@ sqInt interpret(void) {
     {
       VM_LABEL(pushReceiverVariableBytecode);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput(
-          (localSP -= BytesPerOop),
-          longAt((void *)((longAt(localFP + FoxReceiver)) + BaseHeaderSize)));
+      internalPush(&localSP, longAt((void *)((longAt(localFP + FoxReceiver)) + BaseHeaderSize)));
     } break;
     case 1:   // pushReceiverVariableBytecode
     case 257: // 1	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode1);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(1, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(1, longAt(localFP + FoxReceiver)));
     } break;
     case 2:   // pushReceiverVariableBytecode
     case 258: // 2	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode2);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(2, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(2, longAt(localFP + FoxReceiver)));
     } break;
     case 3:   // pushReceiverVariableBytecode
     case 259: // 3	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode3);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(3, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(3, longAt(localFP + FoxReceiver)));
     } break;
     case 4:   // pushReceiverVariableBytecode
     case 260: // 4	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode4);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(4, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(4, longAt(localFP + FoxReceiver)));
     } break;
     case 5:   // pushReceiverVariableBytecode
     case 261: // 5	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode5);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(5, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(5, longAt(localFP + FoxReceiver)));
     } break;
     case 6:   // pushReceiverVariableBytecode
     case 262: // 6	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode6);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(6, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(6, longAt(localFP + FoxReceiver)));
     } break;
     case 7:   // pushReceiverVariableBytecode
     case 263: // 7	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode7);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(7, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(7, longAt(localFP + FoxReceiver)));
     } break;
     case 8:   // pushReceiverVariableBytecode
     case 264: // 8	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode8);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(8, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(8, longAt(localFP + FoxReceiver)));
     } break;
     case 9:   // pushReceiverVariableBytecode
     case 265: // 9	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode9);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(9, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(9, longAt(localFP + FoxReceiver)));
     } break;
     case 10:  // pushReceiverVariableBytecode
     case 266: // 10	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode10);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(10, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(10, longAt(localFP + FoxReceiver)));
     } break;
     case 11:  // pushReceiverVariableBytecode
     case 267: // 11	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode11);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(11, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(11, longAt(localFP + FoxReceiver)));
     } break;
     case 12:  // pushReceiverVariableBytecode
     case 268: // 12	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode12);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(12, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(12, longAt(localFP + FoxReceiver)));
     } break;
     case 13:  // pushReceiverVariableBytecode
     case 269: // 13	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode13);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(13, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(13, longAt(localFP + FoxReceiver)));
     } break;
     case 14:  // pushReceiverVariableBytecode
     case 270: // 14	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode14);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(14, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(14, longAt(localFP + FoxReceiver)));
     } break;
     case 15:  // pushReceiverVariableBytecode
     case 271: // 15	pushReceiverVariableBytecode
     {
       VM_LABEL(pushReceiverVariableBytecode15);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(15, longAt(localFP + FoxReceiver)));
+      internalPush(&localSP, fetchPointerofObject(15, longAt(localFP + FoxReceiver)));
     } break;
     case 16:  // pushTemporaryVariableBytecode
     case 320: // 64	pushTemporaryVariableBytecode
@@ -225,7 +208,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(0, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 17:  // pushTemporaryVariableBytecode
     case 321: // 65	pushTemporaryVariableBytecode
@@ -236,7 +219,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode1);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(1, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 18:  // pushTemporaryVariableBytecode
     case 322: // 66	pushTemporaryVariableBytecode
@@ -247,7 +230,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode2);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(2, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 19:  // pushTemporaryVariableBytecode
     case 323: // 67	pushTemporaryVariableBytecode
@@ -258,7 +241,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode3);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(3, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 20:  // pushTemporaryVariableBytecode
     case 324: // 68	pushTemporaryVariableBytecode
@@ -269,7 +252,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode4);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(4, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 21:  // pushTemporaryVariableBytecode
     case 325: // 69	pushTemporaryVariableBytecode
@@ -280,7 +263,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode5);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(5, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 22:  // pushTemporaryVariableBytecode
     case 326: // 70	pushTemporaryVariableBytecode
@@ -291,7 +274,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode6);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(6, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 23:  // pushTemporaryVariableBytecode
     case 327: // 71	pushTemporaryVariableBytecode
@@ -302,7 +285,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode7);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(7, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 24:  // pushTemporaryVariableBytecode
     case 328: // 72	pushTemporaryVariableBytecode
@@ -313,7 +296,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode8);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(8, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 25:  // pushTemporaryVariableBytecode
     case 329: // 73	pushTemporaryVariableBytecode
@@ -324,7 +307,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode9);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(9, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 26:  // pushTemporaryVariableBytecode
     case 330: // 74	pushTemporaryVariableBytecode
@@ -335,7 +318,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode10);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(10, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 27:  // pushTemporaryVariableBytecode
     case 331: // 75	pushTemporaryVariableBytecode
@@ -346,7 +329,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode11);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(11, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 28: // pushTemporaryVariableBytecode
     {
@@ -356,7 +339,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode12);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(12, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 29: // pushTemporaryVariableBytecode
     {
@@ -366,7 +349,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode13);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(13, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 30: // pushTemporaryVariableBytecode
     {
@@ -376,7 +359,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode14);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(14, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 31: // pushTemporaryVariableBytecode
     {
@@ -386,7 +369,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode15);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = temporaryin(15, localFP);
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 32:  // pushLiteralConstantBytecode
     case 288: // 32	pushLiteralConstantBytecode
@@ -398,8 +381,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(0 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 33:  // pushLiteralConstantBytecode
     case 289: // 33	pushLiteralConstantBytecode
@@ -411,8 +393,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(1 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 34:  // pushLiteralConstantBytecode
     case 290: // 34	pushLiteralConstantBytecode
@@ -424,8 +405,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(2 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 35:  // pushLiteralConstantBytecode
     case 291: // 35	pushLiteralConstantBytecode
@@ -437,8 +417,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(3 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 36:  // pushLiteralConstantBytecode
     case 292: // 36	pushLiteralConstantBytecode
@@ -450,8 +429,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(4 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 37:  // pushLiteralConstantBytecode
     case 293: // 37	pushLiteralConstantBytecode
@@ -463,8 +441,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(5 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 38:  // pushLiteralConstantBytecode
     case 294: // 38	pushLiteralConstantBytecode
@@ -476,8 +453,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(6 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 39:  // pushLiteralConstantBytecode
     case 295: // 39	pushLiteralConstantBytecode
@@ -489,8 +465,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(7 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 40:  // pushLiteralConstantBytecode
     case 296: // 40	pushLiteralConstantBytecode
@@ -502,8 +477,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(8 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 41:  // pushLiteralConstantBytecode
     case 297: // 41	pushLiteralConstantBytecode
@@ -515,8 +489,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(9 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 42:  // pushLiteralConstantBytecode
     case 298: // 42	pushLiteralConstantBytecode
@@ -528,8 +501,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(10 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 43:  // pushLiteralConstantBytecode
     case 299: // 43	pushLiteralConstantBytecode
@@ -541,8 +513,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(11 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 44:  // pushLiteralConstantBytecode
     case 300: // 44	pushLiteralConstantBytecode
@@ -554,8 +525,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(12 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 45:  // pushLiteralConstantBytecode
     case 301: // 45	pushLiteralConstantBytecode
@@ -567,8 +537,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(13 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 46:  // pushLiteralConstantBytecode
     case 302: // 46	pushLiteralConstantBytecode
@@ -580,8 +549,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(14 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 47:  // pushLiteralConstantBytecode
     case 303: // 47	pushLiteralConstantBytecode
@@ -593,8 +561,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(15 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 48:  // pushLiteralConstantBytecode
     case 304: // 48	pushLiteralConstantBytecode
@@ -606,8 +573,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(16 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 49:  // pushLiteralConstantBytecode
     case 305: // 49	pushLiteralConstantBytecode
@@ -619,8 +585,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(17 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 50:  // pushLiteralConstantBytecode
     case 306: // 50	pushLiteralConstantBytecode
@@ -632,8 +597,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(18 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 51:  // pushLiteralConstantBytecode
     case 307: // 51	pushLiteralConstantBytecode
@@ -645,8 +609,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(19 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 52:  // pushLiteralConstantBytecode
     case 308: // 52	pushLiteralConstantBytecode
@@ -658,8 +621,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(20 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 53:  // pushLiteralConstantBytecode
     case 309: // 53	pushLiteralConstantBytecode
@@ -671,8 +633,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(21 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 54:  // pushLiteralConstantBytecode
     case 310: // 54	pushLiteralConstantBytecode
@@ -684,8 +645,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(22 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 55:  // pushLiteralConstantBytecode
     case 311: // 55	pushLiteralConstantBytecode
@@ -697,8 +657,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(23 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 56:  // pushLiteralConstantBytecode
     case 312: // 56	pushLiteralConstantBytecode
@@ -710,8 +669,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(24 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 57:  // pushLiteralConstantBytecode
     case 313: // 57	pushLiteralConstantBytecode
@@ -723,8 +681,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(25 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 58:  // pushLiteralConstantBytecode
     case 314: // 58	pushLiteralConstantBytecode
@@ -736,8 +693,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(26 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 59:  // pushLiteralConstantBytecode
     case 315: // 59	pushLiteralConstantBytecode
@@ -749,8 +705,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(27 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 60:  // pushLiteralConstantBytecode
     case 316: // 60	pushLiteralConstantBytecode
@@ -762,8 +717,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(28 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 61:  // pushLiteralConstantBytecode
     case 317: // 61	pushLiteralConstantBytecode
@@ -775,8 +729,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(29 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 62:  // pushLiteralConstantBytecode
     case 318: // 62	pushLiteralConstantBytecode
@@ -788,8 +741,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(30 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 63:  // pushLiteralConstantBytecode
     case 319: // 63	pushLiteralConstantBytecode
@@ -801,8 +753,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(31 + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 64:  // pushLiteralVariableBytecode
     case 272: // 16	pushLiteralVariable16CasesBytecode
@@ -819,9 +770,7 @@ sqInt interpret(void) {
             1 /* (0 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 65:  // pushLiteralVariableBytecode
     case 273: // 17	pushLiteralVariable16CasesBytecode
@@ -838,9 +787,7 @@ sqInt interpret(void) {
             2 /* (1 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 66:  // pushLiteralVariableBytecode
     case 274: // 18	pushLiteralVariable16CasesBytecode
@@ -857,9 +804,7 @@ sqInt interpret(void) {
             3 /* (2 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 67:  // pushLiteralVariableBytecode
     case 275: // 19	pushLiteralVariable16CasesBytecode
@@ -876,9 +821,7 @@ sqInt interpret(void) {
             4 /* (3 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 68:  // pushLiteralVariableBytecode
     case 276: // 20	pushLiteralVariable16CasesBytecode
@@ -895,9 +838,7 @@ sqInt interpret(void) {
             5 /* (4 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 69:  // pushLiteralVariableBytecode
     case 277: // 21	pushLiteralVariable16CasesBytecode
@@ -914,9 +855,7 @@ sqInt interpret(void) {
             6 /* (5 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 70:  // pushLiteralVariableBytecode
     case 278: // 22	pushLiteralVariable16CasesBytecode
@@ -933,9 +872,7 @@ sqInt interpret(void) {
             7 /* (6 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 71:  // pushLiteralVariableBytecode
     case 279: // 23	pushLiteralVariable16CasesBytecode
@@ -952,9 +889,7 @@ sqInt interpret(void) {
             8 /* (7 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 72:  // pushLiteralVariableBytecode
     case 280: // 24	pushLiteralVariable16CasesBytecode
@@ -971,9 +906,7 @@ sqInt interpret(void) {
             9 /* (8 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 73:  // pushLiteralVariableBytecode
     case 281: // 25	pushLiteralVariable16CasesBytecode
@@ -990,9 +923,7 @@ sqInt interpret(void) {
             10 /* (9 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 74:  // pushLiteralVariableBytecode
     case 282: // 26	pushLiteralVariable16CasesBytecode
@@ -1009,9 +940,7 @@ sqInt interpret(void) {
             11 /* (10 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 75:  // pushLiteralVariableBytecode
     case 283: // 27	pushLiteralVariable16CasesBytecode
@@ -1028,9 +957,7 @@ sqInt interpret(void) {
             12 /* (11 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 76:  // pushLiteralVariableBytecode
     case 284: // 28	pushLiteralVariable16CasesBytecode
@@ -1047,9 +974,7 @@ sqInt interpret(void) {
             13 /* (12 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 77:  // pushLiteralVariableBytecode
     case 285: // 29	pushLiteralVariable16CasesBytecode
@@ -1066,9 +991,7 @@ sqInt interpret(void) {
             14 /* (13 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 78:  // pushLiteralVariableBytecode
     case 286: // 30	pushLiteralVariable16CasesBytecode
@@ -1085,9 +1008,7 @@ sqInt interpret(void) {
             15 /* (14 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 79:  // pushLiteralVariableBytecode
     case 287: // 31	pushLiteralVariable16CasesBytecode
@@ -1104,9 +1025,7 @@ sqInt interpret(void) {
             16 /* (15 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 80: // pushLiteralVariableBytecode
     {
@@ -1122,9 +1041,7 @@ sqInt interpret(void) {
             17 /* (16 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 81: // pushLiteralVariableBytecode
     {
@@ -1140,9 +1057,7 @@ sqInt interpret(void) {
             18 /* (17 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 82: // pushLiteralVariableBytecode
     {
@@ -1158,9 +1073,7 @@ sqInt interpret(void) {
             19 /* (18 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 83: // pushLiteralVariableBytecode
     {
@@ -1176,9 +1089,7 @@ sqInt interpret(void) {
             20 /* (19 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 84: // pushLiteralVariableBytecode
     {
@@ -1194,9 +1105,7 @@ sqInt interpret(void) {
             21 /* (20 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 85: // pushLiteralVariableBytecode
     {
@@ -1212,9 +1121,7 @@ sqInt interpret(void) {
             22 /* (21 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 86: // pushLiteralVariableBytecode
     {
@@ -1230,9 +1137,7 @@ sqInt interpret(void) {
             23 /* (22 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 87: // pushLiteralVariableBytecode
     {
@@ -1248,9 +1153,7 @@ sqInt interpret(void) {
             24 /* (23 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 88: // pushLiteralVariableBytecode
     {
@@ -1266,9 +1169,7 @@ sqInt interpret(void) {
             25 /* (24 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 89: // pushLiteralVariableBytecode
     {
@@ -1284,9 +1185,7 @@ sqInt interpret(void) {
             26 /* (25 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 90: // pushLiteralVariableBytecode
     {
@@ -1302,9 +1201,7 @@ sqInt interpret(void) {
             27 /* (26 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 91: // pushLiteralVariableBytecode
     {
@@ -1320,9 +1217,7 @@ sqInt interpret(void) {
             28 /* (27 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 92: // pushLiteralVariableBytecode
     {
@@ -1338,9 +1233,7 @@ sqInt interpret(void) {
             29 /* (28 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 93: // pushLiteralVariableBytecode
     {
@@ -1356,9 +1249,7 @@ sqInt interpret(void) {
             30 /* (29 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 94: // pushLiteralVariableBytecode
     {
@@ -1374,9 +1265,7 @@ sqInt interpret(void) {
             0x1F /* (30 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 95: // pushLiteralVariableBytecode
     {
@@ -1392,9 +1281,7 @@ sqInt interpret(void) {
             32 /* (31 + LiteralStart) */, method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 96:  // storeAndPopReceiverVariableBytecode
     case 97:  // storeAndPopReceiverVariableBytecode
@@ -1431,10 +1318,9 @@ sqInt interpret(void) {
            (immutableBitByteShift())) &
           1) {
         /* begin cannotAssign:to:withIndex: */
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), rcvr);
-        longAtput((localSP -= BytesPerOop), top);
-        longAtput((localSP -= BytesPerOop), (((instVarIndex + 1) << 3) | 1));
+        internalPush(&localSP, rcvr);
+        internalPush(&localSP, top);
+        internalPush(&localSP, (((instVarIndex + 1) << 3) | 1));
         messageSelector =
             fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
         argumentCount = 2;
@@ -1629,54 +1515,54 @@ sqInt interpret(void) {
     {
       VM_LABEL(pushReceiverBytecode);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), longAt(localFP + FoxReceiver));
+      internalPush(&localSP, longAt(localFP + FoxReceiver));
     } break;
     case 113: // pushConstantTrueBytecode
     case 333: // 77	pushConstantTrueBytecode
     {
       VM_LABEL(pushConstantTrueBytecode);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), trueObj);
+      internalPush(&localSP, trueObj);
     } break;
     case 114: // pushConstantFalseBytecode
     case 334: // 78	pushConstantFalseBytecode
     {
       VM_LABEL(pushConstantFalseBytecode);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), falseObj);
+      internalPush(&localSP, falseObj);
     } break;
     case 115: // pushConstantNilBytecode
     case 335: // 79	pushConstantNilBytecode
     {
       VM_LABEL(pushConstantNilBytecode);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), nilObj);
+      internalPush(&localSP, nilObj);
     } break;
     case 116: // pushConstantMinusOneBytecode
     {
       VM_LABEL(pushConstantMinusOneBytecode);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), ConstMinusOne);
+      internalPush(&localSP, ConstMinusOne);
     } break;
     case 117: // pushConstantZeroBytecode
     case 336: // 80	pushConstantZeroBytecode
     {
       VM_LABEL(pushConstantZeroBytecode);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), ConstZero);
+      internalPush(&localSP, ConstZero);
     } break;
     case 118: // pushConstantOneBytecode
     case 337: // 81	pushConstantOneBytecode
     {
       VM_LABEL(pushConstantOneBytecode);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), ConstOne);
+      internalPush(&localSP, ConstOne);
     } break;
     case 119: // pushConstantTwoBytecode
     {
       VM_LABEL(pushConstantTwoBytecode);
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), ConstTwo);
+      internalPush(&localSP, ConstTwo);
     } break;
     case 120: // returnReceiver
     {
@@ -1776,9 +1662,8 @@ sqInt interpret(void) {
             /* end ensureFrameIsMarried:SP: */
           l158:
 
-            /* begin internalPush: */
-            longAtput((localSP -= BytesPerOop), ourContext);
-            longAtput((localSP -= BytesPerOop), localReturnValue);
+            internalPush(&localSP, ourContext);
+            internalPush(&localSP, localReturnValue);
             messageSelector =
                 fetchPointerofObject(SelectorCannotReturn, specialObjectsOop);
             argumentCount = 1;
@@ -1902,9 +1787,8 @@ sqInt interpret(void) {
           /* end ensureFrameIsMarried:SP: */
         l161:
 
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), ourContext);
-          longAtput((localSP -= BytesPerOop), localReturnValue);
+          internalPush(&localSP, ourContext);
+          internalPush(&localSP, localReturnValue);
           messageSelector =
               fetchPointerofObject(SelectorCannotReturn, specialObjectsOop);
           argumentCount = 1;
@@ -1925,10 +1809,9 @@ sqInt interpret(void) {
           /* end ensureFrameIsMarried:SP: */
         l157:
 
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), ourContext);
-          longAtput((localSP -= BytesPerOop), localReturnValue);
-          longAtput((localSP -= BytesPerOop), unwindContextOrNilOrZero);
+          internalPush(&localSP, ourContext);
+          internalPush(&localSP, localReturnValue);
+          internalPush(&localSP, unwindContextOrNilOrZero);
           messageSelector =
               fetchPointerofObject(SelectorAboutToReturn, specialObjectsOop);
           argumentCount = 2;
@@ -2022,9 +1905,8 @@ sqInt interpret(void) {
             /* end ensureFrameIsMarried:SP: */
           l160:
 
-            /* begin internalPush: */
-            longAtput((localSP -= BytesPerOop), ourContext);
-            longAtput((localSP -= BytesPerOop), localReturnValue);
+            internalPush(&localSP, ourContext);
+            internalPush(&localSP, localReturnValue);
             messageSelector =
                 fetchPointerofObject(SelectorCannotReturn, specialObjectsOop);
             argumentCount = 1;
@@ -2292,9 +2174,8 @@ sqInt interpret(void) {
               /* end ensureFrameIsMarried:SP: */
             l164:
 
-              /* begin internalPush: */
-              longAtput((localSP -= BytesPerOop), ourContext);
-              longAtput((localSP -= BytesPerOop), localReturnValue);
+              internalPush(&localSP, ourContext);
+              internalPush(&localSP, localReturnValue);
               messageSelector =
                   fetchPointerofObject(SelectorCannotReturn, specialObjectsOop);
               argumentCount = 1;
@@ -2408,8 +2289,7 @@ sqInt interpret(void) {
          * unknown bytecode. */
         localIP -= 1;
 
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), ourContext);
+        internalPush(&localSP, ourContext);
         argumentCount = 0;
         goto normalSend;
       }
@@ -2431,16 +2311,13 @@ sqInt interpret(void) {
       variableIndex = descriptor & 0x3F;
       if (!variableType) {
         /* begin pushReceiverVariable: */
-        /* begin internalPush: */
-        longAtput(
-            (localSP -= BytesPerOop),
-            fetchPointerofObject(variableIndex, longAt(localFP + FoxReceiver)));
+        internalPush(&localSP, fetchPointerofObject(variableIndex, longAt(localFP + FoxReceiver)));
         goto l2;
       }
       if (variableType == 1) {
         /* begin pushTemporaryVariable: */
         object = temporaryin(variableIndex, localFP);
-        longAtput((localSP -= BytesPerOop), object);
+        internalPush(&localSP, object);
         goto l2;
       }
       if (variableType == 2) {
@@ -2449,8 +2326,7 @@ sqInt interpret(void) {
         assert(method == (iframeMethod(localFP)));
         object = fetchPointerofObject(variableIndex + LiteralStart, method);
 
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), object);
+        internalPush(&localSP, object);
         goto l2;
       }
       if (variableType == 3) {
@@ -2465,9 +2341,7 @@ sqInt interpret(void) {
               variableIndex + LiteralStart, method, litVar);
         }
 
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop),
-                  fetchPointerofObject(ValueIndex, litVar));
+        internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
         goto l2;
       }
     }
@@ -2500,10 +2374,9 @@ sqInt interpret(void) {
              (immutableBitByteShift())) &
             1) {
           /* begin cannotAssign:to:withIndex: */
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), objOop);
-          longAtput((localSP -= BytesPerOop), value);
-          longAtput((localSP -= BytesPerOop), (((variableIndex + 1) << 3) | 1));
+          internalPush(&localSP, objOop);
+          internalPush(&localSP, value);
+          internalPush(&localSP, (((variableIndex + 1) << 3) | 1));
           messageSelector =
               fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
           argumentCount = 2;
@@ -2552,11 +2425,9 @@ sqInt interpret(void) {
              (immutableBitByteShift())) &
             1) {
           /* begin cannotAssign:to:withIndex: */
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), litVar);
-          longAtput((localSP -= BytesPerOop), value);
-          longAtput((localSP -= BytesPerOop),
-                    (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
+          internalPush(&localSP, litVar);
+          internalPush(&localSP, value);
+          internalPush(&localSP, (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
           messageSelector =
               fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
           argumentCount = 2;
@@ -2604,10 +2475,9 @@ sqInt interpret(void) {
              (immutableBitByteShift())) &
             1) {
           /* begin cannotAssign:to:withIndex: */
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), objOop);
-          longAtput((localSP -= BytesPerOop), value);
-          longAtput((localSP -= BytesPerOop), (((variableIndex + 1) << 3) | 1));
+          internalPush(&localSP, objOop);
+          internalPush(&localSP, value);
+          internalPush(&localSP, (((variableIndex + 1) << 3) | 1));
           messageSelector =
               fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
           argumentCount = 2;
@@ -2656,11 +2526,9 @@ sqInt interpret(void) {
              (immutableBitByteShift())) &
             1) {
           /* begin cannotAssign:to:withIndex: */
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), litVar);
-          longAtput((localSP -= BytesPerOop), value);
-          longAtput((localSP -= BytesPerOop),
-                    (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
+          internalPush(&localSP, litVar);
+          internalPush(&localSP, value);
+          internalPush(&localSP, (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
           messageSelector =
               fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
           argumentCount = 2;
@@ -2917,13 +2785,11 @@ sqInt interpret(void) {
           rcvr = longAt(localSP + (argumentCount * BytesPerOop));
           assert(!(isOopForwarded(rcvr)));
 
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), ((usqInt)localIP));
-          longAtput((localSP -= BytesPerOop), ((usqInt)localFP));
+          internalPush(&localSP, ((usqInt)localIP));
+          internalPush(&localSP, ((usqInt)localFP));
           localFP = localSP;
 
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), newMethod);
+          internalPush(&localSP, newMethod);
           method = newMethod;
           assert(isOopCompiledMethod(method));
           assert((methodHeaderOf(method)) == methodHeader);
@@ -2938,15 +2804,13 @@ sqInt interpret(void) {
                                       15)
                                      << 8)))));
 
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), object);
-          longAtput((localSP -= BytesPerOop), nilObj);
-          longAtput((localSP -= BytesPerOop), rcvr);
+          internalPush(&localSP, object);
+          internalPush(&localSP, nilObj);
+          internalPush(&localSP, rcvr);
 
           /* Initialize temps... */
           for (i = (argumentCount + 1); i <= numTemps; i += 1) {
-            /* begin internalPush: */
-            longAtput((localSP -= BytesPerOop), nilObj);
+            internalPush(&localSP, nilObj);
           }
 
           /* -1 to account for pre-increment in fetchNextBytecode */
@@ -3109,11 +2973,9 @@ sqInt interpret(void) {
           /* end instVar:ofContext: */
         l10:
 
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), object);
+          internalPush(&localSP, object);
         } else {
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), fetchPointerofObject(byte3, obj));
+          internalPush(&localSP, fetchPointerofObject(byte3, obj));
         }
         goto l7;
       }
@@ -3122,8 +2984,7 @@ sqInt interpret(void) {
         assert(method == (iframeMethod(localFP)));
         object = fetchPointerofObject(byte3 + LiteralStart, method);
 
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), object);
+        internalPush(&localSP, object);
         goto l7;
       }
       if (opType == 4) {
@@ -3136,9 +2997,7 @@ sqInt interpret(void) {
               byte3 + LiteralStart, method, litVar);
         }
 
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop),
-                  fetchPointerofObject(ValueIndex, litVar));
+        internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
         goto l7;
       }
       top = longAt(localSP);
@@ -3162,11 +3021,9 @@ sqInt interpret(void) {
              (immutableBitByteShift())) &
             1) {
           /* begin cannotAssign:to:withIndex: */
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), litVar);
-          longAtput((localSP -= BytesPerOop), top);
-          longAtput((localSP -= BytesPerOop),
-                    (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
+          internalPush(&localSP, litVar);
+          internalPush(&localSP, top);
+          internalPush(&localSP, (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
           messageSelector =
               fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
           argumentCount = 2;
@@ -3263,10 +3120,9 @@ sqInt interpret(void) {
              (immutableBitByteShift())) &
             1) {
           /* begin cannotAssign:to:withIndex: */
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), obj);
-          longAtput((localSP -= BytesPerOop), top);
-          longAtput((localSP -= BytesPerOop), (((usqInt)(byte3 + 1) << 3) | 1));
+          internalPush(&localSP, obj);
+          internalPush(&localSP, top);
+          internalPush(&localSP, (((usqInt)(byte3 + 1) << 3) | 1));
           messageSelector =
               fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
           argumentCount = 2;
@@ -3409,8 +3265,7 @@ sqInt interpret(void) {
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = longAt(localSP);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 137: // pushActiveContextBytecode
     {
@@ -3428,7 +3283,7 @@ sqInt interpret(void) {
     l12:
 
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), ourContext);
+      internalPush(&localSP, ourContext);
     } break;
     case 138: // pushNewArrayBytecode
     case 487: // 231	pushNewArrayBytecode
@@ -3519,8 +3374,7 @@ sqInt interpret(void) {
         }
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), array);
+      internalPush(&localSP, array);
     } break;
     case 139: // callPrimitiveBytecode
     case 504: // 248	callPrimitiveBytecode
@@ -3566,9 +3420,7 @@ sqInt interpret(void) {
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       tempVector = temporaryin(tempVectorIndex, localFP);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(remoteTempIndex, tempVector));
+      internalPush(&localSP, fetchPointerofObject(remoteTempIndex, tempVector));
     } break;
     case 141: // storeRemoteTempLongBytecode
     case 508: // 252	storeRemoteTempLongBytecode
@@ -3739,7 +3591,7 @@ sqInt interpret(void) {
       localIP += blockSize;
 
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), newClosure);
+      internalPush(&localSP, newClosure);
     } break;
     case 144: // shortUnconditionalJump
     case 432: // 176	shortUnconditionalJump
@@ -4290,8 +4142,7 @@ sqInt interpret(void) {
          * boolean result */
         currentBytecode = bytecode + bytecodeSetSelector;
 
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), trueObj);
+        internalPush(&localSP, trueObj);
       }
       /* end case */
     l170:;
@@ -4372,8 +4223,7 @@ sqInt interpret(void) {
            boolean result */
         currentBytecode = bytecode + bytecodeSetSelector;
 
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), falseObj);
+        internalPush(&localSP, falseObj);
       }
       /* end case */
     l171:;
@@ -6310,7 +6160,7 @@ sqInt interpret(void) {
       }
 
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), theThingToPush);
+      internalPush(&localSP, theThingToPush);
       extB = 0;
       numExtB = 0;
     } break;
@@ -6442,8 +6292,7 @@ sqInt interpret(void) {
          * boolean result */
         currentBytecode = bytecode + bytecodeSetSelector;
 
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), trueObj);
+        internalPush(&localSP, trueObj);
       }
       /* end case */
     l172:;
@@ -6524,8 +6373,7 @@ sqInt interpret(void) {
            boolean result */
         currentBytecode = bytecode + bytecodeSetSelector;
 
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), falseObj);
+        internalPush(&localSP, falseObj);
       }
       /* end case */
     l173:;
@@ -6886,11 +6734,9 @@ sqInt interpret(void) {
         /* end instVar:ofContext: */
       l138:
 
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), object);
+        internalPush(&localSP, object);
       } else {
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), fetchPointerofObject(index, obj));
+        internalPush(&localSP, fetchPointerofObject(index, obj));
       }
     } break;
     case 483: // 227	extPushLiteralVariableBytecode
@@ -6915,9 +6761,7 @@ sqInt interpret(void) {
                                                           method, litVar);
       }
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop),
-                fetchPointerofObject(ValueIndex, litVar));
+      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
     case 484: // 228	extPushLiteralBytecode
     {
@@ -6935,8 +6779,7 @@ sqInt interpret(void) {
       assert(method == (iframeMethod(localFP)));
       object = fetchPointerofObject(index + LiteralStart, method);
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
     } break;
     case 485: // 229	longPushTemporaryVariableBytecode
     {
@@ -6947,8 +6790,7 @@ sqInt interpret(void) {
       index = byteAt(++localIP);
 
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput(
-          (localSP -= BytesPerOop), temporaryin(index, localFP));
+      internalPush(&localSP, temporaryin(index, localFP));
     } break;
     case 488: // 232	extPushIntegerBytecode
     {
@@ -6961,8 +6803,7 @@ sqInt interpret(void) {
       extB = 0;
       numExtB = 0;
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), (((usqInt)value << 3) | 1));
+      internalPush(&localSP, (((usqInt)value << 3) | 1));
     } break;
     case 489: // 233	extPushCharacterBytecode
     {
@@ -6975,8 +6816,7 @@ sqInt interpret(void) {
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
       object = ((((usqInt)(value) << (numTagBits())))) + (characterTag());
 
-      /* begin internalPush: */
-      longAtput((localSP -= BytesPerOop), object);
+      internalPush(&localSP, object);
       extA = 0;
     } break;
     case 490: // 234	extSendBytecode
@@ -7291,11 +7131,9 @@ sqInt interpret(void) {
              (immutableBitByteShift())) &
             1) {
           /* begin cannotAssign:to:withIndex: */
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), obj);
-          longAtput((localSP -= BytesPerOop), value);
-          longAtput((localSP -= BytesPerOop),
-                    (((usqInt)(variableIndex + 1) << 3) | 1));
+          internalPush(&localSP, obj);
+          internalPush(&localSP, value);
+          internalPush(&localSP, (((usqInt)(variableIndex + 1) << 3) | 1));
           messageSelector =
               fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
           argumentCount = 2;
@@ -7344,11 +7182,9 @@ sqInt interpret(void) {
            (immutableBitByteShift())) &
           1) {
         /* begin cannotAssign:to:withIndex: */
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), litVar);
-        longAtput((localSP -= BytesPerOop), value);
-        longAtput((localSP -= BytesPerOop),
-                  (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
+        internalPush(&localSP, litVar);
+        internalPush(&localSP, value);
+        internalPush(&localSP, (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
         messageSelector =
             fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
         argumentCount = 2;
@@ -7478,11 +7314,9 @@ sqInt interpret(void) {
              (immutableBitByteShift())) &
             1) {
           /* begin cannotAssign:to:withIndex: */
-          /* begin internalPush: */
-          longAtput((localSP -= BytesPerOop), obj);
-          longAtput((localSP -= BytesPerOop), anObject);
-          longAtput((localSP -= BytesPerOop),
-                    (((usqInt)(variableIndex + 1) << 3) | 1));
+          internalPush(&localSP, obj);
+          internalPush(&localSP, anObject);
+          internalPush(&localSP, (((usqInt)(variableIndex + 1) << 3) | 1));
           messageSelector =
               fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
           argumentCount = 2;
@@ -7528,11 +7362,9 @@ sqInt interpret(void) {
            (immutableBitByteShift())) &
           1) {
         /* begin cannotAssign:to:withIndex: */
-        /* begin internalPush: */
-        longAtput((localSP -= BytesPerOop), litVar);
-        longAtput((localSP -= BytesPerOop), anObject);
-        longAtput((localSP -= BytesPerOop),
-                  (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
+        internalPush(&localSP, litVar);
+        internalPush(&localSP, anObject);
+        internalPush(&localSP, (((usqInt)2 /* (ValueIndex + 1) */ << 3) | 1));
         messageSelector =
             fetchPointerofObject(SelectorAttemptToAssign, specialObjectsOop);
         argumentCount = 2;
@@ -7738,7 +7570,7 @@ sqInt interpret(void) {
         localSP += numCopiedSqInt * BytesPerOop;
       }
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), newClosure);
+      internalPush(&localSP, newClosure);
     } break;
     case 506: // 250	extPushClosureBytecode
     {
@@ -7865,7 +7697,7 @@ sqInt interpret(void) {
       localIP += blockSize;
 
       currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      longAtput((localSP -= BytesPerOop), newClosure);
+      internalPush(&localSP, newClosure);
     } break;
     }
   }

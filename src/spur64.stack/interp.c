@@ -2701,6 +2701,7 @@ volatile int sendTrace;
 #include "interp/stack/pages/freeStackPageNoAssert.c"
 #include "interp/objects/hashing/identityHashOf.c"
 #include "interp/execution/fetchNextBytecode.c"
+#include "interp/execution/internalPush.c"
 #include "interp/execution/interpret.c"
 #include "interp/gc/freelists/isFree.c"
 #include "interp/objects/predicates/isNegativeIntegerValueOf.c"
