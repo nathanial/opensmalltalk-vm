@@ -13,32 +13,7 @@ static void printNonPointerDataOfon(sqInt oop, FILE *aStream) {
           (format <= ((firstCompiledMethodFormat()) - 1))));
 
   /* begin lengthOf:format: */
-  numSlots = numSlotsOfAny(oop);
-  if (format <= (ephemeronFormat())) {
-    lastIndex = numSlots;
-    goto l1;
-  }
-  if (format >= (firstByteFormat())) {
-    lastIndex = ((numSlots << (shiftForWord()))) - (format & 7);
-    goto l1;
-  }
-
-  /* bytes, including CompiledMethod */
-  if (format >= (firstShortFormat())) {
-    lastIndex = ((numSlots << ((shiftForWord()) - 1))) - (format & 3);
-    goto l1;
-  }
-  if (format >= (firstLongFormat())) {
-    lastIndex = ((numSlots << ((shiftForWord()) - 2))) - (format & 1);
-    goto l1;
-  }
-  if (format == (sixtyFourBitIndexableFormat())) {
-    lastIndex = numSlots;
-    goto l1;
-  }
-
-  /* fmt = self forwardedFormat */
-  lastIndex = 0;
+  lastIndex = lengthOfformat(oop, format);
   /* end lengthOf:format: */
 l1:
   if (!lastIndex) {

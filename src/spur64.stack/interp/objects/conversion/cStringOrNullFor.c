@@ -36,33 +36,7 @@ l2:
   }
 
   /* begin lengthOf: */
-  fmt = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-  numSlots = numSlotsOfAny(oop);
-  if (fmt <= (ephemeronFormat())) {
-    len = numSlots;
-    goto l1;
-  }
-  if (fmt >= (firstByteFormat())) {
-    len = ((numSlots << (shiftForWord()))) - (fmt & 7);
-    goto l1;
-  }
-
-  /* bytes, including CompiledMethod */
-  if (fmt >= (firstShortFormat())) {
-    len = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-    goto l1;
-  }
-  if (fmt >= (firstLongFormat())) {
-    len = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-    goto l1;
-  }
-  if (fmt == (sixtyFourBitIndexableFormat())) {
-    len = numSlots;
-    goto l1;
-  }
-
-  /* fmt = self forwardedFormat */
-  len = 0;
+  len = lengthOf(oop);
   /* end lengthOf: */
 l1:
   if (!len) {

@@ -105,34 +105,7 @@ void printOop(sqInt oop) {
     startIP = (((literalCountOf(oop)) + LiteralStart) * BytesPerOop) + 1;
 
     /* begin lengthOf: */
-    fmtSqInt =
-        (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
-    numSlots = numSlotsOfAny(oop);
-    if (fmtSqInt <= (ephemeronFormat())) {
-      lastIndex = numSlots;
-      goto l1;
-    }
-    if (fmtSqInt >= (firstByteFormat())) {
-      lastIndex = ((numSlots << (shiftForWord()))) - (fmtSqInt & 7);
-      goto l1;
-    }
-
-    /* bytes, including CompiledMethod */
-    if (fmtSqInt >= (firstShortFormat())) {
-      lastIndex = ((numSlots << ((shiftForWord()) - 1))) - (fmtSqInt & 3);
-      goto l1;
-    }
-    if (fmtSqInt >= (firstLongFormat())) {
-      lastIndex = ((numSlots << ((shiftForWord()) - 2))) - (fmtSqInt & 1);
-      goto l1;
-    }
-    if (fmtSqInt == (sixtyFourBitIndexableFormat())) {
-      lastIndex = numSlots;
-      goto l1;
-    }
-
-    /* fmt = self forwardedFormat */
-    lastIndex = 0;
+    lastIndex = lengthOf(oop);
     /* end lengthOf: */
   l1:
     if ((lastIndex - startIP) > 0x100) {

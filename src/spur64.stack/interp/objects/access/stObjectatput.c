@@ -23,33 +23,7 @@ sqInt stObjectatput(sqInt array, sqInt index, sqInt value) {
   fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
 
   /* begin lengthOf:baseHeader:format: */
-  /* begin lengthOf:format: */
-  numSlots = numSlotsOfAny(array);
-  if (fmt <= (ephemeronFormat())) {
-    totalLength = numSlots;
-    goto l1;
-  }
-  if (fmt >= (firstByteFormat())) {
-    totalLength = ((numSlots << (shiftForWord()))) - (fmt & 7);
-    goto l1;
-  }
-
-  /* bytes, including CompiledMethod */
-  if (fmt >= (firstShortFormat())) {
-    totalLength = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-    goto l1;
-  }
-  if (fmt >= (firstLongFormat())) {
-    totalLength = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-    goto l1;
-  }
-  if (fmt == (sixtyFourBitIndexableFormat())) {
-    totalLength = numSlots;
-    goto l1;
-  }
-
-  /* fmt = self forwardedFormat */
-  totalLength = 0;
+  totalLength = lengthOfformat(array, fmt);
   /* end lengthOf:baseHeader:format: */
 l1:
 

@@ -51,35 +51,7 @@ static void primitiveContextAtPut(void) {
     fmtUsqLong = (((usqLong)(hdrSqLong)) >> (formatShift())) & (formatMask());
 
     /* begin lengthOf:baseHeader:format: */
-    /* begin lengthOf:format: */
-    numSlots = numSlotsOfAny(aContext);
-    if (fmtUsqLong <= (ephemeronFormat())) {
-      totalLengthSqInt = numSlots;
-      goto l6;
-    }
-    if (fmtUsqLong >= (firstByteFormat())) {
-      totalLengthSqInt = ((numSlots << (shiftForWord()))) - (fmtUsqLong & 7);
-      goto l6;
-    }
-
-    /* bytes, including CompiledMethod */
-    if (fmtUsqLong >= (firstShortFormat())) {
-      totalLengthSqInt =
-          ((numSlots << ((shiftForWord()) - 1))) - (fmtUsqLong & 3);
-      goto l6;
-    }
-    if (fmtUsqLong >= (firstLongFormat())) {
-      totalLengthSqInt =
-          ((numSlots << ((shiftForWord()) - 2))) - (fmtUsqLong & 1);
-      goto l6;
-    }
-    if (fmtUsqLong == (sixtyFourBitIndexableFormat())) {
-      totalLengthSqInt = numSlots;
-      goto l6;
-    }
-
-    /* fmt = self forwardedFormat */
-    totalLengthSqInt = 0;
+    totalLengthSqInt = lengthOfformat(aContext, fmtUsqLong);
     /* end lengthOf:baseHeader:format: */
   l6:
 
@@ -244,33 +216,7 @@ static void primitiveContextAtPut(void) {
     fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
 
     /* begin lengthOf:baseHeader:format: */
-    /* begin lengthOf:format: */
-    numSlots = numSlotsOfAny(aContext);
-    if (fmt <= (ephemeronFormat())) {
-      totalLength = numSlots;
-      goto l3;
-    }
-    if (fmt >= (firstByteFormat())) {
-      totalLength = ((numSlots << (shiftForWord()))) - (fmt & 7);
-      goto l3;
-    }
-
-    /* bytes, including CompiledMethod */
-    if (fmt >= (firstShortFormat())) {
-      totalLength = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-      goto l3;
-    }
-    if (fmt >= (firstLongFormat())) {
-      totalLength = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-      goto l3;
-    }
-    if (fmt == (sixtyFourBitIndexableFormat())) {
-      totalLength = numSlots;
-      goto l3;
-    }
-
-    /* fmt = self forwardedFormat */
-    totalLength = 0;
+    totalLength = lengthOfformat(aContext, fmt);
     /* end lengthOf:baseHeader:format: */
   l3:
 

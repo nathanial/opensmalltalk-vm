@@ -4559,33 +4559,7 @@ sqInt interpret(void) {
              * constant */
 
             /* begin lengthOf:baseHeader:format: */
-            /* begin lengthOf:format: */
-            numSlots = numSlotsOfAny(rcvr);
-            if (fmt <= (ephemeronFormat())) {
-              totalLength = numSlots;
-              goto l51;
-            }
-            if (fmt >= (firstByteFormat())) {
-              totalLength = ((numSlots << (shiftForWord()))) - (fmt & 7);
-              goto l51;
-            }
-
-            /* bytes, including CompiledMethod */
-            if (fmt >= (firstShortFormat())) {
-              totalLength = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-              goto l51;
-            }
-            if (fmt >= (firstLongFormat())) {
-              totalLength = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-              goto l51;
-            }
-            if (fmt == (sixtyFourBitIndexableFormat())) {
-              totalLength = numSlots;
-              goto l51;
-            }
-
-            /* fmt = self forwardedFormat */
-            totalLength = 0;
+            totalLength = lengthOfformat(rcvr, fmt);
             /* end lengthOf:baseHeader:format: */
           l51:
 
@@ -4631,35 +4605,7 @@ sqInt interpret(void) {
               }
 
               /* begin lengthOf:baseHeader:format: */
-              /* begin lengthOf:format: */
-              numSlots = numSlotsOfAny(rcvr);
-              if (fmt <= (ephemeronFormat())) {
-                totalLength = numSlots;
-                goto l47;
-              }
-              if (fmt >= (firstByteFormat())) {
-                totalLength = ((numSlots << (shiftForWord()))) - (fmt & 7);
-                goto l47;
-              }
-
-              /* bytes, including CompiledMethod */
-              if (fmt >= (firstShortFormat())) {
-                totalLength =
-                    ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-                goto l47;
-              }
-              if (fmt >= (firstLongFormat())) {
-                totalLength =
-                    ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-                goto l47;
-              }
-              if (fmt == (sixtyFourBitIndexableFormat())) {
-                totalLength = numSlots;
-                goto l47;
-              }
-
-              /* fmt = self forwardedFormat */
-              totalLength = 0;
+              totalLength = lengthOfformat(rcvr, fmt);
               /* end lengthOf:baseHeader:format: */
             l47:
               fixedFields = 0;
@@ -4850,33 +4796,7 @@ sqInt interpret(void) {
              * constant */
 
             /* begin lengthOf:baseHeader:format: */
-            /* begin lengthOf:format: */
-            numSlots = numSlotsOfAny(rcvr);
-            if (fmt <= (ephemeronFormat())) {
-              totalLength = numSlots;
-              goto l61;
-            }
-            if (fmt >= (firstByteFormat())) {
-              totalLength = ((numSlots << (shiftForWord()))) - (fmt & 7);
-              goto l61;
-            }
-
-            /* bytes, including CompiledMethod */
-            if (fmt >= (firstShortFormat())) {
-              totalLength = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-              goto l61;
-            }
-            if (fmt >= (firstLongFormat())) {
-              totalLength = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-              goto l61;
-            }
-            if (fmt == (sixtyFourBitIndexableFormat())) {
-              totalLength = numSlots;
-              goto l61;
-            }
-
-            /* fmt = self forwardedFormat */
-            totalLength = 0;
+            totalLength = lengthOfformat(rcvr, fmt);
             /* end lengthOf:baseHeader:format: */
           l61:
 
@@ -4922,35 +4842,7 @@ sqInt interpret(void) {
               }
 
               /* begin lengthOf:baseHeader:format: */
-              /* begin lengthOf:format: */
-              numSlots = numSlotsOfAny(rcvr);
-              if (fmt <= (ephemeronFormat())) {
-                totalLength = numSlots;
-                goto l57;
-              }
-              if (fmt >= (firstByteFormat())) {
-                totalLength = ((numSlots << (shiftForWord()))) - (fmt & 7);
-                goto l57;
-              }
-
-              /* bytes, including CompiledMethod */
-              if (fmt >= (firstShortFormat())) {
-                totalLength =
-                    ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-                goto l57;
-              }
-              if (fmt >= (firstLongFormat())) {
-                totalLength =
-                    ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-                goto l57;
-              }
-              if (fmt == (sixtyFourBitIndexableFormat())) {
-                totalLength = numSlots;
-                goto l57;
-              }
-
-              /* fmt = self forwardedFormat */
-              totalLength = 0;
+              totalLength = lengthOfformat(rcvr, fmt);
               /* end lengthOf:baseHeader:format: */
             l57:
               fixedFields = 0;
@@ -5147,34 +5039,7 @@ sqInt interpret(void) {
     l67:
       if (isString) {
         /* begin lengthOf: */
-        fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) &
-              (formatMask());
-        numSlots = numSlotsOfAny(rcvr);
-        if (fmt <= (ephemeronFormat())) {
-          sz = numSlots;
-          goto l68;
-        }
-        if (fmt >= (firstByteFormat())) {
-          sz = ((numSlots << (shiftForWord()))) - (fmt & 7);
-          goto l68;
-        }
-
-        /* bytes, including CompiledMethod */
-        if (fmt >= (firstShortFormat())) {
-          sz = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-          goto l68;
-        }
-        if (fmt >= (firstLongFormat())) {
-          sz = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-          goto l68;
-        }
-        if (fmt == (sixtyFourBitIndexableFormat())) {
-          sz = numSlots;
-          goto l68;
-        }
-
-        /* fmt = self forwardedFormat */
-        sz = 0;
+        sz = lengthOf(rcvr);
         /* end lengthOf: */
       l68:
 
@@ -5200,34 +5065,7 @@ sqInt interpret(void) {
     l69:
       if (isArray) {
         /* begin lengthOf: */
-        fmt = (byteAt((void *)(rcvr + (formatFieldByteOffset())))) &
-              (formatMask());
-        numSlots = numSlotsOfAny(rcvr);
-        if (fmt <= (ephemeronFormat())) {
-          sz = numSlots;
-          goto l70;
-        }
-        if (fmt >= (firstByteFormat())) {
-          sz = ((numSlots << (shiftForWord()))) - (fmt & 7);
-          goto l70;
-        }
-
-        /* bytes, including CompiledMethod */
-        if (fmt >= (firstShortFormat())) {
-          sz = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-          goto l70;
-        }
-        if (fmt >= (firstLongFormat())) {
-          sz = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-          goto l70;
-        }
-        if (fmt == (sixtyFourBitIndexableFormat())) {
-          sz = numSlots;
-          goto l70;
-        }
-
-        /* fmt = self forwardedFormat */
-        sz = 0;
+        sz = lengthOf(rcvr);
         /* end lengthOf: */
       l70:
 

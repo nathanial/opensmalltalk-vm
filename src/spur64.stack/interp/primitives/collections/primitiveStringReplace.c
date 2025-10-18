@@ -180,62 +180,12 @@ static void primitiveStringReplace(void) {
      to arrays. Non-pointer array formats must match */
 
   /* begin lengthOf:format: */
-  numSlots = numSlotsOfAny(array);
-  if (arrayFmt <= (ephemeronFormat())) {
-    arrayLength = ((sqInt)numSlots);
-    goto l3;
-  }
-  if (arrayFmt >= (firstByteFormat())) {
-    arrayLength = ((numSlots << (shiftForWord()))) - (arrayFmt & 7);
-    goto l3;
-  }
-
-  /* bytes, including CompiledMethod */
-  if (arrayFmt >= (firstShortFormat())) {
-    arrayLength = ((numSlots << ((shiftForWord()) - 1))) - (arrayFmt & 3);
-    goto l3;
-  }
-  if (arrayFmt >= (firstLongFormat())) {
-    arrayLength = ((numSlots << ((shiftForWord()) - 2))) - (arrayFmt & 1);
-    goto l3;
-  }
-  if (arrayFmt == (sixtyFourBitIndexableFormat())) {
-    arrayLength = ((sqInt)numSlots);
-    goto l3;
-  }
-
-  /* fmt = self forwardedFormat */
-  arrayLength = 0;
+  arrayLength = lengthOfformat(array, arrayFmt);
   /* end lengthOf:format: */
 l3:
 
   /* begin lengthOf:format: */
-  numSlots = numSlotsOfAny(repl);
-  if (replFmt <= (ephemeronFormat())) {
-    replLength = ((sqInt)numSlots);
-    goto l4;
-  }
-  if (replFmt >= (firstByteFormat())) {
-    replLength = ((numSlots << (shiftForWord()))) - (replFmt & 7);
-    goto l4;
-  }
-
-  /* bytes, including CompiledMethod */
-  if (replFmt >= (firstShortFormat())) {
-    replLength = ((numSlots << ((shiftForWord()) - 1))) - (replFmt & 3);
-    goto l4;
-  }
-  if (replFmt >= (firstLongFormat())) {
-    replLength = ((numSlots << ((shiftForWord()) - 2))) - (replFmt & 1);
-    goto l4;
-  }
-  if (replFmt == (sixtyFourBitIndexableFormat())) {
-    replLength = ((sqInt)numSlots);
-    goto l4;
-  }
-
-  /* fmt = self forwardedFormat */
-  replLength = 0;
+  replLength = lengthOfformat(repl, replFmt);
   /* end lengthOf:format: */
 l4:
 

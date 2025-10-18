@@ -66,33 +66,7 @@ static void primitiveStringAtPut(void) {
   fmt = (((usqLong)(hdr)) >> (formatShift())) & (formatMask());
 
   /* begin lengthOf:baseHeader:format: */
-  /* begin lengthOf:format: */
-  numSlots = numSlotsOfAny(rcvr);
-  if (fmt <= (ephemeronFormat())) {
-    totalLength = numSlots;
-    goto l1;
-  }
-  if (fmt >= (firstByteFormat())) {
-    totalLength = ((numSlots << (shiftForWord()))) - (fmt & 7);
-    goto l1;
-  }
-
-  /* bytes, including CompiledMethod */
-  if (fmt >= (firstShortFormat())) {
-    totalLength = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-    goto l1;
-  }
-  if (fmt >= (firstLongFormat())) {
-    totalLength = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-    goto l1;
-  }
-  if (fmt == (sixtyFourBitIndexableFormat())) {
-    totalLength = numSlots;
-    goto l1;
-  }
-
-  /* fmt = self forwardedFormat */
-  totalLength = 0;
+  totalLength = lengthOfformat(rcvr, fmt);
   /* end lengthOf:baseHeader:format: */
 l1:
 

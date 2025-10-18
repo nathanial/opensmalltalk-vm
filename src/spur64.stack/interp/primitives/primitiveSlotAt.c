@@ -142,7 +142,9 @@ static void primitiveSlotAt(void) {
     numSlots = ((usqInt)((numBytesOf(rcvr)))) >> 2;
     if ((((usqInt)index)) < numSlots) {
       /* begin pop:thenPush: */
-      popthenPush(argumentCount + 1, ((((((usqInt)(long32At((void *)((rcvr + BaseHeaderSize) +
+      popthenPush(
+          argumentCount + 1,
+          ((((((usqInt)(long32At((void *)((rcvr + BaseHeaderSize) +
                                           ((((usqInt)(index) << 2)))))))) &
              0xFFFFFFFFU)
             << 3) |

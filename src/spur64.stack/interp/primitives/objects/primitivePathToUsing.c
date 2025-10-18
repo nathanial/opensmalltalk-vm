@@ -71,33 +71,7 @@ primitivePathToUsing(void) {
   beRootIfOld(stack);
 
   /* begin lengthOf: */
-  fmt = (byteAt((void *)(stack + (formatFieldByteOffset())))) & (formatMask());
-  numSlots = numSlotsOfAny(stack);
-  if (fmt <= (ephemeronFormat())) {
-    stackSize = numSlots;
-    goto l1;
-  }
-  if (fmt >= (firstByteFormat())) {
-    stackSize = ((numSlots << (shiftForWord()))) - (fmt & 7);
-    goto l1;
-  }
-
-  /* bytes, including CompiledMethod */
-  if (fmt >= (firstShortFormat())) {
-    stackSize = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-    goto l1;
-  }
-  if (fmt >= (firstLongFormat())) {
-    stackSize = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-    goto l1;
-  }
-  if (fmt == (sixtyFourBitIndexableFormat())) {
-    stackSize = numSlots;
-    goto l1;
-  }
-
-  /* fmt = self forwardedFormat */
-  stackSize = 0;
+  stackSize = lengthOf(stack);
   /* end lengthOf: */
 l1:
 
@@ -120,34 +94,7 @@ l1:
                 (1U << (markedBitByteShift())));
 
   /* begin lengthOf: */
-  fmt =
-      (byteAt((void *)(current + (formatFieldByteOffset())))) & (formatMask());
-  numSlots = numSlotsOfAny(current);
-  if (fmt <= (ephemeronFormat())) {
-    index = numSlots;
-    goto l2;
-  }
-  if (fmt >= (firstByteFormat())) {
-    index = ((numSlots << (shiftForWord()))) - (fmt & 7);
-    goto l2;
-  }
-
-  /* bytes, including CompiledMethod */
-  if (fmt >= (firstShortFormat())) {
-    index = ((numSlots << ((shiftForWord()) - 1))) - (fmt & 3);
-    goto l2;
-  }
-  if (fmt >= (firstLongFormat())) {
-    index = ((numSlots << ((shiftForWord()) - 2))) - (fmt & 1);
-    goto l2;
-  }
-  if (fmt == (sixtyFourBitIndexableFormat())) {
-    index = numSlots;
-    goto l2;
-  }
-
-  /* fmt = self forwardedFormat */
-  index = 0;
+  index = lengthOf(current);
   /* end lengthOf: */
 l2:
   stackp = 0;
