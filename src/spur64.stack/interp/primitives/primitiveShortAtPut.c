@@ -58,7 +58,5 @@ static void primitiveShortAtPut(void) {
       value);
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (2 * BytesPerWord)),
-            (((usqInt)value << 3) | 1));
-  stackPointer = sp;
+  popthenPush(3, (((usqInt)value << 3) | 1));
 }

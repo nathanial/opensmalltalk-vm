@@ -19,9 +19,7 @@ static void primitiveNextObject(void) {
     assert(isInMemory(instance));
 
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-              instance);
-    stackPointer = sp;
+    popthenPush(argumentCount + 1, instance);
   } else {
     /* begin pop:thenPushInteger: */
     longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),

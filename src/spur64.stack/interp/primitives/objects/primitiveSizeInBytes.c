@@ -14,7 +14,5 @@ static void primitiveSizeInBytes(void) {
   oop = positive64BitIntegerFor(byteSize);
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-            oop);
-  stackPointer = sp;
+  popthenPush(argumentCount + 1, oop);
 }

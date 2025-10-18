@@ -76,6 +76,5 @@ l1:
             arg);
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (1 * BytesPerWord)), pt);
-  stackPointer = sp;
+  popthenPush(2, pt);
 }

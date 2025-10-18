@@ -20,7 +20,5 @@ static void primitiveAsCharacter(void) {
       ((((usqInt)(characterCode) << (numTagBits())))) + (characterTag());
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-            characterObject);
-  stackPointer = sp;
+  popthenPush(argumentCount + 1, characterObject);
 }

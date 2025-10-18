@@ -71,8 +71,7 @@ static void primitiveDoPrimitiveWithArgs(void) {
     }
 
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (3 * BytesPerWord)), rcvr);
-    stackPointer = sp;
+    popthenPush(4, rcvr);
   } else {
     /* begin pop: */
     stackPointer += 2 * BytesPerWord;

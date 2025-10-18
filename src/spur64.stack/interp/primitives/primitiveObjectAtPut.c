@@ -48,6 +48,5 @@ static void primitiveObjectAtPut(void) {
   storePointerofObjectwithValue(fieldIndex, thisReceiver, newValue);
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (2 * BytesPerWord)), newValue);
-  stackPointer = sp;
+  popthenPush(3, newValue);
 }

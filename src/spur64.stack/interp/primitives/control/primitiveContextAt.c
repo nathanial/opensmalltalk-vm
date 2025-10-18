@@ -183,10 +183,7 @@ static void primitiveContextAt(void) {
   l8:
     if (!primFailCode) {
       /* begin pop:thenPush: */
-      longAtput(
-          (sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-          value);
-      stackPointer = sp;
+      popthenPush(argumentCount + 1, value);
     }
     return;
   }
@@ -317,9 +314,7 @@ static void primitiveContextAt(void) {
   l2:
 
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-              value);
-    stackPointer = sp;
+    popthenPush(argumentCount + 1, value);
     return;
   }
 
@@ -335,7 +330,5 @@ static void primitiveContextAt(void) {
   value = temporaryin((index - 1), spouseFP);
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-            value);
-  stackPointer = sp;
+  popthenPush(argumentCount + 1, value);
 }

@@ -126,6 +126,5 @@ l1:
   /* greater by 1 due to preIncrement of localIP */
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (2 * BytesPerWord)), newClosure);
-  stackPointer = sp;
+  popthenPush(3, newClosure);
 }

@@ -48,8 +48,7 @@ static void primitiveFloatAtPut(void) {
                 valueToStore);
 
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (2 * BytesPerWord)), oopToStore);
-    stackPointer = sp;
+    popthenPush(3, oopToStore);
     return;
   }
   if (index == ConstTwo) {
@@ -59,8 +58,7 @@ static void primitiveFloatAtPut(void) {
                 valueToStore);
 
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (2 * BytesPerWord)), oopToStore);
-    stackPointer = sp;
+    popthenPush(3, oopToStore);
     return;
   }
 

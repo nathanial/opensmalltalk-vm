@@ -104,10 +104,7 @@ static void primitiveNextInstance(void) {
   l4:
     if (subsequentObject) {
       /* begin pop:thenPush: */
-      longAtput(
-          (sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-          subsequentObject);
-      stackPointer = sp;
+      popthenPush(argumentCount + 1, subsequentObject);
       return;
     }
   }

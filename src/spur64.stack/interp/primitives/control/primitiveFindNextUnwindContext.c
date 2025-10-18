@@ -140,6 +140,5 @@ static void primitiveFindNextUnwindContext(void) {
   }
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (1 * BytesPerWord)), handlerOrNilOrZero);
-  stackPointer = sp;
+  popthenPush(2, handlerOrNilOrZero);
 }

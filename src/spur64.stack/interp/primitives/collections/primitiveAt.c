@@ -176,9 +176,7 @@ l4:
   if (!primFailCode) {
 
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-              result);
-    stackPointer = sp;
+    popthenPush(argumentCount + 1, result);
   }
   /* end commonAt: */
 l5:;

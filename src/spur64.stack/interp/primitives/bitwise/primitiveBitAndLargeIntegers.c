@@ -19,7 +19,6 @@ primitiveBitAndLargeIntegers(void) {
   oopResult = positive64BitIntegerFor(integerRcvr & integerArg);
   if (!primFailCode) {
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (1 * BytesPerWord)), oopResult);
-    stackPointer = sp;
+    popthenPush(2, oopResult);
   }
 }

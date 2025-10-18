@@ -11,8 +11,6 @@ sqInt methodReturnValue(sqInt oop) {
   assert(!((failed())));
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-            oop);
-  stackPointer = sp;
+  popthenPush(argumentCount + 1, oop);
   return 0;
 }

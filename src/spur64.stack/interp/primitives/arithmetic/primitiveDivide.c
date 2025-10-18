@@ -37,9 +37,7 @@ static void primitiveDivide(void) {
       if ((((((usqInt)((integerReceiver / integerArgument))) >> 60) + 1) &
            15) <= 1) {
         /* begin pop:thenPush: */
-        longAtput((sp = stackPointer + (1 * BytesPerWord)),
-                  (((usqInt)(integerReceiver / integerArgument) << 3) | 1));
-        stackPointer = sp;
+        popthenPush(2, (((usqInt)(integerReceiver / integerArgument) << 3) | 1));
       } else {
         /* begin success: */
         if (!primFailCode) {

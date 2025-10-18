@@ -55,8 +55,7 @@ static void primitiveLoadImageSegment(void) {
   result = loadImageSegmentFromoutPointers(segmentWordArray, outPointerArray);
   if (oopisGreaterThan(result, segmentWordArray)) {
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (2 * BytesPerWord)), result);
-    stackPointer = sp;
+    popthenPush(3, result);
   } else {
     /* primitiveFailFor: */
     primFailCode = result;

@@ -4373,8 +4373,7 @@ sqInt interpret(void) {
                        : signed64BitIntegerFor(shifted));
 
         /* begin pop:thenPush: */
-        longAtput((sp = stackPointer + (1 * BytesPerWord)), shifted);
-        stackPointer = sp;
+        popthenPush(2, shifted);
       }
       /* end primitiveBitShift */
     l42:

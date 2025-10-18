@@ -45,9 +45,7 @@ l1:
   if ((obj = instantiateClassindexableSize(
            longAt(stackPointer + (1 * BytesPerWord)), size))) {
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-              obj);
-    stackPointer = sp;
+    popthenPush(argumentCount + 1, obj);
   } else {
     instSpec = (((usqInt)((((fetchPointerofObject(
                                 InstanceSpecificationIndex,

@@ -13,9 +13,7 @@ static void primitiveMod(void) {
   if (!primFailCode) {
     if ((((((usqInt)(mod)) >> 60) + 1) & 15) <= 1) {
       /* begin pop:thenPush: */
-      longAtput((sp = stackPointer + (1 * BytesPerWord)),
-                (((usqInt)mod << 3) | 1));
-      stackPointer = sp;
+      popthenPush(2, (((usqInt)mod << 3) | 1));
     } else {
       /* begin success: */
       if (!primFailCode) {

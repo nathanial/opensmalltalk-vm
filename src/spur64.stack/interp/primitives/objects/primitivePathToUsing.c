@@ -334,8 +334,6 @@ l5:
   path = longAt(stackPointer + (1 * BytesPerWord));
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-            path);
-  stackPointer = sp;
+  popthenPush(argumentCount + 1, path);
   return 0;
 }

@@ -35,7 +35,5 @@ static void primitiveObjectAt(void) {
   }
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (1 * BytesPerWord)),
-            fetchPointerofObject(index - 1, thisReceiver));
-  stackPointer = sp;
+  popthenPush(2, fetchPointerofObject(index - 1, thisReceiver));
 }

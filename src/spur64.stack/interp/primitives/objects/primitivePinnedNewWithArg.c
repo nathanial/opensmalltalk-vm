@@ -161,9 +161,7 @@ l1:
 l2:
   if (obj) {
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-              obj);
-    stackPointer = sp;
+    popthenPush(argumentCount + 1, obj);
   } else {
     instSpec = (((usqInt)((((fetchPointerofObject(
                                 InstanceSpecificationIndex,

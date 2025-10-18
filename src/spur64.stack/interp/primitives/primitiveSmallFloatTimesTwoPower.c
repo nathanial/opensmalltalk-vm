@@ -43,6 +43,5 @@ static void primitiveSmallFloatTimesTwoPower(void) {
   }
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (1 * BytesPerWord)), result);
-  stackPointer = sp;
+  popthenPush(2, result);
 }

@@ -13,9 +13,7 @@ static void primitiveSomeInstance(void) {
   instance = initialInstanceOf(class);
   if (instance) {
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-              instance);
-    stackPointer = sp;
+    popthenPush(argumentCount + 1, instance);
   } else {
     /* begin primitiveFail */
     if (!primFailCode) {

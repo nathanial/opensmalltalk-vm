@@ -56,7 +56,6 @@ l2:
     oop = positive64BitIntegerFor(integerArgumentValue | integerReceiverValue);
 
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (1 * BytesPerWord)), oop);
-    stackPointer = sp;
+    popthenPush(2, oop);
   }
 }

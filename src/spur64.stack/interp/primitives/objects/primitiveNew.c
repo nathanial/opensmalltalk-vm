@@ -10,9 +10,7 @@ static void primitiveNew(void) {
   /* For the mirror prims check that the class obj is actually a valid class. */
   if ((obj = instantiateClass(longAt(stackPointer)))) {
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-              obj);
-    stackPointer = sp;
+    popthenPush(argumentCount + 1, obj);
   } else {
     reasonCode =
         (isFixedSizePointerFormat(

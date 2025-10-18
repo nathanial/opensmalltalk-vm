@@ -14,10 +14,7 @@ NeverInline sqInt methodReturnString(const char *aCString) {
   if (aCString) {
     if ((result = stringForCString(aCString))) {
       /* begin pop:thenPush: */
-      longAtput(
-          (sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-          result);
-      stackPointer = sp;
+      popthenPush(argumentCount + 1, result);
     } else {
       primFailCode = PrimErrNoMemory;
     }

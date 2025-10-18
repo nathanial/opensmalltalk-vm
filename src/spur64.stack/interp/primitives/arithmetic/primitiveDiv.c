@@ -13,9 +13,7 @@ static void primitiveDiv(void) {
   if (!primFailCode) {
     if ((((((usqInt)(quotient)) >> 60) + 1) & 15) <= 1) {
       /* begin pop:thenPush: */
-      longAtput((sp = stackPointer + (1 * BytesPerWord)),
-                (((usqInt)quotient << 3) | 1));
-      stackPointer = sp;
+      popthenPush(2, (((usqInt)quotient << 3) | 1));
     } else {
       /* begin success: */
       if (!primFailCode) {

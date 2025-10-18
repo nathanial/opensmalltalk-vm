@@ -51,9 +51,7 @@ static void primitiveMultiply(void) {
       integerResult = integerRcvr * integerArg;
 
       /* begin pop:thenPush: */
-      longAtput((sp = stackPointer + (1 * BytesPerWord)),
-                (((usqInt)integerResult << 3) | 1));
-      stackPointer = sp;
+      popthenPush(2, (((usqInt)integerResult << 3) | 1));
     }
   }
 }

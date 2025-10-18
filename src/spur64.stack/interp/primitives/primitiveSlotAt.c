@@ -70,10 +70,7 @@ static void primitiveSlotAt(void) {
       }
 
       /* begin pop:thenPush: */
-      longAtput(
-          (sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-          value);
-      stackPointer = sp;
+      popthenPush(argumentCount + 1, value);
       return;
     }
 
@@ -133,10 +130,7 @@ static void primitiveSlotAt(void) {
           (void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 3))))));
 
       /* begin pop:thenPush: */
-      longAtput(
-          (sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-          oop);
-      stackPointer = sp;
+      popthenPush(argumentCount + 1, oop);
       return;
     }
 
@@ -148,14 +142,11 @@ static void primitiveSlotAt(void) {
     numSlots = ((usqInt)((numBytesOf(rcvr)))) >> 2;
     if ((((usqInt)index)) < numSlots) {
       /* begin pop:thenPush: */
-      longAtput(
-          (sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-          ((((((usqInt)(long32At((void *)((rcvr + BaseHeaderSize) +
+      popthenPush(argumentCount + 1, ((((((usqInt)(long32At((void *)((rcvr + BaseHeaderSize) +
                                           ((((usqInt)(index) << 2)))))))) &
              0xFFFFFFFFU)
             << 3) |
            1));
-      stackPointer = sp;
       return;
     }
 

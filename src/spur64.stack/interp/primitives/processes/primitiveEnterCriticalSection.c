@@ -63,9 +63,7 @@ static void primitiveEnterCriticalSection(void) {
   /* Arrange to answer false (unowned) when the process is resumed. */
 
   /* begin pop:thenPush: */
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-            falseObj);
-  stackPointer = sp;
+  popthenPush(argumentCount + 1, falseObj);
   addLastLinktoList(activeProc, criticalSection);
 
   /* transferToHighestPriorityProcessFrom: */

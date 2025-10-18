@@ -42,7 +42,6 @@ primitiveModLargeIntegers(void) {
   oopResult = magnitude64BitIntegerForneg(result, bIsNegative);
   if (!primFailCode) {
     /* begin pop:thenPush: */
-    longAtput((sp = stackPointer + (1 * BytesPerWord)), oopResult);
-    stackPointer = sp;
+    popthenPush(2, oopResult);
   }
 }
