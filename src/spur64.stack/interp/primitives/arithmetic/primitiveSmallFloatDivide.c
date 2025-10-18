@@ -9,7 +9,6 @@ static void primitiveSmallFloatDivide(void) {
   sqInt oop;
   double rcvr;
   double result;
-  char *sp;
   sqInt tagBits;
   double value;
 
@@ -53,8 +52,6 @@ l1:
   }
   if (!primFailCode) {
     /* begin pop:thenPushFloat: */
-    longAtput((sp = stackPointer + (1 * BytesPerWord)),
-              floatObjectOf(rcvr / arg));
-    stackPointer = sp;
+    popthenPushFloat(2, floatObjectOf(rcvr / arg));
   }
 }

@@ -3406,7 +3406,6 @@ sqInt interpret(void) {
       double rcvrDouble;
       sqInt result;
       double resultDouble;
-      char *sp;
       sqInt tagBits;
       double value;
 
@@ -3488,9 +3487,7 @@ sqInt interpret(void) {
       l22:
         if (!primFailCode) {
           /* begin pop:thenPushFloat: */
-          longAtput((sp = stackPointer + (1 * BytesPerWord)),
-                    floatObjectOf(rcvrDouble + argDouble));
-          stackPointer = sp;
+          popthenPushFloat(2, floatObjectOf(rcvrDouble + argDouble));
         }
 
         /* begin internalizeIPandSP */
@@ -3520,7 +3517,6 @@ sqInt interpret(void) {
       double rcvrDouble;
       sqInt result;
       double resultDouble;
-      char *sp;
       sqInt tagBits;
       double value;
 
@@ -3602,9 +3598,7 @@ sqInt interpret(void) {
       l25:
         if (!primFailCode) {
           /* begin pop:thenPushFloat: */
-          longAtput((sp = stackPointer + (1 * BytesPerWord)),
-                    floatObjectOf(rcvrDouble - argDouble));
-          stackPointer = sp;
+          popthenPushFloat(2, floatObjectOf(rcvrDouble - argDouble));
         }
 
         /* begin internalizeIPandSP */
@@ -3969,7 +3963,6 @@ sqInt interpret(void) {
       double rcvrDouble;
       sqInt result;
       double resultDouble;
-      char *sp;
       sqInt tagBits;
       double value;
 
@@ -4061,9 +4054,7 @@ sqInt interpret(void) {
       l34:
         if (!primFailCode) {
           /* begin pop:thenPushFloat: */
-          longAtput((sp = stackPointer + (1 * BytesPerWord)),
-                    floatObjectOf(rcvrDouble * argDouble));
-          stackPointer = sp;
+          popthenPushFloat(2, floatObjectOf(rcvrDouble * argDouble));
         }
 
         /* begin internalizeIPandSP */
@@ -4093,7 +4084,6 @@ sqInt interpret(void) {
       double rcvrDouble;
       sqInt result;
       double resultDouble;
-      char *sp;
       sqInt tagBits;
       double value;
 
@@ -4189,9 +4179,7 @@ sqInt interpret(void) {
         }
         if (!primFailCode) {
           /* begin pop:thenPushFloat: */
-          longAtput((sp = stackPointer + (1 * BytesPerWord)),
-                    floatObjectOf(rcvrDouble / argDouble));
-          stackPointer = sp;
+          popthenPushFloat(2, floatObjectOf(rcvrDouble / argDouble));
         }
 
         /* begin internalizeIPandSP */

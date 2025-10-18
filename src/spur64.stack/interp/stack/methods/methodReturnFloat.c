@@ -5,13 +5,9 @@
 /* StackInterpreter>>#methodReturnFloat: */
 
 sqInt methodReturnFloat(double aFloat) {
-  char *sp;
-
   assert(!((failed())));
 
   /* begin pop:thenPushFloat: */
-  longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),
-            floatObjectOf(aFloat));
-  stackPointer = sp;
+  popthenPushFloat(argumentCount + 1, floatObjectOf(aFloat));
   return 0;
 }

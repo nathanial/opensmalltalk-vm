@@ -13,7 +13,6 @@ static void primitiveTimesTwoPower(void) {
   usqLong bits;
   double rcvr;
   double result;
-  char *sp;
   sqInt twiceMaxExponent;
 
   arg = longAt(stackPointer);
@@ -45,6 +44,5 @@ static void primitiveTimesTwoPower(void) {
   result = ldexp(rcvr, ((int)arg));
 
   /* begin pop:thenPushFloat: */
-  longAtput((sp = stackPointer + (1 * BytesPerWord)), floatObjectOf(result));
-  stackPointer = sp;
+  popthenPushFloat(2, floatObjectOf(result));
 }

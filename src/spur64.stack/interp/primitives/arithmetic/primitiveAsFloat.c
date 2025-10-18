@@ -8,12 +8,10 @@
 
 static void primitiveAsFloat(void) {
   sqInt rcvr;
-  char *sp;
 
   rcvr = longAt(stackPointer);
   assert((((rcvr) & 7) == 1));
 
   /* begin pop:thenPushFloat: */
-  longAtput((sp = stackPointer), floatObjectOf(((double)((rcvr >> 3)))));
-  stackPointer = sp;
+  popthenPushFloat(1, floatObjectOf(((double)((rcvr >> 3)))));
 }

@@ -2704,6 +2704,7 @@ volatile int sendTrace;
 #include "interp/execution/internalPush.c"
 #include "interp/execution/pushLiteralVariableBytecode.c"
 #include "interp/execution/storeAndPopTemporaryVariableBytecode.c"
+static inline void popthenPushFloat(sqInt nItems, sqInt floatOop);
 #include "interp/execution/interpret.c"
 #include "interp/gc/freelists/isFree.c"
 #include "interp/objects/predicates/isNegativeIntegerValueOf.c"
@@ -3805,6 +3806,7 @@ void enableSendPrinting(void) {
 #include "interp/stack/manipulation/popStack.c"
 #include "interp/objects/conversion/booleanObjectOf.c"
 #include "interp/stack/manipulation/popthenPush.c"
+#include "interp/stack/manipulation/popthenPushFloat.c"
 #include "interp/stack/manipulation/popthenPushBool.c"
 #include "interp/stack/manipulation/externalizeIPandSP.c"
 #include "interp/objects/conversion/positive32BitIntegerFor.c"
