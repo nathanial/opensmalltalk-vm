@@ -20,32 +20,11 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
   /* any process on the list could have been becomed, so use a read barrier...
    */
 
-  /* begin followObjField:ofObject: */
-  firstLink = fetchPointerofObject(FirstLinkIndex, aList);
-  assert(isNonImmediate(firstLink));
-  if ((!((longAt((void *)(firstLink))) &
-         ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-    firstLink = fixFollowedFieldofObjectwithInitialValue(FirstLinkIndex, aList,
-                                                         firstLink);
-  }
+  firstLink = followObjFieldofObject(FirstLinkIndex, aList);
 
-  /* begin followObjField:ofObject: */
-  lastLink = fetchPointerofObject(LastLinkIndex, aList);
-  assert(isNonImmediate(lastLink));
-  if ((!((longAt((void *)(lastLink))) &
-         ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-    lastLink = fixFollowedFieldofObjectwithInitialValue(LastLinkIndex, aList,
-                                                        lastLink);
-  }
+  lastLink = followObjFieldofObject(LastLinkIndex, aList);
   if (aProcess == firstLink) {
-    /* begin followObjField:ofObject: */
-    nextLink = fetchPointerofObject(NextLinkIndex, aProcess);
-    assert(isNonImmediate(nextLink));
-    if ((!((longAt((void *)(nextLink))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      nextLink = fixFollowedFieldofObjectwithInitialValue(NextLinkIndex,
-                                                          aProcess, nextLink);
-    }
+    nextLink = followObjFieldofObject(NextLinkIndex, aProcess);
 
     storePointerofObjectwithValue(FirstLinkIndex, aList, nextLink);
     if (aProcess == lastLink) {
@@ -71,14 +50,7 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
         return 0;
       }
 
-      /* begin followObjField:ofObject: */
-      nextLink = fetchPointerofObject(NextLinkIndex, tempLink);
-      assert(isNonImmediate(nextLink));
-      if ((!((longAt((void *)(nextLink))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        nextLink = fixFollowedFieldofObjectwithInitialValue(NextLinkIndex,
-                                                            tempLink, nextLink);
-      }
+      nextLink = followObjFieldofObject(NextLinkIndex, tempLink);
       if (nextLink == aProcess)
         break;
       tempLink = nextLink;

@@ -31,24 +31,10 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
   }
   currentClass = class;
   while (currentClass != nilObj) {
-    /* begin followObjField:ofObject: */
-    dictionary = fetchPointerofObject(MethodDictionaryIndex, currentClass);
-    assert(isNonImmediate(dictionary));
-    if ((!((longAt((void *)(dictionary))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      dictionary = fixFollowedFieldofObjectwithInitialValue(
-          MethodDictionaryIndex, currentClass, dictionary);
-    }
+    dictionary = followObjFieldofObject(MethodDictionaryIndex, currentClass);
     if (dictionary == nilObj) {
       /* begin superclassOf: */
-      /* begin followObjField:ofObject: */
-      objOop = fetchPointerofObject(SuperclassIndex, currentClass);
-      assert(isNonImmediate(objOop));
-      if ((!((longAt((void *)(objOop))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex,
-                                                          currentClass, objOop);
-      }
+      objOop = followObjFieldofObject(SuperclassIndex, currentClass);
       lkupClass = objOop;
       return SelectorCannotInterpret;
     }
@@ -72,14 +58,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
               index + SelectorStart, dictionary, nextSelector);
         }
         if (nextSelector == messageSelector) {
-          /* begin followObjField:ofObject: */
-          methodArray = fetchPointerofObject(MethodArrayIndex, dictionary);
-          assert(isNonImmediate(methodArray));
-          if ((!((longAt((void *)(methodArray))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-            methodArray = fixFollowedFieldofObjectwithInitialValue(
-                MethodArrayIndex, dictionary, methodArray);
-          }
+          methodArray = followObjFieldofObject(MethodArrayIndex, dictionary);
 
           objOopSqInt = followFieldofObject(index, methodArray);
           newMethod = objOopSqInt;
@@ -113,14 +92,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
             index + SelectorStart, dictionary, nextSelector);
       }
       if (nextSelector == messageSelector) {
-        /* begin followObjField:ofObject: */
-        methodArray = fetchPointerofObject(MethodArrayIndex, dictionary);
-        assert(isNonImmediate(methodArray));
-        if ((!((longAt((void *)(methodArray))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          methodArray = fixFollowedFieldofObjectwithInitialValue(
-              MethodArrayIndex, dictionary, methodArray);
-        }
+        methodArray = followObjFieldofObject(MethodArrayIndex, dictionary);
 
         objOopSqInt = followFieldofObject(index - SelectorStart, methodArray);
         newMethod = objOopSqInt;
@@ -146,14 +118,7 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
     }
 
     /* begin superclassOf: */
-    /* begin followObjField:ofObject: */
-    objOopSqInt = fetchPointerofObject(SuperclassIndex, currentClass);
-    assert(isNonImmediate(objOopSqInt));
-    if ((!((longAt((void *)(objOopSqInt))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
-          SuperclassIndex, currentClass, objOopSqInt);
-    }
+    objOopSqInt = followObjFieldofObject(SuperclassIndex, currentClass);
     currentClass = objOopSqInt;
   }
   lkupClass = class;

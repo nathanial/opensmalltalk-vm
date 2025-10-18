@@ -30,14 +30,7 @@ static sqInt lookupMethodInClass(sqInt class) {
   }
   currentClass = class;
   while (currentClass != nilObj) {
-    /* begin followObjField:ofObject: */
-    dictionary = fetchPointerofObject(MethodDictionaryIndex, currentClass);
-    assert(isNonImmediate(dictionary));
-    if ((!((longAt((void *)(dictionary))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      dictionary = fixFollowedFieldofObjectwithInitialValue(
-          MethodDictionaryIndex, currentClass, dictionary);
-    }
+    dictionary = followObjFieldofObject(MethodDictionaryIndex, currentClass);
     if (dictionary == nilObj) {
       createActualMessageTo(class);
       messageSelector = longAt((
@@ -75,14 +68,7 @@ static sqInt lookupMethodInClass(sqInt class) {
               index + SelectorStart, dictionary, nextSelector);
         }
         if (nextSelector == messageSelector) {
-          /* begin followObjField:ofObject: */
-          methodArray = fetchPointerofObject(MethodArrayIndex, dictionary);
-          assert(isNonImmediate(methodArray));
-          if ((!((longAt((void *)(methodArray))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-            methodArray = fixFollowedFieldofObjectwithInitialValue(
-                MethodArrayIndex, dictionary, methodArray);
-          }
+          methodArray = followObjFieldofObject(MethodArrayIndex, dictionary);
 
           objOop = followFieldofObject(index, methodArray);
           newMethod = objOop;
@@ -116,14 +102,7 @@ static sqInt lookupMethodInClass(sqInt class) {
             index + SelectorStart, dictionary, nextSelector);
       }
       if (nextSelector == messageSelector) {
-        /* begin followObjField:ofObject: */
-        methodArray = fetchPointerofObject(MethodArrayIndex, dictionary);
-        assert(isNonImmediate(methodArray));
-        if ((!((longAt((void *)(methodArray))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          methodArray = fixFollowedFieldofObjectwithInitialValue(
-              MethodArrayIndex, dictionary, methodArray);
-        }
+        methodArray = followObjFieldofObject(MethodArrayIndex, dictionary);
 
         objOop = followFieldofObject(index - SelectorStart, methodArray);
         newMethod = objOop;
@@ -148,14 +127,7 @@ static sqInt lookupMethodInClass(sqInt class) {
     }
 
     /* begin superclassOf: */
-    /* begin followObjField:ofObject: */
-    objOopSqInt = fetchPointerofObject(SuperclassIndex, currentClass);
-    assert(isNonImmediate(objOopSqInt));
-    if ((!((longAt((void *)(objOopSqInt))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      objOopSqInt = fixFollowedFieldofObjectwithInitialValue(
-          SuperclassIndex, currentClass, objOopSqInt);
-    }
+    objOopSqInt = followObjFieldofObject(SuperclassIndex, currentClass);
     currentClass = objOopSqInt;
   }
 

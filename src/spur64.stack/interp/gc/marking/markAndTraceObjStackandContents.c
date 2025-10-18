@@ -46,14 +46,7 @@ static void markAndTraceObjStackandContents(sqInt stackOrNil,
      last 0-rel index is 5. */
   index = (fetchPointerofObject(ObjStackTopx, stackOrNil)) + ObjStackNextx;
   while (index >= ObjStackFixedSlots) {
-    /* begin followObjField:ofObject: */
-    field = fetchPointerofObject(index, stackOrNil);
-    assert(isNonImmediate(field));
-    if ((!((longAt((void *)(field))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      field =
-          fixFollowedFieldofObjectwithInitialValue(index, stackOrNil, field);
-    }
+    field = followObjFieldofObject(index, stackOrNil);
     if (!(((field & (tagMask())) != 0))) {
       markAndTrace(field);
     }

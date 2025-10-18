@@ -129,27 +129,13 @@ void longPrintOop(sqInt oop) {
       }
 
       /* begin superclassOf: */
-      /* begin followObjField:ofObject: */
-      objOop = fetchPointerofObject(SuperclassIndex, oopClass);
-      assert(isNonImmediate(objOop));
-      if ((!((longAt((void *)(objOop))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex,
-                                                          oopClass, objOop);
-      }
+      objOop = followObjFieldofObject(SuperclassIndex, oopClass);
       oopClass = objOop;
     }
     classPointer = fetchPointerofObject(ClassByteString, specialObjectsOop);
 
     /* begin superclassOf: */
-    /* begin followObjField:ofObject: */
-    objOop = fetchPointerofObject(SuperclassIndex, classPointer);
-    assert(isNonImmediate(objOop));
-    if ((!((longAt((void *)(objOop))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex,
-                                                        classPointer, objOop);
-    }
+    objOop = followObjFieldofObject(SuperclassIndex, classPointer);
     aClass = objOop;
 
     /* begin is:KindOfClass: */
@@ -169,14 +155,7 @@ void longPrintOop(sqInt oop) {
       }
 
       /* begin superclassOf: */
-      /* begin followObjField:ofObject: */
-      objOop = fetchPointerofObject(SuperclassIndex, oopClass);
-      assert(isNonImmediate(objOop));
-      if ((!((longAt((void *)(objOop))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex,
-                                                          oopClass, objOop);
-      }
+      objOop = followObjFieldofObject(SuperclassIndex, oopClass);
       oopClass = objOop;
     }
     printNonPointerDataOfon(oop, transcript);

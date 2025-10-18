@@ -35,14 +35,7 @@ l1:
   pointer = (page->baseAddress);
   theIP = fetchPointerofObject(InstructionPointerIndex, aContext);
 
-  /* begin followObjField:ofObject: */
-  theMethod = fetchPointerofObject(MethodIndex, aContext);
-  assert(isNonImmediate(theMethod));
-  if ((!((longAt((void *)(theMethod))) &
-         ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-    theMethod = fixFollowedFieldofObjectwithInitialValue(MethodIndex, aContext,
-                                                         theMethod);
-  }
+  theMethod = followObjFieldofObject(MethodIndex, aContext);
   if (!((((theIP) & 7) == 1))) {
     error("context is not resumable");
   }

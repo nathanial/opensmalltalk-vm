@@ -80,14 +80,7 @@ void printAllStacks(void) {
     classPointer = fetchPointerofObject(ClassSemaphore, specialObjectsOop);
 
     /* begin superclassOf: */
-    /* begin followObjField:ofObject: */
-    linkedListClass = fetchPointerofObject(SuperclassIndex, classPointer);
-    assert(isNonImmediate(linkedListClass));
-    if ((!((longAt((void *)(linkedListClass))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      linkedListClass = fixFollowedFieldofObjectwithInitialValue(
-          SuperclassIndex, classPointer, linkedListClass);
-    }
+    linkedListClass = followObjFieldofObject(SuperclassIndex, classPointer);
   }
   if (proc == nilObj) {
     cr();
@@ -108,14 +101,7 @@ void printAllStacks(void) {
   minProcessInstSize = MyListIndex + 1;
   while ((instanceSizeOf(superclassOf(processClass))) >= minProcessInstSize) {
     /* begin superclassOf: */
-    /* begin followObjField:ofObject: */
-    objOop = fetchPointerofObject(SuperclassIndex, processClass);
-    assert(isNonImmediate(objOop));
-    if ((!((longAt((void *)(objOop))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex,
-                                                        processClass, objOop);
-    }
+    objOop = followObjFieldofObject(SuperclassIndex, processClass);
     processClass = objOop;
   }
   minProcessInstSize = instanceSizeOf(processClass);

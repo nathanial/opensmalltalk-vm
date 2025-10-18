@@ -21,14 +21,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
 
   currentClass = class;
   while (currentClass != nilObj) {
-    /* begin followObjField:ofObject: */
-    dictionary = fetchPointerofObject(MethodDictionaryIndex, currentClass);
-    assert(isNonImmediate(dictionary));
-    if ((!((longAt((void *)(dictionary))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      dictionary = fixFollowedFieldofObjectwithInitialValue(
-          MethodDictionaryIndex, currentClass, dictionary);
-    }
+    dictionary = followObjFieldofObject(MethodDictionaryIndex, currentClass);
     if (dictionary == nilObj) {
       return null;
     }
@@ -58,14 +51,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
             index + SelectorStart, dictionary, nextSelector);
       }
       if (nextSelector == selector) {
-        /* begin followObjField:ofObject: */
-        methodArray = fetchPointerofObject(MethodArrayIndex, dictionary);
-        assert(isNonImmediate(methodArray));
-        if ((!((longAt((void *)(methodArray))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          methodArray = fixFollowedFieldofObjectwithInitialValue(
-              MethodArrayIndex, dictionary, methodArray);
-        }
+        methodArray = followObjFieldofObject(MethodArrayIndex, dictionary);
 
         objOopSqInt = followFieldofObject(index - SelectorStart, methodArray);
         meth = objOopSqInt;
@@ -89,14 +75,7 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
     }
 
     /* begin superclassOf: */
-    /* begin followObjField:ofObject: */
-    objOop = fetchPointerofObject(SuperclassIndex, currentClass);
-    assert(isNonImmediate(objOop));
-    if ((!((longAt((void *)(objOop))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex,
-                                                        currentClass, objOop);
-    }
+    objOop = followObjFieldofObject(SuperclassIndex, currentClass);
     currentClass = objOop;
   }
   return null;

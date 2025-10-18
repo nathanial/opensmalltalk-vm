@@ -21,14 +21,7 @@ sqInt includesBehaviorThatOf(sqInt aClass, sqInt aSuperclass) {
     if (!(theClass != nilObj))
       break;
     /* begin superclassOf: */
-    /* begin followObjField:ofObject: */
-    objOop = fetchPointerofObject(SuperclassIndex, theClass);
-    assert(isNonImmediate(objOop));
-    if ((!((longAt((void *)(objOop))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex,
-                                                        theClass, objOop);
-    }
+    objOop = followObjFieldofObject(SuperclassIndex, theClass);
     theClass = objOop;
   }
   return 0;

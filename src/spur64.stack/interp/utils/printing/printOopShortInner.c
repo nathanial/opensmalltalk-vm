@@ -134,14 +134,7 @@ static void printOopShortInner(sqInt oop) {
       if ((instanceSizeOf(classLookupKey)) == (KeyIndex + 1))
         break;
       /* begin superclassOf: */
-      /* begin followObjField:ofObject: */
-      objOop = fetchPointerofObject(SuperclassIndex, classLookupKey);
-      assert(isNonImmediate(objOop));
-      if ((!((longAt((void *)(objOop))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        objOop = fixFollowedFieldofObjectwithInitialValue(
-            SuperclassIndex, classLookupKey, objOop);
-      }
+      objOop = followObjFieldofObject(SuperclassIndex, classLookupKey);
       classLookupKey = objOop;
     }
     if (includesBehaviorThatOf(classOop, classLookupKey)) {

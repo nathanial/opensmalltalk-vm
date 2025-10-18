@@ -45,14 +45,7 @@ static void primitivePerformInSuperclass(void) {
            : fetchClassOfNonImm(rcvr));
   while (currentClass != lookupClass) {
     /* begin superclassOf: */
-    /* begin followObjField:ofObject: */
-    objOop = fetchPointerofObject(SuperclassIndex, currentClass);
-    assert(isNonImmediate(objOop));
-    if ((!((longAt((void *)(objOop))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex,
-                                                        currentClass, objOop);
-    }
+    objOop = followObjFieldofObject(SuperclassIndex, currentClass);
     currentClass = objOop;
     if (currentClass == nilObj) {
       /* primitiveFailFor: */

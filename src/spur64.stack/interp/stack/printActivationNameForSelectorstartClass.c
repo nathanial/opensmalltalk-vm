@@ -30,14 +30,7 @@ static void printActivationNameForSelectorstartClass(sqInt aSelector,
       }
 
       /* begin superclassOf: */
-      /* begin followObjField:ofObject: */
-      objOop = fetchPointerofObject(SuperclassIndex, currClass);
-      assert(isNonImmediate(objOop));
-      if ((!((longAt((void *)(objOop))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex,
-                                                          currClass, objOop);
-      }
+      objOop = followObjFieldofObject(SuperclassIndex, currClass);
       currClass = objOop;
     } while (!(currClass == nilObj));
     methClass = null;

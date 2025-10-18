@@ -67,14 +67,7 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
       followForwardedObjectFieldstoDepth(schedAssoc, 1);
       sched = fetchPointerofObject(ValueIndex, schedAssoc);
 
-      /* begin followObjField:ofObject: */
-      procLists = fetchPointerofObject(ProcessListsIndex, sched);
-      assert(isNonImmediate(procLists));
-      if ((!((longAt((void *)(procLists))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        procLists = fixFollowedFieldofObjectwithInitialValue(ProcessListsIndex,
-                                                             sched, procLists);
-      }
+      procLists = followObjFieldofObject(ProcessListsIndex, sched);
 
       /* Follow all links in the process list to ensure the lists are valid. */
       toDoLimit = ((assert((classIndexOf(procLists)) >
@@ -82,41 +75,13 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
                     numSlotsOf(procLists))) -
                   1;
       for (iSqInt = 0; iSqInt <= toDoLimit; iSqInt += 1) {
-        /* begin followObjField:ofObject: */
-        list = fetchPointerofObject(iSqInt, procLists);
-        assert(isNonImmediate(list));
-        if ((!((longAt((void *)(list))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          list =
-              fixFollowedFieldofObjectwithInitialValue(iSqInt, procLists, list);
-        }
+        list = followObjFieldofObject(iSqInt, procLists);
 
-        /* begin followObjField:ofObject: */
-        first = fetchPointerofObject(FirstLinkIndex, list);
-        assert(isNonImmediate(first));
-        if ((!((longAt((void *)(first))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          first = fixFollowedFieldofObjectwithInitialValue(FirstLinkIndex, list,
-                                                           first);
-        }
+        first = followObjFieldofObject(FirstLinkIndex, list);
 
-        /* begin followObjField:ofObject: */
-        last = fetchPointerofObject(LastLinkIndex, list);
-        assert(isNonImmediate(last));
-        if ((!((longAt((void *)(last))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          last = fixFollowedFieldofObjectwithInitialValue(LastLinkIndex, list,
-                                                          last);
-        }
+        last = followObjFieldofObject(LastLinkIndex, list);
         while (first != last) {
-          /* begin followObjField:ofObject: */
-          next = fetchPointerofObject(NextLinkIndex, first);
-          assert(isNonImmediate(next));
-          if ((!((longAt((void *)(next))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-            next = fixFollowedFieldofObjectwithInitialValue(NextLinkIndex,
-                                                            first, next);
-          }
+          next = followObjFieldofObject(NextLinkIndex, first);
           first = next;
         }
       }

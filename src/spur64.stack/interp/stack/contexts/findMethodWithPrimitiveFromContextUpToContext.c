@@ -40,27 +40,13 @@ static sqInt findMethodWithPrimitiveFromContextUpToContext(sqInt primitive,
     }
     if (!((primitive == 0) ||
           ((fetchPointerofObject(ClosureIndex, theContext)) != nilObj))) {
-      /* begin followObjField:ofObject: */
-      theMethod = fetchPointerofObject(MethodIndex, theContext);
-      assert(isNonImmediate(theMethod));
-      if ((!((longAt((void *)(theMethod))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        theMethod = fixFollowedFieldofObjectwithInitialValue(
-            MethodIndex, theContext, theMethod);
-      }
+      theMethod = followObjFieldofObject(MethodIndex, theContext);
       if ((primitiveIndexOf(theMethod)) == primitive) {
         return theContext;
       }
     }
 
-    /* begin followObjField:ofObject: */
-    objOop = fetchPointerofObject(SenderIndex, theContext);
-    assert(isNonImmediate(objOop));
-    if ((!((longAt((void *)(objOop))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      objOop = fixFollowedFieldofObjectwithInitialValue(SenderIndex, theContext,
-                                                        objOop);
-    }
+    objOop = followObjFieldofObject(SenderIndex, theContext);
     theContext = objOop;
   }
   if (isWidowedContext(theContext)) {

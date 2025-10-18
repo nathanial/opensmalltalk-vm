@@ -16,14 +16,7 @@ static void primitiveResume(void) {
   /* Alas in Spur we need a read barrier */
   proc = longAt(stackPointer);
 
-  /* begin followObjField:ofObject: */
-  ctxt = fetchPointerofObject(SuspendedContextIndex, proc);
-  assert(isNonImmediate(ctxt));
-  if ((!((longAt((void *)(ctxt))) &
-         ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-    ctxt = fixFollowedFieldofObjectwithInitialValue(SuspendedContextIndex, proc,
-                                                    ctxt);
-  }
+  ctxt = followObjFieldofObject(SuspendedContextIndex, proc);
   if (!(/* isContext: */
         ((!(ctxt & (tagMask())))) &&
         (((longAt((void *)(ctxt))) & (classIndexMask())) ==

@@ -24,14 +24,7 @@ sqInt isKindOfClass(sqInt oop, sqInt aClass) {
     }
 
     /* begin superclassOf: */
-    /* begin followObjField:ofObject: */
-    objOop = fetchPointerofObject(SuperclassIndex, oopClass);
-    assert(isNonImmediate(objOop));
-    if ((!((longAt((void *)(objOop))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex,
-                                                        oopClass, objOop);
-    }
+    objOop = followObjFieldofObject(SuperclassIndex, oopClass);
     oopClass = objOop;
   }
   return 0;

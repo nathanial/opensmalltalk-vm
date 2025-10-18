@@ -25,14 +25,7 @@ void *startOfAlienData(sqInt oop) {
     }
 
     /* begin superclassOf: */
-    /* begin followObjField:ofObject: */
-    objOop = fetchPointerofObject(SuperclassIndex, oopClass);
-    assert(isNonImmediate(objOop));
-    if ((!((longAt((void *)(objOop))) &
-           ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-      objOop = fixFollowedFieldofObjectwithInitialValue(SuperclassIndex,
-                                                        oopClass, objOop);
-    }
+    objOop = followObjFieldofObject(SuperclassIndex, oopClass);
     oopClass = objOop;
   }
 

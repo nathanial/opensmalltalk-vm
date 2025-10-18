@@ -1214,14 +1214,7 @@ sqInt interpret(void) {
            cannotReturn rather than crash. */
         home = null;
         while (closure != nilObj) {
-          /* begin followObjField:ofObject: */
-          home = fetchPointerofObject(ClosureOuterContextIndex, closure);
-          assert(isNonImmediate(home));
-          if ((!((longAt((void *)(home))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-            home = fixFollowedFieldofObjectwithInitialValue(
-                ClosureOuterContextIndex, closure, home);
-          }
+          home = followObjFieldofObject(ClosureOuterContextIndex, closure);
           if (!(/* isContext: */
                 ((!(home & (tagMask())))) &&
                 (((longAt((void *)(home))) & (classIndexMask())) ==
@@ -1246,14 +1239,7 @@ sqInt interpret(void) {
             goto l154;
           }
 
-          /* begin followObjField:ofObject: */
-          closure = fetchPointerofObject(ClosureIndex, home);
-          assert(isNonImmediate(closure));
-          if ((!((longAt((void *)(closure))) &
-                 ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-            closure = fixFollowedFieldofObjectwithInitialValue(ClosureIndex,
-                                                               home, closure);
-          }
+          closure = followObjFieldofObject(ClosureIndex, home);
         }
 
         /* home is to be returned from provided there is no unwind-protect
@@ -1903,14 +1889,7 @@ sqInt interpret(void) {
       if (variableType == 3) {
         /* begin pushLiteralVariable: */
         /* begin followObjLiteral:ofMethod: */
-        /* begin followObjField:ofObject: */
-        litVar = fetchPointerofObject(variableIndex + LiteralStart, method);
-        assert(isNonImmediate(litVar));
-        if ((!((longAt((void *)(litVar))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          litVar = fixFollowedFieldofObjectwithInitialValue(
-              variableIndex + LiteralStart, method, litVar);
-        }
+        litVar = followObjFieldofObject(variableIndex + LiteralStart, method);
 
         internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
         goto l2;
@@ -1979,14 +1958,7 @@ sqInt interpret(void) {
       case 3:
         /* begin storeLiteralVariable:withValue: */
         /* begin followObjLiteral:ofMethod: */
-        /* begin followObjField:ofObject: */
-        litVar = fetchPointerofObject(variableIndex + LiteralStart, method);
-        assert(isNonImmediate(litVar));
-        if ((!((longAt((void *)(litVar))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          litVar = fixFollowedFieldofObjectwithInitialValue(
-              variableIndex + LiteralStart, method, litVar);
-        }
+        litVar = followObjFieldofObject(variableIndex + LiteralStart, method);
 
         /* begin storePointerImmutabilityCheck:ofObject:withValue: */
 #if IMMUTABILITY
@@ -2080,14 +2052,7 @@ sqInt interpret(void) {
       case 3:
         /* begin storeLiteralVariable:withValue: */
         /* begin followObjLiteral:ofMethod: */
-        /* begin followObjField:ofObject: */
-        litVar = fetchPointerofObject(variableIndex + LiteralStart, method);
-        assert(isNonImmediate(litVar));
-        if ((!((longAt((void *)(litVar))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          litVar = fixFollowedFieldofObjectwithInitialValue(
-              variableIndex + LiteralStart, method, litVar);
-        }
+        litVar = followObjFieldofObject(variableIndex + LiteralStart, method);
 
         /* begin storePointerImmutabilityCheck:ofObject:withValue: */
 #if IMMUTABILITY
@@ -2573,14 +2538,7 @@ sqInt interpret(void) {
       if (opType == 7) {
         /* begin storeLiteralVariable:withValue: */
         /* begin followObjLiteral:ofMethod: */
-        /* begin followObjField:ofObject: */
-        litVar = fetchPointerofObject(byte3 + LiteralStart, method);
-        assert(isNonImmediate(litVar));
-        if ((!((longAt((void *)(litVar))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          litVar = fixFollowedFieldofObjectwithInitialValue(
-              byte3 + LiteralStart, method, litVar);
-        }
+        litVar = followObjFieldofObject(byte3 + LiteralStart, method);
 
         /* begin storePointerImmutabilityCheck:ofObject:withValue: */
 #if IMMUTABILITY
@@ -2759,14 +2717,7 @@ sqInt interpret(void) {
                  : nilObj);
 
         /* begin superclassOf: */
-        /* begin followObjField:ofObject: */
-        superclass = fetchPointerofObject(SuperclassIndex, classPointer);
-        assert(isNonImmediate(superclass));
-        if ((!((longAt((void *)(superclass))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          superclass = fixFollowedFieldofObjectwithInitialValue(
-              SuperclassIndex, classPointer, superclass);
-        }
+        superclass = followObjFieldofObject(SuperclassIndex, classPointer);
 
         /* classTagForClass: uses ensureBehaviorHash: */
 
@@ -6132,14 +6083,7 @@ sqInt interpret(void) {
 
       /* begin pushLiteralVariable: */
       /* begin followObjLiteral:ofMethod: */
-      /* begin followObjField:ofObject: */
-      litVar = fetchPointerofObject(index + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(index + LiteralStart,
-                                                          method, litVar);
-      }
+      litVar = followObjFieldofObject(index + LiteralStart, method);
 
       internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
     } break;
@@ -6274,14 +6218,7 @@ sqInt interpret(void) {
         }
 
         /* begin superclassOf: */
-        /* begin followObjField:ofObject: */
-        superclass = fetchPointerofObject(SuperclassIndex, class);
-        assert(isNonImmediate(superclass));
-        if ((!((longAt((void *)(superclass))) &
-               ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-          superclass = fixFollowedFieldofObjectwithInitialValue(
-              SuperclassIndex, class, superclass);
-        }
+        superclass = followObjFieldofObject(SuperclassIndex, class);
 
         /* classTagForClass: uses ensureBehaviorHash: */
 
@@ -6545,14 +6482,7 @@ sqInt interpret(void) {
 
       /* begin storeLiteralVariable:withValue: */
       /* begin followObjLiteral:ofMethod: */
-      /* begin followObjField:ofObject: */
-      litVar = fetchPointerofObject(variableIndex + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            variableIndex + LiteralStart, method, litVar);
-      }
+      litVar = followObjFieldofObject(variableIndex + LiteralStart, method);
 
       /* begin storePointerImmutabilityCheck:ofObject:withValue: */
 #if IMMUTABILITY
@@ -6725,14 +6655,7 @@ sqInt interpret(void) {
 
       /* begin storeLiteralVariable:withValue: */
       /* begin followObjLiteral:ofMethod: */
-      /* begin followObjField:ofObject: */
-      litVar = fetchPointerofObject(variableIndex + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            variableIndex + LiteralStart, method, litVar);
-      }
+      litVar = followObjFieldofObject(variableIndex + LiteralStart, method);
 
       /* begin storePointerImmutabilityCheck:ofObject:withValue: */
 #if IMMUTABILITY
@@ -6805,15 +6728,7 @@ sqInt interpret(void) {
       extA = 0;
 
       /* begin followObjLiteral:ofMethod: */
-      /* begin followObjField:ofObject: */
-      compiledBlock = fetchPointerofObject(
-          compiledBlockLiteralIndex + LiteralStart, method);
-      assert(isNonImmediate(compiledBlock));
-      if ((!((longAt((void *)(compiledBlock))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        compiledBlock = fixFollowedFieldofObjectwithInitialValue(
-            compiledBlockLiteralIndex + LiteralStart, method, compiledBlock);
-      }
+      compiledBlock = followObjFieldofObject(compiledBlockLiteralIndex + LiteralStart, method);
       assert(isOopCompiledMethod(compiledBlock));
 
       /* begin argumentCountOf: */
