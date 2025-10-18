@@ -758,530 +758,210 @@ sqInt interpret(void) {
     case 64:  // pushLiteralVariableBytecode
     case 272: // 16	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(0 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            1 /* (0 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 0, &localSP);
     } break;
     case 65:  // pushLiteralVariableBytecode
     case 273: // 17	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode1);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(1 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            2 /* (1 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 1, &localSP);
     } break;
     case 66:  // pushLiteralVariableBytecode
     case 274: // 18	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode2);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(2 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            3 /* (2 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 2, &localSP);
     } break;
     case 67:  // pushLiteralVariableBytecode
     case 275: // 19	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode3);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(3 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            4 /* (3 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 3, &localSP);
     } break;
     case 68:  // pushLiteralVariableBytecode
     case 276: // 20	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode4);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(4 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            5 /* (4 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 4, &localSP);
     } break;
     case 69:  // pushLiteralVariableBytecode
     case 277: // 21	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode5);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(5 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            6 /* (5 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 5, &localSP);
     } break;
     case 70:  // pushLiteralVariableBytecode
     case 278: // 22	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode6);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(6 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            7 /* (6 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 6, &localSP);
     } break;
     case 71:  // pushLiteralVariableBytecode
     case 279: // 23	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode7);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(7 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            8 /* (7 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 7, &localSP);
     } break;
     case 72:  // pushLiteralVariableBytecode
     case 280: // 24	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode8);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(8 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            9 /* (8 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 8, &localSP);
     } break;
     case 73:  // pushLiteralVariableBytecode
     case 281: // 25	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode9);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(9 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            10 /* (9 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 9, &localSP);
     } break;
     case 74:  // pushLiteralVariableBytecode
     case 282: // 26	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode10);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(10 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            11 /* (10 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 10, &localSP);
     } break;
     case 75:  // pushLiteralVariableBytecode
     case 283: // 27	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode11);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(11 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            12 /* (11 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 11, &localSP);
     } break;
     case 76:  // pushLiteralVariableBytecode
     case 284: // 28	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode12);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(12 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            13 /* (12 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 12, &localSP);
     } break;
     case 77:  // pushLiteralVariableBytecode
     case 285: // 29	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode13);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(13 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            14 /* (13 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 13, &localSP);
     } break;
     case 78:  // pushLiteralVariableBytecode
     case 286: // 30	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode14);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(14 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            15 /* (14 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 14, &localSP);
     } break;
     case 79:  // pushLiteralVariableBytecode
     case 287: // 31	pushLiteralVariable16CasesBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode15);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(15 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            16 /* (15 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 15, &localSP);
     } break;
     case 80: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode16);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(16 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            17 /* (16 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 16, &localSP);
     } break;
     case 81: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode17);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(17 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            18 /* (17 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 17, &localSP);
     } break;
     case 82: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode18);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(18 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            19 /* (18 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 18, &localSP);
     } break;
     case 83: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode19);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(19 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            20 /* (19 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 19, &localSP);
     } break;
     case 84: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode20);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(20 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            21 /* (20 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 20, &localSP);
     } break;
     case 85: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode21);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(21 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            22 /* (21 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 21, &localSP);
     } break;
     case 86: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode22);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(22 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            23 /* (22 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 22, &localSP);
     } break;
     case 87: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode23);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(23 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            24 /* (23 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 23, &localSP);
     } break;
     case 88: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode24);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(24 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            25 /* (24 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 24, &localSP);
     } break;
     case 89: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode25);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(25 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            26 /* (25 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 25, &localSP);
     } break;
     case 90: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode26);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(26 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            27 /* (26 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 26, &localSP);
     } break;
     case 91: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode27);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(27 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            28 /* (27 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 27, &localSP);
     } break;
     case 92: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode28);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(28 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            29 /* (28 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 28, &localSP);
     } break;
     case 93: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode29);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(29 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            30 /* (29 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 29, &localSP);
     } break;
     case 94: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode30);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(30 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            0x1F /* (30 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 30, &localSP);
     } break;
     case 95: // pushLiteralVariableBytecode
     {
-      sqInt litVar;
-
       VM_LABEL(pushLiteralVariableBytecode31);
-      currentBytecode = fetchNextBytecode(&localIP, bytecodeSetSelector);
-      litVar = fetchPointerofObject(31 + LiteralStart, method);
-      assert(isNonImmediate(litVar));
-      if ((!((longAt((void *)(litVar))) &
-             ((classIndexMask()) - (isForwardedObjectClassIndexPun()))))) {
-        litVar = fixFollowedFieldofObjectwithInitialValue(
-            32 /* (31 + LiteralStart) */, method, litVar);
-      }
-
-      internalPush(&localSP, fetchPointerofObject(ValueIndex, litVar));
+      currentBytecode = pushLiteralVariableBytecodeCommon(
+          &localIP, bytecodeSetSelector, method, 31, &localSP);
     } break;
     case 96:  // storeAndPopReceiverVariableBytecode
     case 97:  // storeAndPopReceiverVariableBytecode
