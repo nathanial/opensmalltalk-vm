@@ -2702,6 +2702,7 @@ volatile int sendTrace;
 #include "interp/objects/hashing/identityHashOf.c"
 #include "interp/execution/fetchNextBytecode.c"
 #include "interp/execution/internalPush.c"
+#include "interp/execution/writeBackHeadFramePointers.c"
 #include "interp/execution/pushLiteralVariableBytecode.c"
 #include "interp/execution/storeAndPopTemporaryVariableBytecode.c"
 static inline void popthenPushFloat(sqInt nItems, sqInt floatOop);

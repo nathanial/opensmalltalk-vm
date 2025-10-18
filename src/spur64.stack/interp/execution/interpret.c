@@ -1187,18 +1187,7 @@ sqInt interpret(void) {
         /* Update the current page's headFrame pointers to enable the search for
            unwind protects below to identify widowed contexts correctly. */
 
-        /* begin writeBackHeadFramePointers */
-        assert(stackPage == (mostRecentlyUsedPage));
-        assert(localSP < localFP);
-        assert((localSP < ((stackPage->baseAddress))) &&
-               (localSP > (((stackPage->realStackLimit)) -
-                           (LargeContextSlots * BytesPerOop))));
-        assert((localFP < ((stackPage->baseAddress))) &&
-               (localFP > (((stackPage->realStackLimit)) -
-                           ((LargeContextSlots * BytesPerOop) / 2))));
-        (stackPage->headFP = localFP);
-        (stackPage->headSP = localSP);
-        assert(pageListIsWellFormed());
+        writeBackHeadFramePointers(stackPage, localFP, localSP);
 
         externalizeIPandSP(localIP, localSP, localFP);
         /* Since this is a block activation the closure is on the stack above
@@ -2441,18 +2430,7 @@ sqInt interpret(void) {
             goto l10;
           }
 
-          /* begin writeBackHeadFramePointers */
-          assert(stackPage == (mostRecentlyUsedPage));
-          assert(localSP < localFP);
-          assert((localSP < ((stackPage->baseAddress))) &&
-                 (localSP > (((stackPage->realStackLimit)) -
-                             (LargeContextSlots * BytesPerOop))));
-          assert((localFP < ((stackPage->baseAddress))) &&
-                 (localFP > (((stackPage->realStackLimit)) -
-                             ((LargeContextSlots * BytesPerOop) / 2))));
-          (stackPage->headFP = localFP);
-          (stackPage->headSP = localSP);
-          assert(pageListIsWellFormed());
+          writeBackHeadFramePointers(stackPage, localFP, localSP);
           if (isWidowedContext(obj)) {
             object = fetchPointerofObject(byte3, obj);
             goto l10;
@@ -2581,18 +2559,7 @@ sqInt interpret(void) {
         assert(isMarriedOrWidowedContext(obj));
         assert(!((isObjImmutable(obj))));
 
-        /* begin writeBackHeadFramePointers */
-        assert(stackPage == (mostRecentlyUsedPage));
-        assert(localSP < localFP);
-        assert((localSP < ((stackPage->baseAddress))) &&
-               (localSP > (((stackPage->realStackLimit)) -
-                           (LargeContextSlots * BytesPerOop))));
-        assert((localFP < ((stackPage->baseAddress))) &&
-               (localFP > (((stackPage->realStackLimit)) -
-                           ((LargeContextSlots * BytesPerOop) / 2))));
-        (stackPage->headFP = localFP);
-        (stackPage->headSP = localSP);
-        assert(pageListIsWellFormed());
+        writeBackHeadFramePointers(stackPage, localFP, localSP);
         if (!(/* isStillMarriedContext: */
               (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)) &&
               (!(isWidowedContext(obj))))) {
@@ -6000,18 +5967,7 @@ sqInt interpret(void) {
           goto l138;
         }
 
-        /* begin writeBackHeadFramePointers */
-        assert(stackPage == (mostRecentlyUsedPage));
-        assert(localSP < localFP);
-        assert((localSP < ((stackPage->baseAddress))) &&
-               (localSP > (((stackPage->realStackLimit)) -
-                           (LargeContextSlots * BytesPerOop))));
-        assert((localFP < ((stackPage->baseAddress))) &&
-               (localFP > (((stackPage->realStackLimit)) -
-                           ((LargeContextSlots * BytesPerOop) / 2))));
-        (stackPage->headFP = localFP);
-        (stackPage->headSP = localSP);
-        assert(pageListIsWellFormed());
+        writeBackHeadFramePointers(stackPage, localFP, localSP);
         if (isWidowedContext(obj)) {
           object = fetchPointerofObject(index, obj);
           goto l138;
@@ -6382,18 +6338,7 @@ sqInt interpret(void) {
         assert(isMarriedOrWidowedContext(obj));
         assert(!((isObjImmutable(obj))));
 
-        /* begin writeBackHeadFramePointers */
-        assert(stackPage == (mostRecentlyUsedPage));
-        assert(localSP < localFP);
-        assert((localSP < ((stackPage->baseAddress))) &&
-               (localSP > (((stackPage->realStackLimit)) -
-                           (LargeContextSlots * BytesPerOop))));
-        assert((localFP < ((stackPage->baseAddress))) &&
-               (localFP > (((stackPage->realStackLimit)) -
-                           ((LargeContextSlots * BytesPerOop) / 2))));
-        (stackPage->headFP = localFP);
-        (stackPage->headSP = localSP);
-        assert(pageListIsWellFormed());
+        writeBackHeadFramePointers(stackPage, localFP, localSP);
         if (!(/* isStillMarriedContext: */
               (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)) &&
               (!(isWidowedContext(obj))))) {
@@ -6558,18 +6503,7 @@ sqInt interpret(void) {
         assert(isMarriedOrWidowedContext(obj));
         assert(!((isObjImmutable(obj))));
 
-        /* begin writeBackHeadFramePointers */
-        assert(stackPage == (mostRecentlyUsedPage));
-        assert(localSP < localFP);
-        assert((localSP < ((stackPage->baseAddress))) &&
-               (localSP > (((stackPage->realStackLimit)) -
-                           (LargeContextSlots * BytesPerOop))));
-        assert((localFP < ((stackPage->baseAddress))) &&
-               (localFP > (((stackPage->realStackLimit)) -
-                           ((LargeContextSlots * BytesPerOop) / 2))));
-        (stackPage->headFP = localFP);
-        (stackPage->headSP = localSP);
-        assert(pageListIsWellFormed());
+        writeBackHeadFramePointers(stackPage, localFP, localSP);
         if (!(/* isStillMarriedContext: */
               (((((fetchPointerofObject(SenderIndex, obj))) & 7) == 1)) &&
               (!(isWidowedContext(obj))))) {
