@@ -44,15 +44,7 @@ static sqInt fieldofFrame(sqInt index, char *theFP) {
     assert(
         (((index - CtxtTempFrameStart) >= 0) &&
          ((index - CtxtTempFrameStart) <= (stackPointerIndexForFrame(theFP)))));
-    return /* temporary:in: */
-        ((index - CtxtTempFrameStart) <
-                 ((frameNumArgs = byteAt((theFP + FoxFrameFlags) + 1)))
-             ? longAt((theFP + FoxCallerSavedIP) +
-                      ((frameNumArgs - (index - CtxtTempFrameStart)) *
-                       BytesPerWord))
-             : longAt(((theFP + FoxReceiver) - BytesPerWord) +
-                      ((frameNumArgs - (index - CtxtTempFrameStart)) *
-                       BytesPerWord)));
+    return temporaryin((index - CtxtTempFrameStart), theFP);
   }
   return 0;
 }

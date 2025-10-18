@@ -332,12 +332,7 @@ static void primitiveContextAt(void) {
     primFailCode = PrimErrBadIndex;
     return;
   }
-  value = /* temporary:in: */
-      ((index - 1) < ((frameNumArgs = byteAt((spouseFP + FoxFrameFlags) + 1)))
-           ? longAt((spouseFP + FoxCallerSavedIP) +
-                    ((frameNumArgs - (index - 1)) * BytesPerWord))
-           : longAt(((spouseFP + FoxReceiver) - BytesPerWord) +
-                    ((frameNumArgs - (index - 1)) * BytesPerWord)));
+  value = temporaryin((index - 1), spouseFP);
 
   /* begin pop:thenPush: */
   longAtput((sp = stackPointer + (((argumentCount + 1) - 1) * BytesPerWord)),

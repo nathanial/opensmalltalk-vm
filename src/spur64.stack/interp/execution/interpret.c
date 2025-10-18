@@ -241,12 +241,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (0 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        (frameNumArgs * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        (frameNumArgs * BytesPerWord)));
+      object = temporaryin(0, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 17:  // pushTemporaryVariableBytecode
@@ -258,12 +253,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode1);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (1 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 1) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 1) * BytesPerWord)));
+      object = temporaryin(1, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 18:  // pushTemporaryVariableBytecode
@@ -275,12 +265,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode2);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (2 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 2) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 2) * BytesPerWord)));
+      object = temporaryin(2, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 19:  // pushTemporaryVariableBytecode
@@ -292,12 +277,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode3);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (3 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 3) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 3) * BytesPerWord)));
+      object = temporaryin(3, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 20:  // pushTemporaryVariableBytecode
@@ -309,12 +289,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode4);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (4 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 4) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 4) * BytesPerWord)));
+      object = temporaryin(4, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 21:  // pushTemporaryVariableBytecode
@@ -326,12 +301,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode5);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (5 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 5) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 5) * BytesPerWord)));
+      object = temporaryin(5, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 22:  // pushTemporaryVariableBytecode
@@ -343,12 +313,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode6);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (6 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 6) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 6) * BytesPerWord)));
+      object = temporaryin(6, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 23:  // pushTemporaryVariableBytecode
@@ -360,12 +325,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode7);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (7 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 7) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 7) * BytesPerWord)));
+      object = temporaryin(7, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 24:  // pushTemporaryVariableBytecode
@@ -377,12 +337,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode8);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (8 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 8) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 8) * BytesPerWord)));
+      object = temporaryin(8, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 25:  // pushTemporaryVariableBytecode
@@ -394,12 +349,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode9);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (9 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 9) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 9) * BytesPerWord)));
+      object = temporaryin(9, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 26:  // pushTemporaryVariableBytecode
@@ -411,12 +361,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode10);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (10 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 10) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 10) * BytesPerWord)));
+      object = temporaryin(10, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 27:  // pushTemporaryVariableBytecode
@@ -428,12 +373,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode11);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (11 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 11) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 11) * BytesPerWord)));
+      object = temporaryin(11, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 28: // pushTemporaryVariableBytecode
@@ -444,12 +384,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode12);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (12 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 12) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 12) * BytesPerWord)));
+      object = temporaryin(12, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 29: // pushTemporaryVariableBytecode
@@ -460,12 +395,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode13);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (13 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 13) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 13) * BytesPerWord)));
+      object = temporaryin(13, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 30: // pushTemporaryVariableBytecode
@@ -476,12 +406,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode14);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (14 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 14) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 14) * BytesPerWord)));
+      object = temporaryin(14, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 31: // pushTemporaryVariableBytecode
@@ -492,12 +417,7 @@ sqInt interpret(void) {
       VM_LABEL(pushTemporaryVariableBytecode15);
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      object = /* temporary:in: */
-          (15 < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - 15) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - 15) * BytesPerWord)));
+      object = temporaryin(15, localFP);
       longAtput((localSP -= BytesPerOop), object);
     } break;
     case 32:  // pushLiteralConstantBytecode
@@ -2636,13 +2556,7 @@ sqInt interpret(void) {
       }
       if (variableType == 1) {
         /* begin pushTemporaryVariable: */
-        object = /* temporary:in: */
-            (variableIndex <
-                     ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-                 ? longAt((localFP + FoxCallerSavedIP) +
-                          ((frameNumArgs - variableIndex) * BytesPerWord))
-                 : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                          ((frameNumArgs - variableIndex) * BytesPerWord)));
+        object = temporaryin(variableIndex, localFP);
         longAtput((localSP -= BytesPerOop), object);
         goto l2;
       }
@@ -3781,13 +3695,7 @@ sqInt interpret(void) {
 
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      tempVector = /* temporary:in: */
-          (tempVectorIndex <
-                   ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - tempVectorIndex) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - tempVectorIndex) * BytesPerWord)));
+      tempVector = temporaryin(tempVectorIndex, localFP);
 
       /* begin internalPush: */
       longAtput((localSP -= BytesPerOop),
@@ -3808,13 +3716,7 @@ sqInt interpret(void) {
 
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      tempVector = /* temporary:in: */
-          (tempVectorIndex <
-                   ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - tempVectorIndex) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - tempVectorIndex) * BytesPerWord)));
+      tempVector = temporaryin(tempVectorIndex, localFP);
       valuePointer = longAt(localSP);
 
       storePointerofObjectwithValue(remoteTempIndex, tempVector, valuePointer);
@@ -3835,13 +3737,7 @@ sqInt interpret(void) {
 
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
-      tempVector = /* temporary:in: */
-          (tempVectorIndex <
-                   ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - tempVectorIndex) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - tempVectorIndex) * BytesPerWord)));
+      tempVector = temporaryin(tempVectorIndex, localFP);
       valuePointer = longAt(localSP);
 
       storePointerofObjectwithValue(remoteTempIndex, tempVector, valuePointer);
@@ -7218,12 +7114,7 @@ sqInt interpret(void) {
       /* begin fetchNextBytecode */
       currentBytecode = (byteAt(++localIP)) + bytecodeSetSelector;
       longAtput(
-          (localSP -= BytesPerOop), /* temporary:in: */
-          (index < ((frameNumArgs = byteAt((localFP + FoxFrameFlags) + 1)))
-               ? longAt((localFP + FoxCallerSavedIP) +
-                        ((frameNumArgs - index) * BytesPerWord))
-               : longAt(((localFP + FoxReceiver) - BytesPerWord) +
-                        ((frameNumArgs - index) * BytesPerWord))));
+          (localSP -= BytesPerOop), temporaryin(index, localFP));
     } break;
     case 488: // 232	extPushIntegerBytecode
     {

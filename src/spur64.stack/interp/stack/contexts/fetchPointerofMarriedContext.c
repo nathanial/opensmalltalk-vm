@@ -69,14 +69,6 @@ static sqInt fetchPointerofMarriedContext(sqInt offset, sqInt aContext) {
   spouseFP = ((char *)(senderOop - (smallIntegerTag())));
   return ((((offset - ReceiverIndex) >= 1) &&
            ((offset - ReceiverIndex) <= (stackPointerIndexForFrame(spouseFP))))
-              ? /* temporary:in: */
-              ((offset - (ReceiverIndex + 1)) <
-                       ((frameNumArgs = byteAt((spouseFP + FoxFrameFlags) + 1)))
-                   ? longAt((spouseFP + FoxCallerSavedIP) +
-                            ((frameNumArgs - (offset - (ReceiverIndex + 1))) *
-                             BytesPerWord))
-                   : longAt(((spouseFP + FoxReceiver) - BytesPerWord) +
-                            ((frameNumArgs - (offset - (ReceiverIndex + 1))) *
-                             BytesPerWord)))
+              ? temporaryin((offset - (ReceiverIndex + 1)), spouseFP)
               : nilObj);
 }

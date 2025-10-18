@@ -100,12 +100,7 @@ l1:
     sp = (stackPointerIndexForFrame(spouseFP)) - 1;
     for (i = 0; i <= sp; i += 1) {
       fieldIndex = i + CtxtTempFrameStart;
-      valuePointer = /* temporary:in: */
-          (i < ((frameNumArgs = byteAt((spouseFP + FoxFrameFlags) + 1)))
-               ? longAt((void *)((spouseFP + FoxCallerSavedIP) +
-                                 ((frameNumArgs - i) * BytesPerWord)))
-               : longAt((void *)(((spouseFP + FoxReceiver) - BytesPerWord) +
-                                 ((frameNumArgs - i) * BytesPerWord))));
+      valuePointer = temporaryin(i, spouseFP);
 
       /* begin storePointerUnchecked:ofObject:withValue: */
       assert((isNonImmediate(cloned)) && (!(isForwarded(cloned))));

@@ -22,11 +22,7 @@ static sqInt shortPrintFrame(char *theFP) {
   printChar(' ');
   printActivationNameForreceiverisBlockfirstTemporary(
       longAt(theFP + FoxMethod), rcvr,
-      (byteAt((theFP + FoxFrameFlags) + 3)) != 0, /* temporary:in: */
-      (0 < ((frameNumArgs = byteAt((theFP + FoxFrameFlags) + 1)))
-           ? longAt((theFP + FoxCallerSavedIP) + ((frameNumArgs)*BytesPerWord))
-           : longAt(((theFP + FoxReceiver) - BytesPerWord) +
-                    ((frameNumArgs)*BytesPerWord))));
+      (byteAt((theFP + FoxFrameFlags) + 3)) != 0, temporaryin(0, theFP));
 
   /* begin space */
   printChar(' ');
