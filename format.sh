@@ -10,7 +10,7 @@ if ! command -v "$clang_format" >/dev/null 2>&1; then
 fi
 
 if [[ $# -eq 0 ]]; then
-  targets=(src/spur64.stack/interp)
+  targets=(src/spur64.stack/interp src/plugins)
 else
   targets=("$@")
 fi
