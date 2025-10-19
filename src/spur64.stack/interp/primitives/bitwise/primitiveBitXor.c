@@ -16,7 +16,6 @@ static void primitiveBitXor(void) {
   if (((((integerArgument) & 7) == 1)) && ((((integerReceiver) & 7) == 1))) {
     oop = (integerArgument ^ integerReceiver) + (smallIntegerTag());
 
-    /* begin pop:thenPush: */
     popthenPush(2, oop);
   } else {
     /* begin positiveMachineIntegerValueOf: */
@@ -62,7 +61,6 @@ static void primitiveBitXor(void) {
       oop =
           positive64BitIntegerFor(integerArgumentValue ^ integerReceiverValue);
 
-      /* begin pop:thenPush: */
       popthenPush(2, oop);
     }
   }

@@ -14,11 +14,8 @@
 
 static void primitiveCoarseUTCMicrosecondClock(void) {
   sqInt oop;
-  char *sp;
 
   oop = positive64BitIntegerFor(ioUTCMicroseconds());
 
-  /* begin pop:thenPush: */
-  longAtput((sp = stackPointer), oop);
-  stackPointer = sp;
+  popthenPush(1, oop);
 }

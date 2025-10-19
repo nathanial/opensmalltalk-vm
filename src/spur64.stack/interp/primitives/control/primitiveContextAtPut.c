@@ -184,7 +184,6 @@ static void primitiveContextAtPut(void) {
     /* end stObject:at:put: */
   l9:
     if (!primFailCode) {
-      /* begin pop:thenPush: */
       popthenPush(argumentCount + 1, value);
     }
     return;
@@ -296,7 +295,6 @@ static void primitiveContextAtPut(void) {
     /* end subscript:with:storing:format: */
   l4:
 
-    /* begin pop:thenPush: */
     popthenPush(argumentCount + 1, value);
     return;
   }
@@ -322,6 +320,5 @@ static void primitiveContextAtPut(void) {
               value);
   }
 
-  /* begin pop:thenPush: */
   popthenPush(argumentCount + 1, value);
 }

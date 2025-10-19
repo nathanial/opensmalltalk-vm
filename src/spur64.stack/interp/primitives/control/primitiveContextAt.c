@@ -152,7 +152,6 @@ static void primitiveContextAt(void) {
     /* end stObject:at: */
   l8:
     if (!primFailCode) {
-      /* begin pop:thenPush: */
       popthenPush(argumentCount + 1, value);
     }
     return;
@@ -240,7 +239,6 @@ static void primitiveContextAt(void) {
     /* end subscript:with:format: */
   l2:
 
-    /* begin pop:thenPush: */
     popthenPush(argumentCount + 1, value);
     return;
   }
@@ -256,6 +254,5 @@ static void primitiveContextAt(void) {
   }
   value = temporaryin((index - 1), spouseFP);
 
-  /* begin pop:thenPush: */
   popthenPush(argumentCount + 1, value);
 }

@@ -50,7 +50,6 @@ static void primitiveMultiply(void) {
     } else {
       integerResult = integerRcvr * integerArg;
 
-      /* begin pop:thenPush: */
       popthenPush(2, (((usqInt)integerResult << 3) | 1));
     }
   }

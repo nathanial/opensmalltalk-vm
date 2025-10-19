@@ -56,7 +56,6 @@ static void primitiveBitShift(void) {
                    ? (((usqInt)shifted << 3) | 1)
                    : signed64BitIntegerFor(shifted));
 
-    /* begin pop:thenPush: */
     popthenPush(2, shifted);
   }
 }

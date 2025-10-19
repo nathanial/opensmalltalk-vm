@@ -19,6 +19,5 @@ static void primitiveAsCharacter(void) {
   characterObject =
       ((((usqInt)(characterCode) << (numTagBits())))) + (characterTag());
 
-  /* begin pop:thenPush: */
   popthenPush(argumentCount + 1, characterObject);
 }

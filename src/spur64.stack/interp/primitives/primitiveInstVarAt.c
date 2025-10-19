@@ -97,6 +97,5 @@ l2:
   l1:;
   }
 
-  /* begin pop:thenPush: */
   popthenPush(argumentCount + 1, value);
 }

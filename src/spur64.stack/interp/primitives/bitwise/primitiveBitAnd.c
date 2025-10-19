@@ -55,7 +55,6 @@ l2:
   if (!primFailCode) {
     oop = positive64BitIntegerFor(integerArgumentValue & integerReceiverValue);
 
-    /* begin pop:thenPush: */
     popthenPush(2, oop);
   }
 }

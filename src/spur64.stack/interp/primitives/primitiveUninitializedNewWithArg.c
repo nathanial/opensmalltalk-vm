@@ -182,7 +182,6 @@ l1:
   /* end instantiateUninitializedClass:indexableSize: */
 l3:
   if (obj) {
-    /* begin pop:thenPush: */
     popthenPush(argumentCount + 1, obj);
   } else {
     instSpec = (((usqInt)((((fetchPointerofObject(

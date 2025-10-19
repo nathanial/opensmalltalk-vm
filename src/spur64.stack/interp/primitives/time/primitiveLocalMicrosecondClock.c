@@ -12,11 +12,8 @@
 
 static void primitiveLocalMicrosecondClock(void) {
   sqInt oop;
-  char *sp;
 
   oop = positive64BitIntegerFor(ioLocalMicrosecondsNow());
 
-  /* begin pop:thenPush: */
-  longAtput((sp = stackPointer), oop);
-  stackPointer = sp;
+  popthenPush(1, oop);
 }

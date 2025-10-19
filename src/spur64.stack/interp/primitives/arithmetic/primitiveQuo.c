@@ -55,7 +55,6 @@ static void primitiveQuo(void) {
   /* begin pop2AndPushIntegerIfOK: */
   if (!primFailCode) {
     if ((((((usqInt)(integerResult)) >> 60) + 1) & 15) <= 1) {
-      /* begin pop:thenPush: */
       popthenPush(2, (((usqInt)integerResult << 3) | 1));
     } else {
       /* begin success: */

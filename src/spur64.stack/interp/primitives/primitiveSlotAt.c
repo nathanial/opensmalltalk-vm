@@ -53,7 +53,6 @@ static void primitiveSlotAt(void) {
         value = fetchPointerofObject(index, rcvr);
       }
 
-      /* begin pop:thenPush: */
       popthenPush(argumentCount + 1, value);
       return;
     }
@@ -113,7 +112,6 @@ static void primitiveSlotAt(void) {
       oop = positive64BitIntegerFor(long64At(
           (void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 3))))));
 
-      /* begin pop:thenPush: */
       popthenPush(argumentCount + 1, oop);
       return;
     }
@@ -125,7 +123,6 @@ static void primitiveSlotAt(void) {
   if (fmt >= (firstLongFormat())) {
     numSlots = ((usqInt)((numBytesOf(rcvr)))) >> 2;
     if ((((usqInt)index)) < numSlots) {
-      /* begin pop:thenPush: */
       popthenPush(
           argumentCount + 1,
           ((((((usqInt)(long32At((void *)((rcvr + BaseHeaderSize) +

@@ -13,7 +13,6 @@ static void primitiveScreenSize(void) {
   sqInt oop;
   usqInt pointResult;
   sqInt pointWord;
-  char *sp;
   sqInt xValue;
   sqInt yValue;
 
@@ -76,7 +75,5 @@ l1:
             (((usqInt)yValue << 3) | 1));
   oop = pointResult;
 
-  /* begin pop:thenPush: */
-  longAtput((sp = stackPointer), oop);
-  stackPointer = sp;
+  popthenPush(1, oop);
 }

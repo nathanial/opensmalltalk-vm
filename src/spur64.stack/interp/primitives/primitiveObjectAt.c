@@ -34,6 +34,5 @@ static void primitiveObjectAt(void) {
     return;
   }
 
-  /* begin pop:thenPush: */
   popthenPush(2, fetchPointerofObject(index - 1, thisReceiver));
 }

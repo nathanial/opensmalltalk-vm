@@ -37,7 +37,6 @@ primitiveMultiplyLargeIntegers(void) {
   result = a * b;
   oopResult = magnitude64BitIntegerForneg(result, aIsNegative != bIsNegative);
   if (!primFailCode) {
-    /* begin pop:thenPush: */
     popthenPush(2, oopResult);
   }
 }

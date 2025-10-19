@@ -32,7 +32,6 @@ primitiveRemLargeIntegers(void) {
   result = a % b;
   oopResult = magnitude64BitIntegerForneg(result, aIsNegative);
   if (!primFailCode) {
-    /* begin pop:thenPush: */
     popthenPush(2, oopResult);
   }
 }

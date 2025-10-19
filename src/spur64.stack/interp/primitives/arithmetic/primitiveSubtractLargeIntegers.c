@@ -49,7 +49,6 @@ primitiveSubtractLargeIntegers(void) {
   /* Protect against overflow */
   oopResult = magnitude64BitIntegerForneg(result, resultIsNegative);
   if (!primFailCode) {
-    /* begin pop:thenPush: */
     popthenPush(2, oopResult);
   }
 }

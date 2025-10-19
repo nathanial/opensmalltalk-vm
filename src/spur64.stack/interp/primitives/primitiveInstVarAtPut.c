@@ -140,6 +140,5 @@ l1:
   l3:;
   }
 
-  /* begin pop:thenPush: */
   popthenPush(argumentCount + 1, newValue);
 }

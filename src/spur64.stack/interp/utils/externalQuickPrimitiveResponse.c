@@ -8,7 +8,6 @@
 static sqInt externalQuickPrimitiveResponse(void) {
   sqInt localPrimIndex;
   sqInt oop;
-  char *sp;
 
   assert(isPrimitiveFunctionPointerAnIndex());
   localPrimIndex = ((sqInt)primitiveFunctionPointer);
@@ -18,9 +17,7 @@ static sqInt externalQuickPrimitiveResponse(void) {
   if (localPrimIndex >= 264) {
     oop = fetchPointerofObject(localPrimIndex - 264, longAt(stackPointer));
 
-    /* begin pop:thenPush: */
-    longAtput((sp = stackPointer), oop);
-    stackPointer = sp;
+    popthenPush(1, oop);
     return 1;
   }
 
@@ -29,26 +26,18 @@ static sqInt externalQuickPrimitiveResponse(void) {
     return 1;
   }
   if (localPrimIndex == 0x101) {
-    /* begin pop:thenPush: */
-    longAtput((sp = stackPointer), trueObj);
-    stackPointer = sp;
+    popthenPush(1, trueObj);
     return 1;
   }
   if (localPrimIndex == 258) {
-    /* begin pop:thenPush: */
-    longAtput((sp = stackPointer), falseObj);
-    stackPointer = sp;
+    popthenPush(1, falseObj);
     return 1;
   }
   if (localPrimIndex == 259) {
-    /* begin pop:thenPush: */
-    longAtput((sp = stackPointer), nilObj);
-    stackPointer = sp;
+    popthenPush(1, nilObj);
     return 1;
   }
 
-  /* begin pop:thenPush: */
-  longAtput((sp = stackPointer), (((usqInt)(localPrimIndex - 261) << 3) | 1));
-  stackPointer = sp;
+  popthenPush(1, (((usqInt)(localPrimIndex - 261) << 3) | 1));
   return 1;
 }

@@ -61,7 +61,6 @@ static void primitiveSlotAtPut(void) {
         storePointerofObjectwithValue(index, rcvr, newValue);
       }
 
-      /* begin pop:thenPush: */
       popthenPush(argumentCount + 1, newValue);
       return;
     }
@@ -115,7 +114,6 @@ l1:
       /* storeByte:ofObject:withValue: */
       byteAtput((void *)((rcvr + BaseHeaderSize) + index), value);
 
-      /* begin pop:thenPush: */
       popthenPush(argumentCount + 1, newValue);
       return;
     }
@@ -136,7 +134,6 @@ l1:
       shortAtput((void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 1)))),
                  value);
 
-      /* begin pop:thenPush: */
       popthenPush(argumentCount + 1, newValue);
       return;
     }
@@ -153,7 +150,6 @@ l1:
           (void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 3)))),
           value);
 
-      /* begin pop:thenPush: */
       popthenPush(argumentCount + 1, newValue);
       return;
     }
@@ -175,7 +171,6 @@ l1:
           (void *)((rcvr + BaseHeaderSize) + ((((usqInt)(index) << 2)))),
           value);
 
-      /* begin pop:thenPush: */
       popthenPush(argumentCount + 1, newValue);
       return;
     }

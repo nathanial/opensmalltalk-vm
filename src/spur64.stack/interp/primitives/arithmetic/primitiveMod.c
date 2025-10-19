@@ -12,7 +12,6 @@ static void primitiveMod(void) {
   /* begin pop2AndPushIntegerIfOK: */
   if (!primFailCode) {
     if ((((((usqInt)(mod)) >> 60) + 1) & 15) <= 1) {
-      /* begin pop:thenPush: */
       popthenPush(2, (((usqInt)mod << 3) | 1));
     } else {
       /* begin success: */

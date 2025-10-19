@@ -7,10 +7,7 @@
 
 EXPORT(sqInt)
 primitiveMillisecondClockMask(void) {
-  char *sp;
 
-  /* begin pop:thenPush: */
-  longAtput((sp = stackPointer), (((usqInt)MillisecondClockMask << 3) | 1));
-  stackPointer = sp;
+  popthenPush(1, (((usqInt)MillisecondClockMask << 3) | 1));
   return 0;
 }

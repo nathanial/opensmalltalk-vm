@@ -12,7 +12,6 @@ static void primitiveDiv(void) {
   /* begin pop2AndPushIntegerIfOK: */
   if (!primFailCode) {
     if ((((((usqInt)(quotient)) >> 60) + 1) & 15) <= 1) {
-      /* begin pop:thenPush: */
       popthenPush(2, (((usqInt)quotient << 3) | 1));
     } else {
       /* begin success: */

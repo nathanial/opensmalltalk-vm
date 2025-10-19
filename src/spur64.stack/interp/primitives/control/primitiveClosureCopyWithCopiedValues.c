@@ -125,6 +125,5 @@ l1:
 
   /* greater by 1 due to preIncrement of localIP */
 
-  /* begin pop:thenPush: */
   popthenPush(3, newClosure);
 }

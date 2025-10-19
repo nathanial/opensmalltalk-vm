@@ -8,7 +8,6 @@
 
 static void primitiveFindHandlerContext(void) {
   sqInt handlerOrNilOrZero;
-  char *sp;
 
   externalWriteBackHeadFramePointers();
   handlerOrNilOrZero = findMethodWithPrimitiveFromContextUpToContext(
@@ -17,7 +16,5 @@ static void primitiveFindHandlerContext(void) {
     handlerOrNilOrZero = nilObj;
   }
 
-  /* begin pop:thenPush: */
-  longAtput((sp = stackPointer), handlerOrNilOrZero);
-  stackPointer = sp;
+  popthenPush(1, handlerOrNilOrZero);
 }

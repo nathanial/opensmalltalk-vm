@@ -42,6 +42,5 @@ static void primitiveSmallFloatTimesTwoPower(void) {
     }
   }
 
-  /* begin pop:thenPush: */
   popthenPush(2, result);
 }

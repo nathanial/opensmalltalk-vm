@@ -10,11 +10,8 @@
 
 static void primitiveMillisecondClock(void) {
   sqInt oop;
-  char *sp;
 
   oop = ((((ioMSecs()) & MillisecondClockMask) << 3) | 1);
 
-  /* begin pop:thenPush: */
-  longAtput((sp = stackPointer), oop);
-  stackPointer = sp;
+  popthenPush(1, oop);
 }

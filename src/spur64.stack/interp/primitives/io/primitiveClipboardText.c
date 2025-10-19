@@ -10,7 +10,6 @@ static void primitiveClipboardText(void) {
   sqInt fmt;
   usqInt numSlots;
   sqInt s;
-  char *sp;
   sqInt sz;
 
   if (argumentCount == 1) {
@@ -54,8 +53,6 @@ static void primitiveClipboardText(void) {
     }
     clipboardReadIntoAt(sz, s + BaseHeaderSize, 0);
 
-    /* begin pop:thenPush: */
-    longAtput((sp = stackPointer), s);
-    stackPointer = sp;
+    popthenPush(argumentCount + 1, s);
   }
 }

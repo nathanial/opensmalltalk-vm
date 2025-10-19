@@ -9,7 +9,6 @@
 static void primitiveHashMultiply(void) {
   sqInt ccIndex;
   sqInt ok;
-  char *sp;
   sqInt value;
 
   value = longAt(stackPointer);
@@ -37,9 +36,7 @@ static void primitiveHashMultiply(void) {
         (long32At((void *)((value + BaseHeaderSize)))));
   }
 
-  /* begin pop:thenPush: */
-  longAtput(
-      (sp = stackPointer),
-      (((((((usqInt)value)) * HashMultiplyConstant) & 0xFFFFFFF) << 3) | 1));
-  stackPointer = sp;
+  popthenPush(1, (((((((usqInt)value)) * HashMultiplyConstant) & 0xFFFFFFF)
+                   << 3) |
+                  1));
 }

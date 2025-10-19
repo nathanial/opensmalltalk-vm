@@ -6,7 +6,6 @@
 
 static void primitiveVMPath(void) {
   sqInt s;
-  char *sp;
   sqInt sz;
 
   sz = vmPathSize();
@@ -14,7 +13,5 @@ static void primitiveVMPath(void) {
       fetchPointerofObject(ClassByteString, specialObjectsOop), sz);
   vmPathGetLength(s + BaseHeaderSize, sz);
 
-  /* begin pop:thenPush: */
-  longAtput((sp = stackPointer), s);
-  stackPointer = sp;
+  popthenPush(1, s);
 }

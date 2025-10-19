@@ -124,6 +124,5 @@ static void primitiveFindNextUnwindContext(void) {
     handlerOrNilOrZero = nilObj;
   }
 
-  /* begin pop:thenPush: */
   popthenPush(2, handlerOrNilOrZero);
 }

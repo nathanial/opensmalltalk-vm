@@ -13,7 +13,6 @@
 EXPORT(sqInt)
 primitiveImageFormatVersion(void) {
   sqInt oop;
-  char *sp;
 
   oop = ((((((usqInt)(/* imageFormatVersionForSnapshot */
                       (multipleBytecodeSetsActive
@@ -24,8 +23,6 @@ primitiveImageFormatVersion(void) {
           << 3) |
          1);
 
-  /* begin pop:thenPush: */
-  longAtput((sp = stackPointer), oop);
-  stackPointer = sp;
+  popthenPush(1, oop);
   return 0;
 }

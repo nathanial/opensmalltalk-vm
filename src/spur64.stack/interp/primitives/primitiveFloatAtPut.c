@@ -47,7 +47,6 @@ static void primitiveFloatAtPut(void) {
                          ((((usqInt)(((VMBIGENDIAN ? 0 : 1))) << 2)))),
                 valueToStore);
 
-    /* begin pop:thenPush: */
     popthenPush(3, oopToStore);
     return;
   }
@@ -57,7 +56,6 @@ static void primitiveFloatAtPut(void) {
                          ((((usqInt)(((VMBIGENDIAN ? 1 : 0))) << 2)))),
                 valueToStore);
 
-    /* begin pop:thenPush: */
     popthenPush(3, oopToStore);
     return;
   }

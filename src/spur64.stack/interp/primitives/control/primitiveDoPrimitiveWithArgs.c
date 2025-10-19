@@ -70,7 +70,6 @@ static void primitiveDoPrimitiveWithArgs(void) {
       rcvr = followForwarded(rcvr);
     }
 
-    /* begin pop:thenPush: */
     popthenPush(4, rcvr);
   } else {
     /* begin pop: */

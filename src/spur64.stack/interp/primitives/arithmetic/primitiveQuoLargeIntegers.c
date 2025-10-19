@@ -34,7 +34,6 @@ primitiveQuoLargeIntegers(void) {
   result = a / b;
   oopResult = magnitude64BitIntegerForneg(result, bIsNegative != aIsNegative);
   if (!primFailCode) {
-    /* begin pop:thenPush: */
     popthenPush(2, oopResult);
   }
 }

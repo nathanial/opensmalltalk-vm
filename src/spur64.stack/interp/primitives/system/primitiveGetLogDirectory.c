@@ -30,7 +30,6 @@ primitiveGetLogDirectory(void) {
     byteAtput((void *)((stringOop + BaseHeaderSize) + i), ptr[i]);
   }
 
-  /* begin pop:thenPush: */
   popthenPush(argumentCount + 1, stringOop);
   return 0;
 }

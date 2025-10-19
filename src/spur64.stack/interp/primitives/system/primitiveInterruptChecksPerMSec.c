@@ -11,7 +11,6 @@
 EXPORT(sqInt)
 primitiveInterruptChecksPerMSec(void) {
   sqInt oop;
-  char *sp;
 
   if (argumentCount) {
     /* begin success: */
@@ -22,8 +21,6 @@ primitiveInterruptChecksPerMSec(void) {
   }
   oop = (((usqInt)(ioHeartbeatMilliseconds()) << 3) | 1);
 
-  /* begin pop:thenPush: */
-  longAtput((sp = stackPointer), oop);
-  stackPointer = sp;
+  popthenPush(1, oop);
   return 0;
 }

@@ -18,7 +18,6 @@ primitiveBitAndLargeIntegers(void) {
   }
   oopResult = positive64BitIntegerFor(integerRcvr & integerArg);
   if (!primFailCode) {
-    /* begin pop:thenPush: */
     popthenPush(2, oopResult);
   }
 }

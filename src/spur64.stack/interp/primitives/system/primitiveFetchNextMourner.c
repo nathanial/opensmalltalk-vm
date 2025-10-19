@@ -4,7 +4,6 @@
 
 static void primitiveFetchNextMourner(void) {
   sqInt mourner;
-  char *sp;
 
   mourner = /* dequeueMourner */
       (mournQueue != nilObj
@@ -13,9 +12,7 @@ static void primitiveFetchNextMourner(void) {
   if (mourner) {
     assert(isValidObjStack(mournQueue));
 
-    /* begin pop:thenPush: */
-    longAtput((sp = stackPointer), mourner);
-    stackPointer = sp;
+    popthenPush(1, mourner);
   } else {
     /* primitiveFailFor: */
     primFailCode = PrimErrNotFound;

@@ -36,7 +36,6 @@ static void primitiveDivide(void) {
     if (!primFailCode) {
       if ((((((usqInt)((integerReceiver / integerArgument))) >> 60) + 1) &
            15) <= 1) {
-        /* begin pop:thenPush: */
         popthenPush(2,
                     (((usqInt)(integerReceiver / integerArgument) << 3) | 1));
       } else {

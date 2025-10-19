@@ -54,7 +54,6 @@ static void primitiveLoadImageSegment(void) {
      error code on failure. */
   result = loadImageSegmentFromoutPointers(segmentWordArray, outPointerArray);
   if (oopisGreaterThan(result, segmentWordArray)) {
-    /* begin pop:thenPush: */
     popthenPush(3, result);
   } else {
     /* primitiveFailFor: */

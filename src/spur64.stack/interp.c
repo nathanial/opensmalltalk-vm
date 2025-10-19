@@ -4001,7 +4001,6 @@ primitiveContextXray(void) {
   DECL_MAYBE_SQ_GLOBAL_STRUCT
   sqInt context;
   sqInt flags;
-  char *sp;
 
   context = longAt(GIV(stackPointer));
   if (((((longAt((void *)((context + BaseHeaderSize) +
@@ -4016,9 +4015,7 @@ primitiveContextXray(void) {
     flags = 0;
   }
 
-  /* begin pop:thenPush: */
-  longAtput((sp = GIV(stackPointer)), (((usqInt)flags << 3) | 1));
-  GIV(stackPointer) = sp;
+  popthenPush(1, (((usqInt)flags << 3) | 1));
 }
 #endif
 

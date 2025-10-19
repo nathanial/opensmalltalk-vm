@@ -46,6 +46,5 @@ static void primitiveUtcAndTimezoneOffset(void) {
 
   storePointerofObjectwithValue(0, resultArray, valuePointer);
 
-  /* begin pop:thenPush: */
   popthenPush(argumentCount + 1, resultArray);
 }

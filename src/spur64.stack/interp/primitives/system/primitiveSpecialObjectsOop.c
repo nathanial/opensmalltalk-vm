@@ -5,9 +5,5 @@
 /* InterpreterPrimitives>>#primitiveSpecialObjectsOop */
 
 static void primitiveSpecialObjectsOop(void) {
-  char *sp;
-
-  /* begin pop:thenPush: */
-  longAtput((sp = stackPointer), specialObjectsOop);
-  stackPointer = sp;
+  popthenPush(1, specialObjectsOop);
 }

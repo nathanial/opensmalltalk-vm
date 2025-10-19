@@ -57,6 +57,5 @@ static void primitiveShortAtPut(void) {
       (void *)((rcvr + BaseHeaderSize) + ((((usqInt)((index - 1)) << 1)))),
       value);
 
-  /* begin pop:thenPush: */
   popthenPush(3, (((usqInt)value << 3) | 1));
 }

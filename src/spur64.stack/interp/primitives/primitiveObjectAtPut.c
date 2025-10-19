@@ -47,6 +47,5 @@ static void primitiveObjectAtPut(void) {
 
   storePointerofObjectwithValue(fieldIndex, thisReceiver, newValue);
 
-  /* begin pop:thenPush: */
   popthenPush(3, newValue);
 }
