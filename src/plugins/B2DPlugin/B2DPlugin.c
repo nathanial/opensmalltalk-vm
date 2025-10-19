@@ -3056,17 +3056,15 @@ static sqInt findNextExternalFillFromAET(void) {
     }
 
     /* begin quickRemoveInvalidFillsAt: */
-    if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-      goto l1;
-    }
-    while ((topRightX()) <= leftX) {
-      hideFilldepth(topFill(), topDepth());
-      if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-        goto l1;
+    if ((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) {
+      while ((topRightX()) <= leftX) {
+        hideFilldepth(topFill(), topDepth());
+        if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
+          break;
+        }
       }
     }
     /* end quickRemoveInvalidFillsAt: */
-  l1:
 
     /* Check if we need to draw the edge */
     if (((objBuffer[leftEdge + GEObjectType]) & GEPrimitiveTypeMask) &
@@ -3108,7 +3106,8 @@ static sqInt findNextExternalFillFromAET(void) {
         } else {
           stopX = 999999999;
         }
-        while (stopX < rightX) {
+        int fillError = 0;
+        while (stopX < rightX && !fillError) {
           /* begin topFill */
           if ((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) {
             fill =
@@ -3120,22 +3119,22 @@ static sqInt findNextExternalFillFromAET(void) {
           }
           if (fill) {
             if (fillSpanfromto(fill, startX, stopX)) {
-              goto l3;
+              fillError = 1;
+              break;
             }
           }
 
           /* begin quickRemoveInvalidFillsAt: */
-          if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-            goto l2;
-          }
-          while ((topRightX()) <= stopX) {
-            hideFilldepth(topFill(), topDepth());
-            if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-              goto l2;
+          if ((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) {
+            while ((topRightX()) <= stopX) {
+              hideFilldepth(topFill(), topDepth());
+              if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
+                break;
+              }
             }
           }
           /* end quickRemoveInvalidFillsAt: */
-        l2:
+
           startX = stopX;
 
           /* begin topRightX */
@@ -3150,21 +3149,21 @@ static sqInt findNextExternalFillFromAET(void) {
           }
         }
 
-        /* begin topFill */
-        if ((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) {
-          fill =
-              workBuffer[(workBuffer[GWBufferTop]) +
-                         (((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) -
-                          3 /* stackFillEntryLength */)];
-        } else {
-          fill = 0;
-        }
-        if (fill) {
-          fillSpanfromto(fill, startX, rightX);
-          goto l3;
+        if (!fillError) {
+          /* begin topFill */
+          if ((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) {
+            fill =
+                workBuffer[(workBuffer[GWBufferTop]) +
+                           (((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) -
+                            3 /* stackFillEntryLength */)];
+          } else {
+            fill = 0;
+          }
+          if (fill) {
+            fillSpanfromto(fill, startX, rightX);
+          }
         }
         /* end fillAllFrom:to: */
-      l3:;
       }
     }
   }
@@ -3192,7 +3191,8 @@ static sqInt findNextExternalFillFromAET(void) {
     } else {
       stopX = 999999999;
     }
-    while (stopX < (workBuffer[GWFillMaxX])) {
+    int fillError = 0;
+    while (stopX < (workBuffer[GWFillMaxX]) && !fillError) {
       /* begin topFill */
       if ((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) {
         fill = workBuffer[(workBuffer[GWBufferTop]) +
@@ -3203,22 +3203,22 @@ static sqInt findNextExternalFillFromAET(void) {
       }
       if (fill) {
         if (fillSpanfromto(fill, startX, stopX)) {
-          goto l5;
+          fillError = 1;
+          break;
         }
       }
 
       /* begin quickRemoveInvalidFillsAt: */
-      if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-        goto l4;
-      }
-      while ((topRightX()) <= stopX) {
-        hideFilldepth(topFill(), topDepth());
-        if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-          goto l4;
+      if ((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) {
+        while ((topRightX()) <= stopX) {
+          hideFilldepth(topFill(), topDepth());
+          if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
+            break;
+          }
         }
       }
       /* end quickRemoveInvalidFillsAt: */
-    l4:
+
       startX = stopX;
 
       /* begin topRightX */
@@ -3233,20 +3233,20 @@ static sqInt findNextExternalFillFromAET(void) {
       }
     }
 
-    /* begin topFill */
-    if ((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) {
-      fill = workBuffer[(workBuffer[GWBufferTop]) +
-                        (((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) -
-                         3 /* stackFillEntryLength */)];
-    } else {
-      fill = 0;
-    }
-    if (fill) {
-      fillSpanfromto(fill, startX, workBuffer[GWFillMaxX]);
-      goto l5;
+    if (!fillError) {
+      /* begin topFill */
+      if ((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) {
+        fill = workBuffer[(workBuffer[GWBufferTop]) +
+                          (((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) -
+                           3 /* stackFillEntryLength */)];
+      } else {
+        fill = 0;
+      }
+      if (fill) {
+        fillSpanfromto(fill, startX, workBuffer[GWFillMaxX]);
+      }
     }
     /* end fillAllFrom:to: */
-  l5:;
   }
   return 0;
 }
