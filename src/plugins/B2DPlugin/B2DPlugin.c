@@ -1093,13 +1093,11 @@ static int computeBezierSplitAtHalf(sqInt index) {
     /* stopReasonPut: */
     workBuffer[GWStopReason] = GErrorNoMoreSpace;
     engineStopped = 1;
-    goto l1;
+  } else {
+    /* wbTopPut: */
+    workBuffer[GWBufferTop] = ((workBuffer[GWBufferTop]) - 6);
   }
-
-  /* wbTopPut: */
-  workBuffer[GWBufferTop] = ((workBuffer[GWBufferTop]) - 6);
   /* end wbStackPush: */
-l1:
   newIndex = (workBuffer[GWSize]) - (workBuffer[GWBufferTop]);
   if (engineStopped) {
     return 0;
@@ -1267,47 +1265,33 @@ static int computeBeziersplitAt(sqInt index, double param) {
   if (startY > sharedY) {
     if (leftViaY > startY) {
       leftViaY = startY;
-      goto l1;
-    }
-    if (leftViaY < sharedY) {
+    } else if (leftViaY < sharedY) {
       leftViaY = sharedY;
-      goto l1;
     }
   } else {
     if (leftViaY < startY) {
       leftViaY = startY;
-      goto l1;
-    }
-    if (leftViaY > sharedY) {
+    } else if (leftViaY > sharedY) {
       leftViaY = sharedY;
-      goto l1;
     }
   }
   /* end assureValue:between:and: */
-l1:
 
   /* begin assureValue:between:and: */
   if (sharedY > endY) {
     if (rightViaY > sharedY) {
       rightViaY = sharedY;
-      goto l2;
-    }
-    if (rightViaY < endY) {
+    } else if (rightViaY < endY) {
       rightViaY = endY;
-      goto l2;
     }
   } else {
     if (rightViaY < sharedY) {
       rightViaY = sharedY;
-      goto l2;
-    }
-    if (rightViaY > endY) {
+    } else if (rightViaY > endY) {
       rightViaY = endY;
-      goto l2;
     }
   }
   /* end assureValue:between:and: */
-l2:
 
   /* begin allocateBezierStackEntry */
   /* begin wbStackPush: */
@@ -1320,13 +1304,11 @@ l2:
     /* stopReasonPut: */
     workBuffer[GWStopReason] = GErrorNoMoreSpace;
     engineStopped = 1;
-    goto l3;
+  } else {
+    /* wbTopPut: */
+    workBuffer[GWBufferTop] = ((workBuffer[GWBufferTop]) - 6);
   }
-
-  /* wbTopPut: */
-  workBuffer[GWBufferTop] = ((workBuffer[GWBufferTop]) - 6);
   /* end wbStackPush: */
-l3:
   newIndex = (workBuffer[GWSize]) - (workBuffer[GWBufferTop]);
   if (engineStopped) {
     return 0;
@@ -1450,22 +1432,17 @@ static sqInt createGlobalEdgeTable(void) {
           } else {
             lineWidth = 0;
           }
-          if (((objBuffer[object + GLEndY]) + lineWidth) <
-              (workBuffer[GWFillMinY])) {
-            goto l1;
+          if (!(((objBuffer[object + GLEndY]) + lineWidth) <
+              (workBuffer[GWFillMinY]))) {
+            /* Overlaps in Y but may still be entirely right of clip region */
+            if (!((((objBuffer[object + GEXValue]) - lineWidth) >=
+                 (workBuffer[GWFillMaxX])) &&
+                (((objBuffer[object + GLEndX]) - lineWidth) >=
+                 (workBuffer[GWFillMaxX])))) {
+              addEdgeToGET(object);
+            }
           }
-
-          /* Overlaps in Y but may still be entirely right of clip region */
-          if ((((objBuffer[object + GEXValue]) - lineWidth) >=
-               (workBuffer[GWFillMaxX])) &&
-              (((objBuffer[object + GLEndX]) - lineWidth) >=
-               (workBuffer[GWFillMaxX]))) {
-            goto l1;
-          }
-          addEdgeToGET(object);
-          goto l1;
-        }
-        if ((((objBuffer[object + GEObjectType]) & GEPrimitiveTypeMask) &
+        } else if ((((objBuffer[object + GEObjectType]) & GEPrimitiveTypeMask) &
              GEPrimitiveWideMask) == GEPrimitiveBezier) {
           /* begin checkedAddBezierToGET: */
           if (((objBuffer[object + GEObjectType]) & GEPrimitiveTypeMask) &
@@ -1474,24 +1451,20 @@ static sqInt createGlobalEdgeTable(void) {
           } else {
             lineWidth = 0;
           }
-          if (((objBuffer[object + GBEndY]) + lineWidth) <
-              (workBuffer[GWFillMinY])) {
-            goto l1;
+          if (!(((objBuffer[object + GBEndY]) + lineWidth) <
+              (workBuffer[GWFillMinY]))) {
+            /* Overlaps in Y but may still be entirely right of clip region */
+            if (!((((objBuffer[object + GEXValue]) - lineWidth) >=
+                 (workBuffer[GWFillMaxX])) &&
+                (((objBuffer[object + GBEndX]) - lineWidth) >=
+                 (workBuffer[GWFillMaxX])))) {
+              addEdgeToGET(object);
+            }
           }
-
-          /* Overlaps in Y but may still be entirely right of clip region */
-          if ((((objBuffer[object + GEXValue]) - lineWidth) >=
-               (workBuffer[GWFillMaxX])) &&
-              (((objBuffer[object + GBEndX]) - lineWidth) >=
-               (workBuffer[GWFillMaxX]))) {
-            goto l1;
-          }
+        } else {
           addEdgeToGET(object);
-          goto l1;
         }
-        addEdgeToGET(object);
         /* end checkedAddEdgeToGET: */
-      l1:;
       }
     }
 
@@ -1651,44 +1624,42 @@ static sqInt fillBitmapSpanAAfromtoat(sqInt bmFill, sqInt leftX, sqInt rightX,
           value = value | 0xFF000000U;
         }
         fillValue = uncheckedTransformColor(value);
-        goto l1;
-      }
-
-      /* rShift - shift value to convert from pixel to word index */
-      rShift = (rShiftTable())[bmDepth];
-      value = (((int *)bits))[(bmRaster * yp) + (((usqInt)(xp)) >> rShift)];
-
-      /* cMask - mask out the pixel from the word */
-      cMaskSqInt = (1U << bmDepth) - 1;
-
-      /* rShift - shift value to move the pixel in the word to the lowest bit
-       * position */
-      rShift = (32 - bmDepth) - ((xp & ((1U << rShift) - 1)) * bmDepth);
-      value = (((usqInt)(value)) >> rShift) & cMaskSqInt;
-      if (bmDepth == 16) {
-        if (value) {
-          b = (((usqInt)((value & 0x1F)) << 3));
-          b += (b) >> 5;
-          g = (((usqInt)(((((usqInt)(value)) >> 5) & 0x1F)) << 3));
-          g += (g) >> 5;
-          r = (((usqInt)(((((usqInt)(value)) >> 10) & 0x1F)) << 3));
-          r += (r) >> 5;
-          a = 0xFF;
-          value = ((b + ((g << 8))) + ((r << 16))) + ((((usqInt)(a) << 24)));
-        }
       } else {
-        if (objBuffer[bmFill + GBColormapSize]) {
-          value = ((objBuffer + bmFill) + GBColormapOffset)[value];
-        } else {
-          value = 0;
-        }
-      }
+        /* rShift - shift value to convert from pixel to word index */
+        rShift = (rShiftTable())[bmDepth];
+        value = (((int *)bits))[(bmRaster * yp) + (((usqInt)(xp)) >> rShift)];
 
-      /* Must convert by expanding bits
-         Must convert by using color map */
-      fillValue = uncheckedTransformColor(value);
+        /* cMask - mask out the pixel from the word */
+        cMaskSqInt = (1U << bmDepth) - 1;
+
+        /* rShift - shift value to move the pixel in the word to the lowest bit
+         * position */
+        rShift = (32 - bmDepth) - ((xp & ((1U << rShift) - 1)) * bmDepth);
+        value = (((usqInt)(value)) >> rShift) & cMaskSqInt;
+        if (bmDepth == 16) {
+          if (value) {
+            b = (((usqInt)((value & 0x1F)) << 3));
+            b += (b) >> 5;
+            g = (((usqInt)(((((usqInt)(value)) >> 5) & 0x1F)) << 3));
+            g += (g) >> 5;
+            r = (((usqInt)(((((usqInt)(value)) >> 10) & 0x1F)) << 3));
+            r += (r) >> 5;
+            a = 0xFF;
+            value = ((b + ((g << 8))) + ((r << 16))) + ((((usqInt)(a) << 24)));
+          }
+        } else {
+          if (objBuffer[bmFill + GBColormapSize]) {
+            value = ((objBuffer + bmFill) + GBColormapOffset)[value];
+          } else {
+            value = 0;
+          }
+        }
+
+        /* Must convert by expanding bits
+           Must convert by using color map */
+        fillValue = uncheckedTransformColor(value);
+      }
       /* end bitmapValue:bits:atX:y: */
-    l1:
       fillValue = ((usqInt)((fillValue & cMask))) >> cShift;
       idx = ((usqInt)(x)) >> baseShift;
       spanBuffer[idx] = ((spanBuffer[idx]) + fillValue);
@@ -1755,44 +1726,42 @@ static sqInt fillBitmapSpanAAfromtoat(sqInt bmFill, sqInt leftX, sqInt rightX,
           value = value | 0xFF000000U;
         }
         fillValue = uncheckedTransformColor(value);
-        goto l2;
-      }
-
-      /* rShift - shift value to convert from pixel to word index */
-      rShift = (rShiftTable())[bmDepth];
-      value = (((int *)bits))[(bmRaster * yp) + (((usqInt)(xp)) >> rShift)];
-
-      /* cMask - mask out the pixel from the word */
-      cMaskSqInt = (1U << bmDepth) - 1;
-
-      /* rShift - shift value to move the pixel in the word to the lowest bit
-       * position */
-      rShift = (32 - bmDepth) - ((xp & ((1U << rShift) - 1)) * bmDepth);
-      value = (((usqInt)(value)) >> rShift) & cMaskSqInt;
-      if (bmDepth == 16) {
-        if (value) {
-          b = (((usqInt)((value & 0x1F)) << 3));
-          b += (b) >> 5;
-          g = (((usqInt)(((((usqInt)(value)) >> 5) & 0x1F)) << 3));
-          g += (g) >> 5;
-          r = (((usqInt)(((((usqInt)(value)) >> 10) & 0x1F)) << 3));
-          r += (r) >> 5;
-          a = 0xFF;
-          value = ((b + ((g << 8))) + ((r << 16))) + ((((usqInt)(a) << 24)));
-        }
       } else {
-        if (objBuffer[bmFill + GBColormapSize]) {
-          value = ((objBuffer + bmFill) + GBColormapOffset)[value];
-        } else {
-          value = 0;
-        }
-      }
+        /* rShift - shift value to convert from pixel to word index */
+        rShift = (rShiftTable())[bmDepth];
+        value = (((int *)bits))[(bmRaster * yp) + (((usqInt)(xp)) >> rShift)];
 
-      /* Must convert by expanding bits
-         Must convert by using color map */
-      fillValue = uncheckedTransformColor(value);
+        /* cMask - mask out the pixel from the word */
+        cMaskSqInt = (1U << bmDepth) - 1;
+
+        /* rShift - shift value to move the pixel in the word to the lowest bit
+         * position */
+        rShift = (32 - bmDepth) - ((xp & ((1U << rShift) - 1)) * bmDepth);
+        value = (((usqInt)(value)) >> rShift) & cMaskSqInt;
+        if (bmDepth == 16) {
+          if (value) {
+            b = (((usqInt)((value & 0x1F)) << 3));
+            b += (b) >> 5;
+            g = (((usqInt)(((((usqInt)(value)) >> 5) & 0x1F)) << 3));
+            g += (g) >> 5;
+            r = (((usqInt)(((((usqInt)(value)) >> 10) & 0x1F)) << 3));
+            r += (r) >> 5;
+            a = 0xFF;
+            value = ((b + ((g << 8))) + ((r << 16))) + ((((usqInt)(a) << 24)));
+          }
+        } else {
+          if (objBuffer[bmFill + GBColormapSize]) {
+            value = ((objBuffer + bmFill) + GBColormapOffset)[value];
+          } else {
+            value = 0;
+          }
+        }
+
+        /* Must convert by expanding bits
+           Must convert by using color map */
+        fillValue = uncheckedTransformColor(value);
+      }
       /* end bitmapValue:bits:atX:y: */
-    l2:
       fillValue = ((usqInt)((fillValue & cMask))) >> cShift;
       idx = ((usqInt)(x)) >> baseShift;
       spanBuffer[idx] = ((spanBuffer[idx]) + fillValue);
@@ -1858,44 +1827,42 @@ static sqInt fillBitmapSpanAAfromtoat(sqInt bmFill, sqInt leftX, sqInt rightX,
           value = value | 0xFF000000U;
         }
         fillValue = uncheckedTransformColor(value);
-        goto l3;
-      }
-
-      /* rShift - shift value to convert from pixel to word index */
-      rShift = (rShiftTable())[bmDepth];
-      value = (((int *)bits))[(bmRaster * yp) + (((usqInt)(xp)) >> rShift)];
-
-      /* cMask - mask out the pixel from the word */
-      cMaskSqInt = (1U << bmDepth) - 1;
-
-      /* rShift - shift value to move the pixel in the word to the lowest bit
-       * position */
-      rShift = (32 - bmDepth) - ((xp & ((1U << rShift) - 1)) * bmDepth);
-      value = (((usqInt)(value)) >> rShift) & cMaskSqInt;
-      if (bmDepth == 16) {
-        if (value) {
-          b = (((usqInt)((value & 0x1F)) << 3));
-          b += (b) >> 5;
-          g = (((usqInt)(((((usqInt)(value)) >> 5) & 0x1F)) << 3));
-          g += (g) >> 5;
-          r = (((usqInt)(((((usqInt)(value)) >> 10) & 0x1F)) << 3));
-          r += (r) >> 5;
-          a = 0xFF;
-          value = ((b + ((g << 8))) + ((r << 16))) + ((((usqInt)(a) << 24)));
-        }
       } else {
-        if (objBuffer[bmFill + GBColormapSize]) {
-          value = ((objBuffer + bmFill) + GBColormapOffset)[value];
-        } else {
-          value = 0;
-        }
-      }
+        /* rShift - shift value to convert from pixel to word index */
+        rShift = (rShiftTable())[bmDepth];
+        value = (((int *)bits))[(bmRaster * yp) + (((usqInt)(xp)) >> rShift)];
 
-      /* Must convert by expanding bits
-         Must convert by using color map */
-      fillValue = uncheckedTransformColor(value);
+        /* cMask - mask out the pixel from the word */
+        cMaskSqInt = (1U << bmDepth) - 1;
+
+        /* rShift - shift value to move the pixel in the word to the lowest bit
+         * position */
+        rShift = (32 - bmDepth) - ((xp & ((1U << rShift) - 1)) * bmDepth);
+        value = (((usqInt)(value)) >> rShift) & cMaskSqInt;
+        if (bmDepth == 16) {
+          if (value) {
+            b = (((usqInt)((value & 0x1F)) << 3));
+            b += (b) >> 5;
+            g = (((usqInt)(((((usqInt)(value)) >> 5) & 0x1F)) << 3));
+            g += (g) >> 5;
+            r = (((usqInt)(((((usqInt)(value)) >> 10) & 0x1F)) << 3));
+            r += (r) >> 5;
+            a = 0xFF;
+            value = ((b + ((g << 8))) + ((r << 16))) + ((((usqInt)(a) << 24)));
+          }
+        } else {
+          if (objBuffer[bmFill + GBColormapSize]) {
+            value = ((objBuffer + bmFill) + GBColormapOffset)[value];
+          } else {
+            value = 0;
+          }
+        }
+
+        /* Must convert by expanding bits
+           Must convert by using color map */
+        fillValue = uncheckedTransformColor(value);
+      }
       /* end bitmapValue:bits:atX:y: */
-    l3:
       fillValue = ((usqInt)((fillValue & cMask))) >> cShift;
       idx = ((usqInt)(x)) >> baseShift;
       spanBuffer[idx] = ((spanBuffer[idx]) + fillValue);
@@ -2065,44 +2032,42 @@ static sqInt fillBitmapSpanfromtoat(sqInt bmFill, sqInt leftX, sqInt rightX,
           value = value | 0xFF000000U;
         }
         fillValue = uncheckedTransformColor(value);
-        goto l1;
-      }
-
-      /* rShift - shift value to convert from pixel to word index */
-      rShift = (rShiftTable())[bmDepth];
-      value = (((int *)bits))[(bmRaster * yp) + (((usqInt)(xp)) >> rShift)];
-
-      /* cMask - mask out the pixel from the word */
-      cMask = (1U << bmDepth) - 1;
-
-      /* rShift - shift value to move the pixel in the word to the lowest bit
-       * position */
-      rShift = (32 - bmDepth) - ((xp & ((1U << rShift) - 1)) * bmDepth);
-      value = (((usqInt)(value)) >> rShift) & cMask;
-      if (bmDepth == 16) {
-        if (value) {
-          b = (((usqInt)((value & 0x1F)) << 3));
-          b += (b) >> 5;
-          g = (((usqInt)(((((usqInt)(value)) >> 5) & 0x1F)) << 3));
-          g += (g) >> 5;
-          r = (((usqInt)(((((usqInt)(value)) >> 10) & 0x1F)) << 3));
-          r += (r) >> 5;
-          a = 0xFF;
-          value = ((b + ((g << 8))) + ((r << 16))) + ((((usqInt)(a) << 24)));
-        }
       } else {
-        if (objBuffer[bmFill + GBColormapSize]) {
-          value = ((objBuffer + bmFill) + GBColormapOffset)[value];
-        } else {
-          value = 0;
-        }
-      }
+        /* rShift - shift value to convert from pixel to word index */
+        rShift = (rShiftTable())[bmDepth];
+        value = (((int *)bits))[(bmRaster * yp) + (((usqInt)(xp)) >> rShift)];
 
-      /* Must convert by expanding bits
-         Must convert by using color map */
-      fillValue = uncheckedTransformColor(value);
+        /* cMask - mask out the pixel from the word */
+        cMask = (1U << bmDepth) - 1;
+
+        /* rShift - shift value to move the pixel in the word to the lowest bit
+         * position */
+        rShift = (32 - bmDepth) - ((xp & ((1U << rShift) - 1)) * bmDepth);
+        value = (((usqInt)(value)) >> rShift) & cMask;
+        if (bmDepth == 16) {
+          if (value) {
+            b = (((usqInt)((value & 0x1F)) << 3));
+            b += (b) >> 5;
+            g = (((usqInt)(((((usqInt)(value)) >> 5) & 0x1F)) << 3));
+            g += (g) >> 5;
+            r = (((usqInt)(((((usqInt)(value)) >> 10) & 0x1F)) << 3));
+            r += (r) >> 5;
+            a = 0xFF;
+            value = ((b + ((g << 8))) + ((r << 16))) + ((((usqInt)(a) << 24)));
+          }
+        } else {
+          if (objBuffer[bmFill + GBColormapSize]) {
+            value = ((objBuffer + bmFill) + GBColormapOffset)[value];
+          } else {
+            value = 0;
+          }
+        }
+
+        /* Must convert by expanding bits
+           Must convert by using color map */
+        fillValue = uncheckedTransformColor(value);
+      }
       /* end bitmapValue:bits:atX:y: */
-    l1:
       spanBuffer[x] = fillValue;
     }
     ds += dsX;
@@ -2318,24 +2283,23 @@ static sqInt fillLinearGradientfromtoat(sqInt fill, sqInt leftX, sqInt rightX,
     /* begin fillColorSpan:from:to: */
     if (!((workBuffer[GWAALevel]) == 1)) {
       fillColorSpanAAx0x1(ramp[rampIndex], x0, x);
-      goto l1;
-    }
-    x0SqInt = x0;
+    } else {
+      x0SqInt = x0;
 
-    /* Unroll the inner loop four times, since we're only storing data. */
-    while ((x0SqInt + 4) < x) {
-      spanBuffer[x0SqInt] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 1] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 2] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 3] = (ramp[rampIndex]);
-      x0SqInt += 4;
-    }
-    while (x0SqInt < x) {
-      spanBuffer[x0SqInt] = (ramp[rampIndex]);
-      x0SqInt += 1;
+      /* Unroll the inner loop four times, since we're only storing data. */
+      while ((x0SqInt + 4) < x) {
+        spanBuffer[x0SqInt] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 1] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 2] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 3] = (ramp[rampIndex]);
+        x0SqInt += 4;
+      }
+      while (x0SqInt < x) {
+        spanBuffer[x0SqInt] = (ramp[rampIndex]);
+        x0SqInt += 1;
+      }
     }
     /* end fillColorSpan:from:to: */
-  l1:;
   }
 
   /* Part two: Fill everything inside the boundaries */
@@ -2363,24 +2327,23 @@ static sqInt fillLinearGradientfromtoat(sqInt fill, sqInt leftX, sqInt rightX,
     /* begin fillColorSpan:from:to: */
     if (!((workBuffer[GWAALevel]) == 1)) {
       fillColorSpanAAx0x1(ramp[rampIndex], x, x1);
-      goto l2;
-    }
-    x0SqInt = x;
+    } else {
+      x0SqInt = x;
 
-    /* Unroll the inner loop four times, since we're only storing data. */
-    while ((x0SqInt + 4) < x1) {
-      spanBuffer[x0SqInt] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 1] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 2] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 3] = (ramp[rampIndex]);
-      x0SqInt += 4;
-    }
-    while (x0SqInt < x1) {
-      spanBuffer[x0SqInt] = (ramp[rampIndex]);
-      x0SqInt += 1;
+      /* Unroll the inner loop four times, since we're only storing data. */
+      while ((x0SqInt + 4) < x1) {
+        spanBuffer[x0SqInt] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 1] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 2] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 3] = (ramp[rampIndex]);
+        x0SqInt += 4;
+      }
+      while (x0SqInt < x1) {
+        spanBuffer[x0SqInt] = (ramp[rampIndex]);
+        x0SqInt += 1;
+      }
     }
     /* end fillColorSpan:from:to: */
-  l2:;
   }
   return 0;
 }
@@ -2581,24 +2544,23 @@ static sqInt fillRadialGradientfromtoat(sqInt fill, sqInt leftX, sqInt rightX,
     /* begin fillColorSpan:from:to: */
     if (!((workBuffer[GWAALevel]) == 1)) {
       fillColorSpanAAx0x1(ramp[rampSize - 1], leftX, x);
-      goto l1;
-    }
-    x0 = leftX;
+    } else {
+      x0 = leftX;
 
-    /* Unroll the inner loop four times, since we're only storing data. */
-    while ((x0 + 4) < x) {
-      spanBuffer[x0] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 1] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 2] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 3] = (ramp[rampSize - 1]);
-      x0 += 4;
-    }
-    while (x0 < x) {
-      spanBuffer[x0] = (ramp[rampSize - 1]);
-      x0 += 1;
+      /* Unroll the inner loop four times, since we're only storing data. */
+      while ((x0 + 4) < x) {
+        spanBuffer[x0] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 1] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 2] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 3] = (ramp[rampSize - 1]);
+        x0 += 4;
+      }
+      while (x0 < x) {
+        spanBuffer[x0] = (ramp[rampSize - 1]);
+        x0 += 1;
+      }
     }
     /* end fillColorSpan:from:to: */
-  l1:;
   }
 
   /* Part two: Fill everything inside the boundaries */
@@ -2699,24 +2661,23 @@ static sqInt fillRadialGradientfromtoat(sqInt fill, sqInt leftX, sqInt rightX,
     /* begin fillColorSpan:from:to: */
     if (!((workBuffer[GWAALevel]) == 1)) {
       fillColorSpanAAx0x1(ramp[rampSize - 1], x, rightX);
-      goto l2;
-    }
-    x0 = x;
+    } else {
+      x0 = x;
 
-    /* Unroll the inner loop four times, since we're only storing data. */
-    while ((x0 + 4) < rightX) {
-      spanBuffer[x0] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 1] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 2] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 3] = (ramp[rampSize - 1]);
-      x0 += 4;
-    }
-    while (x0 < rightX) {
-      spanBuffer[x0] = (ramp[rampSize - 1]);
-      x0 += 1;
+      /* Unroll the inner loop four times, since we're only storing data. */
+      while ((x0 + 4) < rightX) {
+        spanBuffer[x0] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 1] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 2] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 3] = (ramp[rampSize - 1]);
+        x0 += 4;
+      }
+      while (x0 < rightX) {
+        spanBuffer[x0] = (ramp[rampSize - 1]);
+        x0 += 1;
+      }
     }
     /* end fillColorSpan:from:to: */
-  l2:;
   }
   return 0;
 }
@@ -2931,24 +2892,23 @@ static sqInt fillSpanfromto(unsigned int fill, sqInt leftX, sqInt rightX) {
     /* begin fillColorSpan:from:to: */
     if (!((workBuffer[GWAALevel]) == 1)) {
       fillColorSpanAAx0x1(fill, x0, x1);
-      goto l1;
-    }
-    x0SqInt = x0;
+    } else {
+      x0SqInt = x0;
 
-    /* Unroll the inner loop four times, since we're only storing data. */
-    while ((x0SqInt + 4) < x1) {
-      spanBuffer[x0SqInt] = fill;
-      spanBuffer[x0SqInt + 1] = fill;
-      spanBuffer[x0SqInt + 2] = fill;
-      spanBuffer[x0SqInt + 3] = fill;
-      x0SqInt += 4;
-    }
-    while (x0SqInt < x1) {
-      spanBuffer[x0SqInt] = fill;
-      x0SqInt += 1;
+      /* Unroll the inner loop four times, since we're only storing data. */
+      while ((x0SqInt + 4) < x1) {
+        spanBuffer[x0SqInt] = fill;
+        spanBuffer[x0SqInt + 1] = fill;
+        spanBuffer[x0SqInt + 2] = fill;
+        spanBuffer[x0SqInt + 3] = fill;
+        x0SqInt += 4;
+      }
+      while (x0SqInt < x1) {
+        spanBuffer[x0SqInt] = fill;
+        x0SqInt += 1;
+      }
     }
     /* end fillColorSpan:from:to: */
-  l1:;
   } else {
     /* lastExportedFillPut: */
     workBuffer[GWLastExportedFill] = fill;
