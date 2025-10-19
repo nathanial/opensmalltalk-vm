@@ -3819,13 +3819,11 @@ static sqInt loadAndSubdivideBezierFromviatoisWide(int *point1, int *point2,
     /* stopReasonPut: */
     workBuffer[GWStopReason] = GErrorNoMoreSpace;
     engineStopped = 1;
-    goto l1;
+  } else {
+    /* wbTopPut: */
+    workBuffer[GWBufferTop] = ((workBuffer[GWBufferTop]) - 6);
+    /* end wbStackPush: */
   }
-
-  /* wbTopPut: */
-  workBuffer[GWBufferTop] = ((workBuffer[GWBufferTop]) - 6);
-  /* end wbStackPush: */
-l1:
   bz1 = (workBuffer[GWSize]) - (workBuffer[GWBufferTop]);
   if (engineStopped) {
     return 0;
