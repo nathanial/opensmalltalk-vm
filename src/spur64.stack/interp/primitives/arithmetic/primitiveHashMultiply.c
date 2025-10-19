@@ -36,7 +36,6 @@ static void primitiveHashMultiply(void) {
         (long32At((void *)((value + BaseHeaderSize)))));
   }
 
-  popthenPush(1, (((((((usqInt)value)) * HashMultiplyConstant) & 0xFFFFFFF)
-                   << 3) |
-                  1));
+  popthenPush(
+      1, (((((((usqInt)value)) * HashMultiplyConstant) & 0xFFFFFFF) << 3) | 1));
 }

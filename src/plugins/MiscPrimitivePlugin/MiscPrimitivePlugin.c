@@ -320,12 +320,12 @@ l3:
 		else {
 			if (eqBytes) {
 				/* begin encodeInt:in:at: */
-				if ((5) <= 223) {
+				{
 					ba[i] = (5);
 					i += 1;
 					goto l4;
 				}
-				if ((5) <= 7935) {
+				{
 					ba[i] = (224);
 					ba[i + 1] = ((5) % 0x100);
 					i += 2;

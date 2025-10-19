@@ -561,7 +561,7 @@ primitiveIsEqual(void)
 	result = [oop1 isEqual: oop2];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -809,7 +809,7 @@ primitiveNSInvocationGetArgument(void)
 	[nsInvocationInstance getArgument: buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1169,7 +1169,7 @@ primitiveNSInvocationGetReturnValue(void)
 	[nsInvoke getReturnValue: buffer];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1348,7 +1348,7 @@ buffer = malloc(sizeof(unsigned char));
 	[nsInvocationInstance setArgument: buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1391,7 +1391,7 @@ primitiveNSInvocationSetDoubleType(void)
 	[nsInvocationInstance setArgument: buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1434,7 +1434,7 @@ primitiveNSInvocationSetFloatType(void)
 	[nsInvocationInstance setArgument: buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1494,7 +1494,7 @@ aValue = ((unsigned int) (positive64BitValueOf(intValue)));
 	[nsInvocationInstance setArgument: buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1554,7 +1554,7 @@ aValue = ((unsigned long long) (positive64BitValueOf(intValue)));
 	[nsInvocationInstance setArgument: buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1614,7 +1614,7 @@ aValue = ((unsigned long) (positive64BitValueOf(intValue)));
 	[nsInvocationInstance setArgument: buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1659,7 +1659,7 @@ primitiveNSInvocationSetPointerType(void)
 	[nsInvocationInstance setArgument: buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1729,7 +1729,7 @@ primitiveNSInvocationSetSelector(void)
 	[nsInvoke setTarget:  object1];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 if (failed()) {
 			return null;
 		}
@@ -1789,7 +1789,7 @@ aValue = ((unsigned short) (positive64BitValueOf(intValue)));
 	[nsInvocationInstance setArgument: buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1836,7 +1836,7 @@ primitiveNSInvocationSetStringType(void)
 	[nsInvocationInstance setArgument: &buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1882,7 +1882,7 @@ primitiveNSInvocationSetStructureType(void)
 	[nsInvocationInstance setArgument: buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1928,7 +1928,7 @@ primitiveNSInvocationSetVoidPointerType(void)
 	[nsInvocationInstance setArgument: &buffer atIndex: index];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -1965,7 +1965,7 @@ primitiveNSInvocationWithMethodSignature(void)
 	nsInvocationOops = [NSInvocation invocationWithMethodSignature: methodSignatureOop];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -2121,7 +2121,7 @@ primitivePerformSelectorOnMainThreadWithWaitTilDone(void)
 	[classOrInstanceObject performSelectorOnMainThread: selectorObject withObject: object1 waitUntilDone: doneFlag  ];
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;
@@ -2131,7 +2131,7 @@ return null;
 	}
 	    NS_HANDLER;
 	success(0);
-	if (1) {
+	{
 return null;
 	}
 	    NS_ENDHANDLER;

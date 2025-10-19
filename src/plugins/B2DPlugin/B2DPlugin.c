@@ -3983,7 +3983,7 @@ loadCompressedShapeFromIntPointssegmentsleftFillsrightFillslineWidthslineFillsfi
 			(((int *) (workBuffer + GWPoint2)))[1] = y2;
 
 			/* begin transformPoints: */
-			if (2 > 0) {
+			{
 				point = ((int *) (workBuffer + GWPoint1));
 
 				/* begin transformPoint: */
@@ -4001,7 +4001,7 @@ loadCompressedShapeFromIntPointssegmentsleftFillsrightFillslineWidthslineFillsfi
 					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 				}
 			}
-			if (2 > 1) {
+			{
 				point = ((int *) (workBuffer + GWPoint2));
 
 				/* begin transformPoint: */
@@ -4019,42 +4019,8 @@ loadCompressedShapeFromIntPointssegmentsleftFillsrightFillslineWidthslineFillsfi
 					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 				}
 			}
-			if (2 > 2) {
-				point = ((int *) (workBuffer + GWPoint3));
-
-				/* begin transformPoint: */
-				if (workBuffer[GWHasEdgeTransform]) {
-					/* begin transformPoint:into: */
-					dstPoint1 = ((int *) point);
-					transform = ((float *) (workBuffer + GWEdgeTransform));
-					x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-					y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-					dstPoint1[0] = x;
-					dstPoint1[1] = y;
-				}
-				else {
-					point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-				}
-			}
-			if (2 > 3) {
-				point = ((int *) (workBuffer + GWPoint4));
-
-				/* begin transformPoint: */
-				if (workBuffer[GWHasEdgeTransform]) {
-					/* begin transformPoint:into: */
-					dstPoint1 = ((int *) point);
-					transform = ((float *) (workBuffer + GWEdgeTransform));
-					x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-					y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-					dstPoint1[0] = x;
-					dstPoint1[1] = y;
-				}
-				else {
-					point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-				}
-			}
+			
+			
 			loadWideLinefromtolineFillleftFillrightFill(widthValue, ((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), lineFillValue, leftValue, rightValue);
 			goto l1;
 		}
@@ -4070,7 +4036,7 @@ loadCompressedShapeFromIntPointssegmentsleftFillsrightFillslineWidthslineFillsfi
 		(((int *) (workBuffer + GWPoint3)))[1] = y2;
 
 		/* begin transformPoints: */
-		if (3 > 0) {
+		{
 			point = ((int *) (workBuffer + GWPoint1));
 
 			/* begin transformPoint: */
@@ -4088,7 +4054,7 @@ loadCompressedShapeFromIntPointssegmentsleftFillsrightFillslineWidthslineFillsfi
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 1) {
+		{
 			point = ((int *) (workBuffer + GWPoint2));
 
 			/* begin transformPoint: */
@@ -4106,7 +4072,7 @@ loadCompressedShapeFromIntPointssegmentsleftFillsrightFillslineWidthslineFillsfi
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 2) {
+		{
 			point = ((int *) (workBuffer + GWPoint3));
 
 			/* begin transformPoint: */
@@ -4124,24 +4090,7 @@ loadCompressedShapeFromIntPointssegmentsleftFillsrightFillslineWidthslineFillsfi
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 3) {
-			point = ((int *) (workBuffer + GWPoint4));
-
-			/* begin transformPoint: */
-			if (workBuffer[GWHasEdgeTransform]) {
-				/* begin transformPoint:into: */
-				dstPoint1 = ((int *) point);
-				transform = ((float *) (workBuffer + GWEdgeTransform));
-				x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-				y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-				dstPoint1[0] = x;
-				dstPoint1[1] = y;
-			}
-			else {
-				point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-			}
-		}
+		
 		segs = loadAndSubdivideBezierFromviatoisWide(((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), ((int *) (workBuffer + GWPoint3)), (widthValue != 0)
 			 && (lineFillValue != 0));
 		if (engineStopped) {
@@ -4271,7 +4220,7 @@ loadCompressedShapeFromShortPointssegmentsleftFillsrightFillslineWidthslineFills
 			(((int *) (workBuffer + GWPoint2)))[1] = y2;
 
 			/* begin transformPoints: */
-			if (2 > 0) {
+			{
 				point = ((int *) (workBuffer + GWPoint1));
 
 				/* begin transformPoint: */
@@ -4289,7 +4238,7 @@ loadCompressedShapeFromShortPointssegmentsleftFillsrightFillslineWidthslineFills
 					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 				}
 			}
-			if (2 > 1) {
+			{
 				point = ((int *) (workBuffer + GWPoint2));
 
 				/* begin transformPoint: */
@@ -4307,42 +4256,8 @@ loadCompressedShapeFromShortPointssegmentsleftFillsrightFillslineWidthslineFills
 					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 				}
 			}
-			if (2 > 2) {
-				point = ((int *) (workBuffer + GWPoint3));
-
-				/* begin transformPoint: */
-				if (workBuffer[GWHasEdgeTransform]) {
-					/* begin transformPoint:into: */
-					dstPoint1 = ((int *) point);
-					transform = ((float *) (workBuffer + GWEdgeTransform));
-					x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-					y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-					dstPoint1[0] = x;
-					dstPoint1[1] = y;
-				}
-				else {
-					point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-				}
-			}
-			if (2 > 3) {
-				point = ((int *) (workBuffer + GWPoint4));
-
-				/* begin transformPoint: */
-				if (workBuffer[GWHasEdgeTransform]) {
-					/* begin transformPoint:into: */
-					dstPoint1 = ((int *) point);
-					transform = ((float *) (workBuffer + GWEdgeTransform));
-					x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-					y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-					dstPoint1[0] = x;
-					dstPoint1[1] = y;
-				}
-				else {
-					point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-				}
-			}
+			
+			
 			loadWideLinefromtolineFillleftFillrightFill(widthValue, ((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), lineFillValue, leftValue, rightValue);
 			goto l1;
 		}
@@ -4358,7 +4273,7 @@ loadCompressedShapeFromShortPointssegmentsleftFillsrightFillslineWidthslineFills
 		(((int *) (workBuffer + GWPoint3)))[1] = y2;
 
 		/* begin transformPoints: */
-		if (3 > 0) {
+		{
 			point = ((int *) (workBuffer + GWPoint1));
 
 			/* begin transformPoint: */
@@ -4376,7 +4291,7 @@ loadCompressedShapeFromShortPointssegmentsleftFillsrightFillslineWidthslineFills
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 1) {
+		{
 			point = ((int *) (workBuffer + GWPoint2));
 
 			/* begin transformPoint: */
@@ -4394,7 +4309,7 @@ loadCompressedShapeFromShortPointssegmentsleftFillsrightFillslineWidthslineFills
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 2) {
+		{
 			point = ((int *) (workBuffer + GWPoint3));
 
 			/* begin transformPoint: */
@@ -4412,24 +4327,7 @@ loadCompressedShapeFromShortPointssegmentsleftFillsrightFillslineWidthslineFills
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 3) {
-			point = ((int *) (workBuffer + GWPoint4));
-
-			/* begin transformPoint: */
-			if (workBuffer[GWHasEdgeTransform]) {
-				/* begin transformPoint:into: */
-				dstPoint1 = ((int *) point);
-				transform = ((float *) (workBuffer + GWEdgeTransform));
-				x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-				y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-				dstPoint1[0] = x;
-				dstPoint1[1] = y;
-			}
-			else {
-				point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-			}
-		}
+		
 		segs = loadAndSubdivideBezierFromviatoisWide(((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), ((int *) (workBuffer + GWPoint3)), (widthValue != 0)
 			 && (lineFillValue != 0));
 		if (engineStopped) {
@@ -4812,7 +4710,7 @@ loadOvallineFillleftFillrightFill(sqInt lineWidth, sqInt lineFill, sqInt leftFil
 		loadOvalSegmentwhcxcy(i, w, h, cx, cy);
 
 		/* begin transformPoints: */
-		if (3 > 0) {
+		{
 			point = ((int *) (workBuffer + GWPoint1));
 
 			/* begin transformPoint: */
@@ -4830,7 +4728,7 @@ loadOvallineFillleftFillrightFill(sqInt lineWidth, sqInt lineFill, sqInt leftFil
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 1) {
+		{
 			point = ((int *) (workBuffer + GWPoint2));
 
 			/* begin transformPoint: */
@@ -4848,7 +4746,7 @@ loadOvallineFillleftFillrightFill(sqInt lineWidth, sqInt lineFill, sqInt leftFil
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 2) {
+		{
 			point = ((int *) (workBuffer + GWPoint3));
 
 			/* begin transformPoint: */
@@ -4866,24 +4764,7 @@ loadOvallineFillleftFillrightFill(sqInt lineWidth, sqInt lineFill, sqInt leftFil
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 3) {
-			point = ((int *) (workBuffer + GWPoint4));
-
-			/* begin transformPoint: */
-			if (workBuffer[GWHasEdgeTransform]) {
-				/* begin transformPoint:into: */
-				dstPoint1 = ((int *) point);
-				transform = ((float *) (workBuffer + GWEdgeTransform));
-				x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-				y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-				dstPoint1[0] = x;
-				dstPoint1[1] = y;
-			}
-			else {
-				point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-			}
-		}
+		
 		nSegments = loadAndSubdivideBezierFromviatoisWide(((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), ((int *) (workBuffer + GWPoint3)), (lineWidth != 0)
 			 && (lineFill != 0));
 		if (engineStopped) {
@@ -5020,7 +4901,7 @@ loadShapeFromArraynSegmentsfilllineWidthlineFill(sqInt points, sqInt nSegments, 
 		}
 
 		/* begin transformPoints: */
-		if (3 > 0) {
+		{
 			point = ((int *) (workBuffer + GWPoint1));
 
 			/* begin transformPoint: */
@@ -5038,7 +4919,7 @@ loadShapeFromArraynSegmentsfilllineWidthlineFill(sqInt points, sqInt nSegments, 
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 1) {
+		{
 			point = ((int *) (workBuffer + GWPoint2));
 
 			/* begin transformPoint: */
@@ -5056,7 +4937,7 @@ loadShapeFromArraynSegmentsfilllineWidthlineFill(sqInt points, sqInt nSegments, 
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 2) {
+		{
 			point = ((int *) (workBuffer + GWPoint3));
 
 			/* begin transformPoint: */
@@ -5074,24 +4955,7 @@ loadShapeFromArraynSegmentsfilllineWidthlineFill(sqInt points, sqInt nSegments, 
 				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 			}
 		}
-		if (3 > 3) {
-			point = ((int *) (workBuffer + GWPoint4));
-
-			/* begin transformPoint: */
-			if (workBuffer[GWHasEdgeTransform]) {
-				/* begin transformPoint:into: */
-				dstPoint1 = ((int *) point);
-				transform = ((float *) (workBuffer + GWEdgeTransform));
-				x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-				y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-				dstPoint1[0] = x;
-				dstPoint1[1] = y;
-			}
-			else {
-				point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-				point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-			}
-		}
+		
 		x0 = (*((int *) (workBuffer + GWPoint1)));
 		y0 = (((int *) (workBuffer + GWPoint1)))[1];
 		x1 = (*((int *) (workBuffer + GWPoint2)));
@@ -5646,7 +5510,7 @@ primitiveAddBezier(void)
 	}
 
 	/* begin transformPoints: */
-	if (3 > 0) {
+	{
 		point = ((int *) (workBuffer + GWPoint1));
 
 		/* begin transformPoint: */
@@ -5664,7 +5528,7 @@ primitiveAddBezier(void)
 			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 		}
 	}
-	if (3 > 1) {
+	{
 		point = ((int *) (workBuffer + GWPoint2));
 
 		/* begin transformPoint: */
@@ -5682,7 +5546,7 @@ primitiveAddBezier(void)
 			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 		}
 	}
-	if (3 > 2) {
+	{
 		point = ((int *) (workBuffer + GWPoint3));
 
 		/* begin transformPoint: */
@@ -5700,24 +5564,7 @@ primitiveAddBezier(void)
 			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 		}
 	}
-	if (3 > 3) {
-		point = ((int *) (workBuffer + GWPoint4));
-
-		/* begin transformPoint: */
-		if (workBuffer[GWHasEdgeTransform]) {
-			/* begin transformPoint:into: */
-			dstPoint1 = ((int *) point);
-			transform = ((float *) (workBuffer + GWEdgeTransform));
-			x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-			y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-			dstPoint1[0] = x;
-			dstPoint1[1] = y;
-		}
-		else {
-			point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-		}
-	}
+	
 	nSegments = loadAndSubdivideBezierFromviatoisWide(((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), ((int *) (workBuffer + GWPoint3)), 0);
 
 	/* begin needAvailableSpace: */
@@ -5922,7 +5769,7 @@ primitiveAddBezierShape(void)
 					(((int *) (workBuffer + GWPoint2)))[1] = y2;
 
 					/* begin transformPoints: */
-					if (2 > 0) {
+					{
 						point = ((int *) (workBuffer + GWPoint1));
 
 						/* begin transformPoint: */
@@ -5940,7 +5787,7 @@ primitiveAddBezierShape(void)
 							point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 						}
 					}
-					if (2 > 1) {
+					{
 						point = ((int *) (workBuffer + GWPoint2));
 
 						/* begin transformPoint: */
@@ -5958,42 +5805,8 @@ primitiveAddBezierShape(void)
 							point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 						}
 					}
-					if (2 > 2) {
-						point = ((int *) (workBuffer + GWPoint3));
-
-						/* begin transformPoint: */
-						if (workBuffer[GWHasEdgeTransform]) {
-							/* begin transformPoint:into: */
-							dstPoint1 = ((int *) point);
-							transform = ((float *) (workBuffer + GWEdgeTransform));
-							x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-							y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-							dstPoint1[0] = x;
-							dstPoint1[1] = y;
-						}
-						else {
-							point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-							point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-						}
-					}
-					if (2 > 3) {
-						point = ((int *) (workBuffer + GWPoint4));
-
-						/* begin transformPoint: */
-						if (workBuffer[GWHasEdgeTransform]) {
-							/* begin transformPoint:into: */
-							dstPoint1 = ((int *) point);
-							transform = ((float *) (workBuffer + GWEdgeTransform));
-							x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-							y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-							dstPoint1[0] = x;
-							dstPoint1[1] = y;
-						}
-						else {
-							point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-							point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-						}
-					}
+					
+					
 					loadWideLinefromtolineFillleftFillrightFill(lineWidth, ((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), lineFill, fillIndex, 0);
 					goto l1;
 				}
@@ -6009,7 +5822,7 @@ primitiveAddBezierShape(void)
 				(((int *) (workBuffer + GWPoint3)))[1] = y2;
 
 				/* begin transformPoints: */
-				if (3 > 0) {
+				{
 					point = ((int *) (workBuffer + GWPoint1));
 
 					/* begin transformPoint: */
@@ -6027,7 +5840,7 @@ primitiveAddBezierShape(void)
 						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 					}
 				}
-				if (3 > 1) {
+				{
 					point = ((int *) (workBuffer + GWPoint2));
 
 					/* begin transformPoint: */
@@ -6045,7 +5858,7 @@ primitiveAddBezierShape(void)
 						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 					}
 				}
-				if (3 > 2) {
+				{
 					point = ((int *) (workBuffer + GWPoint3));
 
 					/* begin transformPoint: */
@@ -6063,24 +5876,7 @@ primitiveAddBezierShape(void)
 						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 					}
 				}
-				if (3 > 3) {
-					point = ((int *) (workBuffer + GWPoint4));
-
-					/* begin transformPoint: */
-					if (workBuffer[GWHasEdgeTransform]) {
-						/* begin transformPoint:into: */
-						dstPoint1 = ((int *) point);
-						transform = ((float *) (workBuffer + GWEdgeTransform));
-						x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-						y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-						dstPoint1[0] = x;
-						dstPoint1[1] = y;
-					}
-					else {
-						point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-					}
-				}
+				
 				segs = loadAndSubdivideBezierFromviatoisWide(((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), ((int *) (workBuffer + GWPoint3)), (lineWidth != 0)
 					 && (lineFill != 0));
 				if (engineStopped) {
@@ -6130,7 +5926,7 @@ l2:;
 					(((int *) (workBuffer + GWPoint2)))[1] = y2Int;
 
 					/* begin transformPoints: */
-					if (2 > 0) {
+					{
 						point = ((int *) (workBuffer + GWPoint1));
 
 						/* begin transformPoint: */
@@ -6148,7 +5944,7 @@ l2:;
 							point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 						}
 					}
-					if (2 > 1) {
+					{
 						point = ((int *) (workBuffer + GWPoint2));
 
 						/* begin transformPoint: */
@@ -6166,42 +5962,8 @@ l2:;
 							point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 						}
 					}
-					if (2 > 2) {
-						point = ((int *) (workBuffer + GWPoint3));
-
-						/* begin transformPoint: */
-						if (workBuffer[GWHasEdgeTransform]) {
-							/* begin transformPoint:into: */
-							dstPoint1 = ((int *) point);
-							transform = ((float *) (workBuffer + GWEdgeTransform));
-							x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-							y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-							dstPoint1[0] = x;
-							dstPoint1[1] = y;
-						}
-						else {
-							point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-							point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-						}
-					}
-					if (2 > 3) {
-						point = ((int *) (workBuffer + GWPoint4));
-
-						/* begin transformPoint: */
-						if (workBuffer[GWHasEdgeTransform]) {
-							/* begin transformPoint:into: */
-							dstPoint1 = ((int *) point);
-							transform = ((float *) (workBuffer + GWEdgeTransform));
-							x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-							y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-							dstPoint1[0] = x;
-							dstPoint1[1] = y;
-						}
-						else {
-							point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-							point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-						}
-					}
+					
+					
 					loadWideLinefromtolineFillleftFillrightFill(lineWidth, ((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), lineFill, fillIndex, 0);
 					goto l3;
 				}
@@ -6217,7 +5979,7 @@ l2:;
 				(((int *) (workBuffer + GWPoint3)))[1] = y2Int;
 
 				/* begin transformPoints: */
-				if (3 > 0) {
+				{
 					point = ((int *) (workBuffer + GWPoint1));
 
 					/* begin transformPoint: */
@@ -6235,7 +5997,7 @@ l2:;
 						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 					}
 				}
-				if (3 > 1) {
+				{
 					point = ((int *) (workBuffer + GWPoint2));
 
 					/* begin transformPoint: */
@@ -6253,7 +6015,7 @@ l2:;
 						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 					}
 				}
-				if (3 > 2) {
+				{
 					point = ((int *) (workBuffer + GWPoint3));
 
 					/* begin transformPoint: */
@@ -6271,24 +6033,7 @@ l2:;
 						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 					}
 				}
-				if (3 > 3) {
-					point = ((int *) (workBuffer + GWPoint4));
-
-					/* begin transformPoint: */
-					if (workBuffer[GWHasEdgeTransform]) {
-						/* begin transformPoint:into: */
-						dstPoint1 = ((int *) point);
-						transform = ((float *) (workBuffer + GWEdgeTransform));
-						x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-						y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-						dstPoint1[0] = x;
-						dstPoint1[1] = y;
-					}
-					else {
-						point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-					}
-				}
+				
 				segs = loadAndSubdivideBezierFromviatoisWide(((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), ((int *) (workBuffer + GWPoint3)), (lineWidth != 0)
 					 && (lineFill != 0));
 				if (engineStopped) {
@@ -6693,7 +6438,7 @@ primitiveAddLine(void)
 	/* Transform points */
 
 	/* begin transformPoints: */
-	if (2 > 0) {
+	{
 		point = ((int *) (workBuffer + GWPoint1));
 
 		/* begin transformPoint: */
@@ -6711,7 +6456,7 @@ primitiveAddLine(void)
 			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 		}
 	}
-	if (2 > 1) {
+	{
 		point = ((int *) (workBuffer + GWPoint2));
 
 		/* begin transformPoint: */
@@ -6729,42 +6474,8 @@ primitiveAddLine(void)
 			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 		}
 	}
-	if (2 > 2) {
-		point = ((int *) (workBuffer + GWPoint3));
-
-		/* begin transformPoint: */
-		if (workBuffer[GWHasEdgeTransform]) {
-			/* begin transformPoint:into: */
-			dstPoint1 = ((int *) point);
-			transform = ((float *) (workBuffer + GWEdgeTransform));
-			x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-			y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-			dstPoint1[0] = x;
-			dstPoint1[1] = y;
-		}
-		else {
-			point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-		}
-	}
-	if (2 > 3) {
-		point = ((int *) (workBuffer + GWPoint4));
-
-		/* begin transformPoint: */
-		if (workBuffer[GWHasEdgeTransform]) {
-			/* begin transformPoint:into: */
-			dstPoint1 = ((int *) point);
-			transform = ((float *) (workBuffer + GWEdgeTransform));
-			x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-			y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-			dstPoint1[0] = x;
-			dstPoint1[1] = y;
-		}
-		else {
-			point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-		}
-	}
+	
+	
 
 	/* Transform colors */
 	leftFill = transformColor(leftFill);
@@ -7025,7 +6736,7 @@ primitiveAddPolygon(void)
 			(((int *) (workBuffer + GWPoint2)))[1] = y1;
 
 			/* begin transformPoints: */
-			if (2 > 0) {
+			{
 				point = ((int *) (workBuffer + GWPoint1));
 
 				/* begin transformPoint: */
@@ -7043,7 +6754,7 @@ primitiveAddPolygon(void)
 					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 				}
 			}
-			if (2 > 1) {
+			{
 				point = ((int *) (workBuffer + GWPoint2));
 
 				/* begin transformPoint: */
@@ -7061,42 +6772,8 @@ primitiveAddPolygon(void)
 					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 				}
 			}
-			if (2 > 2) {
-				point = ((int *) (workBuffer + GWPoint3));
-
-				/* begin transformPoint: */
-				if (workBuffer[GWHasEdgeTransform]) {
-					/* begin transformPoint:into: */
-					dstPoint1 = ((int *) point);
-					transform = ((float *) (workBuffer + GWEdgeTransform));
-					x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-					y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-					dstPoint1[0] = x;
-					dstPoint1[1] = y;
-				}
-				else {
-					point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-				}
-			}
-			if (2 > 3) {
-				point = ((int *) (workBuffer + GWPoint4));
-
-				/* begin transformPoint: */
-				if (workBuffer[GWHasEdgeTransform]) {
-					/* begin transformPoint:into: */
-					dstPoint1 = ((int *) point);
-					transform = ((float *) (workBuffer + GWEdgeTransform));
-					x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-					y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-					dstPoint1[0] = x;
-					dstPoint1[1] = y;
-				}
-				else {
-					point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-					point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-				}
-			}
+			
+			
 			loadWideLinefromtolineFillleftFillrightFill(lineWidth, ((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), lineFill, fillIndex, 0);
 			if (engineStopped) {
 				goto l1;
@@ -7121,7 +6798,7 @@ l1:;
 				(((int *) (workBuffer + GWPoint2)))[1] = y1Short;
 
 				/* begin transformPoints: */
-				if (2 > 0) {
+				{
 					point = ((int *) (workBuffer + GWPoint1));
 
 					/* begin transformPoint: */
@@ -7139,7 +6816,7 @@ l1:;
 						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 					}
 				}
-				if (2 > 1) {
+				{
 					point = ((int *) (workBuffer + GWPoint2));
 
 					/* begin transformPoint: */
@@ -7157,42 +6834,8 @@ l1:;
 						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 					}
 				}
-				if (2 > 2) {
-					point = ((int *) (workBuffer + GWPoint3));
-
-					/* begin transformPoint: */
-					if (workBuffer[GWHasEdgeTransform]) {
-						/* begin transformPoint:into: */
-						dstPoint1 = ((int *) point);
-						transform = ((float *) (workBuffer + GWEdgeTransform));
-						x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-						y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-						dstPoint1[0] = x;
-						dstPoint1[1] = y;
-					}
-					else {
-						point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-					}
-				}
-				if (2 > 3) {
-					point = ((int *) (workBuffer + GWPoint4));
-
-					/* begin transformPoint: */
-					if (workBuffer[GWHasEdgeTransform]) {
-						/* begin transformPoint:into: */
-						dstPoint1 = ((int *) point);
-						transform = ((float *) (workBuffer + GWEdgeTransform));
-						x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-						y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-						dstPoint1[0] = x;
-						dstPoint1[1] = y;
-					}
-					else {
-						point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-					}
-				}
+				
+				
 				loadWideLinefromtolineFillleftFillrightFill(lineWidth, ((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), lineFill, fillIndex, 0);
 				if (engineStopped) {
 					goto l2;
@@ -7216,7 +6859,7 @@ l2:;
 				(((int *) (workBuffer + GWPoint2)))[1] = y1;
 
 				/* begin transformPoints: */
-				if (2 > 0) {
+				{
 					point = ((int *) (workBuffer + GWPoint1));
 
 					/* begin transformPoint: */
@@ -7234,7 +6877,7 @@ l2:;
 						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 					}
 				}
-				if (2 > 1) {
+				{
 					point = ((int *) (workBuffer + GWPoint2));
 
 					/* begin transformPoint: */
@@ -7252,42 +6895,8 @@ l2:;
 						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 					}
 				}
-				if (2 > 2) {
-					point = ((int *) (workBuffer + GWPoint3));
-
-					/* begin transformPoint: */
-					if (workBuffer[GWHasEdgeTransform]) {
-						/* begin transformPoint:into: */
-						dstPoint1 = ((int *) point);
-						transform = ((float *) (workBuffer + GWEdgeTransform));
-						x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-						y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-						dstPoint1[0] = x;
-						dstPoint1[1] = y;
-					}
-					else {
-						point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-					}
-				}
-				if (2 > 3) {
-					point = ((int *) (workBuffer + GWPoint4));
-
-					/* begin transformPoint: */
-					if (workBuffer[GWHasEdgeTransform]) {
-						/* begin transformPoint:into: */
-						dstPoint1 = ((int *) point);
-						transform = ((float *) (workBuffer + GWEdgeTransform));
-						x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-						y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-						dstPoint1[0] = x;
-						dstPoint1[1] = y;
-					}
-					else {
-						point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-						point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-					}
-				}
+				
+				
 				loadWideLinefromtolineFillleftFillrightFill(lineWidth, ((int *) (workBuffer + GWPoint1)), ((int *) (workBuffer + GWPoint2)), lineFill, fillIndex, 0);
 				if (engineStopped) {
 					goto l3;
@@ -7404,7 +7013,7 @@ primitiveAddRect(void)
 	/* Transform the points */
 
 	/* begin transformPoints: */
-	if (4 > 0) {
+	{
 		point = ((int *) (workBuffer + GWPoint1));
 
 		/* begin transformPoint: */
@@ -7422,7 +7031,7 @@ primitiveAddRect(void)
 			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 		}
 	}
-	if (4 > 1) {
+	{
 		point = ((int *) (workBuffer + GWPoint2));
 
 		/* begin transformPoint: */
@@ -7440,7 +7049,7 @@ primitiveAddRect(void)
 			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 		}
 	}
-	if (4 > 2) {
+	{
 		point = ((int *) (workBuffer + GWPoint3));
 
 		/* begin transformPoint: */
@@ -7458,7 +7067,7 @@ primitiveAddRect(void)
 			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 		}
 	}
-	if (4 > 3) {
+	{
 		point = ((int *) (workBuffer + GWPoint4));
 
 		/* begin transformPoint: */
@@ -10864,7 +10473,7 @@ transformWidth(sqInt w)
 	(((int *) (workBuffer + GWPoint3)))[1] = (w * 0x100);
 
 	/* begin transformPoints: */
-	if (3 > 0) {
+	{
 		point = ((int *) (workBuffer + GWPoint1));
 
 		/* begin transformPoint: */
@@ -10882,7 +10491,7 @@ transformWidth(sqInt w)
 			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 		}
 	}
-	if (3 > 1) {
+	{
 		point = ((int *) (workBuffer + GWPoint2));
 
 		/* begin transformPoint: */
@@ -10900,7 +10509,7 @@ transformWidth(sqInt w)
 			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 		}
 	}
-	if (3 > 2) {
+	{
 		point = ((int *) (workBuffer + GWPoint3));
 
 		/* begin transformPoint: */
@@ -10918,24 +10527,7 @@ transformWidth(sqInt w)
 			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
 		}
 	}
-	if (3 > 3) {
-		point = ((int *) (workBuffer + GWPoint4));
-
-		/* begin transformPoint: */
-		if (workBuffer[GWHasEdgeTransform]) {
-			/* begin transformPoint:into: */
-			dstPoint1 = ((int *) point);
-			transform = ((float *) (workBuffer + GWEdgeTransform));
-			x = ((sqInt)(((((transform[0]) * (((double) ((*((int *) point))) ))) + ((transform[1]) * (((double) ((((int *) point))[1]) )))) + (transform[2])) * (((double) (workBuffer[GWAALevel]) ))));
-			y = ((sqInt)(((((transform[3]) * (((double) ((*((int *) point))) ))) + ((transform[4]) * (((double) ((((int *) point))[1]) )))) + (transform[5])) * (((double) (workBuffer[GWAALevel]) ))));
-			dstPoint1[0] = x;
-			dstPoint1[1] = y;
-		}
-		else {
-			point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) * (workBuffer[GWAALevel]));
-			point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) * (workBuffer[GWAALevel]));
-		}
-	}
+	
 	deltaX = ((double) (((*((int *) (workBuffer + GWPoint2)))) - ((*((int *) (workBuffer + GWPoint1))))) );
 	deltaY = ((double) (((((int *) (workBuffer + GWPoint2)))[1]) - ((((int *) (workBuffer + GWPoint1)))[1])) );
 	dstWidth = ((((sqInt)(sqrt((deltaX * deltaX) + (deltaY * deltaY))))) + 128) / 0x100;

@@ -101,20 +101,7 @@ static void primitivePerformWithArgs(void) {
       ((tagBits = actualReceiver & (tagMask()))
            ? tagBits
            : (longAt((void *)(actualReceiver))) & (classIndexMask())));
-  if (
-#if SEND_PRINTING
-      printSends
-#else
-      0
-#endif
-  ) {
-    printActivationNameForSelectorstartClass(
-        messageSelector, /* fetchClassOf: */
-        ((tagBits = actualReceiver & (tagMask()))
-             ? fetchPointerofObject(tagBits, classTableFirstPage)
-             : fetchClassOfNonImm(actualReceiver)));
-    cr();
-  }
+
   findNewMethodInClassTag(/* fetchClassTagOf: */
                           ((tagBits = actualReceiver & (tagMask()))
                                ? tagBits

@@ -137,21 +137,7 @@ static void primitivePerformInSuperclass(void) {
       ((tagBits = rcvr & (tagMask()))
            ? tagBits
            : (longAt((void *)(rcvr))) & (classIndexMask())));
-  if (
-#if SEND_PRINTING
-      printSends
-#else
-      0
-#endif
-  ) {
-    printActivationNameForSelectorstartClass(
-        messageSelector,
-        (lookupClass ? lookupClass : /* fetchClassOf: */
-             ((tagBits = rcvr & (tagMask()))
-                  ? fetchPointerofObject(tagBits, classTableFirstPage)
-                  : fetchClassOfNonImm(rcvr))));
-    cr();
-  }
+
   findNewMethodInClassTag(
       (lookupClass ? classTagForClass(lookupClass) : /* fetchClassTagOf: */
            ((tagBits = rcvr & (tagMask()))

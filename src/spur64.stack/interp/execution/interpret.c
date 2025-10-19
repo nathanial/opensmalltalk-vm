@@ -2128,17 +2128,6 @@ sqInt interpret(void) {
               ((tagBits = rcvr & (tagMask()))
                    ? tagBits
                    : (longAt((void *)(rcvr))) & (classIndexMask())));
-          if (
-#if SEND_PRINTING
-              printSends
-#else
-              0
-#endif
-          ) {
-            printActivationNameForSelectorstartClass(
-                messageSelector, classForClassTag(lkupClassTag));
-            cr();
-          }
 
           /* begin internalFindNewMethodOrdinary */
           /* begin inlineLookupInMethodCacheSel:classTag: */
@@ -6662,7 +6651,8 @@ sqInt interpret(void) {
       extA = 0;
 
       /* begin followObjLiteral:ofMethod: */
-      compiledBlock = followObjFieldofObject(compiledBlockLiteralIndex + LiteralStart, method);
+      compiledBlock = followObjFieldofObject(
+          compiledBlockLiteralIndex + LiteralStart, method);
       assert(isOopCompiledMethod(compiledBlock));
 
       /* begin argumentCountOf: */

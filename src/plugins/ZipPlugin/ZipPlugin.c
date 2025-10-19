@@ -1070,11 +1070,7 @@ primitiveZipSendBlock(void)
 	distCodes = firstIndexableField(oop);
 
 	/* begin nextZipBits:put: */
-	if (!((0 >= 0)
-		 && ((1) > 0))) {
-		primitiveFail();
-		goto l1;
-	}
+	
 	zipBitBuf = zipBitBuf | (0U << zipBitPos);
 	zipBitPos += 0;
 	while ((zipBitPos >= 8)

@@ -1,4 +1,5 @@
-/* Extracted helper matching StackInterpreter>>#externalWriteBackHeadFramePointers */
+/* Extracted helper matching
+ * StackInterpreter>>#externalWriteBackHeadFramePointers */
 
 static inline void externalWriteBackHeadFramePointers(void) {
   assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));

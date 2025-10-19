@@ -43,17 +43,7 @@ static void primitivePerform(void) {
       ((tagBits = newReceiver & (tagMask()))
            ? tagBits
            : (longAt((void *)(newReceiver))) & (classIndexMask())));
-  if (
-#if SEND_PRINTING
-      printSends
-#else
-      0
-#endif
-  ) {
-    printActivationNameForSelectorstartClass(messageSelector,
-                                             classForClassTag(lookupClassTag));
-    cr();
-  }
+
   findNewMethodInClassTag(lookupClassTag);
 
   /* Only test CompiledMethods for argument count - other objects will have to
