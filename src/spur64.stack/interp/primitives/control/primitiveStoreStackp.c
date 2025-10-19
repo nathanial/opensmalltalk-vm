@@ -41,22 +41,7 @@ static void primitiveStoreStackp(void) {
     return;
   }
 
-  /* begin externalWriteBackHeadFramePointers */
-  assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
-  assert(stackPage == (mostRecentlyUsedPage));
-  assert(!((isFree(stackPage))));
-
-  /* begin setHeadFP:andSP:inPage: */
-  assert(stackPointer < framePointer);
-  assert((stackPointer < ((stackPage->baseAddress))) &&
-         (stackPointer >
-          (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-  assert((framePointer < ((stackPage->baseAddress))) &&
-         (framePointer > (((stackPage->realStackLimit)) -
-                          ((LargeContextSlots * BytesPerOop) / 2))));
-  (stackPage->headFP = framePointer);
-  (stackPage->headSP = stackPointer);
-  assert(pageListIsWellFormed());
+  externalWriteBackHeadFramePointers();
   if (/* isStillMarriedContext: */
       (((((fetchPointerofObject(SenderIndex, ctxt))) & 7) == 1)) &&
       (!(isWidowedContext(ctxt)))) {

@@ -31,22 +31,7 @@ sqInt reestablishContextPriorToCallback(sqInt callbackContext) {
   longAtput((sp = stackPointer - BytesPerWord), instructionPointer);
   stackPointer = sp;
 
-  /* begin externalWriteBackHeadFramePointers */
-  assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
-  assert(stackPage == (mostRecentlyUsedPage));
-  assert(!((isFree(stackPage))));
-
-  /* begin setHeadFP:andSP:inPage: */
-  assert(stackPointer < framePointer);
-  assert((stackPointer < ((stackPage->baseAddress))) &&
-         (stackPointer >
-          (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-  assert((framePointer < ((stackPage->baseAddress))) &&
-         (framePointer > (((stackPage->realStackLimit)) -
-                          ((LargeContextSlots * BytesPerOop) / 2))));
-  (stackPage->headFP = framePointer);
-  (stackPage->headSP = stackPointer);
-  assert(pageListIsWellFormed());
+  externalWriteBackHeadFramePointers();
 
   /* Mark callbackContext as dead; the common case is that it is the current
      frame. We go the extra mile for the debugger. */

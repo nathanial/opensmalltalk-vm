@@ -30,22 +30,7 @@ static sqInt transferTofrom(sqInt newProcOrNil, sqInt sourceCode) {
   longAtput((sp = stackPointer - BytesPerWord), instructionPointer);
   stackPointer = sp;
 
-  /* begin externalWriteBackHeadFramePointers */
-  assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
-  assert(stackPage == (mostRecentlyUsedPage));
-  assert(!((isFree(stackPage))));
-
-  /* begin setHeadFP:andSP:inPage: */
-  assert(stackPointer < framePointer);
-  assert((stackPointer < ((stackPage->baseAddress))) &&
-         (stackPointer >
-          (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-  assert((framePointer < ((stackPage->baseAddress))) &&
-         (framePointer > (((stackPage->realStackLimit)) -
-                          ((LargeContextSlots * BytesPerOop) / 2))));
-  (stackPage->headFP = framePointer);
-  (stackPage->headSP = stackPointer);
-  assert(pageListIsWellFormed());
+  externalWriteBackHeadFramePointers();
 
   /* begin assertValidExternalFrameWithIP: */
   assertValidExecutionPointersimbarline(

@@ -56,22 +56,7 @@ static void primitiveTerminateTo(void) {
     return;
   }
 
-  /* begin externalWriteBackHeadFramePointers */
-  assert((framePointer - stackPointer) < (LargeContextSlots * BytesPerOop));
-  assert(stackPage == (mostRecentlyUsedPage));
-  assert(!((isFree(stackPage))));
-
-  /* begin setHeadFP:andSP:inPage: */
-  assert(stackPointer < framePointer);
-  assert((stackPointer < ((stackPage->baseAddress))) &&
-         (stackPointer >
-          (((stackPage->realStackLimit)) - (LargeContextSlots * BytesPerOop))));
-  assert((framePointer < ((stackPage->baseAddress))) &&
-         (framePointer > (((stackPage->realStackLimit)) -
-                          ((LargeContextSlots * BytesPerOop) / 2))));
-  (stackPage->headFP = framePointer);
-  (stackPage->headSP = stackPointer);
-  assert(pageListIsWellFormed());
+  externalWriteBackHeadFramePointers();
 
   /* If we're searching for aContextOrNil it might be on a stack page.  Helps to
      know if we can free a whole page or not, or if we can short-cut the
