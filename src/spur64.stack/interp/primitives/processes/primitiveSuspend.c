@@ -14,7 +14,6 @@
 static void primitiveSuspend(void) {
   sqInt myContext;
   sqInt myList;
-  usqInt numSlots;
   sqInt ok;
   sqInt process;
 

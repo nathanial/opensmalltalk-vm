@@ -21,7 +21,6 @@ static sqInt changeClassOfto(sqInt rcvr, sqInt argClass) {
   usqInt instSlots;
   sqInt newFormat;
   usqInt numBytes;
-  usqInt numSlots;
 
   instBytes = 0;
   instSlots = 0;

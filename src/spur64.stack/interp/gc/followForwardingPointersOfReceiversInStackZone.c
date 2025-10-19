@@ -24,7 +24,6 @@ static void followForwardingPointersOfReceiversInStackZone(void) {
   sqInt newOop;
   sqInt offset;
   sqInt oop;
-  sqInt referent;
   char *theFP;
   usqInt theIPPtr;
   StackPage *thePage;

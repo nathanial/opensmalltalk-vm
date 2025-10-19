@@ -7,7 +7,6 @@
 /* Spur64BitMemoryManager>>#noFailFloatValueOf: */
 
 double noFailFloatValueOf(sqInt aFloatOop) {
-  usqLong bits;
   double result;
 
   assert(isFloatInstance(aFloatOop));

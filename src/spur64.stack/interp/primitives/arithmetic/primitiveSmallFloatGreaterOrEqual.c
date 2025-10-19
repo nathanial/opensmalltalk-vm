@@ -5,7 +5,6 @@
 
 static void primitiveSmallFloatGreaterOrEqual(void) {
   double arg;
-  usqLong bits;
   sqInt floatOrIntOop;
   sqInt intArg;
   sqInt oop;

@@ -16,7 +16,6 @@ void primitiveFullClosureValueNoContextSwitch(void) {
   sqInt methodHeaderSqInt;
   sqInt numArgs;
   sqInt numCopied;
-  usqInt numSlots;
   usqInt numTemps;
   sqInt object;
   sqInt objOop;

@@ -25,7 +25,6 @@ static void primitiveLoadImageSegment(void) {
   sqInt outPointerArray;
   sqInt result;
   sqInt segmentWordArray;
-  char *sp;
 
   outPointerArray = longAt(stackPointer);
   segmentWordArray = longAt(stackPointer + (1 * BytesPerWord));

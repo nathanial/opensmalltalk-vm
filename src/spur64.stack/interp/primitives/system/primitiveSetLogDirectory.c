@@ -8,7 +8,6 @@ EXPORT(sqInt)
 primitiveSetLogDirectory(void) {
   sqInt fmt;
   usqInt numBytes;
-  usqInt numSlots;
   sqInt stringOop;
   sqInt sz;
 

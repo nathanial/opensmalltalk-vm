@@ -12,7 +12,6 @@
 static void primitiveShortAtPut(void) {
   sqInt index;
   sqInt rcvr;
-  char *sp;
   sqInt value;
 
   value = longAt(stackPointer);

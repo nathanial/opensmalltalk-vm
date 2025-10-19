@@ -7,7 +7,6 @@
 static void primitiveObjectAt(void) {
   sqInt index;
   sqInt integerPointer;
-  char *sp;
   sqInt thisReceiver;
 
   /* begin stackIntegerValue: */

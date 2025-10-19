@@ -890,7 +890,6 @@ static struct foo {
   _iss sqInt remapBuffer[RemapBufferSize + 1 /* 26 */];
   _iss sqInt argumentCount;
   _iss sqInt atCache[AtCacheTotalSize + 1 /* 65 */];
-  _iss usqLong byteCount;
   _iss sqInt bytecodeSetSelector;
   _iss sqInt classLinkedListClassTag;
   _iss usqLong compactionStartUsecs;
@@ -969,7 +968,9 @@ static struct foo {
   _iss sqInt preemptionYields;
   _iss sqInt previousRememberedSetSize;
   _iss sqInt primTraceLog[256];
+#if SEND_PRINTING
   _iss sqInt printSends;
+#endif
   _iss sqInt profileMethod;
   _iss sqInt profileProcess;
   _iss sqInt profileSemaphore;

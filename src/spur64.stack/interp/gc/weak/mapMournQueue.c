@@ -7,7 +7,6 @@ static NeverInline void mapMournQueue(void) {
   sqInt mourner;
   sqInt numOnThisPage;
   sqInt objStackPage;
-  sqInt referent;
 
   /* begin objStack:do: */
   if (mournQueue == nilObj) {

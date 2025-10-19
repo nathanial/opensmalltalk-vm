@@ -15,7 +15,6 @@ static void primitiveCopyObject(void) {
   sqInt i;
   usqInt length;
   usqInt numBytes;
-  usqInt numSlots;
   sqInt rcvr;
   sqInt valuePointer;
 

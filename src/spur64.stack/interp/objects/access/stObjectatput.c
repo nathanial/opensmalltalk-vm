@@ -10,7 +10,6 @@ sqInt stObjectatput(sqInt array, sqInt index, sqInt value) {
   sqInt fixedFields;
   usqLong fmt;
   sqLong hdr;
-  usqInt numSlots;
   sqInt signedValueToStore;
   usqInt sp;
   sqInt spSqInt;

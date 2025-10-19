@@ -17,9 +17,7 @@ static void postBecomeScanClassTable(sqInt effectsFlags) {
   sqInt classOrNil;
   sqInt i;
   sqInt j;
-  usqInt numSlots;
   sqInt page;
-  sqInt referent;
   sqInt toDoLimit;
 
   assert(validClassTableRootPages());

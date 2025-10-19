@@ -10,7 +10,6 @@ static void primitivePerformInSuperclass(void) {
   sqInt delta;
   sqInt index;
   sqInt lookupClass;
-  usqInt numSlots;
   sqInt objOop;
   sqInt offset;
   sqInt performArgCount;

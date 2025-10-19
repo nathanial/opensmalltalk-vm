@@ -9,10 +9,7 @@ static sqInt findClassContainingMethodstartingAt(sqInt meth, sqInt classObj) {
   sqInt currClass;
   sqInt i;
   sqInt methodArray;
-  usqInt numSlots;
   sqInt objOop;
-  sqInt referent;
-  sqInt referentSqInt;
 
   if (isOopForwarded(classObj)) {
     currClass = followForwarded(classObj);

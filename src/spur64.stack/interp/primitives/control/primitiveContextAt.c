@@ -12,13 +12,10 @@ static void primitiveContextAt(void) {
   sqInt fixedFieldsSqInt;
   usqLong fmt;
   usqLong fmtUsqLong;
-  usqInt frameNumArgs;
   sqLong hdr;
   sqLong hdrSqLong;
   sqInt index;
-  usqInt numSlots;
   sqInt senderOop;
-  char *sp;
   char *spouseFP;
   sqInt spSqInt;
   usqInt spUsqInt;

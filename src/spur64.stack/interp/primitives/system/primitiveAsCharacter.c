@@ -5,7 +5,6 @@
 static void primitiveAsCharacter(void) {
   sqInt characterCode;
   sqInt characterObject;
-  char *sp;
 
   characterCode = longAt(stackPointer);
   if (!(((((characterCode) & 7) == 1)) &&

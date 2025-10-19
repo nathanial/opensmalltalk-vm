@@ -12,7 +12,6 @@
 static sqInt lastPointerOfWhileSwizzling(sqInt objOop) {
   sqInt fmt;
   sqInt header;
-  usqInt numSlots;
 
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
   assert(fmt != (forwardedFormat()));

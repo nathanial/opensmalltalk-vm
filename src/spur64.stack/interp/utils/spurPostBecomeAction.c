@@ -30,10 +30,8 @@ static void spurPostBecomeAction(sqInt theBecomeEffectsFlags) {
   sqInt list;
   sqIntptr_t m;
   sqInt next;
-  usqInt numSlots;
   sqInt obj;
   sqInt procLists;
-  sqInt referent;
   sqInt result;
   sqIntptr_t s;
   sqInt sched;

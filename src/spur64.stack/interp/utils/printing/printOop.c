@@ -11,11 +11,9 @@ void printOop(sqInt oop) {
   sqInt cls;
   sqInt column;
   sqInt fmt;
-  sqInt fmtSqInt;
   sqInt index;
   sqInt lastIndex;
   sqInt length;
-  usqInt numSlots;
   usqInt startIP;
   sqInt tagBits;
 

@@ -8,10 +8,8 @@ static void primitiveAt(void) {
   usqLong fmt;
   sqLong hdr;
   sqInt index;
-  usqInt numSlots;
   sqInt rcvr;
   sqInt result;
-  char *sp;
   sqInt spSqInt;
   usqInt spUsqInt;
   sqInt stSize;

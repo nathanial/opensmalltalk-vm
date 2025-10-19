@@ -13,10 +13,8 @@ static void primitiveDoPrimitiveWithArgs(void) {
   sqInt argumentArray;
   usqInt arraySize;
   sqInt index;
-  usqInt numSlots;
   sqInt primIdx;
   sqInt rcvr;
-  sqInt referent;
   sqInt savedNumArgs;
   char *sp;
 

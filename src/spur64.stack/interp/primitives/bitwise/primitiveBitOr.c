@@ -9,7 +9,6 @@ static void primitiveBitOr(void) {
   usqInt integerArgumentValue;
   usqInt integerReceiverValue;
   sqInt oop;
-  char *sp;
   sqInt value;
 
   /* begin positiveMachineIntegerValueOf: */

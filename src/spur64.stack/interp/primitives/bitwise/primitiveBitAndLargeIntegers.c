@@ -9,7 +9,6 @@ primitiveBitAndLargeIntegers(void) {
   usqLong integerArg;
   usqLong integerRcvr;
   sqInt oopResult;
-  char *sp;
 
   integerArg = positive64BitValueOf(longAt(stackPointer));
   integerRcvr = positive64BitValueOf(longAt(stackPointer + (1 * BytesPerWord)));

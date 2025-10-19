@@ -8,7 +8,6 @@
 
 static sqInt noFixupFollowFieldofObject(sqInt fieldIndex, sqInt anObject) {
   sqInt objOop;
-  sqInt referent;
 
   objOop = fetchPointerofObject(fieldIndex, anObject);
   if (isOopForwarded(objOop)) {

@@ -9,7 +9,6 @@
 
 static sqInt fetchPointerofMarriedContext(sqInt offset, sqInt aContext) {
   char *callerFP;
-  usqInt frameNumArgs;
   sqInt senderOop;
   char *spouseFP;
 

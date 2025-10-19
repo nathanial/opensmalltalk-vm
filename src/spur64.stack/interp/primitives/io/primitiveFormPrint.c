@@ -15,7 +15,6 @@ static void primitiveFormPrint(void) {
   double hScale;
   sqInt landscapeFlag;
   usqInt numBytes;
-  usqInt numSlots;
   sqInt pixelsPerWord;
   sqInt rcvr;
   sqInt successBoolean;

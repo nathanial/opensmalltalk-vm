@@ -8,7 +8,6 @@ static void primitiveSmallFloatTimesTwoPower(void) {
   sqInt arg;
   sqInt rcvr;
   sqInt result;
-  char *sp;
   sqInt twiceMaxExponent;
 
   arg = longAt(stackPointer);

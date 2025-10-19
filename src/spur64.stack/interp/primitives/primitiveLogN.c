@@ -6,7 +6,6 @@
 
 static void primitiveLogN(void) {
   sqInt aValue;
-  usqLong bits;
   double doubleValue;
   sqInt rcvr;
 

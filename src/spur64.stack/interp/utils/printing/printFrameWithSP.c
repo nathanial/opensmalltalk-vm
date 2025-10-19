@@ -8,7 +8,6 @@ sqInt printFrameWithSP(char *theFP, char *theSP) {
   char *addr;
   usqInt i;
   usqInt numArgs;
-  usqInt numSlots;
   sqInt theMethod;
   char *toDoLimit;
   sqInt topThing;

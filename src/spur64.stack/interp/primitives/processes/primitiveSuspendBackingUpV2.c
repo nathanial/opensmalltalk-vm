@@ -19,7 +19,6 @@ EXPORT(void)
 primitiveSuspendBackingUpV2(void) {
   sqInt myContext;
   sqInt myList;
-  usqInt numSlots;
   sqInt ok;
   sqInt process;
 

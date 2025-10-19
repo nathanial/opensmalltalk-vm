@@ -4,7 +4,6 @@
 
 static void primitiveDiv(void) {
   sqInt quotient;
-  char *sp;
 
   quotient = doPrimitiveDivby(longAt(stackPointer + (1 * BytesPerWord)),
                               longAt(stackPointer));

@@ -25,7 +25,6 @@ static void primitiveDoNamedPrimitiveWithArgs(void) {
   sqInt moduleName;
   usqInt newObj;
   usqInt numBytes;
-  usqInt numSlots;
   sqInt primRcvr;
   char *sp;
   sqInt spec;

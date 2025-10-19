@@ -25,7 +25,6 @@ static sqInt retryPrimitiveOnFailure(void) {
   sqInt oop;
   sqInt primIndex;
   sqInt primitiveIndex;
-  sqInt referent;
   sqInt retried;
   sqInt retry;
   sqInt scannedStackFrame;

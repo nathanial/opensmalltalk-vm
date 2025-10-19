@@ -14,7 +14,6 @@ static void primitiveBeCursor(void) {
   sqInt extentY;
   sqInt maskBitsObj;
   sqInt maskObj;
-  usqInt numSlots;
   sqInt offsetObj;
   sqInt offsetX;
   sqInt offsetY;

@@ -4,7 +4,6 @@
 
 static void primitiveSmallFloatCosine(void) {
   sqInt aValue;
-  usqLong bits;
   sqInt oop;
   double rcvr;
 

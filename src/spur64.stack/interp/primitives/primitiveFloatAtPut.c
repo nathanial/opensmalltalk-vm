@@ -10,7 +10,6 @@ static void primitiveFloatAtPut(void) {
   sqInt index;
   sqInt oopToStore;
   sqInt rcvr;
-  char *sp;
   usqInt valueToStore;
 
   oopToStore = longAt(stackPointer);

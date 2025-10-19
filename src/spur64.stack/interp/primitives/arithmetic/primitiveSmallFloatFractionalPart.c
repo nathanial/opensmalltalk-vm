@@ -5,7 +5,6 @@
 
 static void primitiveSmallFloatFractionalPart(void) {
   sqInt aValue;
-  usqLong bits;
   double frac;
   sqInt oop;
   double rcvr;

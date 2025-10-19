@@ -19,9 +19,7 @@ primitivePathToUsing(void) {
   sqInt iSqInt;
   sqInt next;
   usqInt numLiterals;
-  usqInt numSlots;
   sqInt path;
-  char *sp;
   sqInt spSqInt;
   sqInt stack;
   sqInt stackp;

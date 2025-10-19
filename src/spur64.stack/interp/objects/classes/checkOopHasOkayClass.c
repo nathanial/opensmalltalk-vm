@@ -10,7 +10,6 @@
 /* SpurMemoryManager>>#checkOopHasOkayClass: */
 
 sqInt checkOopHasOkayClass(usqInt obj) {
-  usqInt numSlots;
   usqInt objClass;
   sqInt objFormat;
 

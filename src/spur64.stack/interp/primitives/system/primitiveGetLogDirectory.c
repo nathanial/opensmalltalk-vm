@@ -10,7 +10,6 @@ EXPORT(sqInt)
 primitiveGetLogDirectory(void) {
   sqInt i;
   char *ptr;
-  char *sp;
   sqInt stringOop;
   sqInt sz;
 

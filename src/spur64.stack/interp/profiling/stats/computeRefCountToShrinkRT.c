@@ -43,7 +43,6 @@ static NeverInline void computeRefCountToShrinkRT(void) {
   long population[MaxRTRefCount + 1];
   sqInt refCount;
   sqInt referent;
-  sqInt referentSqInt;
   sqInt toDoLimit;
 
   memset(population, 0, (sizeof(long)) * (MaxRTRefCount + 1));

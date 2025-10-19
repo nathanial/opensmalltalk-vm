@@ -216,7 +216,6 @@ sqInt interpret(void) {
     case 16:  // pushTemporaryVariableBytecode
     case 320: // 64	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode);
@@ -227,7 +226,6 @@ sqInt interpret(void) {
     case 17:  // pushTemporaryVariableBytecode
     case 321: // 65	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode1);
@@ -238,7 +236,6 @@ sqInt interpret(void) {
     case 18:  // pushTemporaryVariableBytecode
     case 322: // 66	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode2);
@@ -249,7 +246,6 @@ sqInt interpret(void) {
     case 19:  // pushTemporaryVariableBytecode
     case 323: // 67	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode3);
@@ -260,7 +256,6 @@ sqInt interpret(void) {
     case 20:  // pushTemporaryVariableBytecode
     case 324: // 68	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode4);
@@ -271,7 +266,6 @@ sqInt interpret(void) {
     case 21:  // pushTemporaryVariableBytecode
     case 325: // 69	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode5);
@@ -282,7 +276,6 @@ sqInt interpret(void) {
     case 22:  // pushTemporaryVariableBytecode
     case 326: // 70	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode6);
@@ -293,7 +286,6 @@ sqInt interpret(void) {
     case 23:  // pushTemporaryVariableBytecode
     case 327: // 71	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode7);
@@ -304,7 +296,6 @@ sqInt interpret(void) {
     case 24:  // pushTemporaryVariableBytecode
     case 328: // 72	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode8);
@@ -315,7 +306,6 @@ sqInt interpret(void) {
     case 25:  // pushTemporaryVariableBytecode
     case 329: // 73	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode9);
@@ -326,7 +316,6 @@ sqInt interpret(void) {
     case 26:  // pushTemporaryVariableBytecode
     case 330: // 74	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode10);
@@ -337,7 +326,6 @@ sqInt interpret(void) {
     case 27:  // pushTemporaryVariableBytecode
     case 331: // 75	pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode11);
@@ -347,7 +335,6 @@ sqInt interpret(void) {
     } break;
     case 28: // pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode12);
@@ -357,7 +344,6 @@ sqInt interpret(void) {
     } break;
     case 29: // pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode13);
@@ -367,7 +353,6 @@ sqInt interpret(void) {
     } break;
     case 30: // pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode14);
@@ -377,7 +362,6 @@ sqInt interpret(void) {
     } break;
     case 31: // pushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt object;
 
       VM_LABEL(pushTemporaryVariableBytecode15);
@@ -1803,7 +1787,6 @@ sqInt interpret(void) {
     respondToUnknownBytecode:
       /* respondToUnknownBytecode */
       {
-        usqInt numSlots;
         sqInt ourContext;
 
         VM_LABEL(respondToUnknownBytecode);
@@ -1841,7 +1824,6 @@ sqInt interpret(void) {
     case 128: // extendedPushBytecode
     {
       sqInt descriptor;
-      usqInt frameNumArgs;
       sqInt litVar;
       sqInt object;
       usqInt variableIndex;
@@ -2116,8 +2098,6 @@ sqInt interpret(void) {
           usqInt probe;
           sqInt rcvr;
           int succeeded;
-          sqInt tagBits;
-
           VM_LABEL(commonSendOrdinary);
           rcvr = longAt(localSP + (argumentCount * BytesPerOop));
 
@@ -2125,9 +2105,7 @@ sqInt interpret(void) {
           sendBreakpointclassTag(
               firstFixedFieldOfMaybeImmediate(messageSelector),
               lengthOfMaybeImmediate(messageSelector), /* fetchClassTagOf: */
-              ((tagBits = rcvr & (tagMask()))
-                   ? tagBits
-                   : (longAt((void *)(rcvr))) & (classIndexMask())));
+              fetchClassTagOf(rcvr));
 
           /* begin internalFindNewMethodOrdinary */
           /* begin inlineLookupInMethodCacheSel:classTag: */
@@ -2650,7 +2628,6 @@ sqInt interpret(void) {
         sqInt literal;
         sqInt objOop;
         sqInt offset;
-        sqInt referent;
         sqInt superclass;
 
         VM_LABEL(superclassSend);
@@ -2882,7 +2859,6 @@ sqInt interpret(void) {
     case 140: // pushRemoteTempLongBytecode
     case 507: // 251	pushRemoteTempLongBytecode
     {
-      usqInt frameNumArgs;
       sqInt remoteTempIndex;
       sqInt tempVector;
       sqInt tempVectorIndex;
@@ -2899,7 +2875,6 @@ sqInt interpret(void) {
     case 141: // storeRemoteTempLongBytecode
     case 508: // 252	storeRemoteTempLongBytecode
     {
-      usqInt frameNumArgs;
       sqInt remoteTempIndex;
       sqInt tempVector;
       sqInt tempVectorIndex;
@@ -2918,7 +2893,6 @@ sqInt interpret(void) {
     case 142: // storeAndPopRemoteTempLongBytecode
     case 509: // 253	storeAndPopRemoteTempLongBytecode
     {
-      usqInt frameNumArgs;
       sqInt remoteTempIndex;
       sqInt tempVector;
       sqInt tempVectorIndex;
@@ -3308,7 +3282,6 @@ sqInt interpret(void) {
     {
       sqInt arg;
       double argDouble;
-      usqLong bits;
       sqInt rcvr;
       double rcvrDouble;
       sqInt result;
@@ -3419,7 +3392,6 @@ sqInt interpret(void) {
     {
       sqInt arg;
       double argDouble;
-      usqLong bits;
       sqInt rcvr;
       double rcvrDouble;
       sqInt result;
@@ -3863,7 +3835,6 @@ sqInt interpret(void) {
     {
       sqInt arg;
       double argDouble;
-      usqLong bits;
       sqInt oop;
       sqInt overflow;
       sqInt rcvr;
@@ -3986,7 +3957,6 @@ sqInt interpret(void) {
     {
       sqInt arg;
       double argDouble;
-      usqLong bits;
       sqInt rcvr;
       double rcvrDouble;
       sqInt result;
@@ -4225,7 +4195,6 @@ sqInt interpret(void) {
       sqInt integerArgument;
       sqInt integerReceiver;
       sqInt shifted;
-      char *sp;
 
       VM_LABEL(bytecodePrimBitShift);
       /* begin initPrimCall */
@@ -4414,7 +4383,6 @@ sqInt interpret(void) {
       sqLong hdr;
       sqInt index;
       sqInt indexSqInt;
-      usqInt numSlots;
       sqInt rcvr;
       sqInt reasonCode;
       sqInt result;
@@ -4635,7 +4603,6 @@ sqInt interpret(void) {
       sqInt index;
       sqInt indexSqInt;
       int isCharacter;
-      usqInt numSlots;
       sqInt rcvr;
       sqInt reasonCode;
       sqInt stSize;
@@ -4907,10 +4874,8 @@ sqInt interpret(void) {
     case 370: // 114	bytecodePrimSize
     {
       sqInt ccIndex;
-      sqInt fmt;
       sqInt isArray;
       sqInt isString;
-      usqInt numSlots;
       sqInt rcvr;
       sqInt sz;
 
@@ -6052,7 +6017,6 @@ sqInt interpret(void) {
     } break;
     case 485: // 229	longPushTemporaryVariableBytecode
     {
-      usqInt frameNumArgs;
       sqInt index;
 
       VM_LABEL(longPushTemporaryVariableBytecode);
@@ -6150,7 +6114,6 @@ sqInt interpret(void) {
         sqInt err;
         sqInt hash;
         sqInt objOop;
-        sqInt referent;
         sqInt superclass;
 
         VM_LABEL(directedSuperclassSend);

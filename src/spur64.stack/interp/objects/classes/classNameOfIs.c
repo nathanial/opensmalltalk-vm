@@ -9,7 +9,6 @@ static sqInt classNameOfIs(sqInt aClass, char *className) {
   sqInt i;
   sqInt length;
   sqInt name;
-  usqInt numSlots;
   char *srcName;
 
   if (((numSlotsOf(aClass))) <= classNameIndex) {

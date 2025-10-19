@@ -14,7 +14,6 @@ sqInt lookupSelectorinClass(sqInt selector, sqInt class) {
   sqInt meth;
   sqInt methodArray;
   sqInt nextSelector;
-  usqInt numSlots;
   sqInt objOop;
   sqInt objOopSqInt;
   sqInt wrapAround;

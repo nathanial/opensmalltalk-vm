@@ -4,7 +4,6 @@
 
 static void primitiveMod(void) {
   sqInt mod;
-  char *sp;
 
   mod = doPrimitiveModby(longAt(stackPointer + (1 * BytesPerWord)),
                          longAt(stackPointer));

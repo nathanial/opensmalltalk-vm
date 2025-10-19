@@ -7,7 +7,6 @@ static void printNonPointerDataOfon(sqInt oop, FILE *aStream) {
   sqInt format;
   sqInt index;
   sqInt lastIndex;
-  usqInt numSlots;
   format = (byteAt((void *)(oop + (formatFieldByteOffset())))) & (formatMask());
   assert(((format >= (sixtyFourBitIndexableFormat())) &&
           (format <= ((firstCompiledMethodFormat()) - 1))));

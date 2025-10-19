@@ -6,7 +6,6 @@
 
 static void primitiveSine(void) {
   sqInt aValue;
-  usqLong bits;
   double doubleValue;
   sqInt rcvr;
 

@@ -8,7 +8,6 @@
 /* Spur64BitMemoryManager>>#loadFloatOrIntFrom: */
 
 static double loadFloatOrIntFrom(sqInt floatOrIntOop) {
-  usqLong bits;
   double result;
   sqInt tagBits;
   double value;

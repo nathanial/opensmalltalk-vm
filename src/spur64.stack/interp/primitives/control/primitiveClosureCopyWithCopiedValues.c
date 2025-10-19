@@ -15,9 +15,7 @@ static void primitiveClosureCopyWithCopiedValues(void) {
   sqInt numArgs;
   usqInt numBytes;
   usqInt numCopied;
-  usqInt numSlots;
   sqInt numSlotsSqInt;
-  char *sp;
   sqInt valuePointer;
 
   /* begin stackIntegerValue: */

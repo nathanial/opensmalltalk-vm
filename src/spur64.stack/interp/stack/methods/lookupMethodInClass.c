@@ -11,10 +11,8 @@ static sqInt lookupMethodInClass(sqInt class) {
   sqInt mask;
   sqInt methodArray;
   sqInt nextSelector;
-  usqInt numSlots;
   sqInt objOop;
   sqInt objOopSqInt;
-  sqInt tagBits;
   sqInt wrapAround;
 
   assert(addressCouldBeClassObj(class));
@@ -41,8 +39,7 @@ static sqInt lookupMethodInClass(sqInt class) {
       sendBreakpointclassTag(
           firstFixedFieldOfMaybeImmediate(messageSelector),
           lengthOfMaybeImmediate(messageSelector), /* fetchClassTagOf: */
-          ((tagBits = 0) ? tagBits
-                         : (longAt((void *)(null))) & (classIndexMask())));
+          fetchClassTagOf(messageSelector));
       return lookupMethodInClass(superclassOf(currentClass));
     }
 

@@ -10,7 +10,6 @@ static sqInt flushExternalPrimitiveOf(sqInt methodObj) {
   usqInt firstBytecode;
   sqInt header;
   sqInt lit;
-  usqInt numSlots;
   sqInt primIdx;
 
   header = methodHeaderOf(methodObj);

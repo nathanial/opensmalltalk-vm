@@ -11,7 +11,6 @@
 
 static sqInt wakeHighestPriority(void) {
   sqInt ctxt;
-  usqInt numSlots;
   sqInt objOop;
   sqInt p;
   sqInt proc;

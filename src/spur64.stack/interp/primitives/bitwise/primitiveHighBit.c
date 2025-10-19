@@ -3,7 +3,6 @@
 /* InterpreterPrimitives>>#primitiveHighBit */
 
 static void primitiveHighBit(void) {
-  sqInt highestBitZeroBased;
   sqInt integerReceiverOop;
   sqInt leadingZeroCount;
   char *sp;
@@ -33,6 +32,7 @@ static void primitiveHighBit(void) {
             (((usqInt)(leadingZeroCount ^ ((BytesPerWord * 8) - 1)) << 3) | 1));
   stackPointer = sp;
 #elif (defined(_MSC_VER)) || (defined(__ICC))
+  sqInt highestBitZeroBased;
   if (integerReceiverOop < 0) {
     /* begin primitiveFail */
     if (!primFailCode) {

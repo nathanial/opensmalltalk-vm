@@ -13,7 +13,6 @@ static void primitiveClosureValueWithArgs(void) {
   sqInt methodHeader;
   sqInt numArgs;
   sqInt numCopied;
-  usqInt numSlots;
   sqInt object;
   sqInt objOop;
   sqInt oop;

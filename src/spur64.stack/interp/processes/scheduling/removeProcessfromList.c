@@ -10,7 +10,6 @@ static sqInt removeProcessfromList(sqInt aProcess, sqInt aList) {
   sqInt firstLink;
   sqInt lastLink;
   sqInt nextLink;
-  usqInt numSlots;
   sqInt tempLink;
 
   nextLink = 0;

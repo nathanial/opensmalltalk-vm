@@ -6,7 +6,6 @@
 /* StackInterpreter>>#methodReturnValue: */
 
 sqInt methodReturnValue(sqInt oop) {
-  char *sp;
 
   assert(!((failed())));
 

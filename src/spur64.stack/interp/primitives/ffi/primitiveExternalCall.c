@@ -36,7 +36,6 @@ static void primitiveExternalCall(void) {
   void (*addr)(void);
   sqInt index;
   sqInt lit;
-  usqInt numSlots;
   sqInt reasonCode;
 
   if (!((isOopCompiledMethod(newMethod)) &&

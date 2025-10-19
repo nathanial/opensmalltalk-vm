@@ -8,7 +8,6 @@
 
 static void makeContextSnapshotSafe(sqInt ctxt) {
   sqInt i;
-  usqInt numSlots;
   sqInt toDoLimit;
   sqInt toDoStart;
 

@@ -9,10 +9,8 @@ static void primitiveStringAtPut(void) {
   usqLong fmt;
   sqLong hdr;
   sqInt index;
-  usqInt numSlots;
   sqInt rcvr;
   sqInt signedValueToStore;
-  char *sp;
   sqInt spSqInt;
   usqInt spUsqInt;
   sqInt stSize;

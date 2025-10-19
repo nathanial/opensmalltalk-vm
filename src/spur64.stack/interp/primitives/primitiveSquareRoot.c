@@ -8,7 +8,6 @@
 
 static void primitiveSquareRoot(void) {
   sqInt aValue;
-  usqLong bits;
   double doubleValue;
   sqInt rcvr;
 

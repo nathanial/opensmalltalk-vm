@@ -10,7 +10,6 @@ EXPORT(void)
 primitiveAllObjects(void) {
   sqInt delta;
   sqInt result;
-  char *sp;
 
   result = allObjects();
   if ((((result) & 7) == 1)) {

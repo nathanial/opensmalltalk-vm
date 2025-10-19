@@ -17,7 +17,6 @@ static void primitiveSlotAtPut(void) {
   sqInt newValue;
   usqInt numSlots;
   sqInt rcvr;
-  char *sp;
   usqIntptr_t value;
   sqInt valueSqInt;
 

@@ -1784,7 +1784,9 @@ static struct foo {
   _iss sqInt firstSegmentSize;
   _iss sqInt multipleBytecodeSetsActive;
   _iss sqInt preemptionYields;
+#if SEND_PRINTING
   _iss sqInt printSends;
+#endif
   _iss sqInt rememberedSetLimit;
   _iss FILE *scavengeLog;
   _iss sqInt statFullGCs;
@@ -1864,7 +1866,6 @@ static struct foo {
   _iss sqInt primTraceLog[256];
   _iss sqInt remapBuffer[RemapBufferSize + 1 /* 26 */];
   _iss sqInt *extraRoots[ExtraRootsSize + 1 /* 65 */];
-  _iss usqLong byteCount;
   _iss unsigned char primTraceLogIndex;
   _iss SpurContiguousObjStack savedFirstFieldsSpace;
   _iss SpurContiguousObjStack unscannedEphemerons;
@@ -3255,7 +3256,9 @@ primitiveTestShortenIndexableSize(void) {
 #if IMMUTABILITY
 #include "interp/utils/immutableBitMask.c"
 
-#endif #include "interp/utils/indexOfin.c"
+#endif
+
+#include "interp/utils/indexOfin.c"
 
 #include "interp/gc/freelists/inFreeTreeReplacewith.c"
 #include "interp/gc/freelists/inOrderPrintFreeTreeprintList.c"
@@ -3446,7 +3449,9 @@ void printMarkedOops(void) { printOopsSuchThat(isMarked); }
 /* SpurMemoryManager>>#printUnmarkedOops */
 #if LLDB
 void printUnmarkedOops(void) { printOopsExcept(isMarked); }
-#endif #include "interp/gc/weak/printWeaklings.c"
+#endif
+
+#include "interp/gc/weak/printWeaklings.c"
 
 #include "interp/stack/methods/accessorDepthForExternalPrimitiveMethod.c"
 #include "interp/stack/methods/accessorDepthForPrimitiveMethod.c"

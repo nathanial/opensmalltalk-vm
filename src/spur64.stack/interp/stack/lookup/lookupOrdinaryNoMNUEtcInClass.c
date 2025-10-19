@@ -15,7 +15,6 @@ static sqInt lookupOrdinaryNoMNUEtcInClass(sqInt class) {
   sqInt mask;
   sqInt methodArray;
   sqInt nextSelector;
-  usqInt numSlots;
   sqInt objOop;
   sqInt objOopSqInt;
   sqInt wrapAround;

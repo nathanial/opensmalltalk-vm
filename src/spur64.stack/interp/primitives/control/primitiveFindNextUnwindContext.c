@@ -12,7 +12,6 @@ static void primitiveFindNextUnwindContext(void) {
   sqInt handlerOrNilOrZero;
   sqInt senderContext;
   sqInt senderOop;
-  char *sp;
   sqInt startContext;
   sqInt stopContext;
   char *theFP;

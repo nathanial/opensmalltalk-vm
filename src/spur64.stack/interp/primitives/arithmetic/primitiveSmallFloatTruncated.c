@@ -3,7 +3,6 @@
 /* InterpreterPrimitives>>#primitiveSmallFloatTruncated */
 
 static void primitiveSmallFloatTruncated(void) {
-  usqLong bits;
   sqInt oop;
   double rcvr;
   double trunc;

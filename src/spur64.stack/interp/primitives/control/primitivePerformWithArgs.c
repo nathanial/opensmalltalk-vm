@@ -9,7 +9,6 @@ static void primitivePerformWithArgs(void) {
   usqInt arraySize;
   sqInt delta;
   sqInt index;
-  usqInt numSlots;
   sqInt offset;
   sqInt performArgCount;
   usqInt savedNewMethod;

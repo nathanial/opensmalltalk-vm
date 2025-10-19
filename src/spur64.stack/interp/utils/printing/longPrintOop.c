@@ -23,7 +23,6 @@ void longPrintOop(sqInt oop) {
   sqInt length;
   sqInt n;
   usqInt numLiterals;
-  usqInt numSlots;
   sqInt objOop;
   sqInt oopClass;
   sqInt sp;

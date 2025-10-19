@@ -15,7 +15,6 @@ primitiveDivLargeIntegers(void) {
   sqInt oopResult;
   usqLong rem;
   usqLong result;
-  char *sp;
 
   oopArg = longAt(stackPointer);
   oopRcvr = longAt(stackPointer + (1 * BytesPerWord));

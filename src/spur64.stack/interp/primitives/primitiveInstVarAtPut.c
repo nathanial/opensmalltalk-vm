@@ -10,10 +10,8 @@ static void primitiveInstVarAtPut(void) {
   sqLong hdr;
   sqInt index;
   sqInt newValue;
-  usqInt numSlots;
   sqInt rcvr;
   sqInt signedValueToStore;
-  char *sp;
   sqInt totalLength;
   usqLong unsigned64BitValueToStore;
   unsigned int unsignedValueToStore;

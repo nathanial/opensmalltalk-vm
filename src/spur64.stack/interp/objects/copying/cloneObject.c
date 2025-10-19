@@ -12,7 +12,6 @@ sqInt cloneObject(sqInt objOop) {
   usqInt numBytes;
   usqInt numSlots;
   sqInt oop;
-  sqInt referent;
   sqInt valuePointer;
 
   numSlots = numSlotsOf(objOop);

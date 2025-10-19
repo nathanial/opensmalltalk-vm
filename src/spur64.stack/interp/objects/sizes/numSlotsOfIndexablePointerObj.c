@@ -7,7 +7,6 @@
 /* SpurMemoryManager>>#numSlotsOfIndexablePointerObj: */
 
 static usqInt numSlotsOfIndexablePointerObj(sqInt objOop) {
-  usqInt numSlots;
 
   assert((formatOf(objOop)) == (indexablePointersFormat()));
   if (((longAt((void *)(objOop))) & (classIndexMask())) ==

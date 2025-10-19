@@ -5,7 +5,6 @@
 static void primitiveClass(void) {
   sqInt instance;
   sqInt oop;
-  char *sp;
   sqInt tagBits;
 
   instance = longAt(stackPointer);

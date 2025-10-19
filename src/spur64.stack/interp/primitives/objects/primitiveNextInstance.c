@@ -8,7 +8,6 @@ static void primitiveNextInstance(void) {
   sqInt followingWord;
   usqInt followingWordAddress;
   sqInt object;
-  char *sp;
   sqInt subsequentObject;
 
   object = longAt(stackPointer);

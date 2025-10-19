@@ -4,7 +4,6 @@
 
 static int primitiveFloatEqualtoArg(sqInt rcvrOop, sqInt argOop) {
   double arg;
-  usqLong bits;
   double rcvr;
   double result;
   sqInt tagBits;

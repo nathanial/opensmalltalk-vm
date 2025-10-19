@@ -8,7 +8,6 @@
 
 static sqInt numBytesOfBitsformat(sqInt objOop, sqInt format) {
   usqInt numBytes;
-  usqInt numSlots;
 
   assert((isPureBitsFormat(format)) && ((formatOf(objOop)) == format));
 

@@ -4,7 +4,6 @@
 
 static sqInt validStorePointerUncheckedArgs(sqInt fieldIndex, sqInt objOop,
                                             sqInt valuePointer) {
-  usqInt numSlots;
 
   return (fieldIndex >= 0) &&
          (((fieldIndex == 0) ||

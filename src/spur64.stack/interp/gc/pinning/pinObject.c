@@ -10,7 +10,6 @@
 sqInt pinObject(sqInt objOop) {
   sqInt i;
   sqInt oldClone;
-  sqInt referent;
   SpurSegmentInfo *seg;
 
   assert(isNonImmediate(objOop));

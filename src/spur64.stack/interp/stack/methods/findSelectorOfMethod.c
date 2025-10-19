@@ -9,9 +9,7 @@ sqInt findSelectorOfMethod(sqInt aMethodOop) {
   sqInt homeMethod;
   sqInt i;
   sqInt methodArray;
-  usqInt numSlots;
   sqInt objOop;
-  sqInt referent;
   sqInt selector;
 
   if (!(addressCouldBeObj(aMethodOop))) {

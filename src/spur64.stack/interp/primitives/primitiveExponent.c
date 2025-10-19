@@ -5,7 +5,6 @@
 /* InterpreterPrimitives>>#primitiveExponent */
 
 static void primitiveExponent(void) {
-  usqLong bits;
   double doubleValue;
   int pwr;
   sqInt rcvr;

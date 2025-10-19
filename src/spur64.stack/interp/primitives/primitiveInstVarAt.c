@@ -10,9 +10,7 @@ static void primitiveInstVarAt(void) {
   usqLong fmt;
   sqLong hdr;
   sqInt index;
-  usqInt numSlots;
   sqInt rcvr;
-  char *sp;
   sqInt totalLength;
   sqInt value;
 

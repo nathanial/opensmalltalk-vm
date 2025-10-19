@@ -4,7 +4,6 @@
 
 static void primitiveSmallFloatSubtract(void) {
   double arg;
-  usqLong bits;
   sqInt floatOrIntOop;
   sqInt oop;
   double rcvr;

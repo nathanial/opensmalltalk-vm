@@ -18,7 +18,6 @@ static void updatePointersInsavedFirstFieldPointer(sqInt obj,
   sqInt i;
   usqInt numLiterals;
   sqInt numPointerSlots;
-  usqInt numSlots;
   sqInt oop;
   sqInt sp;
 

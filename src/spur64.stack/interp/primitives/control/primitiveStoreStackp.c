@@ -10,7 +10,6 @@ static void primitiveStoreStackp(void) {
   sqInt i;
   sqInt integerPointer;
   sqInt newStackp;
-  usqInt numSlots;
   int onCurrentPage;
   sqInt senderOop;
   sqInt sp;

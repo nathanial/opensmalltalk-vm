@@ -10,7 +10,6 @@ static void primitiveObjectAtPut(void) {
   sqInt fieldIndex;
   sqInt index;
   sqInt newValue;
-  char *sp;
   sqInt thisReceiver;
 
   newValue = longAt(stackPointer);

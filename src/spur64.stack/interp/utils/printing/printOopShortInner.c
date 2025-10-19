@@ -3,7 +3,6 @@
 /* StackInterpreter>>#printOopShortInner: */
 
 static void printOopShortInner(sqInt oop) {
-  usqLong bits;
   sqInt classLookupKey;
   sqInt classOop;
   double f;

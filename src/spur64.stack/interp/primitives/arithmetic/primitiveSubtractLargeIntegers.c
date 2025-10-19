@@ -15,7 +15,6 @@ primitiveSubtractLargeIntegers(void) {
   sqInt oopResult;
   usqLong result;
   sqInt resultIsNegative;
-  char *sp;
 
   oopArg = longAt(stackPointer);
   oopRcvr = longAt(stackPointer + (1 * BytesPerWord));

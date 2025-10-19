@@ -6,7 +6,6 @@ static void primitiveDivide(void) {
   sqInt integerArgument;
   sqInt integerPointer;
   sqInt integerReceiver;
-  char *sp;
 
   /* begin stackIntegerValue: */
   integerPointer = longAt(stackPointer + (1 * BytesPerWord));

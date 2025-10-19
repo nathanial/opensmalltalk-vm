@@ -11,7 +11,6 @@ static void primitiveNewWithArg(void) {
   sqInt obj;
   sqInt reasonCode;
   usqIntptr_t size;
-  char *sp;
   sqInt value;
 
   /* For the mirror prims check that the class obj is actually a valid class. */

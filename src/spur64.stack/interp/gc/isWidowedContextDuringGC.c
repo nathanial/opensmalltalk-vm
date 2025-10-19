@@ -22,7 +22,6 @@ static sqInt isWidowedContextDuringGC(sqInt aOnceMarriedContext) {
   sqInt anInteger;
   char *maybeFrame;
   sqInt maybeFrameCtxt;
-  sqInt referent;
   sqInt senderOop;
   char *shouldBeFrameCallerField;
   StackPage *thePage;

@@ -6,7 +6,6 @@ static sqInt isLinkedExternalPrimitive(sqInt methodObj) {
   usqInt firstBytecode;
   sqInt header;
   sqInt literal;
-  usqInt numSlots;
   sqInt primIdx;
   sqInt targetFunctionIndex;
 

@@ -10,7 +10,6 @@
 usqLong positive64BitValueOf(sqInt oop) {
   sqInt ccIndex;
   sqInt fmt;
-  usqInt numSlots;
   int ok;
   sqInt smallIntValue;
   sqInt sz;

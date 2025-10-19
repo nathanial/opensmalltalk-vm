@@ -4,7 +4,6 @@
 
 static void primitiveSmallFloatSquareRoot(void) {
   sqInt aValue;
-  usqLong bits;
   sqInt oop;
   double rcvr;
 

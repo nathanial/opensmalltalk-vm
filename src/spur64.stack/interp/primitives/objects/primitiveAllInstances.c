@@ -10,7 +10,6 @@ EXPORT(void)
 primitiveAllInstances(void) {
   sqInt delta;
   sqInt result;
-  char *sp;
 
   /* For the mirror prims check that the class obj is actually a valid class. */
   result = allInstancesOf(longAt(stackPointer));

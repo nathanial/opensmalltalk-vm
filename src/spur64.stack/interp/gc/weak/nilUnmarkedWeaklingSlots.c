@@ -14,7 +14,6 @@ static NeverInline void nilUnmarkedWeaklingSlots(void) {
   sqInt nextNextPage;
   sqInt nextPage;
   sqInt numOnThisPage;
-  usqInt numSlots;
   sqInt numToEnumerate;
   sqInt numToEnumerateOnThisPage;
   sqInt objStackPage;

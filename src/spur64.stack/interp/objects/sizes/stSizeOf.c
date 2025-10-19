@@ -12,7 +12,6 @@ sqInt stSizeOf(sqInt oop) {
   sqInt fixedFields;
   usqLong fmt;
   sqLong hdr;
-  usqInt numSlots;
   sqInt totalLength;
 
   hdr = long64At((void *)(oop));

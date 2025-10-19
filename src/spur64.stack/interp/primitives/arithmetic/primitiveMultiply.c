@@ -8,7 +8,6 @@ static void primitiveMultiply(void) {
   sqInt integerRcvr;
   sqInt integerResult;
   sqInt overflow;
-  char *sp;
 
   /* begin stackIntegerValue: */
   integerPointer = longAt(stackPointer + (1 * BytesPerWord));

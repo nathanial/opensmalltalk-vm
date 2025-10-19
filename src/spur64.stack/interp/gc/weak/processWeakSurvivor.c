@@ -12,10 +12,8 @@ static sqInt processWeakSurvivor(sqInt weakObj) {
   sqInt classPointer;
   sqInt hasYoungReferents;
   sqInt i;
-  usqInt numSlots;
   sqInt numStrongSlots;
   sqInt referent;
-  sqInt referentSqInt;
   sqInt toDoLimit;
   sqInt weakObjShouldMourn;
 

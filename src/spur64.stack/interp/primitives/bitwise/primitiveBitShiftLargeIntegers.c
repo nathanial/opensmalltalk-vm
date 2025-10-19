@@ -13,7 +13,6 @@ primitiveBitShiftLargeIntegers(void) {
   sqInt oopResult;
   usqLong result;
   sqInt shift;
-  char *sp;
 
   /* begin stackIntegerValue: */
   integerPointer = longAt(stackPointer);

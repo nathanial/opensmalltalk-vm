@@ -7,7 +7,6 @@
 
 static void primitiveExp(void) {
   sqInt aValue;
-  usqLong bits;
   double doubleValue;
   sqInt rcvr;
 

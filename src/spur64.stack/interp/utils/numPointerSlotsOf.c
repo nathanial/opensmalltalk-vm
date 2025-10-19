@@ -10,7 +10,6 @@ static usqInt numPointerSlotsOf(sqInt objOop) {
   sqInt fmt;
   sqInt header;
   usqInt numLiterals;
-  usqInt numSlots;
   sqInt sp;
 
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());

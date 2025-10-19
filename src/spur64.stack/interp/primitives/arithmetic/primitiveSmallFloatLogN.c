@@ -6,7 +6,6 @@
 
 static void primitiveSmallFloatLogN(void) {
   sqInt aValue;
-  usqLong bits;
   sqInt oop;
   double rcvr;
 

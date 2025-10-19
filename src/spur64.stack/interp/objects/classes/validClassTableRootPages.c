@@ -7,7 +7,6 @@
 
 static sqInt validClassTableRootPages(void) {
   sqInt i;
-  usqInt numSlots;
   sqInt obj;
   sqInt toDoLimit;
 

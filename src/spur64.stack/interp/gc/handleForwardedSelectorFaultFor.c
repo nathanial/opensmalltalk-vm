@@ -7,7 +7,6 @@
 /* StackInterpreter>>#handleForwardedSelectorFaultFor: */
 
 static sqInt handleForwardedSelectorFaultFor(sqInt selectorOop) {
-  sqInt referent;
 
   assert(isOopForwarded(selectorOop));
 

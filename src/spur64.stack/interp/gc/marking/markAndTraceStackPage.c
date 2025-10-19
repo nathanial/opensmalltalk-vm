@@ -6,7 +6,6 @@ static void markAndTraceStackPage(StackPage *thePage) {
   char *callerFP;
   char *frameRcvrOffset;
   sqInt oop;
-  sqInt referent;
   char *theFP;
   char *theSP;
 

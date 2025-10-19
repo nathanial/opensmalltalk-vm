@@ -5,11 +5,9 @@
 static usqInt cloneContext(sqInt aContext) {
   usqInt cloned;
   sqInt fieldIndex;
-  usqInt frameNumArgs;
   sqInt i;
   usqInt newObj;
   usqInt numBytes;
-  usqInt numSlots;
   sqInt senderOop;
   sqInt sp;
   char *spouseFP;

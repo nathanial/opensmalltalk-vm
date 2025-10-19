@@ -15,9 +15,7 @@
 static sqInt scavengeReferentsOf(sqInt referrer) {
   sqInt foundNewReferent;
   sqInt i;
-  usqInt numSlots;
   sqInt referent;
-  sqInt referentSqInt;
   sqInt toDoLimit;
 
   assert((!(isForwarded(referrer))) || (isRemembered(referrer)));

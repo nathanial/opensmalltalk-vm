@@ -9,7 +9,6 @@
 static void primitivePin(void) {
   sqInt boolean;
   sqInt obj;
-  char *sp;
   sqInt wasPinned;
 
   obj = longAt(stackPointer + (1 * BytesPerWord));

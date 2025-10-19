@@ -18,7 +18,6 @@ static void primitiveExecuteMethodArgsArray(void) {
   sqInt methodArgument;
   sqInt methodHeader;
   usqInt numArgs;
-  usqInt numSlots;
   usqInt numTemps;
   sqInt object;
   sqInt primitiveIndex;

@@ -17,10 +17,8 @@ static void primitiveContextAtPut(void) {
   sqLong hdr;
   sqLong hdrSqLong;
   sqInt index;
-  usqInt numSlots;
   sqInt senderOop;
   sqInt signedValueToStore;
-  char *sp;
   char *spouseFP;
   sqInt spSqInt;
   usqInt spUsqInt;

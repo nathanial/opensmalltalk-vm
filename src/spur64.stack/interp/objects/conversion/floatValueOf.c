@@ -7,7 +7,6 @@
 /* Spur64BitMemoryManager>>#floatValueOf: */
 
 double floatValueOf(sqInt oop) {
-  usqLong bits;
   double result;
   sqInt tagBits;
   double value;

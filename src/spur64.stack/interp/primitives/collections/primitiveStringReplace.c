@@ -14,7 +14,6 @@ static void primitiveStringReplace(void) {
   sqInt class;
   sqInt i;
   sqInt mustRemember;
-  usqInt numSlots;
   sqInt oop;
   sqInt repl;
   sqInt replFmt;

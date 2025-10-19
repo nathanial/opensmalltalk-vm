@@ -10,7 +10,6 @@ static void primitiveBitShift(void) {
   sqInt integerArgument;
   sqInt integerReceiver;
   sqInt shifted;
-  char *sp;
 
   integerArgument = longAt(stackPointer);
   if (!((((integerArgument) & 7) == 1))) {

@@ -4,7 +4,6 @@
 
 static void primitiveAdd(void) {
   sqInt integerResult;
-  char *sp;
 
   integerResult = (stackIntegerValue(1)) + (stackIntegerValue(0));
 

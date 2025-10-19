@@ -7,7 +7,6 @@
 
 static sqInt fieldofFrame(sqInt index, char *theFP) {
   char *callerFP;
-  usqInt frameNumArgs;
 
   switch (index) {
   case SenderIndex:

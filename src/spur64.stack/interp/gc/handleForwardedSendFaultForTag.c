@@ -7,7 +7,6 @@
 
 static sqInt handleForwardedSendFaultForTag(sqInt classTag) {
   sqInt rcvr;
-  sqInt referent;
   sqInt tagBits;
 
   assert(isForwardedClassTag(classTag));

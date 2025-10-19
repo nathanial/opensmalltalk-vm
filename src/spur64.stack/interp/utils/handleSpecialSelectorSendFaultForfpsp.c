@@ -10,7 +10,6 @@
 static sqInt handleSpecialSelectorSendFaultForfpsp(sqInt obj, char *theFP,
                                                    char *theSP) {
   sqInt rcvr;
-  sqInt referent;
 
   assert(isOopForwarded(obj));
   followForwardedFrameContentsstackPointer(theFP, theSP);

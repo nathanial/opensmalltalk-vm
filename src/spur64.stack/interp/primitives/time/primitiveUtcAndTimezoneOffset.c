@@ -8,7 +8,6 @@
 
 static void primitiveUtcAndTimezoneOffset(void) {
   sqInt resultArray;
-  char *sp;
   sqInt valuePointer;
 
   if (argumentCount > 0) {

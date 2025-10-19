@@ -7,7 +7,6 @@ static void primitiveSize(void) {
   sqInt fixedFields;
   usqLong fmt;
   sqLong hdr;
-  usqInt numSlots;
   sqInt rcvr;
   char *sp;
   sqInt totalLength;

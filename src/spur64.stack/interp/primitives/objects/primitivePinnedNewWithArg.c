@@ -21,7 +21,6 @@ static void primitivePinnedNewWithArg(void) {
   usqInt p;
   sqInt reasonCode;
   usqIntptr_t size;
-  char *sp;
   usqInt toDoLimit;
   sqInt value;
 

@@ -14,7 +14,6 @@ primitiveMultiplyLargeIntegers(void) {
   sqInt oopRcvr;
   sqInt oopResult;
   usqLong result;
-  char *sp;
 
   oopArg = longAt(stackPointer);
   oopRcvr = longAt(stackPointer + (1 * BytesPerWord));

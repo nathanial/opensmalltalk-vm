@@ -14,7 +14,6 @@ static void primitivePinnedNew(void) {
   sqInt obj;
   usqInt p;
   sqInt reasonCode;
-  char *sp;
   usqInt toDoLimit;
 
   /* For the mirror prims check that the class obj is actually a valid class. */

@@ -8,7 +8,6 @@
 static void followForwardedFrameContentsstackPointer(char *theFP, char *theSP) {
   sqInt oop;
   char *ptr;
-  sqInt referent;
   char *toDoLimit;
 
   for (ptr = theSP; ptr <= (theFP + FoxReceiver); ptr += BytesPerWord) {

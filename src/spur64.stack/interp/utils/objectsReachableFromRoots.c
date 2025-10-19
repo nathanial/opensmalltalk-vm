@@ -29,7 +29,6 @@ static NeverInline sqInt objectsReachableFromRoots(sqInt arrayOfRoots) {
   sqInt prevObj;
   sqInt prevPrevObj;
   usqInt ptr;
-  sqInt referent;
   usqInt start;
   usqInt startUsqInt;
   sqInt toDoLimit;

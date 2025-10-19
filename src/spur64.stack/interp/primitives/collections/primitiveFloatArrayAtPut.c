@@ -8,7 +8,6 @@
 
 static void primitiveFloatArrayAtPut(void) {
   float aFloat;
-  usqLong bits;
   sqInt fmt;
   sqInt index;
   sqInt numSlots;

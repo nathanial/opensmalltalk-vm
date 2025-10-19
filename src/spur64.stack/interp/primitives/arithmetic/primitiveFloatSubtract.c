@@ -5,7 +5,6 @@
 static void primitiveFloatSubtract(void) {
   double arg;
   sqInt argOop;
-  usqLong bits;
   double rcvr;
   sqInt rcvrOop;
   double result;

@@ -7,7 +7,6 @@
 
 static void primitiveFractionalPart(void) {
   sqInt aValue;
-  usqLong bits;
   double doubleValue;
   sqInt rcvr;
   double trunc;

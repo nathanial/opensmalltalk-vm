@@ -16,7 +16,6 @@ static void (*linkExternalCallerrInto(sqInt externalCallLiteral,
   sqInt metadata;
   sqInt moduleLength;
   sqInt moduleName;
-  usqInt numSlots;
 
   metadata = 0;
   moduleName = fetchPointerofObject(ExternalCallLiteralModuleNameIndex,

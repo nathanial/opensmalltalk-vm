@@ -10,7 +10,6 @@
 static void primitiveTimesTwoPower(void) {
   sqInt aFloatOop;
   sqInt arg;
-  usqLong bits;
   double rcvr;
   double result;
   sqInt twiceMaxExponent;

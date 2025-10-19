@@ -6,7 +6,6 @@
 /* StackInterpreter>>#signalExternalSemaphores */
 
 static sqInt signalExternalSemaphores(void) {
-  usqInt numSlots;
   sqInt xArray;
 
   xArray = fetchPointerofObject(ExternalObjectsArray, specialObjectsOop);

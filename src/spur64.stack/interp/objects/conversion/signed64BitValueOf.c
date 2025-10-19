@@ -12,7 +12,6 @@ sqLong signed64BitValueOf(sqInt oop) {
   sqInt fmt;
   usqLong magnitude;
   sqInt negative;
-  usqInt numSlots;
   int ok;
   sqInt sz;
 

@@ -8,7 +8,6 @@
 static sqInt safeMethodClassOf(sqInt methodPointer) {
   sqInt literal;
   sqInt maybeClass;
-  usqInt numSlots;
   sqInt offset;
 
   offset = (literalCountOf(methodPointer)) - 1;

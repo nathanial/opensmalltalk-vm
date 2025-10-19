@@ -11,7 +11,6 @@ primitiveCompareBytes(void) {
   sqInt fmt;
   sqInt i;
   sqInt len;
-  usqInt numSlots;
   char *sp;
 
   arg1 = longAt(stackPointer + (1 * BytesPerWord));

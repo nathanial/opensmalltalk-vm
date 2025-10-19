@@ -5,7 +5,6 @@
 static void primitiveNew(void) {
   sqInt obj;
   sqInt reasonCode;
-  char *sp;
 
   /* For the mirror prims check that the class obj is actually a valid class. */
   if ((obj = instantiateClass(longAt(stackPointer)))) {

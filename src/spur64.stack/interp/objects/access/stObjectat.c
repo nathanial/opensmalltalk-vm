@@ -9,7 +9,6 @@ sqInt stObjectat(sqInt array, sqInt index) {
   sqInt fixedFields;
   usqLong fmt;
   sqLong hdr;
-  usqInt numSlots;
   usqInt sp;
   sqInt spSqInt;
   sqInt stSize;

@@ -7,7 +7,6 @@
 
 static void primitiveArctan(void) {
   sqInt aValue;
-  usqLong bits;
   double doubleValue;
   sqInt rcvr;
 

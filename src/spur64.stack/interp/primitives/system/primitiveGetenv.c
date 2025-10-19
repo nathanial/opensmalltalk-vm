@@ -11,7 +11,6 @@ primitiveGetenv(void) {
   sqInt fmt;
   char *key;
   usqInt numBytes;
-  usqInt numSlots;
   sqInt obj;
   char *sp;
   sqInt sz;

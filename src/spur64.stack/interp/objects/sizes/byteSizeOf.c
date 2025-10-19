@@ -5,7 +5,6 @@
 sqInt byteSizeOf(sqInt oop) {
   sqInt fmt;
   usqInt numBytes;
-  usqInt numSlots;
 
   if (((oop & (tagMask())) != 0)) {
     return 0;

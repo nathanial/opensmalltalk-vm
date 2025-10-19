@@ -8,7 +8,6 @@ static void primitiveBitXor(void) {
   sqInt integerReceiver;
   usqInt integerReceiverValue;
   sqInt oop;
-  char *sp;
   sqInt value;
 
   integerArgument = longAt(stackPointer);

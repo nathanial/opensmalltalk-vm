@@ -9,7 +9,6 @@ static sqInt lastPointerOf(sqInt objOop) {
   sqInt contextSize;
   sqInt fmt;
   sqInt header;
-  usqInt numSlots;
   sqInt sp;
 
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());

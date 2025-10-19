@@ -16,7 +16,6 @@ static sqIntptr_t signedMachineIntegerValueOfObj(sqInt oop) {
   usqIntptr_t magnitude;
   sqInt negative;
   usqInt numBytes;
-  usqInt numSlots;
   usqIntptr_t value;
 
   assert(!(((((oop) & 7) == 1))));

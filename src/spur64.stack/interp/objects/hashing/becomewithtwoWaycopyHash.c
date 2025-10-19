@@ -24,7 +24,6 @@ static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
   sqInt i;
   sqInt newObj1;
   sqInt newObj2;
-  usqInt numSlots;
   sqInt o1ClassIndex;
   sqInt o2ClassIndex;
   sqInt obj1;
@@ -33,8 +32,6 @@ static sqInt becomewithtwoWaycopyHash(sqInt array1, sqInt array2,
   sqInt objOopSqInt;
   sqInt oop1;
   sqInt oop2;
-  sqInt referent;
-  sqInt referentSqInt;
   sqInt size;
   sqInt sp;
   sqInt toDoLimit;

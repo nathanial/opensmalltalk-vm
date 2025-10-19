@@ -3,7 +3,6 @@
 /* StackInterpreter>>#shortPrintFrame: */
 
 static sqInt shortPrintFrame(char *theFP) {
-  usqInt frameNumArgs;
   sqInt rcvr;
 
   if (!(/* couldBeFramePointer: */

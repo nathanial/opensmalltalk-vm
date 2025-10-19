@@ -8,7 +8,6 @@ static void primitiveMakePoint(void) {
   usqInt numBytes;
   usqInt pt;
   sqInt rcvr;
-  char *sp;
 
   rcvr = longAt(stackPointer + (1 * BytesPerWord));
   arg = longAt(stackPointer);

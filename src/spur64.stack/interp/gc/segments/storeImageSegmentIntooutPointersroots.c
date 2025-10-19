@@ -50,7 +50,6 @@ static sqInt storeImageSegmentIntooutPointersroots(sqInt segmentWordArrayArg,
   sqInt indexableSize;
   sqInt newSegAddrOrError;
   sqInt numClassesInSegment;
-  usqInt numSlots;
   sqInt numSlotsSqInt;
   sqInt objOop;
   sqInt objOopSqInt;

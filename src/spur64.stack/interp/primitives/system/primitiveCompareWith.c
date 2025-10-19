@@ -12,7 +12,6 @@ primitiveCompareWith(void) {
   sqInt fmt;
   sqInt i;
   sqInt min;
-  usqInt numSlots;
   sqInt order;
   sqInt result;
   char *sp;

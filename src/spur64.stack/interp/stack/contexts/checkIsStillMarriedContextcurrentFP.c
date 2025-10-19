@@ -11,7 +11,6 @@ static sqInt checkIsStillMarriedContextcurrentFP(sqInt aContext,
   char *limitFP;
   char *maybeFP;
   sqInt maybeFrameCtxt;
-  sqInt referent;
   sqInt senderOop;
   StackPage *thePage;
 

@@ -12,7 +12,6 @@
 
 sqInt maybeSelectorOfMethod(sqInt methodObj) {
   sqInt maybeSelector;
-  usqInt numSlots;
   sqInt penultimateLiteral;
   sqInt ultimateLiteral;
 

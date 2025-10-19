@@ -10,7 +10,6 @@ static sqInt synchronousSignal(sqInt aSemaphore) {
   sqInt excessSignals;
   sqInt integerValue;
   sqInt proc;
-  sqInt referent;
 
   assert((addressCouldBeObj(aSemaphore)) &&
          ((!(isForwarded(aSemaphore))) &&

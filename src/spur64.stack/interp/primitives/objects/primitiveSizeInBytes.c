@@ -5,7 +5,6 @@
 static void primitiveSizeInBytes(void) {
   usqLong byteSize;
   sqInt oop;
-  char *sp;
 
   byteSize = /* totalByteSizeOf: */
       ((((longAt(stackPointer)) & (tagMask())) != 0)

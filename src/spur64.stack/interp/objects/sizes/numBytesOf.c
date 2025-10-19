@@ -8,7 +8,6 @@
 sqInt numBytesOf(sqInt objOop) {
   sqInt fmt;
   usqInt numBytes;
-  usqInt numSlots;
 
   fmt = (byteAt((void *)(objOop + (formatFieldByteOffset())))) & (formatMask());
 

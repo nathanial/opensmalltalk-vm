@@ -20,7 +20,6 @@ static void primitiveNewMethod(void) {
   usqInt p;
   sqInt reasonCode;
   sqInt size;
-  char *sp;
   sqInt theMethod;
   usqInt toDoLimit;
 

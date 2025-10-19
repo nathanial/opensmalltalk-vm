@@ -5,7 +5,6 @@
 /* StackInterpreter>>#copiedValueCountOfClosure: */
 
 sqInt copiedValueCountOfClosure(sqInt closureObj) {
-  usqInt numSlots;
 
   return (((((fetchPointerofObject(ClosureStartPCIndex, closureObj))) & 7) == 1)
               ? (/* begin copiedValueCountOfVanillaClosure: */

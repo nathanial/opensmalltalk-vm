@@ -12,7 +12,6 @@ static NeverInline void inPlaceBecomeandcopyHashFlag(sqInt obj1, sqInt obj2,
   sqLong header1;
   sqLong header2;
   sqInt i;
-  usqInt numSlots;
   sqInt o1HasYoung;
   sqInt o2HasYoung;
   sqLong remembered;

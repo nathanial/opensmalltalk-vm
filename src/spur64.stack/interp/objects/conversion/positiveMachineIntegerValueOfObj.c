@@ -13,7 +13,6 @@ static usqIntptr_t positiveMachineIntegerValueOfObj(sqInt oop) {
   sqInt ccIndex;
   sqInt fmt;
   sqInt isClassOfNonImmequalTocompactClassIndexRV;
-  usqInt numSlots;
 
   assert(!(((((oop) & 7) == 1))));
   if (((oop & (tagMask())) != 0)) {

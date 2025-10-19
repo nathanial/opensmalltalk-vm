@@ -13,7 +13,6 @@ EXPORT(sqInt)
 primitiveUtcWithOffset(void) {
   static usqLong epochDelta = 2177452800000000ULL;
   sqInt resultArray;
-  char *sp;
   sqInt valuePointer;
 
   if (argumentCount > 0) {

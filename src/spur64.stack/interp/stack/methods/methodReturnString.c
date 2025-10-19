@@ -8,7 +8,6 @@
 
 NeverInline sqInt methodReturnString(const char *aCString) {
   sqInt result;
-  char *sp;
 
   assert(!((failed())));
   if (aCString) {

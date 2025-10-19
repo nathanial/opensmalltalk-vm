@@ -8,7 +8,6 @@
 
 static void primitiveClipboardText(void) {
   sqInt fmt;
-  usqInt numSlots;
   sqInt s;
   sqInt sz;
 

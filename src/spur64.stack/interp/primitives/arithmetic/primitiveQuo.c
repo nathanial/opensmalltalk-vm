@@ -9,7 +9,6 @@ static void primitiveQuo(void) {
   sqInt integerPointer;
   sqInt integerRcvr;
   sqInt integerResult;
-  char *sp;
 
   integerResult = 0;
 

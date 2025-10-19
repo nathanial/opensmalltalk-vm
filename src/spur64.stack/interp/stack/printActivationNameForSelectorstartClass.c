@@ -10,7 +10,6 @@ static void printActivationNameForSelectorstartClass(sqInt aSelector,
   sqInt currClass;
   sqInt i;
   sqInt methClass;
-  usqInt numSlots;
   sqInt objOop;
 
   if (addressCouldBeObj(startClass)) {

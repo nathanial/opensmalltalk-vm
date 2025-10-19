@@ -30,7 +30,6 @@ size_t readImageFromFileHeapSizeStartingAt(sqImageFile f,
   sqInt i;
   usqInt mem;
   usqInt minimumMemory;
-  usqInt numSlots;
   sqInt objOop;
   sqInt oop;
   sqInt rawVersion;
