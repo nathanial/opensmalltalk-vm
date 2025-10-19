@@ -1093,11 +1093,12 @@ static int computeBezierSplitAtHalf(sqInt index) {
     /* stopReasonPut: */
     workBuffer[GWStopReason] = GErrorNoMoreSpace;
     engineStopped = 1;
-    goto l1;
-  }
 
-  /* wbTopPut: */
-  workBuffer[GWBufferTop] = ((workBuffer[GWBufferTop]) - 6);
+  } else {
+    /* wbTopPut: */
+    workBuffer[GWBufferTop] = ((workBuffer[GWBufferTop]) - 6);
+    /* end wbStackPush: */
+  };
   /* end wbStackPush: */
 l1:
   newIndex = (workBuffer[GWSize]) - (workBuffer[GWBufferTop]);
@@ -1463,10 +1464,9 @@ static sqInt createGlobalEdgeTable(void) {
             goto l1;
           }
           addEdgeToGET(object);
-          goto l1;
-        }
-        if ((((objBuffer[object + GEObjectType]) & GEPrimitiveTypeMask) &
-             GEPrimitiveWideMask) == GEPrimitiveBezier) {
+
+        } else if ((((objBuffer[object + GEObjectType]) & GEPrimitiveTypeMask) &
+                    GEPrimitiveWideMask) == GEPrimitiveBezier) {
           /* begin checkedAddBezierToGET: */
           if (((objBuffer[object + GEObjectType]) & GEPrimitiveTypeMask) &
               GEPrimitiveWide) {
@@ -1487,9 +1487,11 @@ static sqInt createGlobalEdgeTable(void) {
             goto l1;
           }
           addEdgeToGET(object);
-          goto l1;
-        }
-        addEdgeToGET(object);
+
+        } else {
+          addEdgeToGET(object);
+          /* end checkedAddEdgeToGET: */
+        };
         /* end checkedAddEdgeToGET: */
       l1:;
       }
@@ -2318,22 +2320,25 @@ static sqInt fillLinearGradientfromtoat(sqInt fill, sqInt leftX, sqInt rightX,
     /* begin fillColorSpan:from:to: */
     if (!((workBuffer[GWAALevel]) == 1)) {
       fillColorSpanAAx0x1(ramp[rampIndex], x0, x);
-      goto l1;
-    }
-    x0SqInt = x0;
 
-    /* Unroll the inner loop four times, since we're only storing data. */
-    while ((x0SqInt + 4) < x) {
-      spanBuffer[x0SqInt] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 1] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 2] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 3] = (ramp[rampIndex]);
-      x0SqInt += 4;
+    } else {
+      x0SqInt = x0;
+
+      /* Unroll the inner loop four times, since we're only storing data. */
+      while ((x0SqInt + 4) < x) {
+        spanBuffer[x0SqInt] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 1] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 2] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 3] = (ramp[rampIndex]);
+        x0SqInt += 4;
+      }
+      while (x0SqInt < x) {
+        spanBuffer[x0SqInt] = (ramp[rampIndex]);
+        x0SqInt += 1;
+      }
+      /* end fillColorSpan:from:to: */
     }
-    while (x0SqInt < x) {
-      spanBuffer[x0SqInt] = (ramp[rampIndex]);
-      x0SqInt += 1;
-    }
+
     /* end fillColorSpan:from:to: */
   l1:;
   }
@@ -2363,22 +2368,25 @@ static sqInt fillLinearGradientfromtoat(sqInt fill, sqInt leftX, sqInt rightX,
     /* begin fillColorSpan:from:to: */
     if (!((workBuffer[GWAALevel]) == 1)) {
       fillColorSpanAAx0x1(ramp[rampIndex], x, x1);
-      goto l2;
-    }
-    x0SqInt = x;
 
-    /* Unroll the inner loop four times, since we're only storing data. */
-    while ((x0SqInt + 4) < x1) {
-      spanBuffer[x0SqInt] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 1] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 2] = (ramp[rampIndex]);
-      spanBuffer[x0SqInt + 3] = (ramp[rampIndex]);
-      x0SqInt += 4;
+    } else {
+      x0SqInt = x;
+
+      /* Unroll the inner loop four times, since we're only storing data. */
+      while ((x0SqInt + 4) < x1) {
+        spanBuffer[x0SqInt] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 1] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 2] = (ramp[rampIndex]);
+        spanBuffer[x0SqInt + 3] = (ramp[rampIndex]);
+        x0SqInt += 4;
+      }
+      while (x0SqInt < x1) {
+        spanBuffer[x0SqInt] = (ramp[rampIndex]);
+        x0SqInt += 1;
+      }
+      /* end fillColorSpan:from:to: */
     }
-    while (x0SqInt < x1) {
-      spanBuffer[x0SqInt] = (ramp[rampIndex]);
-      x0SqInt += 1;
-    }
+
     /* end fillColorSpan:from:to: */
   l2:;
   }
@@ -2581,22 +2589,25 @@ static sqInt fillRadialGradientfromtoat(sqInt fill, sqInt leftX, sqInt rightX,
     /* begin fillColorSpan:from:to: */
     if (!((workBuffer[GWAALevel]) == 1)) {
       fillColorSpanAAx0x1(ramp[rampSize - 1], leftX, x);
-      goto l1;
-    }
-    x0 = leftX;
 
-    /* Unroll the inner loop four times, since we're only storing data. */
-    while ((x0 + 4) < x) {
-      spanBuffer[x0] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 1] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 2] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 3] = (ramp[rampSize - 1]);
-      x0 += 4;
+    } else {
+      x0 = leftX;
+
+      /* Unroll the inner loop four times, since we're only storing data. */
+      while ((x0 + 4) < x) {
+        spanBuffer[x0] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 1] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 2] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 3] = (ramp[rampSize - 1]);
+        x0 += 4;
+      }
+      while (x0 < x) {
+        spanBuffer[x0] = (ramp[rampSize - 1]);
+        x0 += 1;
+      }
+      /* end fillColorSpan:from:to: */
     }
-    while (x0 < x) {
-      spanBuffer[x0] = (ramp[rampSize - 1]);
-      x0 += 1;
-    }
+
     /* end fillColorSpan:from:to: */
   l1:;
   }
@@ -2699,22 +2710,25 @@ static sqInt fillRadialGradientfromtoat(sqInt fill, sqInt leftX, sqInt rightX,
     /* begin fillColorSpan:from:to: */
     if (!((workBuffer[GWAALevel]) == 1)) {
       fillColorSpanAAx0x1(ramp[rampSize - 1], x, rightX);
-      goto l2;
-    }
-    x0 = x;
 
-    /* Unroll the inner loop four times, since we're only storing data. */
-    while ((x0 + 4) < rightX) {
-      spanBuffer[x0] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 1] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 2] = (ramp[rampSize - 1]);
-      spanBuffer[x0 + 3] = (ramp[rampSize - 1]);
-      x0 += 4;
+    } else {
+      x0 = x;
+
+      /* Unroll the inner loop four times, since we're only storing data. */
+      while ((x0 + 4) < rightX) {
+        spanBuffer[x0] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 1] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 2] = (ramp[rampSize - 1]);
+        spanBuffer[x0 + 3] = (ramp[rampSize - 1]);
+        x0 += 4;
+      }
+      while (x0 < rightX) {
+        spanBuffer[x0] = (ramp[rampSize - 1]);
+        x0 += 1;
+      }
+      /* end fillColorSpan:from:to: */
     }
-    while (x0 < rightX) {
-      spanBuffer[x0] = (ramp[rampSize - 1]);
-      x0 += 1;
-    }
+
     /* end fillColorSpan:from:to: */
   l2:;
   }
@@ -2931,22 +2945,25 @@ static sqInt fillSpanfromto(unsigned int fill, sqInt leftX, sqInt rightX) {
     /* begin fillColorSpan:from:to: */
     if (!((workBuffer[GWAALevel]) == 1)) {
       fillColorSpanAAx0x1(fill, x0, x1);
-      goto l1;
-    }
-    x0SqInt = x0;
 
-    /* Unroll the inner loop four times, since we're only storing data. */
-    while ((x0SqInt + 4) < x1) {
-      spanBuffer[x0SqInt] = fill;
-      spanBuffer[x0SqInt + 1] = fill;
-      spanBuffer[x0SqInt + 2] = fill;
-      spanBuffer[x0SqInt + 3] = fill;
-      x0SqInt += 4;
+    } else {
+      x0SqInt = x0;
+
+      /* Unroll the inner loop four times, since we're only storing data. */
+      while ((x0SqInt + 4) < x1) {
+        spanBuffer[x0SqInt] = fill;
+        spanBuffer[x0SqInt + 1] = fill;
+        spanBuffer[x0SqInt + 2] = fill;
+        spanBuffer[x0SqInt + 3] = fill;
+        x0SqInt += 4;
+      }
+      while (x0SqInt < x1) {
+        spanBuffer[x0SqInt] = fill;
+        x0SqInt += 1;
+      }
+      /* end fillColorSpan:from:to: */
     }
-    while (x0SqInt < x1) {
-      spanBuffer[x0SqInt] = fill;
-      x0SqInt += 1;
-    }
+
     /* end fillColorSpan:from:to: */
   l1:;
   } else {
@@ -3097,14 +3114,16 @@ static sqInt findNextExternalFillFromAET(void) {
 
     /* begin quickRemoveInvalidFillsAt: */
     if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-      goto l1;
-    }
-    while ((topRightX()) <= leftX) {
-      hideFilldepth(topFill(), topDepth());
-      if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-        goto l1;
+    } else {
+      while ((topRightX()) <= leftX) {
+        hideFilldepth(topFill(), topDepth());
+        if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
+          goto l1;
+        }
       }
+      /* end quickRemoveInvalidFillsAt: */
     }
+
     /* end quickRemoveInvalidFillsAt: */
   l1:
 
@@ -3166,14 +3185,16 @@ static sqInt findNextExternalFillFromAET(void) {
 
           /* begin quickRemoveInvalidFillsAt: */
           if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-            goto l2;
-          }
-          while ((topRightX()) <= stopX) {
-            hideFilldepth(topFill(), topDepth());
-            if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-              goto l2;
+          } else {
+            while ((topRightX()) <= stopX) {
+              hideFilldepth(topFill(), topDepth());
+              if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
+                goto l2;
+              }
             }
+            /* end quickRemoveInvalidFillsAt: */
           }
+
           /* end quickRemoveInvalidFillsAt: */
         l2:
           startX = stopX;
@@ -3201,9 +3222,10 @@ static sqInt findNextExternalFillFromAET(void) {
         }
         if (fill) {
           fillSpanfromto(fill, startX, rightX);
-          goto l3;
+
+        } else {
+          /* end fillAllFrom:to: */
         }
-        /* end fillAllFrom:to: */
       l3:;
       }
     }
@@ -3249,14 +3271,16 @@ static sqInt findNextExternalFillFromAET(void) {
 
       /* begin quickRemoveInvalidFillsAt: */
       if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-        goto l4;
-      }
-      while ((topRightX()) <= stopX) {
-        hideFilldepth(topFill(), topDepth());
-        if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-          goto l4;
+      } else {
+        while ((topRightX()) <= stopX) {
+          hideFilldepth(topFill(), topDepth());
+          if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
+            goto l4;
+          }
         }
+        /* end quickRemoveInvalidFillsAt: */
       }
+
       /* end quickRemoveInvalidFillsAt: */
     l4:
       startX = stopX;
@@ -3283,9 +3307,10 @@ static sqInt findNextExternalFillFromAET(void) {
     }
     if (fill) {
       fillSpanfromto(fill, startX, workBuffer[GWFillMaxX]);
-      goto l5;
+
+    } else {
+      /* end fillAllFrom:to: */
     }
-    /* end fillAllFrom:to: */
   l5:;
   }
   return 0;
@@ -3859,11 +3884,12 @@ static sqInt loadAndSubdivideBezierFromviatoisWide(int *point1, int *point2,
     /* stopReasonPut: */
     workBuffer[GWStopReason] = GErrorNoMoreSpace;
     engineStopped = 1;
-    goto l1;
-  }
 
-  /* wbTopPut: */
-  workBuffer[GWBufferTop] = ((workBuffer[GWBufferTop]) - 6);
+  } else {
+    /* wbTopPut: */
+    workBuffer[GWBufferTop] = ((workBuffer[GWBufferTop]) - 6);
+    /* end wbStackPush: */
+  };
   /* end wbStackPush: */
 l1:
   bz1 = (workBuffer[GWSize]) - (workBuffer[GWBufferTop]);
@@ -4332,10 +4358,13 @@ loadCompressedShapeFromIntPointssegmentsleftFillsrightFillslineWidthslineFillsfi
         ((int *)(workBuffer + GWPoint3)),
         (widthValue != 0) && (lineFillValue != 0));
     if (engineStopped) {
-      goto l1;
-    }
-    loadWideBezierlineFillleftFillrightFilln(widthValue, lineFillValue,
-                                             leftValue, rightValue, segs);
+    } else {
+      loadWideBezierlineFillleftFillrightFilln(widthValue, lineFillValue,
+                                               leftValue, rightValue, segs);
+      /* end
+       * loadCompressedSegment:fromIntPoints:leftFill:rightFill:lineWidth:lineColor:
+       */
+    };
     /* end
      * loadCompressedSegment:fromIntPoints:leftFill:rightFill:lineWidth:lineColor:
      */
@@ -4609,10 +4638,13 @@ loadCompressedShapeFromShortPointssegmentsleftFillsrightFillslineWidthslineFills
         ((int *)(workBuffer + GWPoint3)),
         (widthValue != 0) && (lineFillValue != 0));
     if (engineStopped) {
-      goto l1;
-    }
-    loadWideBezierlineFillleftFillrightFilln(widthValue, lineFillValue,
-                                             leftValue, rightValue, segs);
+    } else {
+      loadWideBezierlineFillleftFillrightFilln(widthValue, lineFillValue,
+                                               leftValue, rightValue, segs);
+      /* end
+       * loadCompressedSegment:fromShortPoints:leftFill:rightFill:lineWidth:lineColor:
+       */
+    };
     /* end
      * loadCompressedSegment:fromShortPoints:leftFill:rightFill:lineWidth:lineColor:
      */
@@ -5422,40 +5454,44 @@ static sqInt loadWideBezierlineFillleftFillrightFilln(sqInt lineWidth,
       /* begin allocateWideBezier */
       if (!(allocateObjEntry(GBWideSize))) {
         bezier = 0;
-        goto l1;
-      }
-      bezierSqInt = objUsed;
-      objUsed = bezierSqInt + GBWideSize;
 
-      /* #objectTypeOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectType] = GEPrimitiveWideBezier;
+      } else {
+        bezierSqInt = objUsed;
+        objUsed = bezierSqInt + GBWideSize;
 
-      /* #objectIndexOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectIndex] = 0;
+        /* #objectTypeOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectType] = GEPrimitiveWideBezier;
 
-      /* #objectLengthOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectLength] = GBWideSize;
-      bezier = bezierSqInt;
+        /* #objectIndexOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectIndex] = 0;
+
+        /* #objectLengthOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectLength] = GBWideSize;
+        bezier = bezierSqInt;
+        /* end allocateWideBezier */
+      };
       /* end allocateWideBezier */
     l1:;
     } else {
       /* begin allocateBezier */
       if (!(allocateObjEntry(GBBaseSize))) {
         bezier = 0;
-        goto l2;
-      }
-      bezierSqInt = objUsed;
-      objUsed = bezierSqInt + GBBaseSize;
 
-      /* #objectTypeOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectType] = GEPrimitiveBezier;
+      } else {
+        bezierSqInt = objUsed;
+        objUsed = bezierSqInt + GBBaseSize;
 
-      /* #objectIndexOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectIndex] = 0;
+        /* #objectTypeOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectType] = GEPrimitiveBezier;
 
-      /* #objectLengthOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectLength] = GBBaseSize;
-      bezier = bezierSqInt;
+        /* #objectIndexOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectIndex] = 0;
+
+        /* #objectLengthOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectLength] = GBBaseSize;
+        bezier = bezierSqInt;
+        /* end allocateBezier */
+      };
       /* end allocateBezier */
     l2:;
     }
@@ -5502,20 +5538,22 @@ static sqInt loadWideLinefromtolineFillleftFillrightFill(sqInt lineWidth,
     /* begin allocateLine */
     if (!(allocateObjEntry(GLBaseSize))) {
       line = 0;
-      goto l1;
-    }
-    lineSqInt = objUsed;
-    objUsed = lineSqInt + GLBaseSize;
 
-    /* #objectTypeOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectType] = GEPrimitiveLine;
+    } else {
+      lineSqInt = objUsed;
+      objUsed = lineSqInt + GLBaseSize;
 
-    /* #objectIndexOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectIndex] = 0;
+      /* #objectTypeOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectType] = GEPrimitiveLine;
 
-    /* #objectLengthOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectLength] = GLBaseSize;
-    line = lineSqInt;
+      /* #objectIndexOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectIndex] = 0;
+
+      /* #objectLengthOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectLength] = GLBaseSize;
+      line = lineSqInt;
+      /* end allocateLine */
+    };
     /* end allocateLine */
   l1:
     offset = 0;
@@ -5523,20 +5561,22 @@ static sqInt loadWideLinefromtolineFillleftFillrightFill(sqInt lineWidth,
     /* begin allocateWideLine */
     if (!(allocateObjEntry(GLWideSize))) {
       line = 0;
-      goto l2;
-    }
-    lineSqInt = objUsed;
-    objUsed = lineSqInt + GLWideSize;
 
-    /* #objectTypeOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectType] = GEPrimitiveWideLine;
+    } else {
+      lineSqInt = objUsed;
+      objUsed = lineSqInt + GLWideSize;
 
-    /* #objectIndexOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectIndex] = 0;
+      /* #objectTypeOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectType] = GEPrimitiveWideLine;
 
-    /* #objectLengthOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectLength] = GLWideSize;
-    line = lineSqInt;
+      /* #objectIndexOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectIndex] = 0;
+
+      /* #objectLengthOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectLength] = GLWideSize;
+      line = lineSqInt;
+      /* end allocateWideLine */
+    };
     /* end allocateWideLine */
   l2:
     offset = lineWidth / 2;
@@ -5912,9 +5952,10 @@ primitiveAddBezier(void) {
     /* stopReasonPut: */
     workBuffer[GWStopReason] = GErrorNoMoreSpace;
     engineStopped = 1;
-    goto l1;
+
+  } else {
+    /* end needAvailableSpace: */
   }
-  /* end needAvailableSpace: */
 l1:
   if (!engineStopped) {
     leftFill = transformColor(leftFill);
@@ -6260,10 +6301,13 @@ primitiveAddBezierShape(void) {
             ((int *)(workBuffer + GWPoint3)),
             (lineWidth != 0) && (lineFill != 0));
         if (engineStopped) {
-          goto l1;
-        }
-        loadWideBezierlineFillleftFillrightFilln(lineWidth, lineFill, fillIndex,
-                                                 0, segs);
+        } else {
+          loadWideBezierlineFillleftFillrightFilln(lineWidth, lineFill,
+                                                   fillIndex, 0, segs);
+          /* end
+           * loadCompressedSegment:fromShortPoints:leftFill:rightFill:lineWidth:lineColor:
+           */
+        };
         /* end
          * loadCompressedSegment:fromShortPoints:leftFill:rightFill:lineWidth:lineColor:
          */
@@ -6468,10 +6512,13 @@ primitiveAddBezierShape(void) {
             ((int *)(workBuffer + GWPoint3)),
             (lineWidth != 0) && (lineFill != 0));
         if (engineStopped) {
-          goto l3;
-        }
-        loadWideBezierlineFillleftFillrightFilln(lineWidth, lineFill, fillIndex,
-                                                 0, segs);
+        } else {
+          loadWideBezierlineFillleftFillrightFilln(lineWidth, lineFill,
+                                                   fillIndex, 0, segs);
+          /* end
+           * loadCompressedSegment:fromIntPoints:leftFill:rightFill:lineWidth:lineColor:
+           */
+        };
         /* end
          * loadCompressedSegment:fromIntPoints:leftFill:rightFill:lineWidth:lineColor:
          */
@@ -7170,84 +7217,90 @@ primitiveAddPolygon(void) {
     loadPointfrom(((int *)(workBuffer + GWPoint1)),
                   fetchPointerofObject(0, points));
     if (failed()) {
-      goto l1;
-    }
-    x0 = (*((int *)(workBuffer + GWPoint1)));
-    y0 = (((int *)(workBuffer + GWPoint1)))[1];
-    for (i = 1; i < nPoints; i += 1) {
-      loadPointfrom(((int *)(workBuffer + GWPoint1)),
-                    fetchPointerofObject(i, points));
-      if (failed()) {
-        goto l1;
-      }
-      x1 = (*((int *)(workBuffer + GWPoint1)));
-      y1 = (((int *)(workBuffer + GWPoint1)))[1];
-      (*((int *)(workBuffer + GWPoint1)) = x0);
-      (((int *)(workBuffer + GWPoint1)))[1] = y0;
-      (*((int *)(workBuffer + GWPoint2)) = x1);
-      (((int *)(workBuffer + GWPoint2)))[1] = y1;
+    } else {
+      x0 = (*((int *)(workBuffer + GWPoint1)));
+      y0 = (((int *)(workBuffer + GWPoint1)))[1];
+      for (i = 1; i < nPoints; i += 1) {
+        loadPointfrom(((int *)(workBuffer + GWPoint1)),
+                      fetchPointerofObject(i, points));
+        if (failed()) {
+          goto l1;
+        }
+        x1 = (*((int *)(workBuffer + GWPoint1)));
+        y1 = (((int *)(workBuffer + GWPoint1)))[1];
+        (*((int *)(workBuffer + GWPoint1)) = x0);
+        (((int *)(workBuffer + GWPoint1)))[1] = y0;
+        (*((int *)(workBuffer + GWPoint2)) = x1);
+        (((int *)(workBuffer + GWPoint2)))[1] = y1;
 
-      /* begin transformPoints: */
-      {
-        point = ((int *)(workBuffer + GWPoint1));
+        /* begin transformPoints: */
+        {
+          point = ((int *)(workBuffer + GWPoint1));
 
-        /* begin transformPoint: */
-        if (workBuffer[GWHasEdgeTransform]) {
-          /* begin transformPoint:into: */
-          dstPoint1 = ((int *)point);
-          transform = ((float *)(workBuffer + GWEdgeTransform));
-          x = ((sqInt)(((((transform[0]) * (((double)((*((int *)point)))))) +
+          /* begin transformPoint: */
+          if (workBuffer[GWHasEdgeTransform]) {
+            /* begin transformPoint:into: */
+            dstPoint1 = ((int *)point);
+            transform = ((float *)(workBuffer + GWEdgeTransform));
+            x = ((
+                sqInt)(((((transform[0]) * (((double)((*((int *)point)))))) +
                          ((transform[1]) * (((double)((((int *)point))[1]))))) +
                         (transform[2])) *
                        (((double)(workBuffer[GWAALevel])))));
-          y = ((sqInt)(((((transform[3]) * (((double)((*((int *)point)))))) +
+            y = ((
+                sqInt)(((((transform[3]) * (((double)((*((int *)point)))))) +
                          ((transform[4]) * (((double)((((int *)point))[1]))))) +
                         (transform[5])) *
                        (((double)(workBuffer[GWAALevel])))));
-          dstPoint1[0] = x;
-          dstPoint1[1] = y;
-        } else {
-          point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) *
-                      (workBuffer[GWAALevel]));
-          point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) *
-                      (workBuffer[GWAALevel]));
+            dstPoint1[0] = x;
+            dstPoint1[1] = y;
+          } else {
+            point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) *
+                        (workBuffer[GWAALevel]));
+            point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) *
+                        (workBuffer[GWAALevel]));
+          }
         }
-      }
-      {
-        point = ((int *)(workBuffer + GWPoint2));
+        {
+          point = ((int *)(workBuffer + GWPoint2));
 
-        /* begin transformPoint: */
-        if (workBuffer[GWHasEdgeTransform]) {
-          /* begin transformPoint:into: */
-          dstPoint1 = ((int *)point);
-          transform = ((float *)(workBuffer + GWEdgeTransform));
-          x = ((sqInt)(((((transform[0]) * (((double)((*((int *)point)))))) +
+          /* begin transformPoint: */
+          if (workBuffer[GWHasEdgeTransform]) {
+            /* begin transformPoint:into: */
+            dstPoint1 = ((int *)point);
+            transform = ((float *)(workBuffer + GWEdgeTransform));
+            x = ((
+                sqInt)(((((transform[0]) * (((double)((*((int *)point)))))) +
                          ((transform[1]) * (((double)((((int *)point))[1]))))) +
                         (transform[2])) *
                        (((double)(workBuffer[GWAALevel])))));
-          y = ((sqInt)(((((transform[3]) * (((double)((*((int *)point)))))) +
+            y = ((
+                sqInt)(((((transform[3]) * (((double)((*((int *)point)))))) +
                          ((transform[4]) * (((double)((((int *)point))[1]))))) +
                         (transform[5])) *
                        (((double)(workBuffer[GWAALevel])))));
-          dstPoint1[0] = x;
-          dstPoint1[1] = y;
-        } else {
-          point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) *
-                      (workBuffer[GWAALevel]));
-          point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) *
-                      (workBuffer[GWAALevel]));
+            dstPoint1[0] = x;
+            dstPoint1[1] = y;
+          } else {
+            point[0] = (((point[0]) + (workBuffer[GWDestOffsetX])) *
+                        (workBuffer[GWAALevel]));
+            point[1] = (((point[1]) + (workBuffer[GWDestOffsetY])) *
+                        (workBuffer[GWAALevel]));
+          }
         }
-      }
 
-      loadWideLinefromtolineFillleftFillrightFill(
-          lineWidth, ((int *)(workBuffer + GWPoint1)),
-          ((int *)(workBuffer + GWPoint2)), lineFill, fillIndex, 0);
-      if (engineStopped) {
-        goto l1;
+        loadWideLinefromtolineFillleftFillrightFill(
+            lineWidth, ((int *)(workBuffer + GWPoint1)),
+            ((int *)(workBuffer + GWPoint2)), lineFill, fillIndex, 0);
+        if (engineStopped) {
+          goto l1;
+        }
+        x0 = x1;
+        y0 = y1;
       }
-      x0 = x1;
-      y0 = y1;
+      /* end loadPolygonFromArray:nPoints:fill:lineWidth:lineFill: */
     }
+
     /* end loadPolygonFromArray:nPoints:fill:lineWidth:lineFill: */
   l1:;
   } else {
@@ -8941,17 +8994,17 @@ primitiveSetColorTransform(void) {
   workBuffer[GWHasColorTransform] = 0;
   okay = loadTransformFromintolength(transformOop, transform, 8);
   if (!okay) {
-    goto l1;
-  }
+  } else {
+    /* hasColorTransformPut: */
+    workBuffer[GWHasColorTransform] = 1;
 
-  /* hasColorTransformPut: */
-  workBuffer[GWHasColorTransform] = 1;
-
-  /* Scale transform to be in 0-256 range */
-  transform[1] = ((transform[1]) * (256.0f));
-  transform[3] = ((transform[3]) * (256.0f));
-  transform[5] = ((transform[5]) * (256.0f));
-  transform[7] = ((transform[7]) * (256.0f));
+    /* Scale transform to be in 0-256 range */
+    transform[1] = ((transform[1]) * (256.0f));
+    transform[3] = ((transform[3]) * (256.0f));
+    transform[5] = ((transform[5]) * (256.0f));
+    transform[7] = ((transform[7]) * (256.0f));
+    /* end loadColorTransformFrom: */
+  };
   /* end loadColorTransformFrom: */
 l1:
   if (failed()) {
@@ -10741,14 +10794,16 @@ static sqInt toggleFillsOf(sqInt edge) {
 
   /* begin quickRemoveInvalidFillsAt: */
   if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-    goto l1;
-  }
-  while ((topRightX()) <= (objBuffer[edge + GEXValue])) {
-    hideFilldepth(topFill(), topDepth());
-    if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-      goto l1;
+  } else {
+    while ((topRightX()) <= (objBuffer[edge + GEXValue])) {
+      hideFilldepth(topFill(), topDepth());
+      if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
+        goto l1;
+      }
     }
+    /* end quickRemoveInvalidFillsAt: */
   }
+
   /* end quickRemoveInvalidFillsAt: */
 l1:;
   return 0;
@@ -10777,29 +10832,29 @@ static sqInt toggleFilldepthrightX(sqInt fillIndex, sqInt depth, sqInt rightX) {
       /* stopReasonPut: */
       workBuffer[GWStopReason] = GErrorNoMoreSpace;
       engineStopped = 1;
-      goto l1;
-    }
 
-    /* wbTopPut: */
-    workBuffer[GWBufferTop] =
-        ((workBuffer[GWBufferTop]) - 3 /* stackFillEntryLength */);
+    } else {
+      /* wbTopPut: */
+      workBuffer[GWBufferTop] =
+          ((workBuffer[GWBufferTop]) - 3 /* stackFillEntryLength */);
 
-    /* #topFillValuePut: #stackFillValue:put: #wbStackValue:put: */
-    workBuffer[(workBuffer[GWBufferTop]) +
-               (((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) -
-                3 /* stackFillEntryLength */)] = fillIndex;
+      /* #topFillValuePut: #stackFillValue:put: #wbStackValue:put: */
+      workBuffer[(workBuffer[GWBufferTop]) +
+                 (((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) -
+                  3 /* stackFillEntryLength */)] = fillIndex;
 
-    /* #topFillDepthPut: #stackFillDepth:put: #wbStackValue:put: */
-    workBuffer[(workBuffer[GWBufferTop]) +
-               ((((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) -
-                 3 /* stackFillEntryLength */) +
-                1)] = depth;
+      /* #topFillDepthPut: #stackFillDepth:put: #wbStackValue:put: */
+      workBuffer[(workBuffer[GWBufferTop]) +
+                 ((((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) -
+                   3 /* stackFillEntryLength */) +
+                  1)] = depth;
 
-    /* #topFillRightXPut: #stackFillRightX:put: #wbStackValue:put: */
-    workBuffer[(workBuffer[GWBufferTop]) +
-               ((((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) -
-                 3 /* stackFillEntryLength */) +
-                2)] = rightX;
+      /* #topFillRightXPut: #stackFillRightX:put: #wbStackValue:put: */
+      workBuffer[(workBuffer[GWBufferTop]) +
+                 ((((workBuffer[GWSize]) - (workBuffer[GWBufferTop])) -
+                   3 /* stackFillEntryLength */) +
+                  2)] = rightX;
+    };
   l1:;
   }
   return 0;
@@ -10873,14 +10928,16 @@ static sqInt toggleWideFillOf(sqInt edge) {
 
   /* begin quickRemoveInvalidFillsAt: */
   if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-    goto l1;
-  }
-  while ((topRightX()) <= (objBuffer[edge + GEXValue])) {
-    hideFilldepth(topFill(), topDepth());
-    if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
-      goto l1;
+  } else {
+    while ((topRightX()) <= (objBuffer[edge + GEXValue])) {
+      hideFilldepth(topFill(), topDepth());
+      if (!((workBuffer[GWSize]) - (workBuffer[GWBufferTop]))) {
+        goto l1;
+      }
     }
+    /* end quickRemoveInvalidFillsAt: */
   }
+
   /* end quickRemoveInvalidFillsAt: */
 l1:;
   return 0;
