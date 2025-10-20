@@ -4,6 +4,7 @@ cmake_policy(SET CMP0054 NEW)
 project(OpenSmalltalkVM)
 #for setjmp.asm
 enable_language(ASM-ATT)
+enable_language(CXX)
 
 option(ONLY_CONFIG_H "Only generate config.h" OFF)
 
@@ -98,6 +99,11 @@ else()
 	set(CMAKE_C_FLAGS_ASSERT "${OPTIMIZATION_FLAGS} -DDEBUGVM=1")
 	set(CMAKE_CXX_FLAGS_ASSERT "${OPTIMIZATION_FLAGS} -DDEBUGVM=1")
 endif()
+
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 

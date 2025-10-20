@@ -66,11 +66,22 @@ endmacro()
 macro(add_vm_plugin_auto NAME TYPE)
     file(GLOB PLUGIN_SOURCES
         "${PluginsSourceFolderName}/${NAME}/*.c"
+        "${PluginsSourceFolderName}/${NAME}/*.cpp"
+        "${PluginsSourceFolderName}/${NAME}/*.cc"
+        "${PluginsSourceFolderName}/${NAME}/*.cxx"
         "${PlatformPluginFolder}/${NAME}/*.c"
+        "${PlatformPluginFolder}/${NAME}/*.cpp"
+        "${PlatformPluginFolder}/${NAME}/*.cc"
+        "${PlatformPluginFolder}/${NAME}/*.cxx"
         "${PlatformPluginFolder}/${NAME}/*.m"
         "${PlatformPluginFolder}/${NAME}/*.h"
+        "${PlatformPluginFolder}/${NAME}/*.hpp"
         "${CrossPlatformPluginFolder}/${NAME}/*.c"
+        "${CrossPlatformPluginFolder}/${NAME}/*.cpp"
+        "${CrossPlatformPluginFolder}/${NAME}/*.cc"
+        "${CrossPlatformPluginFolder}/${NAME}/*.cxx"
         "${CrossPlatformPluginFolder}/${NAME}/*.h"
+        "${CrossPlatformPluginFolder}/${NAME}/*.hpp"
     )
 
     set(ExtraSources ${ARGN})
@@ -80,7 +91,11 @@ macro(add_vm_plugin_auto NAME TYPE)
             list(REMOVE_AT ExtraSources 0)
             file(GLOB PLUGIN_UNIX_SOURCES
                 "${UnixPlatformPluginFolder}/${NAME}/*.c"
+                "${UnixPlatformPluginFolder}/${NAME}/*.cpp"
+                "${UnixPlatformPluginFolder}/${NAME}/*.cc"
+                "${UnixPlatformPluginFolder}/${NAME}/*.cxx"
                 "${UnixPlatformPluginFolder}/${NAME}/*.h"
+                "${UnixPlatformPluginFolder}/${NAME}/*.hpp"
             )
             set(ExtraSources ${PLUGIN_UNIX_SOURCES} ${ExtraSources})
             include_directories(
