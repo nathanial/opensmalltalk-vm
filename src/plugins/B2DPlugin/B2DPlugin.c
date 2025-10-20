@@ -5390,42 +5390,40 @@ static sqInt loadWideBezierlineFillleftFillrightFilln(sqInt lineWidth,
       /* begin allocateWideBezier */
       if (!(allocateObjEntry(GBWideSize))) {
         bezier = 0;
-        goto l1;
+      } else {
+        bezierSqInt = objUsed;
+        objUsed = bezierSqInt + GBWideSize;
+
+        /* #objectTypeOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectType] = GEPrimitiveWideBezier;
+
+        /* #objectIndexOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectIndex] = 0;
+
+        /* #objectLengthOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectLength] = GBWideSize;
+        bezier = bezierSqInt;
       }
-      bezierSqInt = objUsed;
-      objUsed = bezierSqInt + GBWideSize;
-
-      /* #objectTypeOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectType] = GEPrimitiveWideBezier;
-
-      /* #objectIndexOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectIndex] = 0;
-
-      /* #objectLengthOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectLength] = GBWideSize;
-      bezier = bezierSqInt;
       /* end allocateWideBezier */
-    l1:;
     } else {
       /* begin allocateBezier */
       if (!(allocateObjEntry(GBBaseSize))) {
         bezier = 0;
-        goto l2;
+      } else {
+        bezierSqInt = objUsed;
+        objUsed = bezierSqInt + GBBaseSize;
+
+        /* #objectTypeOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectType] = GEPrimitiveBezier;
+
+        /* #objectIndexOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectIndex] = 0;
+
+        /* #objectLengthOf:put: #obj:at:put: */
+        objBuffer[bezierSqInt + GEObjectLength] = GBBaseSize;
+        bezier = bezierSqInt;
       }
-      bezierSqInt = objUsed;
-      objUsed = bezierSqInt + GBBaseSize;
-
-      /* #objectTypeOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectType] = GEPrimitiveBezier;
-
-      /* #objectIndexOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectIndex] = 0;
-
-      /* #objectLengthOf:put: #obj:at:put: */
-      objBuffer[bezierSqInt + GEObjectLength] = GBBaseSize;
-      bezier = bezierSqInt;
       /* end allocateBezier */
-    l2:;
     }
     if (engineStopped) {
       return 0;
@@ -5470,43 +5468,41 @@ static sqInt loadWideLinefromtolineFillleftFillrightFill(sqInt lineWidth,
     /* begin allocateLine */
     if (!(allocateObjEntry(GLBaseSize))) {
       line = 0;
-      goto l1;
+    } else {
+      lineSqInt = objUsed;
+      objUsed = lineSqInt + GLBaseSize;
+
+      /* #objectTypeOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectType] = GEPrimitiveLine;
+
+      /* #objectIndexOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectIndex] = 0;
+
+      /* #objectLengthOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectLength] = GLBaseSize;
+      line = lineSqInt;
     }
-    lineSqInt = objUsed;
-    objUsed = lineSqInt + GLBaseSize;
-
-    /* #objectTypeOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectType] = GEPrimitiveLine;
-
-    /* #objectIndexOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectIndex] = 0;
-
-    /* #objectLengthOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectLength] = GLBaseSize;
-    line = lineSqInt;
     /* end allocateLine */
-  l1:
     offset = 0;
   } else {
     /* begin allocateWideLine */
     if (!(allocateObjEntry(GLWideSize))) {
       line = 0;
-      goto l2;
+    } else {
+      lineSqInt = objUsed;
+      objUsed = lineSqInt + GLWideSize;
+
+      /* #objectTypeOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectType] = GEPrimitiveWideLine;
+
+      /* #objectIndexOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectIndex] = 0;
+
+      /* #objectLengthOf:put: #obj:at:put: */
+      objBuffer[lineSqInt + GEObjectLength] = GLWideSize;
+      line = lineSqInt;
     }
-    lineSqInt = objUsed;
-    objUsed = lineSqInt + GLWideSize;
-
-    /* #objectTypeOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectType] = GEPrimitiveWideLine;
-
-    /* #objectIndexOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectIndex] = 0;
-
-    /* #objectLengthOf:put: #obj:at:put: */
-    objBuffer[lineSqInt + GEObjectLength] = GLWideSize;
-    line = lineSqInt;
     /* end allocateWideLine */
-  l2:
     offset = lineWidth / 2;
   }
   if (engineStopped) {
