@@ -585,919 +585,160 @@ static unsigned int *spanBuffer;
 static int *workBuffer;
 static int doProfileStats = 0;
 
-/*** Methods ***/
 
-/*	Return the accurate length of the vector described by deltaX and deltaY
- */
-
-/* BalloonEngineBase>>#accurateLengthOf:with: */
 #include "functions/accurateLengthOfwith.c"
-
-
-/* BalloonEngineBase>>#addEdgeToGET: */
 #include "functions/addEdgeToGET.c"
-
-
-/*	Adjust the wide bezier curve (dx < 0) to start/end at the right point */
-
-/* BalloonEnginePlugin>>#adjustWideBezierLeft:width:offset:endX: */
 #include "functions/adjustWideBezierLeftwidthoffsetendX.c"
-
-
-/*	Adjust the wide bezier curve (dx >= 0) to start/end at the right point
- */
-
-/* BalloonEnginePlugin>>#adjustWideBezierRight:width:offset:endX: */
 #include "functions/adjustWideBezierRightwidthoffsetendX.c"
-
-
-/*	Adjust the wide line after it has been stepped from lastX to nextX.
-        Special adjustments of line width and start position are made here
-        to simulate a rectangular brush */
-
-/* BalloonEnginePlugin>>#adjustWideLine:afterSteppingFrom:to: */
 #include "functions/adjustWideLineafterSteppingFromto.c"
-
-
-/*	Allocate n slots in the global edge table */
-
-/* BalloonEngineBase>>#allocateGETEntry: */
 #include "functions/allocateGETEntry.c"
-
-
-/*	Allocate n slots in the object buffer */
-
-/* BalloonEngineBase>>#allocateObjEntry: */
 #include "functions/allocateObjEntry.c"
-
-
-/*	Check the fill indexes in the run-length encoded fillList */
-
-/* BalloonEnginePlugin>>#checkCompressedFillIndexList:max:segments: */
 #include "functions/checkCompressedFillIndexListmaxsegments.c"
-
-
-/*	Check if the indexList (containing fill handles) is okay. */
-
-/* BalloonEnginePlugin>>#checkCompressedFills: */
 #include "functions/checkCompressedFills.c"
-
-
-/*	Check the run-length encoded lineWidthList matches nSegments */
-
-/* BalloonEnginePlugin>>#checkCompressedLineWidths:segments: */
 #include "functions/checkCompressedLineWidthssegments.c"
-
-
-/*	Check if the given point array can be handled by the engine. */
-
-/* BalloonEnginePlugin>>#checkCompressedPoints:segments: */
 #include "functions/checkCompressedPointssegments.c"
-
-
-/*	Check if the given shape can be handled by the engine.
-        Since there are a number of requirements this is an extra method. */
-
-/* BalloonEnginePlugin>>#checkCompressedShape:segments:leftFills:rightFills:lineWidths:lineFills:fillIndexList:
- */
 #include "functions/checkCompressedShapesegmentsleftFillsrightFillslineWidthslineFillsfillIndexList.c"
-
-
-/* BalloonEnginePlugin>>#circleCosTable */
 #include "functions/circleCosTable.c"
-
-
-/* BalloonEnginePlugin>>#circleSinTable */
 #include "functions/circleSinTable.c"
-
-
-/*	Clear the current span buffer.
-        The span buffer is only cleared in the area that has been used by the
-        previous scan line.
- */
-
-/* BalloonEngineBase>>#clearSpanBuffer */
 #include "functions/clearSpanBuffer.c"
-
-
-/*	Split the bezier curve at 0.5. */
-
-/* BalloonEnginePlugin>>#computeBezierSplitAtHalf: */
 #include "functions/computeBezierSplitAtHalf.c"
-
-
-/*	Split the bezier curve at the given parametric value.
-        Note: Since this method is only invoked to make non-monoton
-        beziers monoton we must check for the resulting y values
-        to be *really* between the start and end value. */
-
-/* BalloonEnginePlugin>>#computeBezier:splitAt: */
 #include "functions/computeBeziersplitAt.c"
-
-
-/*	Get both values from the two boundaries of the given bezier
-        and compute the actual position/width of the line */
-
-/* BalloonEnginePlugin>>#computeFinalWideBezierValues:width: */
 #include "functions/computeFinalWideBezierValueswidth.c"
-
-
-/* BalloonEngineBase>>#copyBitsFrom:to:at: */
 #include "functions/copyBitsFromtoat.c"
-
-
-/*	Create the global edge table */
-
-/* BalloonEngineBase>>#createGlobalEdgeTable */
 #include "functions/createGlobalEdgeTable.c"
-
-
-/*	Display the span buffer at the current scan line. */
-
-/* BalloonEngineBase>>#displaySpanBufferAt: */
 #include "functions/displaySpanBufferAt.c"
-
-
-/* BalloonEnginePlugin>>#fillBitmapSpanAA:from:to:at: */
 #include "functions/fillBitmapSpanAAfromtoat.c"
-
-
-/*	Fill the span buffer between leftEdge and rightEdge using the given
-   bits. Note: We always start from zero - this avoids using huge bitmap buffers
-   if the bitmap is to be displayed at the very far right hand side and also
-        gives us a chance of using certain bitmaps (e.g., those with depth 32)
-        directly.
- */
-
-/* BalloonEngineBase>>#fillBitmapSpan:from:to: */
 #include "functions/fillBitmapSpanfromto.c"
-
-
-/* BalloonEnginePlugin>>#fillBitmapSpan:from:to:at: */
 #include "functions/fillBitmapSpanfromtoat.c"
-
-
-/*	This is the inner loop for solid color fills with anti-aliasing.
-        This loop has been unrolled for speed and quality into three parts:
-        a) copy all pixels that fall into the first full pixel.
-        b) copy aaLevel pixels between the first and the last full pixel
-        c) copy all pixels that fall in the last full pixel */
-
-/* BalloonEngineBase>>#fillColorSpanAA:x0:x1: */
 #include "functions/fillColorSpanAAx0x1.c"
-
-
-/*	This is the AA version of linear gradient filling. */
-
-/* BalloonEnginePlugin>>#fillLinearGradientAA:ramp:ds:dsX:from:to: */
 #include "functions/fillLinearGradientAArampdsdsXfromto.c"
-
-
-/*	Draw a linear gradient fill. */
-
-/* BalloonEnginePlugin>>#fillLinearGradient:from:to:at: */
 #include "functions/fillLinearGradientfromtoat.c"
-
-
-/*	Part 2a) Compute the decreasing part of the ramp */
-
-/* BalloonEnginePlugin>>#fillRadialDecreasingAA:ramp:deltaST:dsX:dtX:from:to: */
 #include "functions/fillRadialDecreasingAArampdeltaSTdsXdtXfromto.c"
-
-
-/*	Draw a radial gradient fill. */
-
-/* BalloonEnginePlugin>>#fillRadialGradient:from:to:at: */
 #include "functions/fillRadialGradientfromtoat.c"
-
-
-/*	Part 2b) Compute the increasing part of the ramp */
-
-/* BalloonEnginePlugin>>#fillRadialIncreasingAA:ramp:deltaST:dsX:dtX:from:to: */
 #include "functions/fillRadialIncreasingAArampdeltaSTdsXdtXfromto.c"
-
-
-/*	Return true if fillEntry1 should be drawn before fillEntry2 */
-
-/* BalloonEngineBase>>#fillSorts:before: */
 #include "functions/fillSortsbefore.c"
-
-
-/*	Fill the span buffer from leftX to rightX with the given fill.
-        Clip before performing any operations. Return true if the fill must
-        be handled by some Smalltalk code. */
-
-/* BalloonEngineBase>>#fillSpan:from:to: */
 #include "functions/fillSpanfromto.c"
-
-
-/*	Check the global edge table for any entries that cannot be handled by
-   the engine itself. If there are any, return true. Otherwise, initialize the
-   the edge and add it to the AET
- */
-
-/* BalloonEngineBase>>#findNextExternalEntryFromGET */
 #include "functions/findNextExternalEntryFromGET.c"
-
-
-/*	Scan the active edge table. If there is any fill that cannot be handled
-   by the engine itself, return true. Otherwise handle the fills and return
-        false.
- */
-/*	self currentYGet >= 680 ifTrue:[
-        self printAET.
-        self halt.
-        ].
- */
-
-/* BalloonEngineBase>>#findNextExternalFillFromAET */
 #include "functions/findNextExternalFillFromAET.c"
-
-
-/*	Check the active edge table for any entries that cannot be handled by
-   the engine itself. If there are any, return true. Otherwise, step the the
-   edge to the next y value.
- */
-
-/* BalloonEngineBase>>#findNextExternalUpdateFromAET */
 #include "functions/findNextExternalUpdateFromAET.c"
-
-
-/* BalloonEngineBase>>#findStackFill:depth: */
 #include "functions/findStackFilldepth.c"
-
-
-/*	Note: This is hardcoded so it can be run from Squeak.
-        The module name is used for validating a module *after*
-        it is loaded to check if it does really contain the module
-        we're thinking it contains. This is important! */
-
-/* InterpreterPlugin>>#getModuleName */
 #include "functions/getModuleName.c"
-
-
-/*	Return true if the edge at index i should sort before the edge at index
- * j. */
-
-/* BalloonEngineBase>>#getSorts:before: */
 #include "functions/getSortsbefore.c"
-
-
-/*	Make the fill style with the given index invisible */
-
-/* BalloonEngineBase>>#hideFill:depth: */
 #include "functions/hideFilldepth.c"
-
-
-/*	Find insertion point for the given edge in the AET */
-
-/* BalloonEngineBase>>#indexForInsertingIntoAET: */
 #include "functions/indexForInsertingIntoAET.c"
-
-
-/* BalloonEngineBase>>#initColorTransform */
 #include "functions/initColorTransform.c"
-
-
-/* BalloonEngineBase>>#initEdgeTransform */
 #include "functions/initEdgeTransform.c"
-
-
-/* BalloonEngineBase>>#initialiseModule */
 #include "functions/initialiseModule.c"
-
-
-/*	Initialization stuff that needs to be done before any processing can
-   take place.
- */
-/*	Make sure aaLevel is initialized */
-
-/* BalloonEngineBase>>#initializeGETProcessing */
 #include "functions/initializeGETProcessing.c"
-
-
-/*	Insert the edge with the given index from the global edge table into the
-        active edge table.
-        The edge has already been stepped to the initial yValue -- thus
-        remainingLines and rasterX
-        are both set.
- */
-
-/* BalloonEngineBase>>#insertEdgeIntoAET: */
 #include "functions/insertEdgeIntoAET.c"
-
-
-/*	Insert the given edge into the AET. */
-
-/* BalloonEngineBase>>#insertToAET:beforeIndex: */
 #include "functions/insertToAETbeforeIndex.c"
-
-
-/* BalloonEngineBase>>#isEdge: */
 #include "functions/isEdge.c"
-
-
-/* BalloonEnginePlugin>>#isFillOkay: */
 #include "functions/isFillOkay.c"
-
-
-/*	Load and subdivide the bezier curve from point1/point2/point3.
-        If wideFlag is set then make sure the curve is monoton in X. */
-
-/* BalloonEnginePlugin>>#loadAndSubdivideBezierFrom:via:to:isWide: */
 #include "functions/loadAndSubdivideBezierFromviatoisWide.c"
-
-
-/*	Initialize the bezier segment stored on the stack */
-
-/* BalloonEnginePlugin>>#loadBezier:segment:leftFill:rightFill:offset: */
 #include "functions/loadBeziersegmentleftFillrightFilloffset.c"
-
-
-/* BalloonEngineBase>>#loadBitBltFrom: */
 #include "functions/loadBitBltFrom.c"
-
-
-/*	Note: Assumes that the contents of formArray has been checked before */
-
-/* BalloonEnginePlugin>>#loadBitsFrom: */
 #include "functions/loadBitsFrom.c"
-
-
-/*	Load a compressed shape into the engine.
-        WARNING: THIS METHOD NEEDS THE FULL FRAME SIZE!!!!
-         */
-
-/* BalloonEnginePlugin>>#loadCompressedShapeFromIntPoints:segments:leftFills:rightFills:lineWidths:lineFills:fillIndexList:
- */
 #include "functions/loadCompressedShapeFromIntPointssegmentsleftFillsrightFillslineWidthslineFillsfillIndexList.c"
-
-
-/*	Load a compressed shape into the engine.
-        WARNING: THIS METHOD NEEDS THE FULL FRAME SIZE!!!!
-         */
-
-/* BalloonEnginePlugin>>#loadCompressedShapeFromShortPoints:segments:leftFills:rightFills:lineWidths:lineFills:fillIndexList:
- */
 #include "functions/loadCompressedShapeFromShortPointssegmentsleftFillsrightFillslineWidthslineFillsfillIndexList.c"
-
-
-/* BalloonEngineBase>>#loadEdgeStateFrom: */
 #include "functions/loadEdgeStateFrom.c"
-
-
-/*	Load a 2x3 transformation matrix from the given oop.
-        Return true if the matrix is not nil, false otherwise */
-
-/* BalloonEngineBase>>#loadEdgeTransformFrom: */
 #include "functions/loadEdgeTransformFrom.c"
-
-
-/*	Transform the points */
-
-/* BalloonEnginePlugin>>#loadFillOrientation:from:along:normal:width:height: */
 #include "functions/loadFillOrientationfromalongnormalwidthheight.c"
-
-
-/*	Check all the forms from arrayOop. */
-
-/* BalloonEngineBase>>#loadFormsFrom: */
 #include "functions/loadFormsFrom.c"
-
-
-/*	Load the gradient fill as defined by the color ramp. */
-
-/* BalloonEnginePlugin>>#loadGradientFill:from:along:normal:isRadial: */
 #include "functions/loadGradientFillfromalongnormalisRadial.c"
-
-
-/* BalloonEnginePlugin>>#loadOvalSegment:w:h:cx:cy: */
 #include "functions/loadOvalSegmentwhcxcy.c"
-
-
-/*	Load a rectangular oval currently defined by point1/point2 */
-
-/* BalloonEnginePlugin>>#loadOval:lineFill:leftFill:rightFill: */
 #include "functions/loadOvallineFillleftFillrightFill.c"
-
-
-/*	Load the contents of pointOop into pointArray */
-
-/* BalloonEngineBase>>#loadPoint:from: */
 #include "functions/loadPointfrom.c"
-
-
-/*	Load the entire state from the interpreter for the rendering primitives.
-        Answer 0 on success or a non-zero failure code on failure. */
-
-/* BalloonEngineBase>>#loadRenderingState */
 #include "functions/loadRenderingState.c"
-
-
-/* BalloonEnginePlugin>>#loadShapeFromArray:nSegments:fill:lineWidth:lineFill:
- */
 #include "functions/loadShapeFromArraynSegmentsfilllineWidthlineFill.c"
-
-
-/*	Load the span buffer from the given oop.
-        Answer 0 on success or a non-zero failure code on failure. */
-
-/* BalloonEngineBase>>#loadSpanBufferFrom: */
 #include "functions/loadSpanBufferFrom.c"
-
-
-/*	Load a transformation from the given array. */
-
-/* BalloonEngineBase>>#loadTransformFromArray:into:length: */
 #include "functions/loadTransformFromArrayintolength.c"
-
-
-/*	Load a transformation from transformOop into the float array
-        defined by destPtr. The transformation is assumed to be either
-        an array or a FloatArray of length n. */
-
-/* BalloonEngineBase>>#loadTransformFrom:into:length: */
 #include "functions/loadTransformFromintolength.c"
-
-
-/*	Load the (possibly wide) bezier from the segments currently on the
-   bezier stack.
- */
-
-/* BalloonEnginePlugin>>#loadWideBezier:lineFill:leftFill:rightFill:n: */
 #include "functions/loadWideBezierlineFillleftFillrightFilln.c"
-
-
-/*	Load a (possibly wide) line defined by the points p1 and p2 */
-
-/* BalloonEnginePlugin>>#loadWideLine:from:to:lineFill:leftFill:rightFill: */
 #include "functions/loadWideLinefromtolineFillleftFillrightFill.c"
-
-
-/*	Load the working buffer from the given oop */
-
-/* BalloonEngineBase>>#loadWorkBufferFrom: */
 #include "functions/loadWorkBufferFrom.c"
-
-
-/*	The module with the given name was just unloaded.
-        Make sure we have no dangling references. */
-
-/* BalloonEngineBase>>#moduleUnloaded: */
 #include "functions/moduleUnloaded.c"
-
-
-/*	The entry at index is not in the right position of the AET.
-        Move it to the left until the position is okay. */
-
-/* BalloonEngineBase>>#moveAETEntryFrom:edge:x: */
 #include "functions/moveAETEntryFromedgex.c"
-
-
-/*	We have just blitted a scan line to the screen.
-        Do whatever seems to be a good idea here. */
-/*	Note: In the future we may check the time needed for this scan line and
-        interrupt processing to give the Smalltalk code a chance to run at a
-        certain time.
- */
-/*	Check if there is any more work to do. */
-
-/* BalloonEngineBase>>#postDisplayAction */
 #include "functions/postDisplayAction.c"
-
-
-/* BalloonEngineBase>>#primitiveAbortProcessing */
 #include "functions/primitiveAbortProcessing.c"
-
-
-/*	Note: No need to load either bitBlt or spanBuffer */
-
-/* BalloonEngineBase>>#primitiveAddActiveEdgeEntry */
 #include "functions/primitiveAddActiveEdgeEntry.c"
-
-
-/*	Fail if we have the wrong number of arguments */
-
-/* BalloonEnginePlugin>>#primitiveAddBezier */
 #include "functions/primitiveAddBezier.c"
-
-
-/*	Fail if we have the wrong number of arguments */
-
-/* BalloonEnginePlugin>>#primitiveAddBezierShape */
 #include "functions/primitiveAddBezierShape.c"
-
-
-/*	Fail if we have the wrong number of arguments */
-
-/* BalloonEnginePlugin>>#primitiveAddBitmapFill */
 #include "functions/primitiveAddBitmapFill.c"
-
-
-/*	Fail if we have the wrong number of arguments */
-
-/* BalloonEnginePlugin>>#primitiveAddCompressedShape */
 #include "functions/primitiveAddCompressedShape.c"
-
-
-/*	Fail if we have the wrong number of arguments */
-
-/* BalloonEnginePlugin>>#primitiveAddGradientFill */
 #include "functions/primitiveAddGradientFill.c"
-
-
-/*	Fail if we have the wrong number of arguments */
-
-/* BalloonEnginePlugin>>#primitiveAddLine */
 #include "functions/primitiveAddLine.c"
-
-
-/*	Fail if we have the wrong number of arguments */
-
-/* BalloonEnginePlugin>>#primitiveAddOval */
 #include "functions/primitiveAddOval.c"
-
-
-/*	Fail if we have the wrong number of arguments */
-
-/* BalloonEnginePlugin>>#primitiveAddPolygon */
 #include "functions/primitiveAddPolygon.c"
-
-
-/*	Fail if we have the wrong number of arguments */
-
-/* BalloonEnginePlugin>>#primitiveAddRect */
 #include "functions/primitiveAddRect.c"
-
-
-/*	Note: No need to load either bitBlt or spanBuffer */
-
-/* BalloonEngineBase>>#primitiveChangedActiveEdgeEntry */
 #include "functions/primitiveChangedActiveEdgeEntry.c"
-
-
-/* BalloonEngineBase>>#primitiveCopyBuffer */
 #include "functions/primitiveCopyBuffer.c"
-
-
-/*	Note: Must load bitBlt and spanBuffer */
-
-/* BalloonEngineBase>>#primitiveDisplaySpanBuffer */
 #include "functions/primitiveDisplaySpanBuffer.c"
-
-
-/*	Turn on/off profiling. Return the old value of the flag. */
-
-/* BalloonEngineBase>>#primitiveDoProfileStats */
 #include "functions/primitiveDoProfileStats.c"
-
-
-/* BalloonEngineBase>>#primitiveFinishedProcessing */
 #include "functions/primitiveFinishedProcessing.c"
-
-
-/* BalloonEngineBase>>#primitiveGetAALevel */
 #include "functions/primitiveGetAALevel.c"
-
-
-/*	A combination of primitiveGetBezierStats, primitiveGetTimes, &
-        primitiveGetCounts
- */
-
-/* BalloonEngineBase>>#primitiveGetAllStats */
 #include "functions/primitiveGetAllStats.c"
-
-
-/* BalloonEnginePlugin>>#primitiveGetBezierStats */
 #include "functions/primitiveGetBezierStats.c"
-
-
-/* BalloonEngineBase>>#primitiveGetClipRect */
 #include "functions/primitiveGetClipRect.c"
-
-
-/* BalloonEngineBase>>#primitiveGetCounts */
 #include "functions/primitiveGetCounts.c"
-
-
-/* BalloonEngineBase>>#primitiveGetDepth */
 #include "functions/primitiveGetDepth.c"
-
-
-/*	Return the reason why the last operation failed. */
-
-/* BalloonEngineBase>>#primitiveGetFailureReason */
 #include "functions/primitiveGetFailureReason.c"
-
-
-/* BalloonEngineBase>>#primitiveGetOffset */
 #include "functions/primitiveGetOffset.c"
-
-
-/* BalloonEngineBase>>#primitiveGetTimes */
 #include "functions/primitiveGetTimes.c"
-
-
-/* BalloonEngineBase>>#primitiveInitializeBuffer */
 #include "functions/primitiveInitializeBuffer.c"
-
-
-/*	Note: No need to load bitBlt but must load spanBuffer */
-
-/* BalloonEngineBase>>#primitiveInitializeProcessing */
 #include "functions/primitiveInitializeProcessing.c"
-
-
-/*	Note: No need to load bitBlt but must load spanBuffer */
-
-/* BalloonEngineBase>>#primitiveMergeFillFrom */
 #include "functions/primitiveMergeFillFrom.c"
-
-
-/* BalloonEngineBase>>#primitiveNeedsFlush */
 #include "functions/primitiveNeedsFlush.c"
-
-
-/* BalloonEngineBase>>#primitiveNeedsFlushPut */
 #include "functions/primitiveNeedsFlushPut.c"
-
-
-/*	Note: No need to load either bitBlt or spanBuffer */
-
-/* BalloonEngineBase>>#primitiveNextActiveEdgeEntry */
 #include "functions/primitiveNextActiveEdgeEntry.c"
-
-
-/*	Note: No need to load bitBlt but must load spanBuffer */
-
-/* BalloonEngineBase>>#primitiveNextFillEntry */
 #include "functions/primitiveNextFillEntry.c"
-
-
-/*	Note: No need to load either bitBlt or spanBuffer */
-
-/* BalloonEngineBase>>#primitiveNextGlobalEdgeEntry */
 #include "functions/primitiveNextGlobalEdgeEntry.c"
-
-
-/* BalloonEngineBase>>#primitiveRegisterExternalEdge */
 #include "functions/primitiveRegisterExternalEdge.c"
-
-
-/* BalloonEngineBase>>#primitiveRegisterExternalFill */
 #include "functions/primitiveRegisterExternalFill.c"
-
-
-/*	Condense the trio of
-        [self primFinishedProcessing]
-        whileFalse:
-        [reason := self primRenderScanline: edge with: fill.
-        reason = 0 ifFalse:
-        [self processStopReason: reason edge: edge fill: fill]]
-        into two primitives:
-        [(reason := self primRenderAllScanlines: edge with: fill) ~= 0]
-   whileTrue: [self processStopReason: reason edge: edge fill: fill]. */
-
-/* BalloonEngineBase>>#primitiveRenderAllScanlines */
 #include "functions/primitiveRenderAllScanlines.c"
-
-
-/*	Start/Proceed rendering the entire image */
-
-/* BalloonEngineBase>>#primitiveRenderImage */
 #include "functions/primitiveRenderImage.c"
-
-
-/*	Start rendering the entire image */
-
-/* BalloonEngineBase>>#primitiveRenderScanline */
 #include "functions/primitiveRenderScanline.c"
-
-
-/* BalloonEngineBase>>#primitiveSetAALevel */
 #include "functions/primitiveSetAALevel.c"
-
-
-/*	Primitive. Set the BitBlt plugin to use. */
-
-/* BalloonEngineBase>>#primitiveSetBitBltPlugin */
 #include "functions/primitiveSetBitBltPlugin.c"
-
-
-/* BalloonEngineBase>>#primitiveSetClipRect */
 #include "functions/primitiveSetClipRect.c"
-
-
-/* BalloonEngineBase>>#primitiveSetColorTransform */
 #include "functions/primitiveSetColorTransform.c"
-
-
-/* BalloonEngineBase>>#primitiveSetDepth */
 #include "functions/primitiveSetDepth.c"
-
-
-/* BalloonEngineBase>>#primitiveSetEdgeTransform */
 #include "functions/primitiveSetEdgeTransform.c"
-
-
-/* BalloonEngineBase>>#primitiveSetOffset */
 #include "functions/primitiveSetOffset.c"
-
-
-/*	This is the main rendering entry */
-
-/* BalloonEngineBase>>#proceedRenderingImage */
 #include "functions/proceedRenderingImage.c"
-
-
-/*	Proceed rendering the current scan line.
-        This method may be called after some Smalltalk code has been executed
-        inbetween.
- */
-/*	This is the main rendering entry */
-
-/* BalloonEngineBase>>#proceedRenderingScanline */
 #include "functions/proceedRenderingScanline.c"
-
-
-/*	Load the minimal required state from the engineOop, e.g., just the work
-        buffer. Answer 0 on success or non-zero a failure code on failure */
-
-/* BalloonEngineBase>>#quickLoadEngineFrom: */
 #include "functions/quickLoadEngineFrom.c"
-
-
-/* BalloonEngineBase>>#quickLoadEngineFrom:requiredState: */
 #include "functions/quickLoadEngineFromrequiredState.c"
-
-
-/* BalloonEngineBase>>#quickLoadEngineFrom:requiredState:or: */
 #include "functions/quickLoadEngineFromrequiredStateor.c"
-
-
-/*	Sort elements i through j of self to be nondescending according to
-        sortBlock. */
-/*	Note: The original loop has been heavily re-written for C translation */
-
-/* BalloonEngineBase>>#quickSortGlobalEdgeTable:from:to: */
 #include "functions/quickSortGlobalEdgeTablefromto.c"
-
-
-/* BalloonEngineBase>>#removeFirstAETEntry */
 #include "functions/removeFirstAETEntry.c"
-
-
-/* BalloonEngineBase>>#resetGraphicsEngineStats */
 #include "functions/resetGraphicsEngineStats.c"
-
-
-/* BalloonEngineBase>>#resortFirstAETEntry */
 #include "functions/resortFirstAETEntry.c"
-
-
-/* BalloonEnginePlugin>>#rShiftTable */
 #include "functions/rShiftTable.c"
-
-
-/*	Set the anti-aliasing level. Three levels are supported:
-        1 - No antialiasing
-        2 - 2x2 unweighted anti-aliasing
-        4 - 4x4 unweighted anti-aliasing.
-         */
-
-/* BalloonEngineBase>>#setAALevel: */
 #include "functions/setAALevel.c"
-
-
-/*	Note: This is coded so that it can be run in Squeak. */
-
-/* InterpreterPlugin>>#setInterpreter: */
 #include "functions/setInterpreter.c"
-
-
-/* BalloonEngineBase>>#showFill:depth:rightX: */
 #include "functions/showFilldepthrightX.c"
-
-
-/* BalloonEngineBase>>#smallSqrtTable */
 #include "functions/smallSqrtTable.c"
-
-
-/*	Initialize the bezier at yValue.
-        TODO: Check if reducing maxSteps from 2*deltaY to deltaY
-        brings a *significant* performance improvement.
-        In theory this should make for double step performance
-        but will cost in quality. Might be that the AA stuff will
-        compensate for this - but I'm not really sure. */
-
-/* BalloonEnginePlugin>>#stepToFirstBezierIn:at: */
 #include "functions/stepToFirstBezierInat.c"
-
-
-/*	Initialize the line at yValue */
-
-/* BalloonEnginePlugin>>#stepToFirstLineIn:at: */
 #include "functions/stepToFirstLineInat.c"
-
-
-/*	Initialize the bezier at yValue */
-
-/* BalloonEnginePlugin>>#stepToFirstWideBezierIn:at: */
 #include "functions/stepToFirstWideBezierInat.c"
-
-
-/*	Initialize the wide line at yValue. */
-
-/* BalloonEnginePlugin>>#stepToFirstWideLineIn:at: */
 #include "functions/stepToFirstWideLineInat.c"
-
-
-/*	Incrementally step to the next scan line in the given wide bezier */
-
-/* BalloonEnginePlugin>>#stepToNextWideBezierIn:at: */
 #include "functions/stepToNextWideBezierInat.c"
-
-
-/* BalloonEngineBase>>#storeEdgeStateFrom:into: */
 #include "functions/storeEdgeStateFrominto.c"
-
-
-/* BalloonEngineBase>>#storeFillStateInto: */
 #include "functions/storeFillStateInto.c"
-
-
-/* BalloonEngineBase>>#storeRenderingState */
 #include "functions/storeRenderingState.c"
-
-
-/*	Recursively subdivide the curve on the bezier stack. */
-
-/* BalloonEnginePlugin>>#subdivideBezierFrom: */
 #include "functions/subdivideBezierFrom.c"
-
-
-/*	Subdivide the given bezier curve if necessary */
-
-/* BalloonEnginePlugin>>#subdivideBezier: */
 #include "functions/subdivideBezier.c"
-
-
-/*	Check if the given bezier curve is monoton in X. If not, subdivide it */
-
-/* BalloonEnginePlugin>>#subdivideToBeMonotonInX: */
 #include "functions/subdivideToBeMonotonInX.c"
-
-
-/*	Check if the given bezier curve is monoton in Y. If not, subdivide it */
-
-/* BalloonEnginePlugin>>#subdivideToBeMonotonInY: */
 #include "functions/subdivideToBeMonotonInY.c"
-
-
-/*	Check if the given bezier curve is monoton in Y, and, if desired in X.
-        If not, subdivide it */
-
-/* BalloonEnginePlugin>>#subdivideToBeMonoton:inX: */
 #include "functions/subdivideToBeMonotoninX_1.c"
-
-
-/* BalloonEngineBase>>#toggleFillsOf: */
 #include "functions/toggleFillsOf.c"
-
-
-/*	Make the fill style with the given index either visible or invisible */
-
-/* BalloonEngineBase>>#toggleFill:depth:rightX: */
 #include "functions/toggleFilldepthrightX.c"
-
-
-/* BalloonEngineBase>>#toggleWideFillOf: */
 #include "functions/toggleWideFillOf.c"
-
-
-/* BalloonEngineBase>>#topDepth */
 #include "functions/topDepth.c"
-
-
-/* BalloonEngineBase>>#topFill */
 #include "functions/topFill.c"
-
-
-/* BalloonEngineBase>>#topRightX */
 #include "functions/topRightX.c"
-
-
-/* BalloonEngineBase>>#transformColor: */
 #include "functions/transformColor.c"
-
-
-/*	Transform the given width */
-
-/* BalloonEngineBase>>#transformWidth: */
 #include "functions/transformWidth.c"
-
-
-/* BalloonEngineBase>>#uncheckedTransformColor: */
 #include "functions/uncheckedTransformColor.c"
 
 
