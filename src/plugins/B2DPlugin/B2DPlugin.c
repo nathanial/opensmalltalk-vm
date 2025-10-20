@@ -5876,10 +5876,9 @@ primitiveAddBezier(void) {
     /* stopReasonPut: */
     workBuffer[GWStopReason] = GErrorNoMoreSpace;
     engineStopped = 1;
-    goto l1;
   }
   /* end needAvailableSpace: */
-l1:
+
   if (!engineStopped) {
     leftFill = transformColor(leftFill);
     rightFill = transformColor(rightFill);
