@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Generate a variant of interp.c where each function body is replaced by an
-`#include "interp/<function>.c"` directive.
+Generate a variant of a monolithic C source file where each function body is
+replaced by an `#include` directive that points at a per-function source file.
 
 The script expects the per-function files to already exist (e.g., created by
 `split_interpreter_functions.py`) and will fail if any expected file is missing.
@@ -99,18 +99,38 @@ def assigned_filename(stem: str, occurrence: int) -> str:
 def build_include_mapping(
     functions: Iterable[Tuple[str, int, int]],
     output_dir: Path,
+    include_prefix: Path,
 ) -> List[Tuple[int, int, str]]:
-    counters: Dict[str, int] = {}
     mapping: List[Tuple[int, int, str]] = []
+    include_prefix = Path(include_prefix)
+
+    buckets: Dict[str, List[Tuple[int, str]]] = {}
+    for path in sorted(output_dir.iterdir()):
+        if not path.is_file() or path.suffix != ".c":
+            continue
+        base = path.stem
+        stem = base
+        occurrence = 0
+        tail_sep = base.rsplit("_", 1)
+        if len(tail_sep) == 2 and tail_sep[1].isdigit():
+            stem = tail_sep[0]
+            occurrence = int(tail_sep[1])
+        buckets.setdefault(stem, []).append((occurrence, path.name))
+
+    for entries in buckets.values():
+        entries.sort(key=lambda item: item[0])
+
     for name, start, end in functions:
         stem = sanitize_filename(name)
-        occurrence = counters.get(stem, 0)
-        counters[stem] = occurrence + 1
-        filename = assigned_filename(stem, occurrence)
-        include_path = output_dir / filename
-        if not include_path.exists():
-            raise SystemExit(f"Expected extracted function file {include_path} is missing.")
-        mapping.append((start, end, f"interp/{filename}"))
+        entries = buckets.get(stem)
+        if not entries:
+            raise SystemExit(
+                f"Expected extracted function file for '{stem}' is missing in {output_dir}."
+            )
+        _, filename = entries.pop(0)
+        include_rel = (include_prefix / filename).as_posix()
+        mapping.append((start, end, include_rel))
+
     return mapping
 
 
@@ -151,6 +171,14 @@ def main(argv: Sequence[str]) -> int:
         type=Path,
         help="Directory containing the extracted function files (default: <source_dir>/interp).",
     )
+    parser.add_argument(
+        "--include-prefix",
+        type=str,
+        help=(
+            "Path to use in generated #include directives (default: functions directory "
+            "relative to the source file)."
+        ),
+    )
 
     args, extra = parser.parse_known_args(argv)
     clang_args: List[str] = list(extra)
@@ -169,6 +197,13 @@ def main(argv: Sequence[str]) -> int:
     if not functions_dir.is_dir():
         raise SystemExit(f"Functions directory {functions_dir} does not exist.")
 
+    if args.include_prefix is not None:
+        include_prefix = Path(args.include_prefix)
+    else:
+        include_prefix = Path(
+            os.path.relpath(functions_dir, source_path.parent)
+        )
+
     configure_libclang(args.libclang)
 
     source_text = source_path.read_text(encoding="utf-8")
@@ -178,7 +213,7 @@ def main(argv: Sequence[str]) -> int:
         print("No function definitions found; nothing to replace.")
         return 0
 
-    replacements = build_include_mapping(functions, functions_dir)
+    replacements = build_include_mapping(functions, functions_dir, include_prefix)
     rewritten = compose_source_with_includes(source_text, replacements)
 
     output_path = (
