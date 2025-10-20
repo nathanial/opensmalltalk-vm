@@ -442,185 +442,119 @@ static int sourceWidth;
 
 /*** Methods ***/
 
-#include "functions/addWordwith.c"
-
-#include "functions/alphaBlendConstwith.c"
-
-#include "functions/alphaBlendConstwithpaintMode.c"
-
-#include "functions/alphaBlendScaledwith.c"
-
-#include "functions/alphaBlendUnscaledwith.c"
-
-#include "functions/alphaBlendwith.c"
-
-#include "functions/alphaPaintConstwith.c"
-
-#include "functions/alphaScalewith.c"
-
-#include "functions/alphaSourceBlendBits16.c"
-
-#include "functions/alphaSourceBlendBits32.c"
-
-#include "functions/alphaSourceBlendBits8.c"
-
-#include "functions/alphaUnscalewith.c"
-
-#include "functions/bitAndInvertwith.c"
-
-#include "functions/bitAndwith.c"
-
-#include "functions/bitInvertAndInvertwith.c"
-
-#include "functions/bitInvertAndwith.c"
-
-#include "functions/bitInvertDestinationwith.c"
-
-#include "functions/bitInvertOrInvertwith.c"
-
-#include "functions/bitInvertOrwith.c"
-
-#include "functions/bitInvertSourcewith.c"
-
-#include "functions/bitInvertXorwith.c"
-
-#include "functions/bitOrInvertwith.c"
-
-#include "functions/bitOrwith.c"
-
-#include "functions/bitXorwith.c"
-
-#include "functions/clearWordwith.c"
-
-#include "functions/clipRange.c"
-
-#include "functions/copyBits.c"
-
-#include "functions/copyBitsFastPathSpecialised.c"
-
-#include "functions/copyBitsFromtoat.c"
-
-#include "functions/copyBitsLockedAndClipped.c"
-
-#include "functions/copyBitsRule41Test.c"
-
-#include "functions/copyBitsFallback.c"
-
-#include "functions/copyLoop.c"
-
-#include "functions/copyLoopNoSource.c"
-
-#include "functions/copyLoopPixMap.c"
-
-#include "functions/default8To32Table.c"
-
-#include "functions/destinationWordwith.c"
-
-#include "functions/fetchIntOrFloatofObjectifNil.c"
-
-#include "functions/fixAlphawith.c"
-
-#include "functions/getModuleName.c"
-
-#include "functions/initBBOpTable.c"
-
-#include "functions/initDither8Lookup.c"
-
-#include "functions/initialiseModule.c"
-
-#include "functions/loadBitBltFrom.c"
-
-#include "functions/loadBitBltFromwarping.c"
-
-#include "functions/loadSurfacePlugin.c"
-
-#include "functions/lockSurfaces.c"
-
-#include "functions/moduleUnloaded.c"
-
-#include "functions/OLDrgbDiffwith.c"
-
-#include "functions/OLDtallyIntoMapwith.c"
-
-#include "functions/partitionedAddtonBitscomponentMaskcarryOverflowMask.c"
-
-#include "functions/partitionedANDtonBitsnPartitions.c"
-
-#include "functions/partitionedMaxwithnBitsnPartitions.c"
-
-#include "functions/partitionedMinwithnBitsnPartitions.c"
-
-#include "functions/partitionedMulwithnBitswordBits.c"
-
-#include "functions/partitionedSubfromnBitsnPartitions.c"
-
-#include "functions/pixClearwith.c"
-
-#include "functions/pixMaskwith.c"
-
-#include "functions/pixPaintwith.c"
-
-#include "functions/pixSwapwith.c"
-
-#include "functions/primitiveCompareColors.c"
-
-#include "functions/primitiveCopyBits.c"
-
-#include "functions/primitiveDisplayString.c"
-
-#include "functions/primitiveDrawLoop.c"
-
-#include "functions/primitivePixelValueAt.c"
-
-#include "functions/primitivePixelValueAtPut.c"
-
-#include "functions/primitiveWarpBits.c"
-
-#include "functions/reloadDestAndSourceForms.c"
-
-#include "functions/rgbAddwith.c"
-
-#include "functions/rgbComponentAlpha16.c"
-
-#include "functions/rgbComponentAlpha32.c"
-
-#include "functions/rgbComponentAlpha32with.c"
-
-#include "functions/rgbComponentAlpha8.c"
-
-#include "functions/rgbComponentAlphawith.c"
-
-#include "functions/rgbDiffwith.c"
-
-#include "functions/rgbMapfromto.c"
-
-#include "functions/rgbMaxwith.c"
-
-#include "functions/rgbMinInvertwith.c"
-
-#include "functions/rgbMinwith.c"
-
-#include "functions/rgbMulwith.c"
-
-#include "functions/rgbSubwith.c"
-
-#include "functions/setInterpreter.c"
-
-#include "functions/setupColorMasks.c"
-
-#include "functions/setupColorMasksFromto.c"
-
-#include "functions/sourceWordwith.c"
-
-#include "functions/subWordwith.c"
-
-#include "functions/tallyIntoMapwith.c"
-
-#include "functions/unlockSurfaces.c"
-
-#include "functions/warpLoop.c"
-
-#include "functions/warpPickSmoothPixelsxDeltahyDeltahxDeltavyDeltavsourceMapsmoothingdstShiftInc.c"
+/* Word Operations */
+#include "functions/word_ops/addWordwith.c"
+#include "functions/word_ops/subWordwith.c"
+#include "functions/word_ops/sourceWordwith.c"
+#include "functions/word_ops/destinationWordwith.c"
+
+/* Alpha Blending Operations */
+#include "functions/alpha/alphaBlendwith.c"
+#include "functions/alpha/alphaBlendScaledwith.c"
+#include "functions/alpha/alphaBlendUnscaledwith.c"
+#include "functions/alpha/alphaBlendConstwith.c"
+#include "functions/alpha/alphaBlendConstwithpaintMode.c"
+#include "functions/alpha/alphaPaintConstwith.c"
+#include "functions/alpha/alphaScalewith.c"
+#include "functions/alpha/alphaUnscalewith.c"
+#include "functions/alpha/alphaSourceBlendBits8.c"
+#include "functions/alpha/alphaSourceBlendBits16.c"
+#include "functions/alpha/alphaSourceBlendBits32.c"
+#include "functions/alpha/fixAlphawith.c"
+
+/* Boolean Bit Operations */
+#include "functions/bit_ops/bitAndwith.c"
+#include "functions/bit_ops/bitAndInvertwith.c"
+#include "functions/bit_ops/bitOrwith.c"
+#include "functions/bit_ops/bitOrInvertwith.c"
+#include "functions/bit_ops/bitXorwith.c"
+#include "functions/bit_ops/bitInvertAndwith.c"
+#include "functions/bit_ops/bitInvertAndInvertwith.c"
+#include "functions/bit_ops/bitInvertOrwith.c"
+#include "functions/bit_ops/bitInvertOrInvertwith.c"
+#include "functions/bit_ops/bitInvertXorwith.c"
+#include "functions/bit_ops/bitInvertSourcewith.c"
+#include "functions/bit_ops/bitInvertDestinationwith.c"
+#include "functions/bit_ops/clearWordwith.c"
+
+/* Core BitBlt Copy Operations */
+#include "functions/core/clipRange.c"
+#include "functions/core/copyBits.c"
+#include "functions/core/copyBitsFastPathSpecialised.c"
+#include "functions/core/copyBitsFromtoat.c"
+#include "functions/core/copyBitsLockedAndClipped.c"
+#include "functions/core/copyBitsRule41Test.c"
+#include "functions/core/copyBitsFallback.c"
+#include "functions/core/copyLoop.c"
+#include "functions/core/copyLoopNoSource.c"
+#include "functions/core/copyLoopPixMap.c"
+
+/* Initialization and Setup */
+#include "functions/initialization/default8To32Table.c"
+#include "functions/initialization/initBBOpTable.c"
+#include "functions/initialization/initDither8Lookup.c"
+#include "functions/initialization/initialiseModule.c"
+#include "functions/initialization/loadBitBltFrom.c"
+#include "functions/initialization/loadBitBltFromwarping.c"
+#include "functions/initialization/reloadDestAndSourceForms.c"
+#include "functions/initialization/setupColorMasks.c"
+#include "functions/initialization/setupColorMasksFromto.c"
+
+/* Surface Management */
+#include "functions/surface/loadSurfacePlugin.c"
+#include "functions/surface/lockSurfaces.c"
+#include "functions/surface/unlockSurfaces.c"
+
+/* Utilities */
+#include "functions/utilities/fetchIntOrFloatofObjectifNil.c"
+#include "functions/utilities/getModuleName.c"
+#include "functions/utilities/setInterpreter.c"
+#include "functions/utilities/moduleUnloaded.c"
+#include "functions/utilities/tallyIntoMapwith.c"
+#include "functions/utilities/OLDtallyIntoMapwith.c"
+
+/* RGB Color Operations */
+#include "functions/rgb/rgbAddwith.c"
+#include "functions/rgb/rgbSubwith.c"
+#include "functions/rgb/rgbMulwith.c"
+#include "functions/rgb/rgbMaxwith.c"
+#include "functions/rgb/rgbMinwith.c"
+#include "functions/rgb/rgbMinInvertwith.c"
+#include "functions/rgb/rgbDiffwith.c"
+#include "functions/rgb/rgbMapfromto.c"
+#include "functions/rgb/rgbComponentAlphawith.c"
+#include "functions/rgb/rgbComponentAlpha8.c"
+#include "functions/rgb/rgbComponentAlpha16.c"
+#include "functions/rgb/rgbComponentAlpha32.c"
+#include "functions/rgb/rgbComponentAlpha32with.c"
+#include "functions/rgb/OLDrgbDiffwith.c"
+
+/* Partitioned Operations */
+#include "functions/partitioned/partitionedAddtonBitscomponentMaskcarryOverflowMask.c"
+#include "functions/partitioned/partitionedANDtonBitsnPartitions.c"
+#include "functions/partitioned/partitionedMaxwithnBitsnPartitions.c"
+#include "functions/partitioned/partitionedMinwithnBitsnPartitions.c"
+#include "functions/partitioned/partitionedMulwithnBitswordBits.c"
+#include "functions/partitioned/partitionedSubfromnBitsnPartitions.c"
+
+/* Pixel Operations */
+#include "functions/pixel_ops/pixClearwith.c"
+#include "functions/pixel_ops/pixMaskwith.c"
+#include "functions/pixel_ops/pixPaintwith.c"
+#include "functions/pixel_ops/pixSwapwith.c"
+
+/* Primitive Operations (VM Interface) */
+#include "functions/primitives/primitiveCompareColors.c"
+#include "functions/primitives/primitiveCopyBits.c"
+#include "functions/primitives/primitiveDisplayString.c"
+#include "functions/primitives/primitiveDrawLoop.c"
+#include "functions/primitives/primitivePixelValueAt.c"
+#include "functions/primitives/primitivePixelValueAtPut.c"
+#include "functions/primitives/primitiveWarpBits.c"
+
+/* Warp Operations */
+#include "functions/warp/warpLoop.c"
+#include "functions/warp/warpPickSmoothPixelsxDeltahyDeltahxDeltavyDeltavsourceMapsmoothingdstShiftInc.c"
 
 /*** Exports ***/
 
