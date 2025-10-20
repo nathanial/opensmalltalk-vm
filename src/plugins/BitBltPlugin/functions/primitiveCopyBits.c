@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:4218 (function primitiveCopyBits). */
+/* BitBltSimulation>>#primitiveCopyBits */
 
 EXPORT(sqInt)
 primitiveCopyBits(void) {

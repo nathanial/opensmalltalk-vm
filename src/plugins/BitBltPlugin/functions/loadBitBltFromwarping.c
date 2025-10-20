@@ -1,4 +1,6 @@
 /* Extracted from BitBltPlugin.c:3009 (function loadBitBltFromwarping). */
+/* BitBltSimulation>>#loadBitBltFrom:warping: */
+/*	Load the surface support plugin */
 
 static sqInt loadBitBltFromwarping(sqInt bbObj, sqInt aBool) {
   sqInt cmOop;

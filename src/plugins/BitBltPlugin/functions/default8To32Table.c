@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:2779 (function default8To32Table). */
+/* BitBltSimulation>>#default8To32Table */
 
 static unsigned int *default8To32Table(void) {
   static unsigned int theTable[256] = {

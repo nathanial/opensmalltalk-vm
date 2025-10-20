@@ -1,4 +1,12 @@
 /* Extracted from BitBltPlugin.c:3850 (function partitionedMaxwithnBitsnPartitions). */
+/* BitBltSimulation>>#partitionedMax:with:nBits:nPartitions: */
+/*	Min word1 to word2 as nParts partitions of nBits each */
+/*	In C, most arithmetic operations answer the same bit pattern regardless
+   of the operands being signed or unsigned ints (this is due to the way 2's
+   complement numbers work). However, comparisions might fail. Add the proper
+   declaration of words as unsigned int in those cases where comparisions are
+   done (jmv)
+ */
 
 static unsigned int partitionedMaxwithnBitsnPartitions(unsigned int word1,
                                                        unsigned int word2,

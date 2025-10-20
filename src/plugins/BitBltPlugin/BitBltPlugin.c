@@ -442,767 +442,185 @@ static int sourceWidth;
 
 /*** Methods ***/
 
-/* BitBltSimulation>>#addWord:with: */
 #include "functions/addWordwith.c"
 
-
-/* BitBltSimulation>>#alphaBlendConst:with: */
 #include "functions/alphaBlendConstwith.c"
 
-
-/*	Blend sourceWord with destinationWord using a constant alpha.
-        Alpha is encoded as 0 meaning 0.0, and 255 meaning 1.0.
-        The blend produced is alpha*source + (1.0-alpha)*dest, with the
-        computation being performed independently on each color component.
-        This function could eventually blend into any depth destination,
-        using the same color averaging and mapping as warpBlt.
-        paintMode = true means do nothing if the source pixel value is zero. */
-/*	This first implementation works with dest depths of 16 and 32 bits only.
-        Normal color mapping will allow sources of lower depths in this case,
-        and results can be mapped directly by truncation, so no extra color maps
-        are needed.
-        To allow storing into any depth will require subsequent addition of two
-        other colormaps, as is the case with WarpBlt.
- */
-
-/* BitBltSimulation>>#alphaBlendConst:with:paintMode: */
 #include "functions/alphaBlendConstwithpaintMode.c"
 
-
-/*	Blend sourceWord with destinationWord using the alpha value from
-        sourceWord. Alpha is encoded as 0 meaning 0.0, and 255 meaning 1.0.
-        In contrast to alphaBlend:with: the color produced is
-
-        srcColor + (1-srcAlpha) * dstColor
-
-        e.g., it is assumed that the source color is already scaled.
- */
-/*	Do NOT inline this into optimized loops */
-
-/* BitBltSimulation>>#alphaBlendScaled:with: */
 #include "functions/alphaBlendScaledwith.c"
 
-
-/*	Blend sourceWord with destinationWord using the alpha value from both
-        sourceWord and destinationWord.
-        Alpha is encoded as 0 meaning 0.0, and 255 meaning 1.0.
-        The alpha channel and color produced are
-
-        srcAlpha + (destAlpha*(1-srcAlpha))
-        (srcAlpha*srcColor + (destAlpha*(1-srcAlpha)*dstColor)) / (srcAlpha +
-        (destAlpha*(1-srcAlpha)))
-        In contrast to alphaBlend:with: the method does not assume that
-        destination form is opaque.
-        In contrast to alphaBlendScaled:with: the method does not assume that
-        colors have been pre-scaled (muliplied) by alpha channel.
- */
-
-/* BitBltSimulation>>#alphaBlendUnscaled:with: */
 #include "functions/alphaBlendUnscaledwith.c"
 
-
-/*	Blend sourceWord with destinationWord, assuming both are 32-bit pixels.
-        The source is assumed to have 255*alpha in the high 8 bits of each
-   pixel, while the high 8 bits of the destinationWord will be ignored. The
-   blend produced is alpha*source + (1-alpha)*dest, with the computation being
-   performed independently on each color component. The high byte of the result
-   will be 0. */
-
-/* BitBltSimulation>>#alphaBlend:with: */
 #include "functions/alphaBlendwith.c"
 
-
-/* BitBltSimulation>>#alphaPaintConst:with: */
 #include "functions/alphaPaintConstwith.c"
 
-
-/*	Scale (premultiply) the destination with its alpha channel.
-        Note that sourceWord is ignored. */
-
-/* BitBltSimulation>>#alphaScale:with: */
 #include "functions/alphaScalewith.c"
 
-
-/*	This version assumes
-        combinationRule = 34
-        sourcePixSize = 32
-        destPixSize = 16
-        sourceForm ~= destForm.
-         */
-
-/* BitBltSimulation>>#alphaSourceBlendBits16 */
 #include "functions/alphaSourceBlendBits16.c"
 
-
-/*	This version assumes
-        combinationRule = 34
-        sourcePixSize = destPixSize = 32
-        sourceForm ~= destForm.
-        Note: The inner loop has been optimized for dealing
-        with the special cases of srcAlpha = 0.0 and srcAlpha = 1.0
-         */
-
-/* BitBltSimulation>>#alphaSourceBlendBits32 */
 #include "functions/alphaSourceBlendBits32.c"
 
-
-/*	This version assumes
-        combinationRule = 34
-        sourcePixSize = 32
-        destPixSize = 8
-        sourceForm ~= destForm.
-        Note: This is not real blending since we don't have the source colors
-        available.  */
-
-/* BitBltSimulation>>#alphaSourceBlendBits8 */
 #include "functions/alphaSourceBlendBits8.c"
 
-
-/*	Unscale (divide) the destination with its alpha channel.
-        Note that sourceWord is ignored. */
-
-/* BitBltSimulation>>#alphaUnscale:with: */
 #include "functions/alphaUnscalewith.c"
 
-
-/* BitBltSimulation>>#bitAndInvert:with: */
 #include "functions/bitAndInvertwith.c"
 
-
-/* BitBltSimulation>>#bitAnd:with: */
 #include "functions/bitAndwith.c"
 
-
-/* BitBltSimulation>>#bitInvertAndInvert:with: */
 #include "functions/bitInvertAndInvertwith.c"
 
-
-/* BitBltSimulation>>#bitInvertAnd:with: */
 #include "functions/bitInvertAndwith.c"
 
-
-/* BitBltSimulation>>#bitInvertDestination:with: */
 #include "functions/bitInvertDestinationwith.c"
 
-
-/* BitBltSimulation>>#bitInvertOrInvert:with: */
 #include "functions/bitInvertOrInvertwith.c"
 
-
-/* BitBltSimulation>>#bitInvertOr:with: */
 #include "functions/bitInvertOrwith.c"
 
-
-/* BitBltSimulation>>#bitInvertSource:with: */
 #include "functions/bitInvertSourcewith.c"
 
-
-/* BitBltSimulation>>#bitInvertXor:with: */
 #include "functions/bitInvertXorwith.c"
 
-
-/* BitBltSimulation>>#bitOrInvert:with: */
 #include "functions/bitOrInvertwith.c"
 
-
-/* BitBltSimulation>>#bitOr:with: */
 #include "functions/bitOrwith.c"
 
-
-/* BitBltSimulation>>#bitXor:with: */
 #include "functions/bitXorwith.c"
 
-
-/* BitBltSimulation>>#clearWord:with: */
 #include "functions/clearWordwith.c"
 
-
-/*	clip and adjust source origin and extent appropriately */
-/*	first in x */
-
-/* BitBltSimulation>>#clipRange */
 #include "functions/clipRange.c"
 
-
-/*	This function is exported for the Balloon engine */
-
-/* BitBltSimulation>>#copyBits */
 #include "functions/copyBits.c"
 
-
-/*	Perform the actual copyBits operation using the fast path specialised
-        code; fail some cases by falling back to normal code.
-        Assume: Surfaces have been locked and clipping was performed.
- */
-
-/* BitBltSimulation>>#copyBitsFastPathSpecialised */
 #include "functions/copyBitsFastPathSpecialised.c"
 
-
-/*	Support for the balloon engine. */
-
-/* BitBltSimulation>>#copyBitsFrom:to:at: */
 #include "functions/copyBitsFromtoat.c"
 
-
-/*	Perform the actual copyBits operation.
-        Assume: Surfaces have been locked and clipping was performed. */
-
-/* BitBltSimulation>>#copyBitsLockedAndClipped */
 #include "functions/copyBitsLockedAndClipped.c"
 
-
-/*	Test possible use of rule 41, rgbComponentAlpha:with: Set up some
-        variables and answer if args were ok.
- */
-
-/* BitBltSimulation>>#copyBitsRule41Test */
 #include "functions/copyBitsRule41Test.c"
 
-
-/*	Recover from the fast path specialised code saying Help-I-cant-cope */
-
-/* BitBltSimulation>>#copyBits:Fallback: */
 #include "functions/copyBitsFallback.c"
 
-
-/*	This version of the inner loop assumes noSource = false. */
-
-/* BitBltSimulation>>#copyLoop */
 #include "functions/copyLoop.c"
 
-
-/*	Faster copyLoop when source not used. hDir and vDir are both
-        positive, and perload and skew are unused */
-
-/* BitBltSimulation>>#copyLoopNoSource */
 #include "functions/copyLoopNoSource.c"
 
-
-/*	This version of the inner loop maps source pixels
-        to a destination form with different depth. Because it is already
-        unweildy, the loop is not unrolled as in the other versions.
-        Preload, skew and skewMask are all overlooked, since pickSourcePixels
-        delivers its destination word already properly aligned.
-        Note that pickSourcePixels could be copied in-line at the top of
-        the horizontal loop, and some of its inits moved out of the loop. */
-/*	ar 12/7/1999:
-        The loop has been rewritten to use only one pickSourcePixels call.
-        The idea is that the call itself could be inlined. If we decide not
-        to inline pickSourcePixels we could optimize the loop instead. */
-
-/* BitBltSimulation>>#copyLoopPixMap */
 #include "functions/copyLoopPixMap.c"
 
-
-/*	Return the default translation table from 1..8 bit indexed colors to
- * 32bit */
-/*	The table has been generated by the following statements */
-/*	| pvs hex |
-        String streamContents:[:s|
-        s nextPutAll:'static unsigned int theTable[256] = { '.
-        pvs := (Color colorMapIfNeededFrom: 8 to: 32) asArray.
-        1 to: pvs size do:[:i|
-        i > 1 ifTrue:[s nextPutAll:', '].
-        (i-1 \\ 8) = 0 ifTrue:[s cr].
-        s nextPutAll:'0x'.
-        hex := (pvs at: i) printStringBase: 16.
-        s nextPutAll: (hex copyFrom: 4 to: hex size).
-        ].
-        s nextPutAll:'};'.
-        ]. */
-
-/* BitBltSimulation>>#default8To32Table */
 #include "functions/default8To32Table.c"
 
-
-/* BitBltSimulation>>#destinationWord:with: */
 #include "functions/destinationWordwith.c"
 
-
-/*	Return the integer value of the given field of the given object. If the
-        field contains a Float, truncate it and return its integral part. Fail
-   if the given field does not contain a small integer or Float, or if the
-        truncated Float is out of the range of small integers.
- */
-
-/* BitBltSimulation>>#fetchIntOrFloat:ofObject:ifNil: */
 #include "functions/fetchIntOrFloatofObjectifNil.c"
 
-
-/*	For any non-zero pixel value in destinationWord with zero alpha channel
-        take the alpha from sourceWord and fill it in. Intended for fixing alpha
-        channels left at zero during 16->32 bpp conversions.
- */
-
-/* BitBltSimulation>>#fixAlpha:with: */
 #include "functions/fixAlphawith.c"
 
-
-/*	Note: This is hardcoded so it can be run from Squeak.
-        The module name is used for validating a module *after*
-        it is loaded to check if it does really contain the module
-        we're thinking it contains. This is important! */
-
-/* InterpreterPlugin>>#getModuleName */
 #include "functions/getModuleName.c"
 
-
-/* BitBltSimulation>>#initBBOpTable */
 #include "functions/initBBOpTable.c"
 
-
-/* BitBltSimulation>>#initDither8Lookup */
 #include "functions/initDither8Lookup.c"
 
-
-/* BitBltSimulation>>#initialiseModule */
 #include "functions/initialiseModule.c"
 
-
-/*	Load BitBlt from the oop.
-        This function is exported for the Balloon engine. */
-
-/* BitBltSimulation>>#loadBitBltFrom: */
 #include "functions/loadBitBltFrom.c"
 
-
-/*	Load context from BitBlt instance. Return false if anything is amiss */
-/*	NOTE this should all be changed to minX/maxX coordinates for simpler
-        clipping -- once it works! */
-
-/* BitBltSimulation>>#loadBitBltFrom:warping: */
 #include "functions/loadBitBltFromwarping.c"
 
-
-/*	Load the surface support plugin */
-
-/* BitBltSimulation>>#loadSurfacePlugin */
 #include "functions/loadSurfacePlugin.c"
 
-
-/*	Get a pointer to the bits of any OS surfaces. */
-/*	Notes:
-        * For equal source/dest handles only one locking operation is performed.
-        This is to prevent locking of overlapping areas which does not work with
-        certain APIs (as an example, DirectDraw prevents locking of overlapping
-        areas).
-        A special case for non-overlapping but equal source/dest handle would
-        be possible but we would have to transfer this information over to
-        unlockSurfaces somehow (currently, only one unlock operation is
-        performed for equal source and dest handles). Also, this would require
-        a change in the notion of ioLockSurface() which is right now interpreted
-        as a hint and not as a requirement to lock only the specific portion of
-        the surface.
-
-        * The arguments in ioLockSurface() provide the implementation with
-        an explicit hint what area is affected. It can be very useful to
-        know the max. affected area beforehand if getting the bits requires
-        expensive copy operations (e.g., like a roundtrip to the X server or a
-        glReadPixel op).
-        However, the returned pointer *MUST* point to the virtual origin of the
-        surface and not to the beginning of the rectangle. The promise made by
-        BitBlt is to never access data outside the given rectangle (aligned to
-        4byte boundaries!)
-        so it is okay to return a pointer to the virtual origin that is actually
-        outside the valid memory area.
-
-        * The area provided in ioLockSurface() is already clipped (e.g., it will
-        always be inside the source and dest boundingBox) but it is not aligned
-   to word boundaries yet. It is up to the support code to compute accurate
-   alignment if necessary.
-        * Warping always requires the entire source surface to be locked because
-        there is no beforehand knowledge about what area will actually be
-        traversed.
-        * Fail if a GC has occurred since the primitive started (presumably in
-   the lockSurface function), because one or more of the primitives' parameters
-        may have been moved.
-
- */
-
-/* BitBltSimulation>>#lockSurfaces */
 #include "functions/lockSurfaces.c"
 
-
-/*	The module with the given name was just unloaded.
-        Make sure we have no dangling references. */
-
-/* BitBltSimulation>>#moduleUnloaded: */
 #include "functions/moduleUnloaded.c"
 
-
-/*	Subract the pixels in the source and destination, color by color,
-        and return the sum of the absolute value of all the differences.
-        For non-rgb, XOR the two and return the number of differing pixels.
-        Note that the region is not clipped to bit boundaries, but only to the
-        nearest (enclosing) word. This is because copyLoop does not do
-        pre-merge masking. For accurate results, you must subtract the
-        values obtained from the left and right fringes. */
-
-/* BitBltSimulation>>#OLDrgbDiff:with: */
 #include "functions/OLDrgbDiffwith.c"
 
-
-/*	Tally pixels into the color map. Note that the source should be
-        specified = destination, in order for the proper color map checks
-        to be performed at setup.
-        Note that the region is not clipped to bit boundaries, but only to the
-        nearest (enclosing) word. This is because copyLoop does not do
-        pre-merge masking. For accurate results, you must subtract the
-        values obtained from the left and right fringes. */
-
-/* BitBltSimulation>>#OLDtallyIntoMap:with: */
 #include "functions/OLDtallyIntoMapwith.c"
 
-
-/*	Add word1 to word2 as nParts partitions of nBits each.
-        This is useful for packed pixels, or packed colors */
-/*	Use unsigned int everywhere because it has a well known arithmetic model
-        without undefined behavior w.r.t. overflow and shifts
- */
-
-/* BitBltSimulation>>#partitionedAdd:to:nBits:componentMask:carryOverflowMask:
- */
 #include "functions/partitionedAddtonBitscomponentMaskcarryOverflowMask.c"
 
-
-/*	AND word1 to word2 as nParts partitions of nBits each.
-        Any field of word1 not all-ones is treated as all-zeroes.
-        Used for erasing, eg, brush shapes prior to ORing in a color */
-
-/* BitBltSimulation>>#partitionedAND:to:nBits:nPartitions: */
 #include "functions/partitionedANDtonBitsnPartitions.c"
 
-
-/*	Max word1 to word2 as nParts partitions of nBits each */
-/*	In C, most arithmetic operations answer the same bit pattern regardless
-   of the operands being signed or unsigned ints (this is due to the way 2's
-   complement numbers work). However, comparisions might fail. Add the proper
-   declaration of words as unsigned int in those cases where comparisions are
-   done (jmv)
- */
-
-/* BitBltSimulation>>#partitionedMax:with:nBits:nPartitions: */
 #include "functions/partitionedMaxwithnBitsnPartitions.c"
 
-
-/*	Min word1 to word2 as nParts partitions of nBits each */
-/*	In C, most arithmetic operations answer the same bit pattern regardless
-   of the operands being signed or unsigned ints (this is due to the way 2's
-   complement numbers work). However, comparisions might fail. Add the proper
-   declaration of words as unsigned int in those cases where comparisions are
-   done (jmv)
- */
-
-/* BitBltSimulation>>#partitionedMin:with:nBits:nPartitions: */
 #include "functions/partitionedMinwithnBitsnPartitions.c"
 
-
-/*	Multiply each channel of nBits in word1 and word2.
-        We assume that for each channel of nBits, we multiply ratios in interval
-        [0..1], scaled by (1 << nBits - 1).
-        result := ((channel1/scale) * (channel2/scale) * scale) rounded
-        Or after simplification:
-        result := (channel1 * channel2 / scale) rounded
-        This is implemented by first forming the double precision products
-        (channel1 * channel2) on a double-word.
-        Then dividing each double precision channel by scale, with correctly
-        rounded operation.
-        With proper tricks, some of these operations can be multiplexed
-        (all channels are formed in parallel with a single sequence of
-   operation).
- */
-
-/* BitBltSimulation>>#partitionedMul:with:nBits:wordBits: */
 #include "functions/partitionedMulwithnBitswordBits.c"
 
-
-/*	Subtract word1 from word2 as nParts partitions of nBits each.
-        This is useful for packed pixels, or packed colors */
-/*	In C, most arithmetic operations answer the same bit pattern regardless
-   of the operands being signed or unsigned ints (this is due to the way 2's
-   complement numbers work). However, comparisions might fail. Add the proper
-   declaration of words as unsigned int in those cases where comparisions are
-   done (jmv)
- */
-
-/* BitBltSimulation>>#partitionedSub:from:nBits:nPartitions: */
 #include "functions/partitionedSubfromnBitsnPartitions.c"
 
-
-/*	Clear all pixels in destinationWord for which the pixels of sourceWord
-        have the same values. Used to clear areas of some constant color to
-   zero.
- */
-
-/* BitBltSimulation>>#pixClear:with: */
 #include "functions/pixClearwith.c"
 
-
-/* BitBltSimulation>>#pixMask:with: */
 #include "functions/pixMaskwith.c"
 
-
-/* BitBltSimulation>>#pixPaint:with: */
 #include "functions/pixPaintwith.c"
 
-
-/*	Swap the pixels in destWord */
-
-/* BitBltSimulation>>#pixSwap:with: */
 #include "functions/pixSwapwith.c"
 
-
-/*	Invoke the pixel color comparing primitive.Only applicable if compiling
-        with ENABLE_FAST_BLT */
-
-/* BitBltSimulation>>#primitiveCompareColorA:to:test: */
 #include "functions/primitiveCompareColors.c"
 
-
-/*	Invoke the copyBits primitive. If the destination is the display, then
-        copy it to the screen.
- */
-
-/* BitBltSimulation>>#primitiveCopyBits */
 #include "functions/primitiveCopyBits.c"
 
-
-/* BitBltSimulation>>#primitiveDisplayString */
 #include "functions/primitiveDisplayString.c"
 
-
-/*	Invoke the line drawing primitive. */
-
-/* BitBltSimulation>>#primitiveDrawLoop */
 #include "functions/primitiveDrawLoop.c"
 
-
-/*	returns the single pixel at x@y.
-        It does not handle LSB bitmaps right now.
-        If x or y are < 0, return 0 to indicate transparent (cf
-        BitBlt>bitPeekerFromForm: usage).
-        Likewise if x>width or y>depth.
-        Fail if the rcvr doesn't seem to be a Form, or x|y seem wrong
- */
-
-/* BitBltSimulation>>#primitivePixelValueAtX:y: */
 #include "functions/primitivePixelValueAt.c"
 
-
-/*	Sets the single pixel at x@y. Answers the previous value of the pixel.
-        It does not handle LSB bitmaps right now.
-        If x or y are < 0, return 0 to indicate transparent (cf
-        BitBlt>bitPeekerFromForm: usage).
-        Likewise if x>width or y>depth.
-        Fail if the rcvr doesn't seem to be a Form, or x|y seem wrong
- */
-
-/* BitBltSimulation>>#primitivePixelValueAtX:y:put: */
 #include "functions/primitivePixelValueAtPut.c"
 
-
-/*	Invoke the warpBits primitive. If the destination is the display, then
-        copy it to the screen.
- */
-
-/* BitBltSimulation>>#primitiveWarpBits */
 #include "functions/primitiveWarpBits.c"
 
-
-/*	A GC has occurred. The destForm must be updated. But where to derive it
-        from? For copyBits and warpBits it is derived from the receiver. But for
-   a BalloonEnginePlugin it should be obtained from (interpreterProxy
-        fetchPointer: BEBitBltIndex ofObject: engine).
-        For the moment implement something that works for these two cases. */
-
-/* BitBltSimulation>>#reloadDestAndSourceForms */
 #include "functions/reloadDestAndSourceForms.c"
 
-
-/* BitBltSimulation>>#rgbAdd:with: */
 #include "functions/rgbAddwith.c"
 
-
-/*	This version assumes
-        combinationRule = 41
-        sourcePixSize = 32
-        destPixSize = 16
-        sourceForm ~= destForm.
-         */
-/*	This particular method should be optimized in itself */
-
-/* BitBltSimulation>>#rgbComponentAlpha16 */
 #include "functions/rgbComponentAlpha16.c"
 
-
-/*	This version assumes
-        combinationRule = 41
-        sourcePixSize = destPixSize = 32
-        sourceForm ~= destForm.
-        Note: The inner loop has been optimized for dealing
-        with the special case of aR = aG = aB = 0
-         */
-
-/* BitBltSimulation>>#rgbComponentAlpha32 */
 #include "functions/rgbComponentAlpha32.c"
 
-
-/*
-        componentAlphaModeColor is the color,
-        sourceWord contains an alpha value for each component of RGB
-        each of which is encoded as0 meaning 0.0 and 255 meaning 1.0 .
-        the rule is...
-
-        color = componentAlphaModeColor.
-        colorAlpha = componentAlphaModeAlpha.
-        mask = sourceWord.
-        dst.A = colorAlpha + (1 - colorAlpha) * dst.A
-        dst.R = color.R * mask.R * colorAlpha + (1 - (mask.R * colorAlpha)) *
-        dst.R dst.G = color.G * mask.G * colorAlpha + (1 - (mask.G* colorAlpha))
-   * dst.G dst.B = color.B * mask.B * colorAlpha + (1 - (mask.B* colorAlpha)) *
-        dst.B  */
-/*	Do NOT inline this into optimized loops */
-
-/* BitBltSimulation>>#rgbComponentAlpha32:with: */
 #include "functions/rgbComponentAlpha32with.c"
 
-
-/*	This version assumes
-        combinationRule = 41
-        sourcePixSize = 32
-        destPixSize = 8
-        sourceForm ~= destForm.
-        Note: This is not real blending since we don't have the source colors
-        available.  */
-
-/* BitBltSimulation>>#rgbComponentAlpha8 */
 #include "functions/rgbComponentAlpha8.c"
 
-
-/*
-        componentAlphaModeColor is the color,
-        sourceWord contains an alpha value for each component of RGB
-        each of which is encoded as0 meaning 0.0 and 255 meaning 1.0 .
-        the rule is...
-
-        color = componentAlphaModeColor.
-        colorAlpha = componentAlphaModeAlpha.
-        mask = sourceWord.
-        dst.A = colorAlpha + (1 - colorAlpha) * dst.A
-        dst.R = color.R * mask.R * colorAlpha + (1 - (mask.R * colorAlpha)) *
-        dst.R dst.G = color.G * mask.G * colorAlpha + (1 - (mask.G* colorAlpha))
-   * dst.G dst.B = color.B * mask.B * colorAlpha + (1 - (mask.B* colorAlpha)) *
-        dst.B  */
-/*	Do NOT inline this into optimized loops */
-
-/* BitBltSimulation>>#rgbComponentAlpha:with: */
 #include "functions/rgbComponentAlphawith.c"
 
-
-/*	Subract the pixels in the source and destination, color by color,
-        and return the sum of the absolute value of all the differences.
-        For non-rgb, return the number of differing pixels. */
-
-/* BitBltSimulation>>#rgbDiff:with: */
 #include "functions/rgbDiffwith.c"
 
-
-/*	Convert the given pixel value with nBitsIn bits for each color component
-        to a pixel value with nBitsOut bits for each color component. Typical
-        values for nBitsIn/nBitsOut are 3, 5, or 8.
- */
-
-/* BitBltSimulation>>#rgbMap:from:to: */
 #include "functions/rgbMapfromto.c"
 
-
-/* BitBltSimulation>>#rgbMax:with: */
 #include "functions/rgbMaxwith.c"
 
-
-/* BitBltSimulation>>#rgbMinInvert:with: */
 #include "functions/rgbMinInvertwith.c"
 
-
-/* BitBltSimulation>>#rgbMin:with: */
 #include "functions/rgbMinwith.c"
 
-
-/* BitBltSimulation>>#rgbMul:with: */
 #include "functions/rgbMulwith.c"
 
-
-/* BitBltSimulation>>#rgbSub:with: */
 #include "functions/rgbSubwith.c"
 
-
-/*	Note: This is coded so that it can be run in Squeak. */
-
-/* InterpreterPlugin>>#setInterpreter: */
 #include "functions/setInterpreter.c"
 
-
-/*	WARNING: For WarpBlt w/ smoothing the source depth is wrong here! */
-
-/* BitBltSimulation>>#setupColorMasks */
 #include "functions/setupColorMasks.c"
 
-
-/*	Setup color masks for converting an incoming RGB pixel value from
-   srcBits to targetBits.
- */
-
-/* BitBltSimulation>>#setupColorMasksFrom:to: */
 #include "functions/setupColorMasksFromto.c"
 
-
-/* BitBltSimulation>>#sourceWord:with: */
 #include "functions/sourceWordwith.c"
 
-
-/* BitBltSimulation>>#subWord:with: */
 #include "functions/subWordwith.c"
 
-
-/*	Tally pixels into the color map. Those tallied are exactly those
-        in the destination rectangle. Note that the source should be
-        specified == destination, in order for the proper color map checks
-        to be performed at setup. */
-
-/* BitBltSimulation>>#tallyIntoMap:with: */
 #include "functions/tallyIntoMapwith.c"
 
-
-/*	Unlock the bits of any OS surfaces. */
-/*	See the comment in lockSurfaces. Similar rules apply. That is, the area
-        provided in ioUnlockSurface
-        can be used to determine the dirty region after drawing. If a source is
-        unlocked, then the area will
-        be (0,0,0,0) to indicate that no portion is dirty. Note that if a GC
-        happens during unlockSourceFn
-        (if it is effectively a callback) no matter. No bits are touched after
-        unlock.  */
-
-/* BitBltSimulation>>#unlockSurfaces */
 #include "functions/unlockSurfaces.c"
 
-
-/*	This version of the inner loop traverses an arbirary quadrilateral
-        source, thus producing a general affine transformation. */
-
-/* BitBltSimulation>>#warpLoop */
 #include "functions/warpLoop.c"
 
-
-/*	Pick n (sub-) pixels from the source form, mapped by sourceMap,
-        average the RGB values, map by colorMap and return the new word.
-        This version is only called from WarpBlt with smoothingCount > 1 */
-
-/* BitBltSimulation>>#warpPickSmoothPixels:xDeltah:yDeltah:xDeltav:yDeltav:sourceMap:smoothing:dstShiftInc:
- */
 #include "functions/warpPickSmoothPixelsxDeltahyDeltahxDeltavyDeltavsourceMapsmoothingdstShiftInc.c"
-
 
 /*** Exports ***/
 

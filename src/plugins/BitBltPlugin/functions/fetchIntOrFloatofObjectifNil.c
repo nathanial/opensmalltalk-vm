@@ -1,4 +1,9 @@
 /* Extracted from BitBltPlugin.c:2842 (function fetchIntOrFloatofObjectifNil). */
+/* BitBltSimulation>>#fetchIntOrFloat:ofObject:ifNil: */
+/*	For any non-zero pixel value in destinationWord with zero alpha channel
+        take the alpha from sourceWord and fill it in. Intended for fixing alpha
+        channels left at zero during 16->32 bpp conversions.
+ */
 
 static sqInt fetchIntOrFloatofObjectifNil(sqInt fieldIndex, sqInt objectPointer,
                                           sqInt defaultValue) {

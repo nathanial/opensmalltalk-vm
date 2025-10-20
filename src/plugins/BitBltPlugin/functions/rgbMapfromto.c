@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:5606 (function rgbMapfromto). */
+/* BitBltSimulation>>#rgbMap:from:to: */
 
 static sqInt rgbMapfromto(sqInt sourcePixel, sqInt nBitsIn, sqInt nBitsOut) {
   sqInt d;

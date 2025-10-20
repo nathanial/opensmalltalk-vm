@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:1309 (function bitOrInvertwith). */
+/* BitBltSimulation>>#bitOrInvert:with: */
 
 static unsigned int bitOrInvertwith(unsigned int sourceWord,
                                     unsigned int destinationWord) {

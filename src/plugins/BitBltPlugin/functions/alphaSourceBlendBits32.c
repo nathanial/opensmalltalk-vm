@@ -1,4 +1,12 @@
 /* Extracted from BitBltPlugin.c:953 (function alphaSourceBlendBits32). */
+/* BitBltSimulation>>#alphaSourceBlendBits32 */
+/*	This version assumes
+        combinationRule = 34
+        sourcePixSize = 32
+        destPixSize = 8
+        sourceForm ~= destForm.
+        Note: This is not real blending since we don't have the source colors
+        available.  */
 
 static sqInt alphaSourceBlendBits32(void) {
   int deltaX;

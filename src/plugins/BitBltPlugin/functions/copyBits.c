@@ -1,4 +1,9 @@
 /* Extracted from BitBltPlugin.c:1388 (function copyBits). */
+/* BitBltSimulation>>#copyBits */
+/*	Perform the actual copyBits operation using the fast path specialised
+        code; fail some cases by falling back to normal code.
+        Assume: Surfaces have been locked and clipping was performed.
+ */
 
 EXPORT(sqInt)
 copyBits(void) {

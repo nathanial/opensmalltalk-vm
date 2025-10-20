@@ -1,4 +1,7 @@
 /* Extracted from BitBltPlugin.c:1500 (function copyBitsFromtoat). */
+/* BitBltSimulation>>#copyBitsFrom:to:at: */
+/*	Perform the actual copyBits operation.
+        Assume: Surfaces have been locked and clipping was performed. */
 
 EXPORT(sqInt)
 copyBitsFromtoat(sqInt startX, sqInt stopX, sqInt yValue) {

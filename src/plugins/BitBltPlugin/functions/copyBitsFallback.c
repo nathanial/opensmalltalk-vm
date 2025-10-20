@@ -1,4 +1,6 @@
 /* Extracted from BitBltPlugin.c:1808 (function copyBitsFallback). */
+/* BitBltSimulation>>#copyBits:Fallback: */
+/*	This version of the inner loop assumes noSource = false. */
 
 void copyBitsFallback(operation_t *op, unsigned int flags) {
   sqInt dxLowBits;

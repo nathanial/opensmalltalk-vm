@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:1211 (function alphaUnscalewith). */
+/* BitBltSimulation>>#alphaUnscale:with: */
 
 static unsigned int alphaUnscalewith(unsigned int sourceWord,
                                      unsigned int destinationWord) {

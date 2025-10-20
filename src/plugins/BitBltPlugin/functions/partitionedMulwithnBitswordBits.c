@@ -1,4 +1,13 @@
 /* Extracted from BitBltPlugin.c:3927 (function partitionedMulwithnBitswordBits). */
+/* BitBltSimulation>>#partitionedMul:with:nBits:wordBits: */
+/*	Subtract word1 from word2 as nParts partitions of nBits each.
+        This is useful for packed pixels, or packed colors */
+/*	In C, most arithmetic operations answer the same bit pattern regardless
+   of the operands being signed or unsigned ints (this is due to the way 2's
+   complement numbers work). However, comparisions might fail. Add the proper
+   declaration of words as unsigned int in those cases where comparisions are
+   done (jmv)
+ */
 
 static unsigned int partitionedMulwithnBitswordBits(unsigned int word1,
                                                     unsigned int word2,

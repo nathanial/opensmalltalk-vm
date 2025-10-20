@@ -1,4 +1,9 @@
 /* Extracted from BitBltPlugin.c:5546 (function rgbDiffwith). */
+/* BitBltSimulation>>#rgbDiff:with: */
+/*	Convert the given pixel value with nBitsIn bits for each color component
+        to a pixel value with nBitsOut bits for each color component. Typical
+        values for nBitsIn/nBitsOut are 3, 5, or 8.
+ */
 
 static unsigned int rgbDiffwith(unsigned int sourceWord,
                                 unsigned int destinationWord) {

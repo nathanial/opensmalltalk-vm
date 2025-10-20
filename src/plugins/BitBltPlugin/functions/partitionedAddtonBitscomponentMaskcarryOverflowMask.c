@@ -1,4 +1,8 @@
 /* Extracted from BitBltPlugin.c:3787 (function partitionedAddtonBitscomponentMaskcarryOverflowMask). */
+/* BitBltSimulation>>#partitionedAdd:to:nBits:componentMask:carryOverflowMask: */
+/*	AND word1 to word2 as nParts partitions of nBits each.
+        Any field of word1 not all-ones is treated as all-zeroes.
+        Used for erasing, eg, brush shapes prior to ORing in a color */
 
 static unsigned int partitionedAddtonBitscomponentMaskcarryOverflowMask(
     unsigned int word1, unsigned int word2, sqInt nBits,

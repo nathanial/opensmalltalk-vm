@@ -1,4 +1,12 @@
 /* Extracted from BitBltPlugin.c:4408 (function primitiveDrawLoop). */
+/* BitBltSimulation>>#primitiveDrawLoop */
+/*	returns the single pixel at x@y.
+        It does not handle LSB bitmaps right now.
+        If x or y are < 0, return 0 to indicate transparent (cf
+        BitBlt>bitPeekerFromForm: usage).
+        Likewise if x>width or y>depth.
+        Fail if the rcvr doesn't seem to be a Form, or x|y seem wrong
+ */
 
 EXPORT(sqInt)
 primitiveDrawLoop(void) {

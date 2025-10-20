@@ -1,4 +1,11 @@
 /* Extracted from BitBltPlugin.c:626 (function alphaBlendUnscaledwith). */
+/* BitBltSimulation>>#alphaBlendUnscaled:with: */
+/*	Blend sourceWord with destinationWord, assuming both are 32-bit pixels.
+        The source is assumed to have 255*alpha in the high 8 bits of each
+   pixel, while the high 8 bits of the destinationWord will be ignored. The
+   blend produced is alpha*source + (1-alpha)*dest, with the computation being
+   performed independently on each color component. The high byte of the result
+   will be 0. */
 
 static unsigned int alphaBlendUnscaledwith(unsigned int sourceWord,
                                            unsigned int destinationWord) {

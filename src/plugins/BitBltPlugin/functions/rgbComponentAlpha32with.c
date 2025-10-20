@@ -1,4 +1,12 @@
 /* Extracted from BitBltPlugin.c:5160 (function rgbComponentAlpha32with). */
+/* BitBltSimulation>>#rgbComponentAlpha32:with: */
+/*	This version assumes
+        combinationRule = 41
+        sourcePixSize = 32
+        destPixSize = 8
+        sourceForm ~= destForm.
+        Note: This is not real blending since we don't have the source colors
+        available.  */
 
 static sqInt rgbComponentAlpha32with(sqInt sourceWord, sqInt destinationWord) {
   sqInt a;

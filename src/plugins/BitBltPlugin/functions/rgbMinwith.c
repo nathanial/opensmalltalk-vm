@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:5706 (function rgbMinwith). */
+/* BitBltSimulation>>#rgbMin:with: */
 
 static unsigned int rgbMinwith(unsigned int sourceWord,
                                unsigned int destinationWord) {

@@ -1,4 +1,14 @@
 /* Extracted from BitBltPlugin.c:473 (function alphaBlendConstwithpaintMode). */
+/* BitBltSimulation>>#alphaBlendConst:with:paintMode: */
+/*	Blend sourceWord with destinationWord using the alpha value from
+        sourceWord. Alpha is encoded as 0 meaning 0.0, and 255 meaning 1.0.
+        In contrast to alphaBlend:with: the color produced is
+
+        srcColor + (1-srcAlpha) * dstColor
+
+        e.g., it is assumed that the source color is already scaled.
+ */
+/*	Do NOT inline this into optimized loops */
 
 static unsigned int alphaBlendConstwithpaintMode(unsigned int sourceWord,
                                                  unsigned int destinationWord,

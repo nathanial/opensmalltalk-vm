@@ -1,4 +1,7 @@
 /* Extracted from BitBltPlugin.c:6117 (function unlockSurfaces). */
+/* BitBltSimulation>>#unlockSurfaces */
+/*	This version of the inner loop traverses an arbirary quadrilateral
+        source, thus producing a general affine transformation. */
 
 static sqInt unlockSurfaces(void) {
   sqInt destHandle;

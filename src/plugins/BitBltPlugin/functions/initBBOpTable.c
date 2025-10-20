@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:2892 (function initBBOpTable). */
+/* BitBltSimulation>>#initBBOpTable */
 
 static sqInt initBBOpTable(void) {
   opTable[0 + 1] = (void *)clearWordwith;

@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:5681 (function rgbMinInvertwith). */
+/* BitBltSimulation>>#rgbMinInvert:with: */
 
 static unsigned int rgbMinInvertwith(unsigned int wordToInvert,
                                      unsigned int destinationWord) {

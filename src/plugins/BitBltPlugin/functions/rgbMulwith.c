@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:5728 (function rgbMulwith). */
+/* BitBltSimulation>>#rgbMul:with: */
 
 static unsigned int rgbMulwith(unsigned int sourceWord,
                                unsigned int destinationWord) {

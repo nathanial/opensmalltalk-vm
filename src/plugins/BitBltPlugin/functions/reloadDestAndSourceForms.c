@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:4882 (function reloadDestAndSourceForms). */
+/* BitBltSimulation>>#reloadDestAndSourceForms */
 
 static sqInt reloadDestAndSourceForms(void) {
   sqInt receiver;

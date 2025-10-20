@@ -1,4 +1,7 @@
 /* Extracted from BitBltPlugin.c:4109 (function pixSwapwith). */
+/* BitBltSimulation>>#pixSwap:with: */
+/*	Invoke the pixel color comparing primitive.Only applicable if compiling
+        with ENABLE_FAST_BLT */
 
 static unsigned int pixSwapwith(unsigned int sourceWord,
                                 unsigned int destWord) {

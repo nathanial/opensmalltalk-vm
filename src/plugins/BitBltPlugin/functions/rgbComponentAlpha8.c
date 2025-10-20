@@ -1,4 +1,20 @@
 /* Extracted from BitBltPlugin.c:5263 (function rgbComponentAlpha8). */
+/* BitBltSimulation>>#rgbComponentAlpha8 */
+/*
+        componentAlphaModeColor is the color,
+        sourceWord contains an alpha value for each component of RGB
+        each of which is encoded as0 meaning 0.0 and 255 meaning 1.0 .
+        the rule is...
+
+        color = componentAlphaModeColor.
+        colorAlpha = componentAlphaModeAlpha.
+        mask = sourceWord.
+        dst.A = colorAlpha + (1 - colorAlpha) * dst.A
+        dst.R = color.R * mask.R * colorAlpha + (1 - (mask.R * colorAlpha)) *
+        dst.R dst.G = color.G * mask.G * colorAlpha + (1 - (mask.G* colorAlpha))
+   * dst.G dst.B = color.B * mask.B * colorAlpha + (1 - (mask.B* colorAlpha)) *
+        dst.B  */
+/*	Do NOT inline this into optimized loops */
 
 static sqInt rgbComponentAlpha8(void) {
   sqInt adjust;

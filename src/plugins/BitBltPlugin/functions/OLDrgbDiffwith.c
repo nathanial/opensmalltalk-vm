@@ -1,4 +1,12 @@
 /* Extracted from BitBltPlugin.c:3541 (function OLDrgbDiffwith). */
+/* BitBltSimulation>>#OLDrgbDiff:with: */
+/*	Tally pixels into the color map. Note that the source should be
+        specified = destination, in order for the proper color map checks
+        to be performed at setup.
+        Note that the region is not clipped to bit boundaries, but only to the
+        nearest (enclosing) word. This is because copyLoop does not do
+        pre-merge masking. For accurate results, you must subtract the
+        values obtained from the left and right fringes. */
 
 static sqInt OLDrgbDiffwith(sqInt sourceWord, sqInt destinationWord) {
   sqInt diff;

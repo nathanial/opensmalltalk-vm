@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:684 (function alphaBlendwith). */
+/* BitBltSimulation>>#alphaBlend:with: */
 
 static unsigned int alphaBlendwith(unsigned int sourceWord,
                                    unsigned int destinationWord) {

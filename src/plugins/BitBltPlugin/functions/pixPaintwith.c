@@ -1,4 +1,6 @@
 /* Extracted from BitBltPlugin.c:4096 (function pixPaintwith). */
+/* BitBltSimulation>>#pixPaint:with: */
+/*	Swap the pixels in destWord */
 
 static unsigned int pixPaintwith(unsigned int sourceWord,
                                  unsigned int destinationWord) {

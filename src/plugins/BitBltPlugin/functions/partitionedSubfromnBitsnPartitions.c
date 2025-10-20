@@ -1,4 +1,9 @@
 /* Extracted from BitBltPlugin.c:4014 (function partitionedSubfromnBitsnPartitions). */
+/* BitBltSimulation>>#partitionedSub:from:nBits:nPartitions: */
+/*	Clear all pixels in destinationWord for which the pixels of sourceWord
+        have the same values. Used to clear areas of some constant color to
+   zero.
+ */
 
 static unsigned int partitionedSubfromnBitsnPartitions(unsigned int word1,
                                                        unsigned int word2,

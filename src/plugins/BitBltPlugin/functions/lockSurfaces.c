@@ -1,4 +1,7 @@
 /* Extracted from BitBltPlugin.c:3411 (function lockSurfaces). */
+/* BitBltSimulation>>#lockSurfaces */
+/*	The module with the given name was just unloaded.
+        Make sure we have no dangling references. */
 
 static sqInt lockSurfaces(void) {
   sqInt b;

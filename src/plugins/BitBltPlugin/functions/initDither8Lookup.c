@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:2942 (function initDither8Lookup). */
+/* BitBltSimulation>>#initDither8Lookup */
 
 static sqInt initDither8Lookup(void) {
   sqInt b;

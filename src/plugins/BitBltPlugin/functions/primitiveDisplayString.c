@@ -1,4 +1,6 @@
 /* Extracted from BitBltPlugin.c:4250 (function primitiveDisplayString). */
+/* BitBltSimulation>>#primitiveDisplayString */
+/*	Invoke the line drawing primitive. */
 
 EXPORT(sqInt)
 primitiveDisplayString(void) {

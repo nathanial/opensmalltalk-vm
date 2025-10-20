@@ -1,4 +1,8 @@
 /* Extracted from BitBltPlugin.c:1522 (function copyBitsLockedAndClipped). */
+/* BitBltSimulation>>#copyBitsLockedAndClipped */
+/*	Test possible use of rule 41, rgbComponentAlpha:with: Set up some
+        variables and answer if args were ok.
+ */
 
 static sqInt copyBitsLockedAndClipped(void) {
   sqInt dxLowBits;

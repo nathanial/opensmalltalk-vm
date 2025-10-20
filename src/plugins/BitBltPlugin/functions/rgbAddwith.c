@@ -1,4 +1,12 @@
 /* Extracted from BitBltPlugin.c:4895 (function rgbAddwith). */
+/* BitBltSimulation>>#rgbAdd:with: */
+/*	This version assumes
+        combinationRule = 41
+        sourcePixSize = 32
+        destPixSize = 16
+        sourceForm ~= destForm.
+         */
+/*	This particular method should be optimized in itself */
 
 static unsigned int rgbAddwith(unsigned int sourceWord,
                                unsigned int destinationWord) {

@@ -1,4 +1,8 @@
 /* Extracted from BitBltPlugin.c:4147 (function primitiveCompareColors). */
+/* BitBltSimulation>>#primitiveCompareColorA:to:test: */
+/*	Invoke the copyBits primitive. If the destination is the display, then
+        copy it to the screen.
+ */
 
 EXPORT(sqInt)
 primitiveCompareColors(void) {

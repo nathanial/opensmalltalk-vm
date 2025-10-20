@@ -1,4 +1,8 @@
 /* Extracted from BitBltPlugin.c:5868 (function setupColorMasks). */
+/* BitBltSimulation>>#setupColorMasks */
+/*	Setup color masks for converting an incoming RGB pixel value from
+   srcBits to targetBits.
+ */
 
 static sqInt setupColorMasks(void) {
   sqInt bits;

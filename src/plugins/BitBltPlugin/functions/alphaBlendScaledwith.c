@@ -1,4 +1,18 @@
 /* Extracted from BitBltPlugin.c:576 (function alphaBlendScaledwith). */
+/* BitBltSimulation>>#alphaBlendScaled:with: */
+/*	Blend sourceWord with destinationWord using the alpha value from both
+        sourceWord and destinationWord.
+        Alpha is encoded as 0 meaning 0.0, and 255 meaning 1.0.
+        The alpha channel and color produced are
+
+        srcAlpha + (destAlpha*(1-srcAlpha))
+        (srcAlpha*srcColor + (destAlpha*(1-srcAlpha)*dstColor)) / (srcAlpha +
+        (destAlpha*(1-srcAlpha)))
+        In contrast to alphaBlend:with: the method does not assume that
+        destination form is opaque.
+        In contrast to alphaBlendScaled:with: the method does not assume that
+        colors have been pre-scaled (muliplied) by alpha channel.
+ */
 
 static unsigned int alphaBlendScaledwith(unsigned int sourceWord,
                                          unsigned int destinationWord) {

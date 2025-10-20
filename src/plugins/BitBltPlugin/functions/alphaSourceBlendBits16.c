@@ -1,4 +1,12 @@
 /* Extracted from BitBltPlugin.c:773 (function alphaSourceBlendBits16). */
+/* BitBltSimulation>>#alphaSourceBlendBits16 */
+/*	This version assumes
+        combinationRule = 34
+        sourcePixSize = destPixSize = 32
+        sourceForm ~= destForm.
+        Note: The inner loop has been optimized for dealing
+        with the special cases of srcAlpha = 0.0 and srcAlpha = 1.0
+         */
 
 static sqInt alphaSourceBlendBits16(void) {
   sqInt addThreshold;

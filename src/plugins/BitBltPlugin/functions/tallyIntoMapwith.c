@@ -1,4 +1,14 @@
 /* Extracted from BitBltPlugin.c:5963 (function tallyIntoMapwith). */
+/* BitBltSimulation>>#tallyIntoMap:with: */
+/*	Unlock the bits of any OS surfaces. */
+/*	See the comment in lockSurfaces. Similar rules apply. That is, the area
+        provided in ioUnlockSurface
+        can be used to determine the dirty region after drawing. If a source is
+        unlocked, then the area will
+        be (0,0,0,0) to indicate that no portion is dirty. Note that if a GC
+        happens during unlockSourceFn
+        (if it is effectively a callback) no matter. No bits are touched after
+        unlock.  */
 
 static unsigned int tallyIntoMapwith(unsigned int sourceWord,
                                      unsigned int destinationWord) {

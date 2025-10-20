@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:5906 (function setupColorMasksFromto). */
+/* BitBltSimulation>>#setupColorMasksFrom:to: */
 
 static sqInt setupColorMasksFromto(sqInt srcBits, sqInt targetBits) {
   sqInt deltaBits;

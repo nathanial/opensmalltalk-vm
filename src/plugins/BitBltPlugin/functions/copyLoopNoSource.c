@@ -1,4 +1,16 @@
 /* Extracted from BitBltPlugin.c:2420 (function copyLoopNoSource). */
+/* BitBltSimulation>>#copyLoopNoSource */
+/*	This version of the inner loop maps source pixels
+        to a destination form with different depth. Because it is already
+        unweildy, the loop is not unrolled as in the other versions.
+        Preload, skew and skewMask are all overlooked, since pickSourcePixels
+        delivers its destination word already properly aligned.
+        Note that pickSourcePixels could be copied in-line at the top of
+        the horizontal loop, and some of its inits moved out of the loop. */
+/*	ar 12/7/1999:
+        The loop has been rewritten to use only one pickSourcePixels call.
+        The idea is that the call itself could be inlined. If we decide not
+        to inline pickSourcePixels we could optimize the loop instead. */
 
 static sqInt copyLoopNoSource(void) {
   unsigned int destWord;

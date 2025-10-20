@@ -1,4 +1,11 @@
 /* Extracted from BitBltPlugin.c:738 (function alphaScalewith). */
+/* BitBltSimulation>>#alphaScale:with: */
+/*	This version assumes
+        combinationRule = 34
+        sourcePixSize = 32
+        destPixSize = 16
+        sourceForm ~= destForm.
+         */
 
 static unsigned int alphaScalewith(unsigned int sourceWord,
                                    unsigned int destinationWord) {

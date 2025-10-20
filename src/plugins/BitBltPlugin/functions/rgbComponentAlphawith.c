@@ -1,4 +1,8 @@
 /* Extracted from BitBltPlugin.c:5441 (function rgbComponentAlphawith). */
+/* BitBltSimulation>>#rgbComponentAlpha:with: */
+/*	Subract the pixels in the source and destination, color by color,
+        and return the sum of the absolute value of all the differences.
+        For non-rgb, return the number of differing pixels. */
 
 static sqInt rgbComponentAlphawith(sqInt sourceWord, sqInt destinationWord) {
   sqInt alpha;

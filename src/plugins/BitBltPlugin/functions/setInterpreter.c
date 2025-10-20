@@ -1,4 +1,6 @@
 /* Extracted from BitBltPlugin.c:5776 (function setInterpreter). */
+/* InterpreterPlugin>>#setInterpreter: */
+/*	WARNING: For WarpBlt w/ smoothing the source depth is wrong here! */
 
 EXPORT(sqInt)
 setInterpreter(struct VirtualMachine *anInterpreter) {

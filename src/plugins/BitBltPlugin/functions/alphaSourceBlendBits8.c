@@ -1,4 +1,7 @@
 /* Extracted from BitBltPlugin.c:1055 (function alphaSourceBlendBits8). */
+/* BitBltSimulation>>#alphaSourceBlendBits8 */
+/*	Unscale (divide) the destination with its alpha channel.
+        Note that sourceWord is ignored. */
 
 static sqInt alphaSourceBlendBits8(void) {
   sqInt adjust;

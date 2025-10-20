@@ -1,4 +1,6 @@
 /* Extracted from BitBltPlugin.c:5752 (function rgbSubwith). */
+/* BitBltSimulation>>#rgbSub:with: */
+/*	Note: This is coded so that it can be run in Squeak. */
 
 static unsigned int rgbSubwith(unsigned int sourceWord,
                                unsigned int destinationWord) {

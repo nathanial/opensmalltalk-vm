@@ -1,4 +1,7 @@
 /* Extracted from BitBltPlugin.c:2070 (function copyLoop). */
+/* BitBltSimulation>>#copyLoop */
+/*	Faster copyLoop when source not used. hDir and vDir are both
+        positive, and perload and skew are unused */
 
 static sqInt copyLoop(void) {
   unsigned int destWord;

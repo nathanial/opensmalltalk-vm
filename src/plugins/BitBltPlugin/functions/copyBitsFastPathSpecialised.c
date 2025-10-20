@@ -1,4 +1,6 @@
 /* Extracted from BitBltPlugin.c:1419 (function copyBitsFastPathSpecialised). */
+/* BitBltSimulation>>#copyBitsFastPathSpecialised */
+/*	Support for the balloon engine. */
 
 static sqInt copyBitsFastPathSpecialised(void) {
 

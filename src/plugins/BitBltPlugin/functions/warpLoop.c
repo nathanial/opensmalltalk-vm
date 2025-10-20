@@ -1,4 +1,8 @@
 /* Extracted from BitBltPlugin.c:6166 (function warpLoop). */
+/* BitBltSimulation>>#warpLoop */
+/*	Pick n (sub-) pixels from the source form, mapped by sourceMap,
+        average the RGB values, map by colorMap and return the new word.
+        This version is only called from WarpBlt with smoothingCount > 1 */
 
 static sqInt warpLoop(void) {
   sqInt deltaP12x;

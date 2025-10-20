@@ -1,4 +1,6 @@
 /* Extracted from BitBltPlugin.c:1762 (function copyBitsRule41Test). */
+/* BitBltSimulation>>#copyBitsRule41Test */
+/*	Recover from the fast path specialised code saying Help-I-cant-cope */
 
 static sqInt copyBitsRule41Test(void) {
   sqInt gammaLookupTableOop;

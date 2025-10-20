@@ -1,4 +1,10 @@
 /* Extracted from BitBltPlugin.c:4777 (function primitiveWarpBits). */
+/* BitBltSimulation>>#primitiveWarpBits */
+/*	A GC has occurred. The destForm must be updated. But where to derive it
+        from? For copyBits and warpBits it is derived from the receiver. But for
+   a BalloonEnginePlugin it should be obtained from (interpreterProxy
+        fetchPointer: BEBitBltIndex ofObject: engine).
+        For the moment implement something that works for these two cases. */
 
 EXPORT(sqInt)
 primitiveWarpBits(void) {

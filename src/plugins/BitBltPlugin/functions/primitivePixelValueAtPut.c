@@ -1,4 +1,8 @@
 /* Extracted from BitBltPlugin.c:4684 (function primitivePixelValueAtPut). */
+/* BitBltSimulation>>#primitivePixelValueAtX:y:put: */
+/*	Invoke the warpBits primitive. If the destination is the display, then
+        copy it to the screen.
+ */
 
 EXPORT(sqInt)
 primitivePixelValueAtPut(void) {

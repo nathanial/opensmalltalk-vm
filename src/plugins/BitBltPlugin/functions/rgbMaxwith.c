@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:5659 (function rgbMaxwith). */
+/* BitBltSimulation>>#rgbMax:with: */
 
 static unsigned int rgbMaxwith(unsigned int sourceWord,
                                unsigned int destinationWord) {

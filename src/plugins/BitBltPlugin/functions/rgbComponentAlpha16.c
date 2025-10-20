@@ -1,4 +1,12 @@
 /* Extracted from BitBltPlugin.c:4933 (function rgbComponentAlpha16). */
+/* BitBltSimulation>>#rgbComponentAlpha16 */
+/*	This version assumes
+        combinationRule = 41
+        sourcePixSize = destPixSize = 32
+        sourceForm ~= destForm.
+        Note: The inner loop has been optimized for dealing
+        with the special case of aR = aG = aB = 0
+         */
 
 static sqInt rgbComponentAlpha16(void) {
   sqInt addThreshold;

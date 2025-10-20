@@ -1,4 +1,5 @@
 /* Extracted from BitBltPlugin.c:4055 (function pixClearwith). */
+/* BitBltSimulation>>#pixClear:with: */
 
 static unsigned int pixClearwith(unsigned int sourceWord,
                                  unsigned int destinationWord) {

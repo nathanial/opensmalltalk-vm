@@ -1,4 +1,10 @@
 /* Extracted from BitBltPlugin.c:3585 (function OLDtallyIntoMapwith). */
+/* BitBltSimulation>>#OLDtallyIntoMap:with: */
+/*	Add word1 to word2 as nParts partitions of nBits each.
+        This is useful for packed pixels, or packed colors */
+/*	Use unsigned int everywhere because it has a well known arithmetic model
+        without undefined behavior w.r.t. overflow and shifts
+ */
 
 static sqInt OLDtallyIntoMapwith(sqInt sourceWord, sqInt destinationWord) {
   sqInt d;

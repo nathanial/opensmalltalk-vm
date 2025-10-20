@@ -1,4 +1,6 @@
 /* Extracted from BitBltPlugin.c:1336 (function clipRange). */
+/* BitBltSimulation>>#clipRange */
+/*	This function is exported for the Balloon engine */
 
 static sqInt clipRange(void) {
   if (destX >= clipX) {
