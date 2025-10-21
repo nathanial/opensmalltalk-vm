@@ -632,6 +632,150 @@ struct RGBHelper {
     }
 };
 
+/**
+ * Alpha scaling operations helper.
+ * Provides pre-multiply and un-multiply operations for alpha blending.
+ */
+struct AlphaScaleHelper {
+    /**
+     * Scale (premultiply) RGB components by alpha channel.
+     * Formula: RGB' = RGB * alpha / 255
+     * Preserves the alpha channel.
+     */
+    static inline uint32_t scale(uint32_t pixel) {
+        unsigned int alpha = (pixel >> 24) & 0xFF;
+
+        // Scale red and blue components
+        uint32_t rb = ((pixel & 0xFF00FF) * alpha) + 0x800080;
+
+        // Divide by 255: (x + ((x >> 8) & 0xFF00FF)) >> 8
+        rb = (((rb + (((rb - 0x10001) >> 8) & 0xFF00FF))) >> 8) & 0xFF00FF;
+
+        // Scale green component
+        uint32_t g = ((pixel & 0xFF00) * alpha) + 0x8000;
+
+        // Divide by 255
+        g = (((g + (((g - 0x100) >> 8) & 0xFF00))) >> 8) & 0xFF00;
+
+        // Combine components and preserve alpha
+        return (g | rb) | (pixel & 0xFF000000U);
+    }
+
+    /**
+     * Unscale (divide) RGB components by alpha channel.
+     * Formula: RGB' = RGB * 255 / alpha
+     * Saturates on overflow, returns 0 if alpha is 0.
+     */
+    static inline uint32_t unscale(uint32_t pixel) {
+        unsigned int alpha = (pixel >> 24) & 0xFF;
+
+        if (!alpha) {
+            return 0;
+        }
+
+        // Unscale red component
+        unsigned int r = (((pixel & 0xFF0000) * 0xFF) + (((alpha + 1) << 15))) / alpha;
+
+        // Unscale green component
+        unsigned int g = (((pixel & 0xFF00) * 0xFF) + (((alpha + 1) << 7))) / alpha;
+
+        // Unscale blue component
+        unsigned int b = (((pixel & 0xFF) * 0xFF) + ((alpha + 1) >> 1)) / alpha;
+
+        // Detect overflow (carry) in each component
+        uint32_t carry = ((r & 0xFF000000U) | (g & 0xFF0000) | (b & 0xFF00)) >> 8;
+
+        // Propagate carry bits to create saturation mask
+        carry = carry | (((carry & 0xAAAAAA) >> 1) | ((carry & 0x555555) << 1));
+        carry = carry | (((carry & 0xCCCCCC) >> 2) | ((carry & 0x333333) << 2));
+        carry = carry | (((carry & 0xF0F0F0) >> 4) | ((carry & 0xF0F0F) << 4));
+
+        // Extract RGB components
+        uint32_t rgb = ((r & 0xFF0000) | (g & 0xFF00)) | (b & 0xFF);
+
+        // Saturate components if division overflows
+        rgb = rgb | carry;
+
+        // Preserve alpha channel
+        return rgb | (pixel & 0xFF000000U);
+    }
+
+    /**
+     * Blend two pixels with alpha, assuming colors are pre-scaled.
+     * Both source and destination alpha are considered.
+     * Formula: dest' = src + dest * (1 - srcAlpha)
+     */
+    static inline uint32_t blendScaled(uint32_t src, uint32_t dest) {
+        // High 8 bits of source pixel is source opacity (ARGB format)
+        unsigned int unAlpha = 0xFF - (src >> 24);
+
+        // Blend red and blue components with rounding
+        uint32_t rb = ((dest & 0xFF00FF) * unAlpha) + 0x800080;
+
+        // Blend alpha and green components with rounding
+        uint32_t ag = (((dest >> 8) & 0xFF00FF) * unAlpha) + 0x800080;
+
+        // Divide by 255
+        rb = (((rb >> 8) & 0xFF00FF) + rb) >> 8;
+        ag = (((ag >> 8) & 0xFF00FF) + ag) >> 8;
+
+        // Add source components
+        rb = (rb & 0xFF00FF) + (src & 0xFF00FF);
+        ag = (ag & 0xFF00FF) + ((src >> 8) & 0xFF00FF);
+
+        // Saturate red and blue if carry occurred
+        rb = (rb & 0xFF00FF) | (((rb & 0x1000100) * 0xFF) >> 8);
+
+        // Saturate alpha and green if carry occurred
+        ag = ((ag & 0xFF00FF) << 8) | ((ag & 0x1000100) * 0xFF);
+
+        return ag | rb;
+    }
+
+    /**
+     * Blend two pixels with alpha, assuming colors are NOT pre-scaled.
+     * Performs full Porter-Duff "over" compositing.
+     * Formula: result = (srcAlpha*srcColor + (resultAlpha - srcAlpha)*destColor) / resultAlpha
+     *          where resultAlpha = srcAlpha + destAlpha * (1 - srcAlpha)
+     */
+    static inline uint32_t blendUnscaled(uint32_t src, uint32_t dest) {
+        unsigned int alpha = src >> 24;
+
+        if (!alpha) {
+            return dest;
+        }
+        if (alpha == 0xFF) {
+            return src;
+        }
+
+        // Blend alpha channels: resultAlpha = srcAlpha + destAlpha * (1 - srcAlpha)
+        unsigned int blendA = ((0xFF * alpha) +
+                              ((0xFF - alpha) * (dest >> 24))) + 128;
+
+        // Divide by 255
+        blendA = (((blendA >> 8) + blendA) >> 8) & 0xFF;
+
+        // Blend each color component
+        // Formula: (srcColor * srcAlpha + destColor * (blendA - srcAlpha)) / blendA
+        unsigned int blendR = (((src & 0xFF0000) * alpha) +
+                               ((dest & 0xFF0000) * (blendA - alpha)) +
+                               (blendA << 15)) / blendA;
+        blendR &= 0xFF0000;
+
+        unsigned int blendG = (((src & 0xFF00) * alpha) +
+                               ((dest & 0xFF00) * (blendA - alpha)) +
+                               (blendA << 7)) / blendA;
+        blendG &= 0xFF00;
+
+        unsigned int blendB = (((src & 0xFF) * alpha) +
+                               ((dest & 0xFF) * (blendA - alpha)) +
+                               (blendA >> 1)) / blendA;
+        blendB &= 0xFF;
+
+        return ((blendR | blendB) | blendG) | (blendA << 24);
+    }
+};
+
 // ============================================================================
 // Alpha Blending Combination Rules
 // ============================================================================
@@ -709,6 +853,119 @@ struct CombinationRule<CR_rgbMinInvert> {
         uint8_t a, r, g, b;
         RGBHelper::extract(minResult, a, r, g, b);
         return RGBHelper::combine(a, 255 - r, 255 - g, 255 - b);
+    }
+};
+
+// ============================================================================
+// Advanced Alpha Operations
+// ============================================================================
+
+/**
+ * Alpha scale (premultiply): Scale RGB by alpha channel.
+ * Formula: RGB' = RGB * alpha / 255
+ * Used to convert from unscaled to pre-multiplied alpha format.
+ */
+template<>
+struct CombinationRule<CR_alphaScale> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        (void)src;  // Source is ignored
+        return AlphaScaleHelper::scale(dest);
+    }
+};
+
+/**
+ * Alpha unscale: Divide RGB by alpha channel.
+ * Formula: RGB' = RGB * 255 / alpha
+ * Used to convert from pre-multiplied to unscaled alpha format.
+ */
+template<>
+struct CombinationRule<CR_alphaUnscale> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        (void)src;  // Source is ignored
+        return AlphaScaleHelper::unscale(dest);
+    }
+};
+
+/**
+ * Alpha blend scaled: Blend assuming colors are pre-scaled by alpha.
+ * Formula: dest' = src + dest * (1 - srcAlpha)
+ * Both source and destination alpha channels are considered.
+ */
+template<>
+struct CombinationRule<CR_alphaBlendScaled> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        return AlphaScaleHelper::blendScaled(src, dest);
+    }
+};
+
+/**
+ * Alpha blend unscaled: Full Porter-Duff "over" compositing.
+ * Assumes colors are NOT pre-scaled by alpha.
+ * Formula: result = (srcAlpha*srcColor + (resultAlpha - srcAlpha)*destColor) / resultAlpha
+ *          where resultAlpha = srcAlpha + destAlpha * (1 - srcAlpha)
+ */
+template<>
+struct CombinationRule<CR_alphaBlendUnscaled> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        return AlphaScaleHelper::blendUnscaled(src, dest);
+    }
+};
+
+/**
+ * Alpha paint const: Paint mode blending with constant alpha.
+ * Blends source with destination using a constant alpha value from operation.
+ * Note: This requires access to operation_t for sourceAlpha parameter.
+ */
+template<>
+struct CombinationRule<CR_alphaPaintConst> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest, unsigned int sourceAlpha) {
+        if (!src) {
+            return dest;
+        }
+
+        // Use same algorithm as alphaBlendConst but in paint mode
+        // In paint mode, source color is assumed to be pre-scaled
+        unsigned int unAlpha = 0xFF - sourceAlpha;
+
+        // Blend red and blue components
+        uint32_t blendRB = ((src & 0xFF00FF) * sourceAlpha) +
+                           ((dest & 0xFF00FF) * unAlpha) + 0x800080;
+
+        // Blend alpha and green components
+        uint32_t blendAG = (((src >> 8) & 0xFF00FF) * sourceAlpha) +
+                           (((dest >> 8) & 0xFF00FF) * unAlpha) + 0x800080;
+
+        // Divide by 255
+        blendRB = (((blendRB >> 8) & 0xFF00FF) + blendRB) >> 8;
+        blendAG = (((blendAG >> 8) & 0xFF00FF) + blendAG) >> 8;
+
+        blendRB &= 0xFF00FF;
+        blendAG &= 0xFF00FF;
+
+        return blendRB | (blendAG << 8);
+    }
+};
+
+/**
+ * Fix alpha: Copy source alpha to destination if destination alpha is 0.
+ * Used to fix images that have RGB data but missing alpha channel.
+ * Only works with 32bpp pixels.
+ */
+template<>
+struct CombinationRule<CR_fixAlpha> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        // If destination is completely transparent (0), return 0
+        if (!dest) {
+            return 0;
+        }
+
+        // If destination already has alpha, keep it unchanged
+        if (dest & 0xFF000000U) {
+            return dest;
+        }
+
+        // Copy source alpha to destination
+        return dest | (src & 0xFF000000U);
     }
 };
 
@@ -1048,6 +1305,41 @@ public:
                 uint32_t srcPixel = srcRow[srcX + x];
                 uint32_t destPixel = destRow[destX + x];
                 uint32_t result = CombinationRule<CR_rgbComponentAlpha>::apply(srcPixel, destPixel, params);
+                destRow[destX + x] = result;
+            }
+        }
+    }
+};
+
+/**
+ * Specialized operation for alpha paint const that accesses sourceAlpha from operation.
+ */
+template<>
+class BitBltOperation<32, 32, CR_alphaPaintConst> {
+public:
+    static void execute(const operation_t* op) {
+        auto srcBits = static_cast<const uint32_t*>(op->src.bits);
+        auto destBits = static_cast<uint32_t*>(op->dest.bits);
+
+        const uint32_t srcPitch = op->src.pitch / sizeof(uint32_t);
+        const uint32_t destPitch = op->dest.pitch / sizeof(uint32_t);
+        const uint32_t srcX = op->src.x;
+        const uint32_t srcY = op->src.y;
+        const uint32_t destX = op->dest.x;
+        const uint32_t destY = op->dest.y;
+        const uint32_t width = op->width;
+        const uint32_t height = op->height;
+
+        // Extract sourceAlpha from operation
+        const unsigned int sourceAlpha = static_cast<unsigned int>(op->opt.sourceAlpha) & 0xFF;
+
+        for (uint32_t y = 0; y < height; ++y) {
+            const uint32_t* srcRow = srcBits + (srcY + y) * srcPitch;
+            uint32_t* destRow = destBits + (destY + y) * destPitch;
+            for (uint32_t x = 0; x < width; ++x) {
+                uint32_t srcPixel = srcRow[srcX + x];
+                uint32_t destPixel = destRow[destX + x];
+                uint32_t result = CombinationRule<CR_alphaPaintConst>::apply(srcPixel, destPixel, sourceAlpha);
                 destRow[destX + x] = result;
             }
         }

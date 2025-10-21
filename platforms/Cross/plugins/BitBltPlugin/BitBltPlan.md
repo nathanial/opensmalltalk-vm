@@ -473,6 +473,16 @@ Week 10-14: Phase 5 - SIMD specializations (optional, high-performance)
 
 **Risk**: MEDIUM - Component alpha is complex
 
+#### ✅ Implementation Notes (October 20, 2025)
+- **AlphaScaleHelper** class added with `scale()`, `unscale()`, `blendScaled()`, and `blendUnscaled()` methods
+- `CR_alphaScale`, `CR_alphaUnscale` templates for premultiply/divide operations
+- `CR_alphaBlendScaled`, `CR_alphaBlendUnscaled` templates for advanced Porter-Duff compositing
+- `CR_alphaPaintConst` template with specialized `BitBltOperation` accessing `op->opt.sourceAlpha`
+- `CR_fixAlpha` template for repairing missing alpha channels
+- All 6 operations registered as fast paths for 32bpp→32bpp
+- Component alpha blending (CR_rgbComponentAlpha) completed in Phase 1
+- **Phase 2 Complete**: All advanced alpha operations now template-based
+
 ### Phase 3: Format Conversions (Weeks 5-7) 🔄
 
 **Goal**: Templated pixel format conversion system

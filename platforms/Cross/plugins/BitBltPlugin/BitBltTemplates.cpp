@@ -287,6 +287,40 @@ void bitblt_32_32_rgbMinInvert(operation_t* op, uint32_t flags) {
     BitBltOperation<32, 32, CR_rgbMinInvert>::execute(op);
 }
 
+// ============================================================================
+// Advanced Alpha Operations (32bpp) - Phase 2
+// ============================================================================
+
+void bitblt_32_32_alphaScale(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_alphaScale>::execute(op);
+}
+
+void bitblt_32_32_alphaUnscale(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_alphaUnscale>::execute(op);
+}
+
+void bitblt_32_32_alphaBlendScaled(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_alphaBlendScaled>::execute(op);
+}
+
+void bitblt_32_32_alphaBlendUnscaled(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_alphaBlendUnscaled>::execute(op);
+}
+
+void bitblt_32_32_alphaPaintConst(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_alphaPaintConst>::execute(op);
+}
+
+void bitblt_32_32_fixAlpha(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_fixAlpha>::execute(op);
+}
+
 } // extern "C"
 
 } // namespace BitBlt
@@ -349,6 +383,14 @@ void registerTemplateFastPaths(void) {
         // Alpha blending operations (32bpp -> 32bpp only)
         { BitBlt::bitblt_32_32_alphaBlend,     CR_alphaBlend,     STD_FLAGS(32, 32, NO, NO) },
         { BitBlt::bitblt_32_32_alphaBlendConst, CR_alphaBlendConst, STD_FLAGS(32, 32, NO, NO) },
+
+        // Advanced alpha operations - Phase 2 (32bpp -> 32bpp only)
+        { BitBlt::bitblt_32_32_alphaScale,     CR_alphaScale,     STD_FLAGS_NO_SOURCE(32, NO) },
+        { BitBlt::bitblt_32_32_alphaUnscale,   CR_alphaUnscale,   STD_FLAGS_NO_SOURCE(32, NO) },
+        { BitBlt::bitblt_32_32_alphaBlendScaled, CR_alphaBlendScaled, STD_FLAGS(32, 32, NO, NO) },
+        { BitBlt::bitblt_32_32_alphaBlendUnscaled, CR_alphaBlendUnscaled, STD_FLAGS(32, 32, NO, NO) },
+        { BitBlt::bitblt_32_32_alphaPaintConst, CR_alphaPaintConst, STD_FLAGS(32, 32, NO, NO) },
+        { BitBlt::bitblt_32_32_fixAlpha,       CR_fixAlpha,       STD_FLAGS(32, 32, NO, NO) },
 
         // RGB color operations (32bpp -> 32bpp)
         { BitBlt::bitblt_32_32_rgbAdd,         CR_rgbAdd,         STD_FLAGS(32, 32, NO, NO) },
