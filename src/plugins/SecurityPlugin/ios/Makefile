@@ -1,4 +1,4 @@
-SRCDIRS:=$(PLATDIR)/unix/plugins/SecurityPlugin
+SRCDIRS:=$(PLUGINSRCDIR)/SecurityPlugin/unix
 INCDIRS:=$(PLUGINSRCDIR)/FilePlugin/cross $(PLUGINSRCDIR)/SecurityPlugin/cross
 LIBSRC:=SecurityPlugin.c sqUnixSecurity.c
 

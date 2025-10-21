@@ -1,4 +1,4 @@
-SRCDIRS:=$(PLATDIR)/unix/plugins/AsynchFilePlugin
+SRCDIRS:=$(PLUGINSRCDIR)/AsynchFilePlugin/unix
 INCDIRS:=$(PLUGINSRCDIR)/AsynchFilePlugin/cross \
          $(PLATDIR)/unix/vm
 

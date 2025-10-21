@@ -103,7 +103,7 @@ getSTWindow(void)
 
 	return (gSqueakHeadless && !browserActiveAndDrawingContextOk())
 			? 0
-			: windowHandleFromIndex(1);
+			: (__bridge void *)windowHandleFromIndex(1);
 }
 
 /* A "chain" of windowChangedHooks, using the Unix signal convention; it is the

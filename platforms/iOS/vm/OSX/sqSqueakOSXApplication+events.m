@@ -653,7 +653,7 @@ yZero()
 		evt.value3 = 0;
 		evt.value4 = 0;
 	}
-	evt.windowIndex = windowIndexFromHandle((__bridge wHandleType)window);
+	evt.windowIndex = windowIndexFromHandle(window);
 	[self pushEventToQueue: (sqInputEvent *) &evt];
 
 	interpreterProxy->signalSemaphoreWithIndex(gDelegateApp.squeakApplication.inputSemaphoreIndex);

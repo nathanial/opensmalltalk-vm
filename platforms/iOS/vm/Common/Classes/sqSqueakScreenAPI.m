@@ -55,7 +55,7 @@ extern SqueakNoOGLIPhoneAppDelegate *gDelegateApp;
 sqSqueakNullScreenAndWindow *getMainWindowDelegate() {
 	__block id<NSWindowDelegate> answer;
 	[gDelegateApp runBlockOnMainThread:^{
-		answer = ((__bridge NSWindow *) windowHandleFromIndex(1)).delegate;
+		answer = windowHandleFromIndex(1).delegate;
 	}];
 
 

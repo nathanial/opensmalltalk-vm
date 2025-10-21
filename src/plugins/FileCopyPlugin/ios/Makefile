@@ -1,4 +1,4 @@
-SRCDIRS:=$(PLATDIR)/unix/plugins/FileCopyPlugin \
+SRCDIRS:=$(PLUGINSRCDIR)/FileCopyPlugin \/unix
 		 $(PLATDIR)/unix/vm
 
 LIBSRC:=FileCopyPlugin.c sqUnixFileCopyPlugin.c sqUnixCharConv.c

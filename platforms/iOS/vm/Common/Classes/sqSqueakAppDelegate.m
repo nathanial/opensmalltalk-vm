@@ -81,7 +81,7 @@ void *runBlock(void *arg) {
 		[self placeMainWindowOnLargerScreenGivenWidth: width height: height];
 
 	windowBlock = AddWindowBlock();
-	windowBlock->handle =   (__bridge void*) createdWindow;
+	windowBlock->handle = (NSWindow *) createdWindow;
 	windowBlock->context = nil;
 	windowBlock->updateArea = CGRectZero;
 

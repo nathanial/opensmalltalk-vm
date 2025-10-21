@@ -1,4 +1,4 @@
-SRCDIRS:=$(PLATDIR)/unix/plugins/SocketPlugin
+SRCDIRS:=$(PLUGINSRCDIR)/SocketPlugin/unix
 INCDIRS:=$(PLUGINSRCDIR)/SocketPlugin/cross \
          $(PLATDIR)/unix/vm
 LIBSRC:= SocketPlugin.c sqUnixSocket.c
