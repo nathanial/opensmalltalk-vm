@@ -98,8 +98,8 @@ VPATH:=$(SRCDIRS)
 PluginIncludes := FilePlugin HostWindowPlugin SoundPlugin
 OSPluginIncludes := FilePlugin HostWindowPlugin SoundPlugin
 SRCDIRS:=$(SRCDIRS) \
-			$(addprefix $(PLATDIR)/Cross/plugins/,$(PluginIncludes)) \
-			$(addprefix $(OSXPLUGINSDIR)/,$(OSPluginIncludes))
+			$(addsuffix /cross,$(addprefix $(PLUGINSRCDIR)/,$(PluginIncludes))) \
+			$(addsuffix /ios,$(addprefix $(PLUGINSRCDIR)/,$(OSPluginIncludes)))
 
 # The internal (.lib) and external (.bundle) plugins
 #
@@ -272,9 +272,9 @@ validImage:	$(OBJDIR) $(OBJDIR)/validImage
 .PHONY: $(OBJDIR)/%.lib $(OBJDIR)/%.bundle $(OBJDIR)/%.dylib
 
 ifeq ($(USEPLUGINASDYLIB),TRUE)
-plugin-makefile = $(firstword $(realpath $(OSXPLUGINSDIR)/$(subst lib,,$(1))/Makefile ../common/Makefile.plugin))
+plugin-makefile = $(firstword $(realpath $(PLUGINSRCDIR)/$(subst lib,,$(1))/ios/Makefile ../common/Makefile.plugin))
 else
-plugin-makefile = $(firstword $(realpath $(OSXPLUGINSDIR)/$(1)/Makefile ../common/Makefile.plugin))
+plugin-makefile = $(firstword $(realpath $(PLUGINSRCDIR)/$(1)/ios/Makefile ../common/Makefile.plugin))
 endif
 
 # Internal plugin.  Build as lib then link in lib
@@ -295,8 +295,8 @@ $(OBJDIR)/%.lib: FORCE
 prereqs/%.lib:
 	@-ls -rlt	$(call plugin-makefile,$(*F)) $(wildcard $(*F).ignore) \
 				$(wildcard $(PLUGINSRCDIR)/$(*F)/*.c) \
-				$(wildcard $(PLATDIR)/Cross/plugins/$(*F)/*.*) \
-				$(wildcard $(OSXPLUGINSDIR)/$(*F)/*.*)
+				$(wildcard $(PLUGINSRCDIR)/$(*F)/cross/*.*) \
+				$(wildcard $(PLUGINSRCDIR)/$(*F)/ios/*.*)
 
 # It would be nice to have this abbreviation but it creates havoc eem 2/2016
 #%.lib: $(OBJDIR)/%.lib

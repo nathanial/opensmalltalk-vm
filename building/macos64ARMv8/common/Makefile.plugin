@@ -61,9 +61,9 @@ else
 LIBDIR:=$(LIBNAME)
 endif
 
-CROSSDIR:=	$(PLATDIR)/Cross/plugins/$(LIBDIR)
+CROSSDIR:=	$(PLUGINSRCDIR)/$(LIBDIR)/cross
 OSXDIR:=	$(PLATDIR)/iOS/vm/OSX
-OSXPLGDIR:=	$(PLATDIR)/iOS/plugins/$(LIBDIR)
+OSXPLGDIR:=	$(PLUGINSRCDIR)/$(LIBDIR)/ios
 UNIXDIR:=	$(PLATDIR)/unix/vm
 MAKERDIR:=	$(PLUGINSRCDIR)/$(LIBDIR)
 BUILDDIR:=	$(BUILD)/$(LIBDIR)
@@ -212,7 +212,7 @@ $(OBJDIR)/Frameworks: $(wildcard $(DYLIBS))
 			|| ln $$f $(OBJDIR)/Frameworks; \
 	done
 
-$(PLUGINPLIST): $(PLATDIR)/iOS/plugins/Info.plist getversion
+$(PLUGINPLIST): $(PLUGINSRCDIR)/common/Info.plist getversion
 	mkdir -p $(PLUGINBUNDLE)/Contents
 	sed "s/\$$(VERSION)/`./getversion VERSION_TAG`/" $< | \
 	sed "s/\$$(LIBNAME)/$(LIBNAME)/" > $(PLUGINPLIST)
