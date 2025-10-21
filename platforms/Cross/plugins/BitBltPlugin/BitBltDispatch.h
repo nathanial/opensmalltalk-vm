@@ -125,6 +125,9 @@ typedef struct {
 			unsigned char (*gammaLookupTable)[256];
 			unsigned char (*ungammaLookupTable)[256];
 		} componentAlpha;
+		struct {
+			sqInt *         bitCount;
+		} tally;
 	} opt;
 }
 operation_t;

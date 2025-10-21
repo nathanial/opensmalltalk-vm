@@ -20,6 +20,9 @@
 #include "BitBltDispatch.h"
 #include <stdint.h>
 #include <cstring>
+#include <algorithm>
+#include <array>
+#include <cstdlib>
 #include <type_traits>
 
 namespace BitBlt {
@@ -306,6 +309,165 @@ struct CombinationRule<CR_subWord> {
 };
 
 // ============================================================================
+// Pixel Combination Rules
+// ============================================================================
+
+template<>
+struct CombinationRule<CR_pixPaint> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        return src ? src : dest;
+    }
+};
+
+template<>
+struct CombinationRule<CR_pixMask> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        return src ? 0u : dest;
+    }
+};
+
+template<>
+struct CombinationRule<CR_pixClear> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        return (src == dest) ? 0u : dest;
+    }
+};
+
+template<>
+struct CombinationRule<CR_pixSwap> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        (void)src;
+        return dest;
+    }
+};
+
+// ============================================================================
+// RGB Utility Combination Rules
+// ============================================================================
+
+template<>
+struct CombinationRule<CR_rgbDiff> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        (void)src;
+        return dest;
+    }
+
+    template<unsigned DestBPP>
+    static inline uint32_t difference(uint32_t src, uint32_t dest) {
+        if constexpr (DestBPP < 16) {
+            return src == dest ? 0u : 1u;
+        } else if constexpr (DestBPP == 16) {
+            auto expand5 = [](uint32_t value) -> uint32_t {
+                return (value << 3) | (value >> 2);
+            };
+            uint32_t srcR = expand5((src >> 10) & 0x1F);
+            uint32_t srcG = expand5((src >> 5) & 0x1F);
+            uint32_t srcB = expand5(src & 0x1F);
+
+            uint32_t destR = expand5((dest >> 10) & 0x1F);
+            uint32_t destG = expand5((dest >> 5) & 0x1F);
+            uint32_t destB = expand5(dest & 0x1F);
+
+            return static_cast<uint32_t>(
+                std::abs(static_cast<int32_t>(srcR) - static_cast<int32_t>(destR)) +
+                std::abs(static_cast<int32_t>(srcG) - static_cast<int32_t>(destG)) +
+                std::abs(static_cast<int32_t>(srcB) - static_cast<int32_t>(destB))
+            );
+        } else {
+            uint8_t sa, sr, sg, sb;
+            uint8_t da, dr, dg, db;
+            RGBHelper::extract(src, sa, sr, sg, sb);
+            RGBHelper::extract(dest, da, dr, dg, db);
+            (void)sa; (void)da;
+            return static_cast<uint32_t>(
+                std::abs(static_cast<int32_t>(sr) - static_cast<int32_t>(dr)) +
+                std::abs(static_cast<int32_t>(sg) - static_cast<int32_t>(dg)) +
+                std::abs(static_cast<int32_t>(sb) - static_cast<int32_t>(db))
+            );
+        }
+    }
+};
+
+struct ComponentAlphaParams {
+    uint32_t modeColor;
+    uint8_t  modeAlpha;
+    const unsigned char (*gamma)[256];
+    const unsigned char (*ungamma)[256];
+};
+
+template<>
+struct CombinationRule<CR_rgbComponentAlpha> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest, const ComponentAlphaParams& params) {
+        if (src == 0) {
+            return dest;
+        }
+
+        auto ungamma = params.ungamma;
+        auto gamma = params.gamma;
+        auto toLinear = [&](uint8_t value) -> uint32_t {
+            return ungamma ? static_cast<uint32_t>((*ungamma)[value]) : static_cast<uint32_t>(value);
+        };
+        auto toGamma = [&](uint32_t value) -> uint8_t {
+            uint32_t clamped = value > 255u ? 255u : value;
+            return gamma ? (*gamma)[clamped] : static_cast<uint8_t>(clamped);
+        };
+
+        uint8_t srcAlpha = static_cast<uint8_t>(params.modeAlpha & 0xFF);
+
+        uint8_t aB = static_cast<uint8_t>(src & 0xFF);
+        uint8_t aG = static_cast<uint8_t>((src >> 8) & 0xFF);
+        uint8_t aR = static_cast<uint8_t>((src >> 16) & 0xFF);
+        uint8_t aA = static_cast<uint8_t>((src >> 24) & 0xFF);
+
+        if (srcAlpha != 0xFF) {
+            auto scale = [srcAlpha](uint8_t value) -> uint8_t {
+                return static_cast<uint8_t>((static_cast<uint32_t>(value) * srcAlpha) >> 8);
+            };
+            aA = scale(aA);
+            aR = scale(aR);
+            aG = scale(aG);
+            aB = scale(aB);
+        }
+
+        uint32_t srcColor = params.modeColor;
+        uint8_t sB = static_cast<uint8_t>(srcColor & 0xFF);
+        uint8_t sG = static_cast<uint8_t>((srcColor >> 8) & 0xFF);
+        uint8_t sR = static_cast<uint8_t>((srcColor >> 16) & 0xFF);
+        uint8_t sA = static_cast<uint8_t>((srcColor >> 24) & 0xFF);
+        (void)sA; // unused in original algorithm
+
+        uint8_t dB = static_cast<uint8_t>(dest & 0xFF);
+        uint8_t dG = static_cast<uint8_t>((dest >> 8) & 0xFF);
+        uint8_t dR = static_cast<uint8_t>((dest >> 16) & 0xFF);
+        uint8_t dA = static_cast<uint8_t>((dest >> 24) & 0xFF);
+
+        auto blendChannel = [&](uint8_t destChan, uint8_t srcChan, uint8_t alphaChan) -> uint8_t {
+            if (alphaChan == 0) {
+                return destChan;
+            }
+            uint32_t dLinear = toLinear(destChan);
+            uint32_t sLinear = toLinear(srcChan);
+            uint32_t blended = ((dLinear * (255u - alphaChan)) + (sLinear * alphaChan)) >> 8;
+            return toGamma(blended);
+        };
+
+        uint8_t outB = blendChannel(dB, sB, aB);
+        uint8_t outG = blendChannel(dG, sG, aG);
+        uint8_t outR = blendChannel(dR, sR, aR);
+
+        uint32_t newAlpha = ((static_cast<uint32_t>(dA) * (255u - aA)) >> 8) + aA;
+        if (newAlpha > 255u) {
+            newAlpha = 255u;
+        }
+
+        return (static_cast<uint32_t>(newAlpha) << 24) |
+               (static_cast<uint32_t>(outR) << 16) |
+               (static_cast<uint32_t>(outG) << 8) |
+               static_cast<uint32_t>(outB);
+    }
+};
+
+// ============================================================================
 // Helper Functions for Alpha Blending and RGB Operations
 // ============================================================================
 
@@ -551,6 +713,101 @@ struct CombinationRule<CR_rgbMinInvert> {
 };
 
 // ============================================================================
+// Specialized Operation Helpers
+// ============================================================================
+
+template<unsigned BPP>
+class BitBltClearOperation {
+public:
+    using Traits = PixelFormatTraits<BPP>;
+    using Storage = typename Traits::StorageType;
+    using Accessor = PixelAccessor<BPP>;
+
+    static void execute(const operation_t* op) {
+        auto destBits = static_cast<Storage*>(op->dest.bits);
+        const uint32_t destPitch = op->dest.pitch / sizeof(Storage);
+        const bool destMSB = op->dest.msb;
+        const uint32_t destX = op->dest.x;
+        const uint32_t destY = op->dest.y;
+        const uint32_t width = op->width;
+        const uint32_t height = op->height;
+
+        for (uint32_t y = 0; y < height; ++y) {
+            auto rowPtr = destBits + (destY + y) * destPitch;
+            if constexpr (BPP >= 8) {
+                Storage* line = rowPtr + destX;
+                if constexpr (std::is_same_v<Storage, uint8_t>) {
+                    std::memset(line, 0, width * sizeof(Storage));
+                } else {
+                    std::fill(line, line + width, static_cast<Storage>(0));
+                }
+            } else {
+                for (uint32_t x = 0; x < width; ++x) {
+                    Accessor::write(rowPtr, destX + x, 0u, destMSB);
+                }
+            }
+        }
+    }
+};
+
+template<unsigned BPP>
+class BitBltPixSwapOperation {
+public:
+    using Traits = PixelFormatTraits<BPP>;
+    using Storage = typename Traits::StorageType;
+    using Accessor = PixelAccessor<BPP>;
+
+    static void execute(const operation_t* op) {
+        constexpr unsigned PPW = Traits::PIXELS_PER_WORD;
+        if constexpr (PPW <= 1) {
+            return;
+        }
+
+        auto destBits = static_cast<Storage*>(op->dest.bits);
+        const uint32_t destPitch = op->dest.pitch / sizeof(Storage);
+        const bool destMSB = op->dest.msb;
+        const uint32_t destX = op->dest.x;
+        const uint32_t destY = op->dest.y;
+        const uint32_t width = op->width;
+        const uint32_t height = op->height;
+
+        for (uint32_t row = 0; row < height; ++row) {
+            auto rowPtr = destBits + (destY + row) * destPitch;
+            uint32_t processed = 0;
+            while (processed < width) {
+                uint32_t globalIndex = destX + processed;
+                uint32_t wordBase = (globalIndex / PPW) * PPW;
+                uint32_t offset = globalIndex % PPW;
+                uint32_t remaining = std::min(PPW - offset, width - processed);
+
+                std::array<uint32_t, PPW> original;
+                for (unsigned idx = 0; idx < PPW; ++idx) {
+                    uint32_t pixelIndex = wordBase + idx;
+                    if constexpr (BPP < 8) {
+                        original[idx] = Accessor::read(rowPtr, pixelIndex, destMSB);
+                    } else {
+                        original[idx] = Accessor::read(rowPtr, pixelIndex);
+                    }
+                }
+
+                for (uint32_t i = 0; i < remaining; ++i) {
+                    uint32_t pixelIndex = wordBase + offset + i;
+                    uint32_t swapIndex = PPW - 1 - (offset + i);
+                    uint32_t value = original[swapIndex];
+                    if constexpr (BPP < 8) {
+                        Accessor::write(rowPtr, pixelIndex, value, destMSB);
+                    } else {
+                        Accessor::write(rowPtr, pixelIndex, value);
+                    }
+                }
+
+                processed += remaining;
+            }
+        }
+    }
+};
+
+// ============================================================================
 // BitBlt Operation Templates
 // ============================================================================
 
@@ -621,6 +878,177 @@ public:
                 } else {
                     DestAccessor::write(destBits + destRow * destPitch, destX + x, result);
                 }
+            }
+        }
+    }
+};
+
+// ============================================================================
+// Specialized Clear Operations
+// ============================================================================
+
+template<>
+class BitBltOperation<1, 1, CR_clearWord> {
+public:
+    static void execute(const operation_t* op) {
+        BitBltClearOperation<1>::execute(op);
+    }
+};
+
+template<>
+class BitBltOperation<2, 2, CR_clearWord> {
+public:
+    static void execute(const operation_t* op) {
+        BitBltClearOperation<2>::execute(op);
+    }
+};
+
+template<>
+class BitBltOperation<4, 4, CR_clearWord> {
+public:
+    static void execute(const operation_t* op) {
+        BitBltClearOperation<4>::execute(op);
+    }
+};
+
+template<>
+class BitBltOperation<8, 8, CR_clearWord> {
+public:
+    static void execute(const operation_t* op) {
+        BitBltClearOperation<8>::execute(op);
+    }
+};
+
+template<>
+class BitBltOperation<16, 16, CR_clearWord> {
+public:
+    static void execute(const operation_t* op) {
+        BitBltClearOperation<16>::execute(op);
+    }
+};
+
+// ============================================================================
+// Specialized PixSwap Operations
+// ============================================================================
+
+template<>
+class BitBltOperation<1, 1, CR_pixSwap> {
+public:
+    static void execute(const operation_t* op) {
+        BitBltPixSwapOperation<1>::execute(op);
+    }
+};
+
+template<>
+class BitBltOperation<2, 2, CR_pixSwap> {
+public:
+    static void execute(const operation_t* op) {
+        BitBltPixSwapOperation<2>::execute(op);
+    }
+};
+
+template<>
+class BitBltOperation<4, 4, CR_pixSwap> {
+public:
+    static void execute(const operation_t* op) {
+        BitBltPixSwapOperation<4>::execute(op);
+    }
+};
+
+template<>
+class BitBltOperation<8, 8, CR_pixSwap> {
+public:
+    static void execute(const operation_t* op) {
+        BitBltPixSwapOperation<8>::execute(op);
+    }
+};
+
+template<>
+class BitBltOperation<16, 16, CR_pixSwap> {
+public:
+    static void execute(const operation_t* op) {
+        BitBltPixSwapOperation<16>::execute(op);
+    }
+};
+
+template<>
+class BitBltOperation<32, 32, CR_pixSwap> {
+public:
+    static void execute(const operation_t* op) {
+        BitBltPixSwapOperation<32>::execute(op);
+    }
+};
+
+// ============================================================================
+// Specialized RGB Utility Operations
+// ============================================================================
+
+template<>
+class BitBltOperation<32, 32, CR_rgbDiff> {
+public:
+    static void execute(const operation_t* op) {
+        auto srcBits = static_cast<const uint32_t*>(op->src.bits);
+        auto destBits = static_cast<const uint32_t*>(op->dest.bits);
+
+        const uint32_t srcPitch = op->src.pitch / sizeof(uint32_t);
+        const uint32_t destPitch = op->dest.pitch / sizeof(uint32_t);
+        const uint32_t srcX = op->src.x;
+        const uint32_t srcY = op->src.y;
+        const uint32_t destX = op->dest.x;
+        const uint32_t destY = op->dest.y;
+        const uint32_t width = op->width;
+        const uint32_t height = op->height;
+
+        int64_t localCount = 0;
+
+        for (uint32_t y = 0; y < height; ++y) {
+            const uint32_t* srcRow = srcBits + (srcY + y) * srcPitch;
+            const uint32_t* destRow = destBits + (destY + y) * destPitch;
+            for (uint32_t x = 0; x < width; ++x) {
+                uint32_t srcPixel = srcRow[srcX + x];
+                uint32_t destPixel = destRow[destX + x];
+                uint32_t diff = CombinationRule<CR_rgbDiff>::difference<32>(srcPixel, destPixel);
+                localCount += static_cast<int64_t>(diff);
+            }
+        }
+
+        if (op->opt.tally.bitCount) {
+            *(op->opt.tally.bitCount) += localCount;
+        }
+    }
+};
+
+template<>
+class BitBltOperation<32, 32, CR_rgbComponentAlpha> {
+public:
+    static void execute(const operation_t* op) {
+        auto srcBits = static_cast<const uint32_t*>(op->src.bits);
+        auto destBits = static_cast<uint32_t*>(op->dest.bits);
+
+        const uint32_t srcPitch = op->src.pitch / sizeof(uint32_t);
+        const uint32_t destPitch = op->dest.pitch / sizeof(uint32_t);
+        const uint32_t srcX = op->src.x;
+        const uint32_t srcY = op->src.y;
+        const uint32_t destX = op->dest.x;
+        const uint32_t destY = op->dest.y;
+        const uint32_t width = op->width;
+        const uint32_t height = op->height;
+
+        ComponentAlphaParams params{
+            static_cast<uint32_t>(op->opt.componentAlpha.componentAlphaModeColor),
+            static_cast<uint8_t>(op->opt.componentAlpha.componentAlphaModeAlpha & 0xFF),
+            op->opt.componentAlpha.gammaLookupTable,
+            op->opt.componentAlpha.ungammaLookupTable
+        };
+
+        for (uint32_t y = 0; y < height; ++y) {
+            const uint32_t* srcRow = srcBits + (srcY + y) * srcPitch;
+            uint32_t* destRow = destBits + (destY + y) * destPitch;
+            for (uint32_t x = 0; x < width; ++x) {
+                uint32_t srcPixel = srcRow[srcX + x];
+                uint32_t destPixel = destRow[destX + x];
+                uint32_t result = CombinationRule<CR_rgbComponentAlpha>::apply(srcPixel, destPixel, params);
+                destRow[destX + x] = result;
             }
         }
     }
@@ -718,6 +1146,15 @@ void bitblt_16_16_clearWord(operation_t* op, uint32_t flags);
 void bitblt_8_8_sourceWord(operation_t* op, uint32_t flags);
 void bitblt_8_8_clearWord(operation_t* op, uint32_t flags);
 
+// 4bpp -> 4bpp operations
+void bitblt_4_4_clearWord(operation_t* op, uint32_t flags);
+
+// 2bpp -> 2bpp operations
+void bitblt_2_2_clearWord(operation_t* op, uint32_t flags);
+
+// 1bpp -> 1bpp operations
+void bitblt_1_1_clearWord(operation_t* op, uint32_t flags);
+
 // Alpha blending operations (32bpp only)
 void bitblt_32_32_alphaBlend(operation_t* op, uint32_t flags);
 void bitblt_32_32_alphaBlendConst(operation_t* op, uint32_t flags);
@@ -729,6 +1166,39 @@ void bitblt_32_32_rgbMul(operation_t* op, uint32_t flags);
 void bitblt_32_32_rgbMax(operation_t* op, uint32_t flags);
 void bitblt_32_32_rgbMin(operation_t* op, uint32_t flags);
 void bitblt_32_32_rgbMinInvert(operation_t* op, uint32_t flags);
+
+// Pixel operations (various depths)
+void bitblt_1_1_pixPaint(operation_t* op, uint32_t flags);
+void bitblt_2_2_pixPaint(operation_t* op, uint32_t flags);
+void bitblt_4_4_pixPaint(operation_t* op, uint32_t flags);
+void bitblt_8_8_pixPaint(operation_t* op, uint32_t flags);
+void bitblt_16_16_pixPaint(operation_t* op, uint32_t flags);
+void bitblt_32_32_pixPaint(operation_t* op, uint32_t flags);
+
+void bitblt_1_1_pixMask(operation_t* op, uint32_t flags);
+void bitblt_2_2_pixMask(operation_t* op, uint32_t flags);
+void bitblt_4_4_pixMask(operation_t* op, uint32_t flags);
+void bitblt_8_8_pixMask(operation_t* op, uint32_t flags);
+void bitblt_16_16_pixMask(operation_t* op, uint32_t flags);
+void bitblt_32_32_pixMask(operation_t* op, uint32_t flags);
+
+void bitblt_1_1_pixSwap(operation_t* op, uint32_t flags);
+void bitblt_2_2_pixSwap(operation_t* op, uint32_t flags);
+void bitblt_4_4_pixSwap(operation_t* op, uint32_t flags);
+void bitblt_8_8_pixSwap(operation_t* op, uint32_t flags);
+void bitblt_16_16_pixSwap(operation_t* op, uint32_t flags);
+void bitblt_32_32_pixSwap(operation_t* op, uint32_t flags);
+
+void bitblt_1_1_pixClear(operation_t* op, uint32_t flags);
+void bitblt_2_2_pixClear(operation_t* op, uint32_t flags);
+void bitblt_4_4_pixClear(operation_t* op, uint32_t flags);
+void bitblt_8_8_pixClear(operation_t* op, uint32_t flags);
+void bitblt_16_16_pixClear(operation_t* op, uint32_t flags);
+void bitblt_32_32_pixClear(operation_t* op, uint32_t flags);
+
+// RGB utilities
+void bitblt_32_32_rgbDiff(operation_t* op, uint32_t flags);
+void bitblt_32_32_rgbComponentAlpha(operation_t* op, uint32_t flags);
 
 } // extern "C"
 

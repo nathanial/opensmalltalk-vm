@@ -175,6 +175,70 @@ void bitblt_8_8_clearWord(operation_t* op, uint32_t flags) {
     BitBltOperation<8, 8, CR_clearWord>::execute(op);
 }
 
+// 4bpp -> 4bpp operations
+void bitblt_4_4_clearWord(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<4, 4, CR_clearWord>::execute(op);
+}
+
+// 2bpp -> 2bpp operations
+void bitblt_2_2_clearWord(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<2, 2, CR_clearWord>::execute(op);
+}
+
+// 1bpp -> 1bpp operations
+void bitblt_1_1_clearWord(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<1, 1, CR_clearWord>::execute(op);
+}
+
+#define DEFINE_PIX_OP(BPP, NAME, RULE)                                         \
+    void bitblt_##BPP##_##BPP##_##NAME(operation_t* op, uint32_t flags) {      \
+        (void)flags;                                                           \
+        BitBltOperation<BPP, BPP, RULE>::execute(op);                          \
+    }
+
+DEFINE_PIX_OP(1, pixPaint, CR_pixPaint)
+DEFINE_PIX_OP(2, pixPaint, CR_pixPaint)
+DEFINE_PIX_OP(4, pixPaint, CR_pixPaint)
+DEFINE_PIX_OP(8, pixPaint, CR_pixPaint)
+DEFINE_PIX_OP(16, pixPaint, CR_pixPaint)
+DEFINE_PIX_OP(32, pixPaint, CR_pixPaint)
+
+DEFINE_PIX_OP(1, pixMask, CR_pixMask)
+DEFINE_PIX_OP(2, pixMask, CR_pixMask)
+DEFINE_PIX_OP(4, pixMask, CR_pixMask)
+DEFINE_PIX_OP(8, pixMask, CR_pixMask)
+DEFINE_PIX_OP(16, pixMask, CR_pixMask)
+DEFINE_PIX_OP(32, pixMask, CR_pixMask)
+
+DEFINE_PIX_OP(1, pixSwap, CR_pixSwap)
+DEFINE_PIX_OP(2, pixSwap, CR_pixSwap)
+DEFINE_PIX_OP(4, pixSwap, CR_pixSwap)
+DEFINE_PIX_OP(8, pixSwap, CR_pixSwap)
+DEFINE_PIX_OP(16, pixSwap, CR_pixSwap)
+DEFINE_PIX_OP(32, pixSwap, CR_pixSwap)
+
+DEFINE_PIX_OP(1, pixClear, CR_pixClear)
+DEFINE_PIX_OP(2, pixClear, CR_pixClear)
+DEFINE_PIX_OP(4, pixClear, CR_pixClear)
+DEFINE_PIX_OP(8, pixClear, CR_pixClear)
+DEFINE_PIX_OP(16, pixClear, CR_pixClear)
+DEFINE_PIX_OP(32, pixClear, CR_pixClear)
+
+#undef DEFINE_PIX_OP
+
+void bitblt_32_32_rgbDiff(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_rgbDiff>::execute(op);
+}
+
+void bitblt_32_32_rgbComponentAlpha(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_rgbComponentAlpha>::execute(op);
+}
+
 // ============================================================================
 // Alpha Blending Operations (32bpp only)
 // ============================================================================
@@ -241,7 +305,7 @@ void registerTemplateFastPaths(void) {
     // Array of template-based fast paths
     fast_path_t templatePaths[] = {
         // 32bpp -> 32bpp operations
-        { BitBlt::bitblt_32_32_clearWord,      CR_clearWord,      STD_FLAGS(32, 32, NO, NO) },
+        { BitBlt::bitblt_32_32_clearWord,      CR_clearWord,      STD_FLAGS_NO_SOURCE(32, NO) },
         { BitBlt::bitblt_32_32_sourceWord,     CR_sourceWord,     STD_FLAGS(32, 32, NO, NO) },
         { BitBlt::bitblt_32_32_bitAnd,         CR_bitAnd,         STD_FLAGS(32, 32, NO, NO) },
         { BitBlt::bitblt_32_32_bitOr,          CR_bitOr,          STD_FLAGS(32, 32, NO, NO) },
@@ -273,11 +337,14 @@ void registerTemplateFastPaths(void) {
 
         // 16bpp -> 16bpp operations
         { BitBlt::bitblt_16_16_sourceWord,     CR_sourceWord,     STD_FLAGS(16, 16, NO, NO) },
-        { BitBlt::bitblt_16_16_clearWord,      CR_clearWord,      STD_FLAGS(16, 16, NO, NO) },
+        { BitBlt::bitblt_16_16_clearWord,      CR_clearWord,      STD_FLAGS_NO_SOURCE(16, NO) },
 
         // 8bpp -> 8bpp operations
         { BitBlt::bitblt_8_8_sourceWord,       CR_sourceWord,     STD_FLAGS(8, 8, NO, NO) },
-        { BitBlt::bitblt_8_8_clearWord,        CR_clearWord,      STD_FLAGS(8, 8, NO, NO) },
+        { BitBlt::bitblt_8_8_clearWord,        CR_clearWord,      STD_FLAGS_NO_SOURCE(8, NO) },
+
+        // 4bpp -> 4bpp operations
+        { BitBlt::bitblt_4_4_clearWord,        CR_clearWord,      STD_FLAGS_NO_SOURCE(4, NO) },
 
         // Alpha blending operations (32bpp -> 32bpp only)
         { BitBlt::bitblt_32_32_alphaBlend,     CR_alphaBlend,     STD_FLAGS(32, 32, NO, NO) },
@@ -290,6 +357,40 @@ void registerTemplateFastPaths(void) {
         { BitBlt::bitblt_32_32_rgbMax,         CR_rgbMax,         STD_FLAGS(32, 32, NO, NO) },
         { BitBlt::bitblt_32_32_rgbMin,         CR_rgbMin,         STD_FLAGS(32, 32, NO, NO) },
         { BitBlt::bitblt_32_32_rgbMinInvert,   CR_rgbMinInvert,   STD_FLAGS(32, 32, NO, NO) },
+
+        // Pixel operations (source + dest)
+        { BitBlt::bitblt_1_1_pixPaint,         CR_pixPaint,       STD_FLAGS(1, 1, NO, NO) },
+        { BitBlt::bitblt_2_2_pixPaint,         CR_pixPaint,       STD_FLAGS(2, 2, NO, NO) },
+        { BitBlt::bitblt_4_4_pixPaint,         CR_pixPaint,       STD_FLAGS(4, 4, NO, NO) },
+        { BitBlt::bitblt_8_8_pixPaint,         CR_pixPaint,       STD_FLAGS(8, 8, NO, NO) },
+        { BitBlt::bitblt_16_16_pixPaint,       CR_pixPaint,       STD_FLAGS(16, 16, NO, NO) },
+        { BitBlt::bitblt_32_32_pixPaint,       CR_pixPaint,       STD_FLAGS(32, 32, NO, NO) },
+
+        { BitBlt::bitblt_1_1_pixMask,          CR_pixMask,        STD_FLAGS(1, 1, NO, NO) },
+        { BitBlt::bitblt_2_2_pixMask,          CR_pixMask,        STD_FLAGS(2, 2, NO, NO) },
+        { BitBlt::bitblt_4_4_pixMask,          CR_pixMask,        STD_FLAGS(4, 4, NO, NO) },
+        { BitBlt::bitblt_8_8_pixMask,          CR_pixMask,        STD_FLAGS(8, 8, NO, NO) },
+        { BitBlt::bitblt_16_16_pixMask,        CR_pixMask,        STD_FLAGS(16, 16, NO, NO) },
+        { BitBlt::bitblt_32_32_pixMask,        CR_pixMask,        STD_FLAGS(32, 32, NO, NO) },
+
+        { BitBlt::bitblt_1_1_pixClear,         CR_pixClear,       STD_FLAGS(1, 1, NO, NO) },
+        { BitBlt::bitblt_2_2_pixClear,         CR_pixClear,       STD_FLAGS(2, 2, NO, NO) },
+        { BitBlt::bitblt_4_4_pixClear,         CR_pixClear,       STD_FLAGS(4, 4, NO, NO) },
+        { BitBlt::bitblt_8_8_pixClear,         CR_pixClear,       STD_FLAGS(8, 8, NO, NO) },
+        { BitBlt::bitblt_16_16_pixClear,       CR_pixClear,       STD_FLAGS(16, 16, NO, NO) },
+        { BitBlt::bitblt_32_32_pixClear,       CR_pixClear,       STD_FLAGS(32, 32, NO, NO) },
+
+        // Pixel-only operations (no source)
+        { BitBlt::bitblt_1_1_pixSwap,          CR_pixSwap,        STD_FLAGS_NO_SOURCE(1, NO) },
+        { BitBlt::bitblt_2_2_pixSwap,          CR_pixSwap,        STD_FLAGS_NO_SOURCE(2, NO) },
+        { BitBlt::bitblt_4_4_pixSwap,          CR_pixSwap,        STD_FLAGS_NO_SOURCE(4, NO) },
+        { BitBlt::bitblt_8_8_pixSwap,          CR_pixSwap,        STD_FLAGS_NO_SOURCE(8, NO) },
+        { BitBlt::bitblt_16_16_pixSwap,        CR_pixSwap,        STD_FLAGS_NO_SOURCE(16, NO) },
+        { BitBlt::bitblt_32_32_pixSwap,        CR_pixSwap,        STD_FLAGS_NO_SOURCE(32, NO) },
+
+        // RGB utility operations
+        { BitBlt::bitblt_32_32_rgbDiff,        CR_rgbDiff,        STD_FLAGS(32, 32, NO, NO) },
+        { BitBlt::bitblt_32_32_rgbComponentAlpha, CR_rgbComponentAlpha, STD_FLAGS(32, 32, NO, NO) },
     };
 
     addFastPaths(templatePaths, sizeof(templatePaths) / sizeof(templatePaths[0]));

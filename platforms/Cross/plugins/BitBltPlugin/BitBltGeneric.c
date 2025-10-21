@@ -66,106 +66,6 @@ static int check_printf(char *format, ...)
 #endif
 
 
-static void fastPathClearWord4(operation_t *op, uint32_t flags)
-{
-	IGNORE(flags);
-	COPY_OP_TO_LOCALS(op, uint32_t, uint32_t);
-	uint32_t *dest = destBits + destPitch * destY + destX * 4 / 32;
-	uint32_t destXbitIndex = (destX * 4) & 31;
-	if (32 - (signed) (destXbitIndex + width * 4) >= 0) {
-		uint32_t mask = -1u << (32 - (destXbitIndex + 4 * width));
-		mask &= mask >> destXbitIndex;
-		do {
-			*dest = (*dest &~ mask) | (0 & mask);
-			dest += destPitch;
-		} while (--height > 0);
-	} else {
-		/* Don't bother rounding up, we won't increment dest for trailing word if any */
-		destPitch -= (destXbitIndex + width * 4) / 32;
-		do {
-			uint32_t x = width;
-			if (destXbitIndex > 0) {
-				uint32_t mask = -1u >> destXbitIndex;
-				*dest = (*dest &~ mask) | (0 & mask);
-				dest++;
-				x -= (32 - destXbitIndex) / 4;
-			}
-			uint32_t old_x;
-			while (old_x = x, x -= 32/4, old_x >= 32/4) {
-				*dest++ = 0;
-			}
-			if (x & (32/4-1)) {
-				uint32_t mask = -1u << (32 - (x & (32/4-1)) * 4);
-				*dest = (*dest &~ mask) | (0 & mask);
-			}
-			dest += destPitch;
-		} while (--height > 0);
-	}
-}
-
-static void fastPathClearWord8(operation_t *op, uint32_t flags)
-{
-	IGNORE(flags);
-	COPY_OP_TO_LOCALS(op, uint32_t, uint8_t);
-	uint8_t *dest = destBits + destPitch * destY + (destX &~ 3);
-	/* Stride is defined to be an integer number of words, so there's actually
-	 * 2 bits spare there - use them to hold the byte offset into first word */
-	destPitch = (destPitch >> 2) | (destX << 30);
-	if (4 - (signed)((destPitch >> 30) + width) > 0) {
-		do {
-			/* Lowest address offset at which to write */
-			uint32_t offset = 4 - (destPitch >> 30);
-			uint32_t data = 0;
-			data >>= (destPitch >> 30) * 8;
-			uint32_t old_x;
-			uint32_t x = width;
-			while (old_x = x, x--, old_x >= 1) {
-				dest[--offset] = data;
-				data >>= 8;
-			}
-			dest += destPitch << 2;
-		} while (--height > 0);
-	} else {
-		/* Don't bother rounding up, we won't increment dest for trailing word if any */
-		destPitch -= ((destPitch >> 30) + width) >> 2;
-		do {
-			uint32_t x = width;
-			uint32_t data = 0;
-			if (destPitch >> 30) {
-				uint32_t leading_pixels = 4 - (destPitch >> 30);
-				if (leading_pixels >= 2) {
-					((uint16_t *)dest)[0] = data;
-					data >>= 16;
-				}
-				if (leading_pixels > 2)
-					((uint8_t *)dest)[2] = data;
-				if (leading_pixels < 2)
-					((uint8_t *)dest)[0] = data;
-				dest += 4;
-				x -= leading_pixels;
-			}
-			uint32_t old_x;
-			while (old_x = x, x -= 32/8, old_x >= 32/8) {
-				*(uint32_t *)dest = 0;
-				dest += 4;
-			}
-			uint32_t trailing_pixels = x & 3;
-			if (trailing_pixels) {
-				uint32_t data = 0;
-				data >>= trailing_pixels * 8;
-				if (trailing_pixels > 2u) {
-					((uint8_t *)dest)[1] = data;
-					data >>= 8;
-				}
-				if (trailing_pixels >= 2u)
-					((uint16_t *)dest)[1] = data;
-				if (trailing_pixels < 2u)
-					((uint8_t *)dest)[3] = data;
-			}
-			dest += destPitch << 2;
-		} while (--height > 0);
-	}
-}
 
 static void fastPathClearWord32(operation_t *op, uint32_t flags)
 {
@@ -574,8 +474,6 @@ static void fastPathNoOp(operation_t *op, uint32_t flags)
 }
 
 static fast_path_t fastPaths[] = {
-		{ fastPathClearWord4,            CR_clearWord,       STD_FLAGS_NO_SOURCE(4,NO) },
-		{ fastPathClearWord8,            CR_clearWord,       STD_FLAGS_NO_SOURCE(8,NO) },
 		{ fastPathClearWord32,           CR_clearWord,       STD_FLAGS_NO_SOURCE(32,NO) },
 		{ fastPathSourceWord0_32_scalar, CR_sourceWord,      STD_FLAGS_NO_SOURCE(32,SCALAR) },
 
