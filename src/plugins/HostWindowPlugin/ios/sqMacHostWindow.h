@@ -44,16 +44,17 @@
 #include "HostWindowPlugin.h"
 #ifdef BUILD_FOR_OSX
 #include <ApplicationServices/ApplicationServices.h>
+#define wHandleType  NSWindow *
 #else
 #include <CoreGraphics/CoreGraphics.h>
+#define wHandleType  UIWindow *
 #endif
 /* window handle type */
-#define wHandleType void *
-#define wIndexType sqIntptr_t
+#define wIndexType sqInt
 
 typedef struct windowDescriptorBlock {
 	struct windowDescriptorBlock * next;
-	wHandleType		handle;
+	__unsafe_unretained wHandleType		handle;
 	wIndexType		windowIndex;
 	/* extra fields to support your platform needs */
 	void * context;
@@ -63,14 +64,9 @@ typedef struct windowDescriptorBlock {
 } windowDescriptorBlock;
 
 windowDescriptorBlock *windowBlockFromHandle(wHandleType windowHandle);
-wIndexType windowIndexFromBlock(windowDescriptorBlock * thisWindow);
-wIndexType windowIndexFromHandle(wHandleType windowHandle);
+sqInt windowIndexFromBlock( windowDescriptorBlock * thisWindow);
+sqInt windowIndexFromHandle(wHandleType windowHandle);
 wHandleType windowHandleFromIndex(wIndexType windowIndex);
 windowDescriptorBlock *AddWindowBlock(void);
-windowDescriptorBlock *windowBlockFromIndex(wIndexType windowIndex);
+windowDescriptorBlock *windowBlockFromIndex(sqInt windowIndex);
 sqInt getCurrentIndexInUse(void);
-/*
- * Answer (cache) the height of the main display, needed for transforming
- * mac screen coordinates to Squeak screen coordinates.
- */
-extern int yZero(void);
