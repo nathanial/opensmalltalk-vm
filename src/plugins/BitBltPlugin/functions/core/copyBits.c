@@ -18,11 +18,7 @@ copyBits(void) {
   if (!(lockSurfaces())) {
     return primitiveFail();
   }
-#if ENABLE_FAST_BLT
-  copyBitsFastPathSpecialised();
-#else
   copyBitsLockedAndClipped();
-#endif
 
   /* you really, really mustn't call this unless you have the rest of the code
    * to link to */

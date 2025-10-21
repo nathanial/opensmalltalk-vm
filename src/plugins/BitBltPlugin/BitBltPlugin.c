@@ -27,12 +27,8 @@ static const char __buildInfo[] =
 #include "sqVirtualMachine.h"   /*  The virtual machine proxy definition */
 
 #include "sqAssert.h"
-#ifdef ENABLE_FAST_BLT
-#include "BitBltDispatch.h"
-#else
-// to handle the unavoidable decl in the spec of copyBitsFallback();
+// Note: operation_t is a dummy type for copyBitsFallback()
 #define operation_t void
-#endif
 #include "sqMemoryAccess.h"
 
 #define true 1
