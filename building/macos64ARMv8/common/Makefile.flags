@@ -65,7 +65,7 @@ CFLAGS:=$(CFLAGS) -DBUILD_FOR_OSX=1 -DUSE_METAL=1 -DUSE_CORE_GRAPHICS=1 \
 		-fmessage-length=0 -fpascal-strings -fasm-blocks -fstrict-aliasing \
 		$(XCFLAGS) \
 		-isysroot $(SDK) \
-		-include $(PLATDIR)/iOS/vm/SqueakPureObjc_Prefix.pch
+		-include $(PLATDIR)/macOS/vm/SqueakPureObjc_Prefix.pch
 
 BFLAGS:=-arch $(TARGET_ARCH) -mmacosx-version-min=$(TARGET_VERSION_MIN) \
 		-bundle \

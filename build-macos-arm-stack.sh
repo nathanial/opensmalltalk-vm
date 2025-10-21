@@ -37,7 +37,7 @@ $IBTOOL --errors --warnings --notices \
     --auto-activate-custom-fonts \
     --output-format human-readable-text \
     --compile "$BUILD_DIR/Squeak.app/Contents/Resources/English.lproj/MainMenu.nib" \
-    "platforms/iOS/vm/English.lproj/Squeak-MainMenu.xib"
+    "platforms/macOS/vm/English.lproj/Squeak-MainMenu.xib"
 
 echo ""
 echo "================================================"

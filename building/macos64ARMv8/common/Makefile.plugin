@@ -47,7 +47,7 @@ CFLAGS:= -DHAVE_CONFIG_H=1 $(CFLAGS) $(OFLAGS) $(COGDEFS) $(DEBUGVM) $(XDEFS)
 #############################################################################
 # Standard directory locations:
 #   CROSSDIR: The location of the cross platform sources
-#   OSXPLGDIR: The location of the iOS sources
+#   OSXPLGDIR: The location of the macOS sources
 #   MAKERDIR: The location of the VMMaker generated sources
 #   BUILDDIR: The location where the plugin is built
 #
@@ -62,15 +62,15 @@ LIBDIR:=$(LIBNAME)
 endif
 
 CROSSDIR:=	$(PLUGINSRCDIR)/$(LIBDIR)/cross
-OSXDIR:=	$(PLATDIR)/iOS/vm/OSX
-OSXPLGDIR:=	$(PLUGINSRCDIR)/$(LIBDIR)/ios
+OSXDIR:=	$(PLATDIR)/macOS/vm/OSX
+OSXPLGDIR:=	$(PLUGINSRCDIR)/$(LIBDIR)/macos
 UNIXDIR:=	$(PLATDIR)/unix/vm
 MAKERDIR:=	$(PLUGINSRCDIR)/$(LIBDIR)
 BUILDDIR:=	$(BUILD)/$(LIBDIR)
 
 # Support directory locations
 CROSSVMDIR:=$(PLATDIR)/Cross/vm
-OSXVMDIR:=$(PLATDIR)/iOS/vm/OSX
+OSXVMDIR:=$(PLATDIR)/macOS/vm/OSX
 MAKERVMDIR:=$(VMSRCDIR)
 
 # INCDIRS are where include files are searched for. A superset of SRCDIRS.

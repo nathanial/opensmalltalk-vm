@@ -66,10 +66,10 @@ PLATDIR:=../../../platforms
 export PLATDIR
 CROSSDIR:=$(PLATDIR)/Cross/vm
 TPDIR:=$(PLATDIR)/Cross/third-party
-OSXDIR:=$(PLATDIR)/iOS/vm/OSX
-OSXCOMMONDIR:=$(PLATDIR)/iOS/vm/Common
-OSXCLASSESDIR:=$(PLATDIR)/iOS/vm/Common/Classes
-OSXPLUGINSDIR:=$(PLATDIR)/iOS/plugins
+OSXDIR:=$(PLATDIR)/macOS/vm/OSX
+OSXCOMMONDIR:=$(PLATDIR)/macOS/vm/Common
+OSXCLASSESDIR:=$(PLATDIR)/macOS/vm/Common/Classes
+OSXPLUGINSDIR:=$(PLATDIR)/macOS/plugins
 UNIXVMDIR:=$(PLATDIR)/unix/vm
 
 CROSSSRC:= $(wildcard $(CROSSDIR)/*.c)
@@ -99,7 +99,7 @@ PluginIncludes := FilePlugin HostWindowPlugin SoundPlugin
 OSPluginIncludes := FilePlugin HostWindowPlugin SoundPlugin
 SRCDIRS:=$(SRCDIRS) \
 			$(addsuffix /cross,$(addprefix $(PLUGINSRCDIR)/,$(PluginIncludes))) \
-			$(addsuffix /ios,$(addprefix $(PLUGINSRCDIR)/,$(OSPluginIncludes)))
+		$(addsuffix /macos,$(addprefix $(PLUGINSRCDIR)/,$(OSPluginIncludes)))
 
 # The internal (.lib) and external (.bundle) plugins
 #
@@ -272,9 +272,9 @@ validImage:	$(OBJDIR) $(OBJDIR)/validImage
 .PHONY: $(OBJDIR)/%.lib $(OBJDIR)/%.bundle $(OBJDIR)/%.dylib
 
 ifeq ($(USEPLUGINASDYLIB),TRUE)
-plugin-makefile = $(firstword $(realpath $(PLUGINSRCDIR)/$(subst lib,,$(1))/ios/Makefile ../common/Makefile.plugin))
+plugin-makefile = $(firstword $(realpath $(PLUGINSRCDIR)/$(subst lib,,$(1))/macos/Makefile ../common/Makefile.plugin))
 else
-plugin-makefile = $(firstword $(realpath $(PLUGINSRCDIR)/$(1)/ios/Makefile ../common/Makefile.plugin))
+plugin-makefile = $(firstword $(realpath $(PLUGINSRCDIR)/$(1)/macos/Makefile ../common/Makefile.plugin))
 endif
 
 # Internal plugin.  Build as lib then link in lib
@@ -296,7 +296,7 @@ prereqs/%.lib:
 	@-ls -rlt	$(call plugin-makefile,$(*F)) $(wildcard $(*F).ignore) \
 				$(wildcard $(PLUGINSRCDIR)/$(*F)/*.c) \
 				$(wildcard $(PLUGINSRCDIR)/$(*F)/cross/*.*) \
-				$(wildcard $(PLUGINSRCDIR)/$(*F)/ios/*.*)
+			$(wildcard $(PLUGINSRCDIR)/$(*F)/macos/*.*)
 
 # It would be nice to have this abbreviation but it creates havoc eem 2/2016
 #%.lib: $(OBJDIR)/%.lib

@@ -617,7 +617,7 @@ primitiveSoundInsertSamples(void) {
 
 /*	Output a buffer's worth of stereo sound samples. The frameCount is the
         number of 16-bit sample pairs.
-        See e.g. platforms/iOS/plugins/SoundPlugin/sqSqueakSoundCoreAudio.m:
+        See e.g. platforms/macOS/plugins/SoundPlugin/sqSqueakSoundCoreAudio.m:
         #define SqueakFrameSize	4	// guaranteed (see class SoundPlayer)
         Of course there is no FrameSize in Squeak 5.x/6.x; sigh... */
 
