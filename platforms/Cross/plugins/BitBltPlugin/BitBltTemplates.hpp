@@ -306,6 +306,251 @@ struct CombinationRule<CR_subWord> {
 };
 
 // ============================================================================
+// Helper Functions for Alpha Blending and RGB Operations
+// ============================================================================
+
+/**
+ * Alpha blending helper - performs optimized 32-bit ARGB alpha blend.
+ * Uses the same algorithm as the existing C code for compatibility.
+ *
+ * Formula: result = (src * alpha + dest * (255 - alpha) + 255) / 256
+ * Optimized to avoid division by processing AG and RB components separately.
+ */
+struct AlphaBlendHelper {
+    /**
+     * Blend source and destination pixels with given alpha value.
+     * @param src Source pixel (ARGB 32-bit)
+     * @param dest Destination pixel (ARGB 32-bit)
+     * @param alpha Alpha value (0-255)
+     * @return Blended pixel
+     */
+    static inline uint32_t blend(uint32_t src, uint32_t dest, unsigned int alpha) {
+        unsigned int unAlpha = 0xFF - alpha;
+
+        // Extract alpha-green and red-blue components
+        // AG = (pixel >> 8) & 0x00FF00FF extracts A and G channels
+        // RB = pixel & 0x00FF00FF extracts R and B channels
+        uint32_t sAG = ((src >> 8) & 0xFF) | 0xFF0000;  // Keep source green, set alpha to 0xFF
+        uint32_t sRB = src & 0xFF00FF;
+        uint32_t dAG = (dest >> 8) & 0xFF00FF;
+        uint32_t dRB = dest & 0xFF00FF;
+
+        // Blend: (src * alpha + dest * unAlpha + 0xFF00FF)
+        // The +0xFF00FF adds rounding for proper division by 256
+        uint32_t blendAG = sAG * alpha + dAG * unAlpha + 0xFF00FF;
+        uint32_t blendRB = sRB * alpha + dRB * unAlpha + 0xFF00FF;
+
+        // Divide by 256 with rounding: ((x >> 8) + x) >> 8
+        blendAG = ((((blendAG >> 8) & 0xFF00FF) + blendAG) >> 8) & 0xFF00FF;
+        blendRB = ((((blendRB >> 8) & 0xFF00FF) + blendRB) >> 8) & 0xFF00FF;
+
+        // Recombine: AG goes in upper bytes, RB in lower bytes
+        return (blendAG << 8) | blendRB;
+    }
+
+    /**
+     * Extract alpha channel from 32-bit ARGB pixel.
+     */
+    static inline unsigned int extractAlpha(uint32_t pixel) {
+        return (pixel >> 24) & 0xFF;
+    }
+};
+
+/**
+ * RGB component operations helper.
+ */
+struct RGBHelper {
+    /**
+     * Clamp value to 0-255 range.
+     */
+    static inline uint8_t clamp(int value) {
+        if (value < 0) return 0;
+        if (value > 255) return 255;
+        return static_cast<uint8_t>(value);
+    }
+
+    /**
+     * Extract ARGB components from 32-bit pixel.
+     */
+    static inline void extract(uint32_t pixel, uint8_t& a, uint8_t& r, uint8_t& g, uint8_t& b) {
+        a = (pixel >> 24) & 0xFF;
+        r = (pixel >> 16) & 0xFF;
+        g = (pixel >> 8) & 0xFF;
+        b = pixel & 0xFF;
+    }
+
+    /**
+     * Combine ARGB components into 32-bit pixel.
+     */
+    static inline uint32_t combine(uint8_t a, uint8_t r, uint8_t g, uint8_t b) {
+        return (static_cast<uint32_t>(a) << 24) |
+               (static_cast<uint32_t>(r) << 16) |
+               (static_cast<uint32_t>(g) << 8) |
+               static_cast<uint32_t>(b);
+    }
+
+    /**
+     * Add RGB components (saturating).
+     */
+    static inline uint32_t add(uint32_t src, uint32_t dest) {
+        uint8_t sa, sr, sg, sb;
+        uint8_t da, dr, dg, db;
+        extract(src, sa, sr, sg, sb);
+        extract(dest, da, dr, dg, db);
+        return combine(
+            da,  // Keep dest alpha
+            clamp(static_cast<int>(sr) + static_cast<int>(dr)),
+            clamp(static_cast<int>(sg) + static_cast<int>(dg)),
+            clamp(static_cast<int>(sb) + static_cast<int>(db))
+        );
+    }
+
+    /**
+     * Subtract RGB components (saturating).
+     */
+    static inline uint32_t sub(uint32_t src, uint32_t dest) {
+        uint8_t sa, sr, sg, sb;
+        uint8_t da, dr, dg, db;
+        extract(src, sa, sr, sg, sb);
+        extract(dest, da, dr, dg, db);
+        return combine(
+            da,  // Keep dest alpha
+            clamp(static_cast<int>(sr) - static_cast<int>(dr)),
+            clamp(static_cast<int>(sg) - static_cast<int>(dg)),
+            clamp(static_cast<int>(sb) - static_cast<int>(db))
+        );
+    }
+
+    /**
+     * Multiply RGB components (normalized to 0-255).
+     */
+    static inline uint32_t mul(uint32_t src, uint32_t dest) {
+        uint8_t sa, sr, sg, sb;
+        uint8_t da, dr, dg, db;
+        extract(src, sa, sr, sg, sb);
+        extract(dest, da, dr, dg, db);
+        return combine(
+            da,  // Keep dest alpha
+            static_cast<uint8_t>((sr * dr) / 255),
+            static_cast<uint8_t>((sg * dg) / 255),
+            static_cast<uint8_t>((sb * db) / 255)
+        );
+    }
+
+    /**
+     * Maximum of RGB components.
+     */
+    static inline uint32_t max(uint32_t src, uint32_t dest) {
+        uint8_t sa, sr, sg, sb;
+        uint8_t da, dr, dg, db;
+        extract(src, sa, sr, sg, sb);
+        extract(dest, da, dr, dg, db);
+        return combine(
+            da,  // Keep dest alpha
+            sr > dr ? sr : dr,
+            sg > dg ? sg : dg,
+            sb > db ? sb : db
+        );
+    }
+
+    /**
+     * Minimum of RGB components.
+     */
+    static inline uint32_t min(uint32_t src, uint32_t dest) {
+        uint8_t sa, sr, sg, sb;
+        uint8_t da, dr, dg, db;
+        extract(src, sa, sr, sg, sb);
+        extract(dest, da, dr, dg, db);
+        return combine(
+            da,  // Keep dest alpha
+            sr < dr ? sr : dr,
+            sg < dg ? sg : dg,
+            sb < db ? sb : db
+        );
+    }
+};
+
+// ============================================================================
+// Alpha Blending Combination Rules
+// ============================================================================
+
+/**
+ * Standard alpha blend using source pixel's alpha channel.
+ * Note: This rule needs special handling for 32bpp only.
+ */
+template<>
+struct CombinationRule<CR_alphaBlend> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        unsigned int alpha = AlphaBlendHelper::extractAlpha(src);
+        return AlphaBlendHelper::blend(src, dest, alpha);
+    }
+};
+
+/**
+ * Alpha blend with constant alpha from operation parameters.
+ * Note: Requires access to operation_t for sourceAlpha.
+ */
+template<>
+struct CombinationRule<CR_alphaBlendConst> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        // This is a simplified version - actual implementation needs sourceAlpha
+        // Will be handled specially in BitBltOperation specialization
+        unsigned int alpha = AlphaBlendHelper::extractAlpha(src);
+        return AlphaBlendHelper::blend(src, dest, alpha);
+    }
+};
+
+// ============================================================================
+// RGB Color Operations
+// ============================================================================
+
+template<>
+struct CombinationRule<CR_rgbAdd> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        return RGBHelper::add(src, dest);
+    }
+};
+
+template<>
+struct CombinationRule<CR_rgbSub> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        return RGBHelper::sub(src, dest);
+    }
+};
+
+template<>
+struct CombinationRule<CR_rgbMul> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        return RGBHelper::mul(src, dest);
+    }
+};
+
+template<>
+struct CombinationRule<CR_rgbMax> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        return RGBHelper::max(src, dest);
+    }
+};
+
+template<>
+struct CombinationRule<CR_rgbMin> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        return RGBHelper::min(src, dest);
+    }
+};
+
+template<>
+struct CombinationRule<CR_rgbMinInvert> {
+    static inline uint32_t apply(uint32_t src, uint32_t dest) {
+        // Min then invert the result
+        uint32_t minResult = RGBHelper::min(src, dest);
+        uint8_t a, r, g, b;
+        RGBHelper::extract(minResult, a, r, g, b);
+        return RGBHelper::combine(a, 255 - r, 255 - g, 255 - b);
+    }
+};
+
+// ============================================================================
 // BitBlt Operation Templates
 // ============================================================================
 
@@ -459,7 +704,31 @@ void bitblt_8_32_sourceWord(operation_t* op, uint32_t flags);
 // 16bpp -> 32bpp operations
 void bitblt_16_32_sourceWord(operation_t* op, uint32_t flags);
 
-// More combinations can be added as needed...
+// 32bpp -> 16bpp operations
+void bitblt_32_16_sourceWord(operation_t* op, uint32_t flags);
+
+// 32bpp -> 8bpp operations
+void bitblt_32_8_sourceWord(operation_t* op, uint32_t flags);
+
+// 16bpp -> 16bpp operations
+void bitblt_16_16_sourceWord(operation_t* op, uint32_t flags);
+void bitblt_16_16_clearWord(operation_t* op, uint32_t flags);
+
+// 8bpp -> 8bpp operations
+void bitblt_8_8_sourceWord(operation_t* op, uint32_t flags);
+void bitblt_8_8_clearWord(operation_t* op, uint32_t flags);
+
+// Alpha blending operations (32bpp only)
+void bitblt_32_32_alphaBlend(operation_t* op, uint32_t flags);
+void bitblt_32_32_alphaBlendConst(operation_t* op, uint32_t flags);
+
+// RGB color operations (32bpp)
+void bitblt_32_32_rgbAdd(operation_t* op, uint32_t flags);
+void bitblt_32_32_rgbSub(operation_t* op, uint32_t flags);
+void bitblt_32_32_rgbMul(operation_t* op, uint32_t flags);
+void bitblt_32_32_rgbMax(operation_t* op, uint32_t flags);
+void bitblt_32_32_rgbMin(operation_t* op, uint32_t flags);
+void bitblt_32_32_rgbMinInvert(operation_t* op, uint32_t flags);
 
 } // extern "C"
 

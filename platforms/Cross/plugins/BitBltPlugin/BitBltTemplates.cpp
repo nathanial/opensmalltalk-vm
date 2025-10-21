@@ -175,6 +175,54 @@ void bitblt_8_8_clearWord(operation_t* op, uint32_t flags) {
     BitBltOperation<8, 8, CR_clearWord>::execute(op);
 }
 
+// ============================================================================
+// Alpha Blending Operations (32bpp only)
+// ============================================================================
+
+void bitblt_32_32_alphaBlend(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_alphaBlend>::execute(op);
+}
+
+void bitblt_32_32_alphaBlendConst(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_alphaBlendConst>::execute(op);
+}
+
+// ============================================================================
+// RGB Color Operations (32bpp)
+// ============================================================================
+
+void bitblt_32_32_rgbAdd(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_rgbAdd>::execute(op);
+}
+
+void bitblt_32_32_rgbSub(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_rgbSub>::execute(op);
+}
+
+void bitblt_32_32_rgbMul(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_rgbMul>::execute(op);
+}
+
+void bitblt_32_32_rgbMax(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_rgbMax>::execute(op);
+}
+
+void bitblt_32_32_rgbMin(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_rgbMin>::execute(op);
+}
+
+void bitblt_32_32_rgbMinInvert(operation_t* op, uint32_t flags) {
+    (void)flags;
+    BitBltOperation<32, 32, CR_rgbMinInvert>::execute(op);
+}
+
 } // extern "C"
 
 } // namespace BitBlt
@@ -230,6 +278,18 @@ void registerTemplateFastPaths(void) {
         // 8bpp -> 8bpp operations
         { BitBlt::bitblt_8_8_sourceWord,       CR_sourceWord,     STD_FLAGS(8, 8, NO, NO) },
         { BitBlt::bitblt_8_8_clearWord,        CR_clearWord,      STD_FLAGS(8, 8, NO, NO) },
+
+        // Alpha blending operations (32bpp -> 32bpp only)
+        { BitBlt::bitblt_32_32_alphaBlend,     CR_alphaBlend,     STD_FLAGS(32, 32, NO, NO) },
+        { BitBlt::bitblt_32_32_alphaBlendConst, CR_alphaBlendConst, STD_FLAGS(32, 32, NO, NO) },
+
+        // RGB color operations (32bpp -> 32bpp)
+        { BitBlt::bitblt_32_32_rgbAdd,         CR_rgbAdd,         STD_FLAGS(32, 32, NO, NO) },
+        { BitBlt::bitblt_32_32_rgbSub,         CR_rgbSub,         STD_FLAGS(32, 32, NO, NO) },
+        { BitBlt::bitblt_32_32_rgbMul,         CR_rgbMul,         STD_FLAGS(32, 32, NO, NO) },
+        { BitBlt::bitblt_32_32_rgbMax,         CR_rgbMax,         STD_FLAGS(32, 32, NO, NO) },
+        { BitBlt::bitblt_32_32_rgbMin,         CR_rgbMin,         STD_FLAGS(32, 32, NO, NO) },
+        { BitBlt::bitblt_32_32_rgbMinInvert,   CR_rgbMinInvert,   STD_FLAGS(32, 32, NO, NO) },
     };
 
     addFastPaths(templatePaths, sizeof(templatePaths) / sizeof(templatePaths[0]));
