@@ -197,13 +197,23 @@ static void profile_record(combination_rule_t combinationRule, uint32_t flags, u
 #endif
 
 
+/* Forward declaration of C++ template fast path registration */
+void registerTemplateFastPaths(void);
+
 void initialiseCopyBits(void)
 {
+	/* Register C++ template-based fast paths first (highest priority) */
+	registerTemplateFastPaths();
+
+	/* Then register generic C fast paths */
 	addGenericFastPaths();
+
 #ifdef __arm__
+	/* ARM-specific SIMD optimizations */
 	addArmFastPaths();
 #endif
 #ifdef __aarch64__
+	/* ARM64-specific SIMD optimizations */
 	addArm64FastPaths();
 #endif
 }
