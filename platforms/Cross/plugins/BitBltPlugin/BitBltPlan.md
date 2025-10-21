@@ -166,6 +166,12 @@ class BitBltClearOperation {
 - Edge case handling
 - But we already have PixelAccessor framework
 
+#### ✅ Implementation Notes (October 21, 2025)
+- `CR_pixPaint`, `CR_pixMask`, `CR_pixSwap`, and `CR_pixClear` now have template specializations with depth-generic execution paths; C bridge helpers were added for 1/2/4/8/16/32 bpp variants.
+- `BitBltClearOperation<BPP>` provides the packed clear implementation for 1–16 bpp and is wired into new C entry points, enabling removal of `fastPathClearWord4/8`.
+- `CR_rgbDiff` templates accumulate into `op->opt.tally.bitCount`, maintaining parity with the legacy histogram behaviour; `CR_rgbComponentAlpha` now uses `ComponentAlphaParams` to respect gamma/ungamma tables.
+- `registerTemplateFastPaths()` registers every new operation so they are selected ahead of the generic C fallbacks; the legacy fast path table has been pruned accordingly.
+
 ---
 
 ### Phase 2: Advanced Alpha Operations (Medium Priority) 🎨
