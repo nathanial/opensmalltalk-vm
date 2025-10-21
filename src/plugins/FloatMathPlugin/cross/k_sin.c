@@ -1,6 +1,6 @@
 #if !BIT_IDENTICAL_FLOATING_POINT
 #include "ieee754names.h"
 
-#include "../../third-party/fdlibm/k_sin.c"
+#include "../../../../platforms/Cross/third-party/fdlibm/k_sin.c"
 
 #endif

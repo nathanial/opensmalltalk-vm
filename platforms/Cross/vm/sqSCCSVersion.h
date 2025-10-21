@@ -26,7 +26,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "../plugins/sqPluginsSCCSVersion.h"
+#include "../../src/plugins/common/sqPluginsSCCSVersion.h"
 
 #if SUBVERSION
 # define PREFIX "r"

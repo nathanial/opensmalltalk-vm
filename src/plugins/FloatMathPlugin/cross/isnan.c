@@ -3,7 +3,7 @@
 
 #if !defined(NO_ISNAN)
 
-#include "../../third-party/fdlibm/s_isnan.c"
+#include "../../../../platforms/Cross/third-party/fdlibm/s_isnan.c"
 
 #endif
 

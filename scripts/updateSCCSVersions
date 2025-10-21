@@ -28,7 +28,7 @@ fi
 if [[ -n "$(git rev-parse --show-toplevel)" ]]; then
     cd "$(git rev-parse --show-toplevel)"
 fi
-versionfiles="platforms/Cross/vm/sqSCCSVersion.h platforms/Cross/plugins/sqPluginsSCCSVersion.h"
+versionfiles="platforms/Cross/vm/sqSCCSVersion.h src/plugins/common/sqPluginsSCCSVersion.h"
 git config --local include.path ../.gitconfig
 stagedVersionFileChanges=$(git diff --cached $versionfiles)
 unstagedVersionFileChanges=$(git diff $versionfiles)

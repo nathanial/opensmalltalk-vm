@@ -33,7 +33,7 @@ int ffiLogCallOfLength(void *nameIndex, int nameLength);
  * createManualFunction() returns a non-negative surface ID if successful, and
  * -1 otherwise.  The other return true for success, and false for failure.
  */   
-#include "../SurfacePlugin/SurfacePlugin.h"
+#include "../../SurfacePlugin/cross/SurfacePlugin.h"
 
 void initSurfacePluginFunctionPointers();
 void initManualSurfaceFunctionPointers
